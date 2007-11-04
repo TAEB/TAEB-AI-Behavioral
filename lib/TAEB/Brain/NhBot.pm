@@ -17,6 +17,8 @@ our $VERSION = '0.01';
 
 =head2 next_action TAEB -> STRING
 
+Pray when Weak.
+
 If something is attacking TAEB, ; around the eight adjacent points to find it.
 Then attack it back.
 
@@ -51,8 +53,12 @@ sub next_action {
     my $self = shift;
     my $taeb = shift;
 
+    # need food. must pray
+    if ($taeb->vt->row_plaintext(23) =~ /Weak/) {
+        return "#pray\n";
+    }
     # under attack! start responding
-    if ($taeb->vt->topline =~ /^The (\S+).* bites!/) {
+    elsif ($taeb->vt->topline =~ /^The (\S+).* bites!/) {
         $self->last_direction(-1);
         $self->looking_for($1);
         return $self->spin;
