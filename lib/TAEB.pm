@@ -22,6 +22,13 @@ has interface =>
     required => 1,
 );
 
+has brain =>
+(
+    is       => 'rw',
+    isa      => 'TAEB::Brain',
+    required => 1,
+);
+
 has vt =>
 (
     is => 'rw',
@@ -42,7 +49,11 @@ It will return any input it receives, so you can follow along at home.
 
 sub step {
     my $self = shift;
+
     my $input = $self->process_input;
+
+    my $next_action = $self->brain->next_action($self);
+    $self->interface->write($next_action);
 
     return $input;
 }
