@@ -17,10 +17,10 @@ our $VERSION = '0.01';
 
 =head2 next_action TAEB -> STRING
 
-Pray when Weak.
+Pray when Weak. #enhance when able.
 
 If something is attacking TAEB, ; around the eight adjacent points to find it.
-Then attack it back.
+Then repeatedly attack it.
 
 Otherwise, random walk.
 
@@ -54,8 +54,16 @@ sub next_action {
     my $taeb = shift;
 
     # need food. must pray
-    if ($taeb->vt->row_plaintext(23) =~ /Weak/) {
+    if ($taeb->vt->topline =~ /You (?:are beginning to )?feal weak\./) {
         return "#pray\n";
+    }
+    # working out is useful for those floating eyes
+    elsif ($taeb->vt->topline =~ /You feel more confident/) {
+        return "#enhance\na a \n";
+    }
+    # we just swiped at something, swing again in the same direction
+    elsif ($taeb->vt->topline =~ /you (?:just )?(?:hit|miss) (?:(?:the |an? )([-.a-z ]+?)|it)[.!]/i) {
+        return 'F' . $directions[$self->last_direction];
     }
     # under attack! start responding
     elsif ($taeb->vt->topline =~ /(?:(?:the |an? )([-.a-z ]+?)|it) (?:just )?(strikes|hits|misses|bites|grabs|stings|touches|points at you, then curses)(?:(?: at)? you(?:r displaced image)?)?[.!]/i) {
@@ -68,7 +76,7 @@ sub next_action {
         my $looking_for = $self->looking_for;
         if ($taeb->vt->topline =~ /\Q$looking_for/) {
             # attack!
-            return $directions[$self->last_direction];
+            return 'F' . $directions[$self->last_direction];
         }
 
         # ran out of directions and couldn't find it. gulp. just start moving
