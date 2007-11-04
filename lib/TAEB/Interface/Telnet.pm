@@ -23,6 +23,16 @@ has server => (
     default => 'nethack.alt.org',
 );
 
+has account => (
+    is => 'ro',
+    isa => 'Str',
+);
+
+has password => (
+    is => 'ro',
+    isa => 'Str',
+);
+
 has socket => (
     is => 'rw',
     isa => 'IO::Socket::Telnet',
@@ -38,6 +48,11 @@ sub BUILD {
 
     $socket->telnet_simple_callback(\&telnet_negotiation);
     $self->socket($socket);
+
+    print { $socket } join '', 'l',
+                               $self->account,  "\n",
+                               $self->password, "\n",
+                               'p';
 }
 
 =head2 read -> STRING
