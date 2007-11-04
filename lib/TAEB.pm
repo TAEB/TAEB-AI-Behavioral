@@ -1,7 +1,7 @@
 #!perl
 package TAEB;
 use Moose;
-use Term::VT102::ZeroBased;
+use TAEB::VT;
 
 =head1 NAME
 
@@ -39,11 +39,9 @@ has config =>
 has vt =>
 (
     is => 'rw',
-    isa => 'Term::VT102::ZeroBased',
+    isa => 'TAEB::VT',
     required => 1,
-    default => sub {
-        Term::VT102::ZeroBased->new(cols => 80, rows => 24)
-    },
+    default => sub { TAEB::VT->new(cols => 80, rows => 24) },
 );
 
 =head2 step
