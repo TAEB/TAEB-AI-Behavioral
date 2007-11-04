@@ -2,17 +2,6 @@
 interface: Telnet
 brain: RandomWalk
 
-role: Val
-race: Dwa
-
 other_config:
     - etc/site_config.yml
-
-interface_options:
-    Telnet:
-        server: nethack.alt.org
-        account: Interhack
-        password: kool
-    Local:
-        name: nethack
 
