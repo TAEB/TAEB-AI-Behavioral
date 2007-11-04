@@ -2,6 +2,8 @@
 package TAEB::Config;
 use Moose;
 use YAML;
+use Hash::Merge 'merge';
+Hash::Merge::set_behavior('RIGHT_PRECEDENT');
 
 has file => (
     is      => 'ro',
@@ -28,13 +30,9 @@ sub BUILD {
         warn "Loading config file $file";
 
         my $config = YAML::LoadFile($file);
+        $self->contents(merge($self->contents, $config));
 
-        # later values overwrite earlier values
-        while (my ($k, $v) = each %$config) {
-            $self->contents->{$k} = $v;
-        }
-
-        # if the file specified other files, load them too
+        # if this config specified other files, load them too
         if ($config->{other_config}) {
             my $c = $config->{other_config};
             if (ref($c) eq 'ARRAY') {

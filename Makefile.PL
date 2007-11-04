@@ -11,6 +11,7 @@ requires       'Moose';
 requires       'Getopt::Whatever';
 requires       'Term::VT102::ZeroBased';
 requires       'YAML';
+requires       'Hash::Merge';
 
 build_requires 'Test::More';
 
