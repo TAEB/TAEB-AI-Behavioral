@@ -60,9 +60,9 @@ sub get_role {
     return $1
         if lc($role) =~ /^([abchkmpstvw])/;
     return 'r'
-        if $role =~ /^R(?!a)/i;
+        if $role =~ /^R[^a]/ || $role eq 'r';
     return 'R'
-        if $role =~ /^Ra/i;
+        if $role =~ /^Ra/i || $role eq 'R';
     return '*';
 }
 
