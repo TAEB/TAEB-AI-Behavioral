@@ -45,6 +45,7 @@ It will return the input read from the pty.
 
 sub read {
     my $self = shift;
+    die "Pty inactive." unless $self->pty->is_active;
     my $out = $self->pty->read();
     die "Pty closed." if $out eq '';
     return $out;
@@ -60,6 +61,7 @@ sub write {
     my $self = shift;
     my $text = shift;
 
+    die "Pty inactive." unless $self->pty->is_active;
     my $chars = $self->pty->write();
     die "Pty closed." if $chars == 0;
     return $chars;
