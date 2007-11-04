@@ -58,7 +58,7 @@ sub next_action {
         return "#pray\n";
     }
     # under attack! start responding
-    elsif ($taeb->vt->topline =~ /(?:(?:the |an? )([-.a-z ]+?)|it) (?:just )?(strikes|hits|misses|bites|grabs|stings|touches|points at you, then curses)(?:(?: at)? you(?:r displaced image)?)?[.!]/) {
+    elsif ($taeb->vt->topline =~ /(?:(?:the |an? )([-.a-z ]+?)|it) (?:just )?(strikes|hits|misses|bites|grabs|stings|touches|points at you, then curses)(?:(?: at)? you(?:r displaced image)?)?[.!]/i) {
         $self->last_direction(-1);
         $self->looking_for($1);
         return $self->spin;
