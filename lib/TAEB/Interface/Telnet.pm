@@ -42,7 +42,7 @@ sub BUILD {
     my $self = shift;
 
     # this has to be done in BUILD because it needs server
-    my $socket = IO::Socket::Telnet->new(PeerAddr => $self->server, Timeout => 1);
+    my $socket = IO::Socket::Telnet->new(PeerAddr => $self->server);
     die "Unable to connect to " . $self->server . ": $!"
         if !defined($socket);
 
@@ -53,6 +53,40 @@ sub BUILD {
                                $self->account,  "\n",
                                $self->password, "\n",
                                'p';
+}
+
+=head2 timeout Seconds, CODE
+
+Fun fact! IO::Socket::INET's timeout code, as of version 1.31, is COMMENTED OUT
+
+So this code will wrap a sub with the usual timeout code. If a timeout occurs,
+undef will be returned. Otherwise, the return value of the sub will be
+returned.
+
+=cut
+
+sub timeout {
+    my $seconds = shift;
+    my $sub = shift;
+
+    my @ret;
+    eval {
+        local $SIG{ALRM} = sub { die "alarm\n" };
+        alarm $seconds;
+
+        if (wantarray) {
+            @ret = $sub->();
+        }
+        else {
+            $ret[0] = $sub->();
+        }
+        alarm 0;
+    };
+
+    alarm 0;
+    die $@ if $@ && $@ !~ /^alarm\n/;
+
+    return wantarray ? @ret : $ret[0];
 }
 
 =head2 read -> STRING
@@ -67,8 +101,10 @@ sub read {
     my $self = shift;
     my $buffer;
 
-    defined $self->socket->recv($buffer, 4096, 0)
-        or die "Disconnected from server: $!";
+    timeout 1 => sub {
+        defined $self->socket->recv($buffer, 4096, 0)
+            or die "Disconnected from server: $!";
+    };
 
     return $buffer;
 }
@@ -83,7 +119,9 @@ sub write {
     my $self = shift;
     my $text = shift;
 
-    print {$self->socket} $text;
+    timeout 1 => sub {
+        print {$self->socket} $text;
+    };
 }
 
 =head2 telnet_negotiation OPTION
