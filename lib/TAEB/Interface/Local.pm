@@ -15,15 +15,25 @@ Version 0.01 released ???
 
 extends 'TAEB::Interface';
 
+has name => (
+    is => 'rw',
+    isa => 'Str',
+    default => 'nethack',
+);
+
 has pty => (
     is => 'rw',
     isa => 'IO::Pty::Easy',
-    default => sub {
-        my $pty = IO::Pty::Easy->new;
-        $pty->spawn('nethack');
-        return $pty;
-    },
 );
+
+sub BUILD {
+    my $self = shift;
+
+    # this has to be done in BUILD because it needs name
+    my $pty = IO::Pty::Easy->new;
+    $pty->spawn($self->name);
+    $self->pty($pty);
+}
 
 =head2 read -> STRING
 
