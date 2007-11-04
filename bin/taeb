@@ -13,5 +13,8 @@ eval "require $interface_type; 1"
 my $interface = $interface_type->new;
 # }}}
 
-my $taeb => TAEB->new(interface => $interface);
+$| = 1;
+
+my $taeb = TAEB->new(interface => $interface);
+print $taeb->step while 1;
 
