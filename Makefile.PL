@@ -10,6 +10,7 @@ requires       'IO::Pty::Easy';
 requires       'Moose';
 requires       'Getopt::Whatever';
 requires       'Term::VT102::ZeroBased';
+requires       'YAML';
 
 build_requires 'Test::More';
 
