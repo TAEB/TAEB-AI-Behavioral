@@ -64,14 +64,17 @@ sub step {
 
     my $input = $self->process_input;
 
-    if ($self->vt->contains("--More--")
-     || $self->vt->contains("(end)")
-     || $self->vt->matches(qr/\(\d+ of \d+\)/)) {
+    if ($self->vt->contains("--More--")) {
         $self->interface->write(' ');
     }
     elsif ($self->logged_in) {
-        my $next_action = $self->brain->next_action($self);
-        $self->interface->write($next_action);
+        if ($self->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
+            $self->interface->write(' ');
+        }
+        else {
+            my $next_action = $self->brain->next_action($self);
+            $self->interface->write($next_action);
+        }
     }
     else {
         $self->log_in;
