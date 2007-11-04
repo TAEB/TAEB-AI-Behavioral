@@ -5,7 +5,8 @@ use inc::Module::Install;
 name           'TAEB';
 all_from       'lib//TAEB.pm';
 
-requires       '';
+requires       'IO::Socket::Telnet' => 0.02;
+requires       'Moose';
 
 build_requires 'Test::More';
 
