@@ -3,6 +3,18 @@ package TAEB::Interface::Telnet;
 use Moose;
 use IO::Socket::Telnet;
 
+=head1 NAME
+
+TAEB::Interface::Telnet - how TAEB talks to nethack.alt.org
+
+=head1 VERSION
+
+Version 0.01 released ???
+
+=cut
+
+our $VERSION = '0.01';
+
 extends 'TAEB::Interface';
 
 has socket => (
@@ -15,6 +27,14 @@ has socket => (
     },
 );
 
+=head2 read -> STRING
+
+This will read from the socket. It will die if an error occurs.
+
+It will return the input read from the socket.
+
+=cut
+
 sub read {
     my $self = shift;
     my $buffer;
@@ -25,12 +45,27 @@ sub read {
     return $buffer;
 }
 
+=head2 write STRING
+
+This will write to the socket.
+
+=cut
+
 sub write {
     my $self = shift;
     my $text = shift;
 
     print {$self->socket} $text;
 }
+
+=head2 telnet_negotiation OPTION
+
+This is a helper function used in conjunction with IO::Socket::Telnet. In
+short, all nethack.alt.org expects us to answer affirmatively is TTYPE (to
+which we respond xterm-color) and NAWS (to which we respond 80x24). Everything
+else gets a response of DONT or WONT.
+
+=cut
 
 sub telnet_negotiation {
     my $self = shift;
