@@ -6,6 +6,7 @@ name           'TAEB';
 all_from       'lib//TAEB.pm';
 
 requires       'IO::Socket::Telnet' => 0.02;
+requires       'IO::Pty::Easy';
 requires       'Moose';
 
 build_requires 'Test::More';
