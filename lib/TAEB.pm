@@ -44,6 +44,13 @@ has vt =>
     default => sub { TAEB::VT->new(cols => 80, rows => 24) },
 );
 
+has logged_in =>
+(
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
+);
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
@@ -57,10 +64,48 @@ sub step {
 
     my $input = $self->process_input;
 
-    my $next_action = $self->brain->next_action($self);
-    $self->interface->write($next_action);
+    if ($self->vt->contains("--More--")
+     || $self->vt->contains("(end)")
+     || $self->vt->matches(qr/\(\d+ of \d+\)/)) {
+        $self->interface->write(' ');
+    }
+    elsif ($self->logged_in) {
+        my $next_action = $self->brain->next_action($self);
+        $self->interface->write($next_action);
+    }
+    else {
+        $self->log_in;
+    }
 
     return $input;
+}
+
+=head2 log_in
+
+=cut
+
+sub log_in {
+    my $self = shift;
+    sleep 1;
+
+    if ($self->vt->contains("Shall I pick a character's ")) {
+        $self->interface->write('n');
+    }
+    elsif ($self->vt->contains("Choosing Character's Role")) {
+        $self->interface->write($self->config->get_role);
+    }
+    elsif ($self->vt->contains("Choosing Race")) {
+        $self->interface->write($self->config->get_race);
+    }
+    elsif ($self->vt->contains("Choosing Gender")) {
+        $self->interface->write($self->config->get_gender);
+    }
+    elsif ($self->vt->contains("Choosing Alignment")) {
+        $self->interface->write($self->config->get_alignemtn);
+    }
+    elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
+        $self->logged_in(1);
+    }
 }
 
 =head2 process_input
