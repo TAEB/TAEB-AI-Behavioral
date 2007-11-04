@@ -1,6 +1,9 @@
 ---
 interface: Telnet
-brain: RandomWalk
+brain: NhBot
+
+role: Valkyrie
+race: Dwarf
 
 other_config:
     - etc/site_config.yml
