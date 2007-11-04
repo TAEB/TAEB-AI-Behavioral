@@ -17,15 +17,28 @@ our $VERSION = '0.01';
 
 extends 'TAEB::Interface';
 
+has server => (
+    is => 'rw',
+    isa => 'Str',
+    default => 'nethack.alt.org',
+);
+
 has socket => (
     is => 'rw',
     isa => 'IO::Socket::Telnet',
-    default => sub {
-        my $socket = IO::Socket::Telnet->new(PeerAddr => 'nethack.alt.org');
-        $socket->telnet_simple_callback(\&telnet_negotiation);
-        return $socket;
-    },
 );
+
+sub BUILD {
+    my $self = shift;
+
+    # this has to be done in BUILD because it needs server
+    my $socket = IO::Socket::Telnet->new(PeerAddr => $self->server);
+    die "Unable to connect to " . $self->server . ": $!"
+        if !defined($socket);
+
+    $socket->telnet_simple_callback(\&telnet_negotiation);
+    $self->socket($socket);
+}
 
 =head2 read -> STRING
 
