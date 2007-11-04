@@ -2,9 +2,6 @@
 package TAEB;
 use strict;
 use warnings;
-use TAEB::Interface::Telnet;
-
-my $interface = TAEB::Interface::Telnet->new();
 
 =head1 NAME
 

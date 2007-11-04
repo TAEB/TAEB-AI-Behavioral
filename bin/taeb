@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use lib 'lib';
+use Getopt::Whatever;
+use TAEB;
+
+my $interface_type = ucfirst(lc($ARGV{interface} || 'local'));
+$interface_type = "TAEB::Interface::$interface_type";
+eval "require $interface_type; 1"
+    or die $@;
+
+my $interface = $interface_type->new;
+$| = 1;
+print $interface->read while 1;
+
