@@ -4,17 +4,26 @@ use warnings;
 use lib 'lib';
 use Getopt::Whatever;
 use TAEB;
-
-# load the requested interface {{{
-my $interface_type = ucfirst(lc($ARGV{interface} || 'local'));
-$interface_type = "TAEB::Interface::$interface_type";
-eval "require $interface_type; 1"
-    or die $@;
-my $interface = $interface_type->new;
-# }}}
-
 $| = 1;
 
-my $taeb = TAEB->new(interface => $interface);
+# load_from_argv {{{
+sub load_from_argv {
+    my $second_level = shift;
+    my $default = shift;
+    my $arg_name = lc($second_level);
+
+    my $third_level = $ARGV{$arg_name} || $default;
+    my $type = "TAEB::${second_level}::$third_level";
+
+    eval "require $type; 1"
+        or die $@;
+
+    return $type->new;
+}
+# }}}
+my $interface = load_from_argv('Interface', 'Local');
+my $brain     = load_from_argv('Brain', 'RandomWalk');
+
+my $taeb = TAEB->new(interface => $interface, brain => $brain);
 print $taeb->step while 1;
 
