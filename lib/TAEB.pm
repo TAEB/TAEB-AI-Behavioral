@@ -29,6 +29,13 @@ has brain =>
     required => 1,
 );
 
+has config =>
+(
+    is       => 'rw',
+    isa      => 'TAEB::Config',
+    required => 1,
+);
+
 has vt =>
 (
     is => 'rw',

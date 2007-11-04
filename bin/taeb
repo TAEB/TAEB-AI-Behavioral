@@ -4,15 +4,25 @@ use warnings;
 use lib 'lib';
 use Getopt::Whatever;
 use TAEB;
+use TAEB::Config;
 $| = 1;
 
+# load config {{{
+my %config_args;
+$config_args{file} = $ARGV{config}
+    if exists $ARGV{config};
+my $config = TAEB::Config->new(%config_args);
+# }}}
 # load_from_argv {{{
 sub load_from_argv {
     my $second_level = shift;
     my $default = shift;
     my $arg_name = lc($second_level);
 
-    my $third_level = $ARGV{$arg_name} || $default;
+    my $third_level = $ARGV{$arg_name}
+                   || $config->contents->{$arg_name}
+                   || $default;
+
     my $type = "TAEB::${second_level}::$third_level";
 
     eval "require $type; 1"
@@ -21,9 +31,10 @@ sub load_from_argv {
     return $type->new;
 }
 # }}}
+
 my $interface = load_from_argv('Interface', 'Local');
 my $brain     = load_from_argv('Brain', 'RandomWalk');
 
-my $taeb = TAEB->new(interface => $interface, brain => $brain);
+my $taeb = TAEB->new(interface => $interface, brain => $brain, config => $config);
 print $taeb->step while 1;
 
