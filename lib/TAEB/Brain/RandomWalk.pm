@@ -22,7 +22,7 @@ things as 'the map' and 'direction of play'.
 
 =cut
 
-my @actions = qw(h j k l y u b n);
+my @actions = (qw(h j k l y u b n), ' ');
 
 sub next_action {
     return $actions[rand @actions];
