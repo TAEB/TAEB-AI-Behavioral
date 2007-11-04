@@ -62,7 +62,7 @@ sub write {
     my $text = shift;
 
     die "Pty inactive." unless $self->pty->is_active;
-    my $chars = $self->pty->write();
+    my $chars = $self->pty->write($text);
     die "Pty closed." if $chars == 0;
     return $chars;
 }

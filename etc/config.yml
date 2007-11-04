@@ -14,5 +14,5 @@ interface_options:
         account: Interhack
         password: kool
     Local:
-        name: zsh
+        name: nethack
 
