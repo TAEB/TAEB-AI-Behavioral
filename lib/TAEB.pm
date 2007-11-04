@@ -86,7 +86,6 @@ sub step {
 
 sub log_in {
     my $self = shift;
-    sleep 1;
 
     if ($self->vt->contains("Shall I pick a character's ")) {
         $self->interface->write('n');
