@@ -1,7 +1,13 @@
 #!perl
 package TAEB;
-use strict;
-use warnings;
+use Moose;
+
+has interface =>
+(
+    is       => 'rw',
+    isa      => 'TAEB::Interface',
+    required => 1,
+);
 
 =head1 NAME
 
