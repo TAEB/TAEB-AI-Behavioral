@@ -9,6 +9,7 @@ requires       'IO::Socket::Telnet' => 0.02;
 requires       'IO::Pty::Easy';
 requires       'Moose';
 requires       'Getopt::Whatever';
+requires       'Term::VT102::ZeroBased';
 
 build_requires 'Test::More';
 
