@@ -42,7 +42,7 @@ sub BUILD {
     my $self = shift;
 
     # this has to be done in BUILD because it needs server
-    my $socket = IO::Socket::Telnet->new(PeerAddr => $self->server);
+    my $socket = IO::Socket::Telnet->new(PeerAddr => $self->server, Timeout => 1);
     die "Unable to connect to " . $self->server . ": $!"
         if !defined($socket);
 
