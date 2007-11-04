@@ -100,7 +100,7 @@ sub log_in {
         $self->interface->write($self->config->get_gender);
     }
     elsif ($self->vt->contains("Choosing Alignment")) {
-        $self->interface->write($self->config->get_alignemtn);
+        $self->interface->write($self->config->get_alignment);
     }
     elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
         $self->logged_in(1);
