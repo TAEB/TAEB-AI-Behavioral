@@ -3,6 +3,17 @@ package TAEB::VT;
 use Moose;
 extends 'Term::VT102::ZeroBased';
 
+=head2 topline
+
+Returns the top line of text. Merely a convenience function.
+
+=cut
+
+sub topline {
+    my $self = shift;
+    $self->row_plaintext(0);
+}
+
 =head2 find_row CODE
 
 This is used to iterate over the virtual terminal's rows, looking for something.
