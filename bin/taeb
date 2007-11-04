@@ -28,7 +28,8 @@ sub load_from_argv {
     eval "require $type; 1"
         or die $@;
 
-    return $type->new;
+    my %opts = %{ $config->contents->{ $arg_name.'_options' }->{ $third_level } || {} };
+    return $type->new(%opts);
 }
 # }}}
 
