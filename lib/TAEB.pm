@@ -115,6 +115,7 @@ sub step {
         $self->log_in;
     }
 
+    return '' if !defined $input;
     return $input;
 }
 
