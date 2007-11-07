@@ -3,6 +3,8 @@ package TAEB;
 use Moose;
 use TAEB::Util;
 use TAEB::VT;
+use Log::Dispatch;
+use Log::Dispatch::File;
 
 =head1 NAME
 
@@ -54,6 +56,33 @@ has logged_in =>
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
+);
+
+has logger =>
+(
+    is      => 'ro',
+    isa     => 'Log::Dispatch',
+    lazy    => 1,
+    handles => [qw(debug info warning error critical)],
+    default => sub {
+        my $format = sub {
+            my %args = @_;
+            chomp $args{message};
+            return "[$args{level}] $args{message}\n";
+        };
+
+        my $dispatcher = Log::Dispatch->new(callbacks => $format);
+        for (qw/debug info/) {
+            $dispatcher->add(
+                Log::Dispatch::File->new(
+                    name => "$_.log",
+                    min_level => $_,
+                    filename => "$_.log",
+                )
+            );
+        }
+        return $dispatcher;
+    },
 );
 
 =head2 step
