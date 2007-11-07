@@ -2,6 +2,18 @@
 package TAEB::Tile;
 use Moose;
 
+has level => (
+    is       => 'rw',
+    isa      => 'TAEB::Level',
+    weak_ref => 1,
+    required => 1,
+);
+
+has room => (
+    is       => 'rw',
+    isa      => 'TAEB::Room',
+    weak_ref => 1,
+);
 
 1;
 
