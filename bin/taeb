@@ -37,5 +37,7 @@ my $interface = load_from_argv('Interface', 'Local');
 my $brain     = load_from_argv('Brain', 'RandomWalk');
 
 my $taeb = TAEB->new(interface => $interface, brain => $brain, config => $config);
+
+$SIG{__WARN__} = sub { $taeb->warning(@_) };
 print $taeb->step while 1;
 
