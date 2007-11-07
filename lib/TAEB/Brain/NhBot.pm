@@ -72,8 +72,8 @@ sub next_action {
         return $self->spin;
     }
     # looks like the output of ;
-    elsif ($taeb->vt->topline =~ /^.\s*(.*)\(.*\)\s*$/) {
-        $taeb->info("I spy with my little eye a $1.");
+    elsif ($taeb->vt->topline =~ /^.\s*(.*)\s*\(.*\)\s*$/) {
+        $taeb->info("I spy with my little eye '$1', at ". $directions[$self->last_direction] .".");
         my $looking_for = $self->looking_for;
         if ($taeb->vt->topline =~ /\Q$looking_for/) {
             # attack!
@@ -93,6 +93,7 @@ sub next_action {
         return $self->spin;
     }
     else {
+        $taeb->debug("Nothing interesting about " . $taeb->vt->topline);
         return $self->random;
     }
 }
