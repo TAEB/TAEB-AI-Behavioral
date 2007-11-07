@@ -68,7 +68,7 @@ has logger =>
         my $format = sub {
             my %args = @_;
             chomp $args{message};
-            return "[$args{level}] $args{message}\n";
+            return "[\U$args{level}\E] $args{message}\n";
         };
 
         my $dispatcher = Log::Dispatch->new(callbacks => $format);
