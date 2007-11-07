@@ -3,25 +3,25 @@ package TAEB::Path;
 use Moose;
 
 has from => (
-    is => 'ro',
-    isa => 'TAEB::Tile',
+    is       => 'ro',
+    isa      => 'TAEB::Tile',
     required => 1,
 );
 
 has to => (
-    is => 'ro',
-    isa => 'TAEB::Tile',
+    is       => 'ro',
+    isa      => 'TAEB::Tile',
     required => 1,
 );
 
 has path => (
-    is => 'rw',
+    is  => 'rw',
     isa => 'Str',
 );
 
 has complete => (
-    is => 'rw',
-    isa => 'Bool',
+    is      => 'rw',
+    isa     => 'Bool',
     default => 0,
 );
 

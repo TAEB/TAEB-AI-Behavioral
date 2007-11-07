@@ -38,16 +38,16 @@ has config =>
 
 has vt =>
 (
-    is => 'rw',
-    isa => 'TAEB::VT',
+    is       => 'rw',
+    isa      => 'TAEB::VT',
     required => 1,
-    default => sub { TAEB::VT->new(cols => 80, rows => 24) },
+    default  => sub { TAEB::VT->new(cols => 80, rows => 24) },
 );
 
 has logged_in =>
 (
-    is => 'rw',
-    isa => 'Bool',
+    is      => 'rw',
+    isa     => 'Bool',
     default => 0,
 );
 
