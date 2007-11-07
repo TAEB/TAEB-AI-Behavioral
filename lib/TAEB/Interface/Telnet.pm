@@ -95,15 +95,36 @@ This will read from the socket. It will die if an error occurs.
 
 It will return the input read from the socket.
 
+This uses a method developed for nhbot that ensures that we've received all
+output for our command before returning. Just before reading, it sends the
+telnet equivalent of a PING. It then reads all input until it gets a PONG. the
+idea is that the PING comes after all NH commands, so the PONG must come after
+all the output of all the NH commands. The code looking for the PONG is in
+the telnet complex callback.
+
+The actual ping it uses is to send IAC DO chr(99), which is a nonexistent
+option. Some servers may stop responding after the first IAC DO chr(99), so
+it's kind of a bad hack. It used to be IAC SB STATUS SEND IAC SE but NAO
+stopped paying attention to that. That last sentence was discovered over a few
+hours of debugging. Yay.
+
 =cut
 
 sub read {
     my $self = shift;
     my $buffer;
 
-    timeout 1 => sub {
-        defined $self->socket->recv($buffer, 4096, 0)
-            or die "Disconnected from server: $!";
+    $self->socket->do(chr(99));
+    ${*{$self->socket}}{got_pong} = 0;
+
+    timeout 10 => sub {
+        while (1) {
+            my $b;
+            defined $self->socket->recv($b, 4096, 0)
+                or die "Disconnected from server: $!";
+            $buffer .= $b;
+            die "alarm\n" if ${*{$self->socket}}{got_pong};
+        }
     };
 
     return $buffer;
@@ -137,6 +158,11 @@ sub telnet_negotiation {
     my $self = shift;
     my $option = shift;
 
+    if ($option =~ / 99$/) {
+        ${*$self}{got_pong} = 1;
+        return '';
+    }
+
     if ($option =~ /DO TTYPE/) {
         return join '',
                chr(255), # IAC
@@ -169,7 +195,7 @@ sub telnet_negotiation {
                chr(240), # SE
     }
 
-    return 0;
+    return;
 }
 
 1;
