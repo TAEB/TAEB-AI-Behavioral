@@ -107,6 +107,7 @@ sub step {
         }
         else {
             my $next_action = $self->brain->next_action($self);
+            $self->debug("Sending '$next_action' to NetHack.");
             $self->interface->write($next_action);
         }
     }

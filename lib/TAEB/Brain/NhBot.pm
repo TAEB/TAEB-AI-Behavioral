@@ -51,37 +51,45 @@ sub next_action {
 
     # need food. must pray
     if ($taeb->vt->topline =~ /You (?:are beginning to )?feal weak\./) {
+        $taeb->info("Feeling weak.");
         return "#pray\n";
     }
     # working out is useful for those floating eyes
     elsif ($taeb->vt->topline =~ /You feel more confident/) {
+        $taeb->info("Got a 'feel more confident' message.");
         return "#enhance\na a \n";
     }
     # we just swiped at something, swing again in the same direction
     elsif ($taeb->vt->topline =~ /you (?:just )?(?:hit|miss) (?:(?:the |an? )([-.a-z ]+?)|it)[.!]/i) {
+        $taeb->info("I either bumped into a monster or just attacked one.");
         return 'F' . $directions[$self->last_direction];
     }
     # under attack! start responding
     elsif ($taeb->vt->topline =~ /(?:(?:the |an? )([-.a-z ]+?)|it) (?:just )?(strikes|hits|misses|bites|grabs|stings|touches|points at you, then curses)(?:(?: at)? you(?:r displaced image)?)?[.!]/i) {
+        $taeb->info("I'm being attacked by a $1! Looking for him..");
         $self->last_direction(-1);
         $self->looking_for($1);
         return $self->spin;
     }
     # looks like the output of ;
-    elsif ($taeb->vt->topline =~ /^.\s*.*\(.*\)\s*$/) {
+    elsif ($taeb->vt->topline =~ /^.\s*(.*)\(.*\)\s*$/) {
+        $taeb->info("I spy with my little eye a $1.");
         my $looking_for = $self->looking_for;
         if ($taeb->vt->topline =~ /\Q$looking_for/) {
             # attack!
+            $taeb->info("Found what I'm looking for!");
             return 'F' . $directions[$self->last_direction];
         }
 
         # ran out of directions and couldn't find it. gulp. just start moving
         # again
         if ($directions[$self->last_direction+1] eq ' ') {
+            $taeb->info("I have no more directions to look at.");
             return $self->random;
         }
 
         # keep looking..
+        $taeb->info("Still looking.");
         return $self->spin;
     }
     else {
