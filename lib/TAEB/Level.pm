@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::Map;
+package TAEB::Level;
 use Moose;
 
 
