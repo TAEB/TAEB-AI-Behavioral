@@ -15,5 +15,12 @@ has room => (
     weak_ref => 1,
 );
 
+enum TileType => TAEB::Util::tile_types;
+
+has type => (
+    is => 'rw',
+    isa => 'TileType',
+);
+
 1;
 

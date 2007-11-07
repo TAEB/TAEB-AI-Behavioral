@@ -1,6 +1,7 @@
 #!perl
 package TAEB;
 use Moose;
+use TAEB::Util;
 use TAEB::VT;
 
 =head1 NAME
