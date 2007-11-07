@@ -45,10 +45,6 @@ has looking_for => (
 
 my @directions = (qw(h j k l y u b n), ' ');
 
-sub random {
-    return $directions[rand @directions];
-}
-
 sub next_action {
     my $self = shift;
     my $taeb = shift;
@@ -93,10 +89,32 @@ sub next_action {
     }
 }
 
+=head2 spin
+
+This will look in the direction after last_direction. Make sure that
+last_direction is set properly before calling this.
+
+=cut
+
 sub spin {
     my $self = shift;
     $self->last_direction($self->last_direction + 1);
     return ';' . $directions[$self->last_direction] . '.';
+}
+
+=head2 random
+
+Walks in a random direction. Stores the direction it went in last_direction
+so if you happen to hit something, you can strike again without spinning.
+
+=cut
+
+sub random {
+    my $self = shift;
+
+    my $dir = int rand @directions;
+    $self->last_direction($dir);
+    return $directions[$dir];
 }
 
 1;
