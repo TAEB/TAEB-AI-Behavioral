@@ -27,6 +27,10 @@ has brain =>
     is       => 'rw',
     isa      => 'TAEB::Brain',
     required => 1,
+    trigger  => sub {
+        my ($self, $brain) = @_;
+        $brain->institute($self);
+    },
 );
 
 has config =>

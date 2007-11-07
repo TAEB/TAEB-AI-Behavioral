@@ -31,5 +31,15 @@ sub next_action {
     die "You must override the 'next_action' method in TAEB::Brain.";
 }
 
+=head2 institute TAEB
+
+This is the method called when TAEB begins using this brain. This is guaranteed
+to be called before any calls to next_action.
+
+=cut
+
+sub institute {
+}
+
 1;
 
