@@ -84,7 +84,7 @@ has logger =>
         };
 
         my $dispatcher = Log::Dispatch->new(callbacks => $format);
-        for (qw/debug info/) {
+        for (qw(debug info)) {
             $dispatcher->add(
                 Log::Dispatch::File->new(
                     name => "$_.log",
