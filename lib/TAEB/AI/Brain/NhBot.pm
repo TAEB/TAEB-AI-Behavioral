@@ -117,17 +117,17 @@ sub spin {
 
 =head2 random
 
-Walks in a random direction. Stores the direction it went in last_direction
-so if you happen to hit something, you can strike again without spinning.
+Walks in a random direction. Clears the last direction walked so that it
+doesn't interfere with the combat system.
 
 =cut
 
 sub random {
     my $self = shift;
 
-    my $dir = int rand @directions;
-    $self->last_direction($dir);
-    return $directions[$dir];
+    $self->last_direction(-1);
+
+    return $directions[rand @directions];
 }
 
 1;
