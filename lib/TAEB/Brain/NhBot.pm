@@ -50,7 +50,11 @@ sub next_action {
     my $taeb = shift;
 
     # need food. must pray
-    if ($taeb->vt->topline =~ /You (?:are beginning to )?feal weak\./) {
+    if ($taeb->vt->topline =~ /You regain consciousness/) {
+        $taeb->info("Fainting!");
+        return "#pray\n";
+    }
+    elsif ($taeb->vt->topline =~ /You (?:are beginning to )?feal weak\.|Valkyrie needs food!/) {
         $taeb->info("Feeling weak.");
         return "#pray\n";
     }
