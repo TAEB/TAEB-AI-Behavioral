@@ -1,10 +1,12 @@
 #!perl
 package TAEB;
 use Moose;
-use TAEB::Util;
-use TAEB::VT;
 use Log::Dispatch;
 use Log::Dispatch::File;
+
+use TAEB::Util;
+use TAEB::VT;
+use TAEB::ScreenScraper;
 
 =head1 NAME
 
@@ -34,6 +36,15 @@ has brain =>
         my ($self, $brain) = @_;
         $brain->institute($self);
     },
+);
+
+has scraper =>
+(
+    is       => 'rw',
+    isa      => 'TAEB::ScreenScraper',
+    required => 1,
+    default  => sub { TAEB::ScreenScraper->new },
+    handles  => [qw(messages)],
 );
 
 has config =>
@@ -99,18 +110,12 @@ sub step {
 
     my $input = $self->process_input;
 
-    if ($self->vt->contains("--More--")) {
-        $self->interface->write(' ');
-    }
-    elsif ($self->logged_in) {
-        if ($self->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
-            $self->interface->write(' ');
-        }
-        else {
-            my $next_action = $self->brain->next_action($self);
-            $self->debug("Sending '$next_action' to NetHack.");
-            $self->interface->write($next_action);
-        }
+    if ($self->logged_in) {
+        $self->scraper->scrape($self);
+
+        my $next_action = $self->brain->next_action($self);
+        $self->debug("Sending '$next_action' to NetHack.");
+        $self->interface->write($next_action);
     }
     else {
         $self->log_in;
@@ -144,6 +149,9 @@ sub log_in {
     }
     elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
         $self->logged_in(1);
+    }
+    else {
+        $self->interface->write(' ');
     }
 }
 
