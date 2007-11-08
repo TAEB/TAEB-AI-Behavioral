@@ -20,7 +20,10 @@ sub scrape {
     # handle menus
     $self->handle_menus($taeb);
 
-    # all done!
+    # get rid of all the redundant spaces
+    local $_ = $self->messages;
+    s/\s+/ /g;
+    $self->messages($_);
 }
 
 sub clear {
