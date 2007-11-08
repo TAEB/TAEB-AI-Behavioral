@@ -49,7 +49,7 @@ has vt =>
     isa      => 'TAEB::VT',
     required => 1,
     default  => sub { TAEB::VT->new(cols => 80, rows => 24) },
-    handles  => 'topline',
+    handles  => [qw(topline)],
 );
 
 has logged_in =>
