@@ -50,36 +50,36 @@ sub next_action {
     my $taeb = shift;
 
     # need food. must pray
-    if ($taeb->topline =~ /You regain consciousness/) {
+    if ($taeb->messages =~ /You regain consciousness/) {
         $taeb->info("Fainting!");
         return "#pray\n";
     }
-    elsif ($taeb->topline =~ /You (?:are beginning to )?feal weak\.|Valkyrie needs food!/) {
+    elsif ($taeb->messages =~ /You (?:are beginning to )?feal weak\.|Valkyrie needs food!/) {
         $taeb->info("Feeling weak.");
         return "#pray\n";
     }
     # working out is useful for those floating eyes
-    elsif ($taeb->topline =~ /You feel more confident/) {
+    elsif ($taeb->messages =~ /You feel more confident/) {
         $taeb->info("Got a 'feel more confident' message.");
         return "#enhance\na a \n";
     }
     # we just swiped at something, swing again in the same direction
-    elsif ($taeb->topline =~ /you (?:just )?(?:hit|miss) (?:(?:the |an? )([-.a-z ]+?)|it)[.!]/i) {
+    elsif ($taeb->messages =~ /you (?:just )?(?:hit|miss) (?:(?:the |an? )([-.a-z ]+?)|it)[.!]/i) {
         $taeb->info("I either bumped into a monster or just attacked one.");
         return 'F' . $directions[$self->last_direction];
     }
     # under attack! start responding
-    elsif ($taeb->topline =~ /(?:(?:the |an? )([-.a-z ]+?)|it) (?:just )?(strikes|hits|misses|bites|grabs|stings|touches|points at you, then curses)(?:(?: at)? you(?:r displaced image)?)?[.!]/i) {
+    elsif ($taeb->messages =~ /(?:(?:the |an? )([-.a-z ]+?)|it) (?:just )?(strikes|hits|misses|bites|grabs|stings|touches|points at you, then curses)(?:(?: at)? you(?:r displaced image)?)?[.!]/i) {
         $taeb->info("I'm being attacked by a $1! Looking for him..");
         $self->last_direction(-1);
         $self->looking_for($1);
         return $self->spin;
     }
     # looks like the output of ;
-    elsif ($taeb->topline =~ /^.\s*(.*)\s*\(.*\)\s*$/) {
+    elsif ($taeb->messages =~ /^.\s*(.*)\s*\(.*\)\s*$/) {
         $taeb->info("I spy with my little eye '$1', at ". $directions[$self->last_direction] .".");
         my $looking_for = $self->looking_for;
-        if ($taeb->topline =~ /\Q$looking_for/) {
+        if ($taeb->messages =~ /\Q$looking_for/) {
             # attack!
             $taeb->info("Found what I'm looking for!");
             return 'F' . $directions[$self->last_direction];
@@ -97,7 +97,7 @@ sub next_action {
         return $self->spin;
     }
     else {
-        $taeb->debug("Nothing interesting about " . $taeb->topline);
+        $taeb->debug("Nothing interesting about " . $taeb->messages);
         return $self->random;
     }
 }
