@@ -150,9 +150,6 @@ sub log_in {
     elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
         $self->logged_in(1);
     }
-    else {
-        $self->interface->write(' ');
-    }
 }
 
 =head2 process_input
