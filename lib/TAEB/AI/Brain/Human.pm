@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
-package TAEB::Brain::Human;
+package TAEB::AI::Brain::Human;
 use Moose;
 use Term::ReadKey;
-extends 'TAEB::Brain';
+extends 'TAEB::AI::Brain';
 
 =head1 NAME
 
-TAEB::Brain::Human - the only brain that has a chance
+TAEB::AI::Brain::Human - the only brain that has a chance
 
 =head1 VERSION
 

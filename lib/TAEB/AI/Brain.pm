@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
-package TAEB::Brain;
+package TAEB::AI::Brain;
 use Moose;
 
 =head1 NAME
 
-TAEB::Brain - how TAEB tactically extracts its amulets
+TAEB::AI::Brain - how TAEB tactically extracts its amulets
 
 =head1 VERSION
 
@@ -17,7 +17,7 @@ our $VERSION = '0.01';
 =head2 next_action TAEB -> STRING
 
 This is the method called by the main TAEB code to get individual commands.
-It will be called with a C<$self> which will be your TAEB::Brain object, and
+It will be called with a C<$self> which will be your TAEB::AI::Brain object, and
 a TAEB object for interacting with the rest of the system (such as for looking
 at the map).
 
@@ -28,7 +28,7 @@ Your subclass B<must> override this method.
 =cut
 
 sub next_action {
-    die "You must override the 'next_action' method in TAEB::Brain.";
+    die "You must override the 'next_action' method in TAEB::AI::Brain.";
 }
 
 =head2 institute TAEB

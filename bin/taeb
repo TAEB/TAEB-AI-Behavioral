@@ -18,6 +18,7 @@ sub load_from_argv {
     my $second_level = shift;
     my $default = shift;
     my $arg_name = lc($second_level);
+    $arg_name =~ s/.*:://;
 
     my $third_level = $ARGV{$arg_name}
                    || $config->contents->{$arg_name}
@@ -34,7 +35,7 @@ sub load_from_argv {
 # }}}
 
 my $interface = load_from_argv('Interface', 'Local');
-my $brain     = load_from_argv('Brain', 'RandomWalk');
+my $brain     = load_from_argv('AI::Brain', 'RandomWalk');
 
 my $taeb = TAEB->new(interface => $interface, brain => $brain, config => $config);
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::Brain::RandomWalk;
+package TAEB::AI::Brain::RandomWalk;
 use Moose;
-extends 'TAEB::Brain';
+extends 'TAEB::AI::Brain';
 
 =head1 NAME
 
-TAEB::Brain::RandomWalk - 30 kyu, here I come!
+TAEB::AI::Brain::RandomWalk - 30 kyu, here I come!
 
 =head1 VERSION
 

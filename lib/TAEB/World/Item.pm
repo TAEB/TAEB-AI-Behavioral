@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::Item;
+package TAEB::World::Item;
 use Moose;
 
 

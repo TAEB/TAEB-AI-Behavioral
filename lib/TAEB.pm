@@ -28,7 +28,7 @@ has interface =>
 has brain =>
 (
     is       => 'rw',
-    isa      => 'TAEB::Brain',
+    isa      => 'TAEB::AI::Brain',
     required => 1,
     trigger  => sub {
         my ($self, $brain) = @_;
