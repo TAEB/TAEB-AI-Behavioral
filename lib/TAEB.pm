@@ -111,7 +111,7 @@ sub step {
     my $input = $self->process_input;
 
     if ($self->logged_in) {
-        $self->scraper->scrape($self);
+        $input .= $self->scraper->scrape($self);
 
         my $next_action = $self->brain->next_action($self);
         $self->debug("Sending '$next_action' to NetHack.");
