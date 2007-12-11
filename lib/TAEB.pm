@@ -105,6 +105,7 @@ has dungeon => (
     default => sub { TAEB::World::Dungeon->new },
     handles => {
         current_level  => 'current_level',
+        current_tile   => 'current_tile',
         update_dungeon => 'update',
         x              => 'x',
         y              => 'y',

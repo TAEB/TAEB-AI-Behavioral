@@ -30,7 +30,7 @@ has cartographer => (
         my $self = shift;
         TAEB::World::Cartographer->new(dungeon => $self)
     },
-    handles => [qw/update x y/],
+    handles => [qw/update x y current_tile/],
 );
 
 # we start off in dungeon 1. this helps keeps things tidy (we only have to
