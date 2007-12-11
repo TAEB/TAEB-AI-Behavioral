@@ -84,12 +84,12 @@ has logger =>
         };
 
         my $dispatcher = Log::Dispatch->new(callbacks => $format);
-        for (qw(debug info)) {
+        for (qw(debug info warning error critical)) {
             $dispatcher->add(
                 Log::Dispatch::File->new(
-                    name => "$_.log",
+                    name => $_,
                     min_level => $_,
-                    filename => "$_.log",
+                    filename => "log/$_.log",
                 )
             );
         }
