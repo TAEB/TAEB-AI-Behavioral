@@ -13,5 +13,10 @@ has branch => (
     weak_ref => 1,
 );
 
+has z => (
+    is  => 'rw',
+    isa => 'Int',
+);
+
 1;
 
