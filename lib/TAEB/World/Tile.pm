@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Tile;
 use Moose;
+use Moose::Util::TypeConstraints 'enum';
 
 has level => (
     is       => 'rw',
@@ -15,7 +16,7 @@ has room => (
     weak_ref => 1,
 );
 
-enum TileType => TAEB::Util::tile_types;
+enum TileType => TAEB::Util::tile_types();
 
 has type => (
     is => 'rw',
