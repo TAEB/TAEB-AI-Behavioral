@@ -2,6 +2,12 @@
 package TAEB::AI::Brain;
 use Moose;
 
+has taeb => (
+    is       => 'rw',
+    isa      => 'TAEB',
+    weak_ref => 1,
+);
+
 =head1 NAME
 
 TAEB::AI::Brain - how TAEB tactically extracts its amulets
