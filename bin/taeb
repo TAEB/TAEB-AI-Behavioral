@@ -30,14 +30,16 @@ sub load_from_argv {
         or die $@;
 
     my %opts = %{ $config->contents->{ $arg_name.'_options' }->{ $third_level } || {} };
-    return $type->new(%opts);
+    return $type->new(%opts, @_);
 }
 # }}}
 
-my $interface = load_from_argv('Interface', 'Local');
-my $brain     = load_from_argv('AI::Brain', 'RandomWalk');
+my $taeb;
 
-my $taeb = TAEB->new(interface => $interface, brain => $brain, config => $config);
+my $interface = load_from_argv('Interface', 'Local');
+my $brain     = load_from_argv('AI::Brain', 'RandomWalk', taeb => $taeb);
+
+$taeb = TAEB->new(interface => $interface, brain => $brain, config => $config);
 
 $SIG{__WARN__} = sub { $taeb->warning(@_) };
 print $taeb->step while 1;
