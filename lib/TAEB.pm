@@ -7,6 +7,7 @@ use Log::Dispatch::File;
 use TAEB::Util;
 use TAEB::VT;
 use TAEB::ScreenScraper;
+use TAEB::World;
 
 =head1 NAME
 
