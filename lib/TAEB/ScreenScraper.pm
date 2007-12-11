@@ -21,6 +21,9 @@ sub scrape {
     # handle menus
     $out .= $self->handle_menus($taeb);
 
+    # handle other text
+    $out .= $self->handle_fallback($taeb);
+
     # get rid of all the redundant spaces
     local $_ = $self->messages;
     s/\s+/ /g;
@@ -67,6 +70,13 @@ sub handle_menus {
     }
 
     return $out;
+}
+
+sub handle_fallback {
+    my $self = shift;
+    my $taeb = shift;
+    $self->messages($self->messages . $taeb->topline);
+    return '';
 }
 
 1;
