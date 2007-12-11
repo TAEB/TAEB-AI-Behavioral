@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Brain;
 use Moose;
+use TAEB::Util 'direction';
 
 has taeb => (
     is       => 'rw',
@@ -55,12 +56,6 @@ corresponding to the direction.
 
 =cut
 
-my @directions = (
-    [qw/y k u/],
-    [qw/h . l/],
-    [qw/b j n/],
-);
-
 sub each_adjacent {
     my $self = shift;
     my $code = shift;
@@ -70,7 +65,7 @@ sub each_adjacent {
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
             next unless $dy || $dx; # skip 0, 0
-            my $dir = $directions[$dy+1][$dx+1];
+            my $dir = direction($dx+1, $dy+1);
             my $tile = $taeb->current_level->at($dx + $taeb->x, $dy + $taeb->y);
             $code->($self, $taeb, $tile, $dir);
         }
