@@ -3,7 +3,7 @@ package TAEB::Util;
 use strict;
 use warnings;
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types glyph_to_type)],
+    exports => [qw(tile_types glyph_to_type direction)],
 };
 
 use List::MoreUtils 'uniq';
@@ -38,6 +38,18 @@ sub tile_types {
 sub glyph_to_type {
     my $glyph = shift;
     return $glyphs{$glyph};
+}
+
+our @directions = (
+    [qw/y k u/],
+    [qw/h . l/],
+    [qw/b j n/],
+);
+
+sub direction {
+    my $x = shift;
+    my $y = shift;
+    return $directions[$y][$x];
 }
 
 1;
