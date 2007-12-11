@@ -151,7 +151,7 @@ sub max_match_level {
         my ($x, $y) = ($tile->x, $tile->y);
 
         my $score = $code->($tile, $path);
-        if ($score eq 'q') {
+        if (defined($score) && $score eq 'q') {
             return ($tile, $path);
         }
 
