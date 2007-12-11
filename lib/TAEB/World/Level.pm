@@ -50,5 +50,13 @@ sub update_tile {
     }
 }
 
+sub step_on {
+    my $self = shift;
+    my $x = shift;
+    my $y = shift;
+
+    $self->tiles->[$y][$x]->step_on;
+}
+
 1;
 
