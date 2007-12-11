@@ -106,6 +106,9 @@ has dungeon => (
     handles => {
         current_level  => 'current_level',
         update_dungeon => 'update',
+        x              => 'x',
+        y              => 'y',
+        z              => 'z',
     },
 );
 
