@@ -47,5 +47,26 @@ to be called before any calls to next_action.
 sub institute {
 }
 
+=head2 each_adjacent CODE
+
+This is called for each tile adjacent to TAEB. The coderef will receive three
+arguments: the brain object, the TAEB object, and the tile object.
+
+=cut
+
+sub each_adjacent {
+    my $self = shift;
+    my $code = shift;
+
+    my $taeb = $self->taeb;
+
+    for my $dy (-1 .. 1) {
+        for my $dx (-1 .. 1) {
+            my $tile = $taeb->current_level->at($dx + $taeb->x, $dy + $taeb->y);
+            $code->($self, $taeb, $tile);
+        }
+    }
+}
+
 1;
 
