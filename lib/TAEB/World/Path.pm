@@ -117,7 +117,31 @@ sub first_match_level {
     my $from = shift;
     my $code = shift;
 
+    $self->max_match_level($from, sub { $code->(@_) ? 'q' : undef });
+}
+
+=head2 max_match_level Tile, Code -> Tile, Str
+
+This takes a starting tile and a code reference, and does a breadth-first
+search to the first tile that makes the code ref return the maximum value. It
+then returns the matching tile and the path to it from the starting tile. If
+your coderef returns the string 'q' then the given tile and path will be
+returned.
+
+WARNING: Only the level of the starting tile will be searched.
+
+=cut
+
+sub max_match_level {
+    my $self = shift;
+    my $from = shift;
+    my $code = shift;
+
     my $level = $from->level;
+
+    my $max_score;
+    my $max_tile;
+    my $max_path;
 
     my @open = [$from, ''];
     my @closed;
@@ -126,8 +150,14 @@ sub first_match_level {
         my ($tile, $path) = @{ shift @open };
         my ($x, $y) = ($tile->x, $tile->y);
 
-        if ($code->($tile, $path)) {
+        my $score = $code->($tile, $path);
+        if ($score eq 'q') {
             return ($tile, $path);
+        }
+
+        # if the coderef returns undef, then we don't want to update
+        if (defined($score) && (!defined($max_score) || $score > $max_score)) {
+            ($max_score, $max_tile, $max_path) = ($score, $tile, $path);
         }
 
         $closed[$x][$y] = 1;
@@ -143,7 +173,7 @@ sub first_match_level {
         }
     }
 
-    return;
+    return ($max_tile, $max_path);
 }
 
 1;
