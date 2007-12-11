@@ -2,6 +2,7 @@
 package TAEB::World::Path;
 use Moose;
 use TAEB::Util 'direction';
+use List::Util 'shuffle';
 
 has from => (
     is       => 'ro',
@@ -146,6 +147,13 @@ sub max_match_level {
     my @open = [$from, ''];
     my @closed;
 
+    # randomize the delta array so doors don't kill us
+    my @deltas = shuffle (
+        [-1, -1], [-1, 0], [-1, 1],
+        [ 0, -1], [ 0, 0], [ 0, 1],
+        [ 1, -1], [ 1, 0], [ 1, 1],
+    );
+
     while (@open) {
         my ($tile, $path) = @{ shift @open };
         my ($x, $y) = ($tile->x, $tile->y);
@@ -162,14 +170,23 @@ sub max_match_level {
 
         $closed[$x][$y] = 1;
 
-        for my $dy (-1 .. 1) {
-            for my $dx (-1 .. 1) {
-                my $dir = direction($dx+1, $dy+1);
-                my $next = $level->at($x + $dx, $y + $dy);
-                push @open, [ $next, $path . $dir ]
-                    if !$closed[$x + $dx][$y + $dy]
-                    && $next->is_walkable;
-            }
+        for (@deltas) {
+            my ($dx, $dy) = @$_;
+
+            # can't move diagonally off of doors
+            next if $tile->type eq 'door'
+                    && $dx && $dy;
+
+            my $dir = direction($dx+1, $dy+1);
+            my $next = $level->at($x + $dx, $y + $dy);
+
+            # can't move diagonally onto doors
+            next if $next->type eq 'door'
+                    && $dx && $dy;
+
+            push @open, [ $next, $path . $dir ]
+                if !$closed[$x + $dx][$y + $dy]
+                && $next->is_walkable;
         }
     }
 
