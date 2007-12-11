@@ -20,6 +20,13 @@ has current_level => (
     isa => 'TAEB::World::Level',
 );
 
+has cartographer => (
+    is      => 'rw',
+    isa     => 'TAEB::World::Cartographer',
+    default => sub { TAEB::World::Cartographer->new(dungeon => $dungeon) },
+    handles => [qw/update/],
+);
+
 # we start off in dungeon 1. this helps keeps things tidy (we only have to
 # worry about level generation on level change)
 sub BUILD {
