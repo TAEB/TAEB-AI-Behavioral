@@ -76,7 +76,7 @@ sub next_action {
         return $self->spin;
     }
     # looks like the output of ;
-    elsif ($taeb->messages =~ /^.\s*(.*)\s*\(.*\)\s*$/) {
+    elsif ($taeb->messages =~ /^(?:.\s*(.*)\s*\(.*\)\s*|\| a wall)$/) {
         $taeb->info("I spy with my little eye '$1', at ". $directions[$self->last_direction] .".");
         my $looking_for = $self->looking_for;
         if ($taeb->messages =~ /\Q$looking_for/) {
