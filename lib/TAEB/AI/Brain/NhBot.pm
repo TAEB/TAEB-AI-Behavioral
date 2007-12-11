@@ -81,7 +81,7 @@ sub next_action {
         my $looking_for = $self->looking_for;
         if ($taeb->messages =~ /\Q$looking_for/) {
             # attack!
-            $taeb->info("Found what I'm looking for!");
+            $taeb->info("Found what I'm looking for at ".$directions[$self->last_direction]."!");
             return 'F' . $directions[$self->last_direction];
         }
 
