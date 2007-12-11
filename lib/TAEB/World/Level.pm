@@ -35,5 +35,20 @@ sub at {
     return $self->tiles->[$y][$x];
 }
 
+sub update_tile {
+    my $self     = shift;
+    my $x        = shift;
+    my $y        = shift;
+    my $newglyph = shift;
+
+    if ($newglyph eq '<' || $newglyph eq '>') {
+        my $stairs = TAEB::World::Tile::Stairs->new(level => $self, glyph => $newglyph);
+        $self->tiles->[$y][$x] = $stairs;
+    }
+    else {
+        $self->tiles->[$y][$x]->update($newglyph);
+    }
+}
+
 1;
 
