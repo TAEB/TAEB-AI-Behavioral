@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Path;
 use Moose;
+use TAEB::Util 'direction';
 
 has from => (
     is       => 'ro',
@@ -67,35 +68,80 @@ sub calculate_path {
 =head2 calculate_intralevel_path Tile, Tile -> Path
 
 Returns a new TAEB::World::Path of the path between the tiles. The tiles must
-be on the same level.
+be on the same level. Returns C<undef> if there's no known path.
 
 =cut
 
 sub calculate_intralevel_path {
     my $self = shift;
     my ($from, $to) = @_;
+
     my ($path, $complete) = $self->_calculate_intralevel_path($from, $to);
+    return unless $complete;
+
     $self->new(from => $from, to => $to, path => $path, complete => $complete);
 }
 
-=head2 _calculate_intralevel_path Tile, Tile -> Str, Bool
+=head2 _calculate_intralevel_path Tile, Tile -> Str
 
 Actually does the calculation of the path to go from the first tile to the
-second. It will return the directions required, and a boolean indicating
-whether the path is complete or not. If there is unavoidable unexplored area
-between the two tiles, then complete will be false.
+second. It will return the directions required. If there is unavoidable
+unexplored area between the two tiles, then C<undef> will be returned.
 
 =cut
 
 sub _calculate_intralevel_path {
     my $self = shift;
     my ($from, $to) = @_;
-    my $path = '';
-    my $complete = 0;
 
-    # XXX: todo :)
+    my ($tile, $path) = $self->first_match_level($from, sub {
+        my $tile = shift;
+        return $tile->x && $to->x && $tile->y == $to->y;
+    });
 
-    return ($path, $complete ? 1 : 0);
+    return $path;
+}
+
+=head2 first_match_level Tile, Code -> Tile, Str
+
+This takes a starting tile and a code reference, and does a breadth-first
+search to the first tile that makes the code ref return true. It then returns
+the matching tile and the path to it from the starting tile.
+
+WARNING: Only the level of the starting tile will be searched.
+
+=cut
+
+sub first_match_level {
+    my $self = shift;
+    my $from = shift;
+    my $code = shift;
+
+    my $level = $from->level;
+
+    my @open = [$from, ''];
+    my @closed;
+
+    while (@open) {
+        my ($tile, $path) = @{ shift @open };
+        my ($x, $y) = ($tile->x, $tile->y);
+
+        if ($code->($tile, $path)) {
+            return ($tile, $path);
+        }
+
+        $closed[$x][$y] = 1;
+
+        for my $dy (-1 .. 1) {
+            for my $dx (-1 .. 1) {
+                my $dir = direction($dx+1, $dy+1);
+                push @open, [ $level->at($x + $dx, $y + $dy), $path . $dir ]
+                    unless $closed[$x + $dx][$y + $dy];
+            }
+        }
+    }
+
+    return;
 }
 
 1;
