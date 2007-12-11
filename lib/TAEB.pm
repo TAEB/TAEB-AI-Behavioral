@@ -147,6 +147,9 @@ sub log_in {
     elsif ($self->vt->contains("Choosing Alignment")) {
         $self->interface->write($self->config->get_alignment);
     }
+    elsif ($self->vt->contains("Restoring save file..")) {
+        $self->interface->write(' ');
+    }
     elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
         $self->logged_in(1);
     }
