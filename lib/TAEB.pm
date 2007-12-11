@@ -103,7 +103,10 @@ has dungeon => (
     isa     => 'TAEB::World::Dungeon',
     lazy    => 1,
     default => sub { TAEB::World::Dungeon->new },
-    handles => [qw/current_level/],
+    handles => {
+        current_level  => 'current_level',
+        update_dungeon => 'update',
+    },
 );
 
 =head2 step
@@ -121,6 +124,7 @@ sub step {
 
     if ($self->logged_in) {
         $input .= $self->scraper->scrape($self);
+        $self->update_dungeon();
 
         my $next_action = $self->brain->next_action($self);
         $self->debug("Sending '$next_action' to NetHack.");
