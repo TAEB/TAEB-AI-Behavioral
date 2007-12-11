@@ -18,6 +18,7 @@ has branches => (
 has current_level => (
     is => 'rw',
     isa => 'TAEB::World::Level',
+    handles => [qw/z/],
 );
 
 has cartographer => (
@@ -27,7 +28,7 @@ has cartographer => (
         my $self = shift;
         TAEB::World::Cartographer->new(dungeon => $self)
     },
-    handles => [qw/update/],
+    handles => [qw/update x y/],
 );
 
 # we start off in dungeon 1. this helps keeps things tidy (we only have to
