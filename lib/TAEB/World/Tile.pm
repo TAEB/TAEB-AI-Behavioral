@@ -19,8 +19,9 @@ has room => (
 enum TileType => TAEB::Util::tile_types();
 
 has type => (
-    is => 'rw',
-    isa => 'TileType',
+    is      => 'rw',
+    isa     => 'TileType',
+    default => 'obscured',
 );
 
 1;
