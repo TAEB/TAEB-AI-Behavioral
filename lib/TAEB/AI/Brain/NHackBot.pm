@@ -35,7 +35,10 @@ sub next_action {
         },
     );
 
-    return substr($path, 0, 1) if $path;
+    if ($path) {
+        $taeb->info("Exploring! $path");
+        return substr($path, 0, 1);
+    }
 
     # search
     ($to, $path) = TAEB::World::Path->max_match_level(
@@ -47,7 +50,11 @@ sub next_action {
         },
     );
 
-    return substr($path, 0, 1) if $path;
+    if ($path) {
+        $taeb->info("Searching! $path");
+        return substr($path, 0, 1);
+    }
+
 
     $self->current_tile->each_neighbor(sub {
         my $self = shift;
