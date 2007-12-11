@@ -35,6 +35,13 @@ sub update {
     # XXX: ugh. this needs to be smarter.
     $self->x($taeb->vt->x);
     $self->y($taeb->vt->y);
+
+    $level->step_on($x, $y);
+}
+
+sub current_tile {
+    my $self = shift;
+    $self->current_level->at($self->x, $self->y);
 }
 
 1;
