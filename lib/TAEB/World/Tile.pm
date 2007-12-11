@@ -104,5 +104,19 @@ sub step_on {
     $self->stepped_on($self->stepped_on + 1);
 }
 
+sub each_neighbor {
+    my $self = shift;
+    my $code = shift;
+
+    my ($x, $y) = ($self->y, $self->x);
+
+    for my $dy (-1 .. 1) {
+        for my $dx (-1 .. 1) {
+            # NOT skipping 0, 0
+            $code->($self->level->at($x + $dx, $y + $dy))
+        }
+    }
+}
+
 1;
 
