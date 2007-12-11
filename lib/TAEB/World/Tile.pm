@@ -37,6 +37,24 @@ has floor_glyph => (
     default => "\0",
 );
 
+has stepped_on => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 0,
+);
+
+has x => (
+    is       => 'rw',
+    isa      => 'Int',
+    required => 1,
+);
+
+has y => (
+    is       => 'rw',
+    isa      => 'Int',
+    required => 1,
+);
+
 sub update {
     my $self = shift;
     my $newglyph = shift;
@@ -69,6 +87,12 @@ sub is_walkable {
     return 1 if $self->type eq 'obscured' && $self->floor_glyph ne "\0";
 
     $self->floor_glyph =~ /[.,<>^\\_{#]/;
+}
+
+sub step_on {
+    my $self = shift;
+
+    $self->stepped_on($self->stepped_on + 1);
 }
 
 1;

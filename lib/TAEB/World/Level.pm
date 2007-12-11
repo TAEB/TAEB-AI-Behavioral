@@ -8,9 +8,9 @@ has tiles => (
     default => sub {
         my $self = shift;
         # ugly, but ok
-        [ map {
+        [ map { my $y = $_;
             [ map {
-                TAEB::World::Tile->new(level => $self)
+                TAEB::World::Tile->new(level => $self, x => $_, y => $y)
             } 0 .. 79 ]
         } 0 .. 23 ]
     },
