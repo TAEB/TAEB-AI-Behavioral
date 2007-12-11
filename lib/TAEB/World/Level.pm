@@ -42,7 +42,7 @@ sub update_tile {
     my $newglyph = shift;
 
     if ($newglyph eq '<' || $newglyph eq '>') {
-        my $stairs = TAEB::World::Tile::Stairs->new(level => $self, glyph => $newglyph);
+        my $stairs = TAEB::World::Tile::Stairs->new_from(tile => $self->tiles->[$y][$x], glyph => $newglyph);
         $self->tiles->[$y][$x] = $stairs;
     }
     else {
