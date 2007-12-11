@@ -3,8 +3,17 @@ package TAEB::World::Level;
 use Moose;
 
 has tiles => (
-    is  => 'rw',
-    isa => 'ArrayRef[ArrayRef[TAEB::World::Tile]]',
+    is      => 'rw',
+    isa     => 'ArrayRef[ArrayRef[TAEB::World::Tile]]',
+    default => sub {
+        my $self = shift;
+        # ugly, but ok
+        [ map {
+            [ map {
+                TAEB::World::Tile->new(level => $self)
+            } 0 .. 79 ]
+        } 0 .. 23 ]
+    },
 );
 
 has branch => (
