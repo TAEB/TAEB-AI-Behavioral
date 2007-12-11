@@ -135,8 +135,10 @@ sub first_match_level {
         for my $dy (-1 .. 1) {
             for my $dx (-1 .. 1) {
                 my $dir = direction($dx+1, $dy+1);
-                push @open, [ $level->at($x + $dx, $y + $dy), $path . $dir ]
-                    unless $closed[$x + $dx][$y + $dy];
+                my $next = $level->at($x + $dx, $y + $dy);
+                push @open, [ $next, $path . $dir ]
+                    if !$closed[$x + $dx][$y + $dy]
+                    && $next->is_walkable;
             }
         }
     }
