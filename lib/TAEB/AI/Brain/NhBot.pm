@@ -97,7 +97,8 @@ sub next_action {
         return $self->spin;
     }
     else {
-        $taeb->debug("Nothing interesting about " . $taeb->messages);
+        $taeb->debug("Nothing interesting about " . $taeb->messages)
+            unless $taeb->messages =~ /^\s*$/;
         return $self->random;
     }
 }
