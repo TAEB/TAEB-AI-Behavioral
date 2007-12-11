@@ -2,6 +2,7 @@
 package TAEB::Tile;
 use Moose;
 use Moose::Util::TypeConstraints 'enum';
+use TAEB::Util qw/tile_types glyph_to_type/;
 
 has level => (
     is       => 'rw',
@@ -16,7 +17,7 @@ has room => (
     weak_ref => 1,
 );
 
-enum TileType => TAEB::Util::tile_types();
+enum TileType => tile_types;
 
 has type => (
     is      => 'rw',
