@@ -27,5 +27,13 @@ has z => (
     isa => 'Int',
 );
 
+sub at {
+    my $self = shift;
+    my $x = shift;
+    my $y = shift;
+
+    return $self->tiles->[$y][$x];
+}
+
 1;
 
