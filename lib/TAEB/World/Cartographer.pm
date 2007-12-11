@@ -9,6 +9,16 @@ has dungeon => (
     required => 1,
 );
 
+has x => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has y => (
+    is => 'rw',
+    isa => 'Int',
+);
+
 sub update {
     my $self  = shift;
     my $taeb  = shift;
@@ -21,6 +31,10 @@ sub update {
             }
         }
     }
+
+    # XXX: ugh. this needs to be smarter.
+    $self->x($taeb->vt->x);
+    $self->y($taeb->vt->y);
 }
 
 1;
