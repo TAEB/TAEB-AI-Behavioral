@@ -10,8 +10,10 @@ has branches => (
 
         my @names = qw/dungeons gehennom mines quest
                        sokoban ludios vlad planes/;
-        { map { $_ => TAEB::World::Branch->new(name => $_, dungeon => $self) }
-              @names }
+        return {
+            map { $_ => TAEB::World::Branch->new(name => $_, dungeon => $self) }
+                @names
+          }
     },
 );
 
