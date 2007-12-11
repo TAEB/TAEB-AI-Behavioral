@@ -97,6 +97,14 @@ has logger =>
     },
 );
 
+has dungeon => (
+    is      => 'ro',
+    isa     => 'TAEB::World::Dungeon',
+    lazy    => 1,
+    default => sub { TAEB::World::Dungeon->new },
+    handles => [qw/current_level/],
+);
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
