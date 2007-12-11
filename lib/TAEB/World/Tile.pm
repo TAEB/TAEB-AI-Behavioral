@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::Tile;
+package TAEB::World::Tile;
 use Moose;
 use Moose::Util::TypeConstraints 'enum';
 use TAEB::Util qw/tile_types glyph_to_type/;
