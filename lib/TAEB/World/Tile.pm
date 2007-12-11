@@ -56,5 +56,20 @@ sub update {
         unless $type eq 'obscured';
 }
 
+sub has_monster {
+    my $self = shift;
+    $self->glyph =~ /[a-zA-Z@~&';:]/;
+}
+
+sub is_walkable {
+    my $self = shift;
+
+    # this is obscured and ISN'T solid rock, so it's probably walkable
+    # XXX: fish
+    return 1 if $self->type eq 'obscured' && $self->floor_glyph ne "\0";
+
+    $self->floor_glyph =~ /[.,<>^\\_{#]/;
+}
+
 1;
 
