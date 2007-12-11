@@ -26,6 +26,7 @@ sub next_action {
     return $fight
         if $fight;
 
+    # explore
     my ($to, $path) = TAEB::World::Path->first_match_level(
         $taeb->current_tile,
         sub {
@@ -34,6 +35,25 @@ sub next_action {
         },
     );
 
-    return substr($path, 0, 1) || ' ';
+    return substr($path, 0, 1) if $path;
+
+    # search
+    ($to, $path) = TAEB::World::Path->max_match_level(
+        $taeb->current_tile,
+        sub {
+            my ($tile, $path) = @_;
+            return undef if $tile->type ne 'wall';
+            return 1 / (($tile->searched + length $path) || 1);
+        },
+    );
+
+    return substr($path, 0, 1) if $path;
+
+    $self->current_tile->each_neighbor(sub {
+        my $self = shift;
+        $self->searched($self->searched + 1);
+    });
+
+    return 's';
 }
 
