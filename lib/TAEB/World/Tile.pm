@@ -55,6 +55,12 @@ has y => (
     required => 1,
 );
 
+has searched => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 0,
+);
+
 sub update {
     my $self = shift;
     my $newglyph = shift;
