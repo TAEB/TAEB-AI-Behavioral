@@ -32,6 +32,7 @@ requires       'Hash::Merge';
 
 # TAEB::Util
 requires       'Sub::Exporter';
+requires       'List::MoreUtils';
 
 build_requires 'Test::More';
 

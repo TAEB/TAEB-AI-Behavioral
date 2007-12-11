@@ -3,10 +3,10 @@ package TAEB::Util;
 use strict;
 use warnings;
 use Sub::Exporter -setup => {
-    exports => qw(tile_types glyph_to_type),
+    exports => [qw(tile_types glyph_to_type)],
 };
 
-use List::Utils 'uniq';
+use List::MoreUtils 'uniq';
 
 our %glyphs = (
     "\0" => 'obscured',
