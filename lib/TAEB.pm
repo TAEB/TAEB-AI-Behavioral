@@ -124,7 +124,7 @@ sub step {
 
     if ($self->logged_in) {
         $input .= $self->scraper->scrape($self);
-        $self->update_dungeon();
+        $self->update_dungeon($self);
 
         my $next_action = $self->brain->next_action($self);
         $self->debug("Sending '$next_action' to NetHack.");

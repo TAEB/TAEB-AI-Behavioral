@@ -11,6 +11,7 @@ has dungeon => (
 
 sub update {
     my $self  = shift;
+    my $taeb  = shift;
     my $level = $self->dungeon->current_level;
 
     for my $y (1 .. 21) {
