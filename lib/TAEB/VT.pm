@@ -76,7 +76,7 @@ sub at {
     my $x    = shift;
     my $y    = shift;
 
-    $self->row_plaintext($y, $x, $x + 1);
+    $self->row_plaintext($y, $x, $x);
 }
 
 1;
