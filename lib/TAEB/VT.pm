@@ -65,5 +65,19 @@ sub matches {
     defined $self->find_row(sub { $_[0] =~ $re });
 }
 
+=head2 at Int, Int -> Char
+
+Returns the character at the specified (row, col)
+
+=cut
+
+sub at {
+    my $self = shift;
+    my $x    = shift;
+    my $y    = shift;
+
+    $self->row_plaintext($y, $x, $x + 1);
+}
+
 1;
 
