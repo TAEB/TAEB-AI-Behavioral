@@ -2,6 +2,12 @@
 package TAEB::World::Branch;
 use Moose;
 
+has name => (
+    is       => 'rw',
+    isa      => 'Str',
+    required => 1,
+);
+
 has levels => (
     is  => 'rw',
     isa => 'ArrayRef[TAEB::World::Level]',
