@@ -26,15 +26,14 @@ sub next_action {
     return $fight
         if $fight;
 
-    my @possibilities;
-    $self->each_adjacent(sub {
-        my (undef, $taeb, $tile, $dir) = @_;
-        if ($tile->is_walkable) {
-            push @possibilities, $dir;
-        }
-    });
-    $taeb->info("Possible movements: @possibilities");
+    my ($to, $path) = TAEB::World::Path->first_match_level(
+        $taeb->current_tile,
+        sub {
+            my ($tile, $path) = @_;
+            return $tile->stepped_on == 0 && length $path;
+        },
+    );
 
-    return $possibilities[rand @possibilities] || (rand(2) < 1 ? ' ' : '.');
+    return substr($path, 0, 1) || ' ';
 }
 
