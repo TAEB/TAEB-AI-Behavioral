@@ -36,12 +36,12 @@ sub update {
     $self->x($taeb->vt->x);
     $self->y($taeb->vt->y);
 
-    $level->step_on($x, $y);
+    $level->step_on($self->x, $self->y);
 }
 
 sub current_tile {
     my $self = shift;
-    $self->current_level->at($self->x, $self->y);
+    $self->dungeon->current_level->at($self->x, $self->y);
 }
 
 1;
