@@ -82,6 +82,9 @@ sub has_monster {
 sub is_walkable {
     my $self = shift;
 
+    # XXX: yes. I know. shut up.
+    return 0 if $self->glyph eq "0";
+
     # this is obscured and ISN'T solid rock, so it's probably walkable
     # XXX: fish
     return 1 if $self->type eq 'obscured' && $self->floor_glyph ne "\0";
