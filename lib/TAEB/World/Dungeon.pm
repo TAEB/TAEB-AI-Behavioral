@@ -23,7 +23,10 @@ has current_level => (
 has cartographer => (
     is      => 'rw',
     isa     => 'TAEB::World::Cartographer',
-    default => sub { TAEB::World::Cartographer->new(dungeon => $dungeon) },
+    default => sub {
+        my $self = shift;
+        TAEB::World::Cartographer->new(dungeon => $self)
+    },
     handles => [qw/update/],
 );
 
