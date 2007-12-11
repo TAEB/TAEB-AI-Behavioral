@@ -9,5 +9,9 @@ has other_side => (
     weak_ref => 1,
 );
 
+has '+type' => (
+    default => 'stairs',
+);
+
 1;
 
