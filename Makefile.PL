@@ -30,6 +30,9 @@ requires       'Log::Dispatch';
 requires       'YAML';
 requires       'Hash::Merge';
 
+# TAEB::Util
+requires       'Sub::Exporter';
+
 build_requires 'Test::More';
 
 install_script 'bin/taeb';
