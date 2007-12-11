@@ -18,7 +18,7 @@ requires       'Moose';
 requires       'Getopt::Whatever';
 
 # parse escape codes into an addressable screen
-requires       'Term::VT102::ZeroBased';
+requires       'Term::VT102::ZeroBased' => 1.01;
 
 # human brain
 requires       'Term::ReadKey';
