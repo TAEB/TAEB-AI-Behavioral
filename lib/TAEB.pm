@@ -207,12 +207,14 @@ sub keypress {
     my $self = shift;
     my $c = shift;
 
+    # refresh modules
     if ($c eq 'r') {
         require Module::Refresh;
         Module::Refresh->refresh;
         return "Modules refreshed. You may have to write and do this again.";
     }
 
+    # pause for a key
     if ($c eq 'p') {
         Term::ReadKey::ReadKey(0);
         return undef;
