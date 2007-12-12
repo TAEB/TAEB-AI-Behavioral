@@ -213,6 +213,13 @@ sub keypress {
         return "Modules refreshed. You may have to write and do this again.";
     }
 
+    if ($c eq 'p') {
+        Term::ReadKey::ReadKey(0);
+        return undef;
+    }
+
+
+
     return "Unknown command '$c'";
 }
 
