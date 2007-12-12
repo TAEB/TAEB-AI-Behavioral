@@ -55,40 +55,6 @@ sub BUILD {
                                'p';
 }
 
-=head2 timeout Seconds, CODE
-
-Fun fact! IO::Socket::INET's timeout code, as of version 1.31, is COMMENTED OUT
-
-So this code will wrap a sub with the usual timeout code. If a timeout occurs,
-undef will be returned. Otherwise, the return value of the sub will be
-returned.
-
-=cut
-
-sub timeout {
-    my $seconds = shift;
-    my $sub = shift;
-
-    my @ret;
-    eval {
-        local $SIG{ALRM} = sub { die "alarm\n" };
-        alarm $seconds;
-
-        if (wantarray) {
-            @ret = $sub->();
-        }
-        else {
-            $ret[0] = $sub->();
-        }
-        alarm 0;
-    };
-
-    alarm 0;
-    die $@ if $@ && $@ !~ /^alarm\n/;
-
-    return wantarray ? @ret : $ret[0];
-}
-
 =head2 read -> STRING
 
 This will read from the socket. It will die if an error occurs.
@@ -117,7 +83,7 @@ sub read {
     $self->socket->do(chr(99));
     ${*{$self->socket}}{got_pong} = 0;
 
-    timeout 10 => sub {
+    eval {
         while (1) {
             my $b;
             defined $self->socket->recv($b, 4096, 0)
@@ -126,6 +92,8 @@ sub read {
             die "alarm\n" if ${*{$self->socket}}{got_pong};
         }
     };
+
+    die $@ if $@ !~ /^alarm\n/;
 
     return $buffer;
 }
@@ -140,9 +108,7 @@ sub write {
     my $self = shift;
     my $text = shift;
 
-    timeout 1 => sub {
-        print {$self->socket} $text;
-    };
+    print {$self->socket} $text;
 }
 
 =head2 telnet_negotiation OPTION
