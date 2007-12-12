@@ -26,6 +26,18 @@ sub next_action {
     return $fight
         if $fight;
 
+    # kick down doors
+    $self->each_adjacent(sub {
+        my (undef, $taeb, $tile, $dir) = @_;
+        if ($tile->type eq 'door' && $tile->floor_glyph eq ']') {
+            $taeb->info("Oh dear! I see a wood board monster in the $dir direction.");
+            $fight = chr(4) . $dir;
+        }
+    });
+
+    return $fight
+        if $fight;
+
     # explore
     my ($to, $path) = TAEB::World::Path->first_match_level(
         $taeb->current_tile,
