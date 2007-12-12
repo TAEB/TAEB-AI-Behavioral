@@ -104,6 +104,8 @@ sub redraw {
         $out .= "\e[${y}H" . join '', @chars;
     }
 
+    $out .= sprintf "\e[%d;%dH", $self->y, $self->x;
+
     return $out;
 }
 
