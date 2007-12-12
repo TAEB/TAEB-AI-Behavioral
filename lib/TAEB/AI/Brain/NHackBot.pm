@@ -78,9 +78,8 @@ sub next_action {
             sub { shift->floor_glyph eq '>' },
         );
 
-        $main::taeb->info("Heading to the stairs: $path");
-
         if ($path) {
+            $main::taeb->info("Heading to the stairs: $path");
             return substr($path, 0, 1);
         }
     }
