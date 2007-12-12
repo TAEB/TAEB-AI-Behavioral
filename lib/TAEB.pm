@@ -201,7 +201,7 @@ sub keypress {
     my $self = shift;
     my $c = shift;
 
-    return '';
+    return "Unknown command '$c'";
 }
 
 1;
