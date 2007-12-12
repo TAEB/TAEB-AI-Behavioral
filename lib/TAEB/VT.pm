@@ -101,10 +101,12 @@ sub redraw {
                 = $self->attr_unpack($attrs[$_]);
             $chars[$_] = $self->attr_to_ansi(%attr) . $chars[$_];
         }
-        $out .= "\e[${y}H" . join '', @chars;
+        $out .= sprintf "\e[%dH%s",
+                    $y + 1,
+                    join '', @chars;
     }
 
-    $out .= sprintf "\e[%d;%dH", $self->y, $self->x;
+    $out .= sprintf "\e[%d;%dH", $self->y + 1, $self->x + 1;
 
     return $out;
 }
