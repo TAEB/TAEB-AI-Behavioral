@@ -73,6 +73,7 @@ sub check_dlvl {
         or $main::taeb->error("Unable to parse the botl for dlvl: ".$main::taeb->vt->row_plaintext(23));
 
     my $dlvl = $1;
+    my $level = $self->dungeon->current_level;
 
     if ($level->z != $dlvl) {
         $main::taeb->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
