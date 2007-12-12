@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use lib 'lib';
 use Getopt::Whatever;
+use Term::ReadKey;
+
 use TAEB;
 use TAEB::Config;
 $| = 1;
@@ -41,5 +43,17 @@ my $taeb = TAEB->new(interface => $interface, brain => $brain, config => $config
 $brain->taeb($taeb);
 
 $SIG{__WARN__} = sub { $taeb->warning(@_) };
-print $taeb->step while 1;
+
+ReadMode 3;
+END { ReadMode 0 }
+
+while (1) {
+    print $taeb->step;
+    my $c = ReadMode -1;
+    if (defined $c) {
+        print $taeb->keypress($c);
+        sleep 3;
+        print $taeb->redraw();
+    }
+}
 
