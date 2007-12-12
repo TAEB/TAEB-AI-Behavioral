@@ -120,6 +120,12 @@ has read_wait => (
     default => -1,
 );
 
+has info_to_screen => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
@@ -230,6 +236,12 @@ sub keypress {
     if ($c eq 's') {
         my $wait = $self->read_wait($self->read_wait == -1 ? 0 : -1);
         return "Single step mode " . ($wait ? "disabled." : "enabled.");
+    }
+
+    # turn on/off info to screen
+    if ($c eq 'i') {
+        $self->info_to_screen(!$self->info_to_screen);
+        return "Info to screen " . ($self->info_to_screen ? "on." : "off.");
     }
 
     # space is always a noncommand
