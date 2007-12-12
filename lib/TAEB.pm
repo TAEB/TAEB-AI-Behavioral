@@ -113,6 +113,12 @@ has dungeon => (
     },
 );
 
+has read_wait => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => -1,
+);
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
