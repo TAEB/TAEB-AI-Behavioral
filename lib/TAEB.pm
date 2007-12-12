@@ -201,6 +201,12 @@ sub keypress {
     my $self = shift;
     my $c = shift;
 
+    if ($c eq 'r') {
+        require Module::Refresh;
+        Module::Refresh->refresh;
+        return "Modules refreshed. You may have to write and do this again.";
+    }
+
     return "Unknown command '$c'";
 }
 
