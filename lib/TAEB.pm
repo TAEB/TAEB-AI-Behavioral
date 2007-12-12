@@ -221,6 +221,8 @@ sub keypress {
     }
 
 
+    # space is always a noncommand
+    return if $c eq ' ';
 
     return "Unknown command '$c'";
 }
