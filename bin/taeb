@@ -49,7 +49,7 @@ END { ReadMode 0 }
 
 while (1) {
     print $taeb->step;
-    my $c = ReadKey -1;
+    my $c = ReadKey $taeb->read_wait;
     if (defined $c) {
         print "\e[2H\e[44m".$taeb->keypress($c);
         sleep 3;
