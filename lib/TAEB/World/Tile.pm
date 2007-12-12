@@ -82,6 +82,11 @@ sub update {
 
 sub has_monster {
     my $self = shift;
+
+    # rationale: TAEB is no monster, he's just misunderstood
+    return 0 if $self->x == $self->level->branch->dungeon->x
+             && $self->y == $self->level->branch->dungeon->y;
+
     $self->glyph =~ /[a-zA-Z@~&';:]/;
 }
 
