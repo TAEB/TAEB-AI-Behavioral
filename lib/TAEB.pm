@@ -223,7 +223,7 @@ sub keypress {
     # turn on/off step mode
     if ($c eq 's') {
         my $wait = $self->read_wait($self->read_wait == -1 ? 0 : -1);
-        return "Single step mode " . ($wait ? "enabled." : "disabled.");
+        return "Single step mode " . ($wait ? "disabled." : "enabled.");
     }
 
     # space is always a noncommand
