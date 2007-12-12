@@ -51,9 +51,12 @@ while (1) {
     print $taeb->step;
     my $c = ReadKey $taeb->read_wait;
     if (defined $c) {
-        print "\e[2H\e[44m".$taeb->keypress($c);
-        sleep 3;
-        print $taeb->redraw();
+        my $out = $taeb->keypress($c);
+        if (defined $out) {
+            print "\e[2H\e[44m$out";
+            sleep 3;
+            print $taeb->redraw();
+        }
     }
 }
 
