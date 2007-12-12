@@ -55,8 +55,7 @@ sub next_action {
         return substr($path, 0, 1);
     }
 
-
-    $self->current_tile->each_neighbor(sub {
+    $taeb->current_tile->each_neighbor(sub {
         my $self = shift;
         $self->searched($self->searched + 1);
     });
