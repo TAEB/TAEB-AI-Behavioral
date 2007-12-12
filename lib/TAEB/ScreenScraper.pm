@@ -9,20 +9,19 @@ has messages => (
 
 sub scrape {
     my $self = shift;
-    my $taeb = shift;
     my $out = '';
 
     # first, clear old data
-    $self->clear($taeb);
+    $self->clear;
 
     # handle --More--
-    $out .= $self->handle_more($taeb);
+    $out .= $self->handle_more;
 
     # handle menus
-    $out .= $self->handle_menus($taeb);
+    $out .= $self->handle_menus;
 
     # handle other text
-    $out .= $self->handle_fallback($taeb);
+    $out .= $self->handle_fallback;
 
     # get rid of all the redundant spaces
     local $_ = $self->messages;
@@ -34,24 +33,22 @@ sub scrape {
 
 sub clear {
     my $self = shift;
-    my $taeb = shift;
 
     $self->messages('');
 }
 
 sub handle_more {
     my $self = shift;
-    my $taeb = shift;
     my $out = '';
 
     # while there's a --More-- on the screen..
-    while ($taeb->vt->contains("--More--")) {
+    while ($main::taeb->vt->contains("--More--")) {
         # add the text to the buffer
-        $self->messages($self->messages . $taeb->topline);
+        $self->messages($self->messages . $main::taeb->topline);
 
         # try to get rid of the --More--
-        $taeb->interface->write(' ');
-        $out .= $taeb->process_input();
+        $main::taeb->interface->write(' ');
+        $out .= $main::taeb->process_input();
     }
 
     return $out;
@@ -59,14 +56,13 @@ sub handle_more {
 
 sub handle_menus {
     my $self = shift;
-    my $taeb = shift;
     my $out = '';
 
     # while there's a menu on the screen..
-    while ($taeb->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
+    while ($main::taeb->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
         # try to get rid of it
-        $taeb->interface->write(' ');
-        $out .= $taeb->process_input();
+        $main::taeb->interface->write(' ');
+        $out .= $main::taeb->process_input();
     }
 
     return $out;
@@ -74,8 +70,7 @@ sub handle_menus {
 
 sub handle_fallback {
     my $self = shift;
-    my $taeb = shift;
-    $self->messages($self->messages . $taeb->topline);
+    $self->messages($self->messages . $main::taeb->topline);
     return '';
 }
 

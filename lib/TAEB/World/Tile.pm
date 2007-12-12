@@ -84,8 +84,8 @@ sub has_monster {
     my $self = shift;
 
     # rationale: TAEB is no monster, he's just misunderstood
-    return 0 if $self->x == $self->level->branch->dungeon->x
-             && $self->y == $self->level->branch->dungeon->y;
+    return 0 if $self->x == $main::taeb->x
+             && $self->y == $main::taeb->y;
 
     $self->glyph =~ /[a-zA-Z@~&';:]/;
 }

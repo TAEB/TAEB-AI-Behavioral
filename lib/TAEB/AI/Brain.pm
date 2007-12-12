@@ -3,12 +3,6 @@ package TAEB::AI::Brain;
 use Moose;
 use TAEB::Util 'direction';
 
-has taeb => (
-    is       => 'rw',
-    isa      => 'TAEB',
-    weak_ref => 1,
-);
-
 =head1 NAME
 
 TAEB::AI::Brain - how TAEB tactically extracts its amulets
@@ -38,7 +32,7 @@ sub next_action {
     die "You must override the 'next_action' method in TAEB::AI::Brain.";
 }
 
-=head2 institute TAEB
+=head2 institute
 
 This is the method called when TAEB begins using this brain. This is guaranteed
 to be called before any calls to next_action.
@@ -51,8 +45,8 @@ sub institute {
 =head2 each_adjacent CODE
 
 This is called for each tile adjacent to TAEB. The coderef will receive three
-arguments: the brain object, the TAEB object, the tile object, and the vi key
-corresponding to the direction.
+arguments: the brain object, the tile object, and the vi key corresponding to
+the direction.
 
 =cut
 
@@ -60,14 +54,17 @@ sub each_adjacent {
     my $self = shift;
     my $code = shift;
 
-    my $taeb = $self->taeb;
-
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
             next unless $dy || $dx; # skip 0, 0
             my $dir = direction($dx+1, $dy+1);
-            my $tile = $taeb->current_level->at($dx + $taeb->x, $dy + $taeb->y);
-            $code->($self, $taeb, $tile, $dir);
+
+            my $tile = $main::taeb->current_level->at(
+                $dx + $main::taeb->x,
+                $dy + $main::taeb->y,
+            );
+
+            $code->($self, $tile, $dir);
         }
     }
 }

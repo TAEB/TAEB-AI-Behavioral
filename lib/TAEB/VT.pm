@@ -17,7 +17,7 @@ sub topline {
 =head2 find_row CODE
 
 This is used to iterate over the virtual terminal's rows, looking for something.
-The callback receives the contents of each row in turn.
+The callback receives the contents of each row, and its index, in turn.
 
 If the callback returns a true value, then the find_row method will return
 the current row's index.
@@ -32,7 +32,7 @@ sub find_row {
     my $cb = shift;
 
     for my $row (0 .. $self->rows - 1) {
-        return $row if $cb->($self->row_plaintext($row));
+        return $row if $cb->($self->row_plaintext($row), $row);
     }
 
     return;

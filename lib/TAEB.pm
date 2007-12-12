@@ -35,7 +35,7 @@ has brain =>
     required => 1,
     trigger  => sub {
         my ($self, $brain) = @_;
-        $brain->institute($self);
+        $brain->institute;
     },
 );
 
@@ -107,6 +107,7 @@ has dungeon => (
         current_level  => 'current_level',
         current_tile   => 'current_tile',
         update_dungeon => 'update',
+        map_like       => 'map_like',
         x              => 'x',
         y              => 'y',
         z              => 'z',
@@ -133,10 +134,10 @@ sub step {
     my $input = $self->process_input;
 
     if ($self->logged_in) {
-        $input .= $self->scraper->scrape($self);
-        $self->update_dungeon($self);
+        $input .= $self->scraper->scrape;
+        $self->update_dungeon;
 
-        my $next_action = $self->brain->next_action($self);
+        my $next_action = $self->brain->next_action;
         $self->debug("Sending '$next_action' to NetHack.");
         $self->interface->write($next_action);
     }

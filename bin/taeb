@@ -39,8 +39,11 @@ sub load_from_argv {
 my $interface = load_from_argv('Interface', 'Local');
 my $brain     = load_from_argv('AI::Brain', 'RandomWalk');
 
-my $taeb = TAEB->new(interface => $interface, brain => $brain, config => $config);
-$brain->taeb($taeb);
+our $taeb = TAEB->new(
+    interface => $interface,
+    brain     => $brain,
+    config    => $config,
+);
 
 $SIG{__WARN__} = sub { $taeb->warning(@_) };
 
