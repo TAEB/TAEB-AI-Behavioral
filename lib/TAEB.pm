@@ -210,9 +210,14 @@ sub keypress {
 
     # refresh modules
     if ($c eq 'r') {
+        if ($INC{"Module/Refresh.pm"}) {
+            Module::Refresh->refresh;
+            return "Modules refreshed.";
+        }
+
         require Module::Refresh;
         Module::Refresh->refresh;
-        return "Modules refreshed. You may have to write and do this again.";
+        return "Modules refreshed. You will have to write and do this again.";
     }
 
     # pause for a key
