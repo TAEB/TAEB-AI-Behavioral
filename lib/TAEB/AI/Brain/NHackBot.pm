@@ -38,8 +38,19 @@ sub next_action {
     return $fight
         if $fight;
 
-    # explore
+    # track down monsters
     my ($to, $path) = TAEB::World::Path->first_match_level(
+        $taeb->current_tile,
+        sub { shift->has_monster },
+    );
+
+    if ($path) {
+        $taeb->info("I've got a bone to pick with a " . $to->glyph . "! $path");
+        return substr($path, 0, 1);
+    }
+
+    # explore
+    ($to, $path) = TAEB::World::Path->first_match_level(
         $taeb->current_tile,
         sub {
             my ($tile, $path) = @_;
