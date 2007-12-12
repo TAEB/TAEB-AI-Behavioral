@@ -190,5 +190,19 @@ sub process_input {
     return $input;
 }
 
+=head2 keypress Str
+
+This accepts a key (such as one typed by the meatbag at the terminal) and does
+something with it.
+
+=cut
+
+sub keypress {
+    my $self = shift;
+    my $c = shift;
+
+    return '';
+}
+
 1;
 
