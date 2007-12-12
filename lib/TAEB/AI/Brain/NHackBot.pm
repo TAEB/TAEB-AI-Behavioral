@@ -65,6 +65,26 @@ sub next_action {
         return substr($path, 0, 1);
     }
 
+    # if we're on a >, go down
+    if ($main::taeb->current_tile->floor_glyph eq '>') {
+        $main::taeb->info("Descending!");
+        return '>';
+    }
+
+    # if there's a >, go to it
+    if ($main::taeb->map_like(qr/>/)) {
+        ($to, $path) = TAEB::World::Path->first_match_level(
+            $main::taeb->current_tile,
+            sub { shift->floor_glyph eq '>' },
+        );
+
+        $main::taeb->info("Heading to the stairs: $path");
+
+        if ($path) {
+            return substr($path, 0, 1);
+        }
+    }
+
     # search
     ($to, $path) = TAEB::World::Path->max_match_level(
         $main::taeb->current_tile,
