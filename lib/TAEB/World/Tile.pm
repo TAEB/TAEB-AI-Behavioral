@@ -67,6 +67,9 @@ sub update {
 
     $self->glyph($newglyph);
 
+    # dark rooms
+    return if $self->glyph eq "\0" && $self->floor_glyph eq '.';
+
     # if glyph_to_type returns false, it's not a dungeon feature, it's an item
     # or monster
     my $type = glyph_to_type($newglyph) || 'obscured';
