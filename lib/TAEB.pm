@@ -244,6 +244,12 @@ sub keypress {
         return "Info to screen " . ($self->info_to_screen ? "on." : "off.");
     }
 
+    # user input (for emergencies only)
+    if ($c eq "\e") {
+        $self->interface->write(Term::ReadKey::ReadKey(0));
+        return undef;
+    }
+
     # space is always a noncommand
     return if $c eq ' ';
 
