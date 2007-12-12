@@ -79,5 +79,85 @@ sub at {
     $self->row_plaintext($y, $x, $x);
 }
 
+=head2 redraw -> Str
+
+Returns a string that, when printed, will redraw the entire screen, directly as
+NetHack looks.
+
+=cut
+
+sub redraw {
+    my $self = shift;
+    my $out = "\e[H\e[2J";
+
+    for my $y (0 .. 23) {
+        my @attrs = $self->row_attr($y) =~ /../g;
+        my @chars = split '', $self->row_plaintext($y);
+
+        for (0..$#attrs)
+        {
+            my %attr;
+            @attr{qw/fg bg bold faint standout underline blink reverse/}
+                = $self->attr_unpack($attrs[$_]);
+            $chars[$_] = $self->attr_to_ansi(%attr) . $chars[$_];
+        }
+        $out .= "\e[${y}H" . join '', @chars;
+    }
+
+    return $out;
+}
+
+=head2 attr_to_ansi Hash -> Str
+
+Takes a hash with the following keys, and returns the ANSI escape code that can
+be used to get those keys set.
+
+=over 4
+
+=item fg
+
+=item bg
+
+=item bold
+
+=item faint
+
+=item standout
+
+=item underline
+
+=item blink
+
+=item reverse
+
+=back
+
+=cut
+
+sub attr_to_ansi
+{
+    my $self = shift;
+    my %args = @_;
+
+    my $fg = 3 . ($args{fg} || 7);
+    $fg =~ s/^3(3.)/$1/;
+
+    my $bg = 4 . ($args{bg} || 0);
+    $bg =~ s/^4(4.)/$1/;
+
+    my $color = "\e[0";
+    $color .= ";1" if $args{bold};
+    $color .= ";2" if $args{faint};
+    $color .= ";3" if $args{standout};
+    $color .= ";4" if $args{underline};
+    $color .= ";5" if $args{blink};
+    $color .= ";7" if $args{reverse};
+
+    $color .= ";$fg" if $fg != 37;
+    $color .= ";$bg" if $bg != 40;
+
+    return $color . 'm';
+}
+
 1;
 
