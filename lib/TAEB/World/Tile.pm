@@ -93,7 +93,7 @@ sub is_walkable {
 
     # this is obscured and ISN'T solid rock, so it's probably walkable
     # XXX: fish
-    return 1 if $self->type eq 'obscured' && $self->floor_glyph ne "\0";
+    return 1 if $self->type eq 'obscured' && $self->glyph ne "\0";
 
     $self->floor_glyph =~ /[.,<>^\\_{#]/;
 }
