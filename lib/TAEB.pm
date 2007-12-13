@@ -248,6 +248,46 @@ sub keypress {
         return undef;
     }
 
+    # console
+    if ($c eq '~') {
+        eval {
+            # clear the top half of the screen
+            for (1..13) {
+                print "\e[${_}H\e[K";
+            }
+            # silly banner
+            print "\e[1;37m+"
+                . "\e[1;30m" . ('-' x 50)
+                . "\e[1;37m[ "
+                . "\e[1;36mT\e[0;36mAEB \e[1;36mC\e[0;36monsole"
+                . " \e[1;37m]"
+                . "\e[1;30m" . ('-' x 12)
+                . "\e[1;37m+"
+                . "\e[m";
+
+            # make the top half scroll
+            print "\e[1;12r\e[12;1H";
+
+            # turn off Term::ReadKey
+            Term::ReadKey::ReadMode(0);
+
+            no warnings 'redefine';
+            require Devel::REPL::Script;
+            Devel::REPL::Script->new->run;
+        };
+
+        # turn on Term::ReadKey
+        Term::ReadKey::ReadMode(3);
+
+        # unscroll terminal
+        print "\e3";
+
+        # back to normal
+        print $main::taeb->redraw;
+
+        return;
+    }
+
     # space is always a noncommand
     return if $c eq ' ';
 
