@@ -172,6 +172,7 @@ sub max_match_level {
 
         for (@deltas) {
             my ($dx, $dy) = @$_;
+            next if $closed[$x + $dx][$y + $dy];
 
             # can't move diagonally off of doors
             next if $tile->type eq 'door'
@@ -185,8 +186,7 @@ sub max_match_level {
                     && $dx && $dy;
 
             push @open, [ $next, $path . $dir ]
-                if !$closed[$x + $dx][$y + $dy]
-                && $next->is_walkable;
+                if $next->is_walkable;
         }
     }
 
