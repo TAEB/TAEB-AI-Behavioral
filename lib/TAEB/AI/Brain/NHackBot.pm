@@ -12,6 +12,10 @@ TAEB::AI::Brain::NHackBot - Know thy roots
 sub next_action {
     my $self = shift;
 
+    if ($main::taeb->vt->row_plaintext(23) =~ /Fain/) {
+        return "#pray\n";
+    }
+
     my $fight;
 
     $self->each_adjacent(sub {
