@@ -9,26 +9,23 @@ has messages => (
 
 sub scrape {
     my $self = shift;
-    my $out = '';
 
     # first, clear old data
     $self->clear;
 
     # handle --More--
-    $out .= $self->handle_more;
+    $self->handle_more;
 
     # handle menus
-    $out .= $self->handle_menus;
+    $self->handle_menus;
 
     # handle other text
-    $out .= $self->handle_fallback;
+    $self->handle_fallback;
 
     # get rid of all the redundant spaces
     local $_ = $self->messages;
     s/\s+/ /g;
     $self->messages($_);
-
-    return $out;
 }
 
 sub clear {
@@ -39,7 +36,6 @@ sub clear {
 
 sub handle_more {
     my $self = shift;
-    my $out = '';
 
     # while there's a --More-- on the screen..
     while ($main::taeb->vt->contains("--More--")) {
@@ -48,30 +44,24 @@ sub handle_more {
 
         # try to get rid of the --More--
         $main::taeb->interface->write(' ');
-        $out .= $main::taeb->process_input();
+        $main::taeb->process_input();
     }
-
-    return $out;
 }
 
 sub handle_menus {
     my $self = shift;
-    my $out = '';
 
     # while there's a menu on the screen..
     while ($main::taeb->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
         # try to get rid of it
         $main::taeb->interface->write(' ');
-        $out .= $main::taeb->process_input();
+        $main::taeb->process_input();
     }
-
-    return $out;
 }
 
 sub handle_fallback {
     my $self = shift;
     $self->messages($self->messages . $main::taeb->topline);
-    return '';
 }
 
 1;

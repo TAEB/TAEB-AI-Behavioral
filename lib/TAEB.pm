@@ -137,10 +137,10 @@ It will return any input it receives, so you can follow along at home.
 sub step {
     my $self = shift;
 
-    my $input = $self->process_input;
+    print $self->process_input;
 
     if ($self->logged_in) {
-        $input .= $self->scraper->scrape;
+        print $self->scraper->scrape;
         $self->update_dungeon;
 
         my $next_action = $self->brain->next_action;
@@ -150,9 +150,6 @@ sub step {
     else {
         $self->log_in;
     }
-
-    return '' if !defined $input;
-    return $input;
 }
 
 =head2 log_in
@@ -187,9 +184,9 @@ sub log_in {
 
 =head2 process_input
 
-This will read the interface for input and update the VT object.
+This will read the interface for input, update the VT object, and print.
 
-It will return any input it receives, so C<step> can follow along at home.
+It will also return any input it receives.
 
 =cut
 
@@ -199,6 +196,7 @@ sub process_input {
     my $input = $self->interface->read;
 
     $self->vt->process($input);
+    print $input;
 
     return $input;
 }
