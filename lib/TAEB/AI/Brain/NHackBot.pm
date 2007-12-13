@@ -32,7 +32,7 @@ sub next_action {
     # kick down doors
     $self->each_adjacent(sub {
         my (undef, $tile, $dir) = @_;
-        if ($tile->type eq 'door' && $tile->floor_glyph eq ']') {
+        if ($tile->glyph eq ']') {
             $main::taeb->info("Oh dear! I see a wood board monster in the $dir direction.");
             $fight = chr(4) . $dir;
         }
