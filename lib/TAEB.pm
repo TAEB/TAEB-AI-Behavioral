@@ -26,6 +26,7 @@ has interface =>
     is       => 'rw',
     isa      => 'TAEB::Interface',
     required => 1,
+    handles  => [qw/read write/],
 );
 
 has brain =>
@@ -167,7 +168,7 @@ sub step {
 
         my $next_action = $self->brain->next_action;
         $self->debug("Sending '$next_action' to NetHack.");
-        $self->interface->write($next_action);
+        $self->write($next_action);
     }
     else {
         $self->log_in;
@@ -182,22 +183,22 @@ sub log_in {
     my $self = shift;
 
     if ($self->vt->contains("Shall I pick a character's ")) {
-        $self->interface->write('n');
+        $self->write('n');
     }
     elsif ($self->vt->contains("Choosing Character's Role")) {
-        $self->interface->write($self->config->get_role);
+        $self->write($self->config->get_role);
     }
     elsif ($self->vt->contains("Choosing Race")) {
-        $self->interface->write($self->config->get_race);
+        $self->write($self->config->get_race);
     }
     elsif ($self->vt->contains("Choosing Gender")) {
-        $self->interface->write($self->config->get_gender);
+        $self->write($self->config->get_gender);
     }
     elsif ($self->vt->contains("Choosing Alignment")) {
-        $self->interface->write($self->config->get_alignment);
+        $self->write($self->config->get_alignment);
     }
     elsif ($self->vt->contains("Restoring save file..")) {
-        $self->interface->write(' ');
+        $self->write(' ');
     }
     elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
         $self->logged_in(1);
@@ -215,7 +216,7 @@ It will also return any input it receives.
 sub process_input {
     my $self = shift;
 
-    my $input = $self->interface->read;
+    my $input = $self->read;
 
     $self->vt->process($input);
     $self->out($input);
@@ -269,7 +270,7 @@ sub keypress {
 
     # user input (for emergencies only)
     if ($c eq "\e") {
-        $self->interface->write(Term::ReadKey::ReadKey(0));
+        $self->write(Term::ReadKey::ReadKey(0));
         return undef;
     }
 

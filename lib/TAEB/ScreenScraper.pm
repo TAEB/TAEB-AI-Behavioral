@@ -43,7 +43,7 @@ sub handle_more {
         $self->messages($self->messages . $main::taeb->topline);
 
         # try to get rid of the --More--
-        $main::taeb->interface->write(' ');
+        $main::taeb->write(' ');
         $main::taeb->process_input();
     }
 }
@@ -54,7 +54,7 @@ sub handle_menus {
     # while there's a menu on the screen..
     while ($main::taeb->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
         # try to get rid of it
-        $main::taeb->interface->write(' ');
+        $main::taeb->write(' ');
         $main::taeb->process_input();
     }
 }
@@ -64,7 +64,7 @@ sub handle_fallback {
 
     if ($main::taeb->topline =~ /^Really attack /) {
         # try to get rid of it
-        $main::taeb->interface->write('y');
+        $main::taeb->write('y');
         $main::taeb->process_input();
     }
 
