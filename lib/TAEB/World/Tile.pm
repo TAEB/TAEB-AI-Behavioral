@@ -28,13 +28,13 @@ has type => (
 has glyph => (
     is      => 'rw',
     isa     => 'Str',
-    default => "\0",
+    default => " ",
 );
 
 has floor_glyph => (
     is      => 'rw',
     isa     => 'Str',
-    default => "\0",
+    default => " ",
 );
 
 has stepped_on => (
@@ -68,7 +68,7 @@ sub update {
     $self->glyph($newglyph);
 
     # dark rooms
-    return if $self->glyph eq "\0" && $self->floor_glyph eq '.';
+    return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
 
     # if glyph_to_type returns false, it's not a dungeon feature, it's an item
     # or monster. we don't want to update the floor_glyph or tile type.
@@ -101,7 +101,7 @@ sub is_walkable {
 
     # this is obscured and ISN'T solid rock, so it's probably walkable
     # XXX: fish
-    return 1 if $self->type eq 'obscured' && $self->glyph ne "\0";
+    return 1 if $self->type eq 'obscured' && $self->glyph ne " ";
 
     $self->floor_glyph =~ /[.,<>^\\_{#]/;
 }

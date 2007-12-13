@@ -9,8 +9,7 @@ use Sub::Exporter -setup => {
 use List::MoreUtils 'uniq';
 
 our %glyphs = (
-    "\0" => 'obscured',
-    ' '  => 'rock',
+    ' '  => 'obscured',
     '|'  => 'wall',
     '-'  => 'wall',
     '.'  => 'floor',
