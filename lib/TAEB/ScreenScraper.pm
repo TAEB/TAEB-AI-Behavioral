@@ -61,6 +61,13 @@ sub handle_menus {
 
 sub handle_fallback {
     my $self = shift;
+
+    if ($main::taeb->topline =~ /^Really attack /) {
+        # try to get rid of it
+        $main::taeb->interface->write('y');
+        $main::taeb->process_input();
+    }
+
     $self->messages($self->messages . $main::taeb->topline);
 }
 
