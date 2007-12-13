@@ -140,7 +140,7 @@ sub step {
     print $self->process_input;
 
     if ($self->logged_in) {
-        print $self->scraper->scrape;
+        $self->scraper->scrape;
         $self->update_dungeon;
 
         my $next_action = $self->brain->next_action;
