@@ -34,8 +34,12 @@ requires       'Hash::Merge';
 requires       'Sub::Exporter';
 requires       'List::MoreUtils';
 
-# ttyrec output
-requires       'Tie::Handle::TtyRec';
+features(
+    'ttyrec output' => [
+        -default => 1,
+        requires('Tie::Handle::TtyRec' => '0.02'),
+    ],
+);
 
 build_requires 'Test::More';
 

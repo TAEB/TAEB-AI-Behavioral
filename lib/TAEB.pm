@@ -3,7 +3,6 @@ package TAEB;
 use Moose;
 use Log::Dispatch;
 use Log::Dispatch::File;
-use Tie::Handle::TtyRec;
 
 use TAEB::Util;
 use TAEB::VT;
@@ -130,7 +129,9 @@ has info_to_screen => (
 has ttyrec => (
     is => 'rw',
     isa => 'GlobRef',
+    lazy => 1,
     default => sub {
+        require Tie::Handle::TtyRec;
         my ($sec, $min, $hour, $day, $month, $year) = localtime;
         $year += 1900;
         ++$month;
@@ -351,7 +352,9 @@ sub out {
     }
 
     print $out;
-    $self->ttyrec->print($out);
+
+    $self->ttyrec->print($out)
+        if $main::taeb->config->contents->{ttyrec};
 }
 
 1;
