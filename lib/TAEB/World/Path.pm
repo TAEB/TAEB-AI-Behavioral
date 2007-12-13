@@ -157,10 +157,10 @@ sub max_match_level {
 
         my $score = $code->($tile, $path);
         if (defined($score) && $score eq 'q') {
-            $main::taeb->out
+            $main::taeb->out(
                 "\e[%d;%dH\e[m",
                 $main::taeb->y+1,
-                $main::taeb->x+1
+                $main::taeb->x+1)
                     if $debug;
             return ($tile, $path);
         }
@@ -193,21 +193,21 @@ sub max_match_level {
 
                 if ($next->is_walkable) {
                     push @open, [ $next, $path . $dir ];
-                    $main::taeb->out "\e[%d;%dH\e[%dm%s",
+                    $main::taeb->out("\e[%d;%dH\e[%dm%s",
                         $y + 1 + $dy,
                         $x + 1 + $dx,
                         31 + $debug_color,
-                        $next->glyph
+                        $next->glyph)
                             if $debug;
                 }
             }
         }
     }
 
-    $main::taeb->out
+    $main::taeb->out(
         "\e[%d;%dH\e[m",
         $main::taeb->y+1,
-        $main::taeb->x+1
+        $main::taeb->x+1)
             if $debug;
     return ($max_tile, $max_path);
 }
