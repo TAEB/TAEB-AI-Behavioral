@@ -11,11 +11,11 @@ has level => (
     required => 1,
 );
 
-has room => (
-    is       => 'rw',
-    isa      => 'TAEB::World::Room',
-    weak_ref => 1,
-);
+#has room => (
+#    is       => 'rw',
+#    isa      => 'TAEB::World::Room',
+#    weak_ref => 1,
+#);
 
 enum TileType => tile_types;
 
