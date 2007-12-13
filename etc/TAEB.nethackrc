@@ -1,0 +1,40 @@
+# display
+OPTIONS=showexp
+OPTIONS=showscore
+OPTIONS=time
+OPTIONS=color
+OPTIONS=boulder:0
+OPTIONS=!sparkle
+OPTIONS=runmode:teleport
+OPTIONS=!tombstone
+OPTIONS=!news
+OPTIONS=!legacy
+OPTIONS=suppress_alert:3.4.3
+
+# functionality
+OPTIONS=!autopickup
+OPTIONS=pickup_burden:unburdened
+OPTIONS=!prayconfirm
+OPTIONS=pettype:none
+OPTIONS=!cmdassist
+OPTIONS=disclose:+iavgc
+
+# miscellaneous
+OPTIONS=!mail
+
+# map changes for code simplicity
+OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:~m
+
+OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
+# changes: spider web = ^
+# now " amulet, ^ trap
+
+OPTIONS=dungeon: |--------||.\44\44]]}}.##<><>__\\{{}.}..}} #}
+# changes: open doors => ,   now | and - are walls
+#          closed doors => ] now + spellbook
+#          iron bars => }    not walkable (cyan)
+#          trees => }        not walkable (green)
+#          grave => _        I have to ; altars anyway, now | is wall
+#          sink => {         now # is corridor or air
+#          drawbridge => }   same as sink, not walkable
+
