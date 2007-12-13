@@ -71,16 +71,16 @@ sub update {
     return if $self->glyph eq "\0" && $self->floor_glyph eq '.';
 
     # if glyph_to_type returns false, it's not a dungeon feature, it's an item
-    # or monster
-    my $type = glyph_to_type($newglyph) || 'obscured';
+    # or monster. we don't want to update the floor_glyph or tile type.
+    my $type = glyph_to_type($newglyph) or return;
+
     if (ref($type) eq 'ARRAY') {
         # XXX: use ; to figure out which we're dealing with
         $type = $type->[0];
     }
-    $self->type($type);
 
-    $self->floor_glyph($newglyph)
-        unless $type eq 'obscured';
+    $self->type($type);
+    $self->floor_glyph($newglyph);
 }
 
 sub has_monster {
