@@ -15,13 +15,13 @@ has '+type' => (
 
 sub new_from {
     my $self = shift;
-    my %args = @_;
+    my $tile = shift;
 
-    my $tile = delete $args{tile}
-        or confess "Must pass tile to TAEB::World::Tile::Stairs->new_from";
+    my %args;
 
-    for (qw/x y level stepped_on/) {
-        $args{$_} = $tile->$_;
+    while (my ($name, $attr) = each %{ $tile->meta->get_attribute_map }) {
+        my $reader = $attr->get_read_method;
+        $args{$name} = $tile->$reader;
     }
 
     $self->new(%args, type => 'stairs');
