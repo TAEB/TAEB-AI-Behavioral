@@ -169,7 +169,7 @@ sub max_match_level {
         for my $dy (-1 .. 1) {
             for my $dx (-1 .. 1) {
                 next if !$dx && !$dy;
-                next if $closed[$x + $dx][$y + $dy]++;
+                next if $closed[$x + $dx][$y + $dy];
 
                 # can't move diagonally off of doors
                 next if $tile->type eq 'door'
@@ -182,6 +182,8 @@ sub max_match_level {
                 next if $next->type eq 'door'
                         && $dx
                         && $dy;
+
+                $closed[$x + $dx][$y + $dy] = 1;
 
                 my $dir = direction($dx+1, $dy+1);
 
