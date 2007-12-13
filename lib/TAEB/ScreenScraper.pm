@@ -16,6 +16,10 @@ sub scrape {
     # handle --More--
     $self->handle_more;
 
+    # this must come after --More-- handling
+    die "Game over, man!\n"
+        if $main::taeb->vt->row_plaintext(23) =~ /^--More--\s+$/;
+
     # handle menus
     $self->handle_menus;
 
