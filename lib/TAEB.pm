@@ -343,13 +343,10 @@ around qw/warning error critical/ => sub {
 
 sub out {
     my $self = shift;
-    my $out;
+    my $out = shift;
 
-    if (@_ > 1) {
-        $out = sprintf @_;
-    }
-    else {
-        $out = shift;
+    if (@_) {
+        $out = sprintf $out, @_;
     }
 
     print $out;
