@@ -41,13 +41,12 @@ sub update_tile {
     my $y        = shift;
     my $newglyph = shift;
 
-    if ($newglyph eq '<' || $newglyph eq '>') {
-        my $stairs = TAEB::World::Tile::Stairs->new_from(tile => $self->tiles->[$y][$x], glyph => $newglyph);
-        $self->tiles->[$y][$x] = $stairs;
+    # replace with stairs if applicable
+    if (($newglyph eq '<' || $newglyph eq '>') && $self->tiles->[$y][$x]->type ne 'stairs') {
+        $self->tiles->[$y][$x] = TAEB::World::Tile::Stairs->new_from($self->tiles->[$y][$x]);
     }
-    else {
-        $self->tiles->[$y][$x]->update($newglyph);
-    }
+
+    $self->tiles->[$y][$x]->update($newglyph);
 }
 
 sub step_on {

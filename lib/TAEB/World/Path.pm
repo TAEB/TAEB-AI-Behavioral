@@ -133,12 +133,15 @@ WARNING: Only the level of the starting tile will be searched.
 
 =cut
 
+my $debug_color = 0;
+
 sub max_match_level {
     my $self = shift;
     my $from = shift;
     my $code = shift;
 
-    my $debug = $main::taeb->config->contents->{debug_bfs};
+    my $debug = $main::taeb->config->contents->{debug_bfs}
+        and $debug_color = ($debug_color + 1) % 6;
     my $level = $from->level;
 
     my $max_score;
@@ -154,7 +157,7 @@ sub max_match_level {
 
         my $score = $code->($tile, $path);
         if (defined($score) && $score eq 'q') {
-            print $main::taeb->redraw if $debug;
+            printf "\e[%d;%dH\e[m", $main::taeb->y+1, $main::taeb->x+1 if $debug;
             return ($tile, $path);
         }
 
@@ -184,9 +187,10 @@ sub max_match_level {
 
                 if ($next->is_walkable) {
                     push @open, [ $next, $path . $dir ];
-                    printf "\e[%d;%dH\e[1;34m%s",
+                    printf "\e[%d;%dH\e[%dm%s",
                         $y + 1 + $dy,
                         $x + 1 + $dx,
+                        31 + $debug_color,
                         $next->glyph
                             if $debug;
                 }
@@ -194,8 +198,7 @@ sub max_match_level {
         }
     }
 
-    print $main::taeb->redraw if $debug;
-
+    printf "\e[%d;%dH\e[m", $main::taeb->y+1, $main::taeb->x+1 if $debug;
     return ($max_tile, $max_path);
 }
 
