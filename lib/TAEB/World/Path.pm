@@ -170,11 +170,9 @@ sub max_match_level {
             ($max_score, $max_tile, $max_path) = ($score, $tile, $path);
         }
 
-        $closed[$x][$y] = 1;
-
         for (@deltas) {
             my ($dx, $dy) = @$_;
-            next if $closed[$x + $dx][$y + $dy];
+            next if $closed[$x + $dx][$y + $dy]++;
 
             # can't move diagonally off of doors
             next if $tile->type eq 'door'
