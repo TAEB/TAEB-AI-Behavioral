@@ -56,9 +56,9 @@ while (1) {
     if (defined $c) {
         my $out = $taeb->keypress($c);
         if (defined $out) {
-            print "\e[2H\e[44m$out";
+            $taeb->out("\e[2H\e[44m$out");
             sleep 3;
-            print $taeb->redraw();
+            $taeb->out($taeb->redraw);
         }
     }
 }

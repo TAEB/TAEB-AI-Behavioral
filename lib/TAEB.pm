@@ -216,7 +216,7 @@ sub process_input {
     my $input = $self->interface->read;
 
     $self->vt->process($input);
-    print $input;
+    $self->out($input);
 
     $self->scraper->scrape
         if $self->logged_in;
@@ -276,20 +276,20 @@ sub keypress {
         eval {
             # clear the top half of the screen
             for (1..13) {
-                print "\e[${_}H\e[K";
+                $self->out("\e[${_}H\e[K");
             }
             # silly banner
-            print "\e[1;37m+"
+            $self->out("\e[1;37m+"
                 . "\e[1;30m" . ('-' x 50)
                 . "\e[1;37m[ "
                 . "\e[1;36mT\e[0;36mAEB \e[1;36mC\e[0;36monsole"
                 . " \e[1;37m]"
                 . "\e[1;30m" . ('-' x 12)
                 . "\e[1;37m+"
-                . "\e[m";
+                . "\e[m");
 
             # make the top half scroll
-            print "\e[1;12r\e[12;1H";
+            $self->out("\e[1;12r\e[12;1H");
 
             # turn off Term::ReadKey
             Term::ReadKey::ReadMode(0);
@@ -303,10 +303,10 @@ sub keypress {
         Term::ReadKey::ReadMode(3);
 
         # unscroll terminal
-        print "\e3";
+        $self->out("\e3");
 
         # back to normal
-        print $main::taeb->redraw;
+        $self->out($main::taeb->redraw);
 
         return;
     }
@@ -322,9 +322,9 @@ around info => sub {
     my ($logger, $message) = @_;
 
     if ($main::taeb->info_to_screen) {
-        print "\e[2H\e[42m$message";
+        $self->out("\e[2H\e[42m$message");
         sleep 3;
-        print $main::taeb->redraw;
+        $self->out($main::taeb->redraw);
     }
 
     goto $orig;
@@ -334,9 +334,9 @@ around qw/warning error critical/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
-    print "\e[2H\e[41m$message";
+    $self->out("\e[2H\e[41m$message");
     sleep 3;
-    print $main::taeb->redraw;
+    $self->out($main::taeb->redraw);
 
     goto $orig;
 };
