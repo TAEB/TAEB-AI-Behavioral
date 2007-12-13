@@ -138,6 +138,7 @@ sub max_match_level {
     my $from = shift;
     my $code = shift;
 
+    my $debug = $main::taeb->config->contents->{debug_bfs};
     my $level = $from->level;
 
     my $max_score;
@@ -160,6 +161,7 @@ sub max_match_level {
 
         my $score = $code->($tile, $path);
         if (defined($score) && $score eq 'q') {
+            print $main::taeb->redraw if $debug;
             return ($tile, $path);
         }
 
@@ -186,10 +188,15 @@ sub max_match_level {
 
             my $dir = direction($dx+1, $dy+1);
 
-            push @open, [ $next, $path . $dir ]
-                if $next->is_walkable;
+            if ($next->is_walkable) {
+                push @open, [ $next, $path . $dir ];
+                printf "\e[%d;%dH\e[1;34m%s", $y+1+$dy, $x+1+$dx, $next->glyph
+                    if $debug;
+            }
         }
     }
+
+    print $main::taeb->redraw if $debug;
 
     return ($max_tile, $max_path);
 }
