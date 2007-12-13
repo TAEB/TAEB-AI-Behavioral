@@ -121,7 +121,9 @@ sub each_neighbor {
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
             # NOT skipping 0, 0
-            $code->($self->level->at($x + $dx, $y + $dy))
+            my $tile = $self->level->at($x + $dx, $y + $dy)
+                or next;
+            $code->($tile);
         }
     }
 }
