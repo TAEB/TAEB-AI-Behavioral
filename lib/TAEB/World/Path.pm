@@ -178,12 +178,13 @@ sub max_match_level {
             next if $tile->type eq 'door'
                     && $dx && $dy;
 
-            my $dir = direction($dx+1, $dy+1);
             my $next = $level->at($x + $dx, $y + $dy);
 
             # can't move diagonally onto doors
             next if $next->type eq 'door'
                     && $dx && $dy;
+
+            my $dir = direction($dx+1, $dy+1);
 
             push @open, [ $next, $path . $dir ]
                 if $next->is_walkable;
