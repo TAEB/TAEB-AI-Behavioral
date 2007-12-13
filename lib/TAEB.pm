@@ -322,9 +322,9 @@ around info => sub {
     my ($logger, $message) = @_;
 
     if ($main::taeb->info_to_screen) {
-        $self->out("\e[2H\e[42m$message");
+        $main::taeb->out("\e[2H\e[42m$message");
         sleep 3;
-        $self->out($main::taeb->redraw);
+        $main::taeb->out($main::taeb->redraw);
     }
 
     goto $orig;
@@ -334,9 +334,9 @@ around qw/warning error critical/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
-    $self->out("\e[2H\e[41m$message");
+    $main::taeb->out("\e[2H\e[41m$message");
     sleep 3;
-    $self->out($main::taeb->redraw);
+    $main::taeb->out($main::taeb->redraw);
 
     goto $orig;
 };
