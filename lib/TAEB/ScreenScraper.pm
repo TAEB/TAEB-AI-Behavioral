@@ -13,12 +13,14 @@ sub scrape {
     # first, clear old data
     $self->clear;
 
+    # very big special case
+    if ($main::taeb->vt->row_plaintext(23) =~ /^--More--\s+$/) {
+        $main::taeb->write('        ');
+        die "Game over, man!\n";
+    }
+
     # handle --More--
     $self->handle_more;
-
-    # this must come after --More-- handling
-    die "Game over, man!\n"
-        if $main::taeb->vt->row_plaintext(23) =~ /^--More--\s+$/;
 
     # handle menus
     $self->handle_menus;
