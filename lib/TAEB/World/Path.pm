@@ -148,13 +148,6 @@ sub max_match_level {
     my @open = [$from, ''];
     my @closed;
 
-    # randomize the delta array so doors don't kill us
-    my @deltas = shuffle (
-        [-1, -1], [-1, 0], [-1, 1],
-        [ 0, -1], [ 0, 0], [ 0, 1],
-        [ 1, -1], [ 1, 0], [ 1, 1],
-    );
-
     while (@open) {
         my ($tile, $path) = @{ shift @open };
         my ($x, $y) = ($tile->x, $tile->y);
@@ -170,26 +163,33 @@ sub max_match_level {
             ($max_score, $max_tile, $max_path) = ($score, $tile, $path);
         }
 
-        for (@deltas) {
-            my ($dx, $dy) = @$_;
-            next if $closed[$x + $dx][$y + $dy]++;
+        for my $dy (-1 .. 1) {
+            for my $dx (-1 .. 1) {
+                next if !$dx && !$dy;
+                next if $closed[$x + $dx][$y + $dy]++;
 
-            # can't move diagonally off of doors
-            next if $tile->type eq 'door'
-                    && $dx && $dy;
+                # can't move diagonally off of doors
+                next if $tile->type eq 'door'
+                        && $dx
+                        && $dy;
 
-            my $next = $level->at($x + $dx, $y + $dy);
+                my $next = $level->at($x + $dx, $y + $dy);
 
-            # can't move diagonally onto doors
-            next if $next->type eq 'door'
-                    && $dx && $dy;
+                # can't move diagonally onto doors
+                next if $next->type eq 'door'
+                        && $dx
+                        && $dy;
 
-            my $dir = direction($dx+1, $dy+1);
+                my $dir = direction($dx+1, $dy+1);
 
-            if ($next->is_walkable) {
-                push @open, [ $next, $path . $dir ];
-                printf "\e[%d;%dH\e[1;34m%s", $y+1+$dy, $x+1+$dx, $next->glyph
-                    if $debug;
+                if ($next->is_walkable) {
+                    push @open, [ $next, $path . $dir ];
+                    printf "\e[%d;%dH\e[1;34m%s",
+                        $y + 1 + $dy,
+                        $x + 1 + $dx,
+                        $next->glyph
+                            if $debug;
+                }
             }
         }
     }
