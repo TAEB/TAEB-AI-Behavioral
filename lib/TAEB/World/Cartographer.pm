@@ -24,6 +24,7 @@ sub update {
     my $level = $self->dungeon->current_level;
 
     $self->check_dlvl;
+
     for my $y (1 .. 21) {
         for my $x (0 .. 79) {
             if ($main::taeb->vt->at($x, $y) ne $level->at($x, $y)->glyph) {
@@ -77,7 +78,9 @@ sub check_dlvl {
 
     if ($level->z != $dlvl) {
         $main::taeb->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
-        $self->dungeon->current_level($self->dungeon->branches->{dungeons}->levels->[$dlvl]);
+
+        my $branch = $self->dungeon->branches->{dungeons};
+        $self->dungeon->current_level($branch->levels->[$dlvl] ||= TAEB::World::Level->new(branch => $branch, z => $dlvl));
     }
 }
 
