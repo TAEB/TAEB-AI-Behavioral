@@ -135,7 +135,8 @@ has ttyrec => (
         $year += 1900;
         ++$month;
 
-        my $filename = sprintf 'log/ttyrec/%d-%d-%d.%d:%d:%d.ttyrec',
+        my $filename = sprintf
+            'log/ttyrec/%04d-%02d-%02d.%02d:%02d:%02d.ttyrec',
             $year,
             $month,
             $day,
