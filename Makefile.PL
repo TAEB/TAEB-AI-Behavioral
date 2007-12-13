@@ -34,6 +34,9 @@ requires       'Hash::Merge';
 requires       'Sub::Exporter';
 requires       'List::MoreUtils';
 
+# ttyrec output
+requires       'Tie::Handle::TtyRec';
+
 build_requires 'Test::More';
 
 install_script 'bin/taeb';

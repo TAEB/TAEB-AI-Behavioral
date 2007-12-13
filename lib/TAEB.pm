@@ -3,6 +3,7 @@ package TAEB;
 use Moose;
 use Log::Dispatch;
 use Log::Dispatch::File;
+use Tie::Handle::TtyRec;
 
 use TAEB::Util;
 use TAEB::VT;
@@ -124,6 +125,26 @@ has info_to_screen => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
+);
+
+has ttyrec => (
+    is => 'rw',
+    isa => 'GlobRef',
+    default => sub {
+        my ($sec, $min, $hour, $day, $month, $year) = localtime;
+        $year += 1900;
+        ++$month;
+
+        my $filename = sprintf 'log/ttyrec/%d-%d-%d.%d:%d:%d.ttyrec',
+            $year,
+            $month,
+            $day,
+            $hour,
+            $min,
+            $sec;
+
+        Tie::Handle::TtyRec->new($filename);
+    },
 );
 
 =head2 step
@@ -319,6 +340,21 @@ around qw/warning error critical/ => sub {
 
     goto $orig;
 };
+
+sub out {
+    my $self = shift;
+    my $out;
+
+    if (@_ > 1) {
+        $out = sprintf @_;
+    }
+    else {
+        $out = shift;
+    }
+
+    print $out;
+    $self->ttyrec->print($out);
+}
 
 1;
 
