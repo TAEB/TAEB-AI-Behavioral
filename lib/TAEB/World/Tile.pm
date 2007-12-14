@@ -70,6 +70,7 @@ has explored => (
 sub update {
     my $self = shift;
     my $newglyph = shift;
+    my $oldglyph = $self->glyph;
 
     $self->glyph($newglyph);
 
@@ -88,8 +89,11 @@ sub update {
     # if we unveil a square and it was previously rock, then it's obscured
     # if it was anything else, then it became obscured, and we don't want to
     # change what we know about it
+
+    # XXX: unless it's a door, because we just kicked it down and something
+    # popped right in
     if ($type eq 'obscured') {
-        $self->type('obscured') if $self->type eq 'rock';
+        $self->type('obscured') if $self->type eq 'rock' || $oldglyph eq ']';
         return;
     }
 
