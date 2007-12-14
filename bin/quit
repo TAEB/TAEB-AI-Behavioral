@@ -1,0 +1,69 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use lib 'lib';
+use Getopt::Whatever;
+use Term::ReadKey;
+
+use TAEB;
+use TAEB::Config;
+$| = 1;
+
+# load config {{{
+my %config_args;
+$config_args{file} = $ARGV{config}
+    if exists $ARGV{config};
+my $config = TAEB::Config->new(%config_args);
+# }}}
+# load_from_argv {{{
+sub load_from_argv {
+    my $second_level = shift;
+    my $default = shift;
+    my $arg_name = lc($second_level);
+    $arg_name =~ s/.*:://;
+
+    my $third_level = $ARGV{$arg_name}
+                   || $config->contents->{$arg_name}
+                   || $default;
+
+    my $type = "TAEB::${second_level}::$third_level";
+
+    eval "require $type; 1"
+        or die $@;
+
+    my %opts = %{ $config->contents->{ $arg_name.'_options' }->{ $third_level } || {} };
+    return $type->new(%opts, @_);
+}
+# }}}
+
+my $interface = load_from_argv('Interface', 'Local');
+
+our $taeb = TAEB->new(
+    interface => $interface,
+    brain     => TAEB::AI::Brain::Quit->new,
+    config    => $config,
+);
+
+$SIG{__WARN__} = sub { $taeb->warning(@_) };
+
+ReadMode 3;
+END { ReadMode 0 }
+
+while (1) {
+    $taeb->step;
+    my $c = ReadKey $taeb->read_wait;
+    if (defined $c) {
+        my $out = $taeb->keypress($c);
+        if (defined $out) {
+            $taeb->out("\e[2H\e[44m$out");
+            sleep 3;
+            $taeb->out($taeb->redraw);
+        }
+    }
+}
+
+package TAEB::AI::Brain::Quit;
+use parent 'TAEB::AI::Brain';
+
+sub next_action { "#quit\ny " }
+
