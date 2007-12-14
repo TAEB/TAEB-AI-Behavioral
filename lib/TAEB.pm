@@ -169,7 +169,8 @@ sub step {
         my $next_action = $self->brain->next_action;
 
         $self->out(
-            "\e[23HCurrently: %s (%s)  \e[%d;%dH",
+            "\e[23H%s\e[23HCurrently: %s (%s)  \e[%d;%dH",
+            $self->vt->row_plaintext(22),
             $self->brain->currently,
             substr($next_action, 0, 5),
             $self->y + 1,
