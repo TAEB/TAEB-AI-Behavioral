@@ -188,7 +188,8 @@ sub max_match_level {
                     && $dx
                     && $dy;
 
-            my $next = $level->at($x + $dx, $y + $dy);
+            my $next = $level->at($x + $dx, $y + $dy)
+                or next;
 
             # can't move diagonally onto doors
             next if $next->type eq 'door'
