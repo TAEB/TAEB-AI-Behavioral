@@ -17,6 +17,11 @@ sub next_action {
         return "#pray\n";
     }
 
+    if ($main::taeb->hp * 2 < $main::taeb->maxhp) {
+        $self->currently("Writing Elbereth.");
+        return "E-  Elbereth\n";
+    }
+
     my $fight;
 
     $self->each_adjacent(sub {
