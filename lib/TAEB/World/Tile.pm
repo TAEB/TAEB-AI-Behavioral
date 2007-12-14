@@ -154,17 +154,22 @@ sub each_other_neighbor {
 
 sub debug_draw_explored {
     my $self = shift;
-    ($self->explored ? "\e[1;33m" : '') . $self->floor_glyph
+    ($self->explored ? "\e[1;33m" : '') . $self->glyph
 }
 
 sub debug_draw_stepped {
     my $self = shift;
-    ($self->stepped_on ? "\e[1;35m" : '') . $self->floor_glyph
+    ($self->stepped_on ? "\e[1;35m" : '') . $self->glyph
 }
 
 sub debug_draw_walkable {
     my $self = shift;
-    ($self->is_walkable ? "\e[1;32m" : '') . $self->floor_glyph
+    ($self->is_walkable ? "\e[1;32m" : '') . $self->glyph
+}
+
+sub debug_draw_floor {
+    my $self = shift;
+    $self->floor_glyph;
 }
 
 1;
