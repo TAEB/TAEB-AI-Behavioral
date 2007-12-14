@@ -16,9 +16,13 @@ sub update {
     my $self = shift;
     my $botl = $main::taeb->vt->row_plaintext(23);
 
-    ($self->hp, $self->maxhp) = $botl =~ /HP:(\d+)\((\d+)\)/
-        or $main::taeb->error("Unable to parse HP from '$botl'");
-
+    if ($botl =~ /HP:(\d+)\((\d+)\)/) {
+        $self->hp($1);
+        $self->maxhp($2);
+    }
+    else {
+        $main::taeb->error("Unable to parse HP from '$botl'");
+    }
 }
 
 1;
