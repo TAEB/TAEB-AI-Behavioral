@@ -111,6 +111,10 @@ sub has_monster {
 sub is_walkable {
     my $self = shift;
 
+    # current tile is always walkable
+    return 1 if $self->x == $main::taeb->x
+             && $self->y == $main::taeb->y;
+
     # XXX: yes. I know. shut up.
     return 0 if $self->glyph eq '0' || $self->glyph eq '@';
 
