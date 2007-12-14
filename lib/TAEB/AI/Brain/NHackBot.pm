@@ -66,10 +66,12 @@ sub next_action {
         }
     }
 
-
     # explore
     my ($to, $path) = TAEB::World::Path->first_match_level(
-        sub { !shift->explored },
+        sub {
+            my $tile = shift;
+            !$tile->explored && $tile->is_walkable
+        },
     );
 
     if ($path) {
