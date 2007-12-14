@@ -50,54 +50,54 @@ sub next_action {
 
     # need food. must pray
     if ($main::taeb->messages =~ /You regain consciousness/) {
-        $main::taeb->info("Fainting!");
+        $self->currently("Praying for satiation.");
         return "#pray\n";
     }
     elsif ($main::taeb->messages =~ /You (?:are beginning to )?feal weak\.|Valkyrie needs food!/) {
-        $main::taeb->info("Feeling weak.");
+        $self->currently("Praying for satiation.");
         return "#pray\n";
     }
     # working out is useful for those floating eyes
     elsif ($main::taeb->messages =~ /You feel more confident/) {
-        $main::taeb->info("Got a 'feel more confident' message.");
+        $self->currently("Enhancing my skills.");
         return "#enhance\na a \n";
     }
     # we just swiped at something, swing again in the same direction
     elsif ($main::taeb->messages =~ /you (?:just )?(?:hit|miss) (?:(?:the |an? )([-.a-z ]+?)|it)[.!]/i) {
-        $main::taeb->info("I either bumped into a monster or just attacked one.");
+        $self->currently("Re-attacking a monster.");
         return 'F' . $directions[$self->last_direction];
     }
     # under attack! start responding
     elsif ($main::taeb->messages =~ /(?:(?:the |an? )([-.a-z ]+?)|it) (?:just )?(strikes|hits|misses|bites|grabs|stings|touches|points at you, then curses)(?:(?: at)? you(?:r displaced image)?)?[.!]/i) {
-        $main::taeb->info("I'm being attacked by a $1! Looking for him..");
+        $self->currently("Looking for my assailant.");
         $self->last_direction(-1);
         $self->looking_for($1);
         return $self->spin;
     }
     # looks like the output of ;
     elsif ($main::taeb->messages =~ /^(?:.\s*(.*)\s*\(.*\)\s*|\| a wall)$/) {
-        $main::taeb->info("I spy with my little eye '$1', at ". $directions[$self->last_direction] .".");
         my $looking_for = $self->looking_for;
         if ($main::taeb->messages =~ /\Q$looking_for/) {
             # attack!
-            $main::taeb->info("Found what I'm looking for at ".$directions[$self->last_direction]."!");
+            $self->currently("Attacking my assailant.");
             return 'F' . $directions[$self->last_direction];
         }
 
         # ran out of directions and couldn't find it. gulp. just start moving
         # again
         if ($directions[$self->last_direction+1] eq ' ') {
-            $main::taeb->info("I have no more directions to look at.");
+            $self->currently("Lost my assailant.");
             return $self->random;
         }
 
         # keep looking..
-        $main::taeb->info("Still looking.");
+        $self->currently("Looking around for my assailant.");
         return $self->spin;
     }
     else {
         $main::taeb->debug("Nothing interesting about " . $main::taeb->messages)
             unless $main::taeb->messages =~ /^\s*$/;
+        $self->currently("Randomly walking.");
         return $self->random;
     }
 }
