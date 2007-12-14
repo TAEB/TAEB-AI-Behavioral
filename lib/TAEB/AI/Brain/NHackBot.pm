@@ -71,10 +71,7 @@ sub next_action {
     # explore
     my ($to, $path) = TAEB::World::Path->first_match_level(
         $main::taeb->current_tile,
-        sub {
-            my ($tile, $path) = @_;
-            return !$tile->explored;
-        },
+        sub { !shift->explored },
     );
 
     if ($path) {
