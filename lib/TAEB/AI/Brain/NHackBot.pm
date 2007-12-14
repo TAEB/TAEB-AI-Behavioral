@@ -55,6 +55,19 @@ sub next_action {
         }
     }
 
+    # track down doors
+    if ($main::taeb->map_like(qr/\]/)) {
+        my ($to, $path) = TAEB::World::Path->first_match_level(
+            $main::taeb->current_tile,
+            sub { shift->glyph eq ']' },
+        );
+
+        if ($path) {
+            $main::taeb->info("Door! I've got you in my clutches now..");
+            return substr($path, 0, 1);
+        }
+    }
+
     # explore
     my ($to, $path) = TAEB::World::Path->first_match_level(
         $main::taeb->current_tile,
