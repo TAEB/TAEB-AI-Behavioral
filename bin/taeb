@@ -47,6 +47,7 @@ our $taeb = TAEB->new(
 
 $SIG{__WARN__} = sub { $taeb->warning(@_) };
 $SIG{__DIE__} = sub {
+    return if "@_ $_" =~ /Game over, man/;
     require Carp::REPL;
     ReadMode 0;
     print "\ec";
