@@ -39,6 +39,10 @@ features(
         -default => 1,
         requires('Tie::Handle::TtyRec' => '0.02'),
     ],
+    'REPL on exception' => [
+        -default => 1,
+        requires('Carp::REPL'),
+    ],
 );
 
 build_requires 'Test::More';

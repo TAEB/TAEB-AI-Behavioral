@@ -46,6 +46,13 @@ our $taeb = TAEB->new(
 );
 
 $SIG{__WARN__} = sub { $taeb->warning(@_) };
+$SIG{__DIE__} = sub {
+    require Carp::REPL;
+    ReadMode 0;
+    print "\ec";
+    warn $_;
+    Carp::REPL::repl();
+} if $config->contents->{carp_repl};
 
 ReadMode 3;
 END { ReadMode 0 }

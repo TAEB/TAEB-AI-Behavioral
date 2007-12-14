@@ -83,6 +83,8 @@ sub read {
     $self->socket->do(chr(99));
     ${*{$self->socket}}{got_pong} = 0;
 
+    local $SIG{__DIE__};
+
     eval {
         while (1) {
             my $b;
