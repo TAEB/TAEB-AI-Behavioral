@@ -177,6 +177,8 @@ sub max_match_level {
             ($max_score, $max_tile, $max_path) = ($score, $tile, $path);
         }
 
+        next unless $tile->is_walkable;
+
         for (@deltas) {
             my ($dy, $dx) = @$_;
             next if $closed[$x + $dx][$y + $dy];
@@ -197,15 +199,13 @@ sub max_match_level {
 
             my $dir = direction($dx+1, $dy+1);
 
-            if ($next->is_walkable) {
-                push @open, [ $next, $path . $dir ];
-                $main::taeb->out("\e[%d;%dH\e[%dm%s",
-                    $y + 1 + $dy,
-                    $x + 1 + $dx,
-                    31 + $debug_color,
-                    $next->glyph)
-                        if $debug;
-            }
+            push @open, [ $next, $path . $dir ];
+            $main::taeb->out("\e[%d;%dH\e[%dm%s",
+                $y + 1 + $dy,
+                $x + 1 + $dx,
+                31 + $debug_color,
+                $next->glyph)
+                    if $debug;
         }
     }
 
