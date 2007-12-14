@@ -10,6 +10,7 @@ while (1) {
     system("clear");
     for (1..58) {
         print ".";
+        sleep 1;
     }
 }
 
