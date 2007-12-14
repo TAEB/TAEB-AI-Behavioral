@@ -25,6 +25,7 @@ things as 'the map' and 'direction of play'.
 my @actions = (qw(h j k l y u b n), ' ');
 
 sub next_action {
+    $self->currently("Randomly walking.");
     return $actions[rand @actions];
 }
 
