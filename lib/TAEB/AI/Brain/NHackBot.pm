@@ -101,7 +101,9 @@ sub next_action {
     ($to, $path) = TAEB::World::Path->max_match_level(
         sub {
             my ($tile, $path) = @_;
-            return undef if $tile->type ne 'wall';
+
+            # search walls and solid rock
+            return undef unless $tile->type eq 'wall' || ($tile->type eq 'obscured' && $tile->glyph eq ' ');
             return 1 / (($tile->searched + length $path) || 1);
         },
     );
