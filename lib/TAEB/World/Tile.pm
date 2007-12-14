@@ -123,7 +123,7 @@ sub each_neighbor {
     my $self = shift;
     my $code = shift;
 
-    my ($x, $y) = ($self->y, $self->x);
+    my ($x, $y) = ($self->x, $self->y);
 
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
