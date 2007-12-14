@@ -320,7 +320,7 @@ sub keypress {
     return "Unknown command '$c'";
 }
 
-around info => sub {
+around qw/info warning/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
