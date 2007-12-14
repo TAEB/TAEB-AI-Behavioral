@@ -3,6 +3,16 @@ package TAEB::AI::Brain;
 use Moose;
 use TAEB::Util 'direction';
 
+has currently => (
+    is => 'rw',
+    isa => 'Str',
+    default => "?",
+    trigger => sub {
+        my ($self, $currently) = @_;
+        $main::taeb->info("Currently: $currently.");
+    },
+);
+
 =head1 NAME
 
 TAEB::AI::Brain - how TAEB tactically extracts its amulets

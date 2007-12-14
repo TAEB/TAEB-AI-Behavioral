@@ -167,6 +167,16 @@ sub step {
         $self->update_dungeon;
 
         my $next_action = $self->brain->next_action;
+
+        $self->out(
+            "\e[23HCurrently: %s (%s)  \e[%d;%dH",
+            $self->brain->currently,
+            substr($next_action, 0, 5),
+            $self->y + 1,
+            $self->x + 1,
+        );
+        $self->brain->currently('?');
+
         $self->debug("Sending '$next_action' to NetHack.");
         $self->write($next_action);
     }
