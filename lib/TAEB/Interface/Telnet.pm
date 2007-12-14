@@ -95,10 +95,6 @@ sub read {
 
     die $@ if $@ !~ /^alarm\n/;
 
-    if ($buffer eq '') {
-        warn "Got no response from the server. Euck.";
-    }
-
     return $buffer;
 }
 
