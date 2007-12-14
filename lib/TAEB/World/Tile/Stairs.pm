@@ -21,7 +21,8 @@ sub new_from {
 
     while (my ($name, $attr) = each %{ $tile->meta->get_attribute_map }) {
         my $reader = $attr->get_read_method;
-        $args{$name} = $tile->$reader;
+        my $value = $tile->$reader;
+        $args{$name} = $value if defined $value;
     }
 
     $self->new(%args, type => 'stairs');
