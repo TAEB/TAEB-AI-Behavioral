@@ -61,6 +61,12 @@ has searched => (
     default => 0,
 );
 
+has explored => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub update {
     my $self = shift;
     my $newglyph = shift;
@@ -110,6 +116,7 @@ sub step_on {
     my $self = shift;
 
     $self->stepped_on($self->stepped_on + 1);
+    $self->explored(1);
 }
 
 sub each_neighbor {

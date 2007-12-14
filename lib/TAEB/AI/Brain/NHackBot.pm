@@ -60,7 +60,7 @@ sub next_action {
         $main::taeb->current_tile,
         sub {
             my ($tile, $path) = @_;
-            return $tile->stepped_on == 0 && length $path;
+            return !$tile->explored;
         },
     );
 
