@@ -50,6 +50,7 @@ $SIG{__DIE__} = sub {
     require Carp::REPL;
     ReadMode 0;
     print "\ec";
+    warn "@_";
     Carp::REPL::repl(@_);
 } if $config->contents->{carp_repl};
 
