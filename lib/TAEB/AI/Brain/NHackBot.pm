@@ -55,7 +55,7 @@ sub next_action {
 
         if ($path) {
             $self->currently("Heading towards a @{[$to->glyph]} monster.");
-            $self->debug("Current path: $path");
+            $main::taeb->debug("Current path: $path");
             return substr($path, 0, 1);
         }
     }
@@ -68,7 +68,7 @@ sub next_action {
 
         if ($path) {
             $self->currently("Heading towards a door.");
-            $self->debug("Current path: $path");
+            $main::taeb->debug("Current path: $path");
             return substr($path, 0, 1);
         }
     }
@@ -83,7 +83,7 @@ sub next_action {
 
     if ($path) {
         $self->currently("Exploring.");
-        $self->debug("Current path: $path");
+        $main::taeb->debug("Current path: $path");
         return substr($path, 0, 1);
     }
 
@@ -101,7 +101,7 @@ sub next_action {
 
         if ($path) {
             $self->currently("Heading towards stairs.");
-            $self->debug("Current path: $path");
+            $main::taeb->debug("Current path: $path");
             return substr($path, 0, 1);
         }
     }
@@ -119,7 +119,7 @@ sub next_action {
 
     if (length($path) > 1) {
         $self->currently("Heading towards a search hotspot.");
-        $self->debug("Current path: $path");
+        $main::taeb->debug("Current path: $path");
         return substr($path, 0, 1);
     }
 
