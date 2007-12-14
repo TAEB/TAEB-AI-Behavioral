@@ -38,6 +38,8 @@ sub update {
     $self->y($main::taeb->vt->y);
 
     $level->step_on($self->x, $self->y);
+
+    $self->autoexplore();
 }
 
 sub current_tile {
@@ -82,6 +84,35 @@ sub check_dlvl {
         my $branch = $self->dungeon->branches->{dungeons};
         $self->dungeon->current_level($branch->levels->[$dlvl] ||= TAEB::World::Level->new(branch => $branch, z => $dlvl));
     }
+}
+
+=head2 autoexplore
+
+Mark tiles that are obviously explored as such. Things like "a walkable tile
+completely surrounded by walkable tiles".
+
+=cut
+
+sub autoexplore {
+    my $self = shift;
+
+    # "Exiting subroutine via next". Yes, Perl. I know this.
+    no warnings 'exiting';
+
+    for my $y (1 .. 21) {
+        TILE: for my $x (0 .. 79) {
+            my $tile = $self->dungeon->current_level->at($x, $y);
+
+            if (!$tile->explored) {
+                $tile->each_other_neighbor(sub {
+                    next TILE if shift->glyph eq ' '
+                });
+
+                $tile->explored(1);
+            }
+        }
+    }
+
 }
 
 1;
