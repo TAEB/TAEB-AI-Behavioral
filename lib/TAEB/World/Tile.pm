@@ -112,7 +112,7 @@ sub is_walkable {
     my $self = shift;
 
     # XXX: yes. I know. shut up.
-    return 0 if $self->glyph eq '0';
+    return 0 if $self->glyph eq '0' || $self->glyph eq '@';
 
     # obscured is probably walkable
     # XXX: fish
