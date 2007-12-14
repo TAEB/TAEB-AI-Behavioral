@@ -9,7 +9,7 @@ has currently => (
     default => "?",
     trigger => sub {
         my ($self, $currently) = @_;
-        $main::taeb->info("Currently: $currently.");
+        $main::taeb->info("Currently: $currently.") unless $currently eq '?';
     },
 );
 
