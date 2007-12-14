@@ -333,7 +333,7 @@ around info => sub {
     goto $orig;
 };
 
-around qw/warning error critical/ => sub {
+around qw/error critical/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
