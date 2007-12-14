@@ -25,17 +25,24 @@ sub update {
 
     $self->check_dlvl;
 
+    my $debug_draw = $main::taeb->config->contents->{debug_draw};
+
     for my $y (1 .. 21) {
         for my $x (0 .. 79) {
-            if ($main::taeb->vt->at($x, $y) ne $level->at($x, $y)->glyph) {
+            my $tile = $level->at($x, $y);
+            if ($main::taeb->vt->at($x, $y) ne $tile->glyph) {
                 $level->update_tile($x, $y, $main::taeb->vt->at($x, $y));
             }
+
+            $main::taeb->out("\e[%d;%dH%s\e[m", 1+$y, 1+$x, $tile->$debug_draw)
+                if $debug_draw;
         }
     }
 
     # XXX: ugh. this needs to be smarter.
     $self->x($main::taeb->vt->x);
     $self->y($main::taeb->vt->y);
+    $main::taeb->out("\e[%d;%dH", 1+$self->y, 1+$self->x) if $debug_draw;
 
     $level->step_on($self->x, $self->y);
 

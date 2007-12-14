@@ -135,5 +135,37 @@ sub each_neighbor {
     }
 }
 
+sub each_other_neighbor {
+    my $self = shift;
+    my $code = shift;
+
+    my ($x, $y) = ($self->x, $self->y);
+
+    for my $dy (-1 .. 1) {
+        for my $dx (-1 .. 1) {
+            next unless $dy || $dx;
+
+            my $tile = $self->level->at($x + $dx, $y + $dy)
+                or next;
+            $code->($tile);
+        }
+    }
+}
+
+sub debug_draw_explored {
+    my $self = shift;
+    ($self->explored ? "\e[1;33m" : '') . $self->floor_glyph
+}
+
+sub debug_draw_stepped {
+    my $self = shift;
+    ($self->stepped_on ? "\e[1;35m" : '') . $self->floor_glyph
+}
+
+sub debug_draw_walkable {
+    my $self = shift;
+    ($self->is_walkable ? "\e[1;32m" : '') . $self->floor_glyph
+}
+
 1;
 
