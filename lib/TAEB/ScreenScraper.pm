@@ -74,6 +74,11 @@ sub handle_fallback {
         $main::taeb->process_input();
     }
 
+    if ($main::taeb->topline =~ /^Call / && $main::taeb->vt->y == 0) {
+        $main::taeb->write("\n");
+        $main::taeb->process_input();
+    }
+
     $self->messages($self->messages . $main::taeb->topline);
 }
 
