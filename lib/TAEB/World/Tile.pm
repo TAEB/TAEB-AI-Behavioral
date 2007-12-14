@@ -104,7 +104,8 @@ sub has_monster {
     return 0 if $self->x == $main::taeb->x
              && $self->y == $main::taeb->y;
 
-    $self->glyph =~ /[a-zA-Z@~&';:]/;
+    # XXX: @ is currently not included because of shks
+    $self->glyph =~ /[a-zA-Z~&';:]/;
 }
 
 sub is_walkable {
