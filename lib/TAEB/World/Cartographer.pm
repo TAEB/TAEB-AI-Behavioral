@@ -110,9 +110,9 @@ sub autoexplore {
         TILE: for my $x (0 .. 79) {
             my $tile = $self->dungeon->current_level->at($x, $y);
 
-            if (!$tile->explored && $tile->glyph ne ' ') {
+            if (!$tile->explored && $tile->type ne 'rock') {
                 $tile->each_other_neighbor(sub {
-                    next TILE if shift->glyph eq ' '
+                    next TILE if shift->type eq 'rock'
                 });
 
                 $tile->explored(1);

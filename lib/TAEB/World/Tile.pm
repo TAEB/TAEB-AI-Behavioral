@@ -28,13 +28,13 @@ has type => (
 has glyph => (
     is      => 'rw',
     isa     => 'Str',
-    default => " ",
+    default => ' ',
 );
 
 has floor_glyph => (
     is      => 'rw',
     isa     => 'Str',
-    default => " ",
+    default => ' ',
 );
 
 has stepped_on => (
@@ -78,11 +78,19 @@ sub update {
 
     # if glyph_to_type returns false, it's not a dungeon feature, it's an item
     # or monster. we don't want to update the floor_glyph or tile type.
-    my $type = glyph_to_type($newglyph) or return;
+    my $type = glyph_to_type($newglyph);
 
     if (ref($type) eq 'ARRAY') {
         # XXX: use ; to figure out which we're dealing with
         $type = $type->[0];
+    }
+
+    # if we unveil a square and it was previously rock, then it's obscured
+    # if it was anything else, then it became obscured, and we don't want to
+    # change what we know about it
+    if ($type eq 'obscured') {
+        $self->type('obscured') if $self->type eq 'rock';
+        return;
     }
 
     $self->type($type);
@@ -103,11 +111,11 @@ sub is_walkable {
     my $self = shift;
 
     # XXX: yes. I know. shut up.
-    return 0 if $self->glyph eq "0";
+    return 0 if $self->glyph eq '0';
 
-    # this is obscured and ISN'T solid rock, so it's probably walkable
+    # obscured is probably walkable
     # XXX: fish
-    return 1 if $self->type eq 'obscured' && $self->glyph ne " ";
+    return 1 if $self->type eq 'obscured';
 
     $self->floor_glyph =~ /[.,<>^\\_{#]/;
 }

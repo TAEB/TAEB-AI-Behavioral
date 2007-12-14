@@ -9,7 +9,7 @@ use Sub::Exporter -setup => {
 use List::MoreUtils 'uniq';
 
 our %glyphs = (
-    ' '  => 'obscured',
+    ' '  => 'rock',
     '|'  => 'wall',
     '-'  => 'wall',
     '.'  => 'floor',
@@ -28,7 +28,7 @@ our %glyphs = (
     #'#'  => 'air', # who cares, no difference
 );
 
-our @glyphs = uniq map { ref $_ ? @$_ : $_ } values %glyphs;
+our @glyphs = uniq 'obscured', map { ref $_ ? @$_ : $_ } values %glyphs;
 
 sub tile_types {
     return @glyphs;
@@ -36,7 +36,7 @@ sub tile_types {
 
 sub glyph_to_type {
     my $glyph = shift;
-    return $glyphs{$glyph};
+    return $glyphs{$glyph} || 'obscured';
 }
 
 our @directions = (

@@ -103,7 +103,7 @@ sub next_action {
             my ($tile, $path) = @_;
 
             # search walls and solid rock
-            return undef unless $tile->type eq 'wall' || ($tile->type eq 'obscured' && $tile->glyph eq ' ');
+            return undef unless $tile->type eq 'wall' || $tile->type eq 'rock';
             return 1 / (($tile->searched + length $path) || 1);
         },
     );
