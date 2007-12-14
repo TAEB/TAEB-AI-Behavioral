@@ -22,7 +22,7 @@ enum TileType => tile_types;
 has type => (
     is      => 'rw',
     isa     => 'TileType',
-    default => 'obscured',
+    default => 'rock',
 );
 
 has glyph => (
