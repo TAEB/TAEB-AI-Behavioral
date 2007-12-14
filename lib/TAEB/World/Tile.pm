@@ -183,5 +183,15 @@ sub debug_draw_glyph {
     shift->glyph
 }
 
+sub debug_draw_obscured {
+    my $self = shift;
+    $self->type eq 'obscured' ? '?' : $self->glyph
+}
+
+sub debug_draw_rock {
+    my $self = shift;
+    $self->type eq 'rock' ? '*' : $self->glyph
+}
+
 1;
 
