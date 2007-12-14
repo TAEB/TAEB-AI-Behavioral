@@ -45,7 +45,6 @@ sub next_action {
     # XXX: this ignores @ due to annoyance
     if ($main::taeb->map_like(qr/[a-zA-Z~&';:]/)) {
         my ($to, $path) = TAEB::World::Path->first_match_level(
-            $main::taeb->current_tile,
             sub { shift->has_monster },
         );
 
@@ -58,7 +57,6 @@ sub next_action {
     # track down doors
     if ($main::taeb->map_like(qr/\]/)) {
         my ($to, $path) = TAEB::World::Path->first_match_level(
-            $main::taeb->current_tile,
             sub { shift->glyph eq ']' },
         );
 
@@ -68,9 +66,9 @@ sub next_action {
         }
     }
 
+
     # explore
     my ($to, $path) = TAEB::World::Path->first_match_level(
-        $main::taeb->current_tile,
         sub { !shift->explored },
     );
 
@@ -88,7 +86,6 @@ sub next_action {
     # if there's a >, go to it
     if ($main::taeb->map_like(qr/>/)) {
         ($to, $path) = TAEB::World::Path->first_match_level(
-            $main::taeb->current_tile,
             sub { shift->floor_glyph eq '>' },
         );
 
@@ -100,7 +97,6 @@ sub next_action {
 
     # search
     ($to, $path) = TAEB::World::Path->max_match_level(
-        $main::taeb->current_tile,
         sub {
             my ($tile, $path) = @_;
             return undef if $tile->type ne 'wall';

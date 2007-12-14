@@ -115,7 +115,7 @@ WARNING: Only the level of the starting tile will be searched.
 
 sub first_match_level {
     my $self = shift;
-    my $from = shift;
+    my $from = @_ > 1 ? shift : $main::taeb->current_tile;
     my $code = shift;
 
     $self->max_match_level($from, sub { $code->(@_) ? 'q' : undef });
@@ -137,7 +137,7 @@ my $debug_color = 0;
 
 sub max_match_level {
     my $self = shift;
-    my $from = shift;
+    my $from = @_ > 1 ? shift : $main::taeb->current_tile;
     my $code = shift;
 
     my $debug = $main::taeb->config->contents->{debug_bfs}
