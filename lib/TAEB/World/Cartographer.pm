@@ -95,8 +95,8 @@ sub check_dlvl {
 
 =head2 autoexplore
 
-Mark tiles that are obviously explored as such. Things like "a walkable tile
-completely surrounded by walkable tiles".
+Mark tiles that are obviously explored as such. Things like "a tile
+with no unknown neighbors".
 
 =cut
 
@@ -110,13 +110,15 @@ sub autoexplore {
         TILE: for my $x (0 .. 79) {
             my $tile = $self->dungeon->current_level->at($x, $y);
 
-            if (!$tile->explored) {
+            if (!$tile->explored && $tile->glyph ne ' ') {
                 $tile->each_other_neighbor(sub {
                     next TILE if shift->glyph eq ' '
                 });
 
                 $tile->explored(1);
             }
+
+            # XXX: corridors need love
         }
     }
 
