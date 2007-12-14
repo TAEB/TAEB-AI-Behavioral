@@ -8,6 +8,7 @@ use TAEB::Util;
 use TAEB::VT;
 use TAEB::ScreenScraper;
 use TAEB::World;
+use TAEB::AI::Senses;
 
 =head1 NAME
 
@@ -107,7 +108,6 @@ has dungeon => (
     handles => {
         current_level  => 'current_level',
         current_tile   => 'current_tile',
-        update_dungeon => 'update',
         map_like       => 'map_like',
         x              => 'x',
         y              => 'y',
@@ -150,6 +150,13 @@ has ttyrec => (
     },
 );
 
+has senses => (
+    is => 'rw',
+    isa => 'TAEB::AI::Senses',
+    default => sub { TAEB::AI::Senses->new },
+    handles => [qw/hp maxhp/],
+);
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
@@ -164,7 +171,8 @@ sub step {
     $self->process_input;
 
     if ($self->logged_in) {
-        $self->update_dungeon;
+        $self->dungeon->update;
+        $self->senses->update;
 
         my $next_action = $self->brain->next_action;
 
