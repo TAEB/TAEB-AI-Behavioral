@@ -91,7 +91,7 @@ sub next_action {
             sub { shift->floor_glyph eq '>' },
         );
 
-        if (length($path) > 1) {
+        if ($path) {
             $self->currently("Heading towards stairs.");
             return substr($path, 0, 1);
         }
@@ -106,7 +106,7 @@ sub next_action {
         },
     );
 
-    if ($path) {
+    if (length($path) > 1) {
         $self->currently("Heading towards a search hotspot.");
         return substr($path, 0, 1);
     }
