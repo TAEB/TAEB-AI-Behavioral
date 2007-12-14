@@ -19,7 +19,7 @@ sub next_action {
     my $fight;
 
     $self->each_adjacent(sub {
-        my (undef, $tile, $dir) = @_;
+        my ($tile, $dir) = @_;
         if ($tile->has_monster) {
             $main::taeb->info("Avast! I see a ".$tile->glyph." monster in the $dir direction.");
             $fight = $dir;
@@ -31,7 +31,7 @@ sub next_action {
 
     # kick down doors
     $self->each_adjacent(sub {
-        my (undef, $tile, $dir) = @_;
+        my ($tile, $dir) = @_;
         if ($tile->glyph eq ']') {
             $main::taeb->info("Oh dear! I see a wood board monster in the $dir direction.");
             $fight = chr(4) . $dir;

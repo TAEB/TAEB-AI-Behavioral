@@ -44,9 +44,8 @@ sub institute {
 
 =head2 each_adjacent CODE
 
-This is called for each tile adjacent to TAEB. The coderef will receive three
-arguments: the brain object, the tile object, and the vi key corresponding to
-the direction.
+This is called for each tile adjacent to TAEB. The coderef will receive two
+arguments: the tile object and the vi key corresponding to the direction.
 
 =cut
 
@@ -64,7 +63,7 @@ sub each_adjacent {
                 $dy + $main::taeb->y,
             );
 
-            $code->($self, $tile, $dir);
+            $code->($tile, $dir);
         }
     }
 }
