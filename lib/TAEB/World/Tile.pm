@@ -168,8 +168,11 @@ sub debug_draw_walkable {
 }
 
 sub debug_draw_floor {
-    my $self = shift;
-    $self->floor_glyph;
+    shift->floor_glyph
+}
+
+sub debug_draw_glyph {
+    shift->glyph
 }
 
 1;
