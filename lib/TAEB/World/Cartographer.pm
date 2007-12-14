@@ -51,7 +51,7 @@ sub update {
 
 sub current_tile {
     my $self = shift;
-    $self->dungeon->current_level->at($self->x, $self->y);
+    $self->dungeon->current_level->at;
 }
 
 =head2 map_like Regex -> Bool
