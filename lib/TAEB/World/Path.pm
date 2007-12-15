@@ -32,7 +32,7 @@ sub new {
     confess "You shouldn't call TAEB::World::Path->new directly. Use one of its path creation methods.";
 }
 
-=head2 calculate_path Tile, Tile -> Path
+=head2 calculate_path [Tile,] Tile -> Path
 
 Calculates the best path from Tile 1 to Tile 2. Returns the path as vi keys and
 whether the path was complete. If the path is incomplete, it probably leads to
@@ -41,11 +41,13 @@ some unexplored area between the two tiles.
 The path may not necessarily be the shortest one. It may relax the path a bit
 to avoid a dangerous trap, for example.
 
+The "from" tile is optional. If elided, TAEB's current tile will be used.
+
 =cut
 
 sub calculate_path {
     my $class = shift;
-    my $from  = shift;
+    my $from  = @_ > 1 ? shift : $main::taeb->current_tile;
     my $to    = shift;
 
     my ($path, $complete) = $class->_calculate_path($from, $to);
@@ -58,16 +60,18 @@ sub calculate_path {
     );
 }
 
-=head2 first_match Tile, Code -> Maybe Path
+=head2 first_match [Tile,] Code -> Maybe Path
 
 This will return a path to the first tile for which the coderef returns a true
 value.
+
+The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 =cut
 
 sub first_match {
     my $class = shift;
-    my $from  = shift;
+    my $from  = @_ > 1 ? shift : $main::taeb->current_tile;
     my $code  = shift;
 
     my ($to, $path) = $class->_dijkstra($from, sub {
@@ -84,16 +88,18 @@ sub first_match {
     );
 }
 
-=head2 max_match Tile, Code -> Maybe Path
+=head2 max_match [Tile,] Code -> Maybe Path
 
 This will return a path to the first tile for which the coderef returns the
 maximum value.
+
+The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 =cut
 
 sub max_match {
     my $class = shift;
-    my $from  = shift;
+    my $from  = @_ > 1 ? shift : $main::taeb->current_tile;
     my $code  = shift;
 
     my ($to, $path) = $class->_dijkstra($from, $code);
