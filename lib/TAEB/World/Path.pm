@@ -218,7 +218,7 @@ sub _dijkstra {
     my @closed;
 
     my $pq = Heap::Simple->new(elements => "Any");
-    $pq->add(0, [$from, '']);
+    $pq->key_insert(0, [$from, '']);
 
     while ($pq->count) {
         my $priority = $pq->top_key;
