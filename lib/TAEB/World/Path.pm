@@ -199,10 +199,16 @@ This is used to indicate that the current tile is not a valid solution.
 
 =cut
 
+my $debug_color = 0;
+
 sub _dijkstra {
     my $class  = shift;
     my $from   = shift;
     my $scorer = shift;
+
+    my $debug = $main::taeb->config->contents->{debug_dijkstra}
+        and $debug_color = ($debug_color + 1) % 6
+        and my $debug_length = $debug =~ /length/;
 
     my $max_score;
     my $max_tile;
@@ -225,9 +231,19 @@ sub _dijkstra {
         my ($tile, $path) = @{ $pq->extract_top };
         my ($x, $y) = ($tile->x, $tile->y);
 
+        $main::taeb->out(
+            "\e[%d;%dH\e[%dm%s",
+            1+$y, 1+$x, 31 + $debug_color,
+            $debug_length ? length($path) > 9 ? 0 : length($path): $tile->glyph
+        ) if $debug;
+
         my $score = $scorer->($tile, $path);
         if (defined $score) {
             if ($score eq 'q') {
+                $main::taeb->out(
+                    "\e[%d;%dH\e[m", 1+$main::taeb->y, 1+$main::taeb->x
+                ) if $debug;
+
                 return ($tile, $path);
             }
 
@@ -270,6 +286,9 @@ sub _dijkstra {
         }
     }
 
+    $main::taeb->out(
+        "\e[%d;%dH\e[m", 1+$main::taeb->y, 1+$main::taeb->x
+    ) if $debug;
     return ($max_tile, $max_path);
 }
 
