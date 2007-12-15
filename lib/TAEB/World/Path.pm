@@ -164,10 +164,12 @@ sub _calculate_intralevel_path {
     my $to_x = $to->x;
     my $to_y = $to->y;
 
-    $class->_dijkstra($from, sub {
+    my ($tile, $path) = $class->_dijkstra($from, sub {
         my $tile = shift;
         $tile->x == $to_x && $tile->y == $to_y ? 'q' : undef
     });
+
+    return ($path, length($path) ? 1 : 0);
 }
 
 =head2 _dijkstra Tile, Code -> Tile, Str
