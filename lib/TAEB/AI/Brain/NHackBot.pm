@@ -17,7 +17,7 @@ sub next_action {
         return "#pray\n";
     }
 
-    if ($main::taeb->hp * 2 < $main::taeb->maxhp) {
+    if ($main::taeb->hp * 2 < $main::taeb->maxhp && !$main::taeb->senses->in_wereform) {
         $self->currently("Writing Elbereth.");
         return "E-  Elbereth\n";
     }
