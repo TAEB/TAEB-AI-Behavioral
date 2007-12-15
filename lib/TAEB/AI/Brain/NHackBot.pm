@@ -117,7 +117,7 @@ sub next_action {
         },
     );
 
-    if (length($path) > 1) {
+    if (length($path->path) > 1) {
         $self->currently("Heading towards a search hotspot.");
         $self->path($path);
         return substr($path->path, 0, 1);
