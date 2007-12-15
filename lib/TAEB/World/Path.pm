@@ -128,7 +128,7 @@ sub _calculate_path {
 
     while ($from->level ne $to->level) {
         my $stairs = $from->level->stairs_to($to);
-        my ($p, $c) = $self->_calculate_intralevel_path($from, $stairs);
+        my ($p, $c) = $class->_calculate_intralevel_path($from, $stairs);
 
         $path .= $p;
         # XXX: append whatever we need to go from $from to $stairs->other_side
@@ -138,7 +138,7 @@ sub _calculate_path {
         return ($path, 0) if !$c;
     }
 
-    my ($p, $c) = $self->_calculate_intralevel_path($from, $to);
+    my ($p, $c) = $class->_calculate_intralevel_path($from, $to);
 
     $path .= $p;
     return ($path, $c);
