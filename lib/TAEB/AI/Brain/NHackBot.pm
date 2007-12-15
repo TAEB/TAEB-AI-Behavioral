@@ -73,6 +73,24 @@ sub next_action {
         }
     }
 
+    # track down gold
+    if ($main::taeb->topline =~ /(\d+) gold pieces?\./) {
+        $self->currently("Picking up $1 gold.");
+        return ',';
+    }
+
+    if ($main::taeb->map_like(qr/\$/)) {
+        my $path = TAEB::World::Path->first_match(
+            sub { shift->glyph eq '$' },
+        );
+
+        if ($path) {
+            $self->currently("Heading towards gold.");
+            $self->path($path);
+            return substr($path->path, 0, 1);
+        }
+    }
+
     # explore
     my $path = TAEB::World::Path->first_match(
         sub {
