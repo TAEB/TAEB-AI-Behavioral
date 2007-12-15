@@ -13,6 +13,15 @@ has currently => (
     },
 );
 
+has path => (
+    is => 'rw',
+    isa => 'TAEB::World::Path',
+    trigger => sub {
+        my ($self, $path) = @_;
+        $main::taeb->info("Current path: @{[$path->path]}.") if $path;
+    },
+);
+
 =head1 NAME
 
 TAEB::AI::Brain - how TAEB tactically extracts its amulets
