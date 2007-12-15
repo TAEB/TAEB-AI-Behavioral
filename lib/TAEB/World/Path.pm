@@ -250,7 +250,7 @@ sub _dijkstra {
                     && $dx
                     && $dy;
 
-            my $next = $level->at($xdx, $ydy)
+            my $next = $tile->level->at($xdx, $ydy)
                 or next;
 
             # can't move diagonally onto doors
