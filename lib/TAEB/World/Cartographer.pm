@@ -23,6 +23,10 @@ sub update {
     my $self  = shift;
     my $level = $self->dungeon->current_level;
 
+    # XXX: ugh. this needs to be smarter.
+    $self->x($main::taeb->vt->x);
+    $self->y($main::taeb->vt->y);
+
     $self->check_dlvl;
 
     my $debug_draw = $main::taeb->config->contents->{debug_draw};
@@ -39,9 +43,6 @@ sub update {
         }
     }
 
-    # XXX: ugh. this needs to be smarter.
-    $self->x($main::taeb->vt->x);
-    $self->y($main::taeb->vt->y);
     $main::taeb->out("\e[%d;%dH", 1+$self->y, 1+$self->x) if $debug_draw;
 
     $level->step_on($self->x, $self->y);
