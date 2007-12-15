@@ -34,6 +34,9 @@ requires       'Hash::Merge';
 requires       'Sub::Exporter';
 requires       'List::MoreUtils';
 
+# pathfinding
+requires       'Heap::Simple';
+
 features(
     'ttyrec output' => [
         -default => 1,
