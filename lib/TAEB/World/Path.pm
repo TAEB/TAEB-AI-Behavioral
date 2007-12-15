@@ -206,9 +206,11 @@ sub _dijkstra {
     my $from   = shift;
     my $scorer = shift;
 
-    my $debug = $main::taeb->config->contents->{debug_dijkstra}
-        and $debug_color = ($debug_color + 1) % 6
-        and my $debug_length = $debug =~ /length/;
+    my ($debug, $debug_length);
+    if ($debug = $main::taeb->config->contents->{debug_dijkstra}) {
+        $debug_length = $debug =~ /length/;
+        $debug_color = ($debug_color + 1) % 6;
+    }
 
     my $max_score;
     my $max_tile;
