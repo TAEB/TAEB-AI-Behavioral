@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
 package TAEB::World::Path;
 use Moose;
+use Heap::Simple;
 use TAEB::Util 'direction';
-use List::Util 'shuffle';
 
 has from => (
     is       => 'ro',
@@ -17,139 +17,188 @@ has to => (
 );
 
 has path => (
-    is  => 'rw',
-    isa => 'Str',
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1,
 );
 
 has complete => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
+    is       => 'ro',
+    isa      => 'Bool',
+    required => 1,
 );
 
-sub BUILD {
-    my $self = shift;
-    $self->calculate_path
-        unless defined $self->complete;
+sub new {
+    confess "You shouldn't call TAEB::World::Path->new directly. Use one of its path creation methods.";
 }
 
-=head2 calculate_path Tile, Tile
+=head2 calculate_path Tile, Tile -> Path
 
-This will calculate the path between the two tiles.
+Calculates the best path from Tile 1 to Tile 2. Returns the path as vi keys and
+whether the path was complete. If the path is incomplete, it probably leads to
+some unexplored area between the two tiles.
+
+The path may not necessarily be the shortest one. It may relax the path a bit
+to avoid a dangerous trap, for example.
 
 =cut
 
 sub calculate_path {
-    my $self = shift;
-    my ($f, $t) = ($self->from, $self->to);
+    my $class = shift;
+    my $from  = shift;
+    my $to    = shift;
 
-    my $path = '';
-    my $complete = 0;
+    my ($path, $complete) = $class->_calculate_path($from, $to);
 
-    while ($f->level ne $t->level) {
-        my $stairs = $f->level->stairs_to($t);
-
-        my ($p, $c) = $self->_calculate_intralevel_path($f, $stairs);
-        goto DONE unless $c;
-
-        $f = $stairs->other_side;
-        $path .= $p;
-    }
-
-    my ($p, $c) = $self->_calculate_intralevel_path($f, $t);
-    goto DONE unless $c;
-    $path .= $p;
-    $complete = 1;
-
-    DONE:
-    $self->path($path);
-    $self->complete($complete);
+    Moose::Object::new($class,
+        from     => $from,
+        to       => $to,
+        path     => $path,
+        complete => $complete,
+    );
 }
 
-=head2 calculate_intralevel_path Tile, Tile -> Path
+=head2 first_match Tile, Code -> Maybe Path
 
-Returns a new TAEB::World::Path of the path between the tiles. The tiles must
-be on the same level. Returns C<undef> if there's no known path.
+This will return a path to the first tile for which the coderef returns a true
+value.
 
 =cut
 
-sub calculate_intralevel_path {
-    my $self = shift;
-    my ($from, $to) = @_;
+sub first_match {
+    my $class = shift;
+    my $from  = shift;
+    my $code  = shift;
 
-    my ($path, $complete) = $self->_calculate_intralevel_path($from, $to);
-    return unless $complete;
+    my ($to, $path) = $class->_dijkstra($from, sub {
+        $code->(@_) ? 'q' : undef
+    });
 
-    $self->new(from => $from, to => $to, path => $path, complete => $complete);
+    $to or return;
+
+    Moose::Object::new($class,
+        from     => $from,
+        to       => $to,
+        path     => $path,
+        complete => 1,
+    );
 }
 
-=head2 _calculate_intralevel_path Tile, Tile -> Str
+=head2 max_match Tile, Code -> Maybe Path
 
-Actually does the calculation of the path to go from the first tile to the
-second. It will return the directions required. If there is unavoidable
-unexplored area between the two tiles, then C<undef> will be returned.
+This will return a path to the first tile for which the coderef returns the
+maximum value.
+
+=cut
+
+sub max_match {
+    my $class = shift;
+    my $from  = shift;
+    my $code  = shift;
+
+    my ($to, $path) = $class->_dijkstra($from, $code);
+
+    $to or return;
+
+    Moose::Object::new($class,
+        from     => $from,
+        to       => $to,
+        path     => $path,
+        complete => 1,
+    );
+}
+
+=head2 _calculate_path Tile, Tile -> Str, Bool
+
+Used internally by calculate_path -- returns just (path, complete).
+
+=cut
+
+sub _calculate_path {
+    my $class = shift;
+    my $from  = shift;
+    my $to    = shift;
+    my $path  = '';
+
+    while ($from->level ne $to->level) {
+        my $stairs = $from->level->stairs_to($to);
+        my ($p, $c) = $self->_calculate_intralevel_path($from, $stairs);
+
+        $path .= $p;
+        # XXX: append whatever we need to go from $from to $stairs->other_side
+
+        $from  = $stairs->other_side;
+
+        return ($path, 0) if !$c;
+    }
+
+    my ($p, $c) = $self->_calculate_intralevel_path($from, $to);
+
+    $path .= $p;
+    return ($path, $c);
+}
+
+=head2 _calculate_intralevel_path Tile, Tile -> Str, Bool
+
+Same as _calculate_path, except the Tiles are supposed to be on the same level.
+This is to simplify some internals. The results are undefined if the tiles
+are not on the same level (most likely there'll be a controlled detonation).
 
 =cut
 
 sub _calculate_intralevel_path {
-    my $self = shift;
-    my ($from, $to) = @_;
+    my $class = shift;
+    my $from  = shift;
+    my $to    = shift;
 
-    my ($tile, $path) = $self->first_match_level($from, sub {
+    if ($from->level ne $to->level) {
+        confess "_calculate_intralevel_path called on tiles that weren't on the same level.";
+    }
+
+    my $to_x = $to->x;
+    my $to_y = $to->y;
+
+    $class->_dijkstra($from, sub {
         my $tile = shift;
-        return $tile->x && $to->x && $tile->y == $to->y;
+        $tile->x == $to_x && $tile->y == $to_y ? 'q' : undef
     });
-
-    return $path;
 }
 
-=head2 first_match_level Tile, Code -> Tile, Str
+=head2 _dijkstra Tile, Code -> Tile, Str
 
-This takes a starting tile and a code reference, and does a breadth-first
-search to the first tile that makes the code ref return true. It then returns
-the matching tile and the path to it from the starting tile.
+This performs a search for some tile. The starting tile is given as the first
+argument. The code reference is evaluated for each tile along the way. It
+receives the current tile as its argument. It's expected to return one of
+the following:
 
-WARNING: Only the level of the starting tile will be searched.
+=over 4
+
+=item The string 'q'
+
+This indicates that the search may be short-circuited, returning this tile.
+This can be used when searching for a known tile.
+
+=item A number
+
+This is used to score relative tiles. The tile with the maximum score will
+be returned from C<_dijkstra>.
+
+=item C<undef>
+
+This is used to indicate that the current tile is not a valid solution.
+
+=back
 
 =cut
 
-sub first_match_level {
-    my $self = shift;
-    my $from = @_ > 1 ? shift : $main::taeb->current_tile;
-    my $code = shift;
-
-    $self->max_match_level($from, sub { $code->(@_) ? 'q' : undef });
-}
-
-=head2 max_match_level Tile, Code -> Tile, Str
-
-This takes a starting tile and a code reference, and does a breadth-first
-search to the first tile that makes the code ref return the maximum value. It
-then returns the matching tile and the path to it from the starting tile. If
-your coderef returns the string 'q' then the given tile and path will be
-returned.
-
-WARNING: Only the level of the starting tile will be searched.
-
-=cut
-
-my $debug_color = 0;
-
-sub max_match_level {
-    my $self = shift;
-    my $from = @_ > 1 ? shift : $main::taeb->current_tile;
-    my $code = shift;
-
-    my $debug = $main::taeb->config->contents->{debug_bfs}
-        and $debug_color = ($debug_color + 1) % 6;
-    my $level = $from->level;
+sub _dijkstra {
+    my $class  = shift;
+    my $from   = shift;
+    my $scorer = shift;
 
     my $max_score;
     my $max_tile;
     my $max_path;
-
-    my @open = [$from, ''];
-    my @closed;
 
     # north south west east
     # northwest northeast southwest southeast
@@ -158,37 +207,42 @@ sub max_match_level {
         [-1, -1], [-1,  1], [ 1, -1], [ 1,  1],
     );
 
-    while (@open) {
-        my ($tile, $path) = @{ shift @open };
+    my @closed;
+
+    my $pq = Heap::Simple->new(elements => "Any");
+    $pq->add(0, [$from, '']);
+
+    while ($pq->count) {
+        my $priority = $pq->top_key;
+        my ($tile, $path) = @{ $pq->extract_top };
         my ($x, $y) = ($tile->x, $tile->y);
 
-        my $score = $code->($tile, $path);
-        if (defined($score) && $score eq 'q') {
-            $main::taeb->out(
-                "\e[%d;%dH\e[m",
-                $main::taeb->y+1,
-                $main::taeb->x+1)
-                    if $debug;
-            return ($tile, $path);
-        }
+        my $score = $scorer->($tile);
+        if (defined $score) {
+            if ($score eq 'q') {
+                return ($tile, $path);
+            }
 
-        # if the coderef returns undef, then we don't want to update
-        if (defined($score) && (!defined($max_score) || $score > $max_score)) {
-            ($max_score, $max_tile, $max_path) = ($score, $tile, $path);
+            if (!defined($max_score) || $score > $max_score) {
+                ($max_score, $max_tile, $max_path) = ($score, $tile, $path);
+            }
         }
 
         next unless $tile->is_walkable;
 
         for (@deltas) {
             my ($dy, $dx) = @$_;
-            next if $closed[$x + $dx][$y + $dy];
+            my $xdx = $x + $dx;
+            my $ydy = $y + $dy;
+
+            next if $closed[$xdx][$ydy];
 
             # can't move diagonally off of doors
             next if $tile->type eq 'door'
                     && $dx
                     && $dy;
 
-            my $next = $level->at($x + $dx, $y + $dy)
+            my $next = $level->at($xdx, $ydy)
                 or next;
 
             # can't move diagonally onto doors
@@ -196,25 +250,15 @@ sub max_match_level {
                     && $dx
                     && $dy;
 
-            $closed[$x + $dx][$y + $dy] = 1;
+            $closed[$xdx][$ydy] = 1;
 
             my $dir = direction($dx+1, $dy+1);
+            my $cost = 1;
 
-            push @open, [ $next, $path . $dir ];
-            $main::taeb->out("\e[%d;%dH\e[%dm%s",
-                $y + 1 + $dy,
-                $x + 1 + $dx,
-                31 + $debug_color,
-                $next->glyph)
-                    if $debug;
+            $pq->key_insert($cost + $priority, [$next, $path . $dir]);
         }
     }
 
-    $main::taeb->out(
-        "\e[%d;%dH\e[m",
-        $main::taeb->y+1,
-        $main::taeb->x+1)
-            if $debug;
     return ($max_tile, $max_path);
 }
 
