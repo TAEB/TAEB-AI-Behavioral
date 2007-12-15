@@ -229,7 +229,7 @@ sub _dijkstra {
     $pq->key_insert(0, [$from, '']);
 
     while ($pq->count) {
-        my $priority = int($pq->top_key);
+        my $priority = $pq->top_key;
         my ($tile, $path) = @{ $pq->extract_top };
         my ($x, $y) = ($tile->x, $tile->y);
 
@@ -279,10 +279,10 @@ sub _dijkstra {
             $closed[$xdx][$ydy] = 1;
 
             my $dir = direction($dx+1, $dy+1);
-            my $cost = 1;
+            my $cost = 100;
 
             # ahh the things I do for aesthetics.
-            $cost -= .01 unless $dy && $dx;
+            $cost-- unless $dy && $dx;
 
             $pq->key_insert($cost + $priority, [$next, $path . $dir]);
         }
