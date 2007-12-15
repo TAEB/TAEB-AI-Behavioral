@@ -49,32 +49,32 @@ sub next_action {
     # track down monsters
     # XXX: this ignores @ due to annoyance
     if ($main::taeb->map_like(qr/[a-zA-Z~&';:]/)) {
-        my ($to, $path) = TAEB::World::Path->first_match_level(
+        my $path = TAEB::World::Path->first_match(
             sub { shift->has_monster },
         );
 
         if ($path) {
-            $self->currently("Heading towards a @{[$to->glyph]} monster.");
-            $main::taeb->debug("Current path: $path");
-            return substr($path, 0, 1);
+            $self->currently("Heading towards a @{[$path->to->glyph]} monster.");
+            $self->path($path);
+            return substr($path->path, 0, 1);
         }
     }
 
     # track down doors
     if ($main::taeb->map_like(qr/\]/)) {
-        my ($to, $path) = TAEB::World::Path->first_match_level(
+        my $path = TAEB::World::Path->first_match(
             sub { shift->glyph eq ']' },
         );
 
         if ($path) {
             $self->currently("Heading towards a door.");
-            $main::taeb->debug("Current path: $path");
-            return substr($path, 0, 1);
+            $self->path($path);
+            return substr($path->path, 0, 1);
         }
     }
 
     # explore
-    my ($to, $path) = TAEB::World::Path->first_match_level(
+    my $path = TAEB::World::Path->first_match(
         sub {
             my $tile = shift;
             !$tile->explored && $tile->is_walkable
@@ -83,8 +83,8 @@ sub next_action {
 
     if ($path) {
         $self->currently("Exploring.");
-        $main::taeb->debug("Current path: $path");
-        return substr($path, 0, 1);
+        $self->path($path);
+        return substr($path->path, 0, 1);
     }
 
     # if we're on a >, go down
@@ -95,19 +95,19 @@ sub next_action {
 
     # if there's a >, go to it
     if ($main::taeb->map_like(qr/>/)) {
-        ($to, $path) = TAEB::World::Path->first_match_level(
+        $path = TAEB::World::Path->first_match(
             sub { shift->floor_glyph eq '>' },
         );
 
         if ($path) {
             $self->currently("Heading towards stairs.");
-            $main::taeb->debug("Current path: $path");
-            return substr($path, 0, 1);
+            $self->path($path);
+            return substr($path->path, 0, 1);
         }
     }
 
     # search
-    ($to, $path) = TAEB::World::Path->max_match_level(
+    $path = TAEB::World::Path->max_match(
         sub {
             my ($tile, $path) = @_;
 
@@ -119,8 +119,8 @@ sub next_action {
 
     if (length($path) > 1) {
         $self->currently("Heading towards a search hotspot.");
-        $main::taeb->debug("Current path: $path");
-        return substr($path, 0, 1);
+        $self->path($path);
+        return substr($path->path, 0, 1);
     }
 
     $self->currently("Searching the adjacent walls.");
