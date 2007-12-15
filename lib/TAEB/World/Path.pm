@@ -176,8 +176,8 @@ sub _calculate_intralevel_path {
 
 This performs a search for some tile. The starting tile is given as the first
 argument. The code reference is evaluated for each tile along the way. It
-receives the current tile as its argument. It's expected to return one of
-the following:
+receives the current tile and the path to it as its arguments. It's expected to
+return one of the following:
 
 =over 4
 
@@ -225,7 +225,7 @@ sub _dijkstra {
         my ($tile, $path) = @{ $pq->extract_top };
         my ($x, $y) = ($tile->x, $tile->y);
 
-        my $score = $scorer->($tile);
+        my $score = $scorer->($tile, $path);
         if (defined $score) {
             if ($score eq 'q') {
                 return ($tile, $path);
