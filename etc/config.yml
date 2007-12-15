@@ -6,7 +6,6 @@ role: Valkyrie
 race: Dwarf
 
 ttyrec: 1
-carp_repl: 1
 
 other_config:
     - etc/site_config.yml
