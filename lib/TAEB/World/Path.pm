@@ -211,8 +211,8 @@ sub _dijkstra {
     # north south west east
     # northwest northeast southwest southeast
     my @deltas = (
-        [-1,  0], [ 1,  0], [ 0, -1], [ 0,  1],
         [-1, -1], [-1,  1], [ 1, -1], [ 1,  1],
+        [-1,  0], [ 1,  0], [ 0, -1], [ 0,  1],
     );
 
     my @closed;
