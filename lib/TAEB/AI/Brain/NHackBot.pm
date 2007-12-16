@@ -74,7 +74,7 @@ sub next_action {
     }
 
     # track down gold
-    if ($main::taeb->topline =~ /(\d+) gold pieces?\./) {
+    if ($main::taeb->topline =~ /You see here (\d+|a) gold pieces?\./) {
         $self->currently("Picking up $1 gold.");
         return ',';
     }
