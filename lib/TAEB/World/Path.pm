@@ -279,7 +279,7 @@ sub _dijkstra {
             $closed[$xdx][$ydy] = 1;
 
             my $dir = direction($dx+1, $dy+1);
-            my $cost = 100;
+            my $cost = $next->basic_cost;
 
             # ahh the things I do for aesthetics.
             $cost-- unless $dy && $dx;

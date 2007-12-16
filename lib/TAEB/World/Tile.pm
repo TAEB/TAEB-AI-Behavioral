@@ -67,6 +67,25 @@ has explored => (
     default => 0,
 );
 
+=head2 basic_cost -> Int
+
+This returns the basic cost of entering a tile. It's not very smart, but it
+should do the trick for avoiding known traps and preferring the trodden path.
+
+=cut
+
+sub basic_cost {
+    my $self = shift;
+    my $cost = 100;
+
+    $cost = 1000 if $self->type eq 'trap';
+    $cost = 300 if $self->type eq 'obscured';
+
+    $cost = $cost / 2 if $self->stepped_on;
+
+    return int($cost);
+}
+
 sub update {
     my $self = shift;
     my $newglyph = shift;
