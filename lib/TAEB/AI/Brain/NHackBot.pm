@@ -35,16 +35,18 @@ sub next_action {
             if $fight;
 
     # kick down doors
-    $self->each_adjacent(sub {
-        my ($tile, $dir) = @_;
-        if ($tile->glyph eq ']') {
-            $fight = chr(4) . $dir;
-        }
-    });
+    if ($main::taeb->senses->can_kick) {
+        $self->each_adjacent(sub {
+            my ($tile, $dir) = @_;
+            if ($tile->glyph eq ']') {
+                $fight = chr(4) . $dir;
+            }
+        });
 
-    $self->currently("Kicking down a door."),
-        return $fight
-            if $fight;
+        $self->currently("Kicking down a door."),
+            return $fight
+                if $fight;
+    }
 
     # track down monsters
     # XXX: this ignores @ due to annoyance
@@ -61,7 +63,7 @@ sub next_action {
     }
 
     # track down doors
-    if ($main::taeb->map_like(qr/\]/)) {
+    if ($main::taeb->senses->can_kick && $main::taeb->map_like(qr/\]/)) {
         my $path = TAEB::World::Path->first_match(
             sub { shift->glyph eq ']' },
         );
