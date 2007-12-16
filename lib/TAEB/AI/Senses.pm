@@ -3,18 +3,24 @@ package TAEB::AI::Senses;
 use Moose;
 
 has hp => (
-    is => 'rw',
+    is  => 'rw',
     isa => 'Int',
 );
 
 has maxhp => (
-    is => 'rw',
+    is  => 'rw',
     isa => 'Int',
 );
 
 has in_wereform => (
     is  => 'rw',
     isa => 'Bool',
+);
+
+has can_kick => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 1,
 );
 
 sub update {
@@ -32,6 +38,10 @@ sub update {
     }
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
+
+    if ($main::taeb->topline =~ /You can't move your leg/) {
+        $self->can_kick(0);
+    }
 }
 
 1;
