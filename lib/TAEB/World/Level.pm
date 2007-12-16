@@ -29,8 +29,8 @@ has z => (
 
 sub at {
     my $self = shift;
-    my $x = shift || $main::taeb->x;
-    my $y = shift || $main::taeb->y;
+    my $x = shift || TAEB->x;
+    my $y = shift || TAEB->y;
 
     return $self->tiles->[$y][$x];
 }

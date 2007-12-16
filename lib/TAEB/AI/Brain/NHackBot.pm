@@ -12,12 +12,12 @@ TAEB::AI::Brain::NHackBot - Know thy roots
 sub next_action {
     my $self = shift;
 
-    if ($main::taeb->vt->row_plaintext(23) =~ /Fain/) {
+    if (TAEB->vt->row_plaintext(23) =~ /Fain/) {
         $self->currently("Praying for satiation.");
         return "#pray\n";
     }
 
-    if ($main::taeb->hp * 2 < $main::taeb->maxhp && !$main::taeb->senses->in_wereform) {
+    if (TAEB->hp * 2 < TAEB->maxhp && !TAEB->senses->in_wereform) {
         $self->currently("Writing Elbereth.");
         return "E-  Elbereth\n";
     }
@@ -35,7 +35,7 @@ sub next_action {
             if $fight;
 
     # kick down doors
-    if ($main::taeb->senses->can_kick) {
+    if (TAEB->senses->can_kick) {
         $self->each_adjacent(sub {
             my ($tile, $dir) = @_;
             if ($tile->glyph eq ']') {
@@ -50,7 +50,7 @@ sub next_action {
 
     # track down monsters
     # XXX: this ignores @ due to annoyance
-    if ($main::taeb->map_like(qr/[a-zA-Z~&';:]/)) {
+    if (TAEB->map_like(qr/[a-zA-Z~&';:]/)) {
         my $path = TAEB::World::Path->first_match(
             sub { shift->has_monster },
         );
@@ -63,7 +63,7 @@ sub next_action {
     }
 
     # track down doors
-    if ($main::taeb->senses->can_kick && $main::taeb->map_like(qr/\]/)) {
+    if (TAEB->senses->can_kick && TAEB->map_like(qr/\]/)) {
         my $path = TAEB::World::Path->first_match(
             sub { shift->glyph eq ']' },
         );
@@ -76,12 +76,12 @@ sub next_action {
     }
 
     # track down gold
-    if ($main::taeb->messages =~ /You see here (\d+|a) gold pieces?\./) {
+    if (TAEB->messages =~ /You see here (\d+|a) gold pieces?\./) {
         $self->currently("Picking up $1 gold.");
         return ',';
     }
 
-    if ($main::taeb->map_like(qr/\$/)) {
+    if (TAEB->map_like(qr/\$/)) {
         my $path = TAEB::World::Path->first_match(
             sub { shift->glyph eq '$' },
         );
@@ -108,13 +108,13 @@ sub next_action {
     }
 
     # if we're on a >, go down
-    if ($main::taeb->current_tile->floor_glyph eq '>') {
+    if (TAEB->current_tile->floor_glyph eq '>') {
         $self->currently("Descending.");
         return '>';
     }
 
     # if there's a >, go to it
-    if ($main::taeb->map_like(qr/>/)) {
+    if (TAEB->map_like(qr/>/)) {
         $path = TAEB::World::Path->first_match(
             sub { shift->floor_glyph eq '>' },
         );
@@ -144,7 +144,7 @@ sub next_action {
     }
 
     $self->currently("Searching the adjacent walls.");
-    $main::taeb->current_tile->each_neighbor(sub {
+    TAEB->current_tile->each_neighbor(sub {
         my $self = shift;
         $self->searched($self->searched + 10);
     });

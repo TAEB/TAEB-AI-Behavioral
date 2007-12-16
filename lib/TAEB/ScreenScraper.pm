@@ -11,8 +11,8 @@ sub scrape {
     my $self = shift;
 
     # very big special case
-    if ($main::taeb->vt->row_plaintext(23) =~ /^--More--\s+$/) {
-        $main::taeb->write('        ');
+    if (TAEB->vt->row_plaintext(23) =~ /^--More--\s+$/) {
+        TAEB->write('        ');
         die "Game over, man!\n";
     }
 
@@ -41,13 +41,13 @@ sub handle_more {
     my $self = shift;
 
     # while there's a --More-- on the screen..
-    while ($main::taeb->vt->contains("--More--")) {
+    while (TAEB->vt->contains("--More--")) {
         # add the text to the buffer
-        $self->messages($self->messages . $main::taeb->topline);
+        $self->messages($self->messages . TAEB->topline);
 
         # try to get rid of the --More--
-        $main::taeb->write(' ');
-        $main::taeb->process_input();
+        TAEB->write(' ');
+        TAEB->process_input();
     }
 }
 
@@ -55,28 +55,28 @@ sub handle_menus {
     my $self = shift;
 
     # while there's a menu on the screen..
-    while ($main::taeb->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
+    while (TAEB->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
         # try to get rid of it
-        $main::taeb->write(' ');
-        $main::taeb->process_input();
+        TAEB->write(' ');
+        TAEB->process_input();
     }
 }
 
 sub handle_fallback {
     my $self = shift;
 
-    if ($main::taeb->topline =~ /^Really attack /) {
+    if (TAEB->topline =~ /^Really attack /) {
         # try to get rid of it
-        $main::taeb->write('y');
-        $main::taeb->process_input();
+        TAEB->write('y');
+        TAEB->process_input();
     }
 
-    if ($main::taeb->topline =~ /^Call / && $main::taeb->vt->y == 0) {
-        $main::taeb->write("\n");
-        $main::taeb->process_input();
+    if (TAEB->topline =~ /^Call / && TAEB->vt->y == 0) {
+        TAEB->write("\n");
+        TAEB->process_input();
     }
 
-    $self->messages($self->messages . $main::taeb->topline);
+    $self->messages($self->messages . TAEB->topline);
 }
 
 1;

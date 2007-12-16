@@ -39,13 +39,11 @@ sub load_from_argv {
 my $interface = load_from_argv('Interface', 'Local');
 my $brain     = load_from_argv('AI::Brain', 'RandomWalk');
 
-our $taeb = TAEB->new(
-    interface => $interface,
-    brain     => $brain,
-    config    => $config,
-);
+TAEB->interface($interface);
+TAEB->brain($brain);
+TAEB->config($config);
 
-$SIG{__WARN__} = sub { $taeb->warning(@_) };
+$SIG{__WARN__} = sub { TAEB->warning(@_) };
 $SIG{__DIE__} = sub {
     return if "@_ $_" =~ /Game over, man/;
     require Carp::REPL;
@@ -59,14 +57,14 @@ ReadMode 3;
 END { ReadMode 0 }
 
 while (1) {
-    $taeb->step;
-    my $c = ReadKey $taeb->read_wait;
+    TAEB->step;
+    my $c = ReadKey(TAEB->read_wait);
     if (defined $c) {
-        my $out = $taeb->keypress($c);
+        my $out = TAEB->keypress($c);
         if (defined $out) {
-            $taeb->out("\e[2H\e[44m$out");
+            TAEB->out("\e[2H\e[44m$out");
             sleep 3;
-            $taeb->out($taeb->redraw);
+            TAEB->out(TAEB->redraw);
         }
     }
 }

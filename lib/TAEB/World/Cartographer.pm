@@ -24,26 +24,26 @@ sub update {
     my $level = $self->dungeon->current_level;
 
     # XXX: ugh. this needs to be smarter.
-    $self->x($main::taeb->vt->x);
-    $self->y($main::taeb->vt->y);
+    $self->x(TAEB->vt->x);
+    $self->y(TAEB->vt->y);
 
     $self->check_dlvl;
 
-    my $debug_draw = $main::taeb->config->contents->{debug_draw};
+    my $debug_draw = TAEB->config->contents->{debug_draw};
 
     for my $y (1 .. 21) {
         for my $x (0 .. 79) {
             my $tile = $level->at($x, $y);
-            if ($main::taeb->vt->at($x, $y) ne $tile->glyph) {
-                $level->update_tile($x, $y, $main::taeb->vt->at($x, $y));
+            if (TAEB->vt->at($x, $y) ne $tile->glyph) {
+                $level->update_tile($x, $y, TAEB->vt->at($x, $y));
             }
 
-            $main::taeb->out("\e[%d;%dH%s\e[m", 1+$y, 1+$x, $tile->$debug_draw)
+            TAEB->out("\e[%d;%dH%s\e[m", 1+$y, 1+$x, $tile->$debug_draw)
                 if $debug_draw;
         }
     }
 
-    $main::taeb->out("\e[%d;%dH", 1+$self->y, 1+$self->x) if $debug_draw;
+    TAEB->out("\e[%d;%dH", 1+$self->y, 1+$self->x) if $debug_draw;
 
     $level->step_on($self->x, $self->y);
 
@@ -65,7 +65,7 @@ sub map_like {
     my $self = shift;
     my $re = shift;
 
-    defined $main::taeb->vt->find_row(sub {
+    defined TAEB->vt->find_row(sub {
         my ($row, $y) = @_;
         $y > 0 && $y < 22 && $row =~ $re;
     });
@@ -80,14 +80,14 @@ Updates the current_level if Dlvl appears to have changed.
 sub check_dlvl {
     my $self = shift;
 
-    $main::taeb->vt->row_plaintext(23) =~ /^Dlvl:(\d+) /
-        or $main::taeb->error("Unable to parse the botl for dlvl: ".$main::taeb->vt->row_plaintext(23));
+    TAEB->vt->row_plaintext(23) =~ /^Dlvl:(\d+) /
+        or TAEB->error("Unable to parse the botl for dlvl: ".TAEB->vt->row_plaintext(23));
 
     my $dlvl = $1;
     my $level = $self->dungeon->current_level;
 
     if ($level->z != $dlvl) {
-        $main::taeb->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
+        TAEB->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
 
         my $branch = $self->dungeon->branches->{dungeons};
         $self->dungeon->current_level($branch->levels->[$dlvl] ||= TAEB::World::Level->new(branch => $branch, z => $dlvl));

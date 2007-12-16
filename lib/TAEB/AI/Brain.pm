@@ -9,7 +9,7 @@ has currently => (
     default => "?",
     trigger => sub {
         my ($self, $currently) = @_;
-        $main::taeb->info("Currently: $currently.") unless $currently eq '?';
+        TAEB->info("Currently: $currently.") unless $currently eq '?';
     },
 );
 
@@ -18,8 +18,14 @@ has path => (
     isa => 'TAEB::World::Path',
     trigger => sub {
         my ($self, $path) = @_;
-        $main::taeb->info("Current path: @{[$path->path]}.") if $path;
+        TAEB->info("Current path: @{[$path->path]}.") if $path;
     },
+);
+
+has behaviors => (
+    is      => 'rw',
+    isa     => 'ArrayRef[TAEB::AI::Behavior]',
+    default => sub { [] },
 );
 
 =head1 NAME
@@ -77,9 +83,9 @@ sub each_adjacent {
             next unless $dy || $dx; # skip 0, 0
             my $dir = direction($dx+1, $dy+1);
 
-            my $tile = $main::taeb->current_level->at(
-                $dx + $main::taeb->x,
-                $dy + $main::taeb->y,
+            my $tile = TAEB->current_level->at(
+                $dx + TAEB->x,
+                $dy + TAEB->y,
             );
 
             $code->($tile, $dir);

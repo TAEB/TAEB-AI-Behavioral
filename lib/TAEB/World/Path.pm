@@ -47,7 +47,7 @@ The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 sub calculate_path {
     my $class = shift;
-    my $from  = @_ > 1 ? shift : $main::taeb->current_tile;
+    my $from  = @_ > 1 ? shift : TAEB->current_tile;
     my $to    = shift;
 
     my ($path, $complete) = $class->_calculate_path($from, $to);
@@ -71,7 +71,7 @@ The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 sub first_match {
     my $class = shift;
-    my $from  = @_ > 1 ? shift : $main::taeb->current_tile;
+    my $from  = @_ > 1 ? shift : TAEB->current_tile;
     my $code  = shift;
 
     my ($to, $path) = $class->_dijkstra($from, sub {
@@ -99,7 +99,7 @@ The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 sub max_match {
     my $class = shift;
-    my $from  = @_ > 1 ? shift : $main::taeb->current_tile;
+    my $from  = @_ > 1 ? shift : TAEB->current_tile;
     my $code  = shift;
 
     my ($to, $path) = $class->_dijkstra($from, $code);
@@ -207,7 +207,7 @@ sub _dijkstra {
     my $scorer = shift;
 
     my ($debug, $debug_length);
-    if ($debug = $main::taeb->config->contents->{debug_dijkstra}) {
+    if ($debug = TAEB->config->contents->{debug_dijkstra}) {
         $debug_length = $debug =~ /length/;
         $debug_color = ($debug_color + 1) % 6;
     }
@@ -233,7 +233,7 @@ sub _dijkstra {
         my ($tile, $path) = @{ $pq->extract_top };
         my ($x, $y) = ($tile->x, $tile->y);
 
-        $main::taeb->out(
+        TAEB->out(
             "\e[%d;%dH\e[%dm%s",
             1+$y, 1+$x, 31 + $debug_color,
             $debug_length ? length($path) > 9 ? 0 : length($path): $tile->glyph
@@ -242,8 +242,8 @@ sub _dijkstra {
         my $score = $scorer->($tile, $path);
         if (defined $score) {
             if ($score eq 'q') {
-                $main::taeb->out(
-                    "\e[%d;%dH\e[m", 1+$main::taeb->y, 1+$main::taeb->x
+                TAEB->out(
+                    "\e[%d;%dH\e[m", 1+TAEB->y, 1+TAEB->x
                 ) if $debug;
 
                 return ($tile, $path);
@@ -288,8 +288,8 @@ sub _dijkstra {
         }
     }
 
-    $main::taeb->out(
-        "\e[%d;%dH\e[m", 1+$main::taeb->y, 1+$main::taeb->x
+    TAEB->out(
+        "\e[%d;%dH\e[m", 1+TAEB->y, 1+TAEB->x
     ) if $debug;
     return ($max_tile, $max_path);
 }

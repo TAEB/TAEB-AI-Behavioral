@@ -1,6 +1,6 @@
 #!perl
 package TAEB;
-use Moose;
+use MooseX::Singleton;
 use Log::Dispatch;
 use Log::Dispatch::File;
 
@@ -26,7 +26,6 @@ has interface =>
 (
     is       => 'rw',
     isa      => 'TAEB::Interface',
-    required => 1,
     handles  => [qw/read write/],
 );
 
@@ -34,7 +33,6 @@ has brain =>
 (
     is       => 'rw',
     isa      => 'TAEB::AI::Brain',
-    required => 1,
     trigger  => sub {
         my ($self, $brain) = @_;
         $brain->institute;
@@ -54,7 +52,6 @@ has config =>
 (
     is       => 'rw',
     isa      => 'TAEB::Config',
-    required => 1,
 );
 
 has vt =>
@@ -330,7 +327,7 @@ sub keypress {
         $self->out("\e3");
 
         # back to normal
-        $self->out($main::taeb->redraw);
+        $self->out(TAEB->redraw);
 
         return;
     }
@@ -345,10 +342,10 @@ around qw/info warning/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
-    if ($main::taeb->info_to_screen) {
-        $main::taeb->out("\e[2H\e[42m$message");
+    if (TAEB->info_to_screen) {
+        TAEB->out("\e[2H\e[42m$message");
         sleep 3;
-        $main::taeb->out($main::taeb->redraw);
+        TAEB->out(TAEB->redraw);
     }
 
     goto $orig;
@@ -358,9 +355,9 @@ around qw/error critical/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
-    $main::taeb->out("\e[2H\e[41m$message");
+    TAEB->out("\e[2H\e[41m$message");
     sleep 3;
-    $main::taeb->out($main::taeb->redraw);
+    TAEB->out(TAEB->redraw);
 
     goto $orig;
 };
@@ -376,7 +373,7 @@ sub out {
     print $out;
 
     $self->ttyrec->print($out)
-        if $main::taeb->config->contents->{ttyrec};
+        if TAEB->config->contents->{ttyrec};
 }
 
 1;

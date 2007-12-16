@@ -13,6 +13,7 @@ requires       'IO::Pty::Easy';
 
 # the object system
 requires       'Moose';
+requires       'MooseX::Singleton' => 0.03;
 
 # getop for bin/taeb
 requires       'Getopt::Whatever';

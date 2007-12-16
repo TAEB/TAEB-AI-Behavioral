@@ -124,8 +124,8 @@ sub has_monster {
     my $self = shift;
 
     # rationale: TAEB is no monster, he's just misunderstood
-    return 0 if $self->x == $main::taeb->x
-             && $self->y == $main::taeb->y;
+    return 0 if $self->x == TAEB->x
+             && $self->y == TAEB->y;
 
     # XXX: @ is currently not included because of shks
     $self->glyph =~ /[a-zA-Z~&';:]/;
@@ -135,8 +135,8 @@ sub is_walkable {
     my $self = shift;
 
     # current tile is always walkable
-    return 1 if $self->x == $main::taeb->x
-             && $self->y == $main::taeb->y;
+    return 1 if $self->x == TAEB->x
+             && $self->y == TAEB->y;
 
     # XXX: yes. I know. shut up.
     return 0 if $self->glyph eq '0' || $self->glyph eq '@';

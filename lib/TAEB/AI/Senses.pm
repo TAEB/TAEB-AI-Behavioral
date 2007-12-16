@@ -26,21 +26,21 @@ has can_kick => (
 sub update {
     my $self = shift;
 
-    my $status = $main::taeb->vt->row_plaintext(22);
-    my $botl   = $main::taeb->vt->row_plaintext(23);
+    my $status = TAEB->vt->row_plaintext(22);
+    my $botl   = TAEB->vt->row_plaintext(23);
 
     if ($botl =~ /HP:(\d+)\((\d+)\)/) {
         $self->hp($1);
         $self->maxhp($2);
     }
     else {
-        $main::taeb->error("Unable to parse HP from '$botl'");
+        TAEB->error("Unable to parse HP from '$botl'");
     }
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
 
-    if ($main::taeb->messages =~ /You can't move your leg/
-     || $main::taeb->messages =~ /You are caught in a bear trap/) {
+    if (TAEB->messages =~ /You can't move your leg/
+     || TAEB->messages =~ /You are caught in a bear trap/) {
         $self->can_kick(0);
     }
     # XXX: there's no message when you leave a bear trap. I'm not sure of the
