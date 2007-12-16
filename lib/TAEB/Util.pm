@@ -18,11 +18,11 @@ our %glyphs = (
     '>'  => 'stairs',
     '<'  => 'stairs',
     '^'  => 'trap',
+    '_'  => 'altar',
     '\\' => 'throne',
 
-    '_'  => [qw/grave altar/],
     '{'  => [qw/sink fountain/],
-    '}'  => [qw/bars tree drawbridge water lava underwater/],
+    '}'  => [qw/grave bars tree drawbridge water lava underwater/],
 
     '#'  => 'corridor',
     #'#'  => 'air', # who cares, no difference
