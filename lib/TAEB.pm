@@ -168,6 +168,8 @@ It will return any input it receives, so you can follow along at home.
 sub step {
     my $self = shift;
 
+    $self->scraper->clear;
+
     $self->process_input;
 
     if ($self->logged_in) {

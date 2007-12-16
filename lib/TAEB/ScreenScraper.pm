@@ -10,9 +10,6 @@ has messages => (
 sub scrape {
     my $self = shift;
 
-    # first, clear old data
-    $self->clear;
-
     # very big special case
     if ($main::taeb->vt->row_plaintext(23) =~ /^--More--\s+$/) {
         $main::taeb->write('        ');
@@ -30,7 +27,7 @@ sub scrape {
 
     # get rid of all the redundant spaces
     local $_ = $self->messages;
-    s/\s+/ /g;
+    s/\s+ /  /g;
     $self->messages($_);
 }
 
