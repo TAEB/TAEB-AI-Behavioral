@@ -39,7 +39,7 @@ sub update {
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
 
-    if ($main::taeb->topline =~ /You can't move your leg/) {
+    if ($main::taeb->messages =~ /You can't move your leg/) {
         $self->can_kick(0);
     }
 }
