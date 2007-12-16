@@ -29,12 +29,12 @@ OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
 # changes: spider web = ^
 # now " amulet, ^ trap
 
-OPTIONS=dungeon: |--------||.\44\44]]}}.##<><>__\\{{}.}..}} #}
+OPTIONS=dungeon: |--------||.\44\44]]}}.##<><>_{\\{{}.}..}} #}
 # changes: open doors => ,   now | and - are walls
 #          closed doors => ] now + spellbook
 #          iron bars => }    not walkable (cyan)
 #          trees => }        not walkable (green)
-#          grave => _        I have to ; altars anyway, now | is wall
+#          grave => {        now | is wall
 #          sink => {         now # is corridor or air
 #          drawbridge => }   same as sink, not walkable
 
