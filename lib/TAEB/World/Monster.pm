@@ -32,11 +32,11 @@ has 'spd' => (
   isa => 'Int',
 );
 
-# whether the monster respects Elbereth
-has 'elbereth' => (
-  is      => 'rw',
-  isa     => 'Int',
-  default => 1,
+has elbereth => (
+  is            => 'rw',
+  isa           => 'Bool',
+  default       => 1,
+  documentation => "whether the monster respects Elbereth",
 );
 
 has 'glyph' => (
