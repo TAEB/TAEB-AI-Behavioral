@@ -95,7 +95,7 @@ has 'foodlist' => (
 sub food {
   my $self = shift;
   my $arg  = shift;
-  return exists $self->foodlist->{$arg} ? $self->foodlist->{arg} : undef;
+  return $self->foodlist->{$arg};
 }
 
 1;
