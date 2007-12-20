@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::Knowledge::Monster;
+package TAEB::Knowledge::Food;
 use Moose;
 
 has 'foodlist' => (
