@@ -5885,7 +5885,7 @@ has 'monst' => (
 sub monster {
   my $self = shift;
   my $arg  = shift;
-  return exists $self->monst->{$arg} ? $self->monst->{arg} : undef;
+  return $self->monst->{arg};
 }
 
 1;
