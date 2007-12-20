@@ -6,7 +6,7 @@ has 'weap' => (
     is      => 'ro',
     isa     => 'HashRef',
     default => sub {
-        return {
+        my $foo = {
             'aklys' => {
               sdam  => 'd6',
               ldam  => 'd3',
@@ -73,7 +73,7 @@ has 'weap' => (
               tohit => '0',
               type  => 'wood',
             },
-            'broadsword (ninja-to)' => {
+            'broadsword' => {
               sdam  => '2d4',
               ldam  => 'd6+1',
               tohit => '0',
@@ -211,7 +211,7 @@ has 'weap' => (
               tohit => 'd5',
               type  => 'iron',
             },
-            'flail (nunchaku)' => {
+            'flail' => {
               sdam  => 'd6+1',
               ldam  => '2d4',
               tohit => '0',
@@ -235,7 +235,7 @@ has 'weap' => (
               tohit => 'd5',
               type  => 'iron',
             },
-            'glaive (naginata)' => {
+            'glaive' => {
               sdam  => 'd6',
               ldam  => 'd10',
               tohit => '0',
@@ -283,7 +283,7 @@ has 'weap' => (
               tohit => '1',
               type  => 'iron',
             },
-            'knife (shito)' => {
+            'knife' => {
               sdam  => 'd3',
               ldam  => 'd2',
               tohit => '0',
@@ -445,7 +445,7 @@ has 'weap' => (
               tohit => '0',
               type  => 'iron',
             },
-            'short sword (wakizashi)' => {
+            'short sword' => {
               sdam  => 'd6',
               ldam  => 'd8',
               tohit => '0',
@@ -613,7 +613,14 @@ has 'weap' => (
               tohit => '0',
               type  => 'wood',
             },
-        }
+        };
+        # Japanese name mappings
+        $foo->{'wakizashi'} = $foo->{'short sword'};
+        $foo->{'ninja-to'} = $foo->{'broadsword'};
+        $foo->{'nunchaku'} = $foo->{'flail'};
+        $foo->{'naginata'} = $foo->{'glaive'};
+        $foo->{'shito'} = $foo->{'knife'};
+        return $foo;
     },
 );
 
