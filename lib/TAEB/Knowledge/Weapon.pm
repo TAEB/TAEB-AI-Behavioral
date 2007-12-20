@@ -6,7 +6,7 @@ has 'weap' => (
     is      => 'ro',
     isa     => 'HashRef',
     default => sub {
-        my $foo = {
+        my $weapons = {
             'aklys' => {
               sdam  => 'd6',
               ldam  => 'd3',
@@ -615,12 +615,12 @@ has 'weap' => (
             },
         };
         # Japanese name mappings
-        $foo->{'wakizashi'} = $foo->{'short sword'};
-        $foo->{'ninja-to'} = $foo->{'broadsword'};
-        $foo->{'nunchaku'} = $foo->{'flail'};
-        $foo->{'naginata'} = $foo->{'glaive'};
-        $foo->{'shito'} = $foo->{'knife'};
-        return $foo;
+        $weapons->{'wakizashi'} = $weapons->{'short sword'};
+        $weapons->{'ninja-to'}  = $weapons->{'broadsword'};
+        $weapons->{'nunchaku'}  = $weapons->{'flail'};
+        $weapons->{'naginata'}  = $weapons->{'glaive'};
+        $weapons->{'shito'}     = $weapons->{'knife'};
+        return $weapons;
     },
 );
 
