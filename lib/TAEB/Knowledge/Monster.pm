@@ -1,7 +1,6 @@
-#!perl
+#!/usr/bin/env perl
 package TAEB::Knowledge::Monster;
 use Moose;
-use TAEB::World::Monster;
 
 # gigantic hash of monsters...
 has 'monst' => (
