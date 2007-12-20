@@ -2,32 +2,32 @@
 package TAEB::World::Monster;
 use Moose;
 
-has 'id' => (
+has id => (
   is  => 'rw',
   isa => 'Str',
 );
 
-has 'name' => (
+has name => (
   is  => 'rw',
   isa => 'Str',
 );
 
-has 'ac' => (
+has ac => (
   is  => 'rw',
   isa => 'Int',
 );
 
-has 'mr' => (
+has mr => (
   is  => 'rw',
   isa => 'Int',
 );
 
-has 'lev' => (
+has level => (
   is  => 'rw',
   isa => 'Int',
 );
 
-has 'spd' => (
+has speed => (
   is  => 'rw',
   isa => 'Int',
 );
