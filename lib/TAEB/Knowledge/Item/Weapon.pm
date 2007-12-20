@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::Knowledge::Weapon;
+package TAEB::Knowledge::Item::Weapon;
 use Moose;
 
 has weaponlist => (
