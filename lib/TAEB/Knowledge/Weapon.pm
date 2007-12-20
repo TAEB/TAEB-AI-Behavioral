@@ -627,7 +627,7 @@ has 'weap' => (
 sub weapon {
   my $self = shift;
   my $arg  = shift;
-  return exists $self->weap->{$arg} ? $self->weap->{$arg} : undef;
+  return $self->weap->{$arg};
 }
 
 1;
