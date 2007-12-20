@@ -2,7 +2,7 @@
 package TAEB::Knowledge::Weapon;
 use Moose;
 
-has 'weap' => (
+has weaponlist => (
     is      => 'ro',
     isa     => 'HashRef',
     default => sub {
@@ -625,9 +625,9 @@ has 'weap' => (
 );
 
 sub weapon {
-  my $self = shift;
-  my $arg  = shift;
-  return $self->weap->{$arg};
+    my $self = shift;
+    my $arg  = shift;
+    return $self->weaponlist->{$arg};
 }
 
 1;

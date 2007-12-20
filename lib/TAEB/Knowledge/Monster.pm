@@ -2,8 +2,7 @@
 package TAEB::Knowledge::Monster;
 use Moose;
 
-# gigantic hash of monsters...
-has 'monst' => (
+has monsterlist => (
     is      => 'ro',
     isa     => 'HashRef',
     default => sub {
@@ -5883,9 +5882,9 @@ has 'monst' => (
 );
 
 sub monster {
-  my $self = shift;
-  my $arg  = shift;
-  return $self->monst->{arg};
+    my $self = shift;
+    my $arg  = shift;
+    return $self->monsterlist->{arg};
 }
 
 1;
