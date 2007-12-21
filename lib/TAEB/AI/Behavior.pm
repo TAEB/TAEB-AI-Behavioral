@@ -55,7 +55,7 @@ and don't override this!
 
 sub name {
     my $self = shift;
-    my $pkg = blessed($self);
+    my $pkg = blessed($self) || $self;
     $pkg =~ s/^TAEB::AI::Behavior:://;
     $pkg =~ s/::/_/g;
     return $pkg;
