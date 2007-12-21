@@ -151,7 +151,7 @@ has senses => (
     is => 'rw',
     isa => 'TAEB::AI::Senses',
     default => sub { TAEB::AI::Senses->new },
-    handles => [qw/hp maxhp/],
+    handles => [qw/hp maxhp hunger/],
 );
 
 =head2 step
