@@ -24,8 +24,22 @@ has path => (
 
 has behaviors => (
     is      => 'rw',
-    isa     => 'ArrayRef[TAEB::AI::Behavior]',
-    default => sub { [] },
+    isa     => 'HashRef[TAEB::AI::Behavior]',
+    default => sub {
+        my $self      = shift;
+        my $behaviors = {};
+
+        if ($self->can('autoload_behaviors')) {
+            for ($self->autoload_behaviors) {
+                my $pkg = "TAEB::AI::Behavior::$_";
+                my $name = $pkg->name;
+
+                $behaviors{$name} = $pkg->new;
+            }
+        }
+
+        return $behaviors;
+    },
 );
 
 =head1 NAME
