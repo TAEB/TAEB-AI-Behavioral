@@ -23,7 +23,7 @@ sub prepare {
 
     $self->path($path);
 
-    return $path && length($path->path) > 1 ? 25 : 0;
+    return $path && length($path->path) ? 25 : 0;
 }
 
 sub next_action {
