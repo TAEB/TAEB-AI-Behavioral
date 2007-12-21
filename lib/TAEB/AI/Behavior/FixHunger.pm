@@ -9,6 +9,7 @@ sub prepare {
 
     # start worrying about hunger a little before Hungry (150)
     $urgency = 0 if $urgency < 800;
+    return $urgency;
 }
 
 sub next_action { "#pray\n" }
