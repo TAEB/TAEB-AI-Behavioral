@@ -22,15 +22,13 @@ Version 0.01 released ???
 
 our $VERSION = '0.01';
 
-has interface =>
-(
+has interface => (
     is       => 'rw',
     isa      => 'TAEB::Interface',
     handles  => [qw/read write/],
 );
 
-has brain =>
-(
+has brain => (
     is       => 'rw',
     isa      => 'TAEB::AI::Brain',
     trigger  => sub {
@@ -39,8 +37,7 @@ has brain =>
     },
 );
 
-has scraper =>
-(
+has scraper => (
     is       => 'rw',
     isa      => 'TAEB::ScreenScraper',
     required => 1,
@@ -48,14 +45,12 @@ has scraper =>
     handles  => [qw(messages)],
 );
 
-has config =>
-(
+has config => (
     is       => 'rw',
     isa      => 'TAEB::Config',
 );
 
-has vt =>
-(
+has vt => (
     is       => 'rw',
     isa      => 'TAEB::VT',
     required => 1,
@@ -63,15 +58,13 @@ has vt =>
     handles  => [qw(topline redraw)],
 );
 
-has logged_in =>
-(
+has logged_in => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
-has logger =>
-(
+has logger => (
     is      => 'ro',
     isa     => 'Log::Dispatch',
     lazy    => 1,
