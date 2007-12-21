@@ -32,6 +32,10 @@ has behaviors => (
         if ($self->can('autoload_behaviors')) {
             for ($self->autoload_behaviors) {
                 my $pkg = "TAEB::AI::Behavior::$_";
+
+                (my $file = $pkg . '.pm') =~ s{::}{/}g;
+                require $file;
+
                 my $name = $pkg->name;
 
                 $behaviors{$name} = $pkg->new;
