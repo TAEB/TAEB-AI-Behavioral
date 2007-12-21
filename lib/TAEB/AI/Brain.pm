@@ -190,7 +190,7 @@ sub behavior_action {
     my $self = shift;
     my $behavior = shift || $self->next_behavior;
 
-    TAEB->fatal("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.") if !$behavior;
+    TAEB->critical("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.") if !$behavior;
 
     $self->currently($behavior->currently);
     return $behavior->next_action;
