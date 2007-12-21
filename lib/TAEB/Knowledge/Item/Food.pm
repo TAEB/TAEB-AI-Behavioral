@@ -6,7 +6,7 @@ has foodlist => (
     is => 'ro',
     isa => 'HashRef',
     default => sub {
-        return {
+        my $foods = {
             'meatball' => {
                 cost => 5, weight => 1, nutrition => 5, 'time' => 1
             },
@@ -82,13 +82,18 @@ has foodlist => (
             'cram ration' => {
                 cost => 35, weight => 15, nutrition => 600, 'time' => 3
             },
-            'food ration (gunyoki)' => {
+            'food ration' => {
                 cost => 45, weight => 20, nutrition => 800, 'time' => 5
             },
             'lembas wafer' => {
                 cost => 45, weight => 5, nutrition => 800, 'time' => 2
             },
-        }
+        };
+
+        # Japanese name mapping
+        $foods->{'gunyoki'} = $foods->{'food ration'};
+
+        return $foods;
     },
 );
 
