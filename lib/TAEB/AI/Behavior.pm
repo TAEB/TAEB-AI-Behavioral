@@ -46,5 +46,20 @@ the personality can short-circuit if it finds a high-urgency action.
 
 sub max_urgency { 1000 }
 
+=head2 name -> Str
+
+The name of the behavior. This should be unique across behaviors. Just be safe
+and don't override this!
+
+=cut
+
+sub name {
+    my $self = shift;
+    my $pkg = blessed($self);
+    $pkg =~ s/^TAEB::AI::Behavior:://;
+    $pkg =~ s/::/_/g;
+    return $pkg;
+}
+
 1;
 
