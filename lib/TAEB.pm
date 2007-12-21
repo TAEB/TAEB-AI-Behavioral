@@ -75,7 +75,7 @@ has logger =>
     is      => 'ro',
     isa     => 'Log::Dispatch',
     lazy    => 1,
-    handles => [qw(debug info warning error critical)],
+    handles => [qw(debug info warning error fatal)],
     default => sub {
         my $format = sub {
             my %args = @_;
@@ -84,7 +84,7 @@ has logger =>
         };
 
         my $dispatcher = Log::Dispatch->new(callbacks => $format);
-        for (qw(debug info warning error critical)) {
+        for (qw(debug info warning error fatal)) {
             $dispatcher->add(
                 Log::Dispatch::File->new(
                     name => $_,
@@ -351,7 +351,7 @@ around qw/info warning/ => sub {
     goto $orig;
 };
 
-around qw/error critical/ => sub {
+around qw/error fatal/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
