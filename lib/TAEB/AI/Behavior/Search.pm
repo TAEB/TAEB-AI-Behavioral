@@ -30,7 +30,7 @@ sub next_action {
     my $self = shift;
 
     # keep moving if we have traveling to do
-    substr($self->path->path, 0, 1) if length($self->path->path) > 1;
+    return substr($self->path->path, 0, 1) if length($self->path->path) > 1;
 
     # otherwise begin the search
     TAEB->current_tile->each_neighbor(sub {
