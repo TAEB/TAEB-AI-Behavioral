@@ -2,12 +2,6 @@
 package TAEB::AI::Behavior;
 use Moose;
 
-has brain => (
-    is       => 'ro',
-    isa      => 'TAEB::AI::Brain',
-    weak_ref => 1,
-);
-
 =head2 prepare -> Int
 
 This should do any preparation required for the action it's going to take.
