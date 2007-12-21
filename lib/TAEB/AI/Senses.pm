@@ -12,6 +12,12 @@ has maxhp => (
     isa => 'Int',
 );
 
+has hunger => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 700,
+);
+
 has in_wereform => (
     is  => 'rw',
     isa => 'Bool',
@@ -46,6 +52,26 @@ sub update {
     # XXX: there's no message when you leave a bear trap. I'm not sure of the
     # best solution right now. a way to say "run this code when I move" maybe
 
+    # we lose 1 hunger per turn. good enough for now
+    $self->hunger($self->hunger - 1);
+
+    # we can definitely know some things about our hunger
+    if ($botl =~ /\bSat/) {
+        $self->hunger(1000) if $self->hunger < 1000;
+    }
+    elsif ($botl =~ /\bHun/) {
+        $self->hunger(149)  if $self->hunger > 149;
+    }
+    elsif ($botl =~ /\bWea/) {
+        $self->hunger(49)   if $self->hunger > 49;
+    }
+    elsif ($botl =~ /\bFai/) {
+        $self->hunger(-1)   if $self->hunger > -1;
+    }
+    else {
+        $self->hunger(999) if $self->hunger > 999;
+        $self->hunger(150) if $self->hunger < 150;
+    }
 }
 
 1;
