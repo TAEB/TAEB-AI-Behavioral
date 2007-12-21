@@ -20,7 +20,7 @@ sub prepare {
 
     $self->path($path);
 
-    return $path ? 100 : 0;
+    return length($path->path) ? 100 : 0;
 }
 
 sub next_action {
