@@ -107,5 +107,90 @@ sub each_adjacent {
     }
 }
 
+=head2 find_urgencies -> HashRef[Int]
+
+This will prepare each behavior and return each's urgency.
+
+=cut
+
+sub find_urgencies {
+    my $self = shift;
+    my $urgencies = {};
+
+    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+        $urgencies->{$name} = $behavior->prepare;
+    }
+
+    return $urgencies;
+}
+
+=head2 weight_behaviors -> HashRef[Int]
+
+This will look through the brain's behaviors and return a hashref of their
+relative weights. This calls C<weight_(behavior-name)> to discern this (or returns 100 if the method is unavailable). Subclasses should feel free to override this.
+
+=cut
+
+sub weight_behaviors {
+    my $self    = shift;
+    my $results = {};
+
+    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+        my $method = "weight_$name";
+
+        if ($self->can($method)) {
+            $results{$name} = $self->$method($behavior);
+        }
+        else {
+            $results{$name} = 100;
+        }
+    }
+
+    return $results;
+}
+
+=head2 next_behavior -> Behavior
+
+This will prepare and weight all behaviors, returning a behavior with the
+maximum urgency.
+
+=cut
+
+sub next_behavior {
+    my $self = shift;
+
+    my $urgencies = $self->find_urgencies;
+    my $weights = $self->weight_behaviors;
+
+    my ($max_urgency, $max_behavior);
+
+    # apply weights to urgencies, find maximum
+    for my $behavior (keys %$urgencies) {
+        $urgencies->{$behavior} *= int($weights->{$behavior})/100)
+            if defined $weights->{$behavior};
+        ($max_behavior, $max_urgency) = ($behavior, $urgencies->{$behavior})
+            if $urgencies->{$behavior} > $max_urgency;
+    }
+
+    return $max_urgency > 0 ? $self->behaviors->{$max_behavior} : undef;
+}
+
+=head2 behavior_action [Behavior] -> Str
+
+This will automatically do whatever bookkeeping is necessary to run the given
+behavior. If no behavior is given, C<next_behavior> will be called.
+
+=cut
+
+sub behavior_action {
+    my $self = shift;
+    my $behavior = shift || $self->next_behavior;
+
+    TAEB->fatal("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.");
+
+    $self->currently($behavior->currently);
+    return $behavior->next_action;
+}
+
 1;
 
