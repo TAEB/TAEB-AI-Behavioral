@@ -123,6 +123,7 @@ sub find_urgencies {
 
     while (my ($name, $behavior) = each %{ $self->behaviors }) {
         $urgencies->{$name} = $behavior->prepare;
+        TAEB->debug("The $name behavior has urgency $urgencies->{$name}.");
     }
 
     return $urgencies;
@@ -144,6 +145,7 @@ sub weight_behaviors {
 
         if ($self->can($method)) {
             $results->{$name} = $self->$method($behavior);
+            TAEB->debug("The $name behavior has weight $results->{$name}.");
         }
         else {
             $results->{$name} = 100;
@@ -176,7 +178,10 @@ sub next_behavior {
             if $urgencies->{$behavior} > $max_urgency;
     }
 
-    return $max_urgency > 0 ? $self->behaviors->{$max_behavior} : undef;
+    return undef if $max_urgency <= 0;
+
+    TAEB->debug("Selecting behavior $max_behavior with urgency $max_urgency.");
+    return $self->behaviors->{$max_behavior};
 }
 
 =head2 behavior_action [Behavior] -> Str
