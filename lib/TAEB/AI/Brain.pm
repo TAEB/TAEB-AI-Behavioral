@@ -175,7 +175,7 @@ sub next_behavior {
         $urgencies->{$behavior} *= int($weights->{$behavior}/100)
             if defined $weights->{$behavior};
         ($max_behavior, $max_urgency) = ($behavior, $urgencies->{$behavior})
-            if $urgencies->{$behavior} > $max_urgency;
+            if !defined($max_urgency) || $urgencies->{$behavior} > $max_urgency;
     }
 
     return undef if $max_urgency <= 0;
