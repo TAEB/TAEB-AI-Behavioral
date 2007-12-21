@@ -38,7 +38,7 @@ has behaviors => (
 
                 my $name = $pkg->name;
 
-                $behaviors{$name} = $pkg->new;
+                $behaviors->{$name} = $pkg->new;
             }
         }
 
@@ -143,10 +143,10 @@ sub weight_behaviors {
         my $method = "weight_$name";
 
         if ($self->can($method)) {
-            $results{$name} = $self->$method($behavior);
+            $results->{$name} = $self->$method($behavior);
         }
         else {
-            $results{$name} = 100;
+            $results->{$name} = 100;
         }
     }
 
@@ -170,7 +170,7 @@ sub next_behavior {
 
     # apply weights to urgencies, find maximum
     for my $behavior (keys %$urgencies) {
-        $urgencies->{$behavior} *= int($weights->{$behavior})/100)
+        $urgencies->{$behavior} *= int($weights->{$behavior}/100)
             if defined $weights->{$behavior};
         ($max_behavior, $max_urgency) = ($behavior, $urgencies->{$behavior})
             if $urgencies->{$behavior} > $max_urgency;
