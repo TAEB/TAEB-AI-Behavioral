@@ -1,10 +1,15 @@
 #!/usr/bin/env perl
 package TAEB::World::Monster;
 use Moose;
+use String::Koremutake;
 
 has id => (
-  is  => 'rw',
-  isa => 'Str',
+    is      => 'ro',
+    isa     => 'Str',
+    default => sub {
+        my $k = String::Koremutake->new;
+        return $k->integer_to_string(int(rand(1000000)));
+    },
 );
 
 has name => (
