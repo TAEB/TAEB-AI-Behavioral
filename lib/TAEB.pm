@@ -148,6 +148,12 @@ has senses => (
     handles => [qw/hp maxhp hunger/],
 );
 
+has saving => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
@@ -167,7 +173,7 @@ sub step {
         $self->dungeon->update;
         $self->senses->update;
 
-        my $next_action = $self->brain->next_action;
+        my $next_action = $self->saving ? "Sy" : $self->brain->next_action;
 
         $self->out(
             "\e[23H%s\e[23HCurrently: %s (%s)  \e[%d;%dH",
@@ -324,6 +330,11 @@ sub keypress {
         $self->out(TAEB->redraw);
 
         return;
+    }
+
+    if ($c eq 'q') {
+        $self->saving(1);
+        return "Bye bye then.";
     }
 
     # space is always a noncommand
