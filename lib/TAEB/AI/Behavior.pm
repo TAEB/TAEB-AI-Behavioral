@@ -18,8 +18,9 @@ has currently => (
 );
 
 has commands => (
-    is  => 'rw',
-    isa => 'ArrayRef[Str]',
+    is      => 'rw',
+    isa     => 'ArrayRef[Str]',
+    default => sub { [] },
 );
 
 =head2 prepare -> Int
