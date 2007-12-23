@@ -3,6 +3,13 @@ package TAEB::AI::Behavior::Search;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
+=head2 prepare -> Int
+
+100: path to an unsearched wall
+100: searching an adjacent unsearched wall
+
+=cut
+
 sub prepare {
     my $self = shift;
 

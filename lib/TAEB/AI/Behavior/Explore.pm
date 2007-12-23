@@ -3,6 +3,12 @@ package TAEB::AI::Behavior::Explore;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
+=head2 prepare -> Int
+
+100: path to an unexplored square
+
+=cut
+
 sub prepare {
     my $self = shift;
 

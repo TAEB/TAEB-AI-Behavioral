@@ -3,6 +3,13 @@ package TAEB::AI::Behavior::Descend;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
+=head2 prepare -> Int
+
+100: currently on the downstairs, going down
+50: path to the downstairs
+
+=cut
+
 sub prepare {
     my $self = shift;
 

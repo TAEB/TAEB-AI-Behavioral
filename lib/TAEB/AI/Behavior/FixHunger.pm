@@ -3,6 +3,12 @@ package TAEB::AI::Behavior::FixHunger;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
+=head2 prepare -> Int
+
+100: prayer for food, fainting
+
+=cut
+
 sub prepare {
     my $self = shift;
 

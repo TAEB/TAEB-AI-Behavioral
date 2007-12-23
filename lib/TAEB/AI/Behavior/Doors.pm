@@ -3,6 +3,13 @@ package TAEB::AI::Behavior::Doors;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
+=head2 prepare -> Int
+
+100: kicking down an adjacent door
+50: path to a door
+
+=cut
+
 sub prepare {
     my $self = shift;
 
