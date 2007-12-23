@@ -184,8 +184,6 @@ sub step {
             $self->x + 1,
         );
         $self->brain->currently('?');
-
-        $self->debug("Sending '$next_action' to NetHack.");
         $self->write($next_action);
     }
     else {
@@ -380,6 +378,15 @@ sub out {
     $self->ttyrec->print($out)
         if TAEB->config->contents->{ttyrec};
 }
+
+around write => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $text = shift;
+
+    $self->debug("Sending '$text' to NetHack.");
+    $orig->($self, $text);
+};
 
 1;
 
