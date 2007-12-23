@@ -84,22 +84,21 @@ to be called before any calls to next_action.
 sub institute {
 }
 
-=head2 find_urgencies -> HashRef[Int]
+=head2 find_urgency Str -> Int
 
-This will prepare each behavior and return each's urgency.
+This will prepare the behavior and return its urgency.
 
 =cut
 
-sub find_urgencies {
+sub find_urgency {
     my $self = shift;
-    my $urgencies = {};
+    my $name = shift;
 
-    while (my ($name, $behavior) = each %{ $self->behaviors }) {
-        $urgencies->{$name} = $behavior->prepare;
-        TAEB->debug("The $name behavior has urgency $urgencies->{$name}.");
-    }
+    my $behavior = $self->behaviors->{$name};
+    my $urgency  = $behavior->prepare;
+    TAEB->debug("The $name behavior has urgency $urgency.");
 
-    return $urgencies;
+    return $urgency;
 }
 
 =head2 weight_behaviors -> HashRef[Int]
