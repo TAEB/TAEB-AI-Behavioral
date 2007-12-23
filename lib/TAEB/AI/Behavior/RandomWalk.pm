@@ -3,12 +3,6 @@ package TAEB::AI::Behavior::RandomWalk;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
-=head2 prepare -> Int
-
-100: random walk!
-
-=cut
-
 sub prepare {
     my $self = shift;
 
@@ -25,6 +19,12 @@ sub prepare {
 }
 
 sub currently { "Randomly walking" }
+
+sub weights {
+    return {
+        100 => "random walk!",
+    },
+}
 
 1;
 

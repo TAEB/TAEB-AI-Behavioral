@@ -3,13 +3,6 @@ package TAEB::AI::Behavior::Doors;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
-=head2 prepare -> Int
-
-100: kicking down an adjacent door
-50: path to a door
-
-=cut
-
 sub prepare {
     my $self = shift;
 
@@ -33,6 +26,13 @@ sub prepare {
     $self->path($path);
 
     return $path && length($path->path) ? 50 : 0;
+}
+
+sub weights {
+    return {
+        100 => "kicking down an adjacent door",
+         50 => "path to a door",
+    },
 }
 
 1;

@@ -3,14 +3,6 @@ package TAEB::AI::Behavior::Fight;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
-=head2 prepare -> Int
-
-100: writing Elbereth
-90: attacking an adjacent monster
-50: path to the nearest monster
-
-=cut
-
 sub prepare {
     my $self = shift;
 
@@ -44,6 +36,14 @@ sub prepare {
     $self->path($path);
 
     return 50;
+}
+
+sub weights {
+    return {
+        100 => "writing Elbereth",
+         90 => "attacking an adjacent monster",
+         50 => "path to the nearest monster",
+    },
 }
 
 1;

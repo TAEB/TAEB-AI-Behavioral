@@ -3,13 +3,6 @@ package TAEB::AI::Behavior::Descend;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
-=head2 prepare -> Int
-
-100: currently on the downstairs, going down
-50: path to the downstairs
-
-=cut
-
 sub prepare {
     my $self = shift;
 
@@ -31,6 +24,13 @@ sub prepare {
     $self->currently("Heading towards the downstairs");
     $self->path($path);
     return $path ? 50 : 0;
+}
+
+sub weights {
+    return {
+        100 => "descending",
+         50 => "path to downstairs",
+    };
 }
 
 1;
