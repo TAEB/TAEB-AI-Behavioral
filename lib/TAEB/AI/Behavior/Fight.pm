@@ -40,7 +40,7 @@ sub prepare {
 
     return 0 unless $path && $path->path;
 
-    $self->currently("Heading towards a " . $path->to->tile . " monster");
+    $self->currently("Heading towards a " . $path->to->glyph . " monster");
     $self->path($path);
 
     return 50;
