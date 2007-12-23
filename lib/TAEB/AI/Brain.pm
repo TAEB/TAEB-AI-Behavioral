@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Brain;
 use Moose;
-use TAEB::Util 'direction';
 
 has currently => (
     is => 'rw',
