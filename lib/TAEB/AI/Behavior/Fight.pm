@@ -35,7 +35,7 @@ sub prepare {
     $self->currently("Heading towards a " . $path->to->tile . " monster");
     $self->path($path);
 
-    return 80;
+    return 50;
 }
 
 1;
