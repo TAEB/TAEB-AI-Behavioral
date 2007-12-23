@@ -7,7 +7,8 @@ has path => (
     isa => 'TAEB::World::Path',
     trigger => sub {
         my ($self, $path) = @_;
-        $self->commands([split '', $path->path]);
+        my @commands = split '', ($path ? $path->path : '');
+        $self->commands(\@commands);
     },
 );
 
