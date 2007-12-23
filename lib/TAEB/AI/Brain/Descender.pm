@@ -12,6 +12,7 @@ TAEB::AI::Brain::Descender - descend as quickly as sanely possible
 sub weight_behaviors {
     return {
         FixHunger  => 10000,
+        Fight      => 5000,
         Descend    => 5000,
         Doors      => 4000,
         Explore    => 2500,
