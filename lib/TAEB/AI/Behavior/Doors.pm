@@ -8,14 +8,16 @@ sub prepare {
 
     return 0 unless TAEB->senses->can_kick;
 
+    my $found_door;
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
         if ($tile->glyph eq ']') {
             $self->commands([chr(4) . $dir]);
             $self->currently("Kicking down a door");
-            return 100;
+            $found_door = 1;
         }
     });
+    return 100 if $found_door;
 
     return 0 unless TAEB->map_like(qr/\]/);
 
