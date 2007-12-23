@@ -21,13 +21,13 @@ has y => (
 
 sub update {
     my $self  = shift;
-    my $level = $self->dungeon->current_level;
-
     # XXX: ugh. this needs to be smarter.
     $self->x(TAEB->vt->x);
     $self->y(TAEB->vt->y);
 
     $self->check_dlvl;
+
+    my $level = $self->dungeon->current_level;
 
     my $debug_draw = TAEB->config->contents->{debug_draw};
 
