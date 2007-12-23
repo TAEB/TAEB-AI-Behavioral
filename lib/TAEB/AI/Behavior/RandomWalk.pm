@@ -11,8 +11,10 @@ sub prepare {
         my ($tile, $dir) = @_;
         push @possibilities, $dir if $tile->is_walkable;
     });
-    $self->commands([$possibilities[rand @possibilities]]);
 
+    return 0 if !@possibilities;
+
+    $self->commands([ $possibilities[rand @possibilities] ]);
     return 100;
 }
 
