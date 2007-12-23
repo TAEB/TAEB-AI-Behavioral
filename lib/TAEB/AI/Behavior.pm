@@ -68,7 +68,7 @@ sub name {
     my $pkg = blessed($self) || $self;
     $pkg =~ s/^TAEB::AI::Behavior:://;
     $pkg =~ s/::/_/g;
-    return $pkg;
+    return lc $pkg;
 }
 
 1;
