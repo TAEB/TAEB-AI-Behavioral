@@ -12,6 +12,11 @@ has currently => (
     isa => 'Str',
 );
 
+has commands => (
+    is  => 'rw',
+    isa => 'ArrayRef[Str]',
+);
+
 =head2 prepare -> Int
 
 This should do any preparation required for the action it's going to take.
