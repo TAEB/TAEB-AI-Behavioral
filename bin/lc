@@ -18,7 +18,7 @@ while (defined (my $file = $iter->())) {
         next if /^\s*$/;
 
         ++$with_doc;
-        next while /^=head/ .. /^=cut/;
+        next if /^=head/ .. /^=cut/;
         next if /^\s*#/;
 
         ++$lines;
