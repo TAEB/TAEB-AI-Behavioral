@@ -7,6 +7,11 @@ has path => (
     isa => 'TAEB::World::Path',
 );
 
+has currently => (
+    is  => 'rw',
+    isa => 'Str',
+);
+
 =head2 prepare -> Int
 
 This should do any preparation required for the action it's going to take.
@@ -32,15 +37,6 @@ not be called if C<prepare> returned 0.
 =cut
 
 sub next_action { }
-
-=head2 currently -> Str
-
-This should return the human-readable "what I'm currently doing" string for
-the action being taken. This will be called after C<next_action>.
-
-=cut
-
-sub currently { "?" }
 
 =head2 max_urgency -> Int
 
