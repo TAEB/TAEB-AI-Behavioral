@@ -43,6 +43,20 @@ TAEB->interface($interface);
 TAEB->brain($brain);
 TAEB->config($config);
 
+if (TAEB->config->contents->{debug_brain}) {
+    my $action_weight = TAEB->brain->sort_behaviors;
+
+    die "Brain has no behaviors.\n"
+        unless keys %$action_weight;
+
+    for my $action (sort {$action_weight->{$b}[0] <=> $action_weight->{$a}[0]} keys %$action_weight) {
+        my ($urgency, $unweighted, $weight, $behavior) = @{ $action_weight->{$action} };
+        printf "%10d  %s (%s)\n", $urgency, $action, $behavior;
+    }
+
+    exit 0;
+}
+
 $SIG{__WARN__} = sub { TAEB->warning(@_) };
 $SIG{__DIE__} = sub {
     return if "@_ $_" =~ /Game over, man/;
