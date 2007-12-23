@@ -25,9 +25,13 @@ sub next_action {
     my $self = shift;
 
     # keep moving if we have traveling to do
-    return substr($self->path->path, 0, 1) if length($self->path->path) > 1;
+    if (length($self->path->path) > 1) {
+        $self->currently("Heading to a search hotspot");
+        return substr($self->path->path, 0, 1)
+    }
 
     # otherwise begin the search
+    $self->currently("Searching");
     TAEB->current_tile->each_neighbor(sub {
         my $self = shift;
         $self->searched($self->searched + 10);
@@ -35,8 +39,6 @@ sub next_action {
 
     return '10s';
 }
-
-sub currently { "Searching" }
 
 1;
 

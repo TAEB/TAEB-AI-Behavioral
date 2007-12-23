@@ -8,6 +8,7 @@ sub prepare {
 
     # are we on >? if so, head down
     if (TAEB->current_tile->floor_glyph eq '>') {
+        $self->currently("Descending");
         $self->commands(['>']);
         return 100;
     }
@@ -20,11 +21,10 @@ sub prepare {
         sub { shift->floor_glyph eq '>' },
     );
 
+    $self->currently("Heading towards the downstairs");
     $self->path($path);
     return $path ? 50 : 0;
 }
-
-sub currently { "Descending" }
 
 1;
 

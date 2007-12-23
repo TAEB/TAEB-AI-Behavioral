@@ -21,6 +21,7 @@ sub prepare {
 
     return 0 unless TAEB->map_like(qr/\]/);
 
+    $self->currently("Heading towards a door");
     my $path = TAEB::World::Path->first_match(sub { shift->glyph eq ']' });
     $self->path($path);
 
