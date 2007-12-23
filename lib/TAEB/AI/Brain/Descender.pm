@@ -9,10 +9,17 @@ TAEB::AI::Brain::Descender - descend as quickly as sanely possible
 
 =cut
 
-sub autoload_behaviors { qw/Explore FixHunger Descend Search/ }
+sub autoload_behaviors { qw/Explore FixHunger Descend Search Doors/ }
 
-# we want him flying down stairs
-sub weight_descend { 500 }
+sub weight_behaviors {
+    return {
+        fixhunger => 10000,
+        descend   => 5000,
+        doors     => 4000,
+        explore   => 2500,
+        search    => 1000,
+    };
+}
 
 sub next_action {
     shift->behavior_action;
