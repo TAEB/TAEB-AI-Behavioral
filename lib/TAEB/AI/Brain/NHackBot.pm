@@ -24,7 +24,7 @@ sub next_action {
 
     my $fight;
 
-    $self->each_adjacent(sub {
+    TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
         $fight = $dir
             if $tile->has_monster;
@@ -36,7 +36,7 @@ sub next_action {
 
     # kick down doors
     if (TAEB->senses->can_kick) {
-        $self->each_adjacent(sub {
+        TAEB->each_adjacent(sub {
             my ($tile, $dir) = @_;
             if ($tile->glyph eq ']') {
                 $fight = chr(4) . $dir;

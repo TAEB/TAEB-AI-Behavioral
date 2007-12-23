@@ -99,6 +99,7 @@ has dungeon => (
         current_level  => 'current_level',
         current_tile   => 'current_tile',
         map_like       => 'map_like',
+        each_adjacent  => 'each_adjacent',
         x              => 'x',
         y              => 'y',
         z              => 'z',

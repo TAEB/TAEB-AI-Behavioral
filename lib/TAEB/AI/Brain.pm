@@ -85,32 +85,6 @@ to be called before any calls to next_action.
 sub institute {
 }
 
-=head2 each_adjacent CODE
-
-This is called for each tile adjacent to TAEB. The coderef will receive two
-arguments: the tile object and the vi key corresponding to the direction.
-
-=cut
-
-sub each_adjacent {
-    my $self = shift;
-    my $code = shift;
-
-    for my $dy (-1 .. 1) {
-        for my $dx (-1 .. 1) {
-            next unless $dy || $dx; # skip 0, 0
-            my $dir = direction($dx+1, $dy+1);
-
-            my $tile = TAEB->current_level->at(
-                $dx + TAEB->x,
-                $dy + TAEB->y,
-            );
-
-            $code->($tile, $dir);
-        }
-    }
-}
-
 =head2 find_urgencies -> HashRef[Int]
 
 This will prepare each behavior and return each's urgency.

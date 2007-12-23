@@ -43,5 +43,48 @@ sub BUILD {
     $self->current_level($level);
 }
 
+=head2 current_tile -> Tile
+
+The tile TAEB is currently standing on.
+
+=cut
+
+sub current_tile {
+    my $self = shift;
+    $self->current_level->at;
+}
+
+=head2 each_adjacent Code[, Tile]
+
+Runs the coderef for each tile adjacent to the given tile (or the current
+tile). The coderef will receive two arguments: the tile object and the vi key
+corresponding to the direction.
+
+=cut
+
+sub each_adjacent {
+    my $self = shift;
+    my $code = shift;
+    my $tile = shift || $self->current_tile;
+
+    my $level = $tile->level;
+    my $x     = $tile->x;
+    my $y     = $tile->y;
+
+    for my $dy (-1 .. 1) {
+        for my $dx (-1 .. 1) {
+            next unless $dy || $dx; # skip 0, 0
+            my $dir = direction($dx+1, $dy+1);
+
+            my $tile = $level->at(
+                $dx + $x,
+                $dy + $y,
+            );
+
+            $code->($tile, $dir);
+        }
+    }
+}
+
 1;
 
