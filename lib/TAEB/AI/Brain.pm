@@ -177,5 +177,51 @@ sub behavior_action {
     return $action;
 }
 
+=head2 sort_behaviors -> HashRef[Int, Int, Int, Str]
+
+This will prepare a report that tells you exactly how this brain prioritizes
+all of its behaviors. This is used for answering the question, "Why did TAEB
+do X instead of Y?"
+
+The return value is a hashref of action names mapped to:
+
+=over 4
+
+=item Weighted urgency
+
+=item Unweighted urgency (from behavior)
+
+=item Weight multiplier (from brain)
+
+=item Behavior name
+
+=back
+
+=cut
+
+sub sort_behaviors {
+    my $self = shift;
+    my $weights = $self->weight_behaviors;
+    my %action_weight;
+
+    # apply weights to urgencies, find maximum
+    while (my ($behavior, $weight) = each %$weights) {
+        my $possibilities = $self->behaviors->{$behavior}->weights;
+        while (my ($urgency, $action) = each %$possibilities) {
+            my $weighted = $urgency * $weight;
+
+            if (ref($action) ne 'ARRAY') {
+                $action = [$action];
+            }
+
+            for (@$action) {
+                $action_weight{$_} = [$weighted, $urgency, $weight, $behavior];
+            }
+        }
+    }
+
+    return \%action_weight;
+}
+
 1;
 
