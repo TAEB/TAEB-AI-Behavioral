@@ -36,7 +36,7 @@ sub next_action {
     return '10s';
 }
 
-sub currently { "Searching." }
+sub currently { "Searching" }
 
 1;
 

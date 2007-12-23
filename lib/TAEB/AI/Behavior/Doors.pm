@@ -12,7 +12,7 @@ sub prepare {
         my ($tile, $dir) = @_;
         if ($tile->glyph eq ']') {
             $self->commands([chr(4) . $dir]);
-            $self->currently("Kicking down a door.");
+            $self->currently("Kicking down a door");
             return 100;
         }
     });

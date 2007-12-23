@@ -11,7 +11,7 @@ sub prepare {
 
 sub next_action { "#pray\n" }
 
-sub currently { "Praying for food." }
+sub currently { "Praying for food" }
 
 1;
 

@@ -18,7 +18,7 @@ sub prepare {
     return $path && length($path->path) ? 100 : 0;
 }
 
-sub currently { "Exploring." }
+sub currently { "Exploring" }
 
 1;
 

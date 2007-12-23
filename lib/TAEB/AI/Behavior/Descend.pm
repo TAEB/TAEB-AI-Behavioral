@@ -24,7 +24,7 @@ sub prepare {
     return $path ? 50 : 0;
 }
 
-sub currently { "Descending." }
+sub currently { "Descending" }
 
 1;
 
