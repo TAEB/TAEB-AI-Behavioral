@@ -8,7 +8,8 @@ sub prepare {
 
     if (TAEB->hp * 2 < TAEB->maxhp && !TAEB->senses->in_wereform) {
         $self->currently("Writing Elbereth.");
-        return "E-  Elbereth\n";
+        $self->commands(["E-  Elbereth\n"]);
+        return 100;
     }
 
     my $found_monster;
