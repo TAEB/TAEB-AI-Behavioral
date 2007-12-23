@@ -8,6 +8,7 @@ sub prepare {
 
     # are we on >? if so, head down
     if (TAEB->current_tile->floor_glyph eq '>') {
+        $self->commands(['>']);
         return 100;
     }
 
@@ -20,18 +21,7 @@ sub prepare {
     );
 
     $self->path($path);
-
     return $path ? 50 : 0;
-}
-
-sub next_action {
-    my $self = shift;
-
-    # descend if able
-    return '>' if TAEB->current_tile->floor_glyph eq '>';
-
-    # otherwise, head towards >
-    substr($self->path->path, 0, 1);
 }
 
 sub currently { "Descending." }

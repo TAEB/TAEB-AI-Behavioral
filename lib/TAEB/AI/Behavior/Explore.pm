@@ -18,11 +18,6 @@ sub prepare {
     return $path && length($path->path) ? 100 : 0;
 }
 
-sub next_action {
-    my $self = shift;
-    substr($self->path->path, 0, 1);
-}
-
 sub currently { "Exploring." }
 
 1;
