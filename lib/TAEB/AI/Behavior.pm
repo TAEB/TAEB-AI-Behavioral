@@ -43,7 +43,14 @@ not be called if C<prepare> returned 0.
 
 =cut
 
-sub next_action { }
+sub next_action {
+    my $self = shift;
+    my $action = shift @{ $self->commands };
+    if (!defined($action) || $action eq '') {
+        TAEB->error("Behavior ".$self->name." returned empty next_action.");
+    }
+    return $action;
+}
 
 =head2 name -> Str
 
