@@ -28,10 +28,13 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(
         sub { shift->has_monster },
     );
+
+    return 0 unless $path && $path->path;
+
     $self->currently("Heading towards a " . $path->to->tile . " monster");
     $self->path($path);
 
-    return $path && length($path->path) ? 80 : 0;
+    return 80;
 }
 
 1;
