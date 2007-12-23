@@ -9,8 +9,6 @@ TAEB::AI::Brain::Descender - descend as quickly as sanely possible
 
 =cut
 
-sub autoload_behaviors { qw/Explore FixHunger Descend Search Doors RandomWalk/ }
-
 sub weight_behaviors {
     return {
         FixHunger  => 10000,
@@ -21,6 +19,8 @@ sub weight_behaviors {
         RandomWalk => 100,
     };
 }
+
+sub autoload_behaviors { keys %{ weight_behaviors() } }
 
 sub next_action {
     shift->behavior_action;
