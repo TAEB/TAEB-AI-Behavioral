@@ -13,11 +13,11 @@ sub autoload_behaviors { qw/Explore FixHunger Descend Search Doors/ }
 
 sub weight_behaviors {
     return {
-        fixhunger => 10000,
-        descend   => 5000,
-        doors     => 4000,
-        explore   => 2500,
-        search    => 1000,
+        FixHunger => 10000,
+        Descend   => 5000,
+        Doors     => 4000,
+        Explore   => 2500,
+        Search    => 1000,
     };
 }
 
