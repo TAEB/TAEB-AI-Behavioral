@@ -25,7 +25,5 @@ sub next_action {
 
 sub currently { "Exploring." }
 
-sub max_urgency { 100 }
-
 1;
 

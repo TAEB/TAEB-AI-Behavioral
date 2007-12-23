@@ -8,7 +8,7 @@ sub prepare {
 
     # are we on >? if so, head down
     if (TAEB->current_tile->floor_glyph eq '>') {
-        return 99;
+        return 100;
     }
 
     # poor optimization: do we have a > on screen? (XXX: what if it's obscured?)
@@ -35,8 +35,6 @@ sub next_action {
 }
 
 sub currently { "Descending." }
-
-sub max_urgency { 99 }
 
 1;
 

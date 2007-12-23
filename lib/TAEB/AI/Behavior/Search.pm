@@ -18,7 +18,7 @@ sub prepare {
 
     $self->path($path);
 
-    return $path && length($path->path) ? 25 : 0;
+    return $path && length($path->path) ? 100 : 0;
 }
 
 sub next_action {
@@ -37,8 +37,6 @@ sub next_action {
 }
 
 sub currently { "Searching." }
-
-sub max_urgency { 25 }
 
 1;
 

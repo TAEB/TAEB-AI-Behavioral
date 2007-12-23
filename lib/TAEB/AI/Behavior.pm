@@ -27,11 +27,8 @@ has commands => (
 This should do any preparation required for the action it's going to take.
 This includes things like pathfinding for Explore.
 
-C<prepare> should return an integer from 0 to 1000. The higher the integer, the
-higher the urgency of the action. For example, a FixHunger behavior would
-return 900 if Fainting, 700 if Weak, 500 if Hungry, and 200 if not hungry, and
-0 if Satiated. It may even have a sliding scale based on its current hunger
-value.
+C<prepare> should return an integer from 0 to 100. The higher the integer, the
+higher the urgency of the action.
 
 =cut
 
@@ -47,15 +44,6 @@ not be called if C<prepare> returned 0.
 =cut
 
 sub next_action { }
-
-=head2 max_urgency -> Int
-
-This should return the maximum possible urgency for this behavior. This is so
-the personality can short-circuit if it finds a high-urgency action.
-
-=cut
-
-sub max_urgency { 1000 }
 
 =head2 name -> Str
 
