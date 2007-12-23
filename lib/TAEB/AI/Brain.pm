@@ -137,17 +137,18 @@ maximum urgency.
 sub next_behavior {
     my $self = shift;
 
-    my $urgencies = $self->find_urgencies;
     my $weights = $self->weight_behaviors;
-
     my ($max_urgency, $max_behavior);
 
     # apply weights to urgencies, find maximum
-    for my $behavior (keys %$urgencies) {
-        $urgencies->{$behavior} *= int($weights->{$behavior}/100)
-            if defined $weights->{$behavior};
-        ($max_behavior, $max_urgency) = ($behavior, $urgencies->{$behavior})
-            if !defined($max_urgency) || $urgencies->{$behavior} > $max_urgency;
+    for my $behavior (sort {$weights->{$b} <=> $weights->{$a}} keys %$weights) {
+
+        # if this behavior couldn't possibly beat the max, then stop early
+        last if $max_urgency > $weights->{$behavior} * 100;
+
+        my $urgency = $self->find_urgency($behavior) * $weights->{$behavior};
+        ($max_urgency, $max_behavior) = ($urgency, $behavior)
+            if !defined($max_urgency) || $urgency > $max_urgency;
     }
 
     return undef if $max_urgency <= 0;
