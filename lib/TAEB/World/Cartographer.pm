@@ -50,11 +50,6 @@ sub update {
     $self->autoexplore();
 }
 
-sub current_tile {
-    my $self = shift;
-    $self->dungeon->current_level->at;
-}
-
 =head2 map_like Regex -> Bool
 
 Returns whether any part of the map (not the entire screen) matches Regex.
