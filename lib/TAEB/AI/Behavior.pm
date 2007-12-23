@@ -55,8 +55,7 @@ sub next_action {
 
 =head2 name -> Str
 
-The name of the behavior. This should be unique across behaviors. Just be safe
-and don't override this!
+The name of the behavior. This should not be overridden.
 
 =cut
 
@@ -64,8 +63,7 @@ sub name {
     my $self = shift;
     my $pkg = blessed($self) || $self;
     $pkg =~ s/^TAEB::AI::Behavior:://;
-    $pkg =~ s/::/_/g;
-    return lc $pkg;
+    return $pkg;
 }
 
 1;
