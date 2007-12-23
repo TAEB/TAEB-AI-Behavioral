@@ -5,6 +5,10 @@ use Moose;
 has path => (
     is  => 'rw',
     isa => 'TAEB::World::Path',
+    trigger => sub {
+        my ($self, $path) = @_;
+        $self->commands([split '', $path->path]);
+    },
 );
 
 has currently => (
