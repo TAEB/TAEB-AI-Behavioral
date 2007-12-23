@@ -3,11 +3,6 @@ package TAEB::AI::Behavior::Descend;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
-has path => (
-    is  => 'rw',
-    isa => 'TAEB::World::Path',
-);
-
 sub prepare {
     my $self = shift;
 

@@ -2,6 +2,11 @@
 package TAEB::AI::Behavior;
 use Moose;
 
+has path => (
+    is  => 'rw',
+    isa => 'TAEB::World::Path',
+);
+
 =head2 prepare -> Int
 
 This should do any preparation required for the action it's going to take.
