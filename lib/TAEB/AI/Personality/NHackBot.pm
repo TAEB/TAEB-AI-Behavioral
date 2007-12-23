@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Brain::NHackBot;
+package TAEB::AI::Personality::NHackBot;
 use Moose;
-extends 'TAEB::AI::Brain';
+extends 'TAEB::AI::Personality';
 
 =head1 NAME
 
-TAEB::AI::Brain::NHackBot - Know thy roots
+TAEB::AI::Personality::NHackBot - Know thy roots
 
 =cut
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Brain::Descender;
+package TAEB::AI::Personality::Descender;
 use Moose;
-extends 'TAEB::AI::Brain';
+extends 'TAEB::AI::Personality';
 
 =head1 NAME
 
-TAEB::AI::Brain::Descender - descend as quickly as sanely possible
+TAEB::AI::Personality::Descender - descend as quickly as sanely possible
 
 =cut
 

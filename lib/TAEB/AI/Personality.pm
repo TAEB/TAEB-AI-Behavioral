@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::AI::Brain;
+package TAEB::AI::Personality;
 use Moose;
 
 has currently => (
@@ -47,7 +47,7 @@ has behaviors => (
 
 =head1 NAME
 
-TAEB::AI::Brain - how TAEB tactically extracts its amulets
+TAEB::AI::Personality - how TAEB tactically extracts its amulets
 
 =head1 VERSION
 
@@ -59,10 +59,10 @@ our $VERSION = '0.01';
 
 =head2 next_action TAEB -> STRING
 
-This is the method called by the main TAEB code to get individual commands.
-It will be called with a C<$self> which will be your TAEB::AI::Brain object, and
-a TAEB object for interacting with the rest of the system (such as for looking
-at the map).
+This is the method called by the main TAEB code to get individual commands. It
+will be called with a C<$self> which will be your TAEB::AI::Personality object,
+and a TAEB object for interacting with the rest of the system (such as for
+looking at the map).
 
 It should just return the string to send to NetHack.
 
@@ -71,13 +71,13 @@ Your subclass B<must> override this method.
 =cut
 
 sub next_action {
-    die "You must override the 'next_action' method in TAEB::AI::Brain.";
+    die "You must override the 'next_action' method in TAEB::AI::Personality.";
 }
 
 =head2 institute
 
-This is the method called when TAEB begins using this brain. This is guaranteed
-to be called before any calls to next_action.
+This is the method called when TAEB begins using this personality. This is
+guaranteed to be called before any calls to next_action.
 
 =cut
 
@@ -103,8 +103,10 @@ sub find_urgency {
 
 =head2 weight_behaviors -> HashRef[Int]
 
-This will look through the brain's behaviors and return a hashref of their
-relative weights. This calls C<weight_(behavior-name)> to discern this (or returns 100 if the method is unavailable). Subclasses should feel free to override this.
+This will look through the personality's behaviors and return a hashref of
+their relative weights. This calls C<weight_(behavior-name)> to discern this
+(or returns 100 if the method is unavailable). Subclasses should feel free to
+override this.
 
 =cut
 
@@ -179,9 +181,9 @@ sub behavior_action {
 
 =head2 sort_behaviors -> HashRef[Int, Int, Int, Str]
 
-This will prepare a report that tells you exactly how this brain prioritizes
-all of its behaviors. This is used for answering the question, "Why did TAEB
-do X instead of Y?"
+This will prepare a report that tells you exactly how this personality
+prioritizes all of its behaviors. This is used for answering the question, "Why
+did TAEB do X instead of Y?"
 
 The return value is a hashref of action names mapped to:
 
@@ -191,7 +193,7 @@ The return value is a hashref of action names mapped to:
 
 =item Unweighted urgency (from behavior)
 
-=item Weight multiplier (from brain)
+=item Weight multiplier (from personality)
 
 =item Behavior name
 

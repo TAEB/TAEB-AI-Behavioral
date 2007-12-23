@@ -36,17 +36,17 @@ sub load_from_argv {
 }
 # }}}
 
-my $interface = load_from_argv('Interface', 'Local');
-my $brain     = load_from_argv('AI::Brain', 'RandomWalk');
+my $interface   = load_from_argv('Interface', 'Local');
+my $personality = load_from_argv('AI::Personality', 'RandomWalk');
 
 TAEB->interface($interface);
-TAEB->brain($brain);
+TAEB->personality($personality);
 TAEB->config($config);
 
-if (TAEB->config->contents->{debug_brain}) {
-    my $action_weight = TAEB->brain->sort_behaviors;
+if (TAEB->config->contents->{debug_personality}) {
+    my $action_weight = TAEB->personality->sort_behaviors;
 
-    die "Brain has no behaviors.\n"
+    die "Personality has no behaviors.\n"
         unless keys %$action_weight;
 
     for my $action (sort {$action_weight->{$b}[0] <=> $action_weight->{$a}[0]} keys %$action_weight) {

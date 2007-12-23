@@ -1,6 +1,6 @@
 ---
 interface: Telnet
-brain: NHackBot
+personality: NHackBot
 
 role: Valkyrie
 race: Dwarf

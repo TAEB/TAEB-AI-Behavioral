@@ -28,12 +28,12 @@ has interface => (
     handles  => [qw/read write/],
 );
 
-has brain => (
+has personality => (
     is       => 'rw',
-    isa      => 'TAEB::AI::Brain',
+    isa      => 'TAEB::AI::Personality',
     trigger  => sub {
-        my ($self, $brain) = @_;
-        $brain->institute;
+        my ($self, $personality) = @_;
+        $personality->institute;
     },
 );
 
@@ -173,17 +173,17 @@ sub step {
         $self->dungeon->update;
         $self->senses->update;
 
-        my $next_action = $self->saving ? "S" : $self->brain->next_action;
+        my $next_action = $self->saving ? "S" : $self->personality->next_action;
 
         $self->out(
             "\e[23H%s\e[23HCurrently: %s (%s)  \e[%d;%dH",
             $self->vt->row_plaintext(22),
-            $self->brain->currently,
+            $self->personality->currently,
             substr($next_action, 0, 5),
             $self->y + 1,
             $self->x + 1,
         );
-        $self->brain->currently('?');
+        $self->personality->currently('?');
         $self->write($next_action);
     }
     else {
