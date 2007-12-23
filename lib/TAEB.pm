@@ -173,7 +173,7 @@ sub step {
         $self->dungeon->update;
         $self->senses->update;
 
-        my $next_action = $self->saving ? "Sy" : $self->brain->next_action;
+        my $next_action = $self->saving ? "S" : $self->brain->next_action;
 
         $self->out(
             "\e[23H%s\e[23HCurrently: %s (%s)  \e[%d;%dH",

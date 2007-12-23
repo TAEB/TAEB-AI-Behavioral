@@ -76,6 +76,12 @@ sub handle_fallback {
         TAEB->process_input();
     }
 
+    if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
+        TAEB->write("y");
+        die "Game over, man!";
+        TAEB->process_input();
+    }
+
     $self->messages($self->messages . TAEB->topline);
 }
 
