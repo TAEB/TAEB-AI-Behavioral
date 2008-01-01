@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality::Descender;
 use Moose;
-extends 'TAEB::AI::Personality';
+extends 'TAEB::AI::Personality::Behavioral';
 
 =head1 NAME
 
@@ -20,12 +20,6 @@ sub weight_behaviors {
         Search             => 1_000,
         RandomWalk         => 1,
     };
-}
-
-sub autoload_behaviors { keys %{ weight_behaviors() } }
-
-sub next_action {
-    shift->behavior_action;
 }
 
 1;
