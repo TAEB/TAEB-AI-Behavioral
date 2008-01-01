@@ -9,6 +9,7 @@ use TAEB::VT;
 use TAEB::ScreenScraper;
 use TAEB::World;
 use TAEB::AI::Senses;
+use TAEB::Knowledge;
 
 =head1 NAME
 
