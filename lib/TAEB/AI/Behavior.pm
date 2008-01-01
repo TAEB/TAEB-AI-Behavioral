@@ -66,5 +66,24 @@ sub name {
     return $pkg;
 }
 
+=head2 write_elbereth [Bool]
+
+This will do the best it can to write an Elbereth. The optional boolean
+specifies whether a depletable method should be used. If it's false, only
+methods such as finger-in-dust or Magicbane will be used. If it's true, it
+will use the best method it can (starting with wand of fire and going down).
+
+Just call it instead of C<< $self->commands >> and C<< $self->currently >>.
+
+=cut
+
+sub write_elbereth {
+    my $self = shift;
+    my $best = shift;
+
+    $self->currently("Writing Elbereth.");
+    $self->commands(["E-  Elbereth\n"]);
+}
+
 1;
 

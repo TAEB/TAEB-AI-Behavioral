@@ -31,7 +31,7 @@ sub prepare {
 
     # if we have fewer than three Elbereths, write another
     if (TAEB->current_tile->elbereths < 3) {
-        $self->commands(["E-  Elbereth\n"]);
+        $self->write_elbereth;
         $self->currently("Writing Elbereth in preparation for combat.");
         return 80;
     }
@@ -49,7 +49,7 @@ sub prepare {
     return 75 if $found_monster;
 
     # not sure what happened, so just write Elbereth
-    $self->commands(["E-  Elbereth\n"]);
+    $self->write_elbereth;
     $self->currently("Writing Elbereth in preparation for combat.");
     return 80;
 }

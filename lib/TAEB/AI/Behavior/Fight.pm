@@ -8,8 +8,7 @@ sub prepare {
 
     # if we're at 50% health or less and we can write Elbereth, do it
     if (TAEB->hp * 2 < TAEB->maxhp && !TAEB->senses->in_wereform) {
-        $self->currently("Writing Elbereth.");
-        $self->commands(["E-  Elbereth\n"]);
+        $self->write_elbereth;
         return 100;
     }
 
