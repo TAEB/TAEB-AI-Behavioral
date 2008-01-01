@@ -206,7 +206,7 @@ sub pickup {
     my $self = shift;
 
     while (my ($name, $behavior) = each %{ $self->behaviors }) {
-        return 1 if $self->pickup(@_);
+        return 1 if $behavior->pickup(@_);
     }
 
     return 0;
