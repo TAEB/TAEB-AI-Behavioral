@@ -1,6 +1,32 @@
 #!/usr/bin/env perl
 package TAEB::AI::Senses;
 use Moose;
+use Moose::Util::TypeConstraints;
+
+enum Role   => qw(Arc Bar Cav Hea Kni Mon Pri Ran Rog Sam Tou Val Wiz);
+enum Race   => qw(Hum Elf Dwa Gno Orc);
+enum Align  => qw(Law Neu Cha);
+enum Gender => qw(Mal Fem);
+
+has role => (
+    is  => 'rw',
+    isa => 'Role',
+);
+
+has race => (
+    is  => 'rw',
+    isa => 'Race',
+);
+
+has align => (
+    is  => 'rw',
+    isa => 'Align',
+);
+
+has gender => (
+    is  => 'rw',
+    isa => 'Gender',
+);
 
 has hp => (
     is  => 'rw',
