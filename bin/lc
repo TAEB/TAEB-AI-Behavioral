@@ -11,6 +11,7 @@ while (defined (my $file = $iter->())) {
         or die "Unable to open $file for reading: $!";
 
     my $lines      = 0;
+    my $with_know  = 0;
     my $with_doc   = 0;
     my $with_blank = 0;
     while (<$handle>) {
@@ -21,17 +22,24 @@ while (defined (my $file = $iter->())) {
         next if /^=head/ .. /^=cut/;
         next if /^\s*#/;
 
+        ++$with_know;
+        next if $file =~ /\bKnowledge\b/;
+
         ++$lines;
     }
 
-    push @files, [$file, $lines, $with_doc, $with_blank];
+    push @files, [$file, $lines, $with_know, $with_doc, $with_blank];
 }
 
 @files = sort {
-    $a->[1] <=> $b->[1] || $a->[2] <=> $b->[2] || $a->[3] <=> $b->[3]
+    $a->[1] <=> $b->[1] ||
+    $a->[2] <=> $b->[2] ||
+    $a->[3] <=> $b->[3] ||
+    $a->[4] <=> $b->[4]
 } @files;
 
 my $total_lines = 0;
+my $total_know  = 0;
 my $total_doc   = 0;
 my $total_blank = 0;
 my $length      = 0;
@@ -39,23 +47,24 @@ my $length      = 0;
 my @out;
 
 for (@files) {
-    my ($file, $lines, $with_doc, $with_blank) = @$_;
+    my ($file, $lines, $with_know, $with_doc, $with_blank) = @$_;
 
     $total_lines += $lines;
+    $total_know  += $with_know;
     $total_doc   += $with_doc;
     $total_blank += $with_blank;
 
-    my $out = sprintf "%7d %7d %7d  %s\n", $lines, $with_doc, $with_blank, $file;
+    my $out = sprintf "%7d %7d %7d %7d  %s\n",
+              $lines, $with_know, $with_doc, $with_blank, $file;
     push @out, $out;
 
     $length = length($out)
         if length($out) > $length;
-
 }
 
-print "  lines    +doc  +blank  file\n";
+print "  lines    +know  +doc  +blank  file\n";
 printf "%s\n", '-' x $length;
 print @out;
 printf "%s\n", '-' x $length;
-printf "%7d %7d %7d\n", $total_lines, $total_doc, $total_blank;
+printf "%7d %7d %7d %7d\n", $total_lines, $total_know, $total_doc, $total_blank;
 
