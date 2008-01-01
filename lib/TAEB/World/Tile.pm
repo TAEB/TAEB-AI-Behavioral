@@ -86,9 +86,8 @@ sub basic_cost {
     my $cost = 100;
 
     $cost = 1000 if $self->type eq 'trap';
-    $cost = 300 if $self->type eq 'obscured';
 
-    $cost = $cost / 2 if $self->stepped_on;
+    $cost = $cost * .9 if $self->stepped_on;
 
     return int($cost);
 }
