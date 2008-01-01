@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior;
 use Moose;
+use Scalar::Defer 'defer';
 
 has path => (
     is  => 'rw',
@@ -82,7 +83,13 @@ sub write_elbereth {
     my $best = shift;
 
     $self->currently("Writing Elbereth.");
-    $self->commands(["E-  Elbereth\n"]);
+
+    my $command = defer {
+        TAEB->current_tile->elbereths(TAEB->current_tile->elbereths + 1);
+        "E-  Elbereth\n";
+    };
+
+    $self->commands([$command]);
 }
 
 1;
