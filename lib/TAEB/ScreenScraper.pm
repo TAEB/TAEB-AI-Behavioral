@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::ScreenScraper;
 use Moose;
+use NetHack::Menu;
 
 has messages => (
     is => 'rw',
@@ -53,13 +54,24 @@ sub handle_more {
 
 sub handle_menus {
     my $self = shift;
+    my $menu = NetHack::Menu->new(vt => TAEB->vt);
 
-    # while there's a menu on the screen..
-    while (TAEB->vt->matches(qr/\((?:end|\d+ of \d+)\)/)) {
-        # try to get rid of it
-        TAEB->write(' ');
+    return unless $menu->has_menu;
+
+    my $selector;
+
+    if (TAEB->topline =~ /Pick up what\?/) {
+        $selector = TAEB->personality->can('pickup');
+    }
+
+    until ($menu->at_end) {
+        TAEB->write($menu->next);
         TAEB->process_input();
     }
+
+    $menu->select($selector) if $selector;
+    TAEB->write($menu->commit);
+    TAEB->process_input();
 }
 
 sub handle_fallback {
