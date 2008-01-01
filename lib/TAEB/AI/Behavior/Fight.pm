@@ -23,7 +23,6 @@ sub prepare {
     });
     return 90 if $found_monster;
 
-    return 0 unless TAEB->map_like(qr/\]/);
     return 0 unless TAEB->map_like(qr/[a-zA-Z~&';:]/);
 
     my $path = TAEB::World::Path->first_match(
