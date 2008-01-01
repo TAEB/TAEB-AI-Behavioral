@@ -15,6 +15,7 @@ sub weight_behaviors {
         Heal               => 500_000,
         Descend            => 80_000,
         Fight              => 50_000,
+        GetItems           => 24_000,
         Doors              => 10_000,
         Explore            => 2_500,
         Search             => 1_000,
