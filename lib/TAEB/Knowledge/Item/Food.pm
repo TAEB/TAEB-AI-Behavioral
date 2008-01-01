@@ -98,8 +98,8 @@ has foodlist => (
         # Collect monster corpses
         my $monsterlist = TAEB::Knowledge::Monster->monsterlist;
         while (my ($name, $stats) = each %$monsterlist) {
-            $stats->{corpse} = 1;
             $foods->{"$name corpse"} = $stats->{corpse};
+            $foods->{"$name corpse"}->{corpse} = 1;
         }
 
         # tag each food with its name
