@@ -14,7 +14,7 @@ sub prepare {
 
     return 0 if !@possibilities;
 
-    $self->commands([ $possibilities[rand @possibilities] ]);
+    $self->next($possibilities[rand @possibilities]);
     return 100;
 }
 

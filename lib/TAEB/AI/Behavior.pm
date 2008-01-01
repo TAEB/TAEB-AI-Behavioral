@@ -8,8 +8,7 @@ has path => (
     isa => 'TAEB::World::Path',
     trigger => sub {
         my ($self, $path) = @_;
-        my @commands = split '', ($path ? $path->path : '');
-        $self->commands(\@commands);
+        $self->next(split '', ($path ? $path->path : ''));
     },
 );
 
@@ -89,7 +88,20 @@ sub write_elbereth {
         "E-  Elbereth\n";
     };
 
-    $self->commands([$command]);
+    $self->next($command);
+}
+
+=head2 next (Str)
+
+Replace the command queue with the given list of commands.
+
+=cut
+
+sub next {
+    my $self = shift;
+
+    # yes this has to be a copy
+    $self->commands([@_]);
 }
 
 1;

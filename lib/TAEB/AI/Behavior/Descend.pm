@@ -9,7 +9,7 @@ sub prepare {
     # are we on >? if so, head down
     if (TAEB->current_tile->floor_glyph eq '>') {
         $self->currently("Descending");
-        $self->commands(['>']);
+        $self->next('>');
         return 100;
     }
 

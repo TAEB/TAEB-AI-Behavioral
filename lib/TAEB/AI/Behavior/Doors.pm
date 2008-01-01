@@ -12,7 +12,7 @@ sub prepare {
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
         if ($tile->glyph eq ']') {
-            $self->commands([chr(4) . $dir]);
+            $self->next(chr(4) . $dir);
             $self->currently("Kicking down a door");
             $found_door = 1;
         }
