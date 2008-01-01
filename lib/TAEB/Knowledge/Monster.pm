@@ -5,6 +5,7 @@ use MooseX::Singleton;
 has monsterlist => (
     is      => 'ro',
     isa     => 'HashRef',
+    lazy    => 1,
     default => sub {
         return {
             'Aleax' => {

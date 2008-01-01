@@ -4,8 +4,9 @@ use MooseX::Singleton;
 use TAEB::Knowledge::Monster; # for corpses
 
 has foodlist => (
-    is => 'ro',
-    isa => 'HashRef',
+    is      => 'ro',
+    isa     => 'HashRef',
+    lazy    => 1,
     default => sub {
         my $foods = {
             'meatball' => {

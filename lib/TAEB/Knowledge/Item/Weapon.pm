@@ -5,6 +5,7 @@ use MooseX::Singleton;
 has weaponlist => (
     is      => 'ro',
     isa     => 'HashRef',
+    lazy    => 1,
     default => sub {
         my $weapons = {
             'Cleaver' => {
