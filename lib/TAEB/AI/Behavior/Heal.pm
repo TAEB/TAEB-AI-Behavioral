@@ -6,8 +6,11 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    # if we're at 50% health or less and we can write Elbereth, do it
-    if (TAEB->hp * 2 < TAEB->maxhp && !TAEB->senses->in_wereform) {
+    # if we can't write Elbereth, then forget it
+    return 0 if TAEB->senses->in_wereform;
+    return 0 if TAEB->senses->is_blind;
+
+    if (TAEB->hp * 2 < TAEB->maxhp) {
         $self->write_elbereth;
         return 100;
     }

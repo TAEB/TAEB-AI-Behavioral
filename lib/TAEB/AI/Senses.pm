@@ -29,6 +29,12 @@ has can_kick => (
     default => 1,
 );
 
+has is_blind => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub update {
     my $self = shift;
 
@@ -72,6 +78,8 @@ sub update {
         $self->hunger(999) if $self->hunger > 999;
         $self->hunger(150) if $self->hunger < 150;
     }
+
+    $self->is_blind($botl =~ /\bBli/);
 }
 
 1;
