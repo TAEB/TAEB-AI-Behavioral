@@ -107,8 +107,9 @@ has foodlist => (
 
 sub food {
     my $self = shift;
-    my $arg  = shift;
-    return $self->foodlist->{$arg};
+    my $item = TAEB::Knowledge::Item->canonicalize_item(shift);
+
+    return $self->foodlist->{$item};
 }
 
 sub should_eat {
