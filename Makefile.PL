@@ -6,37 +6,40 @@ name           'TAEB';
 all_from       'lib/TAEB.pm';
 
 # for the telnet interface
-requires       'IO::Socket::Telnet' => 0.02;
+requires 'IO::Socket::Telnet' => 0.02;
 
 # for the local interface
-requires       'IO::Pty::Easy';
+requires 'IO::Pty::Easy';
 
 # the object system
-requires       'Moose';
-requires       'MooseX::Singleton' => 0.03;
+requires 'Moose';
+requires 'MooseX::Singleton' => 0.03;
 
 # getop for bin/taeb
-requires       'Getopt::Whatever';
+requires 'Getopt::Whatever';
 
 # parse escape codes into an addressable screen
-requires       'Term::VT102::ZeroBased' => 1.01;
+requires 'Term::VT102::ZeroBased' => 1.01;
 
 # human interaction
-requires       'Term::ReadKey';
+requires 'Term::ReadKey';
 
 # logging
-requires       'Log::Dispatch';
+requires 'Log::Dispatch';
 
 # config
-requires       'YAML';
-requires       'Hash::Merge';
+requires 'YAML';
+requires 'Hash::Merge';
 
 # TAEB::Util
-requires       'Sub::Exporter';
-requires       'List::MoreUtils';
+requires 'Sub::Exporter';
+requires 'List::MoreUtils';
 
 # pathfinding
-requires       'Heap::Simple';
+requires 'Heap::Simple';
+
+# miscellaneous
+requires 'Scalar::Defer' => '0.12';
 
 features(
     'ttyrec output' => [
