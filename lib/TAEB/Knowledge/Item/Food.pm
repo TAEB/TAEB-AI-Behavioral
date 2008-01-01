@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Item::Food;
 use MooseX::Singleton;
+use TAEB::Knowledge::Monster; # for corpses
 
 has foodlist => (
     is => 'ro',
@@ -92,6 +93,12 @@ has foodlist => (
 
         # Japanese name mapping
         $foods->{'gunyoki'} = $foods->{'food ration'};
+
+        # Collect monster corpses
+        my $monsterlist = TAEB::Knowledge::Monster->monsterlist;
+        while (my ($name, $stats) = each %$monsterlist) {
+            $foods{"$name corpse"} = $stats->{corpse};
+        }
 
         return $foods;
     },
