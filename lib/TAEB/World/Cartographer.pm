@@ -30,11 +30,13 @@ sub update {
     my $level = $self->dungeon->current_level;
 
     my $debug_draw = TAEB->config->contents->{debug_draw};
+    my $needs_autoexplore = 0;
 
     for my $y (1 .. 21) {
         for my $x (0 .. 79) {
             my $tile = $level->at($x, $y);
             if (TAEB->vt->at($x, $y) ne $tile->glyph) {
+                $needs_autoexplore = 1;
                 $level->update_tile($x, $y, TAEB->vt->at($x, $y));
             }
 
@@ -47,7 +49,7 @@ sub update {
 
     $level->step_on($self->x, $self->y);
 
-    $self->autoexplore();
+    $self->autoexplore() if $needs_autoexplore;
 }
 
 =head2 map_like Regex -> Bool
