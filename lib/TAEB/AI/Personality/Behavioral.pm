@@ -195,5 +195,20 @@ sub next_action {
     shift->behavior_action;
 }
 
+=head2 pickup Str -> Bool
+
+Consult each behavior for what it should pick up.
+
+=cut
+
+sub pickup {
+    my $self = shift;
+
+    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+        return 1 if $self->pickup(@_);
+    }
+
+    return 0;
+}
 1;
 
