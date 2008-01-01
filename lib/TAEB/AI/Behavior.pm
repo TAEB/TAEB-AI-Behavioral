@@ -104,5 +104,17 @@ sub next {
     $self->commands([@_]);
 }
 
+=head2 pickup Str -> Bool
+
+This will be called any time a pick-up menu is invoked. If your behavior knows
+how to use items, this is how it can let TAEB know it should pick them up.
+
+C<$_> will be the actual item. The argument to C<pickup> is the selector, which
+is almost certainly ignorable.
+
+=cut
+
+sub pickup { 0 }
+
 1;
 
