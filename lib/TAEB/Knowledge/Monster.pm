@@ -2792,22 +2792,6 @@ has monsterlist => (
                     'nutrition' => 400,
                 }
             },
-            'golden naga hatchlin' => {
-                'ac'          => ,
-                'attacks'     => '',
-                'elbereth'    => ,
-                'level'       => ,
-                'mr'          => ,
-                'resistances' => "",
-                'speed'       => ,
-                'glyph'       => "",
-                'color'       => "",
-                'corpse'      => {
-                    'cannibal'  => 0,
-                    'weight'    => ,
-                    'nutrition' => ,
-                }
-            },
             'golden naga hatchling' => {
                 'ac'          => 6,
                 'attacks'     => '1d4',
@@ -2820,8 +2804,8 @@ has monsterlist => (
                 'color'       => "yellow",
                 'corpse'      => {
                     'cannibal'  => 0,
-                    'weight'    => ,
-                    'nutrition' => ,
+                    'weight'    => 0, # XXX: this is not right!
+                    'nutrition' => 0, # XXX: this is not right!
                 }
             },
             'gray dragon' => {
@@ -2984,22 +2968,6 @@ has monsterlist => (
                     'nutrition' => 400,
                 }
             },
-            'guardian naga hatchl' => {
-                'ac'          => ,
-                'attacks'     => '',
-                'elbereth'    => ,
-                'level'       => ,
-                'mr'          => ,
-                'resistances' => "",
-                'speed'       => ,
-                'glyph'       => "",
-                'color'       => "",
-                'corpse'      => {
-                    'cannibal'  => 0,
-                    'weight'    => ,
-                    'nutrition' => ,
-                }
-            },
             'guardian naga hatchling' => {
                 'ac'          => 6,
                 'attacks'     => '1d4',
@@ -3012,8 +2980,8 @@ has monsterlist => (
                 'color'       => "green",
                 'corpse'      => {
                     'cannibal'  => 0,
-                    'weight'    => ,
-                    'nutrition' => ,
+                    'weight'    => 0, # XXX: this is not right!
+                    'nutrition' => 0, # XXX: this is not right!
                 }
             },
             'guide' => {
@@ -3174,22 +3142,6 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1000,
                     'nutrition' => 200,
-                }
-            },
-            'homunculi' => {
-                'ac'          => ,
-                'attacks'     => '',
-                'elbereth'    => ,
-                'level'       => ,
-                'mr'          => ,
-                'resistances' => "",
-                'speed'       => ,
-                'glyph'       => "",
-                'color'       => "",
-                'corpse'      => {
-                    'cannibal'  => 0,
-                    'weight'    => ,
-                    'nutrition' => ,
                 }
             },
             'homunculus' => {
@@ -3896,22 +3848,6 @@ has monsterlist => (
                     'nutrition' => 500,
                 }
             },
-            'long worm tail' => {
-                'ac'          => ,
-                'attacks'     => '',
-                'elbereth'    => ,
-                'level'       => ,
-                'mr'          => ,
-                'resistances' => "",
-                'speed'       => ,
-                'glyph'       => "",
-                'color'       => "brown",
-                'corpse'      => {
-                    'cannibal'  => 0,
-                    'weight'    => ,
-                    'nutrition' => ,
-                }
-            },
             'lurker above' => {
                 'ac'          => 3,
                 'attacks'     => 'E1d8d',
@@ -3942,22 +3878,6 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 600,
                     'nutrition' => 300,
-                }
-            },
-            'mail daemon' => {
-                'ac'          => ,
-                'attacks'     => '',
-                'elbereth'    => ,
-                'level'       => ,
-                'mr'          => ,
-                'resistances' => "",
-                'speed'       => ,
-                'glyph'       => "",
-                'color'       => "bright blue",
-                'corpse'      => {
-                    'cannibal'  => 0,
-                    'weight'    => ,
-                    'nutrition' => ,
                 }
             },
             'manes' => {
@@ -5574,22 +5494,6 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 400,
-                }
-            },
-            'violet fungi' => {
-                'ac'          => ,
-                'attacks'     => '',
-                'elbereth'    => ,
-                'level'       => ,
-                'mr'          => ,
-                'resistances' => "",
-                'speed'       => ,
-                'glyph'       => "",
-                'color'       => "",
-                'corpse'      => {
-                    'cannibal'  => 0,
-                    'weight'    => ,
-                    'nutrition' => ,
                 }
             },
             'violet fungus' => {
