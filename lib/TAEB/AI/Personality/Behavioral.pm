@@ -182,7 +182,8 @@ of C<weight_behaviors>.
 =cut
 
 sub autoload_behaviors {
-    keys %{ weight_behaviors() }
+    my $self = shift;
+    keys %{ $self->weight_behaviors }
 }
 
 =head2 next_action -> Str
