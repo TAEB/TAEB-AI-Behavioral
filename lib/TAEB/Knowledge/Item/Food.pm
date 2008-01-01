@@ -102,6 +102,11 @@ has foodlist => (
             $foods{"$name corpse"} = $stats->{corpse};
         }
 
+        # tag each food with its name
+        while (my ($name, $stats) = each %$foods) {
+            $stats->{name} = $name;
+        }
+
         return $foods;
     },
 );
