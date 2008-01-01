@@ -27,7 +27,7 @@ sub prepare {
     return 0 unless $path && $path->path;
 
     # monster is far enough away to be insignificant
-    return 0 if length($path->path) < 8;
+    return 0 if length($path->path) > 8;
 
     # if we have fewer than three Elbereths, write another
     if (TAEB->current_tile->elbereths < 3) {
