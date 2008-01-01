@@ -4,9 +4,7 @@ use strict;
 use warnings;
 
 use TAEB::Knowledge::Monster;
-
-use TAEB::Knowledge::Item::Food;
-use TAEB::Knowledge::Item::Weapon;
+use TAEB::Knowledge::Item;
 
 1;
 
