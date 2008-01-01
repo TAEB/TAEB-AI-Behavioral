@@ -32,7 +32,7 @@ sub prepare {
     # if we have fewer than three Elbereths, write another
     if (TAEB->current_tile->elbereths < 3) {
         $self->commands(["E-  Elbereth\n"]);
-        $self->currently("Writing Elbereth in preparation for combat,");
+        $self->currently("Writing Elbereth in preparation for combat.");
         return 80;
     }
 
@@ -50,7 +50,7 @@ sub prepare {
 
     # not sure what happened, so just write Elbereth
     $self->commands(["E-  Elbereth\n"]);
-    $self->currently("Writing Elbereth in preparation for combat,");
+    $self->currently("Writing Elbereth in preparation for combat.");
     return 80;
 }
 
