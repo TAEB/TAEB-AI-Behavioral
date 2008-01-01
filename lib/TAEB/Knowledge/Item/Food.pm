@@ -111,5 +111,15 @@ sub food {
     return $self->foodlist->{$arg};
 }
 
+sub should_eat {
+    my $self = shift;
+    my $food = shift;
+
+    $self->food($food) if !ref($food);
+    return 0 if $food->{unsafe};
+    return 0 if $food->{corpse}; # :/
+    return 1;
+}
+
 1;
 
