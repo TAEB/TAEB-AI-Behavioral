@@ -69,7 +69,12 @@ sub handle_menus {
         TAEB->process_input();
     }
 
-    $menu->select($selector) if $selector;
+    # wrap selector method so it gets the right $self
+    my $wrapper = $selector && sub {
+        $selector->(TAEB->personality, @_);
+    };
+
+    $menu->select($wrapper) if $wrapper;
     TAEB->write($menu->commit);
     TAEB->process_input();
 }
