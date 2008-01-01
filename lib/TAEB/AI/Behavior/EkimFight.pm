@@ -6,12 +6,6 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    # if we're at 50% health or less and we can write Elbereth, do it
-    if (TAEB->hp * 2 < TAEB->maxhp && !TAEB->senses->in_wereform) {
-        $self->write_elbereth;
-        return 100;
-    }
-
     # if there's no monster nearby, then we don't have anything to do
     # shortcut: if nothing on the map looks like a monster, don't do pathfinding
     return 0 unless TAEB->map_like(qr/[a-zA-Z~&';:]/);

@@ -6,12 +6,6 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    # if we're at 50% health or less and we can write Elbereth, do it
-    if (TAEB->hp * 2 < TAEB->maxhp && !TAEB->senses->in_wereform) {
-        $self->write_elbereth;
-        return 100;
-    }
-
     # if there's an adjacent monster, attack it
     my $found_monster;
     TAEB->each_adjacent(sub {
