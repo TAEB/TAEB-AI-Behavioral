@@ -91,8 +91,7 @@ sub update {
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
 
-    if (TAEB->messages =~ /You can't move your leg/
-     || TAEB->messages =~ /You are caught in a bear trap/) {
+    if (/You can't move your leg/ || /You are caught in a bear trap/) {
         $self->can_kick(0);
     }
     # XXX: there's no message when you leave a bear trap. I'm not sure of the
