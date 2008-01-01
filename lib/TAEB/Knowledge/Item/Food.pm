@@ -99,7 +99,7 @@ has foodlist => (
         my $monsterlist = TAEB::Knowledge::Monster->monsterlist;
         while (my ($name, $stats) = each %$monsterlist) {
             $stats->{corpse} = 1;
-            $foods{"$name corpse"} = $stats->{corpse};
+            $foods->{"$name corpse"} = $stats->{corpse};
         }
 
         # tag each food with its name
