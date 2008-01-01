@@ -17,10 +17,10 @@ has foodlist => (
                 cost => 5, weight => 1, nutrition => 5, time => 1
             },
             'egg' => {
-                cost => 9, weight => 1, nutrition => 80, time => 1
+                cost => 9, weight => 1, nutrition => 80, time => 1, unsafe => 1,
             },
             'tripe ration' => {
-                cost => 15, weight => 10, nutrition => 200, time => 2
+                cost => 15, weight => 10, nutrition => 200, time => 2, unsafe => 1,
             },
             'huge chunk of meat' => {
                 cost => 105, weight => 400, nutrition => 2000, time => 20
