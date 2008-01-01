@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Monster;
-use Moose;
+use MooseX::Singleton;
 
 has monsterlist => (
     is      => 'ro',

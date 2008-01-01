@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Item::Food;
-use Moose;
+use MooseX::Singleton;
 
 has foodlist => (
     is => 'ro',

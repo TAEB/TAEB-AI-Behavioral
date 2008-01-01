@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Item::Weapon;
-use Moose;
+use MooseX::Singleton;
 
 has weaponlist => (
     is      => 'ro',
