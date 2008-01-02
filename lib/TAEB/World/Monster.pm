@@ -64,5 +64,21 @@ has 'color' => (
     isa => 'Str',
 );
 
+has peaceful => (
+    is  => 'rw',
+    isa => 'Bool',
+);
+
+has tame => (
+    is  => 'rw',
+    isa => 'Bool',
+);
+
+has shopkeeper => (
+    is  => 'rw',
+    isa => 'Bool',
+);
+
+
 1;
 
