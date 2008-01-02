@@ -2804,8 +2804,8 @@ has monsterlist => (
                 'color'       => "yellow",
                 'corpse'      => {
                     'cannibal'  => 0,
-                    'weight'    => 0, # XXX: this is not right!
-                    'nutrition' => 0, # XXX: this is not right!
+                    'weight'    => 500,
+                    'nutrition' => 100,
                 }
             },
             'gray dragon' => {
@@ -2980,8 +2980,8 @@ has monsterlist => (
                 'color'       => "green",
                 'corpse'      => {
                     'cannibal'  => 0,
-                    'weight'    => 0, # XXX: this is not right!
-                    'nutrition' => 0, # XXX: this is not right!
+                    'weight'    => 500,
+                    'nutrition' => 100,
                 }
             },
             'guide' => {
