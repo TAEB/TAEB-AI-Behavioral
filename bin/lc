@@ -68,3 +68,5 @@ print @out;
 printf "%s\n", '-' x $length;
 printf "%7d %7d %7d %7d\n", $total_lines, $total_know, $total_doc, $total_blank;
 
+my ($changes) = `darcs changes | grep '^[MTWFS]' | wc -l` =~ /(\d+)/;
+printf "%d darcs changes\n", $changes;
