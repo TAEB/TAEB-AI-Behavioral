@@ -6,13 +6,13 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    if (TAEB->senses->hunger < 0) {
+    if (TAEB->senses->nutrition < 0) {
         $self->next("#pray\n");
         $self->currently("Praying for food.");
         return 100;
     }
 
-    if (TAEB->senses->hunger < 400) {
+    if (TAEB->senses->nutrition < 400) {
         $self->next("e...");
         $self->currently("Eating food.");
         return 0;
@@ -24,7 +24,7 @@ sub prepare {
 sub weights {
     return {
         100 => "praying for food, while fainting",
-         50 => "eating food because hunger is < 400",
+         50 => "eating food because nutrition is < 400",
     },
 }
 

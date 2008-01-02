@@ -146,7 +146,7 @@ has senses => (
     is => 'rw',
     isa => 'TAEB::AI::Senses',
     default => sub { TAEB::AI::Senses->new },
-    handles => [qw/hp maxhp hunger/],
+    handles => [qw/hp maxhp nutrition/],
 );
 
 has saving => (
