@@ -124,7 +124,7 @@ sub should_eat {
 
     $self->food($food) if !ref($food);
     return 0 if $food->{unsafe};
-    return 0 if $food->{corpse} && $food->{name} =~ !/(lichen|lizard)/; # :|
+    return 0 if $food->{corpse} && $food->{name} !~ /lichen|lizard/; # :|
     return 1;
 }
 
