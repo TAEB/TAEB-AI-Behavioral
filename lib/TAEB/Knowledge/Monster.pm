@@ -138,7 +138,7 @@ has monsterlist => (
                     'disintegration' => '17%',
                     'fire'      => '17%',
                     'poison'    => '17%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                     'shock'     => '17%',
                     'sleep'     => '17%',
                 }
@@ -173,7 +173,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1900,
                     'nutrition' => 700,
-                    'strength'  => '1',
+                    'strength'  => '100%',
                 }
             },
             'Dark One' => {
@@ -206,7 +206,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 1,
-                    'die'       => '1',
+                    'die'       => '100%',
                 }
             },
             'Demogorgon' => {
@@ -272,7 +272,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 1,
-                    'die'       => '1',
+                    'die'       => '100%',
                 }
             },
             'Geryon' => {
@@ -517,7 +517,7 @@ has monsterlist => (
                     'weight'    => 2250,
                     'nutrition' => 850,
                     'fire'      => '50%',
-                    'strength'  => '1',
+                    'strength'  => '100%',
                 }
             },
             'Master Assassin' => {
@@ -583,9 +583,9 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'petrify' => '1',
+                    'petrify' => '100%',
                     'poison'    => '100%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'Minion of Huhetotl' => {
@@ -778,7 +778,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 1,
-                    'die'       => '1',
+                    'die'       => '100%',
                 }
             },
             'Scorpius' => {
@@ -796,7 +796,7 @@ has monsterlist => (
                     'weight'    => 750,
                     'nutrition' => 350,
                     'poison'    => '100%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'Shaman Karnov' => {
@@ -946,7 +946,7 @@ has monsterlist => (
                     'cannibal'  => "Hum",
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'hallucination' => '1',
+                    'hallucination' => '100%',
                 }
             },
             'acid blob' => {
@@ -963,7 +963,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 30,
                     'nutrition' => 10,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                 }
             },
             'acolyte' => {
@@ -1172,7 +1172,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1500,
                     'nutrition' => 500,
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'baby long worm' => {
@@ -1285,7 +1285,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1500,
                     'nutrition' => 500,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                 }
             },
             'balrog' => {
@@ -1432,7 +1432,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 2600,
                     'nutrition' => 400,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                     'poison'    => '53%',
                 }
             },
@@ -1450,7 +1450,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 500,
                     'nutrition' => 100,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                     'poison'    => '20%',
                 }
             },
@@ -1468,7 +1468,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 900,
                     'nutrition' => 250,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                     'cold'      => '22%',
                     'poison'    => '22%',
                     'shock'     => '22%',
@@ -1574,7 +1574,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 500,
                     'nutrition' => 250,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                     'cold'      => '11%',
                     'poison'    => '11%',
                     'shock'     => '11%',
@@ -1708,7 +1708,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 100,
                     'nutrition' => 100,
-                    'polymorph' => '1',
+                    'polymorph' => '100%',
                 }
             },
             'chickatrice' => {
@@ -1725,7 +1725,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 10,
                     'nutrition' => 10,
-                    'petrify' => '1',
+                    'petrify' => '100%',
                     'poison'    => '27%',
                 }
             },
@@ -1776,7 +1776,7 @@ has monsterlist => (
                     'weight'    => 250,
                     'nutrition' => 100,
                     'poison'    => '40%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'cockatrice' => {
@@ -1793,7 +1793,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 30,
                     'nutrition' => 30,
-                    'petrify' => '1',
+                    'petrify' => '100%',
                     'poison'    => '33%',
                 }
             },
@@ -1923,7 +1923,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 400,
                     'nutrition' => 200,
-                    'aggravate' => '1',
+                    'aggravate' => '100%',
                 }
             },
             'doppelganger' => {
@@ -1940,7 +1940,7 @@ has monsterlist => (
                     'cannibal'  => "Hum",
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'polymorph' => '1',
+                    'polymorph' => '100%',
                 }
             },
             'dust vortex' => {
@@ -2266,7 +2266,7 @@ has monsterlist => (
                     'weight'    => 2250,
                     'nutrition' => 750,
                     'fire'      => '30%',
-                    'strength'  => '1',
+                    'strength'  => '100%',
                 }
             },
             'fire vortex' => {
@@ -2418,7 +2418,7 @@ has monsterlist => (
                     'weight'    => 2250,
                     'nutrition' => 750,
                     'cold'      => '33%',
-                    'strength'  => '1',
+                    'strength'  => '100%',
                 }
             },
             'gargoyle' => {
@@ -2499,7 +2499,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 600,
                     'nutrition' => 150,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                     'cold'      => '10%',
                     'fire'      => '10%',
                     'shock'     => '10%',
@@ -2552,7 +2552,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 2250,
                     'nutrition' => 750,
-                    'strength'  => '1',
+                    'strength'  => '100%',
                 }
             },
             'giant ant' => {
@@ -2603,7 +2603,7 @@ has monsterlist => (
                     'weight'    => 10,
                     'nutrition' => 10,
                     'poison'    => '33%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'giant eel' => {
@@ -2686,7 +2686,7 @@ has monsterlist => (
                     'weight'    => 100,
                     'nutrition' => 100,
                     'poison'    => '33%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'giant zombie' => {
@@ -2929,7 +2929,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 500,
                     'nutrition' => 250,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                     'cold'      => '7%',
                     'fire'      => '7%',
                     'poison'    => '7%',
@@ -2967,7 +2967,7 @@ has monsterlist => (
                     'weight'    => 4500,
                     'nutrition' => 1500,
                     'poison'    => '100%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'green mold' => {
@@ -2984,7 +2984,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 30,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                 }
             },
             'green slime' => {
@@ -3001,9 +3001,9 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 400,
                     'nutrition' => 150,
-                    'acidic'    => '1',
-                    'poisonous' => '1',
-                    'slime' => '1',
+                    'acidic'    => '100%',
+                    'poisonous' => '100%',
+                    'slime' => '100%',
                 }
             },
             'gremlin' => {
@@ -3021,7 +3021,7 @@ has monsterlist => (
                     'weight'    => 100,
                     'nutrition' => 20,
                     'poison'    => '33%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'grid bug' => {
@@ -3071,7 +3071,7 @@ has monsterlist => (
                     'weight'    => 2600,
                     'nutrition' => 400,
                     'poison'    => '80%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'guardian naga hatchling' => {
@@ -3203,7 +3203,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 2200,
                     'nutrition' => 700,
-                    'strength'  => '1',
+                    'strength'  => '100%',
                 }
             },
             'hill orc' => {
@@ -3269,7 +3269,7 @@ has monsterlist => (
                     'weight'    => 60,
                     'nutrition' => 100,
                     'poison'    => '7%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                     'sleep'     => '7%',
                 }
             },
@@ -3319,7 +3319,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 200,
                     'nutrition' => 200,
-                    'aggravate' => '1',
+                    'aggravate' => '100%',
                 }
             },
             'human' => {
@@ -3578,7 +3578,7 @@ has monsterlist => (
                     'weight'    => 80,
                     'nutrition' => 20,
                     'poison'    => '20%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'ki-rin' => {
@@ -3612,7 +3612,7 @@ has monsterlist => (
                     'weight'    => 1,
                     'nutrition' => 5,
                     'poison'    => '30%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'kitten' => {
@@ -3629,7 +3629,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 150,
                     'nutrition' => 150,
-                    'aggravate' => '1',
+                    'aggravate' => '100%',
                 }
             },
             'knight' => {
@@ -3662,7 +3662,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 400,
                     'nutrition' => 100,
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'kobold lord' => {
@@ -3679,7 +3679,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 500,
                     'nutrition' => 200,
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'kobold mummy' => {
@@ -3712,7 +3712,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 450,
                     'nutrition' => 150,
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'kobold zombie' => {
@@ -3761,7 +3761,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 250,
                     'nutrition' => 250,
-                    'aggravate' => '1',
+                    'aggravate' => '100%',
                 }
             },
             'large dog' => {
@@ -3778,7 +3778,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 800,
                     'nutrition' => 250,
-                    'aggravate' => '1',
+                    'aggravate' => '100%',
                 }
             },
             'large kobold' => {
@@ -3795,7 +3795,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 450,
                     'nutrition' => 150,
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'large mimic' => {
@@ -3942,7 +3942,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 150,
                     'nutrition' => 150,
-                    'aggravate' => '1',
+                    'aggravate' => '100%',
                 }
             },
             'lizard' => {
@@ -3959,9 +3959,9 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 10,
                     'nutrition' => 40,
-                    'confusion' => '1',
-                    'cure stoning' => '1',
-                    'reduce stunning' => '1',
+                    'confusion' => '100%',
+                    'cure stoning' => '100%',
+                    'reduce stunning' => '100%',
                 }
             },
             'long worm' => {
@@ -4074,7 +4074,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'int gain / telepathy' => '1',
+                    'int gain / telepathy' => '100%',
                     'intelligence' => '50%',
                 }
             },
@@ -4108,7 +4108,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'int gain / telepathy' => '1',
+                    'int gain / telepathy' => '100%',
                     'intelligence' => '50%',
                 }
             },
@@ -4288,7 +4288,7 @@ has monsterlist => (
                     'cannibal'  => "Hum",
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'heal' => '1',
+                    'heal' => '100%',
                     'poison'    => '73%',
                 }
             },
@@ -4306,7 +4306,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 20,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                 }
             },
             'ogre' => {
@@ -4565,7 +4565,7 @@ has monsterlist => (
                     'weight'    => 100,
                     'nutrition' => 60,
                     'poison'    => '40%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'plains centaur' => {
@@ -4712,8 +4712,8 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 20,
-                    'poisonous' => '1',
-                    'speed toggle' => '1',
+                    'poisonous' => '100%',
+                    'speed toggle' => '100%',
                 }
             },
             'quasit' => {
@@ -4748,7 +4748,7 @@ has monsterlist => (
                     'weight'    => 1,
                     'nutrition' => 5,
                     'poison'    => '60%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'quivering blob' => {
@@ -4782,7 +4782,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 30,
                     'nutrition' => 5,
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'ranger' => {
@@ -5031,7 +5031,7 @@ has monsterlist => (
                     'weight'    => 1500,
                     'nutrition' => 400,
                     'fire'      => '53%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'samurai' => {
@@ -5097,7 +5097,7 @@ has monsterlist => (
                     'weight'    => 50,
                     'nutrition' => 100,
                     'poison'    => '50%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'sergeant' => {
@@ -5277,7 +5277,7 @@ has monsterlist => (
                     'weight'    => 100,
                     'nutrition' => 80,
                     'poison'    => '27%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'soldier' => {
@@ -5311,7 +5311,7 @@ has monsterlist => (
                     'weight'    => 20,
                     'nutrition' => 5,
                     'poison'    => '20%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'spotted jelly' => {
@@ -5328,7 +5328,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 20,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                 }
             },
             'stalker' => {
@@ -5345,7 +5345,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 900,
                     'nutrition' => 400,
-                    'invisibility' => '1',
+                    'invisibility' => '100%',
                     'stun' => '60',
                 }
             },
@@ -5379,7 +5379,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 2250,
                     'nutrition' => 750,
-                    'strength'  => '1',
+                    'strength'  => '100%',
                 }
             },
             'stone golem' => {
@@ -5413,7 +5413,7 @@ has monsterlist => (
                     'weight'    => 2250,
                     'nutrition' => 750,
                     'shock'     => '50%',
-                    'strength'  => '1',
+                    'strength'  => '100%',
                 }
             },
             'straw golem' => {
@@ -5657,7 +5657,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 30,
                     'nutrition' => 20,
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'vampire lord' => {
@@ -5690,7 +5690,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 100,
                     'nutrition' => 100,
-                    'hallucination' => '1',
+                    'hallucination' => '100%',
                     'poison'    => '20%',
                 }
             },
@@ -5837,7 +5837,7 @@ has monsterlist => (
                     'weight'    => 150,
                     'nutrition' => 80,
                     'poison'    => '27%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'water nymph' => {
@@ -5888,7 +5888,7 @@ has monsterlist => (
                     'weight'    => 1450,
                     'nutrition' => 400,
                     'lycanthropy' => '100%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'wererat' => {
@@ -5906,7 +5906,7 @@ has monsterlist => (
                     'weight'    => 1450,
                     'nutrition' => 400,
                     'lycanthropy' => '100%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'werewolf' => {
@@ -5924,7 +5924,7 @@ has monsterlist => (
                     'weight'    => 1450,
                     'nutrition' => 400,
                     'lycanthropy' => '100%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'white dragon' => {
@@ -6106,7 +6106,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
-                    'gain level' => '1',
+                    'gain level' => '100%',
                 }
             },
             'wumpus' => {
@@ -6140,7 +6140,7 @@ has monsterlist => (
                     'weight'    => 300,
                     'nutrition' => 300,
                     'poison'    => '47%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'xorn' => {
@@ -6173,7 +6173,7 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1500,
-                    'acidic'    => '1',
+                    'acidic'    => '100%',
                 }
             },
             'yellow light' => {
@@ -6206,9 +6206,9 @@ has monsterlist => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 30,
-                    'hallucination' => '1',
+                    'hallucination' => '100%',
                     'poison'    => '7%',
-                    'poisonous' => '1',
+                    'poisonous' => '100%',
                 }
             },
             'yeti' => {
