@@ -21,8 +21,8 @@ sub canonicalize_item {
 
     # extra space bad
     $item =~ s/\s+/ /g;
-    $item =~ s/^ / /;
-    $item =~ s/ $/ /;
+    $item =~ s/^ //;
+    $item =~ s/ $//;
 
     return $item;
 }
