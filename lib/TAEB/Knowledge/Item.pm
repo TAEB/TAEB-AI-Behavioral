@@ -19,7 +19,10 @@ sub canonicalize_item {
     $item =~ s/\b$_\b//ig for @words;
     $item =~ s/$_//g      for @regex;
 
+    # extra space bad
     $item =~ s/\s+/ /g;
+    $item =~ s/^ / /;
+    $item =~ s/ $/ /;
 
     return $item;
 }
