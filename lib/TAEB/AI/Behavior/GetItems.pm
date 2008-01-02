@@ -7,7 +7,7 @@ sub prepare {
     my $self = shift;
 
     # pick up individual items
-    if (TAEB->messages =~ /^You see here (.*?)\./) {
+    if (TAEB->messages =~ /You see here (.*?)\./) {
         local $_ = $1;
         TAEB->debug("Checking whether I want a '$_'.");
         if (TAEB->personality->pickup('-')) {
