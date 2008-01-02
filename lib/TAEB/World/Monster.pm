@@ -54,12 +54,12 @@ has elbereth => (
     documentation => "whether the monster respects Elbereth",
 );
 
-has 'glyph' => (
+has glyph => (
     is  => 'rw',
     isa => 'Str',
 );
 
-has 'color' => (
+has color => (
     is  => 'rw',
     isa => 'Str',
 );
