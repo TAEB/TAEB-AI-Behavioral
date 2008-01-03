@@ -8,6 +8,26 @@ use Sub::Exporter -setup => {
 
 use List::MoreUtils 'uniq';
 
+use constant {
+    COLOR_BLACK          => 0,
+    COLOR_RED            => 1,
+    COLOR_GREEN          => 2,
+    COLOR_BROWN          => 3,
+    COLOR_BLUE           => 4,
+    COLOR_MAGENTA        => 5,
+    COLOR_CYAN           => 6,
+    COLOR_GRAY           => 7,
+    COLOR_NONE           => 8,
+    COLOR_ORANGE         => 9,
+    COLOR_BRIGHT_GREEN   => 10,
+    COLOR_YELLOW         => 11,
+    COLOR_BRIGHT_BLUE    => 12,
+    COLOR_BRIGHT_MAGENTA => 13,
+    COLOR_BRIGHT_CYAN    => 14,
+    COLOR_WHITE          => 15,
+    COLOR_MAX            => 16,
+};
+
 our %glyphs = (
     ' '  => 'rock',
     '|'  => 'wall',
