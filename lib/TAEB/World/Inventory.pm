@@ -3,13 +3,9 @@ package TAEB::World::Inventory;
 use Moose;
 use Moose::Util::TypeConstraints;
 
-subtype 'AlphaKeys'
-     => as 'HashRef'
-     => where { 0 == grep /[^a-zA-Z]/ keys %$_ };
-
 has items => (
     is      => 'rw',
-    isa     => 'AlphaKeys[TAEB::World::Item]',
+    isa     => 'HashRef[TAEB::World::Item]',
     default => sub { {} },
 );
 
