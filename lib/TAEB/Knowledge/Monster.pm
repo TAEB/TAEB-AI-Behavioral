@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Monster;
 use MooseX::Singleton;
-use TAEB::Util;
+use TAEB::Util ':colors';
 
 has monsterlist => (
     is      => 'ro',

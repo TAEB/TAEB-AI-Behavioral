@@ -28,6 +28,9 @@ use constant \%colors;
 
 use Sub::Exporter -setup => {
     exports => [qw(tile_types glyph_to_type direction), keys %colors],
+    groups => {
+        colors => [keys %colors],
+    },
 };
 
 use List::MoreUtils 'uniq';
