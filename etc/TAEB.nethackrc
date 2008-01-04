@@ -25,9 +25,6 @@ OPTIONS=!mail
 # map changes for code simplicity
 OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:~m
 
-# change illegal-object to 'm', keep rest as default
-OPTIONS=objects:m
-
 OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
 # changes: spider web = ^
 # now " amulet, ^ trap
