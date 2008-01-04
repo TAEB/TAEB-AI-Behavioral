@@ -3,8 +3,10 @@ package TAEB::Util;
 use strict;
 use warnings;
 
+our %colors;
+
 BEGIN {
-    our %colors = (
+    %colors = (
         COLOR_BLACK          => 0,
         COLOR_RED            => 1,
         COLOR_GREEN          => 2,
