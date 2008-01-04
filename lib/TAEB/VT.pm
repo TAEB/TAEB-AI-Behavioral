@@ -163,5 +163,24 @@ sub attr_to_ansi
     return $color . 'm';
 }
 
+=head2 color Int, Int -> Int
+
+Returns an int representing the color NetHack uses for whatever is occupying the specified tile.
+
+=cut
+
+sub color {
+    my $self = shift;
+    my $x = shift;
+    my $y = shift;
+
+    # fields: fg, bg, bold, faint, standout, underline, blink, reverse
+    my @attr = $self->attr_unpack($self->row_attr($y, $x, $x));
+
+    # bold is only 0 or 1
+    # this then maps into the constants from color.h (and in Util.pm)
+    return $attr[0] + 8*$attr[2];
+}
+
 1;
 
