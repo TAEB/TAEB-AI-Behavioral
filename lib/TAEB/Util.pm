@@ -41,17 +41,18 @@ our %glyphs = (
     ' '  => 'rock',
     '|'  => 'wall',
     '-'  => 'wall',
-    '.'  => 'floor',
     ']'  => 'door',
     ','  => 'door',
     '>'  => 'stairs',
     '<'  => 'stairs',
     '^'  => 'trap',
     '_'  => 'altar',
-    '\\' => 'throne',
+    '~'  => 'water',
 
-    '{'  => [qw/sink fountain grave/],
-    '}'  => [qw/bars tree drawbridge water lava underwater/],
+    '.'  => [qw/floor ice/],
+    '\\' => [qw/grave throne/],
+    '{'  => [qw/sink fountain/],
+    '}'  => [qw/bars tree drawbridge lava underwater/],
 
     '#'  => 'corridor',
     #'#'  => 'air', # who cares, no difference
