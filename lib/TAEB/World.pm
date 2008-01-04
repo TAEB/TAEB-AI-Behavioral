@@ -6,6 +6,7 @@ use warnings;
 use TAEB::World::Branch;
 use TAEB::World::Cartographer;
 use TAEB::World::Dungeon;
+use TAEB::World::Inventory;
 use TAEB::World::Item;
 use TAEB::World::Level;
 use TAEB::World::Monster;
