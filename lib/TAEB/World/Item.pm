@@ -8,6 +8,11 @@ has appearance => (
     required => 1,
 );
 
+has glyph => (
+    is  => 'rw',
+    isa => 'Str',
+);
+
 =head2 matches Str -> Bool
 
 Does the given item look sufficiently like this item?
