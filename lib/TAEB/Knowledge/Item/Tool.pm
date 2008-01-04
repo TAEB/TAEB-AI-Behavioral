@@ -8,6 +8,62 @@ has list => (
     lazy    => 1,
     default => sub {
         my $tools = {
+            'Bell of Opening' => {
+                artifact => 1,
+                cost => 5000,
+                weight => 10,
+                charge => 3,
+                appearance => 'silver bell',
+            },
+            'Candelabrum of Invocation' => {
+                artifact => 1,
+                cost => 5000,
+                weight => 10,
+                charge => '',
+                appearance => 'candelabrum',
+            },
+            'Eyes of the Overworld' => {
+                artifact => 1,
+                cost => 80,
+                weight => 3,
+                charge => '',
+                appearance => 'Eyes of the Overworld',
+            },
+            'Magic Mirror of Merlin' => {
+                artifact => 1,
+                cost => 10,
+                weight => 13,
+                charge => '',
+                appearance => 'Magic Mirror of Merlin',
+            },
+            'Master Key of Thievery' => {
+                artifact => 1,
+                cost => 10,
+                weight => 3,
+                charge => '',
+                appearance => 'Master Key of Thievery',
+            },
+            'Orb of Detection' => {
+                artifact => 1,
+                cost => 60,
+                weight => 150,
+                charge => 5,
+                appearance => 'Orb of Detection',
+            },
+            'Orb of Fate' => {
+                artifact => 1,
+                cost => 60,
+                weight => 150,
+                charge => 5,
+                appearance => 'Orb of Fate',
+            },
+            'Platinum Yendorian Express Card' => {
+                artifact => 1,
+                cost => 10,
+                weight => 1,
+                charge => '',
+                appearance => 'Platinum Yendorian Express Card',
+            },
             'sack' => {
                 cost => 2,
                 weight => 15,
@@ -97,13 +153,6 @@ has list => (
                 charge => '',
                 appearance => 'lamp',
             },
-            'Candelabrum of Invocation' => {
-                artifact => 1,
-                cost => 5000,
-                weight => 10,
-                charge => '',
-                appearance => 'candelabrum',
-            },
             'tin whistle' => {
                 cost => 10,
                 weight => 3,
@@ -187,13 +236,6 @@ has list => (
                 weight => 30,
                 charge => '',
                 appearance => 'bell',
-            },
-            'Bell of Opening' => {
-                artifact => 1,
-                cost => 5000,
-                weight => 10,
-                charge => 3,
-                appearance => 'silver bell',
             },
             'beartrap' => {
                 cost => 60,
