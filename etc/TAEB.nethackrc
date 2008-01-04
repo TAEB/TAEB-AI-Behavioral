@@ -29,9 +29,8 @@ OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
 # changes: spider web = ^
 # now " amulet, ^ trap
 
-# \44 is comma, NetHack interprets commas a bit aggressively as separators
-OPTIONS=dungeon: |--------||.\44\44]]}}.##<><>_\\\\{{~.}..}} #}
-# changes: open doors => ,   now | and - are walls
+OPTIONS=dungeon: |--------||.-|]]}}.##<><>_\\\\{{~.}..}} #}
+# changes:
 #          closed doors => ] now + spellbook
 #          iron bars => }    not walkable (cyan)
 #          trees => }        not walkable (green)

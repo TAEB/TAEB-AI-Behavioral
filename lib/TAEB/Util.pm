@@ -39,16 +39,15 @@ use List::MoreUtils 'uniq';
 
 our %glyphs = (
     ' '  => 'rock',
-    '|'  => 'wall',
-    '-'  => 'wall',
     ']'  => 'door',
-    ','  => 'door',
     '>'  => 'stairs',
     '<'  => 'stairs',
     '^'  => 'trap',
     '_'  => 'altar',
     '~'  => 'water',
 
+    '|'  => [qw/door wall/],
+    '-'  => [qw/door wall/],
     '.'  => [qw/floor ice/],
     '\\' => [qw/grave throne/],
     '{'  => [qw/sink fountain/],
