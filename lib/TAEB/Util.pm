@@ -58,6 +58,18 @@ our %glyphs = (
     #'#'  => 'air', # who cares, no difference
 );
 
+# except for traps
+# miss =>? deal with it
+our %feature_colors = (
+    COLOR_RED,    'lava',
+    COLOR_GREEN,  'tree',
+    COLOR_BROWN,  [qw/door drawbridge/],
+    COLOR_BLUE,   [qw/fountain water underwater/],
+    COLOR_CYAN,   [qw/bars ice/],
+    COLOR_GRAY,   [qw/altar corridor floor grave sink stairs wall/]
+    COLOR_YELLOW, 'throne',
+);
+
 our @glyphs = uniq 'obscured', map { ref $_ ? @$_ : $_ } values %glyphs;
 
 sub tile_types {
@@ -66,7 +78,23 @@ sub tile_types {
 
 sub glyph_to_type {
     my $glyph = shift;
-    return $glyphs{$glyph} || 'obscured';
+
+    return $glyphs{$glyph} || 'obscured' unless @_;
+
+    # use color in an effort to differentiate tiles
+    my $color = shift;
+    my @a = map { ref $_ ? @$_ : $_ } $glyphs{$glyph};
+    my @b = map { ref $_ ? @$_ : $_ } $feature_colors{$color};
+
+    # calculate intersection of the two lists
+    # because of the config chosen, given a valid glyph+color combo
+    # we are guaranteed to only have one result
+    # an invalid combination should not return any
+    my %intersect;
+    $intersect{$_} |= 1 for @a;
+    $intersect{$_} |= 2 for @b;
+
+    return grep { $intersect{$_} == 3 } keys %intersect;
 }
 
 our @directions = (

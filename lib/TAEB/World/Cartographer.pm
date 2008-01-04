@@ -37,7 +37,8 @@ sub update {
             my $tile = $level->at($x, $y);
             if (TAEB->vt->at($x, $y) ne $tile->glyph) {
                 $needs_autoexplore = 1;
-                $level->update_tile($x, $y, TAEB->vt->at($x, $y));
+                $level->update_tile($x, $y, TAEB->vt->at($x, $y),
+                                    TAEB->vt->color($x, $y));
             }
 
             TAEB->out("\e[%d;%dH%s\e[m", 1+$y, 1+$x, $tile->$debug_draw)

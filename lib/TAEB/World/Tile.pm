@@ -95,6 +95,7 @@ sub basic_cost {
 sub update {
     my $self = shift;
     my $newglyph = shift;
+    my $color    = shift;
     my $oldglyph = $self->glyph;
 
     $self->glyph($newglyph);
