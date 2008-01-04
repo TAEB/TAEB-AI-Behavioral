@@ -61,6 +61,12 @@ has is_blind => (
     default => 0,
 );
 
+has level => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 1,
+);
+
 sub update {
     my $self = shift;
 
@@ -87,6 +93,13 @@ sub update {
     }
     else {
         TAEB->error("Unable to parse HP from '$botl'");
+    }
+
+    if ($botl =~ m{Xp:(\d+)/(\d+)}) {
+        $self->level($1);
+    }
+    else {
+        TAEB->error("Unable to parse Experience from '$botl'");
     }
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
