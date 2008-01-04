@@ -1,6 +1,8 @@
 #!perl
 package TAEB;
 use MooseX::Singleton;
+use MooseX::AttributeHelpers;
+
 use Log::Dispatch;
 use Log::Dispatch::File;
 
