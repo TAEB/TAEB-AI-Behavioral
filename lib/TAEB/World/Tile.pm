@@ -74,6 +74,18 @@ has elbereths => (
     default => 0,
 );
 
+has interesting => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
+has monster => (
+    is       => 'rw',
+    isa      => 'TAEB::World::Monster',
+    weak_ref => 1,
+);
+
 =head2 basic_cost -> Int
 
 This returns the basic cost of entering a tile. It's not very smart, but it
@@ -93,7 +105,7 @@ sub basic_cost {
 }
 
 sub update {
-    my $self = shift;
+    my $self     = shift;
     my $newglyph = shift;
     my $color    = shift;
     my $oldglyph = $self->glyph;
