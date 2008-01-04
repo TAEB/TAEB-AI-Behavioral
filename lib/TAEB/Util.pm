@@ -66,7 +66,7 @@ our %feature_colors = (
     COLOR_BROWN,  [qw/door drawbridge/],
     COLOR_BLUE,   [qw/fountain water underwater/],
     COLOR_CYAN,   [qw/bars ice/],
-    COLOR_GRAY,   [qw/altar corridor floor grave sink stairs wall/]
+    COLOR_GRAY,   [qw/altar corridor floor grave sink stairs wall/],
     COLOR_YELLOW, 'throne',
 );
 
