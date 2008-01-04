@@ -3,7 +3,7 @@ package TAEB::Knowledge::Item::Food;
 use MooseX::Singleton;
 use TAEB::Knowledge::Monster; # for corpses
 
-has foodlist => (
+has list => (
     is      => 'ro',
     isa     => 'HashRef',
     lazy    => 1,
@@ -96,7 +96,7 @@ has foodlist => (
         $foods->{'gunyoki'} = $foods->{'food ration'};
 
         # Collect monster corpses
-        my $monsterlist = TAEB::Knowledge::Monster->monsterlist;
+        my $monsterlist = TAEB::Knowledge::Monster->list;
         while (my ($name, $stats) = each %$monsterlist) {
             $foods->{"$name corpse"} = $stats->{corpse};
             $foods->{"$name corpse"}->{corpse} = 1;
@@ -115,7 +115,7 @@ sub food {
     my $self = shift;
     my $item = TAEB::Knowledge::Item->canonicalize_item(shift);
 
-    return $self->foodlist->{$item};
+    return $self->list->{$item};
 }
 
 sub should_eat {

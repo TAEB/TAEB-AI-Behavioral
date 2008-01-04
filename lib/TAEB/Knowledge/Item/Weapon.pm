@@ -2,7 +2,7 @@
 package TAEB::Knowledge::Item::Weapon;
 use MooseX::Singleton;
 
-has weaponlist => (
+has list => (
     is      => 'ro',
     isa     => 'HashRef',
     lazy    => 1,
@@ -853,7 +853,7 @@ has weaponlist => (
 sub weapon {
     my $self = shift;
     my $arg  = shift;
-    return $self->weaponlist->{$arg};
+    return $self->list->{$arg};
 }
 
 1;

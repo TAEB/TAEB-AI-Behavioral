@@ -3,7 +3,7 @@ package TAEB::Knowledge::Monster;
 use MooseX::Singleton;
 use TAEB::Util ':colors';
 
-has monsterlist => (
+has list => (
     is      => 'ro',
     isa     => 'HashRef',
     lazy    => 1,
@@ -6252,7 +6252,7 @@ has monsterlist => (
 sub monster {
     my $self = shift;
     my $arg  = shift;
-    return $self->monsterlist->{arg};
+    return $self->list->{arg};
 }
 
 1;
