@@ -21,7 +21,6 @@ BEGIN {
         COLOR_BRIGHT_MAGENTA => 13,
         COLOR_BRIGHT_CYAN    => 14,
         COLOR_WHITE          => 15,
-        COLOR_MAX            => 16,
     );
 }
 
