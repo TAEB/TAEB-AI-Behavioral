@@ -8,7 +8,7 @@ has appearance => (
     required => 1,
 );
 
-has glyph => (
+has slot => (
     is  => 'rw',
     isa => 'Str',
 );
