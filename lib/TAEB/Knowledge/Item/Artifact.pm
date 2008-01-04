@@ -18,7 +18,7 @@ has list => (
             }
         }
 
-        return $foods;
+        return $artifacts;
     },
 );
 
