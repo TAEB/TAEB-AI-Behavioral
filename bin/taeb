@@ -67,6 +67,26 @@ $SIG{__DIE__} = sub {
     Carp::REPL::repl(@_);
 } if $config->contents->{carp_repl};
 
+my $tstp = $SIG{TSTP} = sub {
+
+    # restore regular line-based ReadMode for shell commands
+    ReadMode 0;
+
+    # if we don't invoke TSTP then we won't be suspended
+    $SIG{TSTP} = 'DEFAULT';
+    kill TSTP => $$;
+};
+
+$SIG{CONT} = sub {
+    $SIG{TSTP} = $tstp;
+
+    # restore character-based ReadMode for TAEB input
+    ReadMode 3;
+
+    # redraw the screen
+    print TAEB->redraw;
+};
+
 $| = 1;
 ReadMode 3;
 END { ReadMode 0 }
