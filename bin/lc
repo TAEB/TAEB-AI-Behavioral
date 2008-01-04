@@ -66,7 +66,17 @@ print "  lines    +know  +doc  +blank  file\n";
 printf "%s\n", '-' x $length;
 print @out;
 printf "%s\n", '-' x $length;
-printf "%7d %7d %7d %7d\n", $total_lines, $total_know, $total_doc, $total_blank;
+printf "%7d %7d %7d %7d\n\n", $total_lines, $total_know, $total_doc, $total_blank;
 
-my ($changes) = `darcs changes | grep '^[MTWFS]' | wc -l` =~ /(\d+)/;
-printf "%d darcs changes\n", $changes;
+my %commits_by;
+for (`darcs changes | grep '^[MTWFS]'`) {
+    $commits_by{substr($_, 30, -1)}++;
+    $commits_by{'*'}++;
+}
+
+print "  commits     committer\n";
+printf "%s\n", '-' x $length;
+for my $author (sort {$commits_by{$b} <=> $commits_by{$a}} keys %commits_by) {
+    printf " %10d   %s\n", $commits_by{$author}, $author;
+}
+
