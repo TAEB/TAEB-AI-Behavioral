@@ -5,6 +5,7 @@ use warnings;
 
 use TAEB::Knowledge::Item::Food;
 use TAEB::Knowledge::Item::Weapon;
+use TAEB::Knowledge::Item::Tool;
 use TAEB::Knowledge::Item::Artifact;
 
 sub canonicalize_item {

@@ -2,6 +2,7 @@
 package TAEB::Knowledge::Item::Artifact;
 use MooseX::Singleton;
 use TAEB::Knowledge::Item::Weapon;
+use TAEB::Knowledge::Item::Tool;
 
 has list => (
     is      => 'ro',
@@ -10,7 +11,7 @@ has list => (
     default => sub {
         my $artifacts = { };
 
-        for (qw/Weapon/) {
+        for (qw/Weapon Tool/) {
             my $list = "TAEB::Knowledge::Item::$_"->list;
             while (my ($name, $stats) = each %$list) {
                 next unless $stats->{artifact};
