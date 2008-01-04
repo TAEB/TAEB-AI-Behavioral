@@ -40,3 +40,6 @@ OPTIONS=dungeon: |--------||.\44\44]]}}.##<><>_\\\\{{~.}..}} #}
 #          drawbridge => }   same as sink, not walkable
 #          water => ~        it looks cool (and is blue)
 
+OPTIONS=objects:m
+# changes: strange object = m
+# now ] closed door (see dungeon option)
