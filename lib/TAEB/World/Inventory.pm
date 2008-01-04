@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Inventory;
 use Moose;
+use List::Util 'first';
 
 has inventory => (
     metaclass => 'Collection::Hash',
@@ -14,6 +15,13 @@ has inventory => (
         values => 'items',
     },
 );
+
+sub find_item {
+    my $self = shift;
+    my $item = shift;
+
+    return first { $_->matches($item) } $self->items;
+}
 
 1;
 
