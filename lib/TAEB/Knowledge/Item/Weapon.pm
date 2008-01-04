@@ -9,6 +9,7 @@ has weaponlist => (
     default => sub {
         my $weapons = {
             'Cleaver' => {
+                artifact => 1,
                 'sdam'   => 'd8+d6+d4',
                 'ldam'   => '2d6+2d4',
                 'tohit'  => 'd3',
@@ -17,6 +18,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Demonbane' => {
+                artifact => 1,
                 'sdam'   => 'd8',
                 'ldam'   => 'd12',
                 'tohit'  => 'd5',
@@ -25,6 +27,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Dragonbane' => {
+                artifact => 1,
                 'sdam'   => '2d4',
                 'ldam'   => 'd6+1',
                 'tohit'  => 'd5',
@@ -33,6 +36,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Excalibur' => {
+                artifact => 1,
                 'sdam'   => 'd8+d10',
                 'ldam'   => 'd12+d10',
                 'tohit'  => 'd5',
@@ -41,6 +45,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Fire Brand' => {
+                artifact => 1,
                 'sdam'   => 'd8',
                 'ldam'   => 'd12',
                 'tohit'  => 'd5',
@@ -49,6 +54,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Frost Brand' => {
+                artifact => 1,
                 'sdam'   => 'd8',
                 'ldam'   => 'd12',
                 'tohit'  => 'd5',
@@ -57,6 +63,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Giantslayer' => {
+                artifact => 1,
                 'sdam'   => 'd8',
                 'ldam'   => 'd12',
                 'tohit'  => 'd5',
@@ -65,6 +72,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Grayswandir' => {
+                artifact => 1,
                 'sdam'   => 'd8',
                 'ldam'   => 'd8',
                 'tohit'  => 'd5',
@@ -73,6 +81,7 @@ has weaponlist => (
                 'type'   => 'silver',
             },
             'Grimtooth' => {
+                artifact => 1,
                 'sdam'   => 'd6+d3',
                 'ldam'   => 'd6+d3',
                 'tohit'  => 'd2+2',
@@ -81,6 +90,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Longbow of Diana' => {
+                artifact => 1,
                 'sdam'   => 'd2',
                 'ldam'   => 'd2',
                 'tohit'  => 'd5',
@@ -89,6 +99,7 @@ has weaponlist => (
                 'type'   => 'wood',
             },
             'Magicbane' => {
+                artifact => 1,
                 'sdam'   => '2d4',
                 'ldam'   => 'd4+d3',
                 'tohit'  => 'd5+2',
@@ -97,6 +108,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Mjollnir' => {
+                artifact => 1,
                 'sdam'   => 'd4+1',
                 'ldam'   => 'd4',
                 'tohit'  => 'd5',
@@ -105,6 +117,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Ogresmasher' => {
+                artifact => 1,
                 'sdam'   => 'd4+1',
                 'ldam'   => 'd4',
                 'tohit'  => 'd5',
@@ -113,6 +126,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Orcrist' => {
+                artifact => 1,
                 'sdam'   => 'd6+d4',
                 'ldam'   => 'd6+1',
                 'tohit'  => 'd5',
@@ -121,6 +135,7 @@ has weaponlist => (
                 'type'   => 'wood',
             },
             'Sceptre of Might' => {
+                artifact => 1,
                 'sdam'   => 'd6+1',
                 'ldam'   => 'd6',
                 'tohit'  => 'd5',
@@ -129,6 +144,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Snickersnee' => {
+                artifact => 1,
                 'sdam'   => 'd10+d8',
                 'ldam'   => 'd12+d8',
                 'tohit'  => '1',
@@ -137,6 +153,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Staff of Aesculapius' => {
+                artifact => 1,
                 'sdam'   => 'd6',
                 'ldam'   => 'd6',
                 'tohit'  => '0',
@@ -145,6 +162,7 @@ has weaponlist => (
                 'type'   => 'wood',
             },
             'Sting' => {
+                artifact => 1,
                 'sdam'   => 'd5',
                 'ldam'   => 'd3',
                 'tohit'  => 'd5+2',
@@ -153,6 +171,7 @@ has weaponlist => (
                 'type'   => 'wood',
             },
             'Stormbringer' => {
+                artifact => 1,
                 'sdam'   => '2d4+d2',
                 'ldam'   => 'd6+d2+1',
                 'tohit'  => 'd5',
@@ -161,6 +180,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Sunsword' => {
+                artifact => 1,
                 'sdam'   => 'd8',
                 'ldam'   => 'd12',
                 'tohit'  => 'd5',
@@ -169,6 +189,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'The Tsurugi of Muramasa' => {
+                artifact => 1,
                 'sdam'   => 'd16+d8',
                 'ldam'   => '2d8+2d6',
                 'tohit'  => '2',
@@ -177,6 +198,7 @@ has weaponlist => (
                 'type'   => 'metal',
             },
             'Trollsbane' => {
+                artifact => 1,
                 'sdam'   => '2d4',
                 'ldam'   => 'd6+1',
                 'tohit'  => 'd5',
@@ -185,6 +207,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Vorpal Blade' => {
+                artifact => 1,
                 'sdam'   => 'd8+1',
                 'ldam'   => 'd12+1',
                 'tohit'  => 'd5',
@@ -193,6 +216,7 @@ has weaponlist => (
                 'type'   => 'iron',
             },
             'Werebane' => {
+                artifact => 1,
                 'sdam'   => 'd8',
                 'ldam'   => 'd8',
                 'tohit'  => 'd2',
