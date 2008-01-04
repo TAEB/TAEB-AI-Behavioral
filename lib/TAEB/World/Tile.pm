@@ -117,12 +117,11 @@ sub update {
 
     # if glyph_to_type returns false, it's not a dungeon feature, it's an item
     # or monster. we don't want to update the floor_glyph or tile type.
-    my $type = glyph_to_type($newglyph);
+    my $type = glyph_to_type($newglyph, $color);
 
-    if (ref($type) eq 'ARRAY') {
-        # XXX: use ; to figure out which we're dealing with
-        $type = $type->[0];
-    }
+    # return if nothing valid is returned
+    # must be something other than a dungeon feature
+    return if !$type;
 
     # if we unveil a square and it was previously rock, then it's obscured
     # if it was anything else, then it became obscured, and we don't want to
