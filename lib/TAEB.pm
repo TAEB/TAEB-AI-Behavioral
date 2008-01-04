@@ -157,6 +157,12 @@ has saving => (
     default => 0,
 );
 
+has inventory => (
+    is      => 'rw',
+    isa     => 'TAEB::World::Inventory',
+    default => sub { TAEB::World::Inventory->new },
+);
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
