@@ -2,6 +2,7 @@
 package TAEB::Interface::Telnet;
 use Moose;
 use IO::Socket::Telnet;
+use Errno;
 
 =head1 NAME
 
@@ -88,10 +89,13 @@ sub read {
     eval {
         while (1) {
             my $b;
-            defined $self->socket->recv($b, 4096, 0)
-                or die "Disconnected from server: $!";
-            $buffer .= $b;
-            die "alarm\n" if ${*{$self->socket}}{got_pong};
+            defined $self->socket->recv($b, 4096, 0) and do {
+                $buffer .= $b;
+                die "alarm\n" if ${*{$self->socket}}{got_pong};
+                next;
+            };
+
+            die "Disconnected from server: $!" unless $!{EINTR};
         }
     };
 
