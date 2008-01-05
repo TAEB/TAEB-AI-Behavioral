@@ -20,7 +20,7 @@ sub prepare {
 
 sub currently { "Randomly walking" }
 
-sub weights {
+sub urgencies {
     return {
         100 => "random walk!",
     },

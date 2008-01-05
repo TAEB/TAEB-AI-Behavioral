@@ -21,7 +21,7 @@ sub prepare {
     return 0;
 }
 
-sub weights {
+sub urgencies {
     return {
         100 => "praying for food, while fainting",
          50 => "eating food because nutrition is < 400",

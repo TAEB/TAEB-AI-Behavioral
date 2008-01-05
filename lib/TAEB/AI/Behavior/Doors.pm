@@ -28,7 +28,7 @@ sub prepare {
     return $path && length($path->path) ? 50 : 0;
 }
 
-sub weights {
+sub urgencies {
     return {
         100 => "kicking down an adjacent door",
          50 => "path to a door",

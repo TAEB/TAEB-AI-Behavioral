@@ -40,7 +40,7 @@ sub next_action {
     return '10s';
 }
 
-sub weights {
+sub urgencies {
     return {
         100 => [
             "path to an unsearched wall",

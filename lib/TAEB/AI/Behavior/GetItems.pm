@@ -25,7 +25,7 @@ sub next_action { "," }
 
 sub currently { "Picking up items" }
 
-sub weights {
+sub urgencies {
     return {
         100 => "picking up multiple items",
          50 => "picking up one item",

@@ -157,7 +157,7 @@ sub sort_behaviors {
 
     # apply weights to urgencies, find maximum
     while (my ($behavior, $weight) = each %$weights) {
-        my $possibilities = $self->behaviors->{$behavior}->weights;
+        my $possibilities = $self->behaviors->{$behavior}->urgencies;
         while (my ($urgency, $action) = each %$possibilities) {
             my $weighted = $urgency * $weight;
 

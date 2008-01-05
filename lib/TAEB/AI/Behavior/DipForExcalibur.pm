@@ -34,7 +34,7 @@ sub prepare {
     return $path ? 50 : 0;
 }
 
-sub weights {
+sub urgencies {
     return {
         100 => "dipping for Excalibur",
          50 => "path to fountain",

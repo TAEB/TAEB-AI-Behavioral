@@ -16,7 +16,7 @@ sub prepare {
     }
 }
 
-sub weights {
+sub urgencies {
     return {
         100 => "writing Elbereth due to low HP",
     },

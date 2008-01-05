@@ -20,7 +20,7 @@ sub prepare {
 
 sub currently { "Exploring" }
 
-sub weights {
+sub urgencies {
     return {
         100 => "path to an unexplored square",
     },

@@ -35,7 +35,7 @@ sub prepare {
     return 50;
 }
 
-sub weights {
+sub urgencies {
     return {
         100 => "writing Elbereth",
          90 => "attacking an adjacent monster",
