@@ -3,6 +3,8 @@ package TAEB::Util;
 use strict;
 use warnings;
 
+use List::Util 'first';
+
 our %colors;
 
 BEGIN {
@@ -82,6 +84,9 @@ sub glyph_to_type {
 
     # use color in an effort to differentiate tiles
     my $color = shift;
+
+    return unless $glyphs{$glyph} && $feature_colors{$color};
+
     my @a = map { ref $_ ? @$_ : $_ } $glyphs{$glyph};
     my @b = map { ref $_ ? @$_ : $_ } $feature_colors{$color};
 
@@ -93,7 +98,7 @@ sub glyph_to_type {
     $intersect{$_} |= 1 for @a;
     $intersect{$_} |= 2 for @b;
 
-    return grep { $intersect{$_} == 3 } keys %intersect;
+    return first { $intersect{$_} == 3 } keys %intersect;
 }
 
 our @directions = (
