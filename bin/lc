@@ -70,7 +70,9 @@ printf "%7d %7d %7d %7d\n\n", $total_lines, $total_know, $total_doc, $total_blan
 
 my %commits_by;
 for (`darcs changes | grep '^[MTWFS]'`) {
-    $commits_by{substr($_, 30, -1)}++;
+    my ($author) = $_ =~ /(\S+@\S+)/ or warn "Unable to parse '$_'";
+    $author =~ s/^<(.*)>$/$1/;
+    $commits_by{$author}++;
     $commits_by{'*'}++;
 }
 
