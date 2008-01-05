@@ -26,7 +26,7 @@ sub prepare {
     if (TAEB->current_tile->elbereths < 3) {
         $self->write_elbereth;
         $self->currently("Writing Elbereth in preparation for combat.");
-        return 80;
+        return 100;
     }
 
     # if there's an adjacent monster, attack it
@@ -44,13 +44,12 @@ sub prepare {
     # not sure what happened, so just write Elbereth
     $self->write_elbereth;
     $self->currently("Writing Elbereth in preparation for combat.");
-    return 80;
+    return 100;
 }
 
 sub urgencies {
     return {
-        100 => "writing Elbereth due to low HP",
-         80 => "writing Elbereth in preparation for combat",
+        100 => "writing Elbereth in preparation for combat",
          75 => "attacking a monster with Elbereth",
     },
 }
