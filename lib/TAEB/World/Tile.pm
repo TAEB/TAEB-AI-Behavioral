@@ -164,6 +164,9 @@ sub is_walkable {
     # XXX: fish
     return 1 if $self->type eq 'obscured';
 
+    # quick hack for doors
+    return 1 if $self->type eq 'door';
+
     $self->floor_glyph =~ /[.,<>^\\_{#]/;
 }
 
