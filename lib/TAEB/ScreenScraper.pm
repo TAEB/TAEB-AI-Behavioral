@@ -3,6 +3,20 @@ package TAEB::ScreenScraper;
 use Moose;
 use NetHack::Menu;
 
+my %msg_string = (
+    "You are blinded by a blast of light!" =>
+        ['msg_status_change', 'blindness', 1],
+    "You can see again." =>
+        ['msg_status_change', 'blindness', 0],
+);
+
+my @msg_regex = (
+    [
+        qr/^There is a (staircase (?:up|down)) here\.$/,
+            ['msg_dungeon_feature', $1],
+    ],
+);
+
 has messages => (
     is => 'rw',
     isa => 'Str',
@@ -30,6 +44,21 @@ sub scrape {
     local $_ = $self->messages;
     s/\s+ /  /g;
     $self->messages($_);
+
+    # iterate over the messages, invoke TAEB->send_message for each one we
+    # know about
+    MESSAGE: for (split /  /, $_) {
+        if (exists $msg_string{$_}) {
+            TAEB->send_message(@{ $msg_string{$_} });
+            next MESSAGE;
+        }
+        for my $something (@msg_regex) {
+            if ($_ =~ $something->[0]) {
+                TAEB->send_message(@{ $something->[1] });
+                next MESSAGE;
+            }
+        }
+    }
 }
 
 sub clear {
