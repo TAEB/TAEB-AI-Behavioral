@@ -1,11 +1,13 @@
+# improve the consistency of telnet ping/pong
+OPTIONS=!sparkle
+OPTIONS=runmode:teleport
+
 # display
 OPTIONS=showexp
 OPTIONS=showscore
 OPTIONS=time
 OPTIONS=color
 OPTIONS=boulder:0
-OPTIONS=!sparkle
-OPTIONS=runmode:teleport
 OPTIONS=!tombstone
 OPTIONS=!news
 OPTIONS=!legacy
@@ -24,21 +26,21 @@ OPTIONS=!mail
 
 # map changes for code simplicity
 OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:~m
+# "strange monster" = m (mimic)
+# ghost/shade = X     now space is solid rock
 
 OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
-# changes: spider web = ^
-# now " amulet, ^ trap
+# spider web = ^      now " is amulet
 
 OPTIONS=dungeon: |--------||.-|]]}}.##<><>_\\\\{{~.}..}} #}
-# changes:
-#          closed doors => ] now + spellbook
-#          iron bars => }    not walkable (cyan)
-#          trees => }        not walkable (green)
-#          grave => \        color can differentiate from thrones
-#          sink => {         now # is corridor or air
-#          drawbridge => }   same as sink, not walkable
-#          water => ~        it looks cool (and is blue)
+#  sink => {          one less #, walkable
+#  drawbridge => }    one less #, not walkable
+#  iron bars => }     one less #, not walkable (color: cyan)
+#  trees => }         one less #, not walkable (color: green)
+#  closed doors => ]  now + is spellbook
+#  grave => \         now gray | and - are walls, (grey -- thrones)
+#  water => ~         it looks cool (blue -- long worm tail)
 
 OPTIONS=objects:m
-# changes: strange object = m
-# now ] closed door (see dungeon option)
+# "strange object" = m (mimic)
+# now ] is closed door
