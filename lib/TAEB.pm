@@ -345,6 +345,54 @@ sub keypress {
         return "Bye bye then.";
     }
 
+    if ($c eq ';') {
+        my ($z, $y, $x) = (TAEB->z, TAEB->y, TAEB->x);
+        while (1) {
+            my $tile = TAEB->current_level->at($x, $y);
+
+            # draw some info about the tile at the top
+            $self->out("\e[H");
+            $self->out(sprintf '(%d, %d) g="%s" f="%s" t="%s"', $x, $y, $tile->glyph, $tile->floor_glyph, $tile->type);
+            $self->out(sprintf "\e[K\e[%d;%dH", $y+1, $x+1);
+
+            # where to next?
+            my $c = Term::ReadKey::ReadKey(0);
+               if ($c eq 'h') { --$x }
+            elsif ($c eq 'j') { ++$y }
+            elsif ($c eq 'k') { --$y }
+            elsif ($c eq 'l') { ++$x }
+            elsif ($c eq 'y') { --$x; --$y }
+            elsif ($c eq 'u') { ++$x; --$y }
+            elsif ($c eq 'b') { --$x; ++$y }
+            elsif ($c eq 'n') { ++$x; ++$y }
+            elsif ($c eq 'H') { $x -= 8 }
+            elsif ($c eq 'J') { $y += 8 }
+            elsif ($c eq 'K') { $y -= 8 }
+            elsif ($c eq 'L') { $x += 8 }
+            elsif ($c eq 'Y') { $x -= 8; $y -= 8 }
+            elsif ($c eq 'U') { $x += 8; $y -= 8 }
+            elsif ($c eq 'B') { $x -= 8; $y += 8 }
+            elsif ($c eq 'N') { $x += 8; $y += 8 }
+            elsif ($c eq '<' || $c eq '>') {
+                $c eq '<' ? --$z : ++$z;
+                # XXX: redraw screen, change current_level, etc
+            }
+            elsif ($c eq ';' || $c eq '.' || $c eq "\e" || $c eq "\n") {
+                last;
+            }
+
+            $x += 80 if $x < 0;
+            $y += 24 if $y < 0;
+
+            $x -= 80 if $x >= 80;
+            $y -= 24 if $y >= 24;
+        }
+
+        # back to normal
+        $self->out(TAEB->redraw);
+        return;
+    }
+
     # space is always a noncommand
     return if $c eq ' ';
 
