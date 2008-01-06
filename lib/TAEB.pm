@@ -351,6 +351,17 @@ sub keypress {
     return "Unknown command '$c'";
 }
 
+sub send_message {
+    my $self = shift;
+    my $msgname = shift;
+
+    # this list should not be hardcoded. ideas?
+    for my $receiver (TAEB->personality, TAEB->senses, TAEB->dungeon->cartographer) {
+        $receiver->$msgname(@_)
+            if $receiver->can($msgname);
+    }
+}
+
 around qw/info warning/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
