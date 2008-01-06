@@ -11,7 +11,7 @@ sub prepare {
     my $found_door;
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
-        if ($tile->glyph eq ']') {
+        if ($tile->type eq 'closeddoor') {
             $self->next(chr(4) . $dir);
             $self->currently("Kicking down a door");
             $found_door = 1;
@@ -22,7 +22,7 @@ sub prepare {
     return 0 unless TAEB->map_like(qr/\]/);
 
     $self->currently("Heading towards a door");
-    my $path = TAEB::World::Path->first_match(sub { shift->glyph eq ']' });
+    my $path = TAEB::World::Path->first_match(sub { shift->type eq 'closeddoor' });
     $self->path($path);
 
     return $path && length($path->path) ? 50 : 0;
