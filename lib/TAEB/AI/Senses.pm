@@ -2,7 +2,7 @@
 package TAEB::AI::Senses;
 use Moose;
 use Moose::Util::TypeConstraints;
-with 'TAEB::Meta::MessageReceiving';
+with 'TAEB::Role::MessageReceiving';
 
 enum Role   => qw(Arc Bar Cav Hea Kni Mon Pri Ran Rog Sam Tou Val Wiz);
 enum Race   => qw(Hum Elf Dwa Gno Orc);

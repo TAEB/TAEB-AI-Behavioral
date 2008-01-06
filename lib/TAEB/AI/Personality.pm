@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality;
 use Moose;
-with 'TAEB::Meta::MessageReceiving';
+with 'TAEB::Role::MessageReceiving';
 
 has currently => (
     is => 'rw',

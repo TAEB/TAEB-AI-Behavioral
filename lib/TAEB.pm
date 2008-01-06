@@ -12,7 +12,7 @@ use TAEB::ScreenScraper;
 use TAEB::World;
 use TAEB::AI::Senses;
 use TAEB::Knowledge;
-use TAEB::Meta::MessageReceiving;
+use TAEB::Role::MessageReceiving;
 
 =head1 NAME
 

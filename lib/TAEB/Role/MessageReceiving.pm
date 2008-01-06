@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::Meta::MessageReceiving;
+package TAEB::Role::MessageReceiving;
 use Moose::Role;
 
 =head1 NAME
