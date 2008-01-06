@@ -130,11 +130,11 @@ sub msg_dungeon_feature {
 
     if ($feature eq 'staircase down') {
         $glyph = '>';
-        $type eq 'stairs';
+        $type  = 'stairs';
     }
     elsif ($feature eq 'staircase up') {
         $glyph = '<';
-        $type eq 'stairs';
+        $type  = 'stairs';
     }
     else {
         # we don't know how to handle it :/
