@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Cartographer;
 use Moose;
+with 'TAEB::Meta::MessageReceiving';
 
 has dungeon => (
     is       => 'rw',
