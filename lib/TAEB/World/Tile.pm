@@ -121,7 +121,8 @@ sub update {
 
     # return if nothing valid is returned
     # must be something other than a dungeon feature
-    return if !$type;
+    # however, if it's an item it's still walkable
+    return unless $type;
 
     # if we unveil a square and it was previously rock, then it's obscured
     # if it was anything else, then it became obscured, and we don't want to

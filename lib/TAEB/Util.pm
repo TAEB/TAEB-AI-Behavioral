@@ -61,14 +61,20 @@ our %glyphs = (
 
 # except for traps
 # miss =>? deal with it
+# traps are a bit hairy. with some remapping magic could rectify..
 our %feature_colors = (
-    COLOR_RED,    'lava',
-    COLOR_GREEN,  'tree',
-    COLOR_BROWN,  [qw/door drawbridge/],
-    COLOR_BLUE,   [qw/fountain water underwater/],
-    COLOR_CYAN,   [qw/bars ice/],
-    COLOR_GRAY,   [qw/altar corridor floor grave sink stairs wall/],
-    COLOR_YELLOW, 'throne',
+    COLOR_BLUE,    [qw/fountain trap water underwater/],
+    COLOR_BROWN,   [qw/door drawbridge stairs trap/],
+    COLOR_CYAN,    [qw/bars ice trap/],
+    COLOR_GRAY,    [qw/altar corridor floor grave sink stairs trap wall/],
+    COLOR_GREEN,   'tree',
+    COLOR_MAGENTA, 'trap',
+    COLOR_ORANGE,  'trap',
+    COLOR_RED,     [qw/lava trap/],
+    COLOR_YELLOW,  'throne',
+    COLOR_BRIGHT_BLUE,    'trap',
+    COLOR_BRIGHT_GREEN,   'trap',
+    COLOR_BRIGHT_MAGENTA, 'trap',
 );
 
 our @glyphs = uniq 'obscured', map { ref $_ ? @$_ : $_ } values %glyphs;
@@ -85,7 +91,7 @@ sub glyph_to_type {
     # use color in an effort to differentiate tiles
     my $color = shift;
 
-    return unless $glyphs{$glyph} && $feature_colors{$color};
+    return 'obscured' unless $glyphs{$glyph} && $feature_colors{$color};
 
     my @a = map { ref $_ ? @$_ : $_ } $glyphs{$glyph};
     my @b = map { ref $_ ? @$_ : $_ } $feature_colors{$color};
