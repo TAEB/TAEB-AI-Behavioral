@@ -264,7 +264,7 @@ sub _dijkstra {
             next if $closed[$xdx][$ydy];
 
             # can't move diagonally off of doors
-            next if $tile->type eq 'door'
+            next if $tile->type eq 'opendoor'
                     && $dx
                     && $dy;
 
@@ -272,7 +272,7 @@ sub _dijkstra {
                 or next;
 
             # can't move diagonally onto doors
-            next if $next->type eq 'door'
+            next if $next->type eq 'opendoor'
                     && $dx
                     && $dy;
 
