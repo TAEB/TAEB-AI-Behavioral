@@ -123,5 +123,35 @@ sub autoexplore {
 
 }
 
+sub msg_dungeon_feature {
+    my $self    = shift;
+    my $feature = shift;
+    my ($glyph, $type);
+
+    if ($feature eq 'staircase down') {
+        $glyph = '>';
+        $type eq 'stairs';
+    }
+    elsif ($feature eq 'staircase up') {
+        $glyph = '<';
+        $type eq 'stairs';
+    }
+    else {
+        # we don't know how to handle it :/
+        return;
+    }
+
+    my $tile     = TAEB->current_tile;
+    my $oldtype  = $tile->type;
+    my $oldglyph = $tile->glyph;
+
+    if ($oldtype ne $type || $oldglyph ne $glyph) {
+        TAEB->debug("msg_dungeon_feature('$feature') caused the current tile to be updated from ('$oldglyph', '$oldtype') to ('$glyph', '$type')");
+    }
+
+    $tile->type($type);
+    $tile->glyph($glyph);
+}
+
 1;
 
