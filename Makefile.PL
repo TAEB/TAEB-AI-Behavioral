@@ -8,9 +8,6 @@ all_from       'lib/TAEB.pm';
 # for the telnet interface
 requires 'IO::Socket::Telnet' => 0.02;
 
-# for the local interface
-requires 'IO::Pty::Easy';
-
 # the object system
 requires 'Moose';
 requires 'MooseX::Singleton' => 0.03;
@@ -50,6 +47,10 @@ features(
     'REPL on exception' => [
         -default => 1,
         requires('Carp::REPL'),
+    ],
+    'TAEB for local NetHack' => [
+        -default => 0,
+        requires('IO::Pty::Easy'),
     ],
 );
 

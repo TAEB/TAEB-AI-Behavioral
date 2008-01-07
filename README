@@ -15,8 +15,8 @@ Warning: TAEB makes heavy use of CPAN.
 
 $  perl Makefile.PL
 
-Answer yes to any dependencies it asks about. You may have to set up CPAN. The
-defaults are usually fine. Be sure to set a mirror though.
+Answer the defaults to any dependencies it asks about. You may have to set up
+CPAN. The defaults are usually fine. Be sure to set a mirror though.
 
 $ sudo make installdeps
 
