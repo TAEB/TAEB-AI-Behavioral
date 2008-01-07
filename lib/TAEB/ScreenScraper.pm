@@ -109,7 +109,7 @@ sub handle_menus {
 
             # if we can drop the item, drop it!
             if ($drop) {
-                $ret = $drop->($slot, @_);
+                $ret = $drop->($personality, $slot, @_);
                 return $ret if $ret;
             }
 
