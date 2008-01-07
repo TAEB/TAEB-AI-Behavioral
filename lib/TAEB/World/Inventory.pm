@@ -9,14 +9,14 @@ has inventory => (
     isa       => 'HashRef[TAEB::World::Item]',
     default   => sub { {} },
     provides  => {
-        get    => 'get_item',
-        set    => 'set_item',
-        delete => 'remove_item',
+        get    => 'get',
+        set    => 'set',
+        delete => 'remove',
         values => 'items',
     },
 );
 
-sub find_item {
+sub find {
     my $self = shift;
     my $item = shift;
 
@@ -50,7 +50,7 @@ sub update {
             $item->appearance,
     );
 
-    $self->set_item($slot => $item);
+    $self->set($slot => $item);
 }
 
 1;

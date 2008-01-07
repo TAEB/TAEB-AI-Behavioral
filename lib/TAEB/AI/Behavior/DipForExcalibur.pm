@@ -14,7 +14,7 @@ sub prepare {
     return 0 if TAEB::Knowledge::Item::Artifact->seen("Excalibur");
 
     # do we have a long sword to dip in our inventory?
-    my $longsword = TAEB->inventory->find_item(sub {/long sword/})
+    my $longsword = TAEB->inventory->find(sub {/long sword/})
         or return 0;
 
     # are we standing on a fountain? if so, dip!
