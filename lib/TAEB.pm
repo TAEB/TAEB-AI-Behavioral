@@ -236,6 +236,11 @@ sub log_in {
     elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
         $self->senses->update; # find race/role/gender/align
         $self->logged_in(1);
+
+        # now run informational commands
+
+        # figure out what's in our inventory
+        $self->write("Da\n");
     }
 }
 
