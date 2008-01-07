@@ -19,6 +19,9 @@ Does the given item look sufficiently like this item?
 
 This is intentionally vague because I don't know what I want yet.
 
+If a coderef is passed in, then C<$_> will be the appearance. The coderef will
+also get an argument: the item itself.
+
 =cut
 
 sub matches {
@@ -29,7 +32,8 @@ sub matches {
         return $self->appearance =~ $item;
     }
     elsif (ref($item eq 'CODE')) {
-        return $item->($self->appearance);
+        local $_ = $self->appearance;
+        return $item->($self);
     }
 
     return $self->appearance eq $item;
