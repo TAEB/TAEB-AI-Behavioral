@@ -163,7 +163,7 @@ sub is_walkable {
     # quick hack for doors
     return 1 if $self->type eq 'opendoor';
 
-    $self->floor_glyph =~ /[.,<>^\\_{#]/;
+    $self->floor_glyph =~ /[.<>^\\_{#]/;
 }
 
 sub step_on {
