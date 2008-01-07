@@ -53,5 +53,22 @@ sub update {
     $self->set($slot => $item);
 }
 
+=head2 decrease_quantity Str[, Int]
+
+This will decrease the quantity of items in the given slot. Such as when you
+quaff a potion, or throw a dagger. The optional argument is how many of these
+items you just lost.
+
+=cut
+
+sub decrease_quantity {
+    my $self     = shift;
+    my $slot     = shift;
+    my $quantity = shift || 1;
+
+    # XXX: we don't do quantity tracking yet
+    $self->remove($slot);
+}
+
 1;
 
