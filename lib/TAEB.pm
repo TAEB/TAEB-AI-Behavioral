@@ -163,6 +163,12 @@ has inventory => (
     default => sub { TAEB::World::Inventory->new },
 );
 
+has deferred_messages => (
+    is      => 'rw',
+    isa     => 'ArrayRef',
+    default => sub { [] },
+);
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
@@ -181,6 +187,8 @@ sub step {
     if ($self->logged_in) {
         $self->dungeon->update;
         $self->senses->update;
+
+        $self->send_messages;
 
         my $next_action = $self->saving ? "S" : $self->personality->next_action;
 
@@ -399,14 +407,28 @@ sub keypress {
     return "Unknown command '$c'";
 }
 
-sub send_message {
+sub enqueue_message {
     my $self = shift;
     my $msgname = shift;
 
-    # this list should not be hardcoded. ideas?
-    for my $receiver (TAEB->personality, TAEB->senses, TAEB->dungeon->cartographer) {
-        $receiver->$msgname(@_)
-            if $receiver->can($msgname);
+    TAEB->debug("Queued message $msgname.");
+
+    push @{ $self->deferred_messages }, [$msgname, @_];
+}
+
+sub send_messages {
+    my $self = shift;
+    my @msgs = splice @{ $self->deferred_messages };
+
+    for (@msgs) {
+        my $msgname = shift @$_;
+        TAEB->debug("Dequeueing message $msgname.");
+
+        # this list should not be hardcoded. ideas?
+        for my $recipient (TAEB->personality, TAEB->senses, TAEB->dungeon->cartographer) {
+            $recipient->$msgname(@$_)
+                if $recipient->can($msgname);
+        }
     }
 }
 

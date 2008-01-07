@@ -13,7 +13,7 @@ my %msg_string = (
 my @msg_regex = (
     [
         qr/^There is a (staircase (?:up|down)) here\.$/,
-            ['msg_dungeon_feature', $1],
+            ['msg_dungeon_feature', sub { $1 }],
     ],
 );
 
@@ -49,12 +49,18 @@ sub scrape {
     # know about
     MESSAGE: for (split /  /, $_) {
         if (exists $msg_string{$_}) {
-            TAEB->send_message(@{ $msg_string{$_} });
+            TAEB->enqueue_message(
+                map { ref($_) eq 'CODE' ? $_->() : $_ }
+                @{ $msg_string{$_} }
+            );
             next MESSAGE;
         }
         for my $something (@msg_regex) {
             if ($_ =~ $something->[0]) {
-                TAEB->send_message(@{ $something->[1] });
+                TAEB->enqueue_message(
+                    map { ref($_) eq 'CODE' ? $_->() : $_ }
+                    @{ $something->[1] }
+                );
                 next MESSAGE;
             }
         }
