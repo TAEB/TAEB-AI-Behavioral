@@ -116,5 +116,18 @@ is almost certainly ignorable.
 
 sub pickup { 0 }
 
+=head2 drop Str -> Bool
+
+This will be called any time a drop menu is invoked. If your behavior knows how
+to use items, and when it no longer needs them,, this is how it can let TAEB
+know it should drop them.
+
+C<$_> will be the actual item. The argument to C<drop> is the selector, which
+is almost certainly ignorable.
+
+=cut
+
+sub drop { 0 }
+
 1;
 
