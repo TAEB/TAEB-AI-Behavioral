@@ -14,8 +14,9 @@ sub canonicalize_item {
 
     my @words = qw(the an a greased blessed cursed uncursed);
     my @regex = (
-        qr/[+-]?\d+/, # enchantment, quantity
+        qr/[+-]?\d+/,               # enchantment, quantity
         qr/\b(?:fire|rust)proof\b/,
+        qr/\([^)]+\)/,              # (being warn), (lit), etc
     );
 
     $item =~ s/\b$_\b//ig for @words;
