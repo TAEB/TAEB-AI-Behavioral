@@ -122,8 +122,10 @@ sub update {
     # perhaps we entered a room and a tile changed from ' ' to '!'
     # if the tile's type was anything else, then it *became* obscured, and we
     # don't want to change what we know about it
+    # XXX: if the type is olddoor then we probably kicked/opened the door and
+    # something walked onto it. this needs improvement
     if ($newtype eq 'obscured') {
-        $self->type('obscured') if $oldtype eq 'rock';
+        $self->type('obscured') if $oldtype eq 'rock' || $oldtype eq 'closeddoor';
         return;
     }
 
