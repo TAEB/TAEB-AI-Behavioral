@@ -31,39 +31,51 @@ sub scrape {
         die "Game over, man!\n";
     }
 
-    # handle --More--
-    $self->handle_more;
+    eval {
+        # handle --More--
+        $self->handle_more;
 
-    # handle menus
-    $self->handle_menus;
+        # handle ^X
+        $self->handle_attributes;
 
-    # handle other text
-    $self->handle_fallback;
+        # handle menus
+        $self->handle_menus;
 
-    # get rid of all the redundant spaces
-    local $_ = $self->messages;
-    s/\s+ /  /g;
-    $self->messages($_);
+        # handle other text
+        $self->handle_fallback;
 
-    # iterate over the messages, invoke TAEB->send_message for each one we
-    # know about
-    MESSAGE: for (split /  /, $_) {
-        if (exists $msg_string{$_}) {
-            TAEB->enqueue_message(
-                map { ref($_) eq 'CODE' ? $_->() : $_ }
-                @{ $msg_string{$_} }
-            );
-            next MESSAGE;
-        }
-        for my $something (@msg_regex) {
-            if ($_ =~ $something->[0]) {
+        # get rid of all the redundant spaces
+        local $_ = $self->messages;
+        s/\s+ /  /g;
+        $self->messages($_);
+
+        # iterate over the messages, invoke TAEB->send_message for each one we
+        # know about
+        MESSAGE: for (split /  /, $_) {
+            if (exists $msg_string{$_}) {
                 TAEB->enqueue_message(
                     map { ref($_) eq 'CODE' ? $_->() : $_ }
-                    @{ $something->[1] }
+                    @{ $msg_string{$_} }
                 );
                 next MESSAGE;
             }
+            for my $something (@msg_regex) {
+                if ($_ =~ $something->[0]) {
+                    TAEB->enqueue_message(
+                        map { ref($_) eq 'CODE' ? $_->() : $_ }
+                        @{ $something->[1] }
+                    );
+                    next MESSAGE;
+                }
+            }
         }
+    };
+
+    if (($@ || '') =~ /^Recursing screenscraper/) {
+        TAEB->process_input();
+    }
+    elsif ($@) {
+        die "$@\n";
     }
 }
 
@@ -83,7 +95,27 @@ sub handle_more {
 
         # try to get rid of the --More--
         TAEB->write(' ');
-        TAEB->process_input();
+        die "Recursing screenscraper.\n";
+    }
+}
+
+sub handle_attributes {
+    my $self = shift;
+
+    if (TAEB->topline =~ /^(\s+)Base Attributes/) {
+        my $skip = length($1) + 17;
+
+        for ([10, 'race'], [11, 'role'], [12, 'gender'], [13, 'align']) {
+            my ($row, $method) = @$_;
+            my $attribute = substr(TAEB->vt->row_plaintext($row), $skip, 3);
+            $attribute = ucfirst lc $attribute;
+            TAEB->$method($attribute);
+        }
+
+        TAEB->info(sprintf 'It seems we are a %s %s %s %s.', TAEB->role, TAEB->race, TAEB->gender, TAEB->align);
+
+        TAEB->write(' ');
+        die "Recursing screenscraper.\n";
     }
 }
 
@@ -121,7 +153,6 @@ sub handle_menus {
 
     until ($menu->at_end) {
         TAEB->write($menu->next);
-        TAEB->process_input();
     }
 
     # wrap selector method so it gets the right $self
@@ -131,7 +162,7 @@ sub handle_menus {
 
     $menu->select($wrapper) if $wrapper;
     TAEB->write($menu->commit);
-    TAEB->process_input();
+    die "Recursing screenscraper.\n";
 }
 
 sub handle_fallback {
@@ -140,18 +171,17 @@ sub handle_fallback {
     if (TAEB->topline =~ /^Really attack /) {
         # try to get rid of it
         TAEB->write('y');
-        TAEB->process_input();
+        die "Recursing screenscraper.\n";
     }
 
     if (TAEB->topline =~ /^Call / && TAEB->vt->y == 0) {
         TAEB->write("\n");
-        TAEB->process_input();
+        die "Recursing screenscraper.\n";
     }
 
     if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
         TAEB->write("y");
         die "Game over, man!";
-        TAEB->process_input();
     }
 
     $self->messages($self->messages . TAEB->topline);
