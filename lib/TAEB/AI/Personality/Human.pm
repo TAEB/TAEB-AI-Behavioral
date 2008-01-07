@@ -33,7 +33,20 @@ This will consult a magic 8-ball to determine what move to make next.
 =cut
 
 sub next_action {
-    ReadKey(0);
+    while (1) {
+        my $c = ReadKey(0);
+        if ($c eq "~") {
+            my $out = TAEB->keypress(ReadKey(0));
+            if (defined $out) {
+                TAEB->out("\e[2H\e[44m$out");
+                sleep 3;
+                TAEB->out(TAEB->redraw);
+            }
+        }
+        else {
+            return $c;
+        }
+    }
 }
 
 =head1 IDEA BY
