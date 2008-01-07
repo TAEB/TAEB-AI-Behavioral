@@ -40,7 +40,7 @@ after next_action => sub {
 };
 
 sub pickup {
-    /dagger/ || /dart/
+    /dagger/ || /dart/ || /shuriken/
 }
 
 sub urgencies {
