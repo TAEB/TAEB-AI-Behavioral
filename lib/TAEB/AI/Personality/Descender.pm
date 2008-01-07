@@ -12,7 +12,7 @@ TAEB::AI::Personality::Descender - descend as quickly as sanely possible
 sub weight_behaviors {
     return {
         FixHunger          => 1_000_000,
-        Heal               => 500_000,
+        Heal               => 750_000,
         Descend            => 80_000,
         Fight              => 50_000,
         Projectiles        => 49_000,
