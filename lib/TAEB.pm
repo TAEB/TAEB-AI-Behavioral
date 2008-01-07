@@ -263,7 +263,7 @@ sub process_input {
     $self->out($input);
 
     $self->scraper->scrape
-        if $self->logged_in;
+        if $self->state ne 'logging_in';
 
     return $input;
 }
