@@ -122,7 +122,8 @@ sub should_eat {
     my $self = shift;
     my $food = shift;
 
-    $self->food($food) if !ref($food);
+    $food = $self->food($food) if !ref($food);
+    return 0 if !$food;
     return 0 if $food->{unsafe};
     return 0 if $food->{corpse} && $food->{name} !~ /lichen|lizard/; # :|
     return 1;
