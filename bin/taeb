@@ -94,7 +94,8 @@ END { ReadMode 0 }
 
 while (1) {
     TAEB->step;
-    my $c = ReadKey(TAEB->read_wait);
+    my $c = ReadKey(TAEB->read_wait)
+        unless Scalar::Util::blessed(TAEB->personality) =~ /\bHuman\b/;
     if (defined $c) {
         my $out = TAEB->keypress($c);
         if (defined $out) {
