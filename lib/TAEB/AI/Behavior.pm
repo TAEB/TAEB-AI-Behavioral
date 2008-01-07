@@ -116,18 +116,22 @@ is almost certainly ignorable.
 
 sub pickup { 0 }
 
-=head2 drop Str -> Bool
+=head2 drop Str -> Maybe Bool
 
 This will be called any time a drop menu is invoked. If your behavior knows how
-to use items, and when it no longer needs them,, this is how it can let TAEB
+to use items, and when it no longer needs them, this is how it can let TAEB
 know it should drop them.
 
 C<$_> will be the actual item. The argument to C<drop> is the selector, which
 is almost certainly ignorable.
 
+If the return value is undefined, then this behavior doesn't care about the
+particular item. If the return value is false, then this item should C<not> be
+dropped, even if other behaviors say it should be.
+
 =cut
 
-sub drop { 0 }
+sub drop { undef }
 
 1;
 

@@ -220,12 +220,23 @@ Consult each behavior for what it should drop.
 
 sub drop {
     my $self = shift;
+    my $should_drop = 0;
 
     while (my ($name, $behavior) = each %{ $self->behaviors }) {
-        return 1 if $behavior->drop(@_);
+        my $drop = $behavior->drop(@_);
+
+        # behavior is indifferent. Next!
+        next if !defined($drop);
+
+        # behavior does NOT want this item to be dropped
+        return 0 if !$drop;
+
+        # okay, something wants to get rid of it. if no other behavior objects,
+        # it'll be dropped
+        $should_drop = 1;
     }
 
-    return 0;
+    return $should_drop;
 }
 
 1;
