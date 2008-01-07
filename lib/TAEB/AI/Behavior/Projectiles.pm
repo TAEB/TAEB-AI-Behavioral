@@ -8,7 +8,7 @@ sub prepare {
 
     # do we have a projectile to throw?
     my $projectile = TAEB->inventory->find_item($self->can('pickup'))
-        or return;
+        or return 0;
 
     my $direction = TAEB->current_level->radiate(
         sub { shift->has_monster },
