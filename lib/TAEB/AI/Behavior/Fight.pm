@@ -16,7 +16,7 @@ sub prepare {
             $found_monster = 1;
         }
     });
-    return 90 if $found_monster;
+    return 100 if $found_monster;
 
     # shortcut: if nothing on the map looks like a monster, don't do pathfinding
     return 0 unless TAEB->map_like(qr/[a-zA-Z~&';:]/);
@@ -37,8 +37,7 @@ sub prepare {
 
 sub urgencies {
     return {
-        100 => "writing Elbereth",
-         90 => "attacking an adjacent monster",
+        100 => "attacking an adjacent monster",
          50 => "path to the nearest monster",
     },
 }
