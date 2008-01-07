@@ -72,7 +72,7 @@ sub update {
 
     # find role, race, gender, align
     local $_ = TAEB->messages;
-    if (/welcome(?: back)? to NetHack/ && !$self->role) {
+    if (!$self->role && /welcome(?: back)? to NetHack/) {
         if (/You are a/) {
             $self->role(ucfirst lc $1) if /\b(Arc|Bar|Cav|Hea|Kni|Mon|Pri|Ran|Rog|Sam|Tou|Val|Wiz)/i;
             $self->race(ucfirst lc $1) if /\b(Hum|Elf|Dwa|Gno|Orc)/i;
