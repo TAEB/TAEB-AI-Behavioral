@@ -185,7 +185,11 @@ sub handle_fallback {
         TAEB->write("y");
         die "Game over, man!";
     }
-
+    
+    if (TAEB->topline =~ /There .* here; eat (it|them)\? \[ynq\] \(n\)/ && TAEB->vt->y == 0) {
+        TAEB->write(" ");
+    }
+    
     $self->messages($self->messages . TAEB->topline);
 }
 
