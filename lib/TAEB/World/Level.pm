@@ -28,6 +28,11 @@ has z => (
     isa => 'Int',
 );
 
+has monsters => (
+    is      => 'rw',
+    isa     => 'HashRef[TAEB::World::Monster]',
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
