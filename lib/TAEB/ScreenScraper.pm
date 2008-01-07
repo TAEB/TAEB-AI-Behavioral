@@ -98,6 +98,9 @@ sub handle_menus {
     if (TAEB->topline =~ /Pick up what\?/) {
         $selector = TAEB->personality->can('pickup');
     }
+    elsif (TAEB->topline =~ /What would you like to drop\?/) {
+        $selector = TAEB->personality->can('drop');
+    }
 
     until ($menu->at_end) {
         TAEB->write($menu->next);
