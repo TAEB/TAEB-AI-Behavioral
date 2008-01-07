@@ -2,7 +2,7 @@
 package TAEB::World::Path;
 use Moose;
 use Heap::Simple;
-use TAEB::Util 'direction';
+use TAEB::Util 'direction', 'deltas';
 
 has from => (
     is       => 'ro',
@@ -216,13 +216,6 @@ sub _dijkstra {
     my $max_tile;
     my $max_path;
 
-    # north south west east
-    # northwest northeast southwest southeast
-    my @deltas = (
-        [-1, -1], [-1,  1], [ 1, -1], [ 1,  1],
-        [-1,  0], [ 1,  0], [ 0, -1], [ 0,  1],
-    );
-
     my @closed;
 
     my $pq = Heap::Simple->new(elements => "Any");
@@ -256,7 +249,7 @@ sub _dijkstra {
 
         next unless $tile->is_walkable;
 
-        for (@deltas) {
+        for (deltas) {
             my ($dy, $dx) = @$_;
             my $xdx = $x + $dx;
             my $ydy = $y + $dy;

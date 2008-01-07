@@ -31,7 +31,7 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types glyph_to_type direction), keys %colors],
+    exports => [qw(tile_types glyph_to_type direction deltas), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -118,6 +118,16 @@ sub direction {
     my $x = shift;
     my $y = shift;
     return $directions[$y][$x];
+}
+
+sub deltas {
+    # north south west east
+    # northwest northeast southwest southeast
+    return (
+        [-1, -1], [-1,  1], [ 1, -1], [ 1,  1],
+        [-1,  0], [ 1,  0], [ 0, -1], [ 0,  1],
+    );
+
 }
 
 1;
