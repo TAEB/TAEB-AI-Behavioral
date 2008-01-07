@@ -43,6 +43,13 @@ sub update {
     }
 
     $item->slot($slot);
+
+    TAEB->debug(
+        sprintf "Inventory: slot '%s' has item '%s'.",
+            $item->slot,
+            $item->appearance,
+    );
+
     $self->set_item($slot => $item);
 }
 
