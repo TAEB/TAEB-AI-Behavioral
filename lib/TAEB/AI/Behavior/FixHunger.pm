@@ -17,7 +17,7 @@ sub prepare {
             if (TAEB::Knowledge::Item::Food->should_eat($item->appearance)) {
                 $self->next("e" . $item->slot);
                 $self->currently("Eating food.");
-                return 100;
+                return 50;
             }
         }
     }
