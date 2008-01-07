@@ -62,7 +62,7 @@ has vt => (
     handles  => [qw(topline redraw)],
 );
 
-enum PlayState => qw(logging_in prepare_inventory playing saving);
+enum PlayState => qw(logging_in prepare_inventory prepare_crga playing saving);
 
 has state => (
     is      => 'rw',
@@ -193,6 +193,10 @@ sub step {
     }
     elsif ($self->state eq 'prepare_inventory') {
         $self->write("Da\n");
+        $self->state('prepare_crga');
+    }
+    elsif ($self->state eq 'prepare_crga') {
+        $self->write("\cx");
         $self->state('playing');
     }
     elsif ($self->state eq 'saving') {
@@ -241,7 +245,6 @@ sub log_in {
         $self->write(' ');
     }
     elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
-        $self->senses->update; # find race/role/gender/align
         $self->state('prepare_inventory');
     }
 }

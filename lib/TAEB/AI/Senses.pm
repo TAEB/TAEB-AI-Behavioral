@@ -68,20 +68,7 @@ has level => (
 );
 
 sub update {
-    my $self = shift;
-
-    # find role, race, gender, align
-    local $_ = TAEB->messages;
-    if (!$self->role && /welcome(?: back)? to NetHack/) {
-        $self->role(ucfirst lc $1) if /\b(Arc|Bar|Cav|Hea|Kni|Mon|Pri|Ran|Rog|Sam|Tou|Val|Wiz)/i;
-        $self->race(ucfirst lc $1) if /\b(Hum|Elf|Dwa|Gno|Orc)/i;
-        $self->align(ucfirst lc $1) if /\b(Law|Neu|Cha)/i;
-
-        $self->gender(ucfirst lc $1) if /\b(Mal|Fem)/i;
-        $self->gender('Mal') if /\b(priest\b|caveman)/i;
-        $self->gender('Fem') if /\b(priestess|cavewoman|valkyrie)/i;
-    }
-
+    my $self   = shift;
     my $status = TAEB->vt->row_plaintext(22);
     my $botl   = TAEB->vt->row_plaintext(23);
 
