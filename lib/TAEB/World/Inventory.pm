@@ -23,5 +23,28 @@ sub find_item {
     return first { $_->matches($item) } $self->items;
 }
 
+=head2 update Char, Item
+
+This will update TAEB's inventory with the given item in the given slot.
+
+This method will upgrade strings to TAEB::World::Item objects, but that
+behavior should disappear.
+
+=cut
+
+sub update {
+    my $self = shift;
+    my $slot = shift;
+    my $item = shift;
+
+    # XXX update logic should be elsewhere. later.
+    if (!ref($item)) {
+        $item = TAEB::World::Item->new(appearance => $item);
+    }
+
+    $item->slot($slot);
+    $self->set_item($slot => $item);
+}
+
 1;
 
