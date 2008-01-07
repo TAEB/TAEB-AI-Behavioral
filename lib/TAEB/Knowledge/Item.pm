@@ -27,6 +27,9 @@ sub canonicalize_item {
     $item =~ s/^ //;
     $item =~ s/ $//;
 
+    # try to turn plurals into singular
+    $item =~ s/s$//;
+
     return $item;
 }
 
