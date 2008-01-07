@@ -109,33 +109,27 @@ sub update {
     my $newglyph = shift;
     my $color    = shift;
     my $oldglyph = $self->glyph;
+    my $oldtype  = $self->type;
 
     $self->glyph($newglyph);
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
 
-    # if glyph_to_type returns false, it's not a dungeon feature, it's an item
-    # or monster. we don't want to update the floor_glyph or tile type.
-    my $type = glyph_to_type($newglyph, $color);
-
-    # return if nothing valid is returned
-    # must be something other than a dungeon feature
-    # however, if it's an item it's still walkable
-    return unless $type;
+    my $newtype = glyph_to_type($newglyph, $color);
 
     # if we unveil a square and it was previously rock, then it's obscured
-    # if it was anything else, then it became obscured, and we don't want to
-    # change what we know about it
-
-    # XXX: unless it's a door, because we just kicked it down and something
-    # popped right in
-    if ($type eq 'obscured') {
-        $self->type('obscured') if $self->type eq 'rock' || $oldglyph eq ']';
+    # perhaps we entered a room and a tile changed from ' ' to '!'
+    # if the tile's type was anything else, then it *became* obscured, and we
+    # don't want to change what we know about it
+    if ($newtype eq 'obscured') {
+        $self->type('obscured') if $oldtype eq 'rock';
         return;
     }
 
-    $self->type($type);
+    # so this is definitely a dungeon feature, since glyph_to_type returned
+    # something other than 'obscured'
+    $self->type($newtype);
     $self->floor_glyph($newglyph);
 }
 
