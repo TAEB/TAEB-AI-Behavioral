@@ -2,6 +2,7 @@
 package TAEB;
 use MooseX::Singleton;
 use MooseX::AttributeHelpers;
+use Moose::Util::TypeConstraints;
 
 use Log::Dispatch;
 use Log::Dispatch::File;
@@ -61,10 +62,12 @@ has vt => (
     handles  => [qw(topline redraw)],
 );
 
-has logged_in => (
+enum PlayState => qw(logging_in prepare_inventory playing saving);
+
+has state => (
     is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
+    isa     => 'PlayState',
+    default => 'loggingin',
 );
 
 has logger => (
@@ -151,12 +154,6 @@ has senses => (
     handles => [qw/hp maxhp nutrition level role race gender align/],
 );
 
-has saving => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
 has inventory => (
     is      => 'rw',
     isa     => 'TAEB::World::Inventory',
@@ -184,13 +181,26 @@ sub step {
 
     $self->process_input;
 
-    if ($self->logged_in) {
+    unless ($self->state eq 'logging_in') {
         $self->dungeon->update;
         $self->senses->update;
 
         $self->send_messages;
+    }
 
-        my $next_action = $self->saving ? "S" : $self->personality->next_action;
+    if ($self->state eq 'logging_in') {
+        $self->log_in;
+    }
+    elsif ($self->state eq 'prepare_inventory') {
+        $self->write("Da\n");
+        $self->state('playing');
+    }
+    elsif ($self->state eq 'saving') {
+        $self->write("S");
+    }
+    elsif ($self->state eq 'playing') {
+
+        my $next_action = $self->personality->next_action;
 
         $self->out(
             "\e[23H%s\e[23HCurrently: %s (%s)  \e[%d;%dH",
@@ -202,9 +212,6 @@ sub step {
         );
         $self->personality->currently('?');
         $self->write($next_action);
-    }
-    else {
-        $self->log_in;
     }
 }
 
@@ -235,12 +242,7 @@ sub log_in {
     }
     elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
         $self->senses->update; # find race/role/gender/align
-        $self->logged_in(1);
-
-        # now run informational commands
-
-        # figure out what's in our inventory
-        $self->write("Da\n");
+        $self->state('prepare_inventory');
     }
 }
 
@@ -354,7 +356,7 @@ sub keypress {
     }
 
     if ($c eq 'q') {
-        $self->saving(1);
+        $self->state('saving');
         return "Bye bye then.";
     }
 
