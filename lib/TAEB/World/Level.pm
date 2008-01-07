@@ -33,6 +33,8 @@ sub at {
     my $x = @_ ? shift : TAEB->x;
     my $y = @_ ? shift : TAEB->y;
 
+    return if $x < 0 || $y < 0;
+
     return $self->tiles->[$y][$x];
 }
 
