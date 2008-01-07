@@ -46,7 +46,7 @@ has scraper => (
     isa      => 'TAEB::ScreenScraper',
     required => 1,
     default  => sub { TAEB::ScreenScraper->new },
-    handles  => [qw(messages)],
+    handles  => [qw(messages farlook)],
 );
 
 has config => (
