@@ -71,6 +71,7 @@ sub update {
     my $self   = shift;
     my $status = TAEB->vt->row_plaintext(22);
     my $botl   = TAEB->vt->row_plaintext(23);
+    local $_ = TAEB->topline;
 
     if ($botl =~ /HP:(\d+)\((\d+)\)/) {
         $self->hp($1);
