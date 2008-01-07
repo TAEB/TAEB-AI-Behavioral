@@ -13,6 +13,14 @@ has slot => (
     isa => 'Str',
 );
 
+# check whether this is an artifact, and if so, let the artifact-tracker know
+# we've seen it
+sub BUILD {
+    my $artifact = TAEB::Knowledge::Item::Artifact->artifact($self->appearance)
+        or return;
+    TAEB::Knowledge::Item::Artifact->seen($self->appearance => 1);
+}
+
 =head2 matches (Str|Regexp|CODE) -> Bool
 
 Does the given item look sufficiently like this item?

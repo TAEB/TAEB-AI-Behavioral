@@ -8,6 +8,8 @@ my %msg_string = (
         ['msg_status_change', 'blindness', 1],
     "You can see again." =>
         ['msg_status_change', 'blindness', 0],
+    "From the murky depths, a hand reaches up to bless the sword." =>
+        ['msg_excalibur'],
 );
 
 my @msg_regex = (

@@ -44,5 +44,11 @@ sub seen {
     return $artifact->{seen};
 }
 
+sub msg_excalibur {
+    my $self = shift;
+
+    $self->seen(Excalibur => 1);
+}
+
 1;
 
