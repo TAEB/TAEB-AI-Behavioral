@@ -67,7 +67,7 @@ enum PlayState => qw(logging_in prepare_inventory playing saving);
 has state => (
     is      => 'rw',
     isa     => 'PlayState',
-    default => 'loggingin',
+    default => 'logging_in',
 );
 
 has logger => (
