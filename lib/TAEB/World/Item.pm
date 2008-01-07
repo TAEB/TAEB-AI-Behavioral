@@ -16,6 +16,8 @@ has slot => (
 # check whether this is an artifact, and if so, let the artifact-tracker know
 # we've seen it
 sub BUILD {
+    my $self = shift;
+
     my $artifact = TAEB::Knowledge::Item::Artifact->artifact($self->appearance)
         or return;
     TAEB::Knowledge::Item::Artifact->seen($self->appearance => 1);
