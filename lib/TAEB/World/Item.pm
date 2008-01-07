@@ -13,7 +13,7 @@ has slot => (
     isa => 'Str',
 );
 
-=head2 matches Str -> Bool
+=head2 matches (Str|Regexp|CODE) -> Bool
 
 Does the given item look sufficiently like this item?
 
@@ -25,7 +25,14 @@ sub matches {
     my $self = shift;
     my $item = shift;
 
-    $self->appearance eq $item;
+    if (ref($item eq 'Regexp')) {
+        return $self->appearance =~ $item;
+    }
+    elsif (ref($item eq 'CODE')) {
+        return $item->($self->appearance);
+    }
+
+    return $self->appearance eq $item;
 }
 
 1;
