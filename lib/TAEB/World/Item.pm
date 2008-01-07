@@ -28,10 +28,10 @@ sub matches {
     my $self = shift;
     my $item = shift;
 
-    if (ref($item eq 'Regexp')) {
+    if (ref($item) eq 'Regexp') {
         return $self->appearance =~ $item;
     }
-    elsif (ref($item eq 'CODE')) {
+    elsif (ref($item) eq 'CODE') {
         local $_ = $self->appearance;
         return $item->($self);
     }
