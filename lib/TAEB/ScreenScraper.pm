@@ -99,7 +99,23 @@ sub handle_menus {
         $selector = TAEB->personality->can('pickup');
     }
     elsif (TAEB->topline =~ /What would you like to drop\?/) {
-        $selector = TAEB->personality->can('drop');
+        my $drop = TAEB->personality->can('drop');
+
+        # this one is special: it'll handle updating the inventory
+        $selector = sub {
+            my $personality = shift;
+            my $slot = shift;
+
+            # if we can drop the item, drop it!
+            if ($drop) {
+                my $ret = $drop->($slot, @_);
+                return $ret if $ret;
+            }
+
+            # otherwise, we still have the item, so mark it in our inventory
+            TAEB->inventory->update($slot, $_);
+            return $ret;
+        };
     }
 
     until ($menu->at_end) {
