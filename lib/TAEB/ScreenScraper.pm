@@ -104,11 +104,12 @@ sub handle_menus {
         # this one is special: it'll handle updating the inventory
         $selector = sub {
             my $personality = shift;
-            my $slot = shift;
+            my $slot        = shift;
+            my $ret;
 
             # if we can drop the item, drop it!
             if ($drop) {
-                my $ret = $drop->($slot, @_);
+                $ret = $drop->($slot, @_);
                 return $ret if $ret;
             }
 
