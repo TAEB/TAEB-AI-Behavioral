@@ -211,5 +211,22 @@ sub pickup {
 
     return 0;
 }
+
+=head2 drop Str -> Bool
+
+Consult each behavior for what it should drop.
+
+=cut
+
+sub drop {
+    my $self = shift;
+
+    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+        return 1 if $behavior->drop(@_);
+    }
+
+    return 0;
+}
+
 1;
 
