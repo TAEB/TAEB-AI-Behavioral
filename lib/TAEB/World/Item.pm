@@ -6,11 +6,18 @@ has appearance => (
     is       => 'rw',
     isa      => 'Str',
     required => 1,
+    trigger  => sub { shift->can('trigger_appearance') },
 );
 
 has slot => (
     is  => 'rw',
     isa => 'Str',
+);
+
+has quantity => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 1,
 );
 
 # check whether this is an artifact, and if so, let the artifact-tracker know
@@ -47,6 +54,13 @@ sub matches {
     }
 
     return $self->appearance eq $item;
+}
+
+sub trigger_appearance {
+    my $self       = shift;
+    my $appearance = shift;
+
+    # XXX: set quantity, enchantment, BUC, etc
 }
 
 1;
