@@ -225,22 +225,22 @@ sub log_in {
     if ($self->vt->contains("Shall I pick a character's ")) {
         $self->write('n');
     }
-    elsif ($self->vt->contains("Choosing Character's Role")) {
+    elsif ($self->topline =~ "Choosing Character's Role") {
         $self->write($self->config->get_role);
     }
-    elsif ($self->vt->contains("Choosing Race")) {
+    elsif ($self->topline =~ "Choosing Race") {
         $self->write($self->config->get_race);
     }
-    elsif ($self->vt->contains("Choosing Gender")) {
+    elsif ($self->topline =~ "Choosing Gender") {
         $self->write($self->config->get_gender);
     }
-    elsif ($self->vt->contains("Choosing Alignment")) {
+    elsif ($self->topline =~ "Choosing Alignment") {
         $self->write($self->config->get_alignment);
     }
-    elsif ($self->vt->contains("Restoring save file..")) {
+    elsif ($self->topline =~ "Restoring save file..") {
         $self->write(' ');
     }
-    elsif ($self->vt->contains("!  You are a") || $self->vt->contains("welcome back to NetHack")) {
+    elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
         $self->senses->update; # find race/role/gender/align
         $self->state('prepare_inventory');
     }
