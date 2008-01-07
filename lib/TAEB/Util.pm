@@ -64,7 +64,7 @@ our %glyphs = (
 # traps are a bit hairy. with some remapping magic could rectify..
 our %feature_colors = (
     COLOR_BLUE,    [qw/fountain trap water underwater/],
-    COLOR_BROWN,   [qw/opendoor closeddoor drawbridge stairs trap/],
+    COLOR_BROWN,   [qw/opendoor closeddoor drawbridge ladder trap/],
     COLOR_CYAN,    [qw/bars ice trap/],
     COLOR_GRAY,    [qw/altar corridor floor grave sink stairs trap wall/],
     COLOR_GREEN,   'tree',
