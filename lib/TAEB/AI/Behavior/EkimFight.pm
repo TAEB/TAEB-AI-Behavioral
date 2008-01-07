@@ -6,10 +6,6 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    # if there's no monster nearby, then we don't have anything to do
-    # shortcut: if nothing on the map looks like a monster, don't do pathfinding
-    return 0 unless TAEB->map_like(qr/[a-zA-Z~&';:]/);
-
     # look for the nearest tile with a monster
     # XXX: this must be a walking distance, not teleport or something
     my $path = TAEB::World::Path->first_match(

@@ -19,8 +19,6 @@ sub prepare {
     });
     return 100 if $found_door;
 
-    return 0 unless TAEB->map_like(qr/\]/);
-
     $self->currently("Heading towards a door");
     my $path = TAEB::World::Path->first_match(sub { shift->type eq 'closeddoor' });
     $self->path($path);

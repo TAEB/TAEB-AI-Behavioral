@@ -18,9 +18,6 @@ sub prepare {
     });
     return 100 if $found_monster;
 
-    # shortcut: if nothing on the map looks like a monster, don't do pathfinding
-    return 0 unless TAEB->map_like(qr/[a-zA-Z~&';:]/);
-
     # look for the nearest tile with a monster
     my $path = TAEB::World::Path->first_match(
         sub { shift->has_monster },

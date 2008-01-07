@@ -13,9 +13,6 @@ sub prepare {
         return 100;
     }
 
-    # poor optimization: do we have a > on screen? (XXX: what if it's obscured?)
-    return 0 unless TAEB->map_like(qr/>/);
-
     # find our >
     my $path = TAEB::World::Path->first_match(
         sub { shift->floor_glyph eq '>' },
