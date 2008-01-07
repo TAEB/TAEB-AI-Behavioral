@@ -189,5 +189,61 @@ sub handle_fallback {
     $self->messages($self->messages . TAEB->topline);
 }
 
+=head2 farlook Int, Int -> (Str | Str, Str, Str)
+
+This will farlook (the C<;> command) at the given coordinates and return
+whatever's there.
+
+In scalar context, it will return the plain description string given by
+NetHack. In list context, it will return the components: glyph, genus, and
+species.
+
+WARNING: Since this method interacts with NetHack directly, you cannot use it
+in callbacks where there is menu interaction or (in general) any place except
+command mode.
+
+=cut
+
+sub farlook {
+    my $self = shift;
+    my $ex   = shift;
+    my $ey   = shift;
+
+    my $directions = $self->crow_flies($ex, $ey);
+
+    TAEB->write(';' . $directions . '.');
+    TAEB->process_input;
+
+    my $description = TAEB->topline;
+    return $description =~ /^(.)\s*(.*?)\s*\((.*)\)\s*$/ if wantarray;
+    return $description;
+}
+
+=head2 crow_flies [Int, Int, ]Int, Int -> Str
+
+Returns the vi key directions required to go from where TAEB is to the given
+coordinates. If two sets of coordinates are passed in, they will be interpreted
+as the "from" coordinates, instead of TAEB's current position.
+
+=cut
+
+sub crow_flies {
+    my $self = shift;
+    my $x0 = @_ > 2 ? shift : TAEB->x;
+    my $y0 = @_ > 2 ? shift : TAEB->y;
+    my $x1 = shift;
+    my $y1 = shift;
+
+    my $directions = '';
+
+    # eventually, use yubn, then HJKLYUBN
+    $directions .= ($x1 - $x0) x 'l';
+    $directions .= ($x0 - $x1) x 'h';
+    $directions .= ($y1 - $y0) x 'j';
+    $directions .= ($y0 - $y1) x 'k';
+
+    return $directions;
+}
+
 1;
 
