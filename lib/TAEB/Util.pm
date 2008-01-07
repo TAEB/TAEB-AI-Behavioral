@@ -31,7 +31,7 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types glyph_to_type direction deltas), keys %colors],
+    exports => [qw(tile_types glyph_to_type delta2vi deltas), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -114,15 +114,21 @@ our @directions = (
     [qw/b j n/],
 );
 
-sub direction {
-    my $x = shift;
-    my $y = shift;
-    return $directions[$y][$x];
+=head2 delta2vi Int, Int -> Str
+
+This will return a vi key for the given dx, dy.
+
+=cut
+
+sub delta2vi {
+    my $dx = shift;
+    my $dy = shift;
+    return $directions[$dy+1][$dx+1];
 }
 
 sub deltas {
-    # north south west east
     # northwest northeast southwest southeast
+    # north south west east
     return (
         [-1, -1], [-1,  1], [ 1, -1], [ 1,  1],
         [-1,  0], [ 1,  0], [ 0, -1], [ 0,  1],

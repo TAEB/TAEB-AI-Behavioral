@@ -2,7 +2,7 @@
 package TAEB::World::Path;
 use Moose;
 use Heap::Simple;
-use TAEB::Util 'direction', 'deltas';
+use TAEB::Util 'delta2vi', 'deltas';
 
 has from => (
     is       => 'ro',
@@ -271,7 +271,7 @@ sub _dijkstra {
 
             $closed[$xdx][$ydy] = 1;
 
-            my $dir = direction($dx+1, $dy+1);
+            my $dir = delta2vi($dx, $dy);
             my $cost = $next->basic_cost;
 
             # ahh the things I do for aesthetics.

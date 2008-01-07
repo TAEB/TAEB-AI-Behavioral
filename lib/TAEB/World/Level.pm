@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Level;
 use Moose;
-use TAEB::Util qw/deltas direction/;
+use TAEB::Util qw/deltas delta2vi/;
 
 has tiles => (
     is      => 'rw',
@@ -105,10 +105,10 @@ sub radiate {
             my $ret = $code->($tile);
             if ($ret) {
                 # if they ask for a scalar, give them the direction
-                return direction($dx, $dy) if !wantarray;
+                return delta2vi($dx, $dy) if !wantarray;
 
                 # if they ask for a list, give them (direction, distance)
-                return (direction($dx, $dy), $_);
+                return (delta2vi($dx, $dy), $_);
             }
 
             # stop radiating

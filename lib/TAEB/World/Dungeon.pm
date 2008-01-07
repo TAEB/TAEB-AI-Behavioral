@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Dungeon;
 use Moose;
-use TAEB::Util 'direction';
+use TAEB::Util 'delta2vi';
 
 has branches => (
     is      => 'rw',
@@ -75,7 +75,7 @@ sub each_adjacent {
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
             next unless $dy || $dx; # skip 0, 0
-            my $dir = direction($dx+1, $dy+1);
+            my $dir = delta2vi($dx, $dy);
 
             my $tile = $level->at(
                 $dx + $x,
