@@ -104,7 +104,8 @@ sub glyph_to_type {
     $intersect{$_} |= 1 for @a;
     $intersect{$_} |= 2 for @b;
 
-    return first { $intersect{$_} == 3 } keys %intersect;
+   my $type = first { $intersect{$_} == 3 } keys %intersect;
+   return $type || 'obscured';
 }
 
 our @directions = (
