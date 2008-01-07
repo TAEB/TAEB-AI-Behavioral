@@ -8,3 +8,35 @@ AI is currently broken into two parts, Behaviors and Personalities. Behaviors
 are small objects that are slightly higher level individual actions, such as
 "FixHunger". Personalities make use of Behaviors and ultimately decide which
 one is run next.
+
+-- INSTALLING
+
+Warning: TAEB makes heavy use of CPAN.
+
+$  perl Makefile.PL
+
+Answer yes to any dependencies it asks about. You may have to set up CPAN. The
+defaults are usually fine. Be sure to set a mirror though.
+
+$ sudo make installdeps
+
+This will install the modules from CPAN. TAEB's dependencies themselves usually
+have a few dependencies. All in all you're probably looking at about 50 modules.
+
+Now it's time to set up TAEB for running on nethack.alt.org. First, create a
+new account. Use etc/TAEB.nethackrc for its nethack config.
+
+Then, in vim (and only vim, I'll know if you used emacs), edit the
+(nonexistent) etc/site_config.yml config file. Here's where you set your
+account's name and password. The format is:
+
+---
+interface_options:
+    Telnet:
+        account: (name)
+        password: (password)
+
+Be sure to include the three dashes.
+
+Then you should be ready to run him! Type ./bin/taeb and cross your fingers.
+
