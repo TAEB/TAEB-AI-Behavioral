@@ -84,9 +84,6 @@ sub update {
     if ($botl =~ m{Xp:(\d+)/(\d+)}) {
         $self->level($1);
     }
-    else {
-        TAEB->error("Unable to parse Experience from '$botl'");
-    }
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
 
