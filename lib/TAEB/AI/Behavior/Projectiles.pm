@@ -5,7 +5,6 @@ extends 'TAEB::AI::Behavior';
 
 sub prepare {
     my $self = shift;
-    my $direction;
 
     # do we have a projectile to throw?
     my $projectile = TAEB->inventory->find_item($self->can('pickup'))
