@@ -105,10 +105,10 @@ sub radiate {
             my $ret = $code->($tile);
             if ($ret) {
                 # if they ask for a scalar, give them the direction
-                return direction($x, $y) if !wantarray;
+                return direction($dx, $dy) if !wantarray;
 
                 # if they ask for a list, give them (direction, distance)
-                return (direction($x, $y), $_);
+                return (direction($dx, $dy), $_);
             }
 
             # stop radiating
