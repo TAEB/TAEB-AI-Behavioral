@@ -19,6 +19,9 @@ sub prepare {
     if (TAEB->messages =~ /Things that are here:/) {
         return 50;
     }
+    if (TAEB->messages =~ /There are (?:several|many) objects here\./) {
+        return 50;
+    }
     # things that are here, you see here many things, etc
     return 0;
 }
