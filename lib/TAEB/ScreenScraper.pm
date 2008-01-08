@@ -280,5 +280,24 @@ sub crow_flies {
     return $directions;
 }
 
+=for my_sanity
+    while ($x + 8 < $x1 && $y - 8 > $y1) { $dir .= 'Y'; $x += 8; $y -= 8 }
+    while ($x - 8 > $x1 && $y - 8 > $y1) { $dir .= 'U'; $x -= 8; $y -= 8 }
+    while ($x - 8 > $x1 && $y + 8 < $y1) { $dir .= 'B'; $x -= 8; $y += 8 }
+    while ($x + 8 < $x1 && $y + 8 < $y1) { $dir .= 'N'; $x += 8; $y += 8 }
+    while ($x     < $x1 && $y     > $y1) { $dir .= 'y'; $x++; $y-- }
+    while ($x     > $x1 && $y     > $y1) { $dir .= 'u'; $x--; $y-- }
+    while ($x     > $x1 && $y     < $y1) { $dir .= 'b'; $x--; $y++ }
+    while ($x     < $x1 && $y     < $y1) { $dir .= 'n'; $x++; $y++ }
+    while ($x - 8 > $x1) { $dir .= 'H'; $x -= 8 }
+    while ($y + 8 < $y1) { $dir .= 'J'; $y += 8 }
+    while ($y - 8 > $y1) { $dir .= 'K'; $y -= 8 }
+    while ($x + 8 < $x1) { $dir .= 'L'; $x += 8 }
+    while ($x     > $x1) { $dir .= 'h'; $x-- }
+    while ($y     < $y1) { $dir .= 'j'; $y++ }
+    while ($y     > $y1) { $dir .= 'k'; $y-- }
+    while ($x     < $x1) { $dir .= 'l'; $x++ }
+=cut
+
 1;
 
