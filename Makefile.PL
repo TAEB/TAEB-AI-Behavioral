@@ -38,6 +38,7 @@ requires 'Heap::Simple';
 
 # miscellaneous
 requires 'Scalar::Defer' => '0.12';
+requires 'String::Koremutake';
 
 # NetHack-specific things
 requires 'NetHack::Menu' => '0.02';
