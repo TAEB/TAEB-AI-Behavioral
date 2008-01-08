@@ -231,6 +231,21 @@ as the "from" coordinates, instead of TAEB's current position.
 
 =cut
 
+sub which_dir {
+    my ($dx, $dy) = @_;
+    my %dirs = (
+        -1 => { -1 => 'y', 0 => 'h', 1 => 'b' },
+        0  => { -1 => 'k',           1 => 'j' },
+        1  => { -1 => 'u', 0 => 'l', 1 => 'n' },
+    );
+
+    my ($sdx, $sdy) = (0, 0);
+    $sdx = $dx / abs($dx) if $dx != 0;
+    $sdy = $dy / abs($dy) if $dy != 0;
+    return ($dirs{$sdx}{$sdy},
+            abs($dx) > abs($dy) ? $dirs{$sdx}{0} : $dirs{0}{$sdy});
+}
+
 sub crow_flies {
     my $self = shift;
     my $x0 = @_ > 2 ? shift : TAEB->x;
@@ -240,11 +255,27 @@ sub crow_flies {
 
     my $directions = '';
 
-    # eventually, use yubn, then HJKLYUBN
-    $directions .= ($x1 - $x0) x 'l';
-    $directions .= ($x0 - $x1) x 'h';
-    $directions .= ($y1 - $y0) x 'j';
-    $directions .= ($y0 - $y1) x 'k';
+    my $dx = $x1 - $x0;
+    my $dy = $y1 - $y0;
+    my ($diag_dir, $straight_dir) = which_dir($dx, $dy);
+
+    $dx = abs $dx; $dy = abs $dy;
+    while ($dx >= 8 && $dy >= 8) {
+        $directions .= uc $diag_dir;
+        $dx -= 8; $dy -= 8;
+    }
+    while ($dx > 0 && $dy > 0) {
+        $directions .= $diag_dir;
+        $dx--; $dy--;
+    }
+    while ($dx >= 8 || $dy >= 8) {
+        $directions .= uc $straight_dir;
+        $dx -= 8; $dy -= 8;
+    }
+    while ($dx > 0 || $dy > 0) {
+        $directions .= $straight_dir;
+        $dx--; $dy--;
+    }
 
     return $directions;
 }
