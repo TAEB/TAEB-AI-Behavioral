@@ -39,6 +39,9 @@ requires 'Heap::Simple';
 # miscellaneous
 requires 'Scalar::Defer' => '0.12';
 
+# NetHack-specific things
+requires 'NetHack::Menu' => '0.02';
+
 features(
     'ttyrec output' => [
         -default => 1,
