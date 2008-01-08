@@ -67,6 +67,12 @@ has level => (
     default => 1,
 );
 
+has turn => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 0,
+);
+
 sub update {
     my $self   = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -83,6 +89,13 @@ sub update {
 
     if ($botl =~ m{Xp:(\d+)/(\d+)}) {
         $self->level($1);
+    }
+
+    if ($botl =~ m{T:(\d+)}) {
+        $self->turn($1);
+    }
+    else {
+        TAEB->error("Unable to parse turncount from '$botl'");
     }
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
