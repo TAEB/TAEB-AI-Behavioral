@@ -16,7 +16,9 @@ sub prepare {
         }
         TAEB->debug("Nope!");
     }
-
+    if (TAEB->messages =~ /Things that are here:/) {
+        return 50;
+    }
     # things that are here, you see here many things, etc
     return 0;
 }
