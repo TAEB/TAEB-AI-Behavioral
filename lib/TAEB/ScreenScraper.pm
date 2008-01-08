@@ -246,6 +246,7 @@ sub which_dir {
             abs($dx) > abs($dy) ? $dirs{$sdx}{0} : $dirs{0}{$sdy});
 }
 
+use integer;
 sub crow_flies {
     my $self = shift;
     my $x0 = @_ > 2 ? shift : TAEB->x;
@@ -254,31 +255,45 @@ sub crow_flies {
     my $y1 = shift;
 
     my $directions = '';
+    my $sub = 0;
 
     my $dx = $x1 - $x0;
     my $dy = $y1 - $y0;
     my ($diag_dir, $straight_dir) = which_dir($dx, $dy);
 
     $dx = abs $dx; $dy = abs $dy;
-    while ($dx >= 8 && $dy >= 8) {
-        $directions .= uc $diag_dir;
-        $dx -= 8; $dy -= 8;
-    }
-    while ($dx > 0 && $dy > 0) {
-        $directions .= $diag_dir;
-        $dx--; $dy--;
-    }
-    while ($dx >= 8 || $dy >= 8) {
-        $directions .= uc $straight_dir;
-        $dx -= 8; $dy -= 8;
-    }
-    while ($dx > 0 || $dy > 0) {
-        $directions .= $straight_dir;
-        $dx--; $dy--;
-    }
+
+    # Get the minimum number of divisible-by-eight segments
+    # to get the number of YUBN diagonal movements to get to the
+    # proper vertical or horizontal line
+    # This first part will get to within 7
+    $sub = min($dx/8, $dy/8);
+    $directions .= uc ($diag_dir x $sub);
+    $dx -= 8 * $sub;
+    $dy -= 8 * $sub;
+
+    # Now move the rest of the way (0..7)
+    $sub = min($dx, $dy);
+    $directions .= $diag_dir x $sub;
+    $dx -= $sub;
+    $dy -= $sub;
+
+    # Here we use max because one of the directionals is zero now
+    # Otherwise same concept as the first part
+    $sub = max($dx/8, $dy/8);
+    $directions .= uc ($straight_dir x $sub);
+    $dx -= 8 * $sub;
+    $dy -= 8 * $sub;
+
+    # Again max, same reason
+    $sub = max($dx, $dy);
+    $directions .= $straight_dir x $sub;
+    # reducing dx/dy isn't needed any more ;)
 
     return $directions;
 }
+
+no integer;
 
 =for my_sanity
     while ($x + 8 < $x1 && $y - 8 > $y1) { $dir .= 'Y'; $x += 8; $y -= 8 }
