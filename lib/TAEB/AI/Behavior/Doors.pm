@@ -33,5 +33,12 @@ sub urgencies {
     },
 }
 
+sub pickup {
+    for my $unlocker('key', 'lock pick', 'credit card') {
+        if ($_ =~ $unlocker && !TAEB->inventory->find(qr/$unlocker/)) {
+            return 1;
+        }
+    }
+}
 1;
 
