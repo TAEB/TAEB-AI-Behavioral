@@ -61,6 +61,24 @@ has is_blind => (
     default => 0,
 );
 
+has is_stunned => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
+has is_confused => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
+has is_hallucinating => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 has level => (
     is      => 'rw',
     isa     => 'Int',
@@ -128,6 +146,9 @@ sub update {
     }
 
     $self->is_blind($botl =~ /\bBli/);
+    $self->is_stunned($botl =~ /\bStun/);
+    $self->is_confused($botl =~ /\bConf/);
+    $self->is_hallucinating($botl =~ /\bHal/);
 }
 
 1;
