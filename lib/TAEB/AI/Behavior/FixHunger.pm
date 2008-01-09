@@ -17,25 +17,17 @@ has goodeats => (
 sub prepare {
     my $self = shift;
 
-    $self->goodeats(undef);
     if (TAEB->senses->nutrition < 0) {
         $self->next("#pray\n");
         $self->currently("Praying for food.");
         return 100;
     }
-    if ($self->inv_dirty) {
-        $self->next("Da\n");
-        $self->currently("Refreshing inventory after eating");
-        $self->inv_dirty(0);
-        return 90;
-    }
-    if (TAEB->senses->nutrition < 400 && !$self->inv_dirty) {
+
+    if (TAEB->senses->nutrition < 400) {
         for my $item (TAEB->inventory->items) {
             if (TAEB::Knowledge::Item::Food->should_eat($item->appearance)) {
                 $self->next("e" . $item->slot);
-                $self->currently("Eating " . $item->appearance . " from " . $item->slot);
-                $self->inv_dirty(1);
-                $self->goodeats($item);
+                $self->currently("Eating food.");
                 return 50;
             }
         }
@@ -43,16 +35,10 @@ sub prepare {
 
     return 0;
 }
-after next_action => sub {
-    my $self = shift;
-    if ($self->goodeats) {
-        TAEB->inventory->decrease_quantity($self->goodeats->slot);
-    }
-};
+
 sub urgencies {
     return {
         100 => "praying for food, while fainting",
-         90 => "refreshing inventory because I ate",
          50 => "eating food because nutrition is < 400",
     },
 }
