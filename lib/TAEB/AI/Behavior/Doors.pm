@@ -9,12 +9,28 @@ sub prepare {
     return 0 unless TAEB->senses->can_kick;
 
     my $found_door;
+    my $locktool;
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
         if ($tile->type eq 'closeddoor') {
-            $self->next(chr(4) . $dir);
-            $self->currently("Kicking down a door");
             $found_door = 1;
+            if (TAEB->messages =~ /This door is locked\./) {
+                $locktool = TAEB->inventory->find(qr/key|lock pick|credit card/);
+                if ($locktool) {
+                    TAEB->debug(sprintf "Lock tool %s %s",
+                            $locktool->appearance, $locktool->slot);
+                    $self->next('a' . $locktool->slot . $dir . 'y');
+                    $self->currently("Applying lock tool in direction " . $dir);
+                }
+                else {
+                    $self->next(chr(4) . $dir);
+                    $self->currently("Kicking down a door");
+                }
+            }
+            else {
+                $self->next('o' . $dir);
+                $self->currently("Trying to open a door (" . $dir . ")");
+            }
         }
     });
     return 100 if $found_door;
