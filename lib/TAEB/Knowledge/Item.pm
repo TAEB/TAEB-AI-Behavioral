@@ -7,6 +7,7 @@ use TAEB::Knowledge::Item::Food;
 use TAEB::Knowledge::Item::Weapon;
 use TAEB::Knowledge::Item::Tool;
 use TAEB::Knowledge::Item::Artifact;
+use TAEB::Knowledge::Item::Armor;
 
 sub canonicalize_item {
     my $self = shift;
