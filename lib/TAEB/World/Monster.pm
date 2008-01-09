@@ -65,13 +65,15 @@ has color => (
 );
 
 has peaceful => (
-    is  => 'rw',
-    isa => 'Bool',
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
 );
 
 has tame => (
-    is  => 'rw',
-    isa => 'Bool',
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
 );
 
 has shopkeeper => (
