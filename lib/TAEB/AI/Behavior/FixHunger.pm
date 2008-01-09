@@ -3,17 +3,6 @@ package TAEB::AI::Behavior::FixHunger;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
-has inv_dirty => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has goodeats => (
-    is   => 'rw',
-    isa  => 'TAEB::World::Item',
-);
-
 sub prepare {
     my $self = shift;
 
