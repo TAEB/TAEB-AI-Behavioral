@@ -187,7 +187,21 @@ sub trigger_appearance {
     $self->enchantment($spe)        if defined $spe;
     # XXX: handle class, visible_description, and type correctly later when we
     # have some better way to match them
-    $self->type($item)              if defined $item;
+    if (defined $item) {
+        $self->class('gold')   if $item =~ /gold piece/;
+        $self->class('weapon') if 0; # need to match against weapon db
+        $self->class('armor')  if 0; # need to match against armor db
+        $self->class('food')   if 0; # need to match food and corpses
+        $self->class('scroll') if $item =~ /scroll/;
+        $self->class('book')   if $item =~ /[bB]ook/;
+        $self->class('potion') if $item =~ /potion/;
+        $self->class('amulet') if $item =~ /[aA]mulet/;
+        $self->class('ring')   if 0; # don't match 'ring mail', etc
+        $self->class('wand')   if $item =~ /wand/;
+        $self->class('tool')   if 0; # need to match against tool db
+        $self->class('gem')    if 0; # don't match 'rock mole corpse', etc
+        $self->type($item);
+    }
     $self->generic_name($call)      if defined $call;
     $self->specific_name($name)     if defined $name;
     $self->charges($charge)         if defined $charge;
