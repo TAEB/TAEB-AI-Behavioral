@@ -6255,5 +6255,25 @@ sub monster {
     return $self->list->{arg};
 }
 
+sub search {
+    my $self = shift;
+    my %args = @_;
+
+    my %ret;
+    MONSTER: for my $mon (keys %{ $self->list }) {
+        for my $key (keys %args) {
+            my $ref = ref $args{$key};
+            if ($ref eq 'Regexp') {
+                next MONSTER if $self->list->{$mon}->{$key} !~ $args{$key};
+            }
+            elsif (!$ref) {
+                next MONSTER if $self->list->{$mon}->{$key} ne $args{$key};
+            }
+        }
+        $ret{$mon} = $self->list->{$mon};
+    }
+    return %ret;
+}
+
 1;
 
