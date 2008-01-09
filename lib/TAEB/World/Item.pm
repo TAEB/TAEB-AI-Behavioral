@@ -143,8 +143,8 @@ sub trigger_appearance {
     # XXX: there's no way to tell the difference between an item called
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
-    my ($slot, $num, $buc, $grease, $ero1, $ero2, $proof, $spe, $item, $call,
-        $name, $charge, $max_charge, $equipped) =~
+    my ($slot, $num, $buc, $greased, $ero1, $ero2, $proof, $spe, $item, $call,
+        $name, $charge, $max_charge, $is_equipped) =~
         m{(?:(\w)\s-)?\s*                                # inventory slot
           (an?|the|\d+)\s*                               # number
           (blessed|(?:un)?cursed)?\s*                    # cursedness
@@ -167,12 +167,12 @@ sub trigger_appearance {
     $self->buc(substr $buc, 0, 1)   if defined $buc;
     $self->is_greased(1)            if defined $greased;
     if (defined $ero1) {
-        $self->erosion1(1)
+        $self->erosion1(1);
         $self->erosion1(2)          if $ero1 =~ /very/;
         $self->erosion1(3)          if $ero1 =~ /thoroughly/;
     }
     if (defined $ero2) {
-        $self->erosion2(1)
+        $self->erosion2(1);
         $self->erosion2(2)          if $ero2 =~ /very/;
         $self->erosion2(3)          if $ero2 =~ /thoroughly/;
     }
