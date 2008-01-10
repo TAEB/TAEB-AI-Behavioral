@@ -205,6 +205,7 @@ sub trigger_appearance {
     }
     if ($self->class && $self->class =~ /weapon|armor|food|tool/) {
         my $class = $self->class;
+        $class = uc(substr $class, 0, 1) . substr $class, 1;
         my $list = "$TAEB::Knowledge::Item::$class"->list;
         if ($list->{$item}) {
             $self->identity($item);
