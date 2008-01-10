@@ -159,6 +159,7 @@ sub handle_menus {
 
     until ($menu->at_end) {
         TAEB->write($menu->next);
+        TAEB->process_input(0);
     }
 
     # wrap selector method so it gets the right $self
