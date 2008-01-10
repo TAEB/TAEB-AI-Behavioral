@@ -59,36 +59,36 @@ has enchantment => (
     default => 0,
 );
 
-# armor, weapon, scroll, etc
 has class => (
-    is      => 'rw',
-    isa     => 'Str',
+    is            => 'rw',
+    isa           => 'Str',
+    documentation => "Armor, weapon, scroll, etc.",
 );
 
-# smoky potion, mud boots, etc
 has visible_description => (
-    is      => 'rw',
-    isa     => 'Str',
+    is            => 'rw',
+    isa           => 'Str',
+    documentation => "Smoky potion, mud boots, etc.",
 );
 
-# chain mail, long sword, cloak of magic resistance, etc
-has type => (
-    is      => 'rw',
-    isa     => 'Str',
+has identity => (
+    is            => 'rw',
+    isa           => 'Str',
+    documentation => "Chain mail, long sword, cloak of magic resistance, etc.",
 );
 
-# called X
 has generic_name => (
-    is      => 'rw',
-    isa     => 'Str',
-    default => '',
+    is            => 'rw',
+    isa           => 'Str',
+    default       => '',
+    documentation => "called X",
 );
 
-# named X
 has specific_name => (
-    is      => 'rw',
-    isa     => 'Str',
-    default => '',
+    is            => 'rw',
+    isa           => 'Str',
+    default       => '',
+    documentation => "named X",
 );
 
 has charges => (
