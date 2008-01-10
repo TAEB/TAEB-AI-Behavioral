@@ -21,6 +21,10 @@ my @msg_regex = (
         qr/^There is a (staircase (?:up|down)) here\.$/,
             ['msg_dungeon_feature', sub { $1 }],
     ],
+    [
+        qr/^You feel more confident in your (?:(weapon|spell casting|fighting) )?skills\.$/,
+            ['msg_powerup', sub { "enhance", $1 || '' }],
+    ],
 );
 
 has messages => (
