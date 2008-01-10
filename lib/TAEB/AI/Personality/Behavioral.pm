@@ -255,6 +255,7 @@ override send_message => sub {
         $behavior->$msgname(@_)
             if $behavior->can($msgname);
     }
-}
+};
+
 1;
 
