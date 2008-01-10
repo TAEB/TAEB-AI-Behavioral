@@ -25,6 +25,10 @@ my @msg_regex = (
         qr/^You feel more confident in your (?:(weapon|spell casting|fighting) )?skills\.$/,
             ['msg_powerup', sub { "enhance", $1 || '' }],
     ],
+    [
+        qr/^You cannot escape from (?:the )?(.*)!/,
+            ['msg_cannot_escape', sub { $1 || '' }],
+    ],
 );
 
 has messages => (
