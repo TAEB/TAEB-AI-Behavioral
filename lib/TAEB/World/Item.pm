@@ -189,17 +189,18 @@ sub trigger_appearance {
     # XXX: handle class, visible_description, and type correctly later when we
     # have some better way to match them
     if (defined $item) {
+        my $class = $TAEB::Knowledge::Item->list->{$item};
         $self->class('gold')   if $item =~ /gold piece/;
-        $self->class('weapon') if 0; # need to match against weapon db
-        $self->class('armor')  if 0; # need to match against armor db
-        $self->class('food')   if 0; # need to match food and corpses
+        $self->class('weapon') if $class eq 'weapon';
+        $self->class('armor')  if $class eq 'armor';
+        $self->class('food')   if $class eq 'food';
         $self->class('scroll') if $item =~ /scroll/;
         $self->class('book')   if $item =~ /[bB]ook/;
         $self->class('potion') if $item =~ /potion/;
         $self->class('amulet') if $item =~ /[aA]mulet/;
-        $self->class('ring')   if 0; # don't match 'ring mail', etc
+        $self->class('ring')   if $item =~ /ring$/;
         $self->class('wand')   if $item =~ /wand/;
-        $self->class('tool')   if 0; # need to match against tool db
+        $self->class('tool')   if $class eq 'tool';
         $self->class('gem')    if 0; # don't match 'rock mole corpse', etc
         $self->type($item);
     }
