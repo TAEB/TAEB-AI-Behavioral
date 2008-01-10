@@ -186,8 +186,6 @@ sub trigger_appearance {
     }
     $self->is_fooproof(1)           if defined $proof;
     $self->enchantment($spe)        if defined $spe;
-    # XXX: handle class, visible_description, and type correctly later when we
-    # have some better way to match them
     if (defined $item) {
         my $class = $TAEB::Knowledge::Item->list->{$item};
         $self->class('gold')   if $item =~ /gold piece/;
@@ -202,7 +200,16 @@ sub trigger_appearance {
         $self->class('wand')   if $item =~ /wand/;
         $self->class('tool')   if $class eq 'tool';
         $self->class('gem')    if 0; # don't match 'rock mole corpse', etc
-        $self->type($item);
+    }
+    if ($self->class && $self->class =~ /weapon|armor|food|tool/) {
+        my $class = $self->class;
+        my $list = "$TAEB::Knowledge::Item::$class"->list;
+        if ($list->{$item}) {
+            $self->identity($item);
+        }
+        else {
+            $self->visible_description($item);
+        }
     }
     $self->generic_name($call)      if defined $call;
     $self->specific_name($name)     if defined $name;
