@@ -136,6 +136,17 @@ sub handle_menus {
     if (TAEB->topline =~ /Pick up what\?/) {
         $selector = TAEB->personality->can('pickup');
     }
+    elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
+        $menu->select_count('none');
+        TAEB->current_tile->items([]);
+        $selector = sub {
+            my $personality = shift;
+            my $slot        = shift;
+
+            TAEB->current_tile->add_item(TAEB::World::Item->new(appearance => $_));
+            return 0;
+        };
+    }
     elsif (TAEB->topline =~ /What would you like to drop\?/) {
         my $drop = TAEB->personality->can('drop');
 
