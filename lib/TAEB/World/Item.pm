@@ -18,6 +18,7 @@ has slot => (
 has quantity => (
     is      => 'rw',
     isa     => 'Int',
+    default => 1,
 );
 
 enum BUC => qw(blessed uncursed cursed unknown);
@@ -49,11 +50,13 @@ has erosion2 => (
 has is_fooproof => (
     is      => 'rw',
     isa     => 'Bool',
+    default => 0,
 );
 
 has enchantment => (
     is      => 'rw',
     isa     => 'Int',
+    default => 0,
 );
 
 # armor, weapon, scroll, etc
