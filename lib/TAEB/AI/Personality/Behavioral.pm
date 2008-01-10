@@ -239,5 +239,22 @@ sub drop {
     return $should_drop;
 }
 
+=head2 send_message Str, *
+
+This will send the message to itself and each of its behaviors.
+
+=cut
+
+override send_message => sub {
+    my $self = shift;
+    my $msgname = shift;
+
+    super;
+
+    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+        $behavior->$msgname(@_)
+            if $behavior->can($msgname);
+    }
+}
 1;
 
