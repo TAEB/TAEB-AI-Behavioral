@@ -137,7 +137,7 @@ sub msg_dungeon_feature {
         $type  = 'stairs';
     }
     elsif ($feature eq 'fountain dries up') {
-        $floor = ' ';
+        $floor = '.';
         $type  = 'floor';
     }
     else {
