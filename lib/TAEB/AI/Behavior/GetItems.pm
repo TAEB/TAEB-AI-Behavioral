@@ -13,7 +13,7 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(sub {
         my $tile = shift;
         return any { TAEB->want_item($_) } $tile->items;
-    );
+    });
 
     $self->currently("Heading towards an item");
     $self->path($path);
