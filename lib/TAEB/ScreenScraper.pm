@@ -250,7 +250,6 @@ sub which_dir {
             abs($dx) > abs($dy) ? $dirs{$sdx}{0} : $dirs{0}{$sdy});
 }
 
-use integer;
 sub crow_flies {
     my $self = shift;
     my $x0 = @_ > 2 ? shift : TAEB->x;
@@ -267,6 +266,7 @@ sub crow_flies {
 
     $dx = abs $dx; $dy = abs $dy;
 
+    use integer;
     # Get the minimum number of divisible-by-eight segments
     # to get the number of YUBN diagonal movements to get to the
     # proper vertical or horizontal line
@@ -296,8 +296,6 @@ sub crow_flies {
 
     return $directions;
 }
-
-no integer;
 
 =for my_sanity
     while ($x + 8 < $x1 && $y - 8 > $y1) { $dir .= 'Y'; $x += 8; $y -= 8 }
