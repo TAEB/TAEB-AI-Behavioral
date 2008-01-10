@@ -35,6 +35,7 @@ has interface => (
 has personality => (
     is       => 'rw',
     isa      => 'TAEB::AI::Personality',
+    handles  => [qw(want_item)],
     trigger  => sub {
         my ($self, $personality) = @_;
         $personality->institute;
