@@ -87,10 +87,14 @@ has monster => (
 );
 
 has items => (
+    metaclass  => 'Collection::Array',
     is         => 'rw',
     isa        => 'ArrayRef[TAEB::World::Item]',
     default    => sub { [] },
     auto_deref => 1,
+    provides   => {
+        push => 'add_item',
+    },
 );
 
 =head2 basic_cost -> Int
