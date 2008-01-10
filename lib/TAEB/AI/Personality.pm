@@ -89,5 +89,35 @@ sub want_item {
     $self->pickup($_->slot || '-');
 }
 
+=head2 msg_powerup Str, *
+
+Received when we've got a powerup-like message. Currently handles C<enhance>.
+
+=cut
+
+sub msg_powerup {
+    my $self = shift;
+    my $type = shift;
+
+    if ($type eq 'enhance') {
+        return "#enhance\n";
+    }
+}
+
+=head2 enhance Str, Str -> Bool
+
+Callback for enhancing. Receives skill type and current level. Returns whether
+we should enhance it or not. Default: YES.
+
+=cut
+
+sub enhance {
+    my $self  = shift;
+    my $skill = shift;
+    my $level = shift;
+
+    return 1;
+}
+
 1;
 

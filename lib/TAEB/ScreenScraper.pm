@@ -140,6 +140,14 @@ sub handle_menus {
     if (TAEB->topline =~ /Pick up what\?/) {
         $selector = TAEB->personality->can('pickup');
     }
+    elsif (TAEB->topline =~ /Pick a skill to enhance/) {
+        $selector = sub {
+            my $personality = shift;
+            my ($skill, $level) = /^\s*(.*?)\s*\[(.*)\]/
+                or warn "Unable to parse $_ as an #enhance item.";
+            $personality->enhance($skill, $level);
+        };
+    }
     elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
         $menu->select_count('none');
         TAEB->current_tile->items([]);
