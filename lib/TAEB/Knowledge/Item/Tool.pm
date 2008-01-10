@@ -27,42 +27,36 @@ has list => (
                 cost => 80,
                 weight => 3,
                 charge => '',
-                appearance => 'Eyes of the Overworld',
             },
             'Magic Mirror of Merlin' => {
                 artifact => 1,
                 cost => 10,
                 weight => 13,
                 charge => '',
-                appearance => 'Magic Mirror of Merlin',
             },
             'Master Key of Thievery' => {
                 artifact => 1,
                 cost => 10,
                 weight => 3,
                 charge => '',
-                appearance => 'Master Key of Thievery',
             },
             'Orb of Detection' => {
                 artifact => 1,
                 cost => 60,
                 weight => 150,
                 charge => 5,
-                appearance => 'Orb of Detection',
             },
             'Orb of Fate' => {
                 artifact => 1,
                 cost => 60,
                 weight => 150,
                 charge => 5,
-                appearance => 'Orb of Fate',
             },
             'Platinum Yendorian Express Card' => {
                 artifact => 1,
                 cost => 10,
                 weight => 1,
                 charge => '',
-                appearance => 'Platinum Yendorian Express Card',
             },
             'sack' => {
                 cost => 2,
@@ -74,18 +68,15 @@ has list => (
                 cost => 8,
                 weight => 350,
                 charge => '',
-                appearance => 'large box',
             },
             'chest' => {
                 cost => 16,
                 weight => 600, charge => '',
-                appearance => 'chest',
             },
             'ice box' => {
                 cost => 42,
                 weight => 900,
                 charge => '',
-                appearance => 'ice box',
             },
             'bag of holding' => {
                 cost => 100,
@@ -109,13 +100,11 @@ has list => (
                 cost => 10,
                 weight => 1,
                 charge => '',
-                appearance => 'credit card',
             },
             'lock pick' => {
                 cost => 20,
                 weight => 4,
                 charge => '',
-                appearance => 'lock pick',
             },
             'skeleton key' => {
                 cost => 10,
@@ -139,7 +128,6 @@ has list => (
                 cost => 12,
                 weight => 30,
                 charge => 1499,
-                appearance => 'brass lantern',
             },
             'oil lamp' => {
                 cost => 10,
@@ -169,7 +157,6 @@ has list => (
                 cost => 15,
                 weight => 10,
                 charge => '',
-                appearance => 'bugle',
             },
             'wooden flute' => {
                 cost => 12,
@@ -235,13 +222,11 @@ has list => (
                 cost => 50,
                 weight => 30,
                 charge => '',
-                appearance => 'bell',
             },
             'beartrap' => {
                 cost => 60,
                 weight => 200,
                 charge => '',
-                appearance => 'beartrap',
             },
             'land mine' => {
                 cost => 180,
@@ -253,7 +238,6 @@ has list => (
                 cost => 50,
                 weight => 100,
                 charge => '',
-                appearance => 'pick-axe',
             },
             'grappling hook' => {
                 cost => 50,
@@ -265,13 +249,11 @@ has list => (
                 cost => 100,
                 weight => 20,
                 charge => '',
-                appearance => 'unicorn horn',
             },
             'expensive camera' => {
                 cost => 200,
                 weight => 12,
                 charge => 99,
-                appearance => 'expensive camera',
             },
             'mirror' => {
                 cost => 10,
@@ -289,67 +271,56 @@ has list => (
                 cost => 80,
                 weight => 3,
                 charge => '',
-                appearance => 'lenses',
             },
             'blindfold' => {
                 cost => 20,
                 weight => 2,
                 charge => '',
-                appearance => 'blindfold',
             },
             'towel' => {
                 cost => 50,
                 weight => 2,
                 charge => '',
-                appearance => 'towel',
             },
             'saddle' => {
                 cost => 150,
                 weight => 200,
                 charge => '',
-                appearance => 'saddle',
             },
             'leash' => {
                 cost => 20,
                 weight => 12,
                 charge => '',
-                appearance => 'leash',
             },
             'stethoscope' => {
                 cost => 75,
                 weight => 4,
                 charge => '',
-                appearance => 'stethoscope',
             },
             'tinning kit' => {
                 cost => 30,
                 weight => 100,
                 charge => 99,
-                appearance => 'tinning kit',
             },
             'tin opener' => {
                 cost => 30,
                 weight => 4,
                 charge => '',
-                appearance => 'tin opener',
             },
             'can of grease' => {
                 cost => 20,
                 weight => 15,
                 charge => 25,
-                appearance => 'can of grease',
             },
             'figurine' => {
                 cost => 80,
                 weight => 50,
                 charge => '',
-                appearance => 'figurine',
             },
             'magic marker' => {
                 cost => 50,
                 weight => 2,
                 charge => 99,
-                appearance => 'magic marker',
             },
         };
 
@@ -360,6 +331,7 @@ has list => (
         # tag each tool with its name
         while (my ($name, $stats) = each %$tools) {
             $stats->{name} = $name;
+            $stats->{appearance} = $name unless $stats->{appearance};
         }
 
         return $tools;

@@ -846,6 +846,13 @@ has list => (
         $weapons->{'nunchaku'}  = $weapons->{'flail'};
         $weapons->{'naginata'}  = $weapons->{'glaive'};
         $weapons->{'shito'}     = $weapons->{'knife'};
+
+        # tag each weapon with its name
+        while (my ($name, $stats) = each %$tools) {
+            $stats->{name} = $name;
+            $stats->{appearance} = $name unless $stats->{appearance};
+        }
+
         return $weapons;
     },
 );
