@@ -3,37 +3,27 @@ package TAEB::AI::Behavior::GetItems;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
+use List::MoreUtils 'any';
+
 sub prepare {
     my $self = shift;
 
-    # pick up individual items
-    if (TAEB->messages =~ /You see here (.*?)\./) {
-        local $_ = $1;
-        TAEB->debug("Checking whether I want a '$_'.");
-        if (TAEB->personality->pickup('-')) {
-            TAEB->debug("Yep!");
-            return 50;
-        }
-        TAEB->debug("Nope!");
-    }
-    if (TAEB->messages =~ /Things that are here:/) {
-        return 50;
-    }
-    if (TAEB->messages =~ /There are (?:several|many) objects here\./) {
-        return 50;
-    }
-    # things that are here, you see here many things, etc
-    return 0;
+    return 100 if any { TAEB->want_item($_) } TAEB->current_tile->items;
+
+    my $path = TAEB::World::Path->first_match(sub {
+        my $tile = shift;
+        return any { TAEB->want_item($_) } $tile->items;
+    );
+
+    $self->currently("Heading towards an item");
+    $self->path($path);
+    return $path ? 50 : 0;
 }
-
-sub next_action { "," }
-
-sub currently { "Picking up items" }
 
 sub urgencies {
     return {
-        100 => "picking up multiple items",
-         50 => "picking up one item",
+        100 => "picking up an item here",
+         50 => "path to a new item",
     },
 }
 
