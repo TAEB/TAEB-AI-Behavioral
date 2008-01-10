@@ -1,0 +1,8 @@
+#!/usr/bin/env perl
+@ARGV = "REPOSITORIES";
+while (<>) {
+    next unless /^\* (.*)/;
+    print "Pulling from $1...\n";
+    system("darcs pull $1");
+}
+
