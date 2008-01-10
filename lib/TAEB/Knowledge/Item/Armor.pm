@@ -8,6 +8,14 @@ has list => (
     lazy    => 1,
     default => sub {
         my $armor = {
+            'Mitre of Holiness' => {
+                artifact   => 1,
+                cost       => 2000,
+                weight     => 50,
+                ac         => 1,
+                material   => 'iron',
+                appearance => '*etched helmet',
+            },
             'Hawaiian shirt' => {
                 cost       => 3,
                 weight     => 5,
