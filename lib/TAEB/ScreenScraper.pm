@@ -10,6 +10,10 @@ my %msg_string = (
         ['msg_status_change', 'blindness', 0],
     "From the murky depths, a hand reaches up to bless the sword." =>
         ['msg_excalibur'],
+    "The fountain dries up!" =>
+        ['msg_dungeon_feature', 'fountain dries up'],
+    "As the hand retreats, the fountain disappears!" =>
+        ['msg_dungeon_feature', 'fountain dries up'],
 );
 
 my @msg_regex = (
