@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Item;
 use Moose;
+use Moose::Util::TypeConstraints;
 
 has appearance => (
     is       => 'rw',
@@ -19,9 +20,12 @@ has quantity => (
     isa     => 'Int',
 );
 
+enum BUC => qw(blessed uncursed cursed unknown);
+
 has buc => (
     is      => 'rw',
-    isa     => 'Str',
+    isa     => 'BUC',
+    default => 'unknown',
 );
 
 has is_greased => (
@@ -164,7 +168,7 @@ sub trigger_appearance {
 
     $self->slot($slot)              if defined $slot;
     $self->quantity($num)           if defined $num;
-    $self->buc(substr $buc, 0, 1)   if defined $buc;
+    $self->buc($buc)                if defined $buc;
     $self->is_greased(1)            if defined $greased;
     if (defined $ero1) {
         $self->erosion1(1);
