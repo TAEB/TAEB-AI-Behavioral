@@ -102,6 +102,12 @@ has max_charges => (
     isa     => 'Int',
 );
 
+has is_lit => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 has is_equipped => (
     is      => 'rw',
     isa     => 'Bool',
@@ -152,7 +158,7 @@ sub trigger_appearance {
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $ero1, $ero2, $proof, $spe, $item, $call,
-        $name, $charge, $max_charge, $is_equipped) =~
+        $name, $charge, $max_charge, $lit, $is_equipped) =~
         m{(?:(\w)\s[+-])?\s*                             # inventory slot
           (an?|the|\d+)\s*                               # number
           (blessed|(?:un)?cursed)?\s*                    # cursedness
@@ -165,6 +171,7 @@ sub trigger_appearance {
           (called .*?)?\s*                               # non-specific name
           (named .*?)?\s*                                # specific name
           (\(\d+:\d+\))?\s*                              # charges
+          (\(lit\))?\s*                                  # lit
           (\(.*\))?\s*                                   # equipped
          }x;
 
@@ -218,6 +225,7 @@ sub trigger_appearance {
     $self->specific_name($name)     if defined $name;
     $self->charges($charge)         if defined $charge;
     $self->max_charges($max_charge) if defined $max_charge;
+    $self->is_lit(1)                if defined $lit;
     $self->is_equipped(1)           if defined $is_equipped;
 }
 
