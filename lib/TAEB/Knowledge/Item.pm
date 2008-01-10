@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Item;
-use strict;
-use warnings;
+use MooseX::Singleton;
 
 use TAEB::Knowledge::Item::Food;
 use TAEB::Knowledge::Item::Weapon;
