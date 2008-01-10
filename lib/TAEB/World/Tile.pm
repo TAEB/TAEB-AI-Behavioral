@@ -86,6 +86,13 @@ has monster => (
     weak_ref => 1,
 );
 
+has items => (
+    is         => 'rw',
+    isa        => 'ArrayRef[TAEB::World::Item]',
+    default    => sub { [] },
+    auto_deref => 1,
+);
+
 =head2 basic_cost -> Int
 
 This returns the basic cost of entering a tile. It's not very smart, but it
