@@ -431,11 +431,13 @@ sub send_messages {
     my @msgs = splice @{ $self->deferred_messages };
 
     for (@msgs) {
+        TAEB->personality->send_message(@$_);
+
         my $msgname = shift @$_;
         TAEB->debug("Dequeueing message $msgname.");
 
         # this list should not be hardcoded. ideas?
-        for my $recipient (TAEB->personality, TAEB->senses, TAEB->dungeon->cartographer, "TAEB::Knowledge::Item::Artifact") {
+        for my $recipient (TAEB->senses, TAEB->dungeon->cartographer, "TAEB::Knowledge::Item::Artifact") {
             $recipient->$msgname(@$_)
                 if $recipient->can($msgname);
         }
