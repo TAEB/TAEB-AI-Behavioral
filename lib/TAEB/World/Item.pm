@@ -153,7 +153,7 @@ sub trigger_appearance {
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $ero1, $ero2, $proof, $spe, $item, $call,
         $name, $charge, $max_charge, $is_equipped) =~
-        m{(?:(\w)\s-)?\s*                                # inventory slot
+        m{(?:(\w)\s[+-])?\s*                             # inventory slot
           (an?|the|\d+)\s*                               # number
           (blessed|(?:un)?cursed)?\s*                    # cursedness
           (greased)?\s*                                  # greasy
