@@ -196,6 +196,8 @@ sub trigger_appearance {
         $self->class('book')   if $item =~ /[bB]ook/;
         $self->class('potion') if $item =~ /potion/;
         $self->class('amulet') if $item =~ /[aA]mulet/;
+        # this won't catch identified rings, but we need to not have this match
+        # 'ring mail'. probably fix this once we have an item db for rings.
         $self->class('ring')   if $item =~ /ring$/;
         $self->class('wand')   if $item =~ /wand/;
         $self->class('tool')   if $class eq 'tool';
