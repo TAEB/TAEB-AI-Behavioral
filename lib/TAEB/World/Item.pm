@@ -59,9 +59,10 @@ has enchantment => (
     default => 0,
 );
 
+enum ItemClass => qw(gold weapon armor food scroll book potion amulet ring wand tool gem);
 has class => (
     is            => 'rw',
-    isa           => 'Str',
+    isa           => 'ItemClass',
     documentation => "Armor, weapon, scroll, etc.",
 );
 
