@@ -60,5 +60,20 @@ guaranteed to be called before any calls to next_action.
 sub institute {
 }
 
+=head2 send_message Str, *
+
+This will send the message to itself. This is here because
+Personality::Behavioral will override it.
+
+=cut
+
+sub send_message {
+    my $self = shift;
+    my $msgname = shift;
+
+    $self->$msgname(@_)
+        if $self->can($msgname);
+}
+
 1;
 
