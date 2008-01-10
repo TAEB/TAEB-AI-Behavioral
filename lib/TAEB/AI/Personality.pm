@@ -75,5 +75,19 @@ sub send_message {
         if $self->can($msgname);
 }
 
+=head2 want_item Item -> Bool
+
+Does TAEB want this item?
+
+=cut
+
+sub want_item {
+    my $self = shift;
+    my $item = shift;
+
+    local $_ = $item->appearance;
+    $self->pickup($_->slot || '-');
+}
+
 1;
 
