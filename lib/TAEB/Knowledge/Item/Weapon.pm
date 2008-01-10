@@ -848,7 +848,7 @@ has list => (
         $weapons->{'shito'}     = $weapons->{'knife'};
 
         # tag each weapon with its name
-        while (my ($name, $stats) = each %$tools) {
+        while (my ($name, $stats) = each %$weapons) {
             $stats->{name} = $name;
             $stats->{appearance} = $name unless $stats->{appearance};
         }
