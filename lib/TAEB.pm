@@ -249,16 +249,20 @@ sub log_in {
     }
 }
 
-=head2 process_input
+=head2 process_input [Bool]
 
 This will read the interface for input, update the VT object, and print.
 
 It will also return any input it receives.
 
+If the passed in boolean is false, no scraping will occur. If no boolean is
+provided, or if the boolean is true, then the scraping will go down.
+
 =cut
 
 sub process_input {
     my $self = shift;
+    my $scrape = @_ ? shift : 1;
 
     my $input = $self->read;
 
@@ -266,7 +270,7 @@ sub process_input {
     $self->out($input);
 
     $self->scraper->scrape
-        if $self->state ne 'logging_in';
+        if $scrape && $self->state ne 'logging_in';
 
     return $input;
 }
