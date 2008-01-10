@@ -57,7 +57,7 @@ sub update {
 
 This will decrease the quantity of items in the given slot. Such as when you
 quaff a potion, or throw a dagger. The optional argument is how many of these
-items you just lost.
+items you just lost. Returns the quantity remaining of that item.
 
 =cut
 
@@ -66,8 +66,26 @@ sub decrease_quantity {
     my $slot     = shift;
     my $quantity = shift || 1;
 
-    # XXX: we don't do quantity tracking yet
-    $self->remove($slot);
+    my $item = $self->get($slot);
+    my $new_quantity = $item->quantity - $quantity;
+
+    if ($new_quantity < 0) {
+        TAEB->warn(
+            sprintf "Decreased item '$slot' (%s) from %d to $new_quantity",
+                $item->appearance,
+                $item->quantity
+        );
+        $new_quantity = 0;
+    }
+
+    if ($new_quantity == 0) {
+        $self->remove($slot);
+        return 0;
+    }
+
+    $item->quantity($new_quantity);
+
+    return $new_quantity;
 }
 
 1;
