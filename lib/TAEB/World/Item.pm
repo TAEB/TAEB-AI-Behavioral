@@ -195,7 +195,7 @@ sub trigger_appearance {
           $                                                # anchor the regex
          }x;
 
-    $num = 1        if $num =~ /\w/;
+    $num = 1        if $num =~ /[at]/;
     $spe =~ s/^\+// if defined $spe;
     $ncandles = 0   if (defined $ncandles && $ncandles =~ /no/);
     $lit = 1        if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
