@@ -215,15 +215,23 @@ sub trigger_appearance {
         $self->class('tool')   if $class eq 'tool';
         $self->class('gem')    if 0; # don't match 'rock mole corpse', etc
     }
-    if ($self->class && $self->class =~ /weapon|armor|food|tool/) {
-        my $class = $self->class;
-        $class = uc(substr $class, 0, 1) . substr $class, 1;
-        my $list = "TAEB::Knowledge::Item::$class"->list;
-        if ($list->{$item}) {
-            $self->identity($item);
+    if ($self->class) {
+        if ($self->class =~ /weapon|armor|food|tool/) {
+            my $class = $self->class;
+            $class = uc(substr $class, 0, 1) . substr $class, 1;
+            my $list = "TAEB::Knowledge::Item::$class"->list;
+            if ($list->{$item}) {
+                $self->identity($item);
+            }
+            else {
+                $self->visible_description($item);
+            }
         }
-        else {
-            $self->visible_description($item);
+        if (!defined $buc &&
+            ($self->class =~ /weapon|wand/ ||
+             ($self->class eq 'tool' &&
+              $self->identity =~ /pick-axe|grappling hook/))) {
+            $self->buc('uncursed');
         }
     }
     $self->generic_name($call)      if defined $call;
