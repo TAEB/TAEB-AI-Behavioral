@@ -173,7 +173,7 @@ sub trigger_appearance {
           (.*?)\s*                                       # item name
           (called .*?)?\s*                               # non-specific name
           (named .*?)?\s*                                # specific name
-          (\(\d+:\d+\))?\s*                              # charges
+          (?:\((\d+):(\d+)\))?\s*                        # charges
           (\(lit\))?\s*                                  # lit
           (\(.*\))?\s*                                   # equipped
          }x;
