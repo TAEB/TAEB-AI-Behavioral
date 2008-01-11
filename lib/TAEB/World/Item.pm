@@ -222,6 +222,8 @@ sub trigger_appearance {
         $self->class('tool')   if $class eq 'tool';
         $self->class('gem')    if 0; # don't match 'rock mole corpse', etc
     }
+    $self->charges($charge)         if defined $charge;
+    $self->max_charges($max_charge) if defined $max_charge;
     if ($self->class) {
         if ($self->class =~ /weapon|armor|food|tool/) {
             my $class = $self->class;
@@ -237,14 +239,13 @@ sub trigger_appearance {
         if (!defined $buc &&
             ($self->class =~ /weapon|wand/ ||
              ($self->class eq 'tool' &&
-              $self->identity =~ /pick-axe|grappling hook/))) {
-            $self->buc('uncursed');
+              $self->identity =~ /pick-axe|grappling|unicorn/))) {
+            $self->buc('uncursed')
+                if defined $spe || defined $charge;
         }
     }
     $self->generic_name($call)      if defined $call;
     $self->specific_name($name)     if defined $name;
-    $self->charges($charge)         if defined $charge;
-    $self->max_charges($max_charge) if defined $max_charge;
     $self->is_lit(1)                if defined $lit;
     $self->is_equipped(1)           if defined $is_equipped;
 }
