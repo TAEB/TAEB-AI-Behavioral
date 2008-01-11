@@ -7,7 +7,10 @@ has appearance => (
     is       => 'rw',
     isa      => 'Str',
     required => 1,
-    trigger  => sub { shift->can('trigger_appearance') },
+    trigger  => sub {
+        my $self = shift;
+        $self->trigger_appearance(@_);
+    },
 );
 
 has slot => (
