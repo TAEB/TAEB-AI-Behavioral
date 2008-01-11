@@ -15,7 +15,7 @@ sub load_from_argv {
     $arg_name =~ s/.*:://;
 
     my $third_level = $ARGV{$arg_name}
-                   || $config->contents->{$arg_name}
+                   || TAEB->config->contents->{$arg_name}
                    || $default;
 
     my $type = "TAEB::${second_level}::$third_level";
@@ -23,7 +23,7 @@ sub load_from_argv {
     eval "require $type; 1"
         or die $@;
 
-    my %opts = %{ $config->contents->{ $arg_name.'_options' }->{ $third_level } || {} };
+    my %opts = %{ TAEB->config->contents->{ $arg_name.'_options' }->{ $third_level } || {} };
     return $type->new(%opts, @_);
 }
 # }}}
@@ -33,7 +33,6 @@ my $personality = load_from_argv('AI::Personality', 'RandomWalk');
 
 TAEB->interface($interface);
 TAEB->personality($personality);
-TAEB->config($config);
 
 if (TAEB->config->contents->{debug_personality}) {
     my $action_weight = TAEB->personality->sort_behaviors;
@@ -58,7 +57,7 @@ $SIG{__DIE__} = sub {
     print "\ec";
     warn "@_";
     Carp::REPL::repl(@_);
-} if $config->contents->{carp_repl};
+} if TAEB->config->contents->{carp_repl};
 
 my $tstp = $SIG{TSTP} = sub {
 
