@@ -198,7 +198,7 @@ sub trigger_appearance {
     $self->is_fooproof(1)           if defined $proof;
     $self->enchantment($spe)        if defined $spe;
     if (defined $item) {
-        my $class = $TAEB::Knowledge::Item->list->{$item};
+        my $class = TAEB::Knowledge::Item->list->{$item};
         $self->class('gold')   if $item =~ /gold piece/;
         $self->class('weapon') if $class eq 'weapon';
         $self->class('armor')  if $class eq 'armor';
@@ -217,7 +217,7 @@ sub trigger_appearance {
     if ($self->class && $self->class =~ /weapon|armor|food|tool/) {
         my $class = $self->class;
         $class = uc(substr $class, 0, 1) . substr $class, 1;
-        my $list = "$TAEB::Knowledge::Item::$class"->list;
+        my $list = "TAEB::Knowledge::Item::$class"->list;
         if ($list->{$item}) {
             $self->identity($item);
         }
