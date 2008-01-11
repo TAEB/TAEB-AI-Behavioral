@@ -179,6 +179,7 @@ sub trigger_appearance {
          }x;
 
     $num = 1 if $num =~ /\w/;
+    $spe =~ s/^\+//;
 
     $self->slot($slot)              if defined $slot;
     $self->quantity($num)           if defined $num;
