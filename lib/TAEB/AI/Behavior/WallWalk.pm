@@ -5,31 +5,30 @@ extends 'TAEB::AI::Behavior';
 
 sub prepare {
     my $self = shift;
-    my $target;
-    my $wall;
-    my $dark;
     return 0 if (TAEB->current_tile->type ne 'floor');
 
-    #This will currently end up taking steps into an empty doorway
-    #Not really that big of an issue
-    #
-    #Would be fixed with some sort of proper "Am I in the darkness?" check
+    # This will currently end up taking steps into an empty doorway
+    # Not really that big of an issue
+    # Would be fixed with some sort of proper "Am I in the darkness?" check
+
+    my $target;
 
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
-        #look for unwalked floor, then for walls next to that floor
+
+        # look for unwalked floor, then for walls next to that floor
         if ($tile->type eq 'floor' && !$tile->stepped_on) {
-            $wall = 0;
-            $dark = 0;
+            my $wall;
+            my $dark;
             TAEB->each_adjacent(sub {
                 my ($tile, $dir) = @_;
-                $dark = 1 if $tile->type eq 'rock';
-                $wall = 1 if $tile->type eq 'wall';
+                $dark++ if $tile->type eq 'rock';
+                $wall++ if $tile->type eq 'wall';
                 }, $tile);
             if ($dark && $wall) {
                 $target = 1;
                 $self->next($dir);
-                $self->currently("Wall Walking a dark room");
+                $self->currently("Wallwalking in a dark room");
             }
         }
     });
