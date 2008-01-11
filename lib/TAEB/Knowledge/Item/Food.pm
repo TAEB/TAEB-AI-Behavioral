@@ -18,9 +18,6 @@ has list => (
             'meat stick' => {
                 cost => 5, weight => 1, nutrition => 5, time => 1
             },
-            'egg' => {
-                cost => 9, weight => 1, nutrition => 80, time => 1, unsafe => 1,
-            },
             'tripe ration' => {
                 cost => 15, weight => 10, nutrition => 200, time => 2, unsafe => 1,
             },
@@ -95,17 +92,23 @@ has list => (
         # Japanese name mapping
         $foods->{'gunyoki'} = $foods->{'food ration'};
 
-        # Collect monster corpses
+        # Collect monster corpses, tins, and eggs
         my $monsterlist = TAEB::Knowledge::Monster->list;
         while (my ($name, $stats) = each %$monsterlist) {
             $foods->{"$name corpse"} = $stats->{corpse};
             $foods->{"$name corpse"}->{corpse} = 1;
+            $foods->{"tin of $name meat"} = {}; # FIXME
+            $foods->{"tin of $name meat"}->{appearance} = "tin";
+            $foods->{"$name egg"} = {
+                cost => 9, weight => 1, nutrition => 80, time => 1, unsafe => 1,
+            };
+            $foods->{"$name egg"}->{appearance} = "egg"
         }
 
         # tag each food with its name and appearance
         while (my ($name, $stats) = each %$foods) {
             $stats->{name} = $name;
-            $stats->{appearance} = $name;
+            $stats->{appearance} = $name unless $stats->{appearance};
         }
 
         return $foods;
