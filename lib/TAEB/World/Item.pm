@@ -172,8 +172,8 @@ sub trigger_appearance {
     # XXX: there's no way to tell the difference between an item called
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
-    my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $spe,
-        $used, $item, $call, $name, $charge, $max_charge, $ncandles,
+    my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
+        $spe, $item, $call, $name, $charge, $max_charge, $ncandles,
         $lit_candelabrum, $lit, $is_equipped) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
@@ -183,8 +183,8 @@ sub trigger_appearance {
           ((?:(?:very|thoroughly)\ )?burnt|rusty)?\s*      # erosion 1
           ((?:(?:very|thoroughly)\ )?rotted|corroded)?\s*  # erosion 2
           (fixed|(?:fire|rust|corrode)proof)?\s*           # fooproof
-          ([+-]\d+)?\s*                                    # enchantment
           (partly\ used)?\s*                               # candles
+          ([+-]\d+)?\s*                                    # enchantment
           (.*?)\s*                                         # item name
           (called\ .*?)?\s*                                # non-specific name
           (named\ .*?)?\s*                                 # specific name
