@@ -10,6 +10,7 @@ my @tests = (
     ["a - a +1 long sword (weapon in hand)",            {class => "weapon"}],
     ["b - a blessed +0 dagger",                         {class => "weapon"}],
     ["h - 8 +0 darts",                                  {class => "weapon"}],
+    ["s - a poisoned +0 arrow",                         {class => "weapon"}],
     ["p - a +0 boomerang",                              {class => "weapon"}],
     ["S - the +0 Cleaver",                              {class => "weapon"}],
     ["c - an uncursed +3 small shield (being worn)",    {class => "armor"} ],

@@ -10,6 +10,7 @@ my @tests = (
     ["y - a crude dagger",                               {class => "weapon"}],
     ["z - a broad pick",                                 {class => "weapon"}],
     ["f - a double-headed axe named Cleaver",            {class => "weapon"}],
+    ["s - a poisoned arrow",                             {class => "weapon"}],
     ["A - a crude ring mail",                            {class => "armor"} ],
     ["B - an apron",                                     {class => "armor"} ],
     ["C - a faded pall",                                 {class => "armor"} ],
