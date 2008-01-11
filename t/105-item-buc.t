@@ -18,6 +18,8 @@ my @tests = (
     ["n - a clear potion",                    {buc => 'unknown'} ],
     ["n - a potion of holy water",            {buc => 'blessed'} ],
     ["o - a potion of unholy water",          {buc => 'cursed'}  ],
+    ["p - a unicorn horn",                    {buc => 'unknown'} ],
+    ["p - a +2 unicorn horn",                 {buc => 'uncursed'}],
 );
 plan tests => sum map { scalar keys %{ $_->[1] } } @tests;
 
