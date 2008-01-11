@@ -169,6 +169,7 @@ sub trigger_appearance {
           (poisoned)?\s*                                 # poisoned
           ((?:(?:very|thoroughly) )?burnt|rusty)?\s*     # erosion 1
           ((?:(?:very|thoroughly) )?rotted|corroded)?\s* # erosion 2
+          (partly used)?\s*                              # usedness
           (fixed|(?:fire|rust|corrode)proof)?\s*         # fooproof
           ([+-]\d+)?\s*                                  # enchantment
           (.*?)\s*                                       # item name
