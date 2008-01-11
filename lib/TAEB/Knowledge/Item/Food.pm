@@ -102,9 +102,10 @@ has list => (
             $foods->{"$name corpse"}->{corpse} = 1;
         }
 
-        # tag each food with its name
+        # tag each food with its name and appearance
         while (my ($name, $stats) = each %$foods) {
             $stats->{name} = $name;
+            $stats->{appearance} = $name;
         }
 
         return $foods;
