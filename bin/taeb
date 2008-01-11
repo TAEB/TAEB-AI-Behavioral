@@ -8,12 +8,6 @@ use Term::ReadKey;
 use TAEB;
 use TAEB::Config;
 
-# load config {{{
-my %config_args;
-$config_args{file} = $ARGV{config}
-    if exists $ARGV{config};
-my $config = TAEB::Config->new(%config_args);
-# }}}
 # load_from_argv {{{
 sub load_from_argv {
     my $second_level = shift;

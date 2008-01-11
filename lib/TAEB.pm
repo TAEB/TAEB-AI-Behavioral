@@ -53,6 +53,7 @@ has scraper => (
 has config => (
     is       => 'rw',
     isa      => 'TAEB::Config',
+    default  => sub { TAEB::Config->new },
 );
 
 has vt => (
