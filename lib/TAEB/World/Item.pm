@@ -199,7 +199,7 @@ sub trigger_appearance {
     $self->is_fooproof(1)           if defined $proof;
     $self->enchantment($spe)        if defined $spe;
     if (defined $item) {
-        my $class = TAEB::Knowledge::Item->list->{$item};
+        my $class = TAEB::Knowledge::Item->list->{$item} || '';
         $self->class('gold')   if $item =~ /gold piece/;
         $self->class('weapon') if $class eq 'weapon';
         $self->class('armor')  if $class eq 'armor';
