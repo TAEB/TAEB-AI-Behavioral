@@ -31,7 +31,7 @@ sub prepare {
             }
         }
     });
-   return 100 if $target;
+   return $target ? 100 : 0;
 }
 
 sub urgencies {
