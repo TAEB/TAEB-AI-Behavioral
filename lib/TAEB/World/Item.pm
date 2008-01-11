@@ -161,7 +161,7 @@ sub trigger_appearance {
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $ero1, $ero2, $proof, $spe, $item, $call,
-        $name, $charge, $max_charge, $lit, $is_equipped) =~
+        $name, $charge, $max_charge, $lit, $is_equipped) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                             # inventory slot
           (an?|the|\d+)\s*                               # number
           (blessed|(?:un)?cursed)?\s*                    # cursedness
