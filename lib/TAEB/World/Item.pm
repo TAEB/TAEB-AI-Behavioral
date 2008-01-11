@@ -181,6 +181,7 @@ sub trigger_appearance {
 
     $num = 1 if $num =~ /\w/;
     $spe =~ s/^\+// if defined $spe;
+    # XXX: depluralization and japanese name mappings should go here
 
     $self->slot($slot)              if defined $slot;
     $self->quantity($num)           if defined $num;

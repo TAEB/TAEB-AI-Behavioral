@@ -97,6 +97,7 @@ has list => (
         while (my ($name, $stats) = each %$monsterlist) {
             $foods->{"$name corpse"} = $stats->{corpse};
             $foods->{"$name corpse"}->{corpse} = 1;
+            # FIXME: not all tins end with 'meat'
             $foods->{"tin of $name meat"} = {}; # FIXME
             $foods->{"tin of $name meat"}->{appearance} = "tin";
             $foods->{"$name egg"} = {
