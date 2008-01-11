@@ -88,7 +88,9 @@ NetHack looks.
 
 sub redraw {
     my $self = shift;
-    my $out = "\e[H\e[2J";
+
+    # this order is required for termcast to clear its buffer
+    my $out = "\e[2J\e[H";
 
     for my $y (0 .. 23) {
         my @attrs = $self->row_attr($y) =~ /../g;
