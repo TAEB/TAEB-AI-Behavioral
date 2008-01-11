@@ -7,6 +7,7 @@ use Moose::Util::TypeConstraints;
 use Log::Dispatch;
 use Log::Dispatch::File;
 
+use TAEB::Config;
 use TAEB::Util;
 use TAEB::VT;
 use TAEB::ScreenScraper;

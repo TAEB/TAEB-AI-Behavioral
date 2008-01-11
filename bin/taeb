@@ -6,7 +6,6 @@ use Getopt::Whatever;
 use Term::ReadKey;
 
 use TAEB;
-use TAEB::Config;
 
 # load_from_argv {{{
 sub load_from_argv {
