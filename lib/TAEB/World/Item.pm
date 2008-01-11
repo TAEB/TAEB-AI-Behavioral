@@ -169,7 +169,7 @@ sub trigger_appearance {
           ((?:(?:very|thoroughly) )?burnt|rusty)?\s*     # erosion 1
           ((?:(?:very|thoroughly) )?rotted|corroded)?\s* # erosion 2
           (fixed|(?:fire|rust|corrode)proof)?\s*         # fooproof
-          ((?:\+|-)\d+)?\s*                              # enchantment
+          ([+-]\d+)?\s*                                  # enchantment
           (.*?)\s*                                       # item name
           (called .*?)?\s*                               # non-specific name
           (named .*?)?\s*                                # specific name
