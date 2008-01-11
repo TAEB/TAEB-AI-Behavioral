@@ -176,6 +176,7 @@ sub trigger_appearance {
           (?:\((\d+):(\d+)\))?\s*                        # charges
           (\(lit\))?\s*                                  # lit
           (\(.*\))?\s*                                   # equipped
+          $                                              # anchor the regex
          }x;
 
     $num = 1 if $num =~ /\w/;
