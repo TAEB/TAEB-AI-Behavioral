@@ -160,8 +160,9 @@ sub trigger_appearance {
     # XXX: there's no way to tell the difference between an item called
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
-    my ($slot, $num, $buc, $greased, $ero1, $ero2, $proof, $spe, $item, $call,
-        $name, $charge, $max_charge, $lit, $is_equipped) = $appearance =~
+    my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $used, $proof,
+        $spe, $item, $call, $name, $charge, $max_charge, $lit, $is_equipped) =
+        $appearance =~
         m{(?:(\w)\s[+-])?\s*                             # inventory slot
           (an?|the|\d+)\s*                               # number
           (blessed|(?:un)?cursed)?\s*                    # cursedness
