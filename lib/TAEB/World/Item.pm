@@ -166,6 +166,7 @@ sub trigger_appearance {
           (an?|the|\d+)\s*                               # number
           (blessed|(?:un)?cursed)?\s*                    # cursedness
           (greased)?\s*                                  # greasy
+          (poisoned)?\s*                                 # poisoned
           ((?:(?:very|thoroughly) )?burnt|rusty)?\s*     # erosion 1
           ((?:(?:very|thoroughly) )?rotted|corroded)?\s* # erosion 2
           (fixed|(?:fire|rust|corrode)proof)?\s*         # fooproof
