@@ -45,6 +45,8 @@ my @tests = (
      {identity => "lichen corpse"}],
     ["R - an uncursed guardian naga egg",
      {identity => "guardian naga egg"}],
+    ["w - an uncursed empty tin",
+     {identity => "empty tin"}],
     ["M - a cursed scroll of light",
      {identity => "scroll of light"}],
     ["N - an uncursed scroll of identify",

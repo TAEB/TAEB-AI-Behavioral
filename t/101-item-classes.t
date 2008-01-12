@@ -25,6 +25,7 @@ my @tests = (
     ["r - an uncursed tripe ration",                    {class => "food"}  ],
     ["P - a blessed lichen corpse",                     {class => "food"}  ],
     ["R - an uncursed guardian naga egg",               {class => "food"}  ],
+    ["w - an uncursed empty tin",                       {class => "food"}  ],
     ["M - a cursed scroll of light",                    {class => "scroll"}],
     ["N - an uncursed scroll of identify",              {class => "scroll"}],
     ["O - a blessed scroll of earth",                   {class => "scroll"}],
