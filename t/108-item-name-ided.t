@@ -97,6 +97,8 @@ my @tests = (
      {identity => "Master Key of Thievery"}],
     ["G - a cursed partly used wax candle (lit)",
      {identity => "wax candle"}],
+    ["u - a figurine of a lichen",
+     {identity => "figurine of a lichen"}],
     ["n - an uncursed worthless piece of orange glass",
      {identity => "worthless piece of orange glass"}],
     ["Y - an uncursed dilithium crystal",

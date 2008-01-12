@@ -51,6 +51,7 @@ my @tests = (
     ["W - a blessed magic lamp (lit)",                  {class => "tool"}  ],
     ["m - the Master Key of Thievery",                  {class => "tool"}  ],
     ["G - a cursed partly used wax candle (lit)",       {class => "tool"}  ],
+    ["u - a figurine of a lichen",                      {class => "tool"}  ],
     ["n - an uncursed worthless piece of orange glass", {class => "gem"}   ],
     ["Y - an uncursed dilithium crystal",               {class => "gem"}   ],
     ["u - 53 rocks",                                    {class => "gem"}   ],
