@@ -11,7 +11,7 @@ my @tests = (
                                               enchantment => 1,
                                               identity => 'long sword',
                                               class => 'weapon',
-                                              is_equipped => 1,
+                                              is_wielding => 1,
                                               buc => 'uncursed',
                                              }],
 );
