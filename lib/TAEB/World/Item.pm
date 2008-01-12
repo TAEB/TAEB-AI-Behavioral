@@ -264,6 +264,9 @@ sub trigger_appearance {
                 $self->visible_description($item);
             }
         }
+        else {
+            $self->visible_description($item);
+        }
         if (!defined $buc &&
             ($self->class =~ /weapon|wand/ ||
              ($self->class eq 'tool' &&
@@ -271,6 +274,9 @@ sub trigger_appearance {
             $self->buc('uncursed')
                 if defined $spe || defined $charge;
         }
+    }
+    else {
+        $self->visible_description($item);
     }
     $self->generic_name($call)         if defined $call;
     $self->specific_name($name)        if defined $name;
