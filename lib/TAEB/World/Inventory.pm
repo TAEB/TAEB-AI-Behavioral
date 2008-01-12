@@ -70,7 +70,7 @@ sub decrease_quantity {
     my $new_quantity = $item->quantity - $quantity;
 
     if ($new_quantity < 0) {
-        TAEB->warn(
+        TAEB->warning(
             sprintf "Decreased item '$slot' (%s) from %d to $new_quantity",
                 $item->appearance,
                 $item->quantity
