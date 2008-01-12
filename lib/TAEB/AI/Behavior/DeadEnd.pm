@@ -29,7 +29,7 @@ sub prepare {
 
     # Dead end
 
-    return ($tiles =~ /888/) ? 100 : 0;
+    return (($tiles x 2) =~ /888/) ? 100 : 0;
 
 }
 
