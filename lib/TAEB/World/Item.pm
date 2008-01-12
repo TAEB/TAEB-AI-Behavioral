@@ -186,8 +186,8 @@ sub trigger_appearance {
           (blessed|(?:un)?cursed)?\s*                      # cursedness
           (greased)?\s*                                    # greasy
           (poisoned)?\s*                                   # poisoned
-          ((?:(?:very|thoroughly)\ )?burnt|rusty)?\s*      # erosion 1
-          ((?:(?:very|thoroughly)\ )?rotted|corroded)?\s*  # erosion 2
+          ((?:(?:very|thoroughly)\ )?(?:burnt|rusty))?\s*  # erosion 1
+          ((?:(?:very|thoroughly)\ )?(?:rotted|corroded))?\s* # erosion 2
           (fixed|(?:fire|rust|corrode)proof)?\s*           # fooproof
           (partly\ used)?\s*                               # candles
           ([+-]\d+)?\s*                                    # enchantment
