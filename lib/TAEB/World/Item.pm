@@ -147,6 +147,12 @@ has is_laid_by_you => (
     default => 0,
 );
 
+has is_chained_to_you => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 has is_equipped => (
     is      => 'rw',
     isa     => 'Bool',
@@ -198,7 +204,7 @@ sub trigger_appearance {
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
         $spe, $item, $call, $name, $recharges, $charges, $ncandles,
-        $lit_candelabrum, $lit, $laid, $quiver, $offhand, $equipped) =
+        $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand, $equipped) =
         $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
@@ -218,6 +224,7 @@ sub trigger_appearance {
           (?:\((no|[1-7])\ candles?(,\ lit|\ attached)\))?\s* # lit candelabrum
           (\(lit\))?\s*                                    # lit
           (\(laid\ by\ you\))?\s*                          # eggs
+          (\(chained\ to\ you\))?\s*                       # iron balls
           (\(in\ quiver\))?\s*                             # quivered
           (\(alternate\ weapon;\ not\ wielded\))?\s*       # off-hand weapon
           (\(.*\))?\s*                                     # equipped
@@ -307,6 +314,7 @@ sub trigger_appearance {
     $self->is_quivered(1)              if defined $quiver;
     $self->is_offhand(1)               if defined $offhand;
     $self->is_laid_by_you(1)           if defined $laid;
+    $self->is_chained_to_you(1)        if defined $chain;
     $self->is_equipped(1)              if defined $equipped;
 }
 
