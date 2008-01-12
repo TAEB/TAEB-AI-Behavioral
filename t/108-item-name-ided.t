@@ -39,7 +39,7 @@ my @tests = (
      {identity => "tin of lichen"}],
     ["K - an uncursed tin of newt meat",
      {identity => "tin of newt meat"}],
-    ["r - an uncursed tripe ration",
+    ["r - an uncursed partly eaten tripe ration",
      {identity => "tripe ration"}],
     ["P - a blessed lichen corpse",
      {identity => "lichen corpse"}],
