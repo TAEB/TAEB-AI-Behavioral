@@ -13,7 +13,7 @@ sub prepare {
     TAEB->each_orthogonal(sub {
             my $tile = shift;
             $tiles .= ($tile->type =~ /rock|wall/) ? '8' : $tile->glyph;
-            $rocks++ if $tile->type =~/rock|wall/;
+            $rocks++ if $tile->type =~ /rock|wall/;
             $searched+= $tile->searched if $tile->type =~ /rock|wall/;
         });
     # rearrange these tiles into a loop and double it
