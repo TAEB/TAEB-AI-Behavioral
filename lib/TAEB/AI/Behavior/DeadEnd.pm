@@ -11,13 +11,19 @@ sub prepare {
     my $searched = 0;
 
     TAEB->each_orthogonal(sub {
-            my $tile = shift;
-            $tiles .= ($tile->type =~ /rock|wall/) ? '8' : $tile->glyph;
-            $rocks++ if $tile->type =~ /rock|wall/;
-            $searched+= $tile->searched if $tile->type =~ /rock|wall/;
-        });
+        my $tile = shift;
+        if ($tile->type eq 'rock' || $tile->type eq 'wall') {
+            $tiles .= '8';
+            $rocks++;
+            $searched += $tile->searched;
+        }
+        else {
+            $tiles .= $tile->glyph;
+        }
+    });
+
     # rearrange these tiles into a loop and double it
-    #stop us from searching forever :)
+    # stop us from searching forever :)
     return 0 if $searched >= $rocks * 10;
 
     # Handle dead ends as well as crooked halls
