@@ -18,6 +18,7 @@ my @tests = (
     ["q - an uncursed +0 crystal plate mail",           {class => "armor"} ],
     ["h - the uncursed +0 Mitre of Holiness",           {class => "armor"} ],
     ["r - a blessed +0 pair of speed boots",            {class => "armor"} ],
+    ["t - a set of gray dragon scales",                 {class => "armor"} ],
     ["d - 2 uncursed food rations",                     {class => "food"}  ],
     ["j - a cursed tin of lichen",                      {class => "food"}  ],
     ["K - an uncursed tin of newt meat",                {class => "food"}  ],

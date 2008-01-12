@@ -31,6 +31,8 @@ my @tests = (
      {identity => "Mitre of Holiness"}],
     ["r - a blessed +0 pair of speed boots",
      {identity => "speed boots"}],
+    ["t - a set of gray dragon scales",
+     {identity => "gray dragon scales"}],
     ["d - 2 uncursed food rations",
      {identity => "food ration"}],
     ["j - a cursed tin of lichen",
