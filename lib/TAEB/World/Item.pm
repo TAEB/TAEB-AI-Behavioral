@@ -210,7 +210,7 @@ sub trigger_appearance {
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
         $dilute, $eaten, $spe, $item, $call, $name, $recharges, $charges,
-        $ncandles, $lit_candelabrum, $lit, $quiver, $offhand, $laid,
+        $ncandles, $lit_candelabrum, $lit, $laid, $quiver, $offhand,
         $equipped) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
@@ -231,9 +231,9 @@ sub trigger_appearance {
           (?:\((\d+):(-?\d+)\))?\s*                        # charges
           (?:\((no|[1-7])\ candles?(,\ lit|\ attached)\))?\s* # lit candelabrum
           (\(lit\))?\s*                                    # lit
+          (\(laid\ by\ you\))?\s*                          # eggs
           (\(in\ quiver\))?\s*                             # quivered
           (\(alternate\ weapon;\ not\ wielded\))?\s*       # off-hand weapon
-          (\(laid\ by\ you\))?\s*                          # eggs
           (\(.*\))?\s*                                     # equipped
           $                                                # anchor the regex
          }x;
