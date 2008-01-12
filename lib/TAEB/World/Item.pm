@@ -203,6 +203,7 @@ sub trigger_appearance {
           (fixed|(?:fire|rust|corrode)proof)?\s*           # fooproof
           (partly\ used)?\s*                               # candles
           ([+-]\d+)?\s*                                    # enchantment
+          (?:pair\ of)?\s*                                 # gloves and boots
           (.*?)\s*                                         # item name
           (?:called\ (.*?))?\s*                            # non-specific name
           (?:named\ (.*?))?\s*                             # specific name
