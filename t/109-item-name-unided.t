@@ -22,6 +22,8 @@ my @tests = (
      {visible_description => "faded pall"}],
     ["h - a visored helmet named The Mitre of Holiness",
      {visible_description => "visored helmet"}],
+    ["s - a pair of riding gloves",
+     {visible_description => "riding gloves"}],
     ["i - an egg",
      {visible_description => "egg"}],
     ["D - a tin",

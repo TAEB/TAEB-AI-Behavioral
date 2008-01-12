@@ -29,6 +29,8 @@ my @tests = (
      {identity => "crystal plate mail"}],
     ["h - the uncursed +0 Mitre of Holiness",
      {identity => "Mitre of Holiness"}],
+    ["r - a blessed +0 pair of speed boots",
+     {identity => "speed boots"}],
     ["d - 2 uncursed food rations",
      {identity => "food ration"}],
     ["j - a cursed tin of lichen",

@@ -15,6 +15,7 @@ my @tests = (
     ["B - an apron",                                     {class => "armor"} ],
     ["C - a faded pall",                                 {class => "armor"} ],
     ["h - a visored helmet named The Mitre of Holiness", {class => "armor"} ],
+    ["s - a pair of riding gloves",                      {class => "armor"} ],
     ["i - an egg",                                       {class => "food"}  ],
     ["D - a tin",                                        {class => "food"}  ],
     ["f - a scroll labeled PRATYAVAYAH",                 {class => "scroll"}],
