@@ -206,7 +206,7 @@ sub trigger_appearance {
           (.*?)\s*                                         # item name
           (?:called\ (.*?))?\s*                            # non-specific name
           (?:named\ (.*?))?\s*                             # specific name
-          (?:\((\d+):(\d+)\))?\s*                          # charges
+          (?:\((\d+):(-?\d+)\))?\s*                        # charges
           (?:\((no|[1-7])\ candles?(,\ lit|\ attached)\))?\s* # lit candelabrum
           (\(lit\))?\s*                                    # lit
           (\(in\ quiver\))?\s*                             # quivered
