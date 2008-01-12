@@ -129,6 +129,18 @@ has candles_attached => (
     default => 0,
 );
 
+has is_quivered => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
+has is_offhand => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 has is_equipped => (
     is      => 'rw',
     isa     => 'Bool',
@@ -180,7 +192,7 @@ sub trigger_appearance {
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
         $spe, $item, $call, $name, $charge, $max_charge, $ncandles,
-        $lit_candelabrum, $lit, $is_equipped) = $appearance =~
+        $lit_candelabrum, $lit, $quiver, $offhand, $equipped) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
@@ -197,6 +209,8 @@ sub trigger_appearance {
           (?:\((\d+):(\d+)\))?\s*                          # charges
           (?:\((no|[1-7])\ candles?(,\ lit|\ attached)\))?\s* # lit candelabrum
           (\(lit\))?\s*                                    # lit
+          (\(in\ quiver\))?\s*                             # quivered
+          (\(alternate\ weapon;\ not\ wielded\))?\s*       # off-hand weapon
           (\(.*\))?\s*                                     # equipped
           $                                                # anchor the regex
          }x;
@@ -281,7 +295,9 @@ sub trigger_appearance {
     $self->generic_name($call)         if defined $call;
     $self->specific_name($name)        if defined $name;
     $self->is_lit(1)                   if defined $lit;
-    $self->is_equipped(1)              if defined $is_equipped;
+    $self->is_quivered(1)              if defined $quiver;
+    $self->is_offhand(1)               if defined $offhand;
+    $self->is_equipped(1)              if defined $equipped;
 }
 
 1;
