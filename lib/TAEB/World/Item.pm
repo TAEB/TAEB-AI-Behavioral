@@ -68,6 +68,12 @@ has enchantment => (
     default => 0,
 );
 
+has is_diluted => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 has partly_used => (
     is      => 'rw',
     isa     => 'Bool',
@@ -191,7 +197,7 @@ sub trigger_appearance {
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
-        $spe, $item, $call, $name, $recharges, $charges, $ncandles,
+        $spe, $dilute, $item, $call, $name, $recharges, $charges, $ncandles,
         $lit_candelabrum, $lit, $quiver, $offhand, $equipped) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
@@ -204,6 +210,7 @@ sub trigger_appearance {
           (partly\ used)?\s*                               # candles
           ([+-]\d+)?\s*                                    # enchantment
           (?:(?:pair|set)\ of)?\s*                         # gloves and boots
+          (diluted)?\s*                                    # dilution
           (.*?)\s*                                         # item name
           (?:called\ (.*?))?\s*                            # non-specific name
           (?:named\ (.*?))?\s*                             # specific name
@@ -239,6 +246,7 @@ sub trigger_appearance {
     }
     $self->is_fooproof(1)              if defined $proof;
     $self->enchantment($spe)           if defined $spe;
+    $self->is_diluted(1)               if defined $dilute;
     $self->partly_used(1)              if defined $used;
     if (defined $item) {
         my $class = TAEB::Knowledge::Item->list->{$item};
