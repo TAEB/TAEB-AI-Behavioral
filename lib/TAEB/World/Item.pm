@@ -165,6 +165,12 @@ has is_wearing => (
     default => 0,
 );
 
+has cost => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 0,
+);
+
 # check whether this is an artifact, and if so, let the artifact-tracker know
 # we've seen it
 sub BUILD {
@@ -211,7 +217,7 @@ sub trigger_appearance {
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
         $spe, $item, $call, $name, $recharges, $charges, $ncandles,
         $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand, $wield,
-        $wear) = $appearance =~
+        $wear, $cost) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
@@ -235,6 +241,7 @@ sub trigger_appearance {
           (\(alternate\ weapon;\ not\ wielded\))?\s*       # off-hand weapon
           (\(weapon.*?\))?\s*                              # wielding
           (\((?:being|embedded|around|on).*?\))?\s*        # wearing
+          (?:\(unpaid,\ (\d+)\ zorkmids?\))?\s*            # shops
           $                                                # anchor the regex
          }x;
 
@@ -324,6 +331,7 @@ sub trigger_appearance {
     $self->is_chained_to_you(1)        if defined $chain;
     $self->is_wielding(1)              if defined $wield;
     $self->is_wearing(1)               if defined $wear;
+    $self->cost($cost)                 if defined $cost;
 }
 
 1;
