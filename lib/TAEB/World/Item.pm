@@ -107,12 +107,12 @@ has specific_name => (
     documentation => "named X",
 );
 
-has charges => (
+has recharges => (
     is      => 'rw',
     isa     => 'Int',
 );
 
-has max_charges => (
+has charges => (
     is      => 'rw',
     isa     => 'Int',
 );
@@ -191,7 +191,7 @@ sub trigger_appearance {
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
-        $spe, $item, $call, $name, $charge, $max_charge, $ncandles,
+        $spe, $item, $call, $name, $recharges, $charges, $ncandles,
         $lit_candelabrum, $lit, $quiver, $offhand, $equipped) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
@@ -263,8 +263,8 @@ sub trigger_appearance {
         # don't match 'rock mole corpse', etc
         $self->class('gem')            if 0;
     }
-    $self->charges($charge)            if defined $charge;
-    $self->max_charges($max_charge)    if defined $max_charge;
+    $self->recharges($recharges)       if defined $recharges;
+    $self->charges($charges)           if defined $charges;
     $self->candles_attached($ncandles) if defined $ncandles;
     if ($self->class) {
         if ($self->class =~ /weapon|armor|food|tool/) {
@@ -285,7 +285,7 @@ sub trigger_appearance {
             ($self->class =~ /weapon|wand/ ||
              ($self->class eq 'tool' &&
               $self->identity =~ /pick-axe|grappling|unicorn/))) {
-            $self->buc('uncursed')     if defined $spe || defined $charge;
+            $self->buc('uncursed')     if defined $spe || defined $charges;
         }
     }
     else {
