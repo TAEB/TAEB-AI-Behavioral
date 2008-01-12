@@ -153,7 +153,13 @@ has is_chained_to_you => (
     default => 0,
 );
 
-has is_equipped => (
+has is_wielding => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
+has is_wearing => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
@@ -204,8 +210,8 @@ sub trigger_appearance {
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
         $spe, $item, $call, $name, $recharges, $charges, $ncandles,
-        $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand, $equipped) =
-        $appearance =~
+        $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand, $wield,
+        $wear) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
@@ -227,7 +233,8 @@ sub trigger_appearance {
           (\(chained\ to\ you\))?\s*                       # iron balls
           (\(in\ quiver\))?\s*                             # quivered
           (\(alternate\ weapon;\ not\ wielded\))?\s*       # off-hand weapon
-          (\(.*\))?\s*                                     # equipped
+          (\(weapon.*?\))?\s*                              # wielding
+          (\((?:being|embedded|around|on).*?\))?\s*        # wearing
           $                                                # anchor the regex
          }x;
 
@@ -315,7 +322,8 @@ sub trigger_appearance {
     $self->is_offhand(1)               if defined $offhand;
     $self->is_laid_by_you(1)           if defined $laid;
     $self->is_chained_to_you(1)        if defined $chain;
-    $self->is_equipped(1)              if defined $equipped;
+    $self->is_wielding(1)              if defined $wield;
+    $self->is_wearing(1)               if defined $wear;
 }
 
 1;
