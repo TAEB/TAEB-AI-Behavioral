@@ -68,18 +68,6 @@ has partly_used => (
     default => 0,
 );
 
-has is_diluted => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has partly_eaten => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
 has enchantment => (
     is      => 'rw',
     isa     => 'Int',
@@ -209,9 +197,9 @@ sub trigger_appearance {
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
-        $dilute, $eaten, $spe, $item, $call, $name, $recharges, $charges,
-        $ncandles, $lit_candelabrum, $lit, $laid, $quiver, $offhand,
-        $equipped) = $appearance =~
+        $spe, $item, $call, $name, $recharges, $charges, $ncandles,
+        $lit_candelabrum, $lit, $laid, $quiver, $offhand, $equipped) =
+        $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
@@ -220,9 +208,7 @@ sub trigger_appearance {
           ((?:(?:very|thoroughly)\ )?(?:burnt|rusty))?\s*  # erosion 1
           ((?:(?:very|thoroughly)\ )?(?:rotted|corroded))?\s* # erosion 2
           (fixed|(?:fire|rust|corrode)proof)?\s*           # fooproof
-          (partly\ used)?\s*                               # candles
-          (diluted)?\s*                                    # dilution
-          (partly\ eaten)?\s*                              # food
+          (partly\ (?:used|eaten)|diluted)?\s*             # partially used up
           ([+-]\d+)?\s*                                    # enchantment
           (?:(?:pair|set)\ of)?\s*                         # gloves and boots
           (.*?)\s*                                         # item name
@@ -260,9 +246,7 @@ sub trigger_appearance {
         $self->erosion2(3)             if $ero2 =~ /thoroughly/;
     }
     $self->is_fooproof(1)              if defined $proof;
-    $self->partly_used(1)              if defined $used;
-    $self->is_diluted(1)               if defined $dilute;
-    $self->partly_eaten(1)             if defined $eaten;
+    $self->partly_used(1)              if defined $used ;
     $self->enchantment($spe)           if defined $spe;
     if (defined $item) {
         my $class = TAEB::Knowledge::Item->list->{$item};
