@@ -10,16 +10,13 @@ sub prepare {
     my $rocks    = 0;
     my $searched = 0;
 
-    TAEB->each_adjacent(sub {
+    TAEB->each_orthogonal(sub {
             my $tile = shift;
             $tiles .= ($tile->type =~ /rock|wall/) ? '8' : $tile->glyph;
-            $rocks++    if $tile->type =~ /rock/;
+            $rocks++ if $tile->type =~/rock|wall/;
             $searched+= $tile->searched if $tile->type =~ /rock|wall/;
         });
     # rearrange these tiles into a loop and double it
-    # XXX:function that returns tiles clockwise/counterclockwise would be great
-    $tiles = (($1.$3.reverse($4).$2) x 2) if $tiles =~ '(...)(.)(.)(...)';
-
     #stop us from searching forever :)
     return 0 if $searched >= $rocks * 10;
 
@@ -31,14 +28,9 @@ sub prepare {
     # 888  ##88  #####  888 
 
     # Dead end
-    return 100 if $rocks > 6;
 
-    # I'm looking for 5 contiguious rocks and at least 2 wall or floor
-    # $rocks > 2 keeps me from searching in the corner of a walled room.
-    return 100 if ($tiles =~ /88888/) &&
-                    ($tiles =~ /\.\./ || $tiles =~ /##/) && ($rocks > 2);
+    return ($tiles =~ /888/) ? 100 : 0;
 
-    return 0;
 }
 
 sub next_action {
