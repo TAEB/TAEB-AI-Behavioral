@@ -6252,7 +6252,7 @@ has list => (
 sub monster {
     my $self = shift;
     my $arg  = shift;
-    return $self->list->{arg};
+    return $self->list->{$arg};
 }
 
 sub search {
