@@ -87,5 +87,39 @@ sub each_adjacent {
     }
 }
 
+=head2 each_orthogonal Code[, Tile]
+
+Runs the coderef for each tile adjacent to the given tile (or the current
+tile) in one of the cardinal directions (no diagonals). The coderef will
+receive two arguments: the tile object and the vi key corresponding to the
+direction.
+
+=cut
+
+sub each_orthogonal {
+    my $self = shift;
+    my $code = shift;
+    my $tile = shift || $self->current_tile;
+
+    my $level = $tile->level;
+    my $x     = $tile->x;
+    my $y     = $tile->y;
+
+    for my $dy (-1 .. 1) {
+        for my $dx (-1 .. 1) {
+            next unless $dy || $dx; # skip 0, 0
+            next if     $dy && $dx; # skip diagonals
+            my $dir = delta2vi($dx, $dy);
+
+            my $tile = $level->at(
+                $dx + $x,
+                $dy + $y,
+            );
+
+            $code->($tile, $dir);
+        }
+    }
+}
+
 1;
 
