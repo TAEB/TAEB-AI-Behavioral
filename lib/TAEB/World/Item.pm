@@ -192,8 +192,8 @@ sub trigger_appearance {
           (partly\ used)?\s*                               # candles
           ([+-]\d+)?\s*                                    # enchantment
           (.*?)\s*                                         # item name
-          (called\ .*?)?\s*                                # non-specific name
-          (named\ .*?)?\s*                                 # specific name
+          (?:called\ (.*?))?\s*                            # non-specific name
+          (?:named\ (.*?))?\s*                             # specific name
           (?:\((\d+):(\d+)\))?\s*                          # charges
           (?:\((no|[1-7])\ candles?(,\ lit|\ attached)\))?\s* # lit candelabrum
           (\(lit\))?\s*                                    # lit
