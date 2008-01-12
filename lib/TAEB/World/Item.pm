@@ -62,9 +62,9 @@ has is_fooproof => (
     default => 0,
 );
 
-has enchantment => (
+has partly_used => (
     is      => 'rw',
-    isa     => 'Int',
+    isa     => 'Bool',
     default => 0,
 );
 
@@ -74,9 +74,15 @@ has is_diluted => (
     default => 0,
 );
 
-has partly_used => (
+has partly_eaten => (
     is      => 'rw',
     isa     => 'Bool',
+    default => 0,
+);
+
+has enchantment => (
+    is      => 'rw',
+    isa     => 'Int',
     default => 0,
 );
 
@@ -197,8 +203,9 @@ sub trigger_appearance {
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
-        $spe, $dilute, $item, $call, $name, $recharges, $charges, $ncandles,
-        $lit_candelabrum, $lit, $quiver, $offhand, $equipped) = $appearance =~
+        $dilute, $eaten, $spe, $item, $call, $name, $recharges, $charges,
+        $ncandles, $lit_candelabrum, $lit, $quiver, $offhand, $equipped) =
+        $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
@@ -208,9 +215,10 @@ sub trigger_appearance {
           ((?:(?:very|thoroughly)\ )?(?:rotted|corroded))?\s* # erosion 2
           (fixed|(?:fire|rust|corrode)proof)?\s*           # fooproof
           (partly\ used)?\s*                               # candles
+          (diluted)?\s*                                    # dilution
+          (partly\ eaten)?\s*                              # food
           ([+-]\d+)?\s*                                    # enchantment
           (?:(?:pair|set)\ of)?\s*                         # gloves and boots
-          (diluted)?\s*                                    # dilution
           (.*?)\s*                                         # item name
           (?:called\ (.*?))?\s*                            # non-specific name
           (?:named\ (.*?))?\s*                             # specific name
@@ -245,9 +253,10 @@ sub trigger_appearance {
         $self->erosion2(3)             if $ero2 =~ /thoroughly/;
     }
     $self->is_fooproof(1)              if defined $proof;
-    $self->enchantment($spe)           if defined $spe;
-    $self->is_diluted(1)               if defined $dilute;
     $self->partly_used(1)              if defined $used;
+    $self->is_diluted(1)               if defined $dilute;
+    $self->partly_eaten(1)             if defined $eaten;
+    $self->enchantment($spe)           if defined $spe;
     if (defined $item) {
         my $class = TAEB::Knowledge::Item->list->{$item};
 
