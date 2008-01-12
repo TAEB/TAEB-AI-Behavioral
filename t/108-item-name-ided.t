@@ -61,7 +61,7 @@ my @tests = (
      {identity => "Book of the Dead"}],
     ["C - an uncursed potion of restore ability",
      {identity => "potion of restore ability"}],
-    ["Q - an uncursed potion of speed",
+    ["Q - an uncursed diluted potion of speed",
      {identity => "potion of speed"}],
     ["R - a blessed potion of full healing",
      {identity => "potion of full healing"}],
