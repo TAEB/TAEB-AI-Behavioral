@@ -240,7 +240,7 @@ sub trigger_appearance {
           (\(in\ quiver\))?\s*                             # quivered
           (\(alternate\ weapon;\ not\ wielded\))?\s*       # off-hand weapon
           (\(weapon.*?\))?\s*                              # wielding
-          (\((?:being|embedded|around|on).*?\))?\s*        # wearing
+          (\((?:being|embedded|on).*?\))?\s*               # wearing
           (?:\(unpaid,\ (\d+)\ zorkmids?\))?\s*            # shops
           $                                                # anchor the regex
          }x;
