@@ -8,7 +8,7 @@ has id => (
     isa     => 'Str',
     default => sub {
         my $k = String::Koremutake->new;
-        return $k->integer_to_string(int(rand(1000000)));
+        return $k->integer_to_koremutake(int(rand(1000000)));
     },
 );
 
