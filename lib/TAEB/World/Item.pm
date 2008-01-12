@@ -285,8 +285,7 @@ sub trigger_appearance {
             ($self->class =~ /weapon|wand/ ||
              ($self->class eq 'tool' &&
               $self->identity =~ /pick-axe|grappling|unicorn/))) {
-            $self->buc('uncursed')
-                if defined $spe || defined $charge;
+            $self->buc('uncursed')     if defined $spe || defined $charge;
         }
     }
     else {
