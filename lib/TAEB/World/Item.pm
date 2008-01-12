@@ -38,6 +38,12 @@ has is_greased => (
     default => 0,
 );
 
+has is_poisoned => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 has erosion1 => (
     is      => 'rw',
     isa     => 'Int',
@@ -205,6 +211,7 @@ sub trigger_appearance {
     $self->quantity($num)              if defined $num;
     $self->buc($buc)                   if defined $buc;
     $self->is_greased(1)               if defined $greased;
+    $self->is_poisoned(1)              if defined $poisoned;
     if (defined $ero1) {
         $self->erosion1(1);
         $self->erosion1(2)             if $ero1 =~ /very/;
