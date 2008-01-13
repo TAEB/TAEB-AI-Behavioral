@@ -26,6 +26,9 @@ Net::Hiveminder. They are:
     hm-todo
         See what TAEB-related tasks you have coming up
 
+    hm-done
+        Mark a list of tasks as complete
+
     hm-sync
     hm-up
     hm-down
