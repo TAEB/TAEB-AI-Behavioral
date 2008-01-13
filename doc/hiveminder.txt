@@ -1,0 +1,31 @@
+Hiveminder is a web 2.0 todo tracking thingy that Eidolos gets paid to work on.
+
+I'm trying to get people to use it for TAEB.
+
+Sign up at: http://hiveminder.com
+
+There's a TAEB group, you need an invititation into it though.
+
+There are a few tiny Hiveminder scripts in bin/hm-*. To run them you need
+Net::Hiveminder. They are:
+
+    hm-braindump
+        Create new tasks from stdin, one per line. You can also specify
+        arguments to apply some filters to the entire task list you're creating.
+        For example:
+            ./bin/hm-braindump owner sartak@bestpractical.com
+            foo
+            bar
+            baz [due tomorrow]
+        will create three tasks *for me*
+
+    hm-todo
+        See what TAEB-related tasks you have coming up
+
+    hm-sync
+    hm-up
+    hm-down
+        These will let you do a todo.txt-style interaction with Hiveminder.
+        hm-up uploads tasks to Hiveminder, hm-down downloads tasks, and hm-sync
+        will do both.
+
