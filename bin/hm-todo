@@ -4,5 +4,5 @@ use warnings;
 use Net::Hiveminder;
 
 $\ = "\n";
-print scalar Net::Hiveminder->new(use_config => 1)->todo(tag => "taeb");
+print scalar Net::Hiveminder->new(use_config => 1)->todo(group => "TAEB");
 
