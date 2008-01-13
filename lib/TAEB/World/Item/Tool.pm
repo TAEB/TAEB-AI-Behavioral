@@ -3,6 +3,9 @@ package TAEB::World::Item::Tool;
 use Moose;
 extends 'TAEB::World::Item';
 with 'TAEB::World::Item::Role::Chargeable';
+with 'TAEB::World::Item::Role::Enchantable';
+with 'TAEB::World::Item::Role::Erodable';
+with 'TAEB::World::Item::Role::Lightable';
 
 has '+class' => (
     default => 'tool',
