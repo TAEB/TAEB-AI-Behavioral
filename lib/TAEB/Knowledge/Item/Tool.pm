@@ -324,10 +324,6 @@ has list => (
             },
         };
 
-        # Japanese name mapping
-        $tools->{'osaku'} = $tools->{'lock pick'};
-        $tools->{'koto'}  = $tools->{'wooden harp'};
-
         # tag each tool with its name
         while (my ($name, $stats) = each %$tools) {
             $stats->{name} = $name;

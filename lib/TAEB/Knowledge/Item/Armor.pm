@@ -553,11 +553,6 @@ has list => (
             },
         };
 
-        # Japanese name mapping
-        $armor->{'tanko'}  = $armor->{'plate mail'};
-        $armor->{'kabuto'} = $armor->{'helmet'};
-        $armor->{'yugake'} = $armor->{'leather gloves'};
-
         # tag each tool with its name
         while (my ($name, $stats) = each %$armor) {
             $stats->{name} = $name;

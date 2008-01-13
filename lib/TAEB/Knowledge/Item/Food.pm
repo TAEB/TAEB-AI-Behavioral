@@ -115,9 +115,6 @@ has list => (
             },
         };
 
-        # Japanese name mapping
-        $foods->{'gunyoki'} = $foods->{'food ration'};
-
         # Collect monster corpses, tins, and eggs
         my $monsterlist = TAEB::Knowledge::Monster->list;
         while (my ($name, $stats) = each %$monsterlist) {
