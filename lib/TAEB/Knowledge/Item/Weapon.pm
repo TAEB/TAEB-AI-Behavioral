@@ -231,7 +231,7 @@ has list => (
                 'hands'  => 1,
                 'weight' => 15,
                 'type'   => 'iron',
-                appearance => 'thonged club'
+                appearance => 'thonged club',
                 plural => 'aklyses',
             },
             'arrow' => {
