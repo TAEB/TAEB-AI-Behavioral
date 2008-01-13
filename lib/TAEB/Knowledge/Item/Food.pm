@@ -97,13 +97,24 @@ has list => (
         while (my ($name, $stats) = each %$monsterlist) {
             $foods->{"$name corpse"} = $stats->{corpse};
             $foods->{"$name corpse"}->{corpse} = 1;
-            # FIXME: not all tins end with 'meat'
-            $foods->{"tin of $name meat"} = {}; # FIXME
-            $foods->{"tin of $name meat"}->{appearance} = "tin";
-            $foods->{"$name egg"} = {
-                cost => 9, weight => 1, nutrition => 80, time => 1, unsafe => 1,
+            $foods->{"$name corpse"}->{plural} = "$name corpses";
+
+            my $tin_name = $name;
+            $tin_name .= " meat"
+                unless $stats->{corpse}->{vegetarian};
+            $foods->{"tin of $tin_name"} = {
+                appearance => "tin",
+                plural => "tins of $tin_name",
             };
-            $foods->{"$name egg"}->{appearance} = "egg"
+
+            if ($stats->{has_egg}) {
+                $foods->{"$name egg"} = {
+                    cost => 9, weight => 1,
+                    nutrition => 80, time => 1, unsafe => 1,
+                    appearance => "egg",
+                    plural => "$name eggs",
+                };
+            }
         }
 
         # tag each food with its name and appearance
