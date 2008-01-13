@@ -27,6 +27,13 @@ has list => (
     },
 );
 
+sub type_to_class {
+    my $self = shift;
+    my $item = shift;
+
+    return $self->list->{$item};
+}
+
 sub canonicalize_item {
     my $self = shift;
     my $item = shift;
