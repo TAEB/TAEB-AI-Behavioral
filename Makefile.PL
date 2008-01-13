@@ -56,6 +56,10 @@ features(
         -default => 0,
         requires('IO::Pty::Easy'),
     ],
+    'Various NetHack source bits' => [
+        -default => 0,
+        requires('Inline::C'),
+    ],
 );
 
 build_requires 'Test::More';
