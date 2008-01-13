@@ -264,6 +264,8 @@ sub new_item {
     $new_item->is_wielding(1)              if defined $wield;
     $new_item->is_wearing(1)               if defined $wear;
     $new_item->cost($cost)                 if defined $cost;
+
+    return $new_item;
 }
 
 1;
