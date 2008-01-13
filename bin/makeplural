@@ -28,6 +28,13 @@ letter(char c)/* is 'c' a letter?  note: '@' classed as letter */
     return ('@' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
 }
 
+char *
+eos(char *s)			/* return the end of a string (pointing at '\0') */
+{
+    while (*s) s++;	/* s += strlen(s); */
+    return s;
+}
+
 /* Plural routine; chiefly used for user-defined fruits.  We have to try to
  * account for everything reasonable the player has; something unreasonable
  * can still break the code.  However, it's still a lot more accurate than
