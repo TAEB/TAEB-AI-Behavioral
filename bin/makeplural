@@ -1,0 +1,256 @@
+#!/usr/bin/env perl -l
+use strict;
+use warnings;
+use Inline 'C';
+
+print makeplural($_) for map { chomp; $_ } @ARGV ? "@ARGV" : <>;
+
+__END__
+__C__
+
+const char vowels[] = "aeiouAEIOU";
+
+
+/* manage a pool of BUFSZ buffers, so callers don't have to */
+static char *
+nextobuf()
+{
+	static char bufs[10][1024];
+	static int bufidx = 0;
+
+	bufidx = (bufidx + 1) % 10;
+	return bufs[bufidx];
+}
+
+int
+letter(char c)/* is 'c' a letter?  note: '@' classed as letter */
+{
+    return ('@' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+}
+
+/* Plural routine; chiefly used for user-defined fruits.  We have to try to
+ * account for everything reasonable the player has; something unreasonable
+ * can still break the code.  However, it's still a lot more accurate than
+ * "just add an s at the end", which Rogue uses...
+ *
+ * Also used for plural monster names ("Wiped out all homunculi.")
+ * and body parts.
+ *
+ * Also misused by muse.c to convert 1st person present verbs to 2nd person.
+ */
+char *
+makeplural(const char *oldstr)
+{
+	/* Note: cannot use strcmpi here -- it'd give MATZot, CAVEMeN,... */
+	register char *spot;
+	char *str = nextobuf();
+	const char *excess = (char *)0;
+	int len;
+
+	while (*oldstr==' ') oldstr++;
+	if (!oldstr || !*oldstr) {
+		impossible("plural of null?");
+		strcpy(str, "s");
+		return str;
+	}
+	strcpy(str, oldstr);
+
+	/*
+	 * Skip changing "pair of" to "pairs of".  According to Webster, usual
+	 * English usage is use pairs for humans, e.g. 3 pairs of dancers,
+	 * and pair for objects and non-humans, e.g. 3 pair of boots.  We don't
+	 * refer to pairs of humans in this game so just skip to the bottom.
+	 */
+	if (!strncmp(str, "pair of ", 8))
+		goto bottom;
+
+	/* Search for common compounds, ex. lump of royal jelly */
+	for(spot=str; *spot; spot++) {
+		if (!strncmp(spot, " of ", 4)
+				|| !strncmp(spot, " labeled ", 9)
+				|| !strncmp(spot, " called ", 8)
+				|| !strncmp(spot, " named ", 7)
+				|| !strcmp(spot, " above") /* lurkers above */
+				|| !strncmp(spot, " versus ", 8)
+				|| !strncmp(spot, " from ", 6)
+				|| !strncmp(spot, " in ", 4)
+				|| !strncmp(spot, " on ", 4)
+				|| !strncmp(spot, " a la ", 6)
+				|| !strncmp(spot, " with", 5)	/* " with "? */
+				|| !strncmp(spot, " de ", 4)
+				|| !strncmp(spot, " d'", 3)
+				|| !strncmp(spot, " du ", 4)) {
+			excess = oldstr + (int) (spot - str);
+			*spot = 0;
+			break;
+		}
+	}
+	spot--;
+	while (*spot==' ') spot--; /* Strip blanks from end */
+	*(spot+1) = 0;
+	/* Now spot is the last character of the string */
+
+	len = strlen(str);
+
+	/* Single letters */
+	if (len==1 || !letter(*spot)) {
+		strcpy(spot+1, "'s");
+		goto bottom;
+	}
+
+	/* Same singular and plural; mostly Japanese words except for "manes" */
+	if ((len == 2 && !strcmp(str, "ya")) ||
+	    (len >= 2 && !strcmp(spot-1, "ai")) || /* samurai, Uruk-hai */
+	    (len >= 3 && !strcmp(spot-2, " ya")) ||
+	    (len >= 4 &&
+	     (!strcmp(spot-3, "fish") || !strcmp(spot-3, "tuna") ||
+	      !strcmp(spot-3, "deer") || !strcmp(spot-3, "yaki"))) ||
+	    (len >= 5 && (!strcmp(spot-4, "sheep") ||
+			!strcmp(spot-4, "ninja") ||
+			!strcmp(spot-4, "ronin") ||
+			!strcmp(spot-4, "shito") ||
+			!strcmp(spot-7, "shuriken") ||
+			!strcmp(spot-4, "tengu") ||
+			!strcmp(spot-4, "manes"))) ||
+	    (len >= 6 && !strcmp(spot-5, "ki-rin")) ||
+	    (len >= 7 && !strcmp(spot-6, "gunyoki")))
+		goto bottom;
+
+	/* man/men ("Wiped out all cavemen.") */
+	if (len >= 3 && !strcmp(spot-2, "man") &&
+			(len<6 || strcmp(spot-5, "shaman")) &&
+			(len<5 || strcmp(spot-4, "human"))) {
+		*(spot-1) = 'e';
+		goto bottom;
+	}
+
+	/* tooth/teeth */
+	if (len >= 5 && !strcmp(spot-4, "tooth")) {
+		strcpy(spot-3, "eeth");
+		goto bottom;
+	}
+
+	/* knife/knives, etc... */
+	if (!strcmp(spot-1, "fe")) {
+		strcpy(spot-1, "ves");
+		goto bottom;
+	} else if (*spot == 'f') {
+		if (index("lr", *(spot-1)) || index(vowels, *(spot-1))) {
+			strcpy(spot, "ves");
+			goto bottom;
+		} else if (len >= 5 && !strncmp(spot-4, "staf", 4)) {
+			strcpy(spot-1, "ves");
+			goto bottom;
+		}
+	}
+
+	/* foot/feet (body part) */
+	if (len >= 4 && !strcmp(spot-3, "foot")) {
+		strcpy(spot-2, "eet");
+		goto bottom;
+	}
+
+	/* ium/ia (mycelia, baluchitheria) */
+	if (len >= 3 && !strcmp(spot-2, "ium")) {
+		*(spot--) = (char)0;
+		*spot = 'a';
+		goto bottom;
+	}
+
+	/* algae, larvae, hyphae (another fungus part) */
+	if ((len >= 4 && !strcmp(spot-3, "alga")) ||
+	    (len >= 5 &&
+	     (!strcmp(spot-4, "hypha") || !strcmp(spot-4, "larva")))) {
+		strcpy(spot, "ae");
+		goto bottom;
+	}
+
+	/* fungus/fungi, homunculus/homunculi, but buses, lotuses, wumpuses */
+	if (len > 3 && !strcmp(spot-1, "us") &&
+	    (len < 5 || (strcmp(spot-4, "lotus") &&
+			 (len < 6 || strcmp(spot-5, "wumpus"))))) {
+		*(spot--) = (char)0;
+		*spot = 'i';
+		goto bottom;
+	}
+
+	/* vortex/vortices */
+	if (len >= 6 && !strcmp(spot-3, "rtex")) {
+		strcpy(spot-1, "ices");
+		goto bottom;
+	}
+
+	/* djinni/djinn (note: also efreeti/efreet) */
+	if (len >= 6 && !strcmp(spot-5, "djinni")) {
+		*spot = (char)0;
+		goto bottom;
+	}
+
+	/* mumak/mumakil */
+	if (len >= 5 && !strcmp(spot-4, "mumak")) {
+		strcpy(spot+1, "il");
+		goto bottom;
+	}
+
+	/* sis/ses (nemesis) */
+	if (len >= 3 && !strcmp(spot-2, "sis")) {
+		*(spot-1) = 'e';
+		goto bottom;
+	}
+
+	/* erinys/erinyes */
+	if (len >= 6 && !strcmp(spot-5, "erinys")) {
+		strcpy(spot, "es");
+		goto bottom;
+	}
+
+	/* mouse/mice,louse/lice (not a monster, but possible in food names) */
+	if (len >= 5 && !strcmp(spot-3, "ouse") && index("MmLl", *(spot-4))) {
+		strcpy(spot-3, "ice");
+		goto bottom;
+	}
+
+	/* matzoh/matzot, possible food name */
+	if (len >= 6 && (!strcmp(spot-5, "matzoh")
+					|| !strcmp(spot-5, "matzah"))) {
+		strcpy(spot-1, "ot");
+		goto bottom;
+	}
+	if (len >= 5 && (!strcmp(spot-4, "matzo")
+					|| !strcmp(spot-5, "matza"))) {
+		strcpy(spot, "ot");
+		goto bottom;
+	}
+
+	/* child/children (for wise guys who give their food funny names) */
+	if (len >= 5 && !strcmp(spot-4, "child")) {
+		strcpy(spot, "dren");
+		goto bottom;
+	}
+
+	/* note: -eau/-eaux (gateau, bordeau...) */
+	/* note: ox/oxen, VAX/VAXen, goose/geese */
+
+	/* Ends in z, x, s, ch, sh; add an "es" */
+	if (index("zxs", *spot)
+			|| (len >= 2 && *spot=='h' && index("cs", *(spot-1)))
+	/* Kludge to get "tomatoes" and "potatoes" right */
+			|| (len >= 4 && !strcmp(spot-2, "ato"))) {
+		strcpy(spot+1, "es");
+		goto bottom;
+	}
+
+	/* Ends in y preceded by consonant (note: also "qu") change to "ies" */
+	if (*spot == 'y' &&
+	    (!index(vowels, *(spot-1)))) {
+		strcpy(spot, "ies");
+		goto bottom;
+	}
+
+	/* Default: append an 's' */
+	strcpy(spot+1, "s");
+
+bottom:	if (excess) strcpy(eos(str), excess);
+	return str;
+}
+
