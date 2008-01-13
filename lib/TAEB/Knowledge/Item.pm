@@ -35,6 +35,39 @@ has list => (
     },
 );
 
+has plural_of => (
+    is      => 'ro',
+    isa     => 'HashRef',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my %plural_of;
+        my %exempt = map { $_ => 1} qw/Armor/;
+
+        for my $type ($self->types) {
+            next if $exempt{$type};
+
+            my $list = "TAEB::Knowledge::Item::$type"->list;
+            while (my ($name, $stats) = each %$list) {
+                $plural_of{$name} = $stats->{plural}
+                    or warn "No plural for $type '$name'.";
+            }
+        }
+
+        return \%plural_of;
+    },
+);
+
+has singular_of => (
+    is      => 'ro',
+    isa     => 'HashRef',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        return { reverse %{ $self->plural_of } };
+    },
+);
+
 sub type_to_class {
     my $self = shift;
     my $item = shift;
