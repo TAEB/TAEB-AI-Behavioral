@@ -3,9 +3,7 @@ package TAEB::World::Item::Weapon;
 use Moose;
 extends 'TAEB::World::Item';
 
-has class => (
-    is      => 'ro',
-    isa     => 'Str',
+has '+class' => (
     default => 'weapon',
 );
 

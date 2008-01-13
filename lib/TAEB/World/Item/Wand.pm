@@ -4,9 +4,7 @@ use Moose;
 extends 'TAEB::World::Item';
 with 'TAEB::World::Item::Role::Chargeable';
 
-has class => (
-    is      => 'ro',
-    isa     => 'Str',
+has '+class' => (
     default => 'wand',
 );
 
