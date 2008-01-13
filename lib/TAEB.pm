@@ -455,7 +455,7 @@ around qw/info warning/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
-    if (TAEB->info_to_screen) {
+    if (TAEB->info_to_screen && -t *STDOUT) {
         TAEB->out("\e[2H\e[42m$message");
         sleep 3;
         TAEB->out(TAEB->redraw);
@@ -468,9 +468,11 @@ around qw/error critical/ => sub {
     my $orig = shift;
     my ($logger, $message) = @_;
 
-    TAEB->out("\e[2H\e[41m$message");
-    sleep 3;
-    TAEB->out(TAEB->redraw);
+    if (-t *STDOUT) {
+        TAEB->out("\e[2H\e[41m$message");
+        sleep 3;
+        TAEB->out(TAEB->redraw);
+    }
 
     goto $orig;
 };
