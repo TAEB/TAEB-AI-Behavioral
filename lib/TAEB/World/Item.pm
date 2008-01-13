@@ -229,7 +229,7 @@ sub new_item {
     my $is_weaptool = $class eq 'tool' && $item =~ /pick-axe|hook|unicorn/;
     if (!defined $buc &&
         ($class eq 'weapon' || $class eq 'wand' || $is_weaptool)) {
-        $self->buc('uncursed') if defined $spe || defined $charges;
+        $new_item->buc('uncursed') if defined $spe || defined $charges;
     }
 
     $new_item->slot($slot)                 if defined $slot;
