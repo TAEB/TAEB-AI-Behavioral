@@ -18,9 +18,16 @@ has inventory => (
 
 sub find {
     my $self = shift;
-    my $item = shift;
+    my $matcher = shift;
 
-    return first { $_->matches($item) } $self->items;
+    # pass in a coderef? return the first for which the coderef is true
+    if (ref($matcher) eq 'CODE') {
+        return first { $matcher->($_) } $self->items;
+    }
+
+    # pass in a string? assume it's a key => value dealy
+    my $value = shift;
+    return first {  $_->$matcher eq $value } $self->items;
 }
 
 =head2 update Char, Item
