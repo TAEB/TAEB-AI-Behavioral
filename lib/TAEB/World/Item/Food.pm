@@ -1,13 +1,12 @@
 #!/usr/bin/env perl
-package TAEB::World::Item::Tool;
+package TAEB::World::Item::Food;
 use Moose;
 extends 'TAEB::World::Item';
-with 'TAEB::World::Item::Role::Chargeable';
 
 has class => (
     is      => 'ro',
     isa     => 'Str',
-    default => 'tool',
+    default => 'food',
 );
 
 1;
