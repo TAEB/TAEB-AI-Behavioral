@@ -60,6 +60,10 @@ features(
         -default => 0,
         requires('Inline::C'),
     ],
+    'Hiveminder todo tracking' => [
+        -default => 0,
+        requires('Net::Hiveminder'),
+    ],
 );
 
 build_requires 'Test::More';
