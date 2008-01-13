@@ -50,6 +50,7 @@ has plural_of => (
             my $list = "TAEB::Knowledge::Item::$type"->list;
             while (my ($name, $stats) = each %$list) {
                 $plural_of{$name} = $stats->{plural}
+                    or $stats->{artifact}
                     or warn "No plural for $type '$name'.";
             }
         }
