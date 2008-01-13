@@ -204,12 +204,13 @@ sub new_item {
           $                                                # anchor the regex
          }x;
 
+    $item = $japanese_to_english{$item} || $item;
+    $item = TAEB::World::Item->singular_of->{$item} || $item;
+
     $num = 1         if $num =~ /[at]/;
     $spe =~ s/^\+//  if defined $spe;
     $ncandles = 0    if (defined $ncandles && $ncandles =~ /no/);
     $lit = 1         if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
-    $item = $japanese_to_english{$item} || $item;
-    # XXX: depluralization should go here
 
     my $new_item;
     if (!defined $item) {
