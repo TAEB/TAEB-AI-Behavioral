@@ -49,9 +49,15 @@ has plural_of => (
 
             my $list = "TAEB::Knowledge::Item::$type"->list;
             while (my ($name, $stats) = each %$list) {
-                $plural_of{$name} = $stats->{plural}
-                    or $stats->{artifact}
-                    or warn "No plural for $type '$name'.";
+                # no_plural or artifact ignore
+                $stats->{no_plural} || $stats->{artifact}
+                    or $plural_of{$name} = $stats->{plural}
+                        or do {
+                            # avoid spurious undef => whatever warnings
+                            delete $plural_of{$name};
+
+                            warn "No plural for $type '$name'.";
+                        };
             }
         }
 
