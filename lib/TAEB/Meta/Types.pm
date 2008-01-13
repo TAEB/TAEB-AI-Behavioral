@@ -17,7 +17,7 @@ enum Align  => qw(Law Neu Cha);
 enum Gender => qw(Mal Fem);
 
 enum BUC    => qw(blessed uncursed cursed unknown);
-enum ItemClass => qw(gold weapon armor food scroll book potion amulet ring wand tool gem);
+enum ItemClass => qw(gold weapon armor food scroll book potion amulet ring wand tool gem unknown);
 
 enum TileType => tile_types;
 

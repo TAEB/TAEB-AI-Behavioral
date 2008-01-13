@@ -15,7 +15,6 @@ has identity => (
     documentation => "Chain mail, long sword, cloak of magic resistance, etc.",
 );
 
-enum ItemClass => qw(gold weapon armor food scroll book potion amulet ring wand tool gem unknown);
 has class => (
     is            => 'rw',
     isa           => 'ItemClass',
@@ -33,8 +32,6 @@ has quantity => (
     isa     => 'Int',
     default => 1,
 );
-
-enum BUC => qw(blessed uncursed cursed unknown);
 
 has buc => (
     is      => 'rw',
@@ -84,7 +81,6 @@ has enchantment => (
     default => 0,
 );
 
-enum ItemClass => qw(gold weapon armor food scroll book potion amulet ring wand tool gem);
 has class => (
     is            => 'rw',
     isa           => 'ItemClass',
@@ -135,7 +131,6 @@ has is_quivered => (
     default => 0,
 );
 
-enum BUC => qw(blessed uncursed cursed unknown);
 has buc => (
     is      => 'rw',
     isa     => 'BUC',
