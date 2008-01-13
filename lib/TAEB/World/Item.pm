@@ -199,87 +199,71 @@ sub new_item {
     $lit = 1        if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
     # XXX: depluralization and japanese name mappings should go here
 
-    $self->slot($slot)                 if defined $slot;
-    $self->quantity($num)              if defined $num;
-    $self->buc($buc)                   if defined $buc;
-    $self->is_greased(1)               if defined $greased;
-    $self->is_poisoned(1)              if defined $poisoned;
+    my $new_item;
+    if (!defined $item) {
+        TAEB->error("Couldn't find the base item type for '$appearance'!");
+        return;
+    }
+
+    my $class = TAEB::Knowledge::Item->type_to_class($item);
+    if (!defined $class) {
+        TAEB->error("Unable to find '$item' in TAEB::Knowledge::Item.");
+        return;
+    }
+
+    unless ($class eq 'weapon' || $class eq 'armor' || $class eq 'food' ||
+            $class eq 'tool') {
+        TAEB->error("Items (such as $appearance) of class $class are not yet supported.");
+        return;
+    }
+
+    my $class_name = uc(substr $class, 0, 1) . (substr $class, 1);
+    $new_item = "TAEB::World::Item::$class_name"->new;
+    # XXX: once the EliteBot item identification code gets merged
+    # in here, this might have to be changed, but it's good enough
+    # for now
+    $new_item->identity($item);
+
+    $new_item->buc($buc)                   if defined $buc;
+    # XXX: this should go into Knowledge::Item::Tool at some point
+    my $is_weaptool = $class eq 'tool' && $item =~ /pick-axe|hook|unicorn/;
+    if (!defined $buc &&
+        ($class eq 'weapon' || $class eq 'wand' || $is_weaptool)) {
+        $self->buc('uncursed') if defined $spe || defined $charges;
+    }
+
+    $new_item->slot($slot)                 if defined $slot;
+    $new_item->quantity($num)              if defined $num;
+    $new_item->is_greased(1)               if defined $greased;
+    $new_item->is_poisoned(1)              if defined $poisoned;
     if (defined $ero1) {
-        $self->erosion1(1);
-        $self->erosion1(2)             if $ero1 =~ /very/;
-        $self->erosion1(3)             if $ero1 =~ /thoroughly/;
+        $new_item->erosion1(1);
+        $new_item->erosion1(2)             if $ero1 =~ /very/;
+        $new_item->erosion1(3)             if $ero1 =~ /thoroughly/;
     }
     if (defined $ero2) {
-        $self->erosion2(1);
-        $self->erosion2(2)             if $ero2 =~ /very/;
-        $self->erosion2(3)             if $ero2 =~ /thoroughly/;
+        $new_item->erosion2(1);
+        $new_item->erosion2(2)             if $ero2 =~ /very/;
+        $new_item->erosion2(3)             if $ero2 =~ /thoroughly/;
     }
-    $self->is_fooproof(1)              if defined $proof;
-    $self->partly_used(1)              if defined $used ;
-    $self->enchantment($spe)           if defined $spe;
-    if (defined $item) {
-        my $class = TAEB::Knowledge::Item->list->{$item};
-
-        if (!$class) {
-            TAEB->error("Unable to find '$item' in TAEB::Knowledge::Item. Defaulting to empty string. Good luck.");
-            $class = '';
-        }
-
-        $self->class('gold')           if $item =~ /gold piece/;
-        $self->class('weapon')         if $class eq 'weapon';
-        $self->class('armor')          if $class eq 'armor';
-        $self->class('food')           if $class eq 'food';
-        $self->class('scroll')         if $item =~ /scroll/;
-        $self->class('book')           if $item =~ /[bB]ook/;
-        $self->class('potion')         if $item =~ /potion/;
-        $self->class('amulet')         if $item =~ /[aA]mulet/;
-        # this won't catch identified rings, but we need to not have this match
-        # 'ring mail'. probably fix this once we have an item db for rings.
-        $self->class('ring')           if $item =~ /ring$/;
-        $self->class('wand')           if $item =~ /wand/;
-        $self->class('tool')           if $class eq 'tool';
-        # don't match 'rock mole corpse', etc
-        $self->class('gem')            if 0;
-    }
-    $self->recharges($recharges)       if defined $recharges;
-    $self->charges($charges)           if defined $charges;
-    $self->candles_attached($ncandles) if defined $ncandles;
-    if ($self->class) {
-        if ($self->class =~ /weapon|armor|food|tool/) {
-            my $class = $self->class;
-            $class = uc(substr $class, 0, 1) . substr $class, 1;
-            my $list = "TAEB::Knowledge::Item::$class"->list;
-            if ($list->{$item}) {
-                $self->identity($item);
-            }
-            else {
-                $self->visible_description($item);
-            }
-        }
-        else {
-            $self->visible_description($item);
-        }
-        if (!defined $buc &&
-            ($self->class =~ /weapon|wand/ ||
-             ($self->class eq 'tool' &&
-              defined $self->identity &&
-              $self->identity =~ /pick-axe|grappling|unicorn/))) {
-            $self->buc('uncursed')     if defined $spe || defined $charges;
-        }
-    }
-    else {
-        $self->visible_description($item);
-    }
-    $self->generic_name($call)         if defined $call;
-    $self->specific_name($name)        if defined $name;
-    $self->is_lit(1)                   if defined $lit;
-    $self->is_quivered(1)              if defined $quiver;
-    $self->is_offhand(1)               if defined $offhand;
-    $self->is_laid_by_you(1)           if defined $laid;
-    $self->is_chained_to_you(1)        if defined $chain;
-    $self->is_wielding(1)              if defined $wield;
-    $self->is_wearing(1)               if defined $wear;
-    $self->cost($cost)                 if defined $cost;
+    $new_item->is_fooproof(1)              if defined $proof;
+    $new_item->is_partly_used(1)           if defined $used;
+    $new_item->is_partly_eaten(1)          if defined $eaten;
+    $new_item->is_diluted(1)               if defined $dilute;
+    $new_item->enchantment($spe)           if defined $spe;
+    $new_item->recharges($recharges)       if defined $recharges;
+    $new_item->charges($charges)           if defined $charges;
+    $new_item->candles_attached($ncandles) if defined $ncandles;
+    $new_item->generic_name($call)         if defined $call;
+    $new_item->specific_name($name)        if defined $name;
+    $new_item->is_lit(1)                   if defined $lit;
+    $new_item->is_quivered(1)              if defined $quiver;
+    $new_item->is_offhand(1)               if defined $offhand;
+    $new_item->is_laid_by_you(1)           if defined $laid;
+    $new_item->is_chained_to_you(1)        if defined $chain;
+    $new_item->is_wielding(1)              if defined $wield;
+    $new_item->is_wearing(1)               if defined $wear;
+    $new_item->cost($cost)                 if defined $cost;
 }
 
 1;
