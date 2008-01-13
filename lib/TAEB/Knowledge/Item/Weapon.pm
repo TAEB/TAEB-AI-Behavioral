@@ -272,10 +272,11 @@ has list => (
                 plural => 'bardiches',
             },
             'bare-handed combat' => {
-                'sdam'   => 'd2',
-                'ldam'   => 'd2',
-                'tohit'  => '0',
-                'type'   => 'none',
+                'sdam'    => 'd2',
+                'ldam'    => 'd2',
+                'tohit'   => '0',
+                'type'    => 'none',
+                no_plural => 1,
             },
             'battle-axe' => {
                 'sdam'   => 'd8+d4',
