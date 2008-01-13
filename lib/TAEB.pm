@@ -2,10 +2,11 @@
 package TAEB;
 use MooseX::Singleton;
 use MooseX::AttributeHelpers;
-use Moose::Util::TypeConstraints;
 
 use Log::Dispatch;
 use Log::Dispatch::File;
+
+use TAEB::Meta::Types;
 
 use TAEB::Config;
 use TAEB::Util;
@@ -64,8 +65,6 @@ has vt => (
     default  => sub { TAEB::VT->new(cols => 80, rows => 24) },
     handles  => [qw(topline redraw)],
 );
-
-enum PlayState => qw(logging_in prepare_inventory prepare_crga playing saving);
 
 has state => (
     is      => 'rw',

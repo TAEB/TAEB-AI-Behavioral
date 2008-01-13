@@ -1,8 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile;
 use Moose;
-use Moose::Util::TypeConstraints 'enum';
-use TAEB::Util qw/tile_types glyph_to_type/;
+use TAEB::Util 'glyph_to_type';
 
 has level => (
     is       => 'rw',
@@ -18,7 +17,6 @@ has level => (
 #    weak_ref => 1,
 #);
 
-enum TileType => tile_types;
 
 has type => (
     is      => 'rw',

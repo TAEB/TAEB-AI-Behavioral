@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item;
 use Moose;
-use Moose::Util::TypeConstraints;
 
 use overload
     q{""} => sub {
@@ -29,8 +28,6 @@ has quantity => (
     isa     => 'Int',
     default => 1,
 );
-
-enum BUC => qw(blessed uncursed cursed unknown);
 
 has buc => (
     is      => 'rw',
@@ -80,7 +77,6 @@ has enchantment => (
     default => 0,
 );
 
-enum ItemClass => qw(gold weapon armor food scroll book potion amulet ring wand tool gem);
 has class => (
     is            => 'rw',
     isa           => 'ItemClass',
