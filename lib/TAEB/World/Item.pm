@@ -9,6 +9,12 @@ use overload
         return sprintf '[%s: %s]', blessed($self), $self->identity;
     };
 
+has raw => (
+    is            => 'rw',
+    isa           => 'Str',
+    documentation => "The raw string NetHack gave us for the item. Don't use it for code, use it only for logging.",
+);
+
 has identity => (
     is            => 'rw',
     isa           => 'Str',
@@ -231,7 +237,8 @@ sub new_item {
     }
 
     my $class_name = uc(substr $class, 0, 1) . (substr $class, 1);
-    $new_item = "TAEB::World::Item::$class_name"->new;
+    $new_item = "TAEB::World::Item::$class_name"->new(raw => $appearance);
+
     # XXX: once the EliteBot item identification code gets merged
     # in here, this might have to be changed, but it's good enough
     # for now

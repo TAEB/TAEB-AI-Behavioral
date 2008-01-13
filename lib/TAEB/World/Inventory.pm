@@ -47,7 +47,7 @@ sub update {
     TAEB->debug(
         sprintf "Inventory: slot '%s' has item '%s'.",
             $item->slot,
-            $item->appearance,
+            $item->raw,
     );
 
     $self->set($slot => $item);
