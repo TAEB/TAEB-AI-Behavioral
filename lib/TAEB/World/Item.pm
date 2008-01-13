@@ -3,6 +3,12 @@ package TAEB::World::Item;
 use Moose;
 use Moose::Util::TypeConstraints;
 
+use overload
+    q{""} => sub {
+        my $self = shift;
+        return sprintf '[%s: %s]', blessed($self), $self->appearance;
+    };
+
 has appearance => (
     is       => 'rw',
     isa      => 'Str',
