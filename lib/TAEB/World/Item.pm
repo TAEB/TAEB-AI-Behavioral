@@ -205,7 +205,7 @@ sub new_item {
          }x;
 
     $item = $japanese_to_english{$item} || $item;
-    $item = TAEB::World::Item->singular_of->{$item} || $item;
+    $item = TAEB::Knowledge::Item->singular_of->{$item} || $item;
 
     $num = 1         if $num =~ /[at]/;
     $spe =~ s/^\+//  if defined $spe;
