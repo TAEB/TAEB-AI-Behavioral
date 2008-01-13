@@ -161,9 +161,9 @@ sub new_item {
     # "foo named bar" and an item called "foo" and named "bar". similarly for
     # an item called "foo (0:1)". so... don't do that!
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
-        $spe, $item, $call, $name, $recharges, $charges, $ncandles,
-        $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand, $wield,
-        $wear, $cost) = $appearance =~
+        $eaten, $dilute, $spe, $item, $call, $name, $recharges, $charges,
+        $ncandles, $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand,
+        $wield, $wear, $cost) = $appearance =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
@@ -172,7 +172,9 @@ sub new_item {
           ((?:(?:very|thoroughly)\ )?(?:burnt|rusty))?\s*  # erosion 1
           ((?:(?:very|thoroughly)\ )?(?:rotted|corroded))?\s* # erosion 2
           (fixed|(?:fire|rust|corrode)proof)?\s*           # fooproof
-          (partly\ (?:used|eaten)|diluted)?\s*             # partially used up
+          (partly\ used)?\s*                               # candles
+          (partly\ eaten)?\s*                              # food
+          (diluted)?\s*                                    # potions
           ([+-]\d+)?\s*                                    # enchantment
           (?:(?:pair|set)\ of)?\s*                         # gloves and boots
           (.*?)\s*                                         # item name
