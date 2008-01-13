@@ -8,5 +8,8 @@ has '+class' => (
     default => 'other',
 );
 
+has is_chained_to_you => (
+);
+
 1;
 

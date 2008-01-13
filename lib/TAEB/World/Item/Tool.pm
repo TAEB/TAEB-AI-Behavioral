@@ -8,5 +8,11 @@ has '+class' => (
     default => 'tool',
 );
 
+has is_partly_used => (
+);
+
+has candles_attached => (
+);
+
 1;
 

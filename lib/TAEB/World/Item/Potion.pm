@@ -7,5 +7,8 @@ has '+class' => (
     default => 'potion',
 );
 
+has is_diluted => (
+);
+
 1;
 

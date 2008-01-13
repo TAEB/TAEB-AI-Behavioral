@@ -7,5 +7,8 @@ has '+class' => (
     default => 'weapon',
 );
 
+has is_poisoned => (
+);
+
 1;
 
