@@ -8,18 +8,26 @@ use TAEB::Knowledge::Item::Tool;
 use TAEB::Knowledge::Item::Artifact;
 use TAEB::Knowledge::Item::Armor;
 
+has types => (
+    is         => 'ro',
+    isa        => 'ArrayRef[Str]',
+    default    => sub { [qw/Weapon Armor Tool Food/] },
+    auto_deref => 1,
+);
+
 has list => (
     is      => 'ro',
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
+        my $self = shift;
         my $items = {};
 
-        for (qw/Weapon Armor Tool Food/) {
-            my $list = "TAEB::Knowledge::Item::$_"->list;
+        for my $type ($self->types) {
+            my $list = "TAEB::Knowledge::Item::$type"->list;
             while (my ($name, $stats) = each %$list) {
-                $items->{$name} = lc $_;
-                $items->{$stats->{appearance}} = lc $_;
+                $items->{$name} = lc $type;
+                $items->{$stats->{appearance}} = lc $type;
             }
         }
 
