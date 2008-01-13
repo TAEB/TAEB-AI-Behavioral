@@ -5,7 +5,8 @@ use Moose;
 use overload
     q{""} => sub {
         my $self = shift;
-        return sprintf '[%s: %s]', blessed($self), $self->appearance;
+        # XXX: get a better item description here
+        return sprintf '[%s: %s]', blessed($self), $self->identity;
     };
 
 has identity => (
