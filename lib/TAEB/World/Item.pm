@@ -8,14 +8,18 @@ use overload
         return sprintf '[%s: %s]', blessed($self), $self->appearance;
     };
 
-has appearance => (
-    is       => 'rw',
-    isa      => 'Str',
-    required => 1,
-    trigger  => sub {
-        my $self = shift;
-        $self->trigger_appearance(@_);
-    },
+has identity => (
+    is            => 'rw',
+    isa           => 'Str',
+    documentation => "Chain mail, long sword, cloak of magic resistance, etc.",
+);
+
+enum ItemClass => qw(gold weapon armor food scroll book potion amulet ring wand tool gem unknown);
+has class => (
+    is            => 'rw',
+    isa           => 'ItemClass',
+    default       => 'unknown',
+    documentation => "Armor, weapon, scroll, etc.",
 );
 
 has slot => (
@@ -28,6 +32,8 @@ has quantity => (
     isa     => 'Int',
     default => 1,
 );
+
+enum BUC => qw(blessed uncursed cursed unknown);
 
 has buc => (
     is      => 'rw',
@@ -77,6 +83,7 @@ has enchantment => (
     default => 0,
 );
 
+enum ItemClass => qw(gold weapon armor food scroll book potion amulet ring wand tool gem);
 has class => (
     is            => 'rw',
     isa           => 'ItemClass',
@@ -109,29 +116,7 @@ has specific_name => (
     documentation => "named X",
 );
 
-has recharges => (
-    is      => 'rw',
-    isa     => 'Int',
-);
-
-has charges => (
-    is      => 'rw',
-    isa     => 'Int',
-);
-
-has is_lit => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has candles_attached => (
-    is      => 'rw',
-    isa     => 'Int',
-    default => 0,
-);
-
-has is_quivered => (
+has is_wielding => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
@@ -143,25 +128,20 @@ has is_offhand => (
     default => 0,
 );
 
-has is_laid_by_you => (
+has is_quivered => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
-has is_chained_to_you => (
+enum BUC => qw(blessed uncursed cursed unknown);
+has buc => (
     is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
+    isa     => 'BUC',
+    default => 'unknown',
 );
 
-has is_wielding => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has is_wearing => (
+has is_greased => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
