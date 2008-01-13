@@ -19,6 +19,10 @@ Net::Hiveminder. They are:
             baz [due tomorrow]
         will create three tasks *for me*
 
+    hm-create
+        Create a single task, given on the command line. For example:
+            ./bin/hm-create Write the new frobnitz class
+
     hm-todo
         See what TAEB-related tasks you have coming up
 
