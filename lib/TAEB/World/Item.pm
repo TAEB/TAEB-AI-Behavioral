@@ -149,6 +149,21 @@ has cost => (
     default => 0,
 );
 
+my %japanese_to_english = (
+    "wakizashi"      => "short sword",
+    "ninja-to"       => "broadsword",
+    "nunchaku"       => "flail",
+    "naginata"       => "glaive",
+    "osaku"          => "lock pick",
+    "koto"           => "wooden harp",
+    "shito"          => "knife",
+    "tanko"          => "plate mail",
+    "kabuto"         => "helmet",
+    "yugake"         => "leather gloves",
+    "gunyoki"        => "food ration",
+    "potion of sake" => "potion of booze",
+);
+
 sub new_item {
     my $self       = shift;
     my $appearance = shift;
@@ -189,11 +204,12 @@ sub new_item {
           $                                                # anchor the regex
          }x;
 
-    $num = 1        if $num =~ /[at]/;
-    $spe =~ s/^\+// if defined $spe;
-    $ncandles = 0   if (defined $ncandles && $ncandles =~ /no/);
-    $lit = 1        if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
-    # XXX: depluralization and japanese name mappings should go here
+    $num = 1         if $num =~ /[at]/;
+    $spe =~ s/^\+//  if defined $spe;
+    $ncandles = 0    if (defined $ncandles && $ncandles =~ /no/);
+    $lit = 1         if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
+    $item = $japanese_to_english{$item} || $item;
+    # XXX: depluralization should go here
 
     my $new_item;
     if (!defined $item) {
