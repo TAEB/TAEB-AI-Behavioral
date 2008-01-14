@@ -29,12 +29,19 @@ sub BUILD {
 after exclude_possibility => sub {
     my $self = shift;
 
-    if ($self->possibilities == 1) {
-        my ($type) = map { lc } blessed($self) =~ /::(\w+)$/;
+    my ($type) = map { lc } blessed($self) =~ /::(\w+)$/;
+    my @possibilities = $self->possibilities;
+
+    if (@possibilities == 1) {
         for my $appearance (values %{ TAEB::Knowledge->appearances->{$type} }) {
             next if $appearance == $self;
             $appearance->rule_out($self->possibilities);
         }
+    }
+
+    if (@possibilities == 0) {
+        my $appearance = $self->appearance;
+        TAEB->error("No possibilities left for ($type, $appearance)!");
     }
 };
 
