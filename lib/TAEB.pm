@@ -473,7 +473,7 @@ after qw/error critical/ => sub {
         TAEB->out(TAEB->redraw);
     }
     else {
-        warn $message;
+        confess $message;
     }
 };
 
