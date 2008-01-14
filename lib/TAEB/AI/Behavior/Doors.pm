@@ -7,7 +7,7 @@ sub prepare {
     my $self = shift;
 
     my $have_action = 0;
-    my $locktool = TAEB->inventory->find($self->can('pickup'));
+    my $locktool = undef; # XXX: can't use pickup any more
 
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
@@ -57,11 +57,17 @@ sub urgencies {
 }
 
 sub pickup {
-    for my $unlocker (qr/key/, qr/lock pick/, qr/credit card/) {
-        if ($_ =~ $unlocker && !TAEB->inventory->find($unlocker)) {
-            return 1;
-        }
+    my $item = shift;
+
+    for my $unlocker ('key', 'lock pick', 'credit card') {
+        # we already have this or better
+        return 0 if TAEB->inventory->find($unlocker);
+
+        # this is better than our best unlocker
+        return 1 if $item->identity eq $unlocker;
     }
+
+    TAEB->warning("Fell off Doors->pickup.");
     return 0;
 }
 1;

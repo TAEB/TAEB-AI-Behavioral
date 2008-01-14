@@ -12,7 +12,7 @@ sub prepare {
     my $self = shift;
 
     # do we have a projectile to throw?
-    my $projectile = TAEB->inventory->find($self->can('pickup'))
+    my $projectile = TAEB->inventory->find(sub { $self->pickup(@_) })
         or return 0;
 
     my $direction = TAEB->current_level->radiate(
@@ -39,8 +39,10 @@ after next_action => sub {
     TAEB->inventory->decrease_quantity($self->projectile->slot);
 };
 
+my %pickup = map { $_ => 1 } qw/dagger dart shuriken/;
 sub pickup {
-    /dagger/ || /dart/ || /shuriken/
+    my $item = shift;
+    return $pickup{$item->identity};
 }
 
 sub urgencies {

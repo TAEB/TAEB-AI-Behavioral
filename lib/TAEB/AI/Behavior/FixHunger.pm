@@ -33,9 +33,9 @@ sub urgencies {
 }
 
 sub pickup {
-    my $food = TAEB::Knowledge::Item::Food->food($_) or return 0;
-    $food->{weight} < 100 or return 0;
-    return TAEB::Knowledge::Item::Food->should_eat($food);
+    my $item = shift;
+    $item->weight < 100 or return 0;
+    return TAEB::Knowledge::Item::Food->should_eat($item);
 }
 
 1;
