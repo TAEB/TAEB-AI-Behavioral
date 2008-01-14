@@ -154,7 +154,8 @@ sub food {
     my $self = shift;
     my $item = shift;
 
-    return $self->list->{$item->identity};
+    $item = $item->identity if ref($item);
+    return $self->list->{$item};
 }
 
 sub should_eat {

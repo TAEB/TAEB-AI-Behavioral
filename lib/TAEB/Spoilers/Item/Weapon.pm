@@ -967,8 +967,10 @@ has list => (
 
 sub weapon {
     my $self = shift;
-    my $arg  = shift;
-    return $self->list->{$arg};
+    my $item = shift;
+
+    $item = $item->identity if ref($item);
+    return $self->list->{$item};
 }
 
 1;

@@ -386,7 +386,8 @@ sub tool {
     my $self = shift;
     my $item = shift;
 
-    return $self->list->{$item->identity};
+    $item = $item->identity if ref($item);
+    return $self->list->{$item};
 }
 
 1;
