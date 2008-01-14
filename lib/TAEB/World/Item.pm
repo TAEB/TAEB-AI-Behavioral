@@ -231,13 +231,13 @@ sub new_item {
     $lit = 1         if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
 
     my $new_item;
-    if (!defined $item) {
+    unless (defined $item) {
         TAEB->warning("Couldn't find the base item type for '$appearance'!");
         return;
     }
 
     my $class = TAEB::Spoilers::Item->type_to_class($item);
-    if (!defined $class) {
+    unless (defined $class) {
         TAEB->warning("Unable to find '$item' in TAEB::Spoilers::Item.");
         return;
     }
