@@ -12,207 +12,219 @@ has list => (
                 cost    => 2500,
                 weight  => 10,
                 engrave => 'soft',
-                appearance => 'gray',
+                appearance => 'gray stone',
             },
             'dilithium crystal' => {
                 cost    => 4500,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'white',
+                appearance => 'white gem',
+                plural  => 'dilithium crystals',
             },
             'diamond' => {
                 cost    => 4000,
                 weight  => 1,
                 engrave => 'hard',
-                appearance => 'white',
+                appearance => 'white gem',
+                plural  => 'diamonds',
             },
             'ruby' => {
                 cost    => 3500,
                 weight  => 1,
                 engrave => 'hard',
-                appearance => 'red',
+                appearance => 'red gem',
+                plural  => 'rubies',
             },
-            'jacinth' => {
+            'jacinth stone' => {
                 cost    => 3250,
                 weight  => 1,
                 engrave => 'hard',
-                appearance => 'orange',
+                appearance => 'orange gem',
             },
             'sapphire' => {
                 cost    => 3000,
                 weight  => 1,
                 engrave => 'hard',
-                appearance => 'blue',
+                appearance => 'blue gem',
+                plural  => 'sapphires',
             },
             'black opal' => {
                 cost    => 2500,
                 weight  => 1,
                 engrave => 'hard',
-                appearance => 'black',
+                appearance => 'black gem',
+                plural  => 'black opals',
             },
             'emerald' => {
                 cost    => 2500,
                 weight  => 1,
                 engrave => 'hard',
-                appearance => 'green',
+                appearance => 'green gem',
+                plural  => 'emeralds',
             },
-            'turquoise' => {
+            'turquoise stone' => {
                 cost    => 2000,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => [qw/green blue/],
+                #appearance => [qw/green blue/],
+                appearance => 'green gem',
             },
-            'aquamarine' => {
+            'aquamarine stone' => {
                 cost    => 1500,
                 weight  => 1,
                 engrave => 'hard',
-                appearance => [qw/green blue/],
+                #appearance => [qw/green blue/],
+                appearance => 'green gem',
             },
-            'citrine' => {
+            'citrine stone' => {
                 cost    => 1500,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'yellow',
+                appearance => 'yellow gem',
             },
-            'amber' => {
+            'amber stone' => {
                 cost    => 1000,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'yellowish brown',
+                appearance => 'yellowish brown gem',
             },
-            'topaz' => {
+            'topaz stone' => {
                 cost    => 900,
                 weight  => 1,
                 engrave => 'hard',
-                appearance => 'yellowish brown',
+                appearance => 'yellowish brown gem',
             },
-            'jet' => {
+            'jet stone' => {
                 cost    => 850,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'black',
+                appearance => 'black gem',
             },
             'opal' => {
                 cost    => 800,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'white',
+                appearance => 'white gem',
+                plural  => 'opals',
             },
-            'chrysoberyl' => {
+            'chrysoberyl stone' => {
                 cost    => 700,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'yellow',
+                appearance => 'yellow gem',
             },
-            'garnet' => {
+            'garnet stone' => {
                 cost    => 700,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'red',
+                appearance => 'red gem',
             },
-            'amethyst' => {
+            'amethyst stone' => {
                 cost    => 600,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'violet',
+                appearance => 'violet gem',
             },
-            'jasper' => {
+            'jasper stone' => {
                 cost    => 500,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'red',
+                appearance => 'red gem',
             },
-            'fluorite' => {
+            'fluorite stone' => {
                 cost    => 400,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => [qw/green blue white violet/],
+                #appearance => [qw/green blue white violet/],
+                appearance => 'green gem',
             },
-            'jade' => {
+            'jade stone' => {
                 cost    => 300,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'green',
+                appearance => 'green gem',
             },
-            'agate' => {
+            'agate stone' => {
                 cost    => 200,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'orange',
+                appearance => 'orange gem',
             },
-            'obsidian' => {
+            'obsidian stone' => {
                 cost    => 200,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'black',
+                appearance => 'black gem',
             },
-            'black glass' => {
+            'worthless piece of black glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'black',
+                appearance => 'black gem',
             },
-            'blue glass' => {
+            'worthless piece of blue glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'blue',
+                appearance => 'blue gem',
             },
-            'green glass' => {
+            'worthless piece of green glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'green',
+                appearance => 'green gem',
             },
-            'orange glass' => {
+            'worthless piece of orange glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'orange',
+                appearance => 'orange gem',
             },
-            'red glass' => {
+            'worthless piece of red glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'red',
+                appearance => 'red gem',
             },
-            'violet glass' => {
+            'worthless piece of violet glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'violet',
+                appearance => 'violet gem',
             },
-            'white glass' => {
+            'worthless piece of white glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'white',
+                appearance => 'white gem',
             },
-            'yellow glass' => {
+            'worthless piece of yellow glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'yellow',
+                appearance => 'yellow gem',
             },
-            'yellowish brown glass' => {
+            'worthless piece of yellowish brown glass' => {
                 cost    => 0,
                 weight  => 1,
                 engrave => 'soft',
-                appearance => 'yellowish brown',
+                appearance => 'yellowish brown gem',
             },
             'luckstone' => {
                 cost    => 60,
                 weight  => 10,
                 engrave => 'soft',
                 appearance => 'gray stone',
+                plural  => 'luckstones',
             },
             'touchstone' => {
                 cost    => 45,
                 weight  => 10,
                 engrave => 'soft',
                 appearance => 'gray stone',
+                plural  => 'touchstones',
             },
-            'flintstone' => {
+            'flint stone' => {
                 cost    => 1,
                 weight  => 10,
                 engrave => 'soft',
@@ -223,18 +235,24 @@ has list => (
                 weight  => 500,
                 engrave => 'soft',
                 appearance => 'gray stone',
+                plural  => 'loadstones',
             },
             'rock' => {
                 cost    => 0,
                 weight  => 10,
                 engrave => 'soft',
                 appearance => 'rock',
+                plural  => 'rocks',
             },
         };
 
-        # tag each gem with its name
+        # tag each gem with its name and fill in the rest of the plurals
         while (my ($name, $stats) = each %$gems) {
             $stats->{name}   = $name;
+            $stats->{plural} = $name =~ s/ stone$/ stones/
+                unless $stats->{plural};
+            $stats->{plural} = $name =~ s/ piece / pieces /
+                unless $stats->{plural};
         }
 
         return $gems;
