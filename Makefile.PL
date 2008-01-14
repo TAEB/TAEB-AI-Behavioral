@@ -70,6 +70,8 @@ build_requires 'Test::More';
 
 install_script 'bin/taeb';
 
+tests('t/*.t t/*/*.t');
+
 auto_install;
 WriteAll;
 
