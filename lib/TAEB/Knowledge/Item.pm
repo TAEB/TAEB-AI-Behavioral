@@ -31,31 +31,34 @@ sub BUILD {
     $self->_identities({ map { $_ => 1 } $self->all_identities });
 }
 
-# ignore exclude_possibility if we have one identity left
 around exclude_possibility => sub {
     my $orig        = shift;
     my $self        = shift;
     my $possibility = shift;
 
+    my $appearance  = $self->appearance;
+    my $type        = $self->type;
+
+    # ignore if we have only one possibility
     my @possibilities = $self->possibilities;
     if (@possibilities == 1) {
         if ($possibilities[0] eq $possibility) {
-            TAEB->error("Tried to exclude the last possibility ($possibility) from ");
+            TAEB->error("Tried to exclude the last possibility ($possibility) from ($type, $appearance)");
         }
         return;
     }
 
     $self->$orig($possibility);
-};
 
-# if we narrow it down to one final possibility, exclude it from all others
-after exclude_possibility => sub {
-    my $self = shift;
+    @possibilities = $self->possibilities;
 
-    my @possibilities = $self->possibilities;
-    my $appearance = $self->appearance;
-    my $type = $self->type;
+    # uh oh, something bad happened
+    if (@possibilities == 0) {
+        TAEB->error("No possibilities left for ($type, $appearance)!");
+        return;
+    }
 
+    # exclude my identity from the other appearances
     if (@possibilities == 1) {
         my $identity = shift @possibilities;
         TAEB->debug("($type, $appearance) is a '$identity'. Ruling it out of other appearances.");
@@ -64,12 +67,6 @@ after exclude_possibility => sub {
             next if $other->appearance eq $appearance;
             $other->rule_out($identity);
         }
-
-        return;
-    }
-
-    if (@possibilities == 0) {
-        TAEB->error("No possibilities left for ($type, $appearance)!");
     }
 };
 
