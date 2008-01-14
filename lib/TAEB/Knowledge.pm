@@ -23,7 +23,9 @@ has appearances => (
         for my $type ($self->types) {
             my $class = "TAEB::Knowledge::Item::$type";
             for my $appearance ($class->all_appearances) {
-                $appearances->{lc $type}{$appearance} = $class->new;
+                $appearances->{lc $type}{$appearance} = $class->new(
+                    appearance => $appearance,
+                );
             }
         }
 

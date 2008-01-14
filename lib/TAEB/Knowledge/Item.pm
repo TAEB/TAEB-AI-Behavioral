@@ -2,6 +2,12 @@
 package TAEB::Knowledge::Item;
 use Moose;
 
+has appearance => (
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1,
+);
+
 has _identities => (
     metaclass => 'Collection::Hash',
     is        => 'rw',
