@@ -38,9 +38,6 @@ sub find {
 
 This will update TAEB's inventory with the given item in the given slot.
 
-This method will upgrade strings to TAEB::World::Item objects, but that
-behavior should disappear.
-
 =cut
 
 sub update {
@@ -48,19 +45,9 @@ sub update {
     my $slot = shift;
     my $item = shift;
 
-    # XXX update logic should be elsewhere. later.
-    if (!ref($item)) {
-        $item = TAEB::World::Item->new_item($item);
-    }
+    TAEB->debug("Inventory: slot '$slot' has item $item.");
 
     $item->slot($slot);
-
-    TAEB->debug(
-        sprintf "Inventory: slot '%s' has item '%s'.",
-            $item->slot,
-            $item->raw,
-    );
-
     $self->set($slot => $item);
 }
 

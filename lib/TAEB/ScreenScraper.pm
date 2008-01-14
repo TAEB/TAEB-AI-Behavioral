@@ -180,7 +180,7 @@ sub handle_menus {
             }
 
             # otherwise, we still have the item, so mark it in our inventory
-            TAEB->inventory->update($slot, $_);
+            TAEB->inventory->update($slot, $item);
             return $ret;
         };
     }
