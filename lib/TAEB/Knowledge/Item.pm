@@ -64,6 +64,10 @@ sub identify_as {
     $self->rule_out_all_but(shift);
 }
 
+sub is_identified {
+    return shift->possibilities == 1;
+}
+
 # XXX: price-id code
 
 1;
