@@ -232,13 +232,13 @@ sub new_item {
 
     my $new_item;
     if (!defined $item) {
-        TAEB->error("Couldn't find the base item type for '$appearance'!");
+        TAEB->warning("Couldn't find the base item type for '$appearance'!");
         return;
     }
 
     my $class = TAEB::Spoilers::Item->type_to_class($item);
     if (!defined $class) {
-        TAEB->error("Unable to find '$item' in TAEB::Spoilers::Item.");
+        TAEB->warning("Unable to find '$item' in TAEB::Spoilers::Item.");
         return;
     }
 
