@@ -2,13 +2,14 @@
 package TAEB::Spoilers::Item;
 use MooseX::Singleton;
 
-use TAEB::Spoilers::Item::Food;
-use TAEB::Spoilers::Item::Weapon;
-use TAEB::Spoilers::Item::Tool;
-use TAEB::Spoilers::Item::Artifact;
 use TAEB::Spoilers::Item::Armor;
-use TAEB::Spoilers::Item::Scroll;
+use TAEB::Spoilers::Item::Artifact;
+use TAEB::Spoilers::Item::Food;
 use TAEB::Spoilers::Item::Potion;
+use TAEB::Spoilers::Item::Scroll;
+use TAEB::Spoilers::Item::Tool;
+use TAEB::Spoilers::Item::Wand;
+use TAEB::Spoilers::Item::Weapon;
 
 has types => (
     is         => 'ro',
