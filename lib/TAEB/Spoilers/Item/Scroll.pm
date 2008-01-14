@@ -108,6 +108,7 @@ has list => (
         while (my ($name, $stats) = each %$scrolls) {
             $stats->{name}   = $name;
             $stats->{weight} = 5;
+            $stats->{plural} = $name =~ s/scroll/scrolls/;
         }
 
         return $scrolls;

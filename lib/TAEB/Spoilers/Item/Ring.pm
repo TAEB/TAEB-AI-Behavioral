@@ -108,6 +108,7 @@ has list => (
         while (my ($name, $stats) = each %$rings) {
             $stats->{name}   = $name;
             $stats->{weight} = 3 unless $stats->{weight};
+            $stats->{no_plural} = 1;
         }
 
         return $rings;

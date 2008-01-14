@@ -134,6 +134,7 @@ has list => (
         while (my ($name, $stats) = each %$wands) {
             $stats->{name}   = $name;
             $stats->{weight} = 7;
+            $stats->{no_plural} = 1;
         }
 
         return $wands;

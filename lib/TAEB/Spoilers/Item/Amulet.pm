@@ -58,6 +58,7 @@ has list => (
         while (my ($name, $stats) = each %$amulets) {
             $stats->{name}   = $name;
             $stats->{weight} = 20;
+            $stats->{no_plural} = 1;
         }
 
         return $amulets;
