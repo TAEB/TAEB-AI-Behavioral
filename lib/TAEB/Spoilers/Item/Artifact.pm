@@ -11,7 +11,7 @@ has list => (
     default => sub {
         my $artifacts = { };
 
-        for (qw/Weapon Tool Gem/) {
+        for (qw/Weapon Armor Tool Gem/) {
             my $list = "TAEB::Spoilers::Item::$_"->list;
             while (my ($name, $stats) = each %$list) {
                 next unless $stats->{artifact};
