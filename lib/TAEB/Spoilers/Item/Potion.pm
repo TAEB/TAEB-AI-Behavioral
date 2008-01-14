@@ -8,83 +8,83 @@ has list => (
     lazy    => 1,
     default => sub {
         my $potions = {
-            'booze' => {
+            'potion of booze' => {
                 cost => 50,
             },
-            'fruit juice' => {
+            'potion of fruit juice' => {
                 cost => 50,
             },
-            'see invisible' => {
+            'potion of see invisible' => {
                 cost => 50,
             },
-            'sickness' => {
+            'potion of sickness' => {
                 cost => 50,
             },
-            'confusion' => {
+            'potion of confusion' => {
                 cost => 100,
             },
-            'extra healing' => {
+            'potion of extra healing' => {
                 cost => 100,
             },
-            'hallucination' => {
+            'potion of hallucination' => {
                 cost => 100,
             },
-            'healing' => {
+            'potion of healing' => {
                 cost => 100,
             },
-            'restore ability' => {
+            'potion of restore ability' => {
                 cost => 100,
             },
-            'sleeping' => {
+            'potion of sleeping' => {
                 cost => 100,
             },
-            'water' => {
+            'potion of water' => {
                 cost       => 100,
                 appearance => 'clear',
             },
-            'blindness' => {
+            'potion of blindness' => {
                 cost => 150,
             },
-            'gain energy' => {
+            'potion of gain energy' => {
                 cost => 150,
             },
-            'invisibility' => {
+            'potion of invisibility' => {
                 cost => 150,
             },
-            'monster detection' => {
+            'potion of monster detection' => {
                 cost => 150,
             },
-            'object detection' => {
+            'potion of object detection' => {
                 cost => 150,
             },
-            'enlightenment' => {
+            'potion of enlightenment' => {
                 cost => 200,
             },
-            'full healing' => {
+            'potion of full healing' => {
                 cost => 200,
             },
-            'levitation' => {
+            'potion of levitation' => {
                 cost => 200,
             },
-            'polymorph' => {
+            'potion of polymorph' => {
                 cost => 200,
             },
-            'speed' => {
+            'potion of speed' => {
                 cost => 200,
             },
-            'acid' => {
+            'potion of acid' => {
                 cost => 250,
             },
-            'oil' => {
+            'potion of oil' => {
                 cost => 250,
             },
-            'gain ability' => {
+            'potion of gain ability' => {
                 cost => 300,
             },
-            'gain level' => {
+            'potion of gain level' => {
                 cost => 300,
             },
-            'paralysis' => {
+            'potion of paralysis' => {
                 cost => 300,
             },
         };
