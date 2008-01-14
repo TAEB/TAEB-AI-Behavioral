@@ -23,7 +23,7 @@ while (defined (my $file = $iter->())) {
         next if /^\s*#/;
 
         ++$with_know;
-        next if $file =~ /\bKnowledge\b/;
+        next if $file =~ /\bSpoilers\b/;
 
         ++$lines;
     }

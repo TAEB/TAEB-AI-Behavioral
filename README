@@ -1,7 +1,7 @@
 TAEB is a modular NetHack bot + framework.
 
 All of its NetHack-playing logic is in lib/TAEB/AI/. The framework is the rest
-of lib/. For example, lib/TAEB/Knowledge/ includes data about NetHack's
+of lib/. For example, lib/TAEB/Spoilers/ includes data about NetHack's
 monsters, items, etc.
 
 AI is currently broken into two parts, Behaviors and Personalities. Behaviors
