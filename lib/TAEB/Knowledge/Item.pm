@@ -31,6 +31,23 @@ sub BUILD {
     $self->_identities({ map { $_ => 1 } $self->all_identities });
 }
 
+# ignore exclude_possibility if we have one identity left
+around exclude_possibility => sub {
+    my $orig        = shift;
+    my $self        = shift;
+    my $possibility = shift;
+
+    my @possibilities = $self->possibilities;
+    if (@possibilities == 1) {
+        if ($possibilities[0] eq $possibility) {
+            TAEB->error("Tried to exclude the last possibility ($possibility) from ");
+        }
+        return;
+    }
+
+    $self->$orig($possibility);
+};
+
 # if we narrow it down to one final possibility, exclude it from all others
 after exclude_possibility => sub {
     my $self = shift;
