@@ -28,7 +28,7 @@ sub prepare {
 
     $self->projectile($projectile);
     $self->next(join '', 't', $projectile->slot, $direction);
-    $self->currently("Throwing a " . $projectile->appearance . " at a monster.");
+    $self->currently("Throwing a $projectile at a monster.");
     return 100;
 }
 

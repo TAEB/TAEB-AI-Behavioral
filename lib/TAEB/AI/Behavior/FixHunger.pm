@@ -14,7 +14,7 @@ sub prepare {
 
     if (TAEB->senses->nutrition < 400) {
         for my $item (TAEB->inventory->items) {
-            if (TAEB::Knowledge::Item::Food->should_eat($item->appearance)) {
+            if (TAEB::Knowledge::Item::Food->should_eat($item->identity)) {
                 $self->next("e" . $item->slot);
                 $self->currently("Eating food.");
                 return 50;

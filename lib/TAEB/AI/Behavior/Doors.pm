@@ -16,8 +16,7 @@ sub prepare {
         if (TAEB->messages =~ /This door is locked\./) {
             # can we unlock? if so, try it
             if ($locktool) {
-                TAEB->debug(sprintf "Lock tool %s %s",
-                        $locktool->appearance, $locktool->slot);
+                TAEB->debug("Lock tool $locktool");
                 $self->next('a' . $locktool->slot . $dir . 'y');
                 $self->currently("Applying lock tool in direction " . $dir);
                 $have_action = 1;

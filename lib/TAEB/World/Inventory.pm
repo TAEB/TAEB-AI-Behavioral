@@ -46,7 +46,7 @@ sub update {
 
     # XXX update logic should be elsewhere. later.
     if (!ref($item)) {
-        $item = TAEB::World::Item->new(appearance => $item);
+        $item = TAEB::World::Item->new_item($item);
     }
 
     $item->slot($slot);
@@ -74,14 +74,11 @@ sub decrease_quantity {
     my $quantity = shift || 1;
 
     my $item = $self->get($slot);
-    my $new_quantity = $item->quantity - $quantity;
+    my $old_quantity = $item->quantity;
+    my $new_quantity = $old_quantity - $quantity;
 
     if ($new_quantity < 0) {
-        TAEB->warning(
-            sprintf "Decreased item '$slot' (%s) from %d to $new_quantity",
-                $item->appearance,
-                $item->quantity
-        );
+        TAEB->error("Decreased $item from $old_quantity to $new_quantity");
         $new_quantity = 0;
     }
 
