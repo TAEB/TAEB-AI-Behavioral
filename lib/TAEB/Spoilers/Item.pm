@@ -10,11 +10,15 @@ use TAEB::Spoilers::Item::Scroll;
 use TAEB::Spoilers::Item::Tool;
 use TAEB::Spoilers::Item::Wand;
 use TAEB::Spoilers::Item::Weapon;
+use TAEB::Spoilers::Item::Amulet;
+use TAEB::Spoilers::Item::Ring;
+use TAEB::Spoilers::Item::Wand;
 
 has types => (
     is         => 'ro',
     isa        => 'ArrayRef[Str]',
-    default    => sub { [qw/Weapon Armor Potion Scroll Tool Food/] },
+    default    => sub { [qw/Weapon Armor Potion Scroll Tool Food Amulet
+                            Ring Wand/] },
     auto_deref => 1,
 );
 
