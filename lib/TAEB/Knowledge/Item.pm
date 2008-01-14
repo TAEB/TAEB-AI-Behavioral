@@ -57,10 +57,15 @@ after exclude_possibility => sub {
     my $type = $self->type;
 
     if (@possibilities == 1) {
-        for my $appearance (values %{ TAEB::Knowledge->appearances->{$type} }) {
-            next if $appearance == $self;
-            $appearance->rule_out($self->possibilities);
+        my $identity = shift @possibilities;
+        TAEB->debug("($type, $appearance) is a '$identity'. Ruling it out of other appearances.");
+
+        for my $other (values %{ TAEB::Knowledge->appearances->{$type} }) {
+            next if $other->appearance eq $appearance;
+            $other->rule_out($identity);
         }
+
+        return;
     }
 
     if (@possibilities == 0) {
