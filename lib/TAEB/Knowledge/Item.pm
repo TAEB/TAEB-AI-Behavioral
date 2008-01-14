@@ -8,6 +8,12 @@ has appearance => (
     required => 1,
 );
 
+has type => (
+    is       => 'rw',
+    isa      => 'Str',
+    required => 1,
+);
+
 has _identities => (
     metaclass => 'Collection::Hash',
     is        => 'rw',
@@ -29,8 +35,9 @@ sub BUILD {
 after exclude_possibility => sub {
     my $self = shift;
 
-    my ($type) = map { lc } blessed($self) =~ /::(\w+)$/;
     my @possibilities = $self->possibilities;
+    my $appearance = $self->appearance;
+    my $type = $self->type;
 
     if (@possibilities == 1) {
         for my $appearance (values %{ TAEB::Knowledge->appearances->{$type} }) {
@@ -40,7 +47,6 @@ after exclude_possibility => sub {
     }
 
     if (@possibilities == 0) {
-        my $appearance = $self->appearance;
         TAEB->error("No possibilities left for ($type, $appearance)!");
     }
 };

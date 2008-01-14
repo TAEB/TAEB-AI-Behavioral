@@ -25,6 +25,7 @@ has appearances => (
             for my $appearance ($class->all_appearances) {
                 $appearances->{lc $type}{$appearance} = $class->new(
                     appearance => $appearance,
+                    type       => lc($type),
                 );
             }
         }
