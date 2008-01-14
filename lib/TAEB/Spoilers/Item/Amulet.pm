@@ -50,7 +50,7 @@ has list => (
             },
         };
 
-        # tag each amulet with its name
+        # tag each amulet with its name and weight
         while (my ($name, $stats) = each %$amulets) {
             $stats->{name}   = $name;
             $stats->{weight} = 20;

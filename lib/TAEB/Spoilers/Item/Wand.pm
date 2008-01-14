@@ -130,7 +130,7 @@ has list => (
             },
         };
 
-        # tag each scroll with its name
+        # tag each wand with its name and weight
         while (my ($name, $stats) = each %$wands) {
             $stats->{name}   = $name;
             $stats->{weight} = 7;

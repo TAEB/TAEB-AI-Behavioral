@@ -372,7 +372,7 @@ has list => (
             },
         };
 
-        # tag each tool with its name
+        # tag each tool with its name and appearance
         while (my ($name, $stats) = each %$tools) {
             $stats->{name} = $name;
             $stats->{appearance} = $name unless $stats->{appearance};

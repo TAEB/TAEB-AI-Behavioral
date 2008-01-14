@@ -553,7 +553,7 @@ has list => (
             },
         };
 
-        # tag each tool with its name
+        # tag each armor with its name and appearance
         while (my ($name, $stats) = each %$armor) {
             $stats->{name} = $name;
             $stats->{appearance} = $name unless $stats->{appearance};

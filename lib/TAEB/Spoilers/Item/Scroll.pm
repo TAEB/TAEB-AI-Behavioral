@@ -104,7 +104,7 @@ has list => (
             },
         };
 
-        # tag each scroll with its name
+        # tag each scroll with its name and weight
         while (my ($name, $stats) = each %$scrolls) {
             $stats->{name}   = $name;
             $stats->{weight} = 5;
