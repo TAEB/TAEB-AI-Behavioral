@@ -476,6 +476,9 @@ around qw/error critical/ => sub {
         sleep 3;
         TAEB->out(TAEB->redraw);
     }
+    else {
+        warn $message;
+    }
 
     goto $orig;
 };
