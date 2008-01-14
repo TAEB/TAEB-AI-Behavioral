@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::Knowledge::Item::Food;
+package TAEB::Spoilers::Item::Food;
 use MooseX::Singleton;
-use TAEB::Knowledge::Monster; # for corpses
+use TAEB::Spoilers::Monster; # for corpses
 
 has list => (
     is      => 'ro',
@@ -116,7 +116,7 @@ has list => (
         };
 
         # Collect monster corpses, tins, and eggs
-        my $monsterlist = TAEB::Knowledge::Monster->list;
+        my $monsterlist = TAEB::Spoilers::Monster->list;
         while (my ($name, $stats) = each %$monsterlist) {
             $foods->{"$name corpse"} = $stats->{corpse};
             $foods->{"$name corpse"}->{corpse} = 1;

@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::Knowledge::Monster;
+package TAEB::Spoilers::Monster;
 use MooseX::Singleton;
 use TAEB::Util ':colors';
 

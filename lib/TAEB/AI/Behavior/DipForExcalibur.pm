@@ -11,7 +11,7 @@ sub prepare {
     return 0 unless TAEB->align eq 'Law';
 
     # only one Excalibur. Alas.
-    return 0 if TAEB::Knowledge::Item::Artifact->seen("Excalibur");
+    return 0 if TAEB::Spoilers::Item::Artifact->seen("Excalibur");
 
     # do we have a long sword to dip in our inventory?
     my $longsword = TAEB->inventory->find("long sword")

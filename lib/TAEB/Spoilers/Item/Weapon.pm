@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::Knowledge::Item::Weapon;
+package TAEB::Spoilers::Item::Weapon;
 use MooseX::Singleton;
 
 has list => (

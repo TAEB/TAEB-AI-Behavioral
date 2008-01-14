@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
-package TAEB::Knowledge::Item::Artifact;
+package TAEB::Spoilers::Item::Artifact;
 use MooseX::Singleton;
-use TAEB::Knowledge::Item::Weapon;
-use TAEB::Knowledge::Item::Tool;
+use TAEB::Spoilers::Item::Weapon;
+use TAEB::Spoilers::Item::Tool;
 
 has list => (
     is      => 'ro',
@@ -12,7 +12,7 @@ has list => (
         my $artifacts = { };
 
         for (qw/Weapon Tool/) {
-            my $list = "TAEB::Knowledge::Item::$_"->list;
+            my $list = "TAEB::Spoilers::Item::$_"->list;
             while (my ($name, $stats) = each %$list) {
                 next unless $stats->{artifact};
                 $artifacts->{$name} = $stats;

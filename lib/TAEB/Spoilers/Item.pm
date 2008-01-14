@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
-package TAEB::Knowledge::Item;
+package TAEB::Spoilers::Item;
 use MooseX::Singleton;
 
-use TAEB::Knowledge::Item::Food;
-use TAEB::Knowledge::Item::Weapon;
-use TAEB::Knowledge::Item::Tool;
-use TAEB::Knowledge::Item::Artifact;
-use TAEB::Knowledge::Item::Armor;
+use TAEB::Spoilers::Item::Food;
+use TAEB::Spoilers::Item::Weapon;
+use TAEB::Spoilers::Item::Tool;
+use TAEB::Spoilers::Item::Artifact;
+use TAEB::Spoilers::Item::Armor;
 
 has types => (
     is         => 'ro',
@@ -24,7 +24,7 @@ has list => (
         my $items = {};
 
         for my $type ($self->types) {
-            my $list = "TAEB::Knowledge::Item::$type"->list;
+            my $list = "TAEB::Spoilers::Item::$type"->list;
             while (my ($name, $stats) = each %$list) {
                 $items->{$name} = lc $type;
                 $items->{$stats->{appearance}} = lc $type;
@@ -47,7 +47,7 @@ has plural_of => (
         for my $type ($self->types) {
             next if $exempt{$type};
 
-            my $list = "TAEB::Knowledge::Item::$type"->list;
+            my $list = "TAEB::Spoilers::Item::$type"->list;
             while (my ($name, $stats) = each %$list) {
                 # no_plural or artifact ignore
                 $stats->{no_plural} || $stats->{artifact}

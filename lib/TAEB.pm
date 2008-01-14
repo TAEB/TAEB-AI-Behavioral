@@ -14,7 +14,7 @@ use TAEB::VT;
 use TAEB::ScreenScraper;
 use TAEB::World;
 use TAEB::AI::Senses;
-use TAEB::Knowledge;
+use TAEB::Spoilers;
 
 =head1 NAME
 
@@ -446,7 +446,7 @@ sub send_messages {
         TAEB->debug("Dequeueing message $msgname.");
 
         # this list should not be hardcoded. ideas?
-        for my $recipient (TAEB->senses, TAEB->dungeon->cartographer, "TAEB::Knowledge::Item::Artifact") {
+        for my $recipient (TAEB->senses, TAEB->dungeon->cartographer, "TAEB::Spoilers::Item::Artifact") {
             $recipient->$msgname(@$_)
                 if $recipient->can($msgname);
         }

@@ -211,7 +211,7 @@ sub new_item {
          }x;
 
     $item = $japanese_to_english{$item} || $item;
-    $item = TAEB::Knowledge::Item->singular_of->{$item} || $item;
+    $item = TAEB::Spoilers::Item->singular_of->{$item} || $item;
 
     $num = 1         if $num =~ /[at]/;
     $spe =~ s/^\+//  if defined $spe;
@@ -224,9 +224,9 @@ sub new_item {
         return;
     }
 
-    my $class = TAEB::Knowledge::Item->type_to_class($item);
+    my $class = TAEB::Spoilers::Item->type_to_class($item);
     if (!defined $class) {
-        TAEB->error("Unable to find '$item' in TAEB::Knowledge::Item.");
+        TAEB->error("Unable to find '$item' in TAEB::Spoilers::Item.");
         return;
     }
 
@@ -245,7 +245,7 @@ sub new_item {
     $new_item->identity($item);
 
     $new_item->buc($buc)                   if defined $buc;
-    # XXX: this should go into Knowledge::Item::Tool at some point
+    # XXX: this should go into Spoilers::Item::Tool at some point
     my $is_weaptool = $class eq 'tool' && $item =~ /pick-axe|hook|unicorn/;
     if (!defined $buc &&
         ($class eq 'weapon' || $class eq 'wand' || $is_weaptool)) {

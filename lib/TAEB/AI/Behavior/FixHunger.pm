@@ -15,7 +15,7 @@ sub prepare {
 
     if (TAEB->senses->nutrition < 400) {
         for my $item (TAEB->inventory->items) {
-            if (TAEB::Knowledge::Item::Food->should_eat($item)) {
+            if (TAEB::Spoilers::Item::Food->should_eat($item)) {
                 $self->next(defer {
                     TAEB->inventory->decrease_quantity($item);
                     # XXX: we need knowledge in our items
@@ -42,7 +42,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
     $item->weight < 100 or return 0;
-    return TAEB::Knowledge::Item::Food->should_eat($item);
+    return TAEB::Spoilers::Item::Food->should_eat($item);
 }
 
 1;
