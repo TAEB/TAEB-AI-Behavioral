@@ -105,7 +105,7 @@ sub handle_more {
     # while there's a --More-- on the screen..
     while (TAEB->vt->contains("--More--")) {
         # add the text to the buffer
-        $self->messages($self->messages . TAEB->topline);
+        $self->messages($self->messages . '  ' . TAEB->topline);
 
         # try to get rid of the --More--
         TAEB->write(' ');
