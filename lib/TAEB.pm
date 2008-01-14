@@ -12,9 +12,10 @@ use TAEB::Config;
 use TAEB::Util;
 use TAEB::VT;
 use TAEB::ScreenScraper;
+use TAEB::Spoilers;
+use TAEB::Knowledge;
 use TAEB::World;
 use TAEB::AI::Senses;
-use TAEB::Spoilers;
 
 =head1 NAME
 
