@@ -26,3 +26,12 @@ $maple->rule_out_all_but("wand of sleep", "wand of death");
 is($maple->possibilities, 1, "all done");
 ok(!$maple->engrave_useful, "nope, we've got only one engrave group now");
 
+my $glass = TAEB::Knowledge->appearances->{wand}{glass};
+ok($glass, "we have an appearance object for glass wands");
+ok($glass->engrave_useful, "wands usually start out being useful to engrave");
+
+$glass->rule_out_all_but(map { +"wand of $_" => 1 } "teleportation", "cancellation", "make invisible", "fire");
+ok($glass->engrave_useful, "glass is useful because it has two engrave groups left");
+
+$glass->rule_out("wand of fire");
+ok(!$glass->engrave_useful, "glass is no longer useful because it has one engrave group left");

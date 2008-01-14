@@ -53,6 +53,7 @@ sub engrave_useful {
         for my $possibility ($self->possibilities) {
             next unless $group->{$possibility};
             return 1 if $appearance_groups++ > 0;
+            next GROUP;
         }
     }
 
