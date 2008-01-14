@@ -242,7 +242,7 @@ sub new_item {
         return;
     }
 
-    my $class_name = uc(substr $class, 0, 1) . (substr $class, 1);
+    my $class_name = ucfirst $class;
     unless (grep { $class_name eq $_ } TAEB::Spoilers::Item->types) {
         TAEB->warning("Items (such as $appearance) of class $class are not yet supported.");
         return;
