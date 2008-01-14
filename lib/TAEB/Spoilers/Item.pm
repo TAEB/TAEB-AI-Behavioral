@@ -34,7 +34,8 @@ has list => (
             my $list = "TAEB::Spoilers::Item::$type"->list;
             while (my ($name, $stats) = each %$list) {
                 $items->{$name} = lc $type;
-                $items->{$stats->{appearance}} = lc $type;
+                $items->{$stats->{appearance}} = lc $type
+                    if defined $stats->{appearance};
             }
         }
 
