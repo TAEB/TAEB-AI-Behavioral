@@ -2,6 +2,7 @@
 package TAEB::AI::Behavior::FixHunger;
 use Moose;
 extends 'TAEB::AI::Behavior';
+use Scalar::Defer 'defer';
 
 sub prepare {
     my $self = shift;
@@ -15,7 +16,11 @@ sub prepare {
     if (TAEB->senses->nutrition < 400) {
         for my $item (TAEB->inventory->items) {
             if (TAEB::Knowledge::Item::Food->should_eat($item)) {
-                $self->next("e" . $item->slot);
+                $self->next(defer {
+                    TAEB->inventory->decrease_quantity($item);
+                    TAEB->senses->nutrition(TAEB->senses->nutrition + $item->nutrition);
+                    "e" . $item->slot;
+                });
                 $self->currently("Eating food.");
                 return 50;
             }
