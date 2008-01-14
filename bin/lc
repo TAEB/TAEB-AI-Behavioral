@@ -62,7 +62,7 @@ for (@files) {
         if length($out) > $length;
 }
 
-print "  lines    +know  +doc  +blank  file\n";
+print "  lines   +spoil   +doc  +blank  file\n";
 printf "%s\n", '-' x $length;
 print @out;
 printf "%s\n", '-' x $length;
