@@ -41,6 +41,7 @@ after next_action => sub {
 
 my %pickup = map { $_ => 1 } qw/dagger dart shuriken/;
 sub pickup {
+    my $self = shift;
     my $item = shift;
     return $pickup{$item->identity};
 }

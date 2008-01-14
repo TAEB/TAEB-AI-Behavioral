@@ -57,6 +57,7 @@ sub urgencies {
 }
 
 sub pickup {
+    my $self = shift;
     my $item = shift;
 
     for my $unlocker ('key', 'lock pick', 'credit card') {
