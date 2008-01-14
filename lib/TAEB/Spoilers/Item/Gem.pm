@@ -8,6 +8,12 @@ has list => (
     lazy    => 1,
     default => sub {
         my $gems = {
+            'Heart of Ahriman' => {
+                cost    => 2500,
+                weight  => 10,
+                engrave => 'soft',
+                appearance => 'gray',
+            },
             'dilithium crystal' => {
                 cost    => 4500,
                 weight  => 1,
