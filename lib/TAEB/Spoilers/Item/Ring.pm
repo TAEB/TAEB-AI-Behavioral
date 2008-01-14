@@ -107,7 +107,7 @@ has list => (
         # tag each ring with its name
         while (my ($name, $stats) = each %$rings) {
             $stats->{name}   = $name;
-            $stats->{weight} = 3 unless $stats-{weight};
+            $stats->{weight} = 3 unless $stats->{weight};
         }
 
         return $rings;
