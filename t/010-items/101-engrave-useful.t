@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 33;
+use Test::More tests => 14;
 
 use TAEB;
 

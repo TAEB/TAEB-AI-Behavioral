@@ -49,7 +49,7 @@ sub engrave_useful {
     # be useful in the sense that it'd rule some possibilities out.
 
     my $appearance_groups = 0;
-    for my $group (@groups) {
+    GROUP: for my $group (@groups) {
         for my $possibility ($self->possibilities) {
             next unless $group->{$possibility};
             return 1 if $appearance_groups++ > 0;
