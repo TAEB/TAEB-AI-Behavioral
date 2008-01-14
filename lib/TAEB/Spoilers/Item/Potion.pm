@@ -91,7 +91,8 @@ has list => (
 
         # tag each scroll with its name
         while (my ($name, $stats) = each %$potions) {
-            $stats->{name} = $name;
+            $stats->{name}   = $name;
+            $stats->{weight} = 20;
         }
 
         return $potions;
