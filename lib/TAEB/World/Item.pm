@@ -155,6 +155,18 @@ has cost => (
     default => 0,
 );
 
+has possibility_tracker => (
+    is      => 'ro',
+    isa     => 'TAEB::Knowledge::Item',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        # XXX: appearance and identity need some kind of change
+        TAEB::Knowledge->appearances->{$self->class}{$self->appearance};
+    },
+    handles => [qw/exclude_possibility has_possibilities possibilities rule_out rule_out_all_but identify_as/],
+);
+
 my %japanese_to_english = (
     "wakizashi"      => "short sword",
     "ninja-to"       => "broadsword",
