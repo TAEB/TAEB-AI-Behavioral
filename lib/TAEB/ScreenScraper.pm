@@ -5,29 +5,29 @@ use NetHack::Menu;
 
 my %msg_string = (
     "You are blinded by a blast of light!" =>
-        ['msg_status_change', 'blindness', 1],
+        ['status_change', 'blindness', 1],
     "You can see again." =>
-        ['msg_status_change', 'blindness', 0],
+        ['status_change', 'blindness', 0],
     "From the murky depths, a hand reaches up to bless the sword." =>
-        ['msg_excalibur'],
+        ['excalibur'],
     "The fountain dries up!" =>
-        ['msg_dungeon_feature', 'fountain dries up'],
+        ['dungeon_feature', 'fountain dries up'],
     "As the hand retreats, the fountain disappears!" =>
-        ['msg_dungeon_feature', 'fountain dries up'],
+        ['dungeon_feature', 'fountain dries up'],
 );
 
 my @msg_regex = (
     [
         qr/^There is a (staircase (?:up|down)) here\.$/,
-            ['msg_dungeon_feature', sub { $1 }],
+            ['dungeon_feature', sub { $1 }],
     ],
     [
         qr/^You feel more confident in your (?:(weapon|spell casting|fighting) )?skills\.$/,
-            ['msg_powerup', sub { "enhance", $1 || '' }],
+            ['powerup', sub { "enhance", $1 || '' }],
     ],
     [
         qr/^You cannot escape from (?:the )?(.*)!/,
-            ['msg_cannot_escape', sub { $1 || '' }],
+            ['cannot_escape', sub { $1 || '' }],
     ],
 );
 

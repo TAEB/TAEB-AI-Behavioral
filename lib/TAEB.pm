@@ -430,7 +430,7 @@ sub enqueue_message {
 
     TAEB->debug("Queued message $msgname.");
 
-    push @{ $self->deferred_messages }, [$msgname, @_];
+    push @{ $self->deferred_messages }, ["msg_$msgname", @_];
 }
 
 sub send_messages {
