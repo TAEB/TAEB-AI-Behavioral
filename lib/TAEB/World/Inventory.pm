@@ -25,8 +25,12 @@ sub find {
         return first { $matcher->($_) } $self->items;
     }
 
-    # pass in a string? assume it's a key => value dealy
     my $value = shift;
+    if (!defined($value)) {
+        # they passed in only one argument. assume they are checking identity
+        ($matcher, $value) = ('identity', $matcher);
+    }
+
     return first {  $_->$matcher eq $value } $self->items;
 }
 
