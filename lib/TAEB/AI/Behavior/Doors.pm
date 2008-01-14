@@ -7,7 +7,9 @@ sub prepare {
     my $self = shift;
 
     my $have_action = 0;
-    my $locktool = undef; # XXX: can't use pickup any more
+    my $locktool = TAEB->inventory->find('key')
+                || TAEB->inventory->find('lock pick')
+                || TAEB->inventory->find('credit card');
 
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
