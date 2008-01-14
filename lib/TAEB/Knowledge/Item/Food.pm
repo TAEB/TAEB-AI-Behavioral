@@ -152,16 +152,16 @@ has list => (
 
 sub food {
     my $self = shift;
-    my $item = TAEB::Knowledge::Item->canonicalize_item(shift);
+    my $item = shift;
 
-    return $self->list->{$item};
+    return $self->list->{$item->identity};
 }
 
 sub should_eat {
     my $self = shift;
-    my $food = shift;
+    my $item = shift;
+    my $food = $self->food($item);
 
-    $food = $self->food($food) if !ref($food);
     return 0 if !$food;
     return 0 if $food->{unsafe};
     return 0 if $food->{corpse} && $food->{name} !~ /lichen|lizard/; # :|

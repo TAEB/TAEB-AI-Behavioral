@@ -565,9 +565,9 @@ has list => (
 
 sub armor {
     my $self = shift;
-    my $item = TAEB::Knowledge::Item->canonicalize_item(shift);
+    my $item = shift;
 
-    return $self->list->{$item};
+    return $self->list->{$item->identity};
 }
 
 1;
