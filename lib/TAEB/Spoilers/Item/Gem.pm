@@ -9,6 +9,7 @@ has list => (
     default => sub {
         my $gems = {
             'Heart of Ahriman' => {
+                artifact => 1,
                 cost    => 2500,
                 weight  => 10,
                 engrave => 'soft',
