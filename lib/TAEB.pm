@@ -207,7 +207,9 @@ sub step {
     }
     elsif ($self->state eq 'playing') {
 
-        my $next_action = $self->personality->next_action;
+        # force stringification because of Scalar::Defer. it's a Perl bug
+        # so not much we can do about it
+        my $next_action = "" . $self->personality->next_action;
 
         $self->out(
             "\e[23H%s\e[23HCurrently: %s (%s)  \e[%d;%dH",
