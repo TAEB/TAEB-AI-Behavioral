@@ -242,13 +242,12 @@ sub new_item {
         return;
     }
 
-    unless ($class eq 'weapon' || $class eq 'armor' || $class eq 'food' ||
-            $class eq 'tool') {
-        TAEB->error("Items (such as $appearance) of class $class are not yet supported.");
+    my $class_name = uc(substr $class, 0, 1) . (substr $class, 1);
+    unless (grep { $class_name eq $_ } TAEB::Spoilers::Item->types) {
+        TAEB->warning("Items (such as $appearance) of class $class are not yet supported.");
         return;
     }
 
-    my $class_name = uc(substr $class, 0, 1) . (substr $class, 1);
     $new_item = "TAEB::World::Item::$class_name"->new(raw => $appearance);
 
     # XXX: once the EliteBot item identification code gets merged
