@@ -142,7 +142,9 @@ sub handle_menus {
     my $selector;
 
     if (TAEB->topline =~ /Pick up what\?/) {
-        $selector = TAEB->personality->can('pickup');
+        $selector = sub {
+            TAEB->personality->pickup(TAEB::World::Item->new_item($_));
+        };
     }
     elsif (TAEB->topline =~ /Pick a skill to enhance/) {
         $selector = sub {
@@ -159,22 +161,21 @@ sub handle_menus {
             my $personality = shift;
             my $slot        = shift;
 
-            TAEB->current_tile->add_item(TAEB::World::Item->new(appearance => $_));
+            TAEB->current_tile->add_item(TAEB::World::Item->new_item($_));
             return 0;
         };
     }
     elsif (TAEB->topline =~ /What would you like to drop\?/) {
-        my $drop = TAEB->personality->can('drop');
-
         # this one is special: it'll handle updating the inventory
         $selector = sub {
             my $personality = shift;
             my $slot        = shift;
+            my $item        = TAEB::World::Item->new_item($_);
             my $ret;
 
             # if we can drop the item, drop it!
             if ($drop) {
-                $ret = $drop->($personality, $slot, @_);
+                $ret = TAEB->personality->drop($item);
                 return $ret if $ret;
             }
 

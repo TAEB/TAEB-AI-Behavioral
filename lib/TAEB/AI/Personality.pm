@@ -83,11 +83,25 @@ Does TAEB want this item?
 
 sub want_item {
     my $self = shift;
-    my $item = shift;
 
-    local $_ = $item->appearance;
-    $self->pickup($_->slot || '-');
+    $self->pickup(@_);
 }
+
+=head2 pickup Item -> Bool
+
+Will TAEB pick up this item? Not by default, no.
+
+=cut
+
+sub pickup { 0 }
+
+=head2 drop Item -> Bool
+
+Will TAEB drop this item? Not by default, no.
+
+=cut
+
+sub drop { 0 }
 
 =head2 msg_powerup Str, *
 

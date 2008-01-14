@@ -196,7 +196,7 @@ sub next_action {
     shift->behavior_action;
 }
 
-=head2 pickup Str -> Bool
+=head2 pickup Item -> Bool
 
 Consult each behavior for what it should pick up.
 
@@ -212,7 +212,7 @@ sub pickup {
     return 0;
 }
 
-=head2 drop Str -> Bool
+=head2 drop Item -> Bool
 
 Consult each behavior for what it should drop.
 
