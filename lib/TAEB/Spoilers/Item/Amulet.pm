@@ -8,6 +8,10 @@ has list => (
     lazy    => 1,
     default => sub {
         my $amulets = {
+            'Eye of the Aethiopica' => {
+                cost   => 4000,
+                edible => 1,
+            },
             'amulet of change' => {
                 cost   => 150,
                 edible => 1,
