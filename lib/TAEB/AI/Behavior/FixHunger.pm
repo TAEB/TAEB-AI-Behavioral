@@ -18,7 +18,8 @@ sub prepare {
             if (TAEB::Knowledge::Item::Food->should_eat($item)) {
                 $self->next(defer {
                     TAEB->inventory->decrease_quantity($item);
-                    TAEB->senses->nutrition(TAEB->senses->nutrition + $item->nutrition);
+                    # XXX: we need knowledge in our items
+                    TAEB->senses->nutrition(TAEB->senses->nutrition + 300);
                     "e" . $item->slot;
                 });
                 $self->currently("Eating food.");
