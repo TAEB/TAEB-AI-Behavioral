@@ -11,12 +11,7 @@ sub all_appearances {
 }
 
 sub all_identities {
-    return ('light', 'nothing', 'digging', 'enlightenment', 'locking',
-            'magic missile', 'make invisible', 'opening', 'probing',
-            'secret door detection', 'slow monster', 'speed monster',
-            'striking', 'undead turning', 'cold', 'fire', 'lightning',
-            'sleep', 'cancellation', 'create monster', 'polymorph',
-            'teleportation', 'death', 'wishing');
+    return keys %{ TAEB::Spoilers::Item::Wand->list };
 }
 
 1;
