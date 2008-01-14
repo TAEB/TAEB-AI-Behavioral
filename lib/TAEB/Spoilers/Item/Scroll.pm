@@ -8,97 +8,97 @@ has list => (
     lazy    => 1,
     default => sub {
         my $scrolls = {
-            'mail' => {
+            'scroll of mail' => {
                 cost       => 0,
                 marker     => 2,
                 appearance => 'stamped',
             },
-            'identify' => {
+            'scroll of identify' => {
                 cost   => 20,
                 marker => 14,
             },
-            'light' => {
+            'scroll of light' => {
                 cost   => 50,
                 marker => 8,
             },
-            'blank paper' => {
+            'scroll of blank paper' => {
                 cost       => 60,
                 marker     => 0,
                 appearance => 'unlabeled',
             },
-            'enchant weapon' => {
+            'scroll of enchant weapon' => {
                 cost   => 60,
                 marker => 16,
             },
-            'enchant armor' => {
+            'scroll of enchant armor' => {
                 cost   => 80,
                 marker => 16,
             },
-            'remove curse' => {
+            'scroll of remove curse' => {
                 cost   => 80,
                 marker => 16,
             },
-            'confuse monster' => {
+            'scroll of confuse monster' => {
                 cost   => 100,
                 marker => 12,
             },
-            'destroy armor' => {
+            'scroll of destroy armor' => {
                 cost   => 100,
                 marker => 10,
             },
-            'fire' => {
+            'scroll of fire' => {
                 cost   => 100,
                 marker => 8,
             },
-            'food detection' => {
+            'scroll of food detection' => {
                 cost   => 100,
                 marker => 8,
             },
-            'gold detection' => {
+            'scroll of gold detection' => {
                 cost   => 100,
                 marker => 8,
             },
-            'magic mapping' => {
+            'scroll of magic mapping' => {
                 cost   => 100,
                 marker => 8,
             },
-            'scare monster' => {
+            'scroll of scare monster' => {
                 cost   => 100,
                 marker => 20,
             },
-            'teleportation' => {
+            'scroll of teleportation' => {
                 cost   => 100,
                 marker => 20,
             },
-            'amnesia' => {
+            'scroll of amnesia' => {
                 cost   => 200,
                 marker => 8,
             },
-            'create monster' => {
+            'scroll of create monster' => {
                 cost   => 200,
                 marker => 10,
             },
-            'earth' => {
+            'scroll of earth' => {
                 cost   => 200,
                 marker => 8,
             },
-            'taming' => {
+            'scroll of taming' => {
                 cost   => 200,
                 marker => 20,
             },
-            'charging' => {
+            'scroll of charging' => {
                 cost   => 300,
                 marker => 16,
             },
-            'genocide' => {
+            'scroll of genocide' => {
                 cost   => 300,
                 marker => 30,
             },
-            'punishment' => {
+            'scroll of punishment' => {
                 cost   => 300,
                 marker => 10,
             },
-            'stinking cloud' => {
+            'scroll of stinking cloud' => {
                 cost   => 300,
                 marker => 20,
             },
