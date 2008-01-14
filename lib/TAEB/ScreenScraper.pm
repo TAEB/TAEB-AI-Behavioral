@@ -171,17 +171,13 @@ sub handle_menus {
             my $personality = shift;
             my $slot        = shift;
             my $item        = TAEB::World::Item->new_item($_);
-            my $ret;
 
             # if we can drop the item, drop it!
-            if ($drop) {
-                $ret = TAEB->personality->drop($item);
-                return $ret if $ret;
-            }
+            return 1 if TAEB->personality->drop($item);
 
             # otherwise, we still have the item, so mark it in our inventory
             TAEB->inventory->update($slot, $item);
-            return $ret;
+            return 0;
         };
     }
 
