@@ -7,11 +7,12 @@ use TAEB::Spoilers::Item::Weapon;
 use TAEB::Spoilers::Item::Tool;
 use TAEB::Spoilers::Item::Artifact;
 use TAEB::Spoilers::Item::Armor;
+use TAEB::Spoilers::Item::Scroll;
 
 has types => (
     is         => 'ro',
     isa        => 'ArrayRef[Str]',
-    default    => sub { [qw/Weapon Armor Tool Food/] },
+    default    => sub { [qw/Weapon Armor Scroll Tool Food/] },
     auto_deref => 1,
 );
 
