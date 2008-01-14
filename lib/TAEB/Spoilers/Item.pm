@@ -51,7 +51,7 @@ has plural_of => (
     default => sub {
         my $self = shift;
         my %plural_of;
-        my %exempt = map { $_ => 1 } qw/Armor/;
+        my %exempt = map { $_ => 1 } qw/Armor Ring Wand Book/;
 
         for my $type ($self->types) {
             next if $exempt{$type};
