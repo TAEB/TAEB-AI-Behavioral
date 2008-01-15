@@ -9,7 +9,7 @@ has types => (
     is => 'ro',
     isa => 'ArrayRef[Str]',
     auto_deref => 1,
-    default => sub { [qw/Wand/] },
+    default => sub { [qw/Wand Ring/] },
 );
 
 has appearances => (
