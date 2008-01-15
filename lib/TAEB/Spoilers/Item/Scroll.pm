@@ -119,16 +119,16 @@ has randomized_appearances => (
     is      => 'ro',
     isa     => 'ArrayRef',
     default => sub {
-        [map { "scroll labelled $_" } ('ZELGO MER', 'JUYED AWK YACC', 'NR 9',
-                                       'XIXAXA XOXAXA XUXAXA', 'PRATYAVAYAH',
-                                       'DAIYEN FOOELS', 'LEP GEX VEN ZEA',
-                                       'PRIRUTSENIE', 'ELBIB YLOH', 'TEMOV',
-                                       'VERR YED HORRE', 'VENZAR BORGAVVE',
-                                       'THARR', 'YUM YUM', 'KERNOD WEL',
-                                       'ELAM EBOW', 'DUAM XNAHT', 'KIRJE',
-                                       'ANDOVA BEGARIN', 'VE FORBRYDERNE',
-                                       'HACKEM MUCHE', 'VELOX NEB', 'READ ME',
-                                       'FOOBIE BLETCH', 'GARVEN DEH')];
+        [map { "scroll labeled $_" } ('ZELGO MER', 'JUYED AWK YACC', 'NR 9',
+                                      'XIXAXA XOXAXA XUXAXA', 'PRATYAVAYAH',
+                                      'DAIYEN FOOELS', 'LEP GEX VEN ZEA',
+                                      'PRIRUTSENIE', 'ELBIB YLOH', 'TEMOV',
+                                      'VERR YED HORRE', 'VENZAR BORGAVVE',
+                                      'THARR', 'YUM YUM', 'KERNOD WEL',
+                                      'ELAM EBOW', 'DUAM XNAHT', 'KIRJE',
+                                      'ANDOVA BEGARIN', 'VE FORBRYDERNE',
+                                      'HACKEM MUCHE', 'VELOX NEB', 'READ ME',
+                                      'FOOBIE BLETCH', 'GARVEN DEH')];
     }
 );
 
