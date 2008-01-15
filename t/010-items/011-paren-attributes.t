@@ -8,8 +8,6 @@ use TAEB;
 my @tests = (
     ["a - a +1 long sword (weapon in hand)",
      {is_quivered => 0, is_offhand => 0, is_wielding => 1}],
-    ["i - a spellbook called x y z (weapon in hand)",
-     {is_quivered => 0, is_offhand => 0, is_wielding => 1}],
     ["f - a long sword (alternate weapon; not wielded)",
      {is_quivered => 0, is_offhand => 1, is_wielding => 0}],
     ["g - 2 darts (in quiver)",

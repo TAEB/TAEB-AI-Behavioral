@@ -14,8 +14,6 @@ my @tests = (
      {cost => 22}],
     ["B - a tin (unpaid, 5 zorkmids)",
      {cost => 5}],
-    ["t - a potion called y named x (unpaid, 50 zorkmids)",
-     {cost => 50}],
     ["o - an uncursed amulet of reflection (being worn) (unpaid, 150 zorkmids)",
      {cost => 150}],
     ["d - an uncursed ring of warning (on right hand) (unpaid, 100 zorkmids)",
