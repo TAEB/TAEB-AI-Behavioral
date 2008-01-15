@@ -100,6 +100,19 @@ has list => (
     },
 );
 
+has randomized_appearances => (
+    is      => 'ro',
+    isa     => 'ArrayRef',
+    default => sub {
+        [map { "$_ potion" } (qw/ruby pink orange yellow emerald cyan magenta
+                                purple-red puce milky swirly bubbly smoky
+                                cloudy effervescent black golden brown fizzy
+                                dark white murky/,
+                              'dark green', 'sky blue', 'brilliant blue')
+        ];
+    },
+);
+
 sub potion {
     my $self = shift;
     my $item = shift;

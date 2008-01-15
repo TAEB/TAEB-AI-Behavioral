@@ -295,6 +295,23 @@ has list => (
     },
 );
 
+has randomized_appearances => (
+    is      => 'ro',
+    isa     => 'ArrayRef',
+    default => sub {
+        [map { "$_ spellbook" } (qw/parchment vellum ragged mottled stained
+                                    cloth leather white pink red orange yellow
+                                    velvet turquoise cyan indigo magenta purple
+                                    violet tan plaid gray wrinkled dusty bronze
+                                    copper silver gold glittering shining dull
+                                    thin thick/,
+                                 'dog eared', 'light green', 'dark green',
+                                 'light blue', 'dark blue', 'light brown',
+                                 'dark brown',
+                                )]
+    },
+);
+
 sub spellbook {
     my $self = shift;
     my $item = shift;

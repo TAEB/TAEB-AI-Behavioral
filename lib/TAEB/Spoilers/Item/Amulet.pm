@@ -66,6 +66,15 @@ has list => (
     },
 );
 
+has randomized_appearances => (
+    is      => 'ro',
+    isa     => 'ArrayRef',
+    default => sub {
+        [map { "$_ amulet" } qw/circular spherical oval triangular pyramidal
+                                square concave hexagonal octagonal/];
+    },
+);
+
 sub amulet {
     my $self = shift;
     my $item = shift;

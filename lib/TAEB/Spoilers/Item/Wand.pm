@@ -141,6 +141,17 @@ has list => (
     },
 );
 
+has randomized_appearances => (
+    is      => 'ro',
+    isa     => 'ArrayRef',
+    default => sub {
+        [map { "$_ wand" } qw/glass balsa crystal maple pine oak ebony marble
+                              tin brass copper silver platinum iridium zinc
+                              aluminum uranium iron steel hexagonal short
+                              runed long curved forked spiked jeweled/];
+    },
+);
+
 sub wand {
     my $self = shift;
     my $item = shift;

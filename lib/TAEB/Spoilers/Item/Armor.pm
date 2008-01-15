@@ -14,7 +14,6 @@ has list => (
                 weight     => 50,
                 ac         => 1,
                 material   => 'iron',
-                appearance => '*etched helmet',
             },
             'Hawaiian shirt' => {
                 cost       => 3,
@@ -273,7 +272,6 @@ has list => (
                 ac         => 1,
                 material   => 'cloth',
                 mc         => 2,
-                appearance => '*piece of cloth',
             },
             'oilskin cloak' => {
                 cost       => 50,
@@ -297,7 +295,6 @@ has list => (
                 ac         => 1,
                 material   => 'cloth',
                 mc         => 2,
-                appearance => '*opera cloak',
             },
             'cloak of magic resistance' => {
                 cost       => 60,
@@ -305,7 +302,6 @@ has list => (
                 ac         => 1,
                 material   => 'cloth',
                 mc         => 3,
-                appearance => '*ornamental cope',
             },
             'elven cloak' => {
                 cost       => 60,
@@ -328,7 +324,6 @@ has list => (
                 ac         => 3,
                 material   => 'cloth',
                 mc         => 3,
-                appearance => '*tattered cape',
             },
             'fedora' => {
                 cost       => 1,
@@ -369,7 +364,6 @@ has list => (
                 weight     => 30,
                 ac         => 1,
                 material   => 'iron',
-                appearance => '*plumed helmet',
             },
             'orcish helm' => {
                 cost       => 10,
@@ -383,21 +377,18 @@ has list => (
                 weight     => 50,
                 ac         => 1,
                 material   => 'iron',
-                appearance => '*etched helmet',
             },
             'helm of opposite alignment' => {
                 cost       => 50,
                 weight     => 50,
                 ac         => 1,
                 material   => 'iron',
-                appearance => '*crested helmet',
             },
             'helm of telepathy' => {
                 cost       => 50,
                 weight     => 50,
                 ac         => 1,
                 material   => 'iron',
-                appearance => '*visored helmet',
             },
             'dwarvish iron helm' => {
                 cost       => 20,
@@ -411,28 +402,24 @@ has list => (
                 weight     => 10,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*old gloves',
             },
             'gauntlets of dexterity' => {
                 cost       => 50,
                 weight     => 10,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*padded gloves',
             },
             'gauntlets of fumbling' => {
                 cost       => 50,
                 weight     => 10,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*riding gloves',
             },
             'gauntlets of power' => {
                 cost       => 50,
                 weight     => 30,
                 ac         => 1,
                 material   => 'iron',
-                appearance => '*fencing gloves',
             },
             'small shield' => {
                 cost       => 3,
@@ -493,49 +480,42 @@ has list => (
                 weight     => 15,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*mud boots',
             },
             'kicking boots' => {
                 cost       => 8,
                 weight     => 15,
                 ac         => 1,
                 material   => 'iron',
-                appearance => '*buckled boots',
             },
             'fumble boots' => {
                 cost       => 30,
                 weight     => 20,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*riding boots',
             },
             'levitation boots' => {
                 cost       => 30,
                 weight     => 15,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*snow boots',
             },
             'jumping boots' => {
                 cost       => 50,
                 weight     => 20,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*hiking boots',
             },
             'speed boots' => {
                 cost       => 50,
                 weight     => 20,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*combat boots',
             },
             'water walking boots' => {
                 cost       => 50,
                 weight     => 20,
                 ac         => 1,
                 material   => 'leather',
-                appearance => '*jungle boots',
             },
             'high boots' => {
                 cost       => 12,
@@ -560,6 +540,20 @@ has list => (
         }
 
         return $armor;
+    },
+);
+
+has randomized_appearances => (
+    is      => 'ro',
+    isa     => 'ArrayRef',
+    default => sub {
+        my @helms = map { "$_ helmet" } qw/plumed etched crested visored/;
+        my @cloaks = ('tattered cape', 'opera cloak', 'ornamental cope',
+                      'piece of cloth');
+        my @gloves = map { "$_ gloves" } qw/old padded riding fencing/;
+        my @boots = map { "$_ boots" } qw/combat jungle hiking mud buckled
+                                          riding snow/;
+        return [@helms, @cloaks, @gloves, @boots];
     },
 );
 
