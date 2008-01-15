@@ -51,60 +51,6 @@ has is_greased => (
     default => 0,
 );
 
-has is_poisoned => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has erosion1 => (
-    is      => 'rw',
-    isa     => 'Int',
-    default => 0,
-);
-
-has erosion2 => (
-    is      => 'rw',
-    isa     => 'Int',
-    default => 0,
-);
-
-has is_fooproof => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has partly_used => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has enchantment => (
-    is      => 'rw',
-    isa     => 'Int',
-    default => 0,
-);
-
-has class => (
-    is            => 'rw',
-    isa           => 'ItemClass',
-    documentation => "Armor, weapon, scroll, etc.",
-);
-
-has visible_description => (
-    is            => 'rw',
-    isa           => 'Str',
-    documentation => "Smoky potion, mud boots, etc.",
-);
-
-has identity => (
-    is            => 'rw',
-    isa           => 'Str',
-    documentation => "Chain mail, long sword, cloak of magic resistance, etc.",
-);
-
 has generic_name => (
     is            => 'rw',
     isa           => 'Str',
@@ -132,18 +78,6 @@ has is_offhand => (
 );
 
 has is_quivered => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has buc => (
-    is      => 'rw',
-    isa     => 'BUC',
-    default => 'unknown',
-);
-
-has is_greased => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
