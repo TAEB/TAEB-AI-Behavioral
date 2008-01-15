@@ -7,7 +7,7 @@ has list => (
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
-        my $books = {
+        my $spellbooks = {
             'spellbook of blank paper' => {
                 cost       => 0,
                 level      => 0,
@@ -286,12 +286,12 @@ has list => (
         };
 
         # tag each spellbook with its name and weight
-        while (my ($name, $stats) = each %$books) {
+        while (my ($name, $stats) = each %$spellbooks) {
             $stats->{name}   = $name;
             $stats->{weight} = 50 unless $stats->{weight};
         }
 
-        return $books;
+        return $spellbooks;
     },
 );
 
