@@ -11,6 +11,7 @@ has list => (
             'Eye of the Aethiopica' => {
                 cost   => 4000,
                 edible => 1,
+                artifact => 1,
             },
             'amulet of change' => {
                 cost   => 150,
