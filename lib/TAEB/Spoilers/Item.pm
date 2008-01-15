@@ -7,6 +7,7 @@ use TAEB::Spoilers::Item::Artifact;
 use TAEB::Spoilers::Item::Food;
 use TAEB::Spoilers::Item::Potion;
 use TAEB::Spoilers::Item::Scroll;
+use TAEB::Spoilers::Item::Spellbook;
 use TAEB::Spoilers::Item::Tool;
 use TAEB::Spoilers::Item::Wand;
 use TAEB::Spoilers::Item::Weapon;
@@ -18,8 +19,8 @@ use TAEB::Spoilers::Item::Gem;
 has types => (
     is         => 'ro',
     isa        => 'ArrayRef[Str]',
-    default    => sub { [qw/Weapon Armor Potion Scroll Tool Food Amulet
-                            Ring Wand Gem/] },
+    default    => sub { [qw/Weapon Armor Potion Scroll Spellbook Tool Food
+                            Amulet Ring Wand Gem/] },
     auto_deref => 1,
 );
 
@@ -51,7 +52,7 @@ has plural_of => (
     default => sub {
         my $self = shift;
         my %plural_of;
-        my %exempt = map { $_ => 1 } qw/Armor Ring Wand Book/;
+        my %exempt = map { $_ => 1 } qw/Armor Ring Wand Spellbook/;
 
         for my $type ($self->types) {
             next if $exempt{$type};
