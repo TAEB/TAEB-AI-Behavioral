@@ -117,8 +117,8 @@ my %japanese_to_english = (
 );
 
 sub new_item {
-    my $self       = shift;
-    my $appearance = shift;
+    my $self = shift;
+    my $raw  = shift;
 
     # XXX: there's no way to tell the difference between an item called
     # "foo named bar" and an item called "foo" and named "bar". similarly for
@@ -126,7 +126,7 @@ sub new_item {
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
         $eaten, $dilute, $spe, $item, $call, $name, $recharges, $charges,
         $ncandles, $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand,
-        $wield, $wear, $cost) = $appearance =~
+        $wield, $wear, $cost) = $raw =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
           (an?|the|\d+)\s*                                 # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
@@ -166,7 +166,7 @@ sub new_item {
 
     my $new_item;
     unless (defined $item) {
-        TAEB->warning("Couldn't find the base item type for '$appearance'!");
+        TAEB->warning("Couldn't find the base item type for '$raw'!");
         return;
     }
 
@@ -178,11 +178,11 @@ sub new_item {
 
     my $class_name = ucfirst $class;
     unless (grep { $class_name eq $_ } TAEB::Spoilers::Item->types) {
-        TAEB->warning("Items (such as $appearance) of class $class are not yet supported.");
+        TAEB->warning("Items (such as $raw) of class $class are not yet supported.");
         return;
     }
 
-    $new_item = "TAEB::World::Item::$class_name"->new(raw => $appearance);
+    $new_item = "TAEB::World::Item::$class_name"->new(raw => $raw);
 
     # XXX: once the EliteBot item identification code gets merged
     # in here, this might have to be changed, but it's good enough
