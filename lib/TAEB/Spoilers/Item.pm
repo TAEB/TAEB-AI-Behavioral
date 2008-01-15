@@ -39,6 +39,11 @@ has list => (
                 $items->{$stats->{appearance}} = lc $type
                     if defined $stats->{appearance};
             }
+            if ("TAEB::Spoilers::Item::$type"->can('randomized_appearances')) {
+                for my $name (@{"TAEB::Spoilers::Item::$type"->randomized_appearances}) {
+                    $items->{$name} = lc $type;
+                }
+            }
         }
 
         return $items;
