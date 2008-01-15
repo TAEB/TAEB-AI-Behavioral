@@ -117,7 +117,7 @@ has list => (
 
 has randomized_appearances => (
     is      => 'ro',
-    isa     => 'HashRef',
+    isa     => 'ArrayRef',
     default => sub {
         [map { "scroll labelled $_" } ('ZELGO MER', 'JUYED AWK YACC', 'NR 9',
                                        'XIXAXA XOXAXA XUXAXA', 'PRATYAVAYAH',
