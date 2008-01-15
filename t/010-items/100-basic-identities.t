@@ -5,9 +5,9 @@ use Test::More tests => 33;
 
 use TAEB;
 
-ok(TAEB::Knowledge->appearances->{wand}{balsa}, "we have an appearance object for balsa wands");
+ok(TAEB::Knowledge->appearances->{wand}{'balsa wand'}, "we have an appearance object for balsa wands");
 
-my $balsa = TAEB::Knowledge->appearances->{wand}{balsa};
+my $balsa = TAEB::Knowledge->appearances->{wand}{'balsa wand'};
 my %balsa_poss = map { $_ => 1} $balsa->all_identities;
 
 is_deeply([sort $balsa->possibilities], [sort keys %balsa_poss], "we start with all possibilities.. possible");
@@ -34,7 +34,7 @@ ok($balsa->has_possibility('wand of teleportation'), "yes! it's tele damnit, why
 
 # ------------------------------------------------------------------------------
 
-my $maple = TAEB::Knowledge->appearances->{wand}{maple};
+my $maple = TAEB::Knowledge->appearances->{wand}{'maple wand'};
 my %maple_poss = map { $_ => 1} $maple->all_identities;
 delete $maple_poss{"wand of teleportation"}; # that's balsa!
 
