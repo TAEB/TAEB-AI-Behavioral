@@ -16,6 +16,7 @@ has list => (
                 appearance => 'plain spellbook',
             },
             'Book of the Dead' => {
+                artifact   => 1,
                 cost       => 10000,
                 weight     => 20,
                 level      => 7,
