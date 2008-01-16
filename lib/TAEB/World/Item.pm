@@ -15,10 +15,9 @@ has raw => (
     documentation => "The raw string NetHack gave us for the item. Don't use it for code, use it only for logging.",
 );
 
-has identity => (
+has appearance => (
     is            => 'rw',
     isa           => 'Str',
-    documentation => "Chain mail, long sword, cloak of magic resistance, etc.",
 );
 
 has class => (
@@ -172,7 +171,13 @@ sub new_item {
     # XXX: once the EliteBot item identification code gets merged
     # in here, this might have to be changed, but it's good enough
     # for now
-    $new_item->identity($item);
+    my $stats = "TAEB::Spoilers::Item::$class_name"->$class($item);
+    if (defined $stats) {
+        $new_item->appearance($stats->{appearance});
+    }
+    else {
+        $new_item->appearance($item);
+    }
 
     $new_item->buc($buc)                   if defined $buc;
     # XXX: this should go into Spoilers::Item::Tool at some point
@@ -216,6 +221,14 @@ sub new_item {
     $new_item->cost($cost)                 if defined $cost;
 
     return $new_item;
+}
+
+sub identity {
+    my $self = shift;
+
+    my @possibilities = @{ $self->possibilities };
+    return undef if @possibilities != 1;
+    return $possibilities[0];
 }
 
 1;
