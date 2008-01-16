@@ -160,7 +160,7 @@ has constant_appearances => (
         my $self = shift;
         my $appearances = [];
         while (my ($item, $stats) = each %{ $self->list }) {
-            push @$appearances, $stats->appearance;
+            push @$appearances, $stats->{appearance};
         }
         return $appearances;
     },

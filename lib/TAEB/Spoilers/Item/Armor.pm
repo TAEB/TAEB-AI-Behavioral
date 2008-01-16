@@ -575,10 +575,10 @@ has constant_appearances => (
         my $self = shift;
         my $appearances = [];
         while (my ($item, $stats) = each %{ $self->list }) {
-            next if !defined $stats->appearance ||
-                    grep { $_ eq $stats->appearance }
+            next if !defined $stats->{appearance} ||
+                    grep { $_ eq $stats->{appearance} }
                          $self->multi_identity_appearances;
-            push @$appearances, $stats->appearance;
+            push @$appearances, $stats->{appearance};
         }
         return $appearances;
     },
