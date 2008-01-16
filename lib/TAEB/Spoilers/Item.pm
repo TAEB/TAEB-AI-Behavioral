@@ -131,7 +131,7 @@ has all_appearances => (
         my $self = shift;
         my @random = $self->randomized_appearances
             if $self->can('randomized_appearances');
-        my @constant = $self->constant_appearances
+        my @constant = keys %{ $self->constant_appearances }
             if $self->can('constant_appearances');
         my @multi = $self->multi_identity_appearances
             if $self->can('multi_identity_appearances');
