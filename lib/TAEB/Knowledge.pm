@@ -30,9 +30,11 @@ has appearances => (
                     type       => lc($type),
                 );
             }
-            while (my ($appearance, $identity) =
-                       each %{ $class->constant_appearances }) {
-                $appearances->{lc $type}{$appearance}->identify_as($identity);
+            if ($class->can('constant_appearances')) {
+                while (my ($appearance, $identity) =
+                        each %{ $class->constant_appearances }) {
+                    $appearances->{lc $type}{$appearance}->identify_as($identity);
+                }
             }
         }
 
