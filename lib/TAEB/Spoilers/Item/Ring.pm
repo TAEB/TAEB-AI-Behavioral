@@ -122,9 +122,9 @@ has randomized_appearances => (
     auto_deref => 1,
     default    => sub {
         [map { "$_ ring" } (qw/wooden granite opal clay coral moonstone jade
-                              bronze agate topaz sapphire ruby diamond pearl
-                              iron brass copper twisted steel silver gold ivory
-                              emerald wire engagement shiny/,
+                               bronze agate topaz sapphire ruby diamond pearl
+                               iron brass copper twisted steel silver gold ivory
+                               emerald wire engagement shiny/,
                             'black onyx', 'tiger eye')
         ];
     }
