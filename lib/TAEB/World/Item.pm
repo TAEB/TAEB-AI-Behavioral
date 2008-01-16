@@ -101,21 +101,6 @@ has possibility_tracker => (
     handles => [qw/exclude_possibility has_possibilities possibilities rule_out rule_out_all_but identify_as/],
 );
 
-my %japanese_to_english = (
-    "wakizashi"      => "short sword",
-    "ninja-to"       => "broadsword",
-    "nunchaku"       => "flail",
-    "naginata"       => "glaive",
-    "osaku"          => "lock pick",
-    "koto"           => "wooden harp",
-    "shito"          => "knife",
-    "tanko"          => "plate mail",
-    "kabuto"         => "helmet",
-    "yugake"         => "leather gloves",
-    "gunyoki"        => "food ration",
-    "potion of sake" => "potion of booze",
-);
-
 sub new_item {
     my $self = shift;
     my $raw  = shift;
@@ -156,7 +141,7 @@ sub new_item {
           $                                                # anchor the regex
          }x;
 
-    $item = $japanese_to_english{$item} || $item;
+    $item = TAEB::Spoilers::Item->english_of->{$item} || $item;
     $item = TAEB::Spoilers::Item->singular_of->{$item} || $item;
 
     $num = 1         if $num =~ /[at]/;

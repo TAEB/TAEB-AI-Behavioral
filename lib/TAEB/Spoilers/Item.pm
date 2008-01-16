@@ -90,6 +90,38 @@ has singular_of => (
     },
 );
 
+has english_of => (
+    is      => 'ro',
+    isa     => 'HashRef',
+    default => sub {
+        my %japanese_to_english = (
+            "wakizashi"      => "short sword",
+            "ninja-to"       => "broadsword",
+            "nunchaku"       => "flail",
+            "naginata"       => "glaive",
+            "osaku"          => "lock pick",
+            "koto"           => "wooden harp",
+            "shito"          => "knife",
+            "tanko"          => "plate mail",
+            "kabuto"         => "helmet",
+            "yugake"         => "leather gloves",
+            "gunyoki"        => "food ration",
+            "potion of sake" => "potion of booze",
+        );
+        return \%japanese_to_english;
+    },
+);
+
+has japanese_of => (
+    is      => 'ro',
+    isa     => 'HashRef',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        return { reverse %{ $self->english_of } };
+    },
+);
+
 has all_appearances => (
     is         => 'ro',
     isa        => 'ArrayRef',
