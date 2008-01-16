@@ -3,14 +3,6 @@ package TAEB::Knowledge::Item::Wand;
 use Moose;
 extends 'TAEB::Knowledge::Item';
 
-sub all_appearances {
-    return @{ TAEB::Spoilers::Item::Wand->randomized_appearances };
-}
-
-sub all_identities {
-    return keys %{ TAEB::Spoilers::Item::Wand->list };
-}
-
 my @_groups = (
     [ 'cold'          ],
     [ 'polymorph'     ],
