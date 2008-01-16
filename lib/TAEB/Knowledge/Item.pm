@@ -28,9 +28,27 @@ has _identities => (
 sub BUILD {
     my $self = shift;
 
-    my $type = ucfirst $self->type;
-    my $spoiler = "TAEB::Spoilers::Item::$type";
-    $self->_identities({ map { $_ => 1 } $spoiler->all_identities });
+    my $type = $self->type;
+    my $class = ucfirst $type;
+    my $spoiler = "TAEB::Spoilers::Item::$class";
+    my $identity = $spoiler->constant_appearances->{$self->appearance}
+        if $self->can('constant_appearances');
+    if (defined $identity) {
+        $self->_identities->{$identity} = 1;
+    }
+    else {
+        if ($spoiler->can('randomized_appearances') &&
+            grep { $_ eq $self->appearance } $spoiler->randomized_appearances) {
+            # XXX: we probably want a 'randomized_identities' attribute or
+            # something like that, but we can't just do that directly with
+            # what we have now because armor has multiple groups of
+            # randomized_identities
+            $self->_identities({ map { $_ => 1 } $spoiler->all_identities });
+        }
+        # XXX: we don't handle multi_identity_appearances here, since there's
+        # no way to track this outside of game. handle them elsewhere through
+        # #name-ing instead.
+    }
 }
 
 around exclude_possibility => sub {
