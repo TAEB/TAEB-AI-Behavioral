@@ -545,10 +545,10 @@ has list => (
 );
 
 has randomized_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub {
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub {
         my @helms = map { "$_ helmet" } qw/plumed etched crested visored/;
         my @cloaks = ('tattered cape', 'opera cloak', 'ornamental cope',
                       'piece of cloth');
@@ -560,18 +560,18 @@ has randomized_appearances => (
 );
 
 has multi_identity_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub { ['conical hat'] },
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { ['conical hat'] },
 );
 
 has constant_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    lazy      => 1,
-    default   => sub {
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    lazy       => 1,
+    default    => sub {
         my $self = shift;
         my $appearances = [];
         while (my ($item, $stats) = each %{ $self->list }) {

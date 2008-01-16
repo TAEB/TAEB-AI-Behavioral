@@ -70,20 +70,20 @@ has list => (
 );
 
 has randomized_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub {
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub {
         [map { "$_ amulet" } qw/circular spherical oval triangular pyramidal
                                 square concave hexagonal octagonal/];
     },
 );
 
 has multi_identity_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub { ['Amulet of Yendor'] },
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { ['Amulet of Yendor'] },
 );
 
 sub amulet {

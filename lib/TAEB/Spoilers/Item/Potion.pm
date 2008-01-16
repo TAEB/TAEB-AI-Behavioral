@@ -102,10 +102,10 @@ has list => (
 );
 
 has randomized_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub {
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub {
         [map { "$_ potion" } (qw/ruby pink orange yellow emerald cyan magenta
                                 purple-red puce milky swirly bubbly smoky
                                 cloudy effervescent black golden brown fizzy
@@ -116,10 +116,10 @@ has randomized_appearances => (
 );
 
 has constant_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub { ['clear potion'] },
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { ['clear potion'] },
 );
 
 sub potion {

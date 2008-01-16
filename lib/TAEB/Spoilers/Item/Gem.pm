@@ -262,20 +262,20 @@ has list => (
 );
 
 has multi_identity_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub {
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub {
         [map { "$_ gem" } (qw/white red blue orange black green yellow violet/,
                            'yellowish brown'), 'gray stone'];
     },
 );
 
 has constant_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub { ['rock'] },
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { ['rock'] },
 );
 
 sub gem {

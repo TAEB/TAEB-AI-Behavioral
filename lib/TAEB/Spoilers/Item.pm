@@ -91,11 +91,11 @@ has singular_of => (
 );
 
 has all_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    lazy      => 1,
-    autoderef => 1,
-    default   => sub {
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    lazy       => 1,
+    auto_deref => 1,
+    default    => sub {
         my $self = shift;
         my @random = $self->randomized_appearances
             if $self->can('randomized_appearances');
@@ -108,11 +108,11 @@ has all_appearances => (
 );
 
 has all_identities => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    lazy      => 1,
-    autoderef => 1,
-    default   => sub {
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    lazy       => 1,
+    auto_deref => 1,
+    default    => sub {
         my $self = shift;
         return [keys %{ $self->list }];
     },

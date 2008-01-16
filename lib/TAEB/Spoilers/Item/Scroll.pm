@@ -117,10 +117,10 @@ has list => (
 );
 
 has randomized_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub {
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub {
         [map { "scroll labeled $_" } ('ZELGO MER', 'JUYED AWK YACC', 'NR 9',
                                       'XIXAXA XOXAXA XUXAXA', 'PRATYAVAYAH',
                                       'DAIYEN FOOELS', 'LEP GEX VEN ZEA',
@@ -135,10 +135,10 @@ has randomized_appearances => (
 );
 
 has constant_appearances => (
-    is        => 'ro',
-    isa       => 'ArrayRef',
-    autoderef => 1,
-    default   => sub { ['stamped scroll', 'unlabeled scroll'] },
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { ['stamped scroll', 'unlabeled scroll'] },
 );
 
 sub scroll {
