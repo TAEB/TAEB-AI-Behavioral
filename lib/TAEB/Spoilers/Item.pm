@@ -90,6 +90,23 @@ has singular_of => (
     },
 );
 
+has all_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    lazy      => 1,
+    autoderef => 1,
+    default   => sub {
+        my $self = shift;
+        my @random = $self->randomized_appearances
+            if $self->can('randomized_appearances');
+        my @constant = $self->constant_appearances
+            if $self->can('constant_appearances');
+        my @multi = $self->multi_identity_appearances
+            if $self->can('multi_identity_appearances');
+        return [@random, @constant, @multi];
+    },
+);
+
 sub type_to_class {
     my $self = shift;
     my $item = shift;
