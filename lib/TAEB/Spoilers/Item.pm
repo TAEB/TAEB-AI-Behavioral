@@ -107,6 +107,17 @@ has all_appearances => (
     },
 );
 
+has all_identities => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    lazy      => 1,
+    autoderef => 1,
+    default   => sub {
+        my $self = shift;
+        return [keys %{ $self->list }];
+    },
+);
+
 sub type_to_class {
     my $self = shift;
     my $item = shift;
