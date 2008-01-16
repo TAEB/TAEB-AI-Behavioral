@@ -248,7 +248,7 @@ sub farlook {
     TAEB->process_input;
 
     my $description = TAEB->topline;
-    return $description =~ /^(.)\s*(.*?)\s*\((.*)\)\s*$/ if wantarray;
+    return $description =~ /^(.)\s*(.*?)\s*\((.*)\)\s*(?:\[(.*)\])?\s*$/ if wantarray;
     return $description;
 }
 
