@@ -8,7 +8,7 @@ use TAEB;
 ok(TAEB::Knowledge->appearances->{wand}{'balsa wand'}, "we have an appearance object for balsa wands");
 
 my $balsa = TAEB::Knowledge->appearances->{wand}{'balsa wand'};
-my %balsa_poss = map { $_ => 1} $balsa->all_identities;
+my %balsa_poss = map { $_ => 1} TAEB::Spoilers::Item::Wand->all_identities;
 
 is_deeply([sort $balsa->possibilities], [sort keys %balsa_poss], "we start with all possibilities.. possible");
 
@@ -27,7 +27,7 @@ is_deeply([sort $balsa->possibilities], [sort keys %balsa_poss], "just engrave I
 $balsa->identify_as('wand of teleportation');
 is_deeply([$balsa->possibilities], ['wand of teleportation'], "we used ?oID");
 
-for (grep { $_ ne 'wand of teleportation' } $balsa->all_identities) {
+for (grep { $_ ne 'wand of teleportation' } TAEB::Spoilers::Item::Wand->all_identities) {
     ok(!$balsa->has_possibility($_), "balsa cannot be $_, it's tele");
 }
 ok($balsa->has_possibility('wand of teleportation'), "yes! it's tele damnit, why don't you listen");
@@ -35,7 +35,7 @@ ok($balsa->has_possibility('wand of teleportation'), "yes! it's tele damnit, why
 # ------------------------------------------------------------------------------
 
 my $maple = TAEB::Knowledge->appearances->{wand}{'maple wand'};
-my %maple_poss = map { $_ => 1} $maple->all_identities;
+my %maple_poss = map { $_ => 1} TAEB::Spoilers::Item::Wand->all_identities;
 delete $maple_poss{"wand of teleportation"}; # that's balsa!
 
 is_deeply([sort $maple->possibilities], [sort keys %maple_poss], "we start with all possibilities possible except for teleportation");
