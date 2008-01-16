@@ -4,6 +4,7 @@ use MooseX::Singleton;
 
 use TAEB::Knowledge::Item;
 use TAEB::Knowledge::Item::Wand;
+use TAEB::Knowledge::Item::Ring;
 
 has types => (
     is => 'ro',
