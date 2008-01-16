@@ -2,6 +2,7 @@
 package TAEB::Spoilers::Item::Food;
 use MooseX::Singleton;
 use TAEB::Spoilers::Monster; # for corpses
+extends 'TAEB::Spoilers::Item';
 
 has list => (
     is      => 'ro',

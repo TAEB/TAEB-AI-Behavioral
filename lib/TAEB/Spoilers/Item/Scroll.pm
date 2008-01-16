@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Spoilers::Item::Scroll;
 use MooseX::Singleton;
+extends 'TAEB::Spoilers::Item';
 
 has list => (
     is      => 'ro',
