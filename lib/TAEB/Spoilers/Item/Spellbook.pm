@@ -316,9 +316,10 @@ has randomized_appearances => (
 
 has constant_appearances => (
     is         => 'ro',
-    isa        => 'ArrayRef',
+    isa        => 'HashRef',
     auto_deref => 1,
-    default    => sub { ['plain spellbook', 'papyrus spellbook'] },
+    default    => sub { {'plain spellbook'   => 'spellbook of blank paper',
+                         'papyrus spellbook' => 'Book of the Dead'} },
 );
 
 sub spellbook {

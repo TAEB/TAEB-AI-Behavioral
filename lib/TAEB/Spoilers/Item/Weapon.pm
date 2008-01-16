@@ -968,14 +968,14 @@ has list => (
 
 has constant_appearances => (
     is         => 'ro',
-    isa        => 'ArrayRef',
+    isa        => 'HashRef',
     auto_deref => 1,
     lazy       => 1,
     default    => sub {
         my $self = shift;
-        my $appearances = [];
+        my $appearances = {};
         while (my ($item, $stats) = each %{ $self->list }) {
-            push @$appearances, $stats->{appearance};
+            $appearances->{$stats->{appearance}} = $stats->{name}
         }
         return $appearances;
     },

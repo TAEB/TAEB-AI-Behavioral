@@ -117,9 +117,9 @@ has randomized_appearances => (
 
 has constant_appearances => (
     is         => 'ro',
-    isa        => 'ArrayRef',
+    isa        => 'HashRef',
     auto_deref => 1,
-    default    => sub { ['clear potion'] },
+    default    => sub { {'clear potion' => 'potion of water'} },
 );
 
 sub potion {

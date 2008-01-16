@@ -273,9 +273,9 @@ has multi_identity_appearances => (
 
 has constant_appearances => (
     is         => 'ro',
-    isa        => 'ArrayRef',
+    isa        => 'HashRef',
     auto_deref => 1,
-    default    => sub { ['rock'] },
+    default    => sub { {rock => 'rock'} },
 );
 
 sub gem {

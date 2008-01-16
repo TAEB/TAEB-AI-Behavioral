@@ -136,9 +136,10 @@ has randomized_appearances => (
 
 has constant_appearances => (
     is         => 'ro',
-    isa        => 'ArrayRef',
+    isa        => 'HashRef',
     auto_deref => 1,
-    default    => sub { ['stamped scroll', 'unlabeled scroll'] },
+    default    => sub { {'stamped scroll'   => 'scroll of mail',
+                         'unlabeled scroll' => 'scroll of blank paper'} },
 );
 
 sub scroll {
