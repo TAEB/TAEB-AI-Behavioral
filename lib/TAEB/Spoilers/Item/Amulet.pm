@@ -78,6 +78,13 @@ has randomized_appearances => (
     },
 );
 
+has multi_identity_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    default   => sub { ['Amulet of Yendor'] },
+);
+
 sub amulet {
     my $self = shift;
     my $item = shift;

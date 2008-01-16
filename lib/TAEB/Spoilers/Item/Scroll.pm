@@ -133,6 +133,13 @@ has randomized_appearances => (
     }
 );
 
+has constant_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    default   => sub { ['stamped scroll', 'unlabeled scroll'] },
+);
+
 sub scroll {
     my $self = shift;
     my $item = shift;

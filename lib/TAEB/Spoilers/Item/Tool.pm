@@ -382,6 +382,31 @@ has list => (
     },
 );
 
+has multi_identity_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    default   => sub { [qw/lamp whistle flute drum harp figurine horn candle
+                           bag/] },
+);
+
+has constant_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    lazy      => 1,
+    default   => sub {
+        my $self = shift;
+        my $appearances = [];
+        while (my ($item, $stats) = each %{ $self->list }) {
+            next if grep { $_ eq $stats->appearance }
+                         $self->multi_identity_appearances;
+            push @$appearances, $stats->appearance;
+        }
+        return $appearances;
+    },
+);
+
 sub tool {
     my $self = shift;
     my $item = shift;

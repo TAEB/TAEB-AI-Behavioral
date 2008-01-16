@@ -965,6 +965,21 @@ has list => (
     },
 );
 
+has constant_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    lazy      => 1,
+    default   => sub {
+        my $self = shift;
+        my $appearances = [];
+        while (my ($item, $stats) = each %{ $self->list }) {
+            push @$appearances, $stats->appearance;
+        }
+        return $appearances;
+    },
+);
+
 sub weapon {
     my $self = shift;
     my $item = shift;

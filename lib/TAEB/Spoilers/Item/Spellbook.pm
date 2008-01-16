@@ -313,6 +313,13 @@ has randomized_appearances => (
     },
 );
 
+has constant_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    default   => sub { ['plain spellbook', 'papyrus spellbook'] },
+);
+
 sub spellbook {
     my $self = shift;
     my $item = shift;

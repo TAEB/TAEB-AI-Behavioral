@@ -558,6 +558,31 @@ has randomized_appearances => (
     },
 );
 
+has multi_identity_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    default   => sub { ['conical hat'] },
+);
+
+has constant_appearances => (
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    lazy      => 1,
+    default   => sub {
+        my $self = shift;
+        my $appearances = [];
+        while (my ($item, $stats) = each %{ $self->list }) {
+            next if !defined $stats->appearance ||
+                    grep { $_ eq $stats->appearance }
+                         $self->multi_identity_appearances;
+            push @$appearances, $stats->appearance;
+        }
+        return $appearances;
+    },
+);
+
 sub armor {
     my $self = shift;
     my $item = shift;
