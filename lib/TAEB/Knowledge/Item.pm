@@ -28,7 +28,9 @@ has _identities => (
 sub BUILD {
     my $self = shift;
 
-    $self->_identities({ map { $_ => 1 } $self->all_identities });
+    my $type = ucfirst $self->type;
+    my $spoiler = "TAEB::Spoilers::Item::$type";
+    $self->_identities({ map { $_ => 1 } $spoiler->all_identities });
 }
 
 around exclude_possibility => sub {
