@@ -296,9 +296,10 @@ has list => (
 );
 
 has randomized_appearances => (
-    is      => 'ro',
-    isa     => 'ArrayRef',
-    default => sub {
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    default   => sub {
         [map { "$_ spellbook" } (qw/parchment vellum ragged mottled stained
                                     cloth leather white pink red orange yellow
                                     velvet turquoise cyan indigo magenta purple

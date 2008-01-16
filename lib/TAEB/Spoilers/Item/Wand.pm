@@ -142,9 +142,10 @@ has list => (
 );
 
 has randomized_appearances => (
-    is      => 'ro',
-    isa     => 'ArrayRef',
-    default => sub {
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    default   => sub {
         [map { "$_ wand" } qw/glass balsa crystal maple pine oak ebony marble
                               tin brass copper silver platinum iridium zinc
                               aluminum uranium iron steel hexagonal short

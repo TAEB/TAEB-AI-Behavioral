@@ -544,9 +544,10 @@ has list => (
 );
 
 has randomized_appearances => (
-    is      => 'ro',
-    isa     => 'ArrayRef',
-    default => sub {
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    autoderef => 1,
+    default   => sub {
         my @helms = map { "$_ helmet" } qw/plumed etched crested visored/;
         my @cloaks = ('tattered cape', 'opera cloak', 'ornamental cope',
                       'piece of cloth');
