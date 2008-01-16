@@ -49,9 +49,11 @@ has list => (
             },
             'cheap plastic imitation Amulet of Yendor' => {
                 cost   => 0,
+                appearance => 'Amulet of Yendor',
             },
             'Amulet of Yendor' => {
                 cost   => 30000,
+                appearance => 'Amulet of Yendor',
             },
         };
 
