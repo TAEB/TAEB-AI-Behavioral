@@ -18,6 +18,7 @@ has _identities => (
     metaclass => 'Collection::Hash',
     is        => 'rw',
     isa       => 'HashRef',
+    default   => sub { {} },
     provides  => {
         delete => 'exclude_possibility',
         exists => 'has_possibility',
