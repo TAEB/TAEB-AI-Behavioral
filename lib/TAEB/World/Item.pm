@@ -226,7 +226,7 @@ sub new_item {
 sub identity {
     my $self = shift;
 
-    my @possibilities = @{ $self->possibilities };
+    my @possibilities = $self->possibilities;
     return undef if @possibilities != 1;
     return $possibilities[0];
 }
