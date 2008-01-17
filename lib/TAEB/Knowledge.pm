@@ -3,14 +3,24 @@ package TAEB::Knowledge;
 use MooseX::Singleton;
 
 use TAEB::Knowledge::Item;
-use TAEB::Knowledge::Item::Wand;
+use TAEB::Knowledge::Item::Amulet;
+use TAEB::Knowledge::Item::Armor;
+use TAEB::Knowledge::Item::Food;
+use TAEB::Knowledge::Item::Gem;
+use TAEB::Knowledge::Item::Potion;
 use TAEB::Knowledge::Item::Ring;
+use TAEB::Knowledge::Item::Scroll;
+use TAEB::Knowledge::Item::Spellbook;
+use TAEB::Knowledge::Item::Tool;
+use TAEB::Knowledge::Item::Wand;
+use TAEB::Knowledge::Item::Weapon;
 
 has types => (
     is => 'ro',
     isa => 'ArrayRef[Str]',
     auto_deref => 1,
-    default => sub { [qw/Wand Ring/] },
+    default => sub { [qw/Amulet Armor Food Gem Potion Ring Scroll Spellbook
+                         Tool Wand Weapon/] },
 );
 
 has appearances => (
