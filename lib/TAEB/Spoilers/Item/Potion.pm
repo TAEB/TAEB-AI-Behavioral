@@ -41,7 +41,7 @@ has list => (
             },
             'potion of water' => {
                 cost       => 100,
-                appearance => 'clear',
+                appearance => 'clear potion',
             },
             'potion of blindness' => {
                 cost => 150,
