@@ -46,5 +46,24 @@ has appearances => (
     },
 );
 
+has appearance_of => (
+    is      => 'rw',
+    isa     => 'HashRef[Str]',
+    default => sub { {} },
+);
+
+sub msg_discovery {
+    my $self       = shift;
+    my $identity   = shift;
+    my $appearance = shift;
+
+    # XXX: DOY SEND HELP
+    my ($class) = $identity =~ /^(.*?) of /;
+    $appearance .= " $class";
+
+    my $knowledge = $self->appearances->{lc $class}->{$appearance};
+    $knowledge->identify_as($identity) if $knowledge;
+}
+
 1;
 
