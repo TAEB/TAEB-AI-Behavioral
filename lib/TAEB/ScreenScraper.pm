@@ -144,6 +144,14 @@ sub handle_menus {
             TAEB->personality->pickup(TAEB::World::Item->new_item($_));
         };
     }
+    elsif (TAEB->topline =~ /^\s*Discoveries\s*$/) {
+        $menu->select_count('none');
+        $selector = sub {
+            my ($identity, $appearance) = /^[* ] (.*?) \((.*?)\)/
+                or return;
+            TAEB->enqueue_message('discovery', $identity, $appearance);
+        };
+    }
     elsif (TAEB->topline =~ /Pick a skill to enhance/) {
         $selector = sub {
             my $personality = shift;
