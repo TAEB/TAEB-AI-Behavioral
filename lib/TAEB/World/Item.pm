@@ -111,7 +111,7 @@ sub new_item {
         $ncandles, $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand,
         $wield, $wear, $cost) = $raw =~
         m{(?:(\w)\s[+-])?\s*                               # inventory slot
-          (an?|the|\d+)\s*                                 # number
+          (an?|the|\d+)?\s*                                # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
           (greased)?\s*                                    # greasy
           (poisoned)?\s*                                   # poisoned
@@ -142,7 +142,7 @@ sub new_item {
     $item = TAEB::Spoilers::Item->english_of->{$item} || $item;
     $item = TAEB::Spoilers::Item->singular_of->{$item} || $item;
 
-    $num = 1         if $num =~ /[at]/;
+    $num = 1         if !defined($num) || $num =~ /[at]/;
     $spe =~ s/^\+//  if defined $spe;
     $ncandles = 0    if (defined $ncandles && $ncandles =~ /no/);
     $lit = 1         if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
