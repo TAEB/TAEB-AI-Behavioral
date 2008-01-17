@@ -13,6 +13,7 @@ has list => (
             'gold piece' => {
                 cost   => 1,
                 weight => 0.01,
+                plural => 'gold pieces',
             },
             'boulder' => {
                 cost      => 0,
@@ -21,6 +22,7 @@ has list => (
                 sdam      => 'd20',
                 ldam      => 'd20',
                 nutrition => 2000,
+                plural    => 'boulders',
             },
             'statue' => {
                 cost      => 0,
@@ -29,6 +31,7 @@ has list => (
                 sdam      => 'd20',
                 ldam      => 'd20',
                 nutrition => 2500,
+                plural    => 'statues',
             },
             'heavy iron ball' => {
                 cost      => 10,
@@ -37,6 +40,7 @@ has list => (
                 sdam      => 'd25',
                 ldam      => 'd25',
                 nutrition => 480,
+                plural    => 'heavy iron balls',
             },
             'iron chain' => {
                 cost      => 0,
@@ -45,6 +49,7 @@ has list => (
                 sdam      => 'd4+1',
                 ldam      => 'd4+1',
                 nutrition => 120,
+                plural    => 'iron chains',
             },
             'acid venom' => {
                 cost   => 0,
@@ -53,12 +58,14 @@ has list => (
                 color  => COLOR_BROWN,
                 sdam   => '2d6',
                 ldam   => '2d6',
+                plural => 'acid venoms',
             },
             'blinding venom' => {
                 cost   => 0,
                 weight => 1,
                 glyph  => '.',
                 color  => COLOR_BROWN,
+                plural => 'blinding venoms',
             },
         };
 
