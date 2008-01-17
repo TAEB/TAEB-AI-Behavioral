@@ -46,14 +46,14 @@ sub scrape {
     }
 
     eval {
-        # handle --More--
-        $self->handle_more;
-
         # handle ^X
         $self->handle_attributes;
 
         # handle menus
         $self->handle_menus;
+
+        # handle --More--
+        $self->handle_more;
 
         # handle other text
         $self->handle_fallback;
