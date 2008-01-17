@@ -195,6 +195,10 @@ sub step {
     if ($self->state eq 'logging_in') {
         $self->log_in;
     }
+    elsif ($self->state eq 'prepare_discoveries') {
+        $self->write("\\");
+        $self->state('prepare_inventory');
+    }
     elsif ($self->state eq 'prepare_inventory') {
         $self->write("Da\n");
         $self->state('prepare_crga');
@@ -251,7 +255,7 @@ sub log_in {
         $self->write(' ');
     }
     elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
-        $self->state('prepare_inventory');
+        $self->state('prepare_discoveries');
     }
 }
 
