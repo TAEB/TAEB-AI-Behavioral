@@ -9,7 +9,7 @@ has list => (
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
-        my $other {
+        my $other = {
             'gold piece' => {
                 cost   => 1,
                 weight => 0.01,
@@ -38,7 +38,6 @@ has list => (
                 ldam      => 'd25',
                 nutrition => 480,
             },
-
             'iron chain' => {
                 cost      => 0,
                 weight    => 120,
