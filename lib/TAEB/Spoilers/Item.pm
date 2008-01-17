@@ -15,12 +15,13 @@ use TAEB::Spoilers::Item::Amulet;
 use TAEB::Spoilers::Item::Ring;
 use TAEB::Spoilers::Item::Wand;
 use TAEB::Spoilers::Item::Gem;
+use TAEB::Spoilers::Item::Other;
 
 has types => (
     is         => 'ro',
     isa        => 'ArrayRef[Str]',
     default    => sub { [qw/Weapon Armor Potion Scroll Spellbook Tool Food
-                            Amulet Ring Wand Gem/] },
+                            Amulet Ring Wand Gem Other/] },
     auto_deref => 1,
 );
 
