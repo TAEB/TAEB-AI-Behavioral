@@ -33,7 +33,7 @@ sub BUILD {
     my $class = ucfirst $type;
     my $spoiler = "TAEB::Spoilers::Item::$class";
     my $identity = $spoiler->constant_appearances->{$self->appearance}
-        if $self->can('constant_appearances');
+        if $spoiler->can('constant_appearances');
     if (defined $identity) {
         $self->_identities->{$identity} = 1;
     }
