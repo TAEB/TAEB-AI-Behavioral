@@ -171,7 +171,11 @@ sub new_item {
     # in here, this might have to be changed, but it's good enough
     # for now
     my $stats = "TAEB::Spoilers::Item::$class_name"->$class($item);
-    if (defined $stats) {
+
+    if (defined TAEB::Knowledge->appearance_of->{$item}) {
+        $new_item->appearance(TAEB::Knowledge->appearance_of->{$item});
+    }
+    elsif (defined $stats) {
         $new_item->appearance($stats->{appearance});
     }
     else {
