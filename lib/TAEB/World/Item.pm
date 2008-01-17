@@ -179,6 +179,7 @@ sub new_item {
         $new_item->appearance($stats->{appearance});
     }
     else {
+        TAEB->warning("Can't find $item as either an identity or an appearance");
         $new_item->appearance($item);
     }
 
