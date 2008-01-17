@@ -222,14 +222,14 @@ sub handle_fallback {
     $self->messages($self->messages . TAEB->topline);
 }
 
-=head2 farlook Int, Int -> (Str | Str, Str, Str)
+=head2 farlook Int, Int -> (Str | Str, Str, Str, Str)
 
 This will farlook (the C<;> command) at the given coordinates and return
 whatever's there.
 
 In scalar context, it will return the plain description string given by
-NetHack. In list context, it will return the components: glyph, genus, and
-species.
+NetHack. In list context, it will return the components: glyph, genus, species,
+and how the monster is visible (infravision, telepathy, etc).
 
 WARNING: Since this method interacts with NetHack directly, you cannot use it
 in callbacks where there is menu interaction or (in general) any place except
