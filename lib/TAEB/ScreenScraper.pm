@@ -137,8 +137,6 @@ sub handle_menus {
     my $self = shift;
     my $menu = NetHack::Menu->new(vt => TAEB->vt);
 
-    return unless $menu->has_menu;
-
     my $selector;
 
     if (TAEB->topline =~ /Pick up what\?/) {
@@ -180,6 +178,8 @@ sub handle_menus {
             return 0;
         };
     }
+
+    return unless $menu->has_menu;
 
     until ($menu->at_end) {
         TAEB->write($menu->next);
