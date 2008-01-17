@@ -88,6 +88,8 @@ around exclude_possibility => sub {
             next if $other->appearance eq $appearance;
             $other->rule_out($identity);
         }
+
+        TAEB::Knowledge->appearance_of->{$identity} = $appearance;
     }
 };
 
