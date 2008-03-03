@@ -8,11 +8,13 @@ use List::MoreUtils 'any';
 sub prepare {
     my $self = shift;
 
-    return 100 if any { TAEB->want_item($_) } TAEB->current_tile->items;
+    if (any { TAEB->want_item($_) } TAEB->current_tile->items) {
+        $self->next(",");
+        return 100;
+    }
 
     my $path = TAEB::World::Path->first_match(sub {
-        my $tile = shift;
-        return any { TAEB->want_item($_) } $tile->items;
+        return any { TAEB->want_item($_) } shift->items;
     });
 
     $self->if_path($path => "Heading towards an item");
