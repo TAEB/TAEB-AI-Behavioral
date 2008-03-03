@@ -167,7 +167,9 @@ sub handle_menus {
             my $personality = shift;
             my $slot        = shift;
 
-            TAEB->current_tile->add_item(TAEB::World::Item->new_item($_));
+            my $item = TAEB::World::Item->new_item($_);
+            TAEB->debug("Adding $item to the current tile.");
+            TAEB->current_tile->add_item($item);
             return 0;
         };
     }
