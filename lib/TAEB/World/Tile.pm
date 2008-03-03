@@ -137,6 +137,9 @@ sub update {
     # XXX: if the type is olddoor then we probably kicked/opened the door and
     # something walked onto it. this needs improvement
     if ($newtype eq 'obscured') {
+        # ghosts and xorns should not update the map
+        return if $newglyph eq 'X';
+
         $self->type('obscured') if $oldtype eq 'rock' || $oldtype eq 'closeddoor';
         return;
     }
