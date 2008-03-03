@@ -133,5 +133,7 @@ sub enhance {
     return 1;
 }
 
+make_immutable;
+
 1;
 

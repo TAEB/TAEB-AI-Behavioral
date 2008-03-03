@@ -71,5 +71,8 @@ sub pickup {
     TAEB->warning("Fell off Doors->pickup.");
     return 0;
 }
+
+make_immutable;
+
 1;
 

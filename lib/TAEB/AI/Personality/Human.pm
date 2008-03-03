@@ -55,5 +55,7 @@ arcanehl
 
 =cut
 
+make_immutable;
+
 1;
 

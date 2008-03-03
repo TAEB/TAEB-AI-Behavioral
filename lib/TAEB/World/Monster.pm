@@ -81,6 +81,7 @@ has shopkeeper => (
     isa => 'Bool',
 );
 
+make_immutable;
 
 1;
 

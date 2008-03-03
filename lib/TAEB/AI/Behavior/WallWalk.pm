@@ -40,5 +40,8 @@ sub urgencies {
         100 => "wallwalking in a dark room",
     },
 }
+
+make_immutable;
+
 1;
 

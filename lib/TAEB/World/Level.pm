@@ -126,5 +126,7 @@ sub radiate {
 
 }
 
+make_immutable;
+
 1;
 

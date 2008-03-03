@@ -90,5 +90,7 @@ sub decrease_quantity {
     return $new_quantity;
 }
 
+make_immutable;
+
 1;
 

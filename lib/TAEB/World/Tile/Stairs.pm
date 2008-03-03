@@ -28,5 +28,7 @@ sub new_from {
     $self->new(%args, type => 'stairs');
 }
 
+make_immutable;
+
 1;
 

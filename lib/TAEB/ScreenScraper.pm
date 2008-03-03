@@ -349,5 +349,7 @@ sub crow_flies {
     while ($x     < $x1) { $dir .= 'l'; $x++ }
 =cut
 
+make_immutable;
+
 1;
 

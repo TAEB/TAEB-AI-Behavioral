@@ -118,5 +118,7 @@ sub is_identified {
 
 # XXX: price-id code
 
+make_immutable;
+
 1;
 

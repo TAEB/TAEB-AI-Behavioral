@@ -287,5 +287,7 @@ sub _dijkstra {
     return ($max_tile, $max_path);
 }
 
+make_immutable;
+
 1;
 

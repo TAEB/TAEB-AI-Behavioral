@@ -130,5 +130,7 @@ sub random {
     return $directions[rand @directions];
 }
 
+make_immutable;
+
 1;
 

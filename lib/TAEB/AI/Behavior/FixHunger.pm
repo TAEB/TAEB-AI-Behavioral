@@ -45,5 +45,7 @@ sub pickup {
     return TAEB::Spoilers::Item::Food->should_eat($item);
 }
 
+make_immutable;
+
 1;
 

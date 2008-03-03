@@ -121,5 +121,7 @@ sub each_orthogonal {
     }
 }
 
+make_immutable;
+
 1;
 

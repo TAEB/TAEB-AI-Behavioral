@@ -47,5 +47,7 @@ sub weight_behaviors {
     return $behaviors;
 }
 
+make_immutable;
+
 1;
 

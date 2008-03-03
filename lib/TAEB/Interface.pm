@@ -40,5 +40,7 @@ Your subclass B<must> override this method.
 
 sub write   { die "You must override the 'write' method in TAEB::Interface." }
 
+make_immutable;
+
 1;
 

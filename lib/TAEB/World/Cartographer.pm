@@ -158,5 +158,7 @@ sub msg_dungeon_feature {
     $tile->floor_glyph($floor);
 }
 
+make_immutable;
+
 1;
 

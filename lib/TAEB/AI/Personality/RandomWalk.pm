@@ -29,5 +29,7 @@ sub next_action {
     return $actions[rand @actions];
 }
 
+make_immutable;
+
 1;
 

@@ -152,3 +152,7 @@ sub next_action {
     return '10s';
 }
 
+make_immutable;
+
+1;
+

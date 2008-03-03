@@ -3,5 +3,7 @@ package TAEB::Knowledge::Item::Gem;
 use Moose;
 extends 'TAEB::Knowledge::Item';
 
+make_immutable;
+
 1;
 

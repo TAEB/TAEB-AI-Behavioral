@@ -145,5 +145,7 @@ sub update {
     $self->is_hallucinating($botl =~ /\bHal/);
 }
 
+make_immutable;
+
 1;
 

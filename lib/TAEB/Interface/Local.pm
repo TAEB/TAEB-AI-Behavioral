@@ -70,5 +70,7 @@ sub write {
     return $chars;
 }
 
+make_immutable;
+
 1;
 

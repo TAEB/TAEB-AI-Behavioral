@@ -184,5 +184,7 @@ sub telnet_negotiation {
     return;
 }
 
+make_immutable;
+
 1;
 

@@ -172,5 +172,7 @@ sub if_path {
     return @_ ? shift : 50;
 }
 
+make_immutable;
+
 1;
 

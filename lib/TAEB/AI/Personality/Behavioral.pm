@@ -257,5 +257,7 @@ override send_message => sub {
     }
 };
 
+make_immutable;
+
 1;
 

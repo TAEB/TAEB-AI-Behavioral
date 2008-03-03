@@ -28,5 +28,7 @@ sub urgencies {
     };
 }
 
+make_immutable;
+
 1;
 

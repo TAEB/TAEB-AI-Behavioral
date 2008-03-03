@@ -49,5 +49,7 @@ sub engrave_useful {
     return 0;
 }
 
+make_immutable;
+
 1;
 

@@ -118,5 +118,7 @@ sub AUTOLOAD {
     return TAEB->config->contents->{$AUTOLOAD};
 }
 
+make_immutable;
+
 1;
 

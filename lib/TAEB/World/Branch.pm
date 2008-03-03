@@ -19,5 +19,7 @@ has dungeon => (
     weak_ref => 1,
 );
 
+make_immutable;
+
 1;
 
