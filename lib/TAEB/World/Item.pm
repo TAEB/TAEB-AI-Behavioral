@@ -149,6 +149,10 @@ sub new_item {
     $ncandles = 0    if (defined $ncandles && $ncandles =~ /no/);
     $lit = 1         if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
 
+    if ($num < 1) {
+        TAEB->warning("Parsed the quantity of '$raw' as $num!");
+    }
+
     my $new_item;
     unless (defined $item) {
         TAEB->warning("Couldn't find the base item type for '$raw'!");
