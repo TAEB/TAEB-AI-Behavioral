@@ -248,5 +248,7 @@ sub debug_draw_rock {
     $self->type eq 'rock' ? '*' : $self->glyph
 }
 
+make_immutable;
+
 1;
 

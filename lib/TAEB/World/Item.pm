@@ -241,5 +241,7 @@ sub identity {
     return $possibilities[0];
 }
 
+make_immutable;
+
 1;
 

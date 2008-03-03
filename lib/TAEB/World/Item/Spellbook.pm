@@ -7,5 +7,7 @@ has '+class' => (
     default => 'spellbook',
 );
 
+make_immutable;
+
 1;
 

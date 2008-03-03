@@ -9,5 +9,7 @@ has '+class' => (
     default => 'ring',
 );
 
+make_immutable;
+
 1;
 

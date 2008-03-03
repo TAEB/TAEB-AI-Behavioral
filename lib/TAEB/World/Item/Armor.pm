@@ -10,5 +10,7 @@ has '+class' => (
     default => 'armor',
 );
 
+make_immutable;
+
 1;
 

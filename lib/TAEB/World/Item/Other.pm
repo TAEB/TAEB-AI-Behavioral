@@ -14,5 +14,7 @@ has is_chained_to_you => (
     default => 0,
 );
 
+make_immutable;
+
 1;
 

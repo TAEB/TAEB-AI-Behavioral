@@ -15,5 +15,7 @@ has is_poisoned => (
     default => 0,
 );
 
+make_immutable;
+
 1;
 

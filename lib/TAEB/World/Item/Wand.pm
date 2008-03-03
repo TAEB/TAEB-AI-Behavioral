@@ -9,5 +9,7 @@ has '+class' => (
     default => 'wand',
 );
 
+make_immutable;
+
 1;
 

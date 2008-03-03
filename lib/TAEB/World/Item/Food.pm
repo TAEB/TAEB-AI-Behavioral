@@ -19,5 +19,7 @@ has is_laid_by_you => (
     default => 0,
 );
 
+make_immutable;
+
 1;
 

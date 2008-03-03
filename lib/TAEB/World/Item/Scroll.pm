@@ -7,5 +7,7 @@ has '+class' => (
     default => 'scroll',
 );
 
+make_immutable;
+
 1;
 

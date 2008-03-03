@@ -8,5 +8,7 @@ has '+class' => (
     default => 'amulet',
 );
 
+make_immutable;
+
 1;
 

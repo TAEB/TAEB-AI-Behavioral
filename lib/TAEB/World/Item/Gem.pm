@@ -7,5 +7,7 @@ has '+class' => (
     default => 'gem',
 );
 
+make_immutable;
+
 1;
 

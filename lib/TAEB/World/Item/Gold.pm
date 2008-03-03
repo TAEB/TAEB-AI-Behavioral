@@ -7,5 +7,7 @@ has '+class' => (
     default => 'gold',
 );
 
+make_immutable;
+
 1;
 
