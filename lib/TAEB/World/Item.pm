@@ -112,7 +112,8 @@ sub new_item {
         $eaten, $dilute, $spe, $item, $call, $name, $recharges, $charges,
         $ncandles, $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand,
         $wield, $wear, $cost) = $raw =~
-        m{(?:(\w)\s[+-] )?\s*                              # inventory slot
+        m{^                                                # anchor the regex
+          (?:(\w)\s[+-]\s)?\s*                             # inventory slot
           (an?|the|\d+)?\s*                                # number
           (blessed|(?:un)?cursed)?\s*                      # cursedness
           (greased)?\s*                                    # greasy
