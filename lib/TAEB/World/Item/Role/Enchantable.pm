@@ -8,5 +8,12 @@ has enchantment => (
     default => 0,
 );
 
+sub ench {
+    my $self = shift;
+    my $ench = $self->enchantment;
+    return $ench if $ench < 0;
+    return "+$ench";
+}
+
 1;
 
