@@ -82,6 +82,11 @@ sub each_adjacent {
                 $dy + $y,
             );
 
+            if (!defined($tile)) {
+                TAEB->error("Calling TAEB->each_adjacent at ($x, $y) falls off the map");
+                next;
+            }
+
             $code->($tile, $dir);
         }
     }
