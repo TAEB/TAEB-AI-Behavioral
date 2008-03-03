@@ -152,7 +152,7 @@ sub has_monster {
              && $self->y == TAEB->y;
 
     # XXX: @ is currently not included because of shks
-    $self->glyph =~ /[a-zA-Z~&';:]/;
+    $self->glyph =~ /[a-zA-Z&';:]/;
 }
 
 sub is_walkable {

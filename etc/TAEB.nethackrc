@@ -25,9 +25,10 @@ OPTIONS=disclose:+iavgc
 OPTIONS=!mail
 
 # map changes for code simplicity
-OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:~m
+OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:wm
 # "strange monster" = m (mimic)
 # ghost/shade = X     now space is solid rock
+# worm tail = w       now ~ is water
 
 OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
 # spider web = ^      now " is amulet
