@@ -73,7 +73,7 @@ has state => (
     default => 'logging_in',
 );
 
-has logger => (
+has log => (
     is      => 'ro',
     isa     => 'Log::Dispatch',
     lazy    => 1,
