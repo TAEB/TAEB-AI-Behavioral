@@ -482,6 +482,7 @@ after qw/error critical/ => sub {
     my ($logger, $message) = @_;
 
     if (-t *STDOUT) {
+        $message = Carp::shortmess($message);
         TAEB->out("\e[2H\e[41m$message");
         sleep 3;
         TAEB->out(TAEB->redraw);
