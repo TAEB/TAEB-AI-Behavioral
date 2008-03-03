@@ -4,11 +4,7 @@ use Moose;
 
 use overload
     q{""} => sub {
-        my $self = shift;
-        # XXX: get a better item description here
-        my $quan = $self->quantity == 1 ? '' : $self->quantity . 'x ';
-
-        return sprintf '[%s: %s%s]', blessed($self), $quan, $self->identity;
+        shift->debug_display;
     };
 
 has raw => (
@@ -240,6 +236,20 @@ sub identity {
     my @possibilities = $self->possibilities;
     return undef if @possibilities != 1;
     return $possibilities[0];
+}
+
+sub debug_display {
+    my $self = shift;
+    my $quan = $self->quantity == 1 ? '' : $self->quantity . 'x ';
+    my $enchantment = $self->can('ench') && $self->enchantment
+                    ? $self->ench . ' '
+                    : '';
+
+    return sprintf '[%s: %s%s%s]',
+                    blessed($self),
+                    $quan,
+                    $enchantment,
+                    $self->identity;
 }
 
 make_immutable;
