@@ -23,13 +23,8 @@ sub prepare {
         sub { shift->has_monster },
     );
 
-    # there's a monster on the map, but we don't know how to reach it
-    return 0 unless $path && $path->path;
-
-    $self->currently("Heading towards a " . $path->to->glyph . " monster");
-    $self->path($path);
-
-    return 50;
+    $self->if_path($path =>
+        sub { "Heading towards a " . $path->to->glyph . " monster" });
 }
 
 sub urgencies {

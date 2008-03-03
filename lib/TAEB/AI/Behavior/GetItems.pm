@@ -15,9 +15,7 @@ sub prepare {
         return any { TAEB->want_item($_) } $tile->items;
     });
 
-    $self->currently("Heading towards an item");
-    $self->path($path);
-    return $path ? 50 : 0;
+    $self->if_path($path => "Heading towards an item");
 }
 
 sub urgencies {

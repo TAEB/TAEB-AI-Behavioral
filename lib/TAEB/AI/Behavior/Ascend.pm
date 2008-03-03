@@ -21,9 +21,7 @@ sub prepare {
         sub { shift->floor_glyph eq '<' },
     );
 
-    $self->currently("Heading towards the upstairs");
-    $self->path($path);
-    return $path ? 50 : 0;
+    $self->if_path($path => "Heading towards the upstairs");
 }
 
 sub urgencies {

@@ -29,9 +29,7 @@ sub prepare {
         sub { shift->type eq 'fountain' },
     );
 
-    $self->currently("Heading towards a fountain");
-    $self->path($path);
-    return $path ? 50 : 0;
+    $self->if_path($path => "Heading towards a fountain");
 }
 
 sub urgencies {

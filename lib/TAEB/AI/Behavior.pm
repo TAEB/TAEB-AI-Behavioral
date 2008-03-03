@@ -127,5 +127,50 @@ dropped, even if other behaviors say it should be.
 
 sub drop { undef }
 
+=head2 if_path Path, String|CODE[, Int] -> Int
+
+If the first argument is undef or a path of length 0, then return 0 to indicate
+"I don't want to be run."
+
+If the first argument is defined and is a path of length greater than zero,
+then use it as the current path. The behavior gets a "currently" of the second
+argument (which may be a coderef -- this is useful it depends on $path being
+valid), and return the third argument as the priority (or the default of 50).
+This replaces this code:
+
+    if ($path) {
+        $self->currently($currently);
+        $self->path($path);
+        return $ok;
+    }
+    return 0;
+
+with
+
+    $self->if_path($path => $currently, $ok);
+
+=cut
+
+sub if_path {
+    my $self      = shift;
+    my $path      = shift;
+    my $currently = shift;
+
+    return 0 if !defined($path) || length($path->path) == 0;
+
+    $self->path($path);
+
+    if (defined $currently) {
+        if (ref($currently) eq 'CODE') {
+            $self->currently($currently->());
+        }
+        else {
+            $self->currently($currently);
+        }
+    }
+
+    return @_ ? shift : 50;
+}
+
 1;
 

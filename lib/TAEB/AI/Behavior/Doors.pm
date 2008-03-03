@@ -42,13 +42,11 @@ sub prepare {
     });
     return 100 if $have_action;
 
-    $self->currently("Heading towards a door");
     my $path = TAEB::World::Path->first_match(sub {
         shift->type eq 'closeddoor'
     });
-    $self->path($path);
 
-    return $path && length($path->path) ? 50 : 0;
+    $self->if_path($path => "Heading towards a door");
 }
 
 sub urgencies {

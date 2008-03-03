@@ -13,9 +13,7 @@ sub prepare {
         },
     );
 
-    $self->path($path);
-
-    return $path && length($path->path) ? 100 : 0;
+    $self->if_path($path);
 }
 
 sub currently { "Exploring" }
