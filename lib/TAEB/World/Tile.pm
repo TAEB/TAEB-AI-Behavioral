@@ -120,6 +120,9 @@ sub update {
     my $oldglyph = $self->glyph;
     my $oldtype  = $self->type;
 
+    # gas spore explosions should not update the map
+    return if $newglyph =~ m{^[\\/-]$} && $color == 1;
+
     $self->glyph($newglyph);
 
     # dark rooms
