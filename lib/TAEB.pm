@@ -470,6 +470,14 @@ after qw/info warning/ => sub {
     }
 };
 
+# we want stack traces for errors and crits
+around qw/error critical/ => sub {
+    my $orig = shift;
+    my ($logger, $message) = @_;
+
+    $logger->$orig(Carp::longmess($message));
+};
+
 after qw/error critical/ => sub {
     my ($logger, $message) = @_;
 
