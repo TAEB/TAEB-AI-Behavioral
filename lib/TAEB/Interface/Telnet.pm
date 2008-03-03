@@ -39,6 +39,12 @@ has socket => (
     isa => 'IO::Socket::Telnet',
 );
 
+has sent_login => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub BUILD {
     my $self = shift;
 
@@ -52,12 +58,7 @@ sub BUILD {
     $socket->telnet_simple_callback(\&telnet_negotiation);
     $self->socket($socket);
 
-    TAEB->debug("Connected to " . $self->server . ". Logging in as " . $self->account);
-
-    print { $socket } join '', 'l',
-                               $self->account,  "\n",
-                               $self->password, "\n",
-                               'p';
+    TAEB->debug("Connected to " . $self->server . ".");
 }
 
 =head2 read -> STRING
@@ -104,6 +105,15 @@ sub read {
     };
 
     die $@ if $@ !~ /^alarm\n/;
+
+    if (!$self->sent_login && $buffer =~ /Not logged in\./) {
+        print { $self->socket } join '', 'l',
+                                         $self->account,  "\n",
+                                         $self->password, "\n",
+                                         'p';
+        TAEB->debug("Logging in as " . $self->account);
+        $self->sent_login(1);
+    }
 
     return $buffer;
 }
