@@ -492,7 +492,7 @@ sub out {
     print $out;
 
     $self->ttyrec->print($out)
-        if TAEB->config->contents->{ttyrec};
+        if TAEB->config->ttyrec;
 }
 
 around write => sub {

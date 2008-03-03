@@ -207,7 +207,7 @@ sub _dijkstra {
     my $scorer = shift;
 
     my ($debug, $debug_length);
-    if ($debug = TAEB->config->contents->{debug_dijkstra}) {
+    if ($debug = TAEB->config->debug_dijkstra) {
         $debug_length = $debug =~ /length/;
         $debug_color = ($debug_color + 1) % 6;
     }

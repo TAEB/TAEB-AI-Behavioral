@@ -111,5 +111,12 @@ sub get_alignment {
     return '*';
 }
 
+# yes autoload is bad. but, I am lazy
+our $AUTOLOAD;
+sub AUTOLOAD {
+    $AUTOLOAD =~ s{.*::}{};
+    return TAEB->config->contents->{$AUTOLOAD};
+}
+
 1;
 

@@ -29,7 +29,7 @@ sub update {
 
     my $level = $self->dungeon->current_level;
 
-    my $debug_draw = TAEB->config->contents->{debug_draw};
+    my $debug_draw = TAEB->config->debug_draw;
     my $needs_autoexplore = 0;
 
     for my $y (1 .. 21) {

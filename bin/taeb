@@ -34,7 +34,7 @@ my $personality = load_from_argv('AI::Personality', 'RandomWalk');
 TAEB->interface($interface);
 TAEB->personality($personality);
 
-if (TAEB->config->contents->{debug_personality}) {
+if (TAEB->config->debug_personality) {
     my $action_weight = TAEB->personality->sort_behaviors;
 
     die "Personality has no behaviors.\n"
@@ -57,7 +57,7 @@ $SIG{__DIE__} = sub {
     print "\ec";
     warn "@_";
     Carp::REPL::repl(@_);
-} if TAEB->config->contents->{carp_repl};
+} if TAEB->config->carp_repl;
 
 my $tstp = $SIG{TSTP} = sub {
 
