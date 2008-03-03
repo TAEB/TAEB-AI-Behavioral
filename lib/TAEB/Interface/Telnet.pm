@@ -42,6 +42,8 @@ has socket => (
 sub BUILD {
     my $self = shift;
 
+    TAEB->debug("Connecting to " . $self->server . ".");
+
     # this has to be done in BUILD because it needs server
     my $socket = IO::Socket::Telnet->new(PeerAddr => $self->server);
     die "Unable to connect to " . $self->server . ": $!"
@@ -49,6 +51,8 @@ sub BUILD {
 
     $socket->telnet_simple_callback(\&telnet_negotiation);
     $self->socket($socket);
+
+    TAEB->debug("Connected to " . $self->server . ". Logging in as " . $self->account);
 
     print { $socket } join '', 'l',
                                $self->account,  "\n",

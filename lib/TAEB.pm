@@ -237,6 +237,7 @@ sub log_in {
     my $self = shift;
 
     if ($self->vt->contains("Shall I pick a character's ")) {
+        TAEB->info("We are now in NetHack, starting a new character.");
         $self->write('n');
     }
     elsif ($self->topline =~ "Choosing Character's Role") {
@@ -252,6 +253,7 @@ sub log_in {
         $self->write($self->config->get_alignment);
     }
     elsif ($self->topline =~ "Restoring save file..") {
+        TAEB->info("We are now in NetHack, restoring a save file.");
         $self->write(' ');
     }
     elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
