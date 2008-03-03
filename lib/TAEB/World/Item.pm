@@ -6,7 +6,9 @@ use overload
     q{""} => sub {
         my $self = shift;
         # XXX: get a better item description here
-        return sprintf '[%s: %s]', blessed($self), $self->identity;
+        my $quan = $self->quantity == 1 ? '' : $self->quantity . 'x ';
+
+        return sprintf '[%s: %s%s]', blessed($self), $quan, $self->identity;
     };
 
 has raw => (
