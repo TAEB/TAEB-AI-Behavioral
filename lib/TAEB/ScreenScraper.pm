@@ -169,7 +169,7 @@ sub handle_menus {
 
             my $item = TAEB::World::Item->new_item($_);
             TAEB->debug("Adding $item to the current tile.");
-            TAEB->current_tile->add_item($item);
+            TAEB->enqueue_message('floor_item' => $item);
             return 0;
         };
     }
