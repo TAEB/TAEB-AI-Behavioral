@@ -4,6 +4,7 @@ use warnings;
 use Test::More;
 use List::Util 'sum';
 use TAEB;
+use TAEB::Test;
 
 my @tests = (
     ["x - a samurai sword",                   {class => "weapon"}   ],
@@ -42,17 +43,4 @@ my @tests = (
     ["Q - a gray stone",                      {class => "gem"}      ],
 );
 plan tests => sum map { scalar keys %{ $_->[1] } } @tests;
-
-for my $test (@tests) {
-    my ($appearance, $expected) = @$test;
-    my $item = TAEB::World::Item->new_item($appearance);
-    while (my ($attr, $attr_expected) = each %$expected) {
-        if (defined $item) {
-            is($item->$attr, $attr_expected, "parsed $attr of $appearance");
-        }
-        else {
-            fail("parsed $attr of $appearance");
-            diag("$appearance produced an undef item object");
-        }
-    }
-}
+test_items(@tests);
