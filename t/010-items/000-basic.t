@@ -10,6 +10,7 @@ my @tests = (
                                               quantity => 1,
                                               enchantment => 1,
                                               identity => 'long sword',
+                                              appearance => 'long sword',
                                               class => 'weapon',
                                               is_wielding => 1,
                                               buc => 'uncursed',

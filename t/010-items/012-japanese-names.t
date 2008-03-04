@@ -17,7 +17,6 @@ my @tests = (
     ["n - a kabuto",         {identity => "helmet"}         ],
     ["o - a pair of yugake", {identity => "leather gloves"} ],
     ["p - a gunyoki",        {identity => "food ration"}    ],
-    ["q - a potion of sake", {identity => "potion of booze"}],
 );
 plan tests => sum map { scalar keys %{ $_->[1] } } @tests;
 

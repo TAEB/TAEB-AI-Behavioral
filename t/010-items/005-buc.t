@@ -7,7 +7,7 @@ use TAEB;
 
 my @tests = (
     ["a - a +1 long sword (weapon in hand)",  {buc => 'uncursed'}],
-    ["i - a blessed potion of enlightenment", {buc => 'blessed'} ],
+    ["i - a blessed murky potion",            {buc => 'blessed'} ],
     ["j - a cursed skeleton key",             {buc => 'cursed'}  ],
     ["k - a scroll labeled THARR",            {buc => 'unknown'} ],
     ["l - a pick-axe",                        {buc => 'unknown'} ],

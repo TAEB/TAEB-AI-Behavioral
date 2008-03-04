@@ -12,7 +12,6 @@ my @tests = (
     ["E - a blessed poisoned rusty corroded -1 arrow", {enchantment => -1} ],
     ["h - the uncursed +10 Mitre of Holiness",         {enchantment => 10} ],
     ["p - a -10 unicorn horn",                         {enchantment => -10}],
-    ["S - an uncursed +1 ring of protection",          {enchantment => 1}  ],
 );
 plan tests => sum map { scalar keys %{ $_->[1] } } @tests;
 
