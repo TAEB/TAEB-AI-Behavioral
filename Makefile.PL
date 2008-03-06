@@ -35,6 +35,7 @@ requires 'List::MoreUtils';
 
 # pathfinding
 requires 'Heap::Simple';
+requires 'Heap::Simple::XS'; # why doesn't Heap::Simple do this for us >_<
 
 # miscellaneous
 requires 'Scalar::Defer' => '0.12';
