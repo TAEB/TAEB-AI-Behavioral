@@ -2,6 +2,7 @@
 package TAEB::Interface::Local;
 use Moose;
 use IO::Pty::Easy;
+use Time::HiRes 'sleep';
 
 =head1 NAME
 
@@ -45,6 +46,11 @@ It will return the input read from the pty.
 
 sub read {
     my $self = shift;
+
+    # this is about the best we can do for consistency
+    # in Telnet we have a complicated ping/pong that scales with network latency
+    sleep(0.2);
+
     die "Pty inactive." unless $self->pty->is_active;
     my $out = $self->pty->read(1);
     return '' if !defined($out);

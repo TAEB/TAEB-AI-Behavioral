@@ -40,6 +40,7 @@ requires 'Heap::Simple::XS'; # why doesn't Heap::Simple do this for us >_<
 # miscellaneous
 requires 'Scalar::Defer' => '0.12';
 requires 'String::Koremutake';
+requires 'Time::HiRes';
 
 # NetHack-specific things
 requires 'NetHack::Menu' => '0.02';
