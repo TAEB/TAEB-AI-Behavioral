@@ -259,6 +259,11 @@ sub log_in {
     elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
         $self->state('prepare_discoveries');
     }
+    elsif ($self->topline =~ /^\s*It is written in the Book of /) {
+        TAEB->error("Using etc/TAEB.nethackrc is MANDATORY");
+        $self->write("     \e     #quit\ny         ");
+        die "Using etc/TAEB.nethackrc is MANDATORY";
+    }
 }
 
 =head2 process_input [Bool]
