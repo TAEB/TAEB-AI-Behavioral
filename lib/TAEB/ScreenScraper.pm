@@ -14,6 +14,14 @@ my %msg_string = (
         ['dungeon_feature', 'fountain dries up'],
     "As the hand retreats, the fountain disappears!" =>
         ['dungeon_feature', 'fountain dries up'],
+    "The air around you begins to shimmer with a golden haze." =>
+        ['protection', 1, +1],
+    "The golden haze around you becomes more dense." =>
+        ['protection', 1, +1],
+    "The golden haze around you becomes less dense." =>
+        ['protection', 1, -1],
+    "The golden haze around you disappears." =>
+        ['protection', 0, -1],
 );
 
 my @msg_regex = (
