@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+package TAEB::Test;
 use strict;
 use warnings;
 use TAEB::World::Item;
