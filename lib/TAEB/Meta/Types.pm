@@ -9,7 +9,7 @@ TAEB::Meta::Types - TAEB-specific types
 
 =cut
 
-enum PlayState => qw(logging_in prepare_discoveries prepare_inventory prepare_crga playing saving);
+enum PlayState => qw(logging_in prepare_discoveries prepare_inventory prepare_spells prepare_crga playing saving);
 
 enum Role   => qw(Arc Bar Cav Hea Kni Mon Pri Ran Rog Sam Tou Val Wiz);
 enum Race   => qw(Hum Elf Dwa Gno Orc);

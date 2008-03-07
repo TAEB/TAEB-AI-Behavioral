@@ -35,7 +35,8 @@ sub castable {
 }
 
 sub forgotten {
-    return $self->learned_at + 20_000 >= TAEB->turn;
+    my $self = shift;
+    return TAEB->turn > $self->learned_at + 20_000;
 }
 
 1;

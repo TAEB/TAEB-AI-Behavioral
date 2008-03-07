@@ -1,9 +1,8 @@
 #!/usr/bin/env perl
 package TAEB::World::Spells;
 use Moose;
-extends 'TAEB::World::Inventory';
 
-my @slots = 'a' .. 'z', 'A' .. 'Z';
+my @slots = ('a' .. 'z', 'A' .. 'Z');
 
 has _spells => (
     metaclass => 'Collection::Hash',

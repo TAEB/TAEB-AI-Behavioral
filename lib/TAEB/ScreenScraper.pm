@@ -178,9 +178,12 @@ sub handle_menus {
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
         $selector = sub {
-            # a - force bolt             1    attack         0%
-            my ($slot, $name, $forgotten, $fail) =
-                /^(.) - (.*?)\s+\d([ *])\s+\w+\s+(\d+)%\s*$/
+            my $personality = shift;
+            my $slot        = shift;
+
+            # force bolt             1    attack         0%
+            my ($name, $forgotten, $fail) =
+                /^(.*?)\s+\d([ *])\s+\w+\s+(\d+)%\s*$/
                     or return;
 
             TAEB->enqueue_message('know_spell',
