@@ -23,14 +23,14 @@ sub find {
     my $self = shift;
     my $name = shift;
 
-    return first { $_->name eq $name } $_->spells;
+    return first { $_->name eq $name } $self->spells;
 }
 
 sub find_castable {
     my $self = shift;
     my $name = shift;
 
-    my $spell = first { $_->name eq $name } $_->spells;
+    my $spell = first { $_->name eq $name } $self->spells;
     return unless $spell && $spell->castable;
     return $spell;
 }
