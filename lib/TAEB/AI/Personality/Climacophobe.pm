@@ -18,7 +18,7 @@ around weight_behaviors => sub {
     delete $explorer_weights->{Descend};
 
     return $explorer_weights;
-}
+};
 
 make_immutable;
 
