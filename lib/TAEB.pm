@@ -526,6 +526,8 @@ around write => sub {
     my $self = shift;
     my $text = shift;
 
+    return if length($text) == 0;
+
     $self->debug("Sending '$text' to NetHack.");
     $orig->($self, $text);
 };
