@@ -475,6 +475,16 @@ after qw/info warning/ => sub {
     }
 };
 
+# don't squelch warnings entirely during tests
+after warning => sub {
+    my ($logger, $message) = @_;
+
+    if (!-t *STDOUT) {
+        local $SIG{__WARN__};
+        warn $message;
+    }
+};
+
 # we want stack traces for errors and crits
 around qw/error critical/ => sub {
     my $orig = shift;
