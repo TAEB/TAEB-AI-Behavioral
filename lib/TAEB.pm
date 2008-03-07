@@ -164,6 +164,15 @@ has inventory => (
     default => sub { TAEB::World::Inventory->new },
 );
 
+has spells => (
+    is      => 'rw',
+    isa     => 'TAEB::World::Spells',
+    default => sub { TAEB::World::Spells->new },
+    handles => {
+        learn_spell => 'learn',
+    },
+);
+
 has deferred_messages => (
     is      => 'rw',
     isa     => 'ArrayRef',

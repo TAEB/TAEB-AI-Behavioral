@@ -25,6 +25,7 @@ use TAEB::World::Level;
 use TAEB::World::Monster;
 use TAEB::World::Path;
 use TAEB::World::Room;
+use TAEB::World::Spells;
 use TAEB::World::Tile::Stairs;
 use TAEB::World::Tile;
 
