@@ -92,6 +92,12 @@ has possibility_tracker => (
     lazy    => 1,
     default => sub {
         my $self = shift;
+
+        TAEB->error($self->raw . " has an undefined item class.")
+            if !defined $self->class;
+        TAEB->error($self->raw . " has an undefined appearance.")
+            if !defined $self->appearance;
+
         TAEB::Knowledge->appearances->{$self->class}{$self->appearance};
     },
     handles => [qw/exclude_possibility has_possibilities possibilities rule_out rule_out_all_but identify_as/],
