@@ -25,11 +25,13 @@ sub test_items {
     local $Test::Builder::Level = $Test::Builder::Level + 1;
 
     for my $test (@_) {
-        my ($appearance, $expected) = @$test;
+        my $appearance = shift @$test;
+        my %expected = @$test == 1 ? %{ $test->[0] } : @$test;
+
         my $item = eval { TAEB::World::Item->new_item($appearance) };
         warn $@ if $@;
 
-        while (my ($attr, $attr_expected) = each %$expected) {
+        while (my ($attr, $attr_expected) = each %expected) {
             if (defined $item) {
                 Test::More::is($item->$attr, $attr_expected,
                          "parsed $attr of $appearance");
