@@ -520,5 +520,27 @@ around write => sub {
     $orig->($self, $text);
 };
 
+# allow the user to say TAEB->personality("human") and have it DTRT
+around personality => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    if (@_ && $_[0] =~ /^\w+$/) {
+        my $name = shift;
+
+        # guess the case unless they tell us what it is (because of ScoreWhore)
+        $name = "\L\u$name" if $name eq lc $name;
+
+        $name = "TAEB::AI::Personality::$name";
+
+        (my $file = "$name.pm") =~ s{::}{/}g;
+        require $file;
+
+        return $self->$orig($name->new);
+    }
+
+    return $self->$orig(@_);
+};
+
 1;
 
