@@ -13,18 +13,20 @@ Takes a list of two item arrayrefs, where the first item is a string of the item
 
 sub test_items {
     for my $test (@_) {
-	my ($appearance, $expected) = @$test;
-	my $item = TAEB::World::Item->new_item($appearance);
-	while (my ($attr, $attr_expected) = each %$expected) {
-	    if (defined $item) {
-		main::is($item->$attr, $attr_expected,
-		         "parsed $attr of $appearance");
-	    }
-	    else {
-		main::fail("parsed $attr of $appearance");
-		main::diag("$appearance produced an undef item object");
-	    }
-	}
+        my ($appearance, $expected) = @$test;
+        my $item = eval { TAEB::World::Item->new_item($appearance) };
+        warn $@ if $@;
+
+        while (my ($attr, $attr_expected) = each %$expected) {
+            if (defined $item) {
+                main::is($item->$attr, $attr_expected,
+                         "parsed $attr of $appearance");
+            }
+            else {
+                main::fail("parsed $attr of $appearance");
+                main::diag("$appearance produced an undef item object");
+            }
+        }
     }
 }
 
