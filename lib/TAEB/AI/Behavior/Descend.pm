@@ -4,7 +4,7 @@ use Moose;
 extends 'TAEB::AI::Behavior::GotoTile';
 
 sub match_tile {
-    shift->floor_glyph eq '>' ? ('>', 'Descending') : undef
+    $_[1]->floor_glyph eq '>' ? ('>', 'Descending') : undef
 }
 
 use constant tile_description => 'the downstairs';
