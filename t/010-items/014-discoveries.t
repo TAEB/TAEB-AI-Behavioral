@@ -4,6 +4,7 @@ use warnings;
 use TAEB::Test;
 
 TAEB::Knowledge->msg_discovery('potion of sickness' => 'effervescent');
+TAEB::Knowledge->msg_discovery('scroll of enchant weapon' => 'KIRJE');
 
 my @tests = (
     ["potion of sickness", {
@@ -13,7 +14,13 @@ my @tests = (
         identity   => "potion of sickness",
         appearance => "effervescent potion",
     }],
-
+    ["2 scrolls of enchant weapon", {
+        class      => "scroll",
+        quantity   => 2,
+        buc        => "unknown",
+        identity   => "scroll of enchant weapon",
+        appearance => "scroll labeled KIRJE",
+    }],
 );
 plan_items(@tests);
 test_items(@tests);
