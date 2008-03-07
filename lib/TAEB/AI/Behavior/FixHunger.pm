@@ -7,7 +7,7 @@ use Scalar::Defer 'defer';
 sub prepare {
     my $self = shift;
 
-    if (TAEB->senses->nutrition < 0) {
+    if (TAEB->can_pray && TAEB->senses->nutrition < 0) {
         $self->next("#pray\n");
         $self->currently("Praying for food.");
         return 100;

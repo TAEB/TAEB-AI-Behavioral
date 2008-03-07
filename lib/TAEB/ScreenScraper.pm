@@ -31,6 +31,21 @@ my @msg_regex = (
     ],
 );
 
+my @god_anger = (
+    qr/^You feel that .*? is (bummed|displeased)\.$/                   => 1,
+    qr/^"Thou must relearn thy lessons!"$/                             => 3,
+    qr/^"Thou durst (scorn|call upon) me\?"$/                          => 8,
+    qr/^Suddenly, a bolt of lightning strikes you!$/                   => 10000,
+    qr/^Suddenly a bolt of lightning comes down at you from the heavens!$/ => 10000,
+);
+
+for (my $i = 0; $i < @god_anger; $i += 2) {
+    push @msg_regex, [
+        $god_anger[$i],
+        ['god_angry' => $god_anger[$i+1]],
+    ];
+}
+
 has messages => (
     is => 'rw',
     isa => 'Str',

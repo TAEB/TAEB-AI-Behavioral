@@ -85,6 +85,12 @@ has turn => (
     default => 0,
 );
 
+has max_god_anger => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 0,
+);
+
 sub update {
     my $self   = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -143,6 +149,18 @@ sub update {
     $self->is_stunned($botl =~ /\bStun/);
     $self->is_confused($botl =~ /\bConf/);
     $self->is_hallucinating($botl =~ /\bHal/);
+}
+
+sub msg_god_angry {
+    my $self      = shift;
+    my $max_anger = shift;
+
+    $self->max_god_anger($max_anger);
+}
+
+sub can_pray {
+    my $self = shift;
+    return $self->max_god_anger == 0;
 }
 
 make_immutable;
