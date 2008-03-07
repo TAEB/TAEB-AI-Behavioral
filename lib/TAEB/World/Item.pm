@@ -152,19 +152,19 @@ sub new_item {
 
     my $new_item;
     unless (defined $item) {
-        TAEB->warning("Couldn't find the base item type for '$raw'!");
+        TAEB->error("Couldn't find the base item type for '$raw'!");
         return;
     }
 
     my $class = TAEB::Spoilers::Item->type_to_class($item);
     unless (defined $class) {
-        TAEB->warning("Unable to find '$item' in TAEB::Spoilers::Item.");
+        TAEB->error("Unable to find '$item' in TAEB::Spoilers::Item.");
         return;
     }
 
     my $class_name = ucfirst $class;
     unless (grep { $class_name eq $_ } TAEB::Spoilers::Item->types) {
-        TAEB->warning("Items (such as $raw) of class $class are not yet supported.");
+        TAEB->error("Items (such as $raw) of class $class are not yet supported.");
         return;
     }
 
