@@ -60,6 +60,18 @@ guaranteed to be called before any calls to next_action.
 sub institute {
 }
 
+=head2 deinstitute
+
+This is the method called when TAEB finishes using this personality.
+
+This will not be called when TAEB is ending, but only when the personality is
+replaced by a different one.
+
+=cut
+
+sub deinstitute {
+}
+
 =head2 send_message Str, *
 
 This will send the message to itself. This is here because

@@ -24,7 +24,17 @@ This will put the terminal in the correct read mode.
 
 sub institute {
     ReadMode(3);
-};
+}
+
+=head2 deinstitute
+
+This will reset the terminal to the default read mode.
+
+=cut
+
+sub deinstitute {
+    ReadMode(0);
+}
 
 =head2 next_action TAEB -> STRING
 

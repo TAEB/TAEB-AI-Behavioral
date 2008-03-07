@@ -525,6 +525,10 @@ around personality => sub {
     my $orig = shift;
     my $self = shift;
 
+    if (@_ && (my $personality = $self->personality)) {
+        $personality->deinstitute;
+    }
+
     if (@_ && $_[0] =~ /^\w+$/) {
         my $name = shift;
 
