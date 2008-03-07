@@ -2,7 +2,16 @@
 package TAEB::Test;
 use strict;
 use warnings;
-use TAEB::World::Item;
+use TAEB;
+use parent 'Test::More';
+
+our @EXPORT = 'test_items';
+
+sub import_extra {
+    Test::More->export_to_level(2);
+    strict->import;
+    warnings->import;
+}
 
 =head2 test_items ITEM_LIST
 
@@ -22,12 +31,12 @@ sub test_items {
 
         while (my ($attr, $attr_expected) = each %$expected) {
             if (defined $item) {
-                main::is($item->$attr, $attr_expected,
+                Test::More::is($item->$attr, $attr_expected,
                          "parsed $attr of $appearance");
             }
             else {
-                main::fail("parsed $attr of $appearance");
-                main::diag("$appearance produced an undef item object");
+                Test::More::fail("parsed $attr of $appearance");
+                Test::More::diag("$appearance produced an undef item object");
             }
         }
     }
