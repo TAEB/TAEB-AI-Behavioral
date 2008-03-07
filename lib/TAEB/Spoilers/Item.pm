@@ -192,7 +192,7 @@ sub singularize {
         return "$class of $kind";
     }
 
-    return $self->singular_of_list->{$item};
+    return $self->singular_of_list->{$item} || $item;
 }
 
 sub pluralize {
@@ -203,7 +203,7 @@ sub pluralize {
         return "${class}s of $kind";
     }
 
-    return $self->plural_of_list->{$item};
+    return $self->plural_of_list->{$item} || $item;
 }
 
 1;

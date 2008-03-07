@@ -59,7 +59,12 @@ sub msg_discovery {
 
     # XXX: DOY SEND HELP
     my ($class) = $identity =~ /^(.*?) of /;
-    $appearance .= " $class";
+    if (lc($class) eq 'scroll') {
+        $appearance = "scroll labeled $appearance";
+    }
+    else {
+        $appearance .= " $class";
+    }
 
     my $knowledge = $self->appearances->{lc $class}->{$appearance};
     $knowledge->identify_as($identity) if $knowledge;
