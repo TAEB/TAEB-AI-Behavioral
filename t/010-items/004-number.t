@@ -12,6 +12,8 @@ my @tests = (
     ["k - the Eye of the Aethiopica",        {quantity => 1} ],
     ["j - 2 slime molds",                    {quantity => 2} ],
     ["m - 23 uncursed rocks",                {quantity => 23}],
+    ['$ - 3 gold pieces',                    {quantity => 3} ],
+    ["3 gold pieces",                        {quantity => 3} ],
 );
 plan tests => sum map { scalar keys %{ $_->[1] } } @tests;
 test_items(@tests);
