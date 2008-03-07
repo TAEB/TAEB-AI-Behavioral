@@ -16,6 +16,8 @@ sub weight_behaviors {
         Descend            => 80_000,
         Fight              => 50_000,
         Projectiles        => 49_000,
+        AttackSpell        => 48_500,
+        BuffSelf           => 48_000,
         DipForExcalibur    => 24_500,
         GetItems           => 24_000,
         Doors              => 10_000,
