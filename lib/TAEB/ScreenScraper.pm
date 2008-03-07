@@ -198,6 +198,8 @@ sub handle_menus {
             my $personality = shift;
             my $slot        = shift;
 
+            return if /^\s*Things that are here:/;
+
             my $item = TAEB::World::Item->new_item($_);
             TAEB->debug("Adding $item to the current tile.");
             TAEB->enqueue_message('floor_item' => $item);
