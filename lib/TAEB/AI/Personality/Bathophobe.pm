@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::Climacophobe;
+package TAEB::AI::Personality::Bathophobe;
 use Moose;
 extends 'TAEB::AI::Personality::Explorer';
 
 =head1 NAME
 
-TAEB::AI::Personality::Climacophobe - Never use stairs! They make hard monsters spawn!
+TAEB::AI::Personality::Bathophobe - Never descend! It makes hard monsters spawn!
 
 =cut
 
