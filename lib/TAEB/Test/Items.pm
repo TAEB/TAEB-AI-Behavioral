@@ -8,7 +8,7 @@ sub import {
 
     main->import('Test::More');
 
-    plan tests => sum map { scalar keys %{ $_->[1] } } @_;
+    plan_items(@_);
     test_items(@_);
 }
 

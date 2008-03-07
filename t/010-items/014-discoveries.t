@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 use TAEB::Test;
-use List::Util 'sum';
 
 TAEB::Knowledge->msg_discovery('potion of sickness' => 'effervescent');
 
@@ -16,5 +15,5 @@ my @tests = (
     }],
 
 );
-plan tests => sum map { scalar keys %{ $_->[1] } } @tests;
+plan_items(@tests);
 test_items(@tests);

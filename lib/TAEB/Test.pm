@@ -4,8 +4,9 @@ use strict;
 use warnings;
 use TAEB;
 use parent 'Test::More';
+use List::Util 'sum';
 
-our @EXPORT = 'test_items';
+our @EXPORT = qw/test_items plan_items/;
 
 sub import_extra {
     Test::More->export_to_level(2);
@@ -42,6 +43,26 @@ sub test_items {
             }
         }
     }
+}
+
+=head2 plan_items ITEM_LIST
+
+This will take the item list and count the number of tests that would be run.
+If called in void context, the plan will be set for you. If called in nonvoid
+context, the number of item tests will be returned.
+
+=cut
+
+sub plan_items {
+    my $tests = sum map {
+        ref $_->[1] eq 'HASH'
+        ? scalar keys %{ $_->[1] }
+        : (@$_ - 1) / 2
+    } @_;
+
+    return $tests if defined wantarray;
+
+    Test::More::plan tests => $tests;
 }
 
 1;
