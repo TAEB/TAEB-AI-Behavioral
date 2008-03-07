@@ -12,6 +12,8 @@ Takes a list of two item arrayrefs, where the first item is a string of the item
 =cut
 
 sub test_items {
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+
     for my $test (@_) {
         my ($appearance, $expected) = @$test;
         my $item = eval { TAEB::World::Item->new_item($appearance) };
