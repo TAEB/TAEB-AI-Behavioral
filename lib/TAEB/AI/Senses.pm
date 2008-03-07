@@ -32,6 +32,16 @@ has maxhp => (
     isa => 'Int',
 );
 
+has power => (
+    is  => 'rw',
+    isa => 'Int',
+);
+
+has maxpower => (
+    is  => 'rw',
+    isa => 'Int',
+);
+
 has nutrition => (
     is      => 'rw',
     isa     => 'Int',
@@ -103,6 +113,14 @@ sub update {
     }
     else {
         TAEB->error("Unable to parse HP from '$botl'");
+    }
+
+    if ($botl =~ /Pw:(\d+)\((\d+)\)/) {
+        $self->power($1);
+        $self->maxpower($2);
+    }
+    else {
+        TAEB->error("Unable to parse power from '$botl'");
     }
 
     if ($botl =~ m{Xp:(\d+)/(\d+)}) {
