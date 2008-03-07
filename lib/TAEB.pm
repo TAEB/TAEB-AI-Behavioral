@@ -169,7 +169,8 @@ has spells => (
     isa     => 'TAEB::World::Spells',
     default => sub { TAEB::World::Spells->new },
     handles => {
-        learn_spell => 'learn',
+        find_spell    => 'find',
+        find_castable => 'find_castable',
     },
 );
 
