@@ -19,6 +19,22 @@ has _spells => (
     },
 );
 
+sub find {
+    my $self = shift;
+    my $name = shift;
+
+    return first { $_->name eq $name } $_->spells;
+}
+
+sub find_castable {
+    my $self = shift;
+    my $name = shift;
+
+    my $spell = first { $_->name eq $name } $_->spells;
+    return unless $spell && $spell->castable;
+    return $spell;
+}
+
 sub castable_spells {
     my $self = shift;
     return grep { $_->castable } $self->spells;
