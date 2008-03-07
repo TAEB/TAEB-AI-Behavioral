@@ -17,6 +17,9 @@ around weight_behaviors => sub {
 
     delete $explorer_weights->{Descend};
 
+    # above opening doors but below dipping for Excalibur
+    $explorer_weights->{Ascend} = TAEB->z > 1 ? 20_000 : 0;
+
     return $explorer_weights;
 };
 
