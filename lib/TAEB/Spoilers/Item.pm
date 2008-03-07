@@ -52,7 +52,7 @@ has list => (
     },
 );
 
-has plural_of => (
+has plural_of_list => (
     is      => 'ro',
     isa     => 'HashRef',
     lazy    => 1,
@@ -82,45 +82,46 @@ has plural_of => (
     },
 );
 
-has singular_of => (
+has singular_of_list => (
     is      => 'ro',
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
         my $self = shift;
-        return { reverse %{ $self->plural_of } };
+        return { reverse %{ $self->plural_of_list } };
     },
 );
 
-has english_of => (
+has english_of_list => (
     is      => 'ro',
     isa     => 'HashRef',
     default => sub {
         my %japanese_to_english = (
-            "wakizashi"      => "short sword",
-            "ninja-to"       => "broadsword",
-            "nunchaku"       => "flail",
-            "naginata"       => "glaive",
-            "osaku"          => "lock pick",
-            "koto"           => "wooden harp",
-            "shito"          => "knife",
-            "tanko"          => "plate mail",
-            "kabuto"         => "helmet",
-            "yugake"         => "leather gloves",
-            "gunyoki"        => "food ration",
-            "potion of sake" => "potion of booze",
+            "wakizashi"       => "short sword",
+            "ninja-to"        => "broadsword",
+            "nunchaku"        => "flail",
+            "naginata"        => "glaive",
+            "osaku"           => "lock pick",
+            "koto"            => "wooden harp",
+            "shito"           => "knife",
+            "tanko"           => "plate mail",
+            "kabuto"          => "helmet",
+            "yugake"          => "leather gloves",
+            "gunyoki"         => "food ration",
+            "potion of sake"  => "potion of booze",
+            "potions of sake" => "potions of booze",
         );
         return \%japanese_to_english;
     },
 );
 
-has japanese_of => (
+has japanese_of_list => (
     is      => 'ro',
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
         my $self = shift;
-        return { reverse %{ $self->english_of } };
+        return { reverse %{ $self->english_of_list } };
     },
 );
 
@@ -152,16 +153,57 @@ has all_identities => (
     },
 );
 
+sub try_normalize_class {
+    my $self = shift;
+    my $item = shift;
+
+    if (my ($class, $kind) = (lc $item) =~ /^(.*?) of (.*)$/) {
+        $class =~ s/s$//;
+        return ($class, $kind) if any { $class eq lc } $self->types;
+    }
+
+    return;
+}
+
 sub type_to_class {
     my $self = shift;
     my $item = shift;
 
-    if (my ($class) = (lc $item) =~ /^(.*?) of /) {
-        $class =~ s/s$//;
-        return $class if any { $class eq lc } $self->types;
+    if (my ($class) = $self->try_normalize_class($item)) {
+        return $class;
     }
 
     return $self->list->{$item};
+}
+
+sub normalize {
+    my $self = shift;
+    my $item = shift;
+
+    $item = TAEB::Spoilers::Item->english_of_list->{$item} || $item;
+    return $self->singularize($item);
+}
+
+sub singularize {
+    my $self = shift;
+    my $item = shift;
+
+    if (my ($class, $kind) = $self->try_normalize_class($item)) {
+        return "$class of $kind";
+    }
+
+    return $self->singular_of_list->{$item};
+}
+
+sub pluralize {
+    my $self = shift;
+    my $item = shift;
+
+    if (my ($class, $kind) = $self->try_normalize_class($item)) {
+        return "${class}s of $kind";
+    }
+
+    return $self->plural_of_list->{$item};
 }
 
 1;

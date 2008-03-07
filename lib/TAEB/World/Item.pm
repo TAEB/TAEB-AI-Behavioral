@@ -138,8 +138,7 @@ sub new_item {
           $                                                # anchor the regex
          }x;
 
-    $item = TAEB::Spoilers::Item->english_of->{$item} || $item;
-    $item = TAEB::Spoilers::Item->singular_of->{$item} || $item;
+    $item = TAEB::Spoilers::Item->normalize($item);
 
     $num = 1         if !defined($num) || $num =~ /[at]/;
     $spe =~ s/^\+//  if defined $spe;
@@ -178,7 +177,7 @@ sub new_item {
     if (defined TAEB::Knowledge->appearance_of->{$item}) {
         $new_item->appearance(TAEB::Knowledge->appearance_of->{$item});
     }
-    elsif (defined $stats) {
+    elsif (defined($stats) && defined($stats->{appearance})) {
         $new_item->appearance($stats->{appearance});
     }
     else {
