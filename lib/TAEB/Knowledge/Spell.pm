@@ -94,6 +94,7 @@ sub castable {
     my $self = shift;
 
     return 0 if $self->forgotten;
+    return 0 if $level_of{ $self->name } * 5 > $self->power;
     return 1;
 }
 
