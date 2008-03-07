@@ -14,6 +14,7 @@ use TAEB::Knowledge::Item::Spellbook;
 use TAEB::Knowledge::Item::Tool;
 use TAEB::Knowledge::Item::Wand;
 use TAEB::Knowledge::Item::Weapon;
+use TAEB::Knowledge::Spell;
 
 has types => (
     is => 'ro',
