@@ -164,6 +164,7 @@ sub handle_menus {
         $selector = sub {
             my ($identity, $appearance) = /^[* ] (.*?) \((.*?)\)/
                 or return;
+            TAEB->debug("Discovery: $appearance is $identity");
             TAEB->enqueue_message('discovery', $identity, $appearance);
         };
     }
