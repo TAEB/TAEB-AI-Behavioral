@@ -77,6 +77,12 @@ has fail => (
     required => 1,
 );
 
+has slot => (
+    is       => 'rw',
+    isa      => 'Str',
+    required => 1,
+);
+
 =head2 castable
 
 Can this spell be cast this turn? This does not only take into account spell

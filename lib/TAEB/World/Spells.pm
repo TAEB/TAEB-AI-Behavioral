@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Spells;
 use Moose;
+use List::Util 'first';
 
 my @slots = ('a' .. 'z', 'A' .. 'Z');
 
@@ -34,7 +35,11 @@ sub msg_know_spell {
 
     my $spell = $self->get($slot);
     if (!defined($spell)) {
-        $spell = TAEB::Knowledge::Spell->new(name => $name, fail => $fail);
+        $spell = TAEB::Knowledge::Spell->new(
+            name => $name,
+            fail => $fail,
+            slot => $slot,
+        );
         $self->set($slot => $spell);
     }
     else {
