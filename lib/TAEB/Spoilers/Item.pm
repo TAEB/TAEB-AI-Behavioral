@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Spoilers::Item;
 use MooseX::Singleton;
+use List::MoreUtils 'any';
 
 use TAEB::Spoilers::Item::Armor;
 use TAEB::Spoilers::Item::Artifact;
@@ -154,6 +155,11 @@ has all_identities => (
 sub type_to_class {
     my $self = shift;
     my $item = shift;
+
+    if (my ($class) = (lc $item) =~ /^(.*?) of /) {
+        $class =~ s/s$//;
+        return $class if any { $class eq lc } $self->types;
+    }
 
     return $self->list->{$item};
 }
