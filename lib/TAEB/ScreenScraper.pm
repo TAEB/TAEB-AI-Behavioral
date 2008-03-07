@@ -188,6 +188,7 @@ sub handle_menus {
 
             TAEB->enqueue_message('know_spell',
                 $slot, $name, $forgotten eq '*', $fail);
+            return 0;
         };
     }
     elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
