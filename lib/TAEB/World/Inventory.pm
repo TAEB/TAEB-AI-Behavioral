@@ -3,6 +3,11 @@ package TAEB::World::Inventory;
 use Moose;
 use List::Util 'first';
 
+use overload
+    q{""} => sub {
+        shift->debug_display;
+    };
+
 has inventory => (
     metaclass => 'Collection::Hash',
     is        => 'rw',
@@ -13,6 +18,8 @@ has inventory => (
         set    => 'set',
         delete => 'remove',
         values => 'items',
+        keys   => 'slots',
+        empty  => 'has_items',
     },
 );
 
@@ -88,6 +95,19 @@ sub decrease_quantity {
     $item->quantity($new_quantity);
 
     return $new_quantity;
+}
+
+sub debug_display {
+    my $self = shift;
+    my @items;
+
+    return "No inventory." unless $self->has_items;
+
+    for my $slot (sort $self->slots) {
+        push @items, sprintf '%s - %s', $slot, $self->get($slot);
+    }
+
+    return join "\n", @items;
 }
 
 make_immutable;
