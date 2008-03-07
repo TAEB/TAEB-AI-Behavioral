@@ -155,7 +155,7 @@ has senses => (
     is => 'rw',
     isa => 'TAEB::AI::Senses',
     default => sub { TAEB::AI::Senses->new },
-    handles => [qw/hp maxhp nutrition level role race gender align can_pray/],
+    handles => [qw/hp maxhp nutrition level role race gender align turn can_pray/],
 );
 
 has inventory => (
