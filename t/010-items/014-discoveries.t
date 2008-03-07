@@ -1,10 +1,8 @@
 #!perl -T
 use strict;
 use warnings;
-use Test::More;
-use List::Util 'sum';
-use TAEB;
 use TAEB::Test;
+use List::Util 'sum';
 
 TAEB::Knowledge->msg_discovery('potion of sickness' => 'effervescent');
 

@@ -1,9 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use Test::More tests => 14;
-
-use TAEB;
+use TAEB::Test tests => 14;
 
 my $balsa = TAEB::Knowledge->appearances->{wand}{'balsa wand'};
 ok($balsa, "we have an appearance object for balsa wands");

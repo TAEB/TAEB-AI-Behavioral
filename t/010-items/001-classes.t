@@ -1,12 +1,5 @@
 #!perl -T
-use strict;
-use warnings;
-use Test::More;
-use List::Util 'sum';
-use TAEB;
-use TAEB::Test;
-
-my @tests = (
+use TAEB::Test::Items (
     ["x - 100 gold pieces",                             {class => "gold"}     ],
     ["a - a +1 long sword (weapon in hand)",            {class => "weapon"}   ],
     ["b - a blessed +0 dagger",                         {class => "weapon"}   ],
@@ -41,5 +34,3 @@ my @tests = (
     ["n - the Heart of Ahriman",                        {class => "gem"}      ],
     ["v - a statue of a lichen",                        {class => "statue"}   ],
 );
-plan tests => sum map { scalar keys %{ $_->[1] } } @tests;
-test_items(@tests);

@@ -1,12 +1,5 @@
 #!perl -T
-use strict;
-use warnings;
-use Test::More;
-use List::Util 'sum';
-use TAEB;
-use TAEB::Test;
-
-my @tests = (
+use TAEB::Test::Items (
     ["a - a +1 long sword (weapon in hand)",  {buc => 'uncursed'}],
     ["i - a blessed murky potion",            {buc => 'blessed'} ],
     ["j - a cursed skeleton key",             {buc => 'cursed'}  ],
@@ -22,5 +15,3 @@ my @tests = (
     ["p - a unicorn horn",                    {buc => 'unknown'} ],
     ["p - a +2 unicorn horn",                 {buc => 'uncursed'}],
 );
-plan tests => sum map { scalar keys %{ $_->[1] } } @tests;
-test_items(@tests);
