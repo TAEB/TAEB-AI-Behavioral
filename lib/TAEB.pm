@@ -210,6 +210,10 @@ sub step {
     }
     elsif ($self->state eq 'prepare_inventory') {
         $self->write("Da\n");
+        $self->state('prepare_spells');
+    }
+    elsif ($self->state eq 'prepare_spells') {
+        $self->write("Z");
         $self->state('prepare_crga');
     }
     elsif ($self->state eq 'prepare_crga') {
@@ -467,7 +471,7 @@ sub send_messages {
         TAEB->debug("Dequeueing message $msgname.");
 
         # this list should not be hardcoded. ideas?
-        for my $recipient (TAEB->senses, TAEB->dungeon->cartographer, "TAEB::Spoilers::Item::Artifact", "TAEB::Knowledge") {
+        for my $recipient (TAEB->senses, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, "TAEB::Spoilers::Item::Artifact", "TAEB::Knowledge") {
             $recipient->$msgname(@$_)
                 if $recipient->can($msgname);
         }

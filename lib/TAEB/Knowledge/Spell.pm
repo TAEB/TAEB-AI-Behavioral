@@ -14,6 +14,12 @@ has learned_at => (
     default  => sub { TAEB->turn },
 );
 
+has fail => (
+    is       => 'rw',
+    isa      => 'Int',
+    required => 1,
+);
+
 =head2 castable
 
 Can this spell be cast this turn? This does not only take into account spell

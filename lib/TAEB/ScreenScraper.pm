@@ -176,6 +176,17 @@ sub handle_menus {
             $personality->enhance($skill, $level);
         };
     }
+    elsif (TAEB->topline =~ /Choose which spell to cast/) {
+        $selector = sub {
+            # a - force bolt             1    attack         0%
+            my ($slot, $name, $forgotten, $fail) =
+                /^(.) - (.*?)\s+\d([ *])\s+\w+\s+(\d+)%\s*$/
+                    or return;
+
+            TAEB->enqueue_message('know_spell',
+                $slot, $name, $forgotten eq '*', $fail);
+        };
+    }
     elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
         $menu->select_count('none');
         TAEB->current_tile->items([]);
