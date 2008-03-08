@@ -5,6 +5,7 @@ use warnings;
 
 use Hash::Inflator;
 use List::Util 'first';
+use List::MoreUtils 'uniq';
 
 our %colors;
 
@@ -37,8 +38,6 @@ use Sub::Exporter -setup => {
         colors => [keys %colors],
     },
 };
-
-use List::MoreUtils 'uniq';
 
 our %glyphs = (
     ' '  => 'rock',

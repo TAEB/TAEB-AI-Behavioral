@@ -1,5 +1,7 @@
 #!perl
 package TAEB;
+use TAEB::Util;
+
 use MooseX::Singleton;
 use MooseX::AttributeHelpers;
 
@@ -9,7 +11,6 @@ use Log::Dispatch::File;
 use TAEB::Meta::Types;
 
 use TAEB::Config;
-use TAEB::Util;
 use TAEB::VT;
 use TAEB::ScreenScraper;
 use TAEB::Spoilers;
