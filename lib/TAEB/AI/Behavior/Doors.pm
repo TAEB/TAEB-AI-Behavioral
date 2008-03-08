@@ -25,7 +25,7 @@ sub prepare {
             }
             # can we kick? if so, try it
             elsif (TAEB->senses->can_kick) {
-                $self->next(chr(4) . $dir);
+                $self->do(kick => direction => $dir);
                 $self->currently("Kicking down a door");
                 $have_action = 1;
             }
