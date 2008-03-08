@@ -123,7 +123,7 @@ sub behavior_action {
 
     TAEB->critical("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.") if !$behavior;
 
-    my $action = $behavior->next_action;
+    my $action = $behavior->action;
     $self->currently($behavior->currently);
     return $action;
 }
