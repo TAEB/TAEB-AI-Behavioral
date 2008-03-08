@@ -4,8 +4,9 @@ use Moose;
 extends 'TAEB::World::Tile';
 
 has locked => (
-    is  => 'rw',
-    isa => 'DoorState',
+    is      => 'rw',
+    isa     => 'DoorState',
+    default => 'unknown',
 );
 
 has '+type' => (
