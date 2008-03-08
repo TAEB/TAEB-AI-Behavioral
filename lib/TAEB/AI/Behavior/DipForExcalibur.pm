@@ -20,7 +20,7 @@ sub prepare {
     # are we standing on a fountain? if so, dip!
     if (TAEB->current_tile->type eq 'fountain') {
         $self->currently("Dipping for Excalibur!");
-        $self->do->dip(item => $longsword, into => "fountain");
+        $self->do(dip => item => $longsword, into => "fountain");
         return 100;
     }
 

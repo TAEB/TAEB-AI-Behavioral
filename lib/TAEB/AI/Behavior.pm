@@ -3,24 +3,14 @@ package TAEB::AI::Behavior;
 use Moose;
 use Scalar::Defer 'defer';
 
-has path => (
-    is  => 'rw',
-    isa => 'TAEB::World::Path',
-    trigger => sub {
-        my ($self, $path) = @_;
-        $self->next(split '', ($path ? $path->path : ''));
-    },
-);
-
 has currently => (
     is  => 'rw',
     isa => 'Str',
 );
 
-has commands => (
-    is      => 'rw',
-    isa     => 'ArrayRef[Str]',
-    default => sub { [] },
+has action => (
+    is  => 'rw',
+    isa => 'TAEB::Action',
 );
 
 =head2 prepare -> Int
@@ -35,22 +25,19 @@ higher the urgency of the action.
 
 sub prepare { 0 }
 
-=head2 next_action -> Str
+=head2 do Str, Args -> Action
 
-This should return the command that should be sent to NetHack. Note that
-C<prepare> is guaranteed to be called before C<next_action> for any given
-action. C<next_action> may not be called at all though. C<next_action> will
-not be called if C<prepare> returned 0.
+This will create an Action of the given name, initialized with the given
+arguments.
 
 =cut
 
-sub next_action {
+sub do {
     my $self = shift;
-    my $action = shift @{ $self->commands };
-    if (!defined($action) || $action eq '') {
-        TAEB->error("Behavior ".$self->name." returned empty next_action.");
-    }
-    return $action;
+    my $name = shift;
+
+    my $action = TAEB::Action->new_action($name => @_);
+    $self->action($action);
 }
 
 =head2 name -> Str
@@ -97,20 +84,7 @@ sub write_elbereth {
              || '-';
     }
 
-    $self->do->engrave(with => $item);
-}
-
-=head2 next (Str)
-
-Replace the command queue with the given list of commands.
-
-=cut
-
-sub next {
-    my $self = shift;
-
-    # yes this has to be a copy
-    $self->commands([@_]);
+    $self->do(engrave => with => $item);
 }
 
 =head2 pickup Item -> Bool
@@ -149,7 +123,7 @@ This replaces this code:
 
     if ($path) {
         $self->currently($currently);
-        $self->path($path);
+        $self->do(move => path => $path);
         return $ok;
     }
     return 0;
@@ -167,7 +141,7 @@ sub if_path {
 
     return 0 if !defined($path) || length($path->path) == 0;
 
-    $self->path($path);
+    $self->do(move => path => $path);
 
     if (defined $currently) {
         if (ref($currently) eq 'CODE') {
