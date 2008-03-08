@@ -157,7 +157,11 @@ sub try_normalize_class {
     my $self = shift;
     my $item = shift;
 
-    if (my ($class, $kind) = (lc $item) =~ /^(.*?) of (.*)$/) {
+    # special case: we pretend it's amulet of Amulet of Yendor
+    return if $item =~ /Amulet of Yendor/;
+
+    if (my ($class, $kind) = $item =~ /^(.*?) of (.*)$/) {
+        $class = lc $class;
         $class =~ s/s$//;
         return ($class, $kind) if any { $class eq lc } $self->types;
     }
