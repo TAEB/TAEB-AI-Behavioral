@@ -60,6 +60,11 @@ for (my $i = 0; $i < @god_anger; $i += 2) {
     ];
 }
 
+my @prompts = (
+    qr/^What do you want to write with\?/              => 'respond_write_with',
+    qr/^What do you want to write in the (.*?) here\?/ => 'respond_write_what',
+);
+
 has messages => (
     is => 'rw',
     isa => 'Str',
@@ -259,6 +264,24 @@ sub handle_menus {
 
 sub handle_fallback {
     my $self = shift;
+
+    if (TAEB->vt->y == 0) {
+        for (my $i = 0; $i < @prompts; $i += 2) {
+            if (my $code = TAEB->action->can($prompts[$i+1])) {
+                if (TAEB->topline =~ $prompts[$i]) {
+
+                    # pass $1, $2, $3, etc to the action's handler
+                    no strict 'refs';
+                    TAEB->write(
+                        TAEB->action->$code(
+                            TAEB->topline,
+                            map { $$_ } 1 .. $#+
+                        )
+                    );
+                }
+            }
+        }
+    }
 
     if (TAEB->topline =~ /^Really attack /) {
         # try to get rid of it

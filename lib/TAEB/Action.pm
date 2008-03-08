@@ -17,7 +17,7 @@ sub command {
 =head2 run
 
 This is what is called to begin the NetHack command. Usually you don't override
-this. Your command should define message subscribers (C<msg_*> methods) to
+this. Your command should define prompt handlers (C<respond_*> methods) to
 continue interaction.
 
 =cut
