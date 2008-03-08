@@ -44,7 +44,7 @@ sub respond_eat_what {
         TAEB->error("There's no safe food in my inventory, so I can't eat 'anything'. Sending escape, but I doubt this will work.");
     }
     else {
-        TAEB->error("Unable to eat '" . $self->into . "'. Sending escape, but I doubt this will work.");
+        TAEB->error("Unable to eat '" . $self->food . "'. Sending escape, but I doubt this will work.");
     }
     return "\e";
 }
