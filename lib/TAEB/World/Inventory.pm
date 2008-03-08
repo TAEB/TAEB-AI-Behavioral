@@ -32,6 +32,11 @@ sub find {
         return first { $matcher->($_) } $self->items;
     }
 
+    # pass in a regex? return the first item for which the regex matches ID
+    if (ref($matcher) eq 'Regexp') {
+        return first { $_->identity =~ $matcher } $self->items;
+    }
+
     my $value = shift;
     if (!defined($value)) {
         # they passed in only one argument. assume they are checking identity
