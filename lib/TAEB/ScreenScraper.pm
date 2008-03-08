@@ -304,7 +304,7 @@ sub handle_fallback {
         for (my $i = 0; $i < @prompts; $i += 2) {
             if (my $code = TAEB->action->can("respond_" . $prompts[$i+1])) {
                 if (TAEB->topline =~ $prompts[$i]) {
-                    TAEB->debug(blessed(TAEB->action) . " is responding to " . $prompts[$i+1]".");
+                    TAEB->debug(blessed(TAEB->action) . " is responding to " . $prompts[$i+1].".");
 
                     # pass $1, $2, $3, etc to the action's handler
                     no strict 'refs';
