@@ -94,7 +94,7 @@ has list => (
         while (my ($name, $stats) = each %$potions) {
             $stats->{name}   = $name;
             $stats->{weight} = 20;
-            $stats->{plural} = $name =~ s/potion/potions/;
+            ($stats->{plural} = $name) =~ s/\bpotion\b/potions/;
         }
 
         return $potions;
