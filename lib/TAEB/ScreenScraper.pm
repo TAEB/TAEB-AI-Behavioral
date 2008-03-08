@@ -81,6 +81,8 @@ my @prompts = (
     qr/^What do you want to use or apply\?/ => 'respond_apply_what',
     qr/^Lock it\?/                          => 'respond_lock',
     qr/^Unlock it\?/                        => 'respond_unlock',
+    qr/^Drink from the (fountain|sink)\?/   => 'respond_drink_from',
+    qr/^What do you want to drink\?/        => 'respond_drink_what',
 );
 
 has messages => (

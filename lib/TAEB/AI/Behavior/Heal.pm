@@ -22,7 +22,7 @@ sub prepare {
                   || TAEB->find_item("potion of extra healing")
                   || TAEB->find_item("potion of full healing");
         if ($potion) {
-            $self->next("q" . $potion->slot);
+            $self->do(quaff => from => $potion);
             $self->currently("Quaffing a $potion");
             return 90;
         }
