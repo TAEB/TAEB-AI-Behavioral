@@ -213,7 +213,7 @@ sub step_on {
     $self->explored(1);
 }
 
-sub each_neighbor {
+sub each_adjacent {
     my $self = shift;
     my $code = shift;
 
@@ -229,7 +229,7 @@ sub each_neighbor {
     }
 }
 
-sub each_other_neighbor {
+sub each_other_adjacent {
     my $self = shift;
     my $code = shift;
 

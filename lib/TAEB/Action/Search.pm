@@ -21,7 +21,7 @@ sub done {
     my $self = shift;
     my $diff = TAEB->turn - $self->started;
 
-    TAEB->current_tile->each_adjacent(sub {
+    TAEB->each_adjacent(sub {
         my $self = shift;
         $self->searched($self->searched + $diff);
     });
