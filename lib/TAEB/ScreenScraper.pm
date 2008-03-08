@@ -195,6 +195,7 @@ sub handle_menus {
     my $menu = NetHack::Menu->new(vt => TAEB->vt);
 
     my $selector;
+    my $committer = sub { $menu->commit };
 
     if (TAEB->topline =~ /Pick up what\?/) {
         $selector = sub {
@@ -219,11 +220,13 @@ sub handle_menus {
         };
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
-        my $which_spell = '';
+        my $which_spell = "\e";
 
         if (TAEB->action && TAEB->action->isa('TAEB::Action::Cast')) {
             $which_spell = TAEB->action->respond_which_spell(TAEB->topline);
         }
+
+        $committer = sub { $which_spell };
 
         $selector = sub {
             my $personality = shift;
@@ -236,7 +239,8 @@ sub handle_menus {
 
             TAEB->enqueue_message('know_spell',
                 $slot, $name, $forgotten eq '*', $fail);
-            return $which_spell eq $slot;
+
+            return 0;
         };
     }
     elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
@@ -287,7 +291,8 @@ sub handle_menus {
     };
 
     $menu->select($wrapper) if $wrapper;
-    TAEB->write($menu->commit);
+
+    TAEB->write($committer->());
     die "Recursing screenscraper.\n";
 }
 
