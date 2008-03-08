@@ -1,6 +1,6 @@
 #!perl -T
 use TAEB::Test::Items (
-    ["x - 100 gold pieces",                             {class => "gold"}     ],
+    ["x - 100 gold pieces",                             {class => "other"}    ],
     ["a - a +1 long sword (weapon in hand)",            {class => "weapon"}   ],
     ["b - a blessed +0 dagger",                         {class => "weapon"}   ],
     ["h - 8 +0 darts",                                  {class => "weapon"}   ],
