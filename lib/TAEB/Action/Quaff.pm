@@ -34,6 +34,13 @@ sub respond_drink_what {
     return "\e";
 }
 
+sub done {
+    my $self = shift;
+    if (blessed $self->from) {
+        TAEB->inventory->decrease_quantity($self->from->slot)
+    }
+}
+
 make_immutable;
 
 1;
