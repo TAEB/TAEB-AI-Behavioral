@@ -216,7 +216,7 @@ sub handle_menus {
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
         my $which_spell = '';
 
-        if (TAEB->action->isa('TAEB::Action::Cast')) {
+        if (TAEB->action && TAEB->action->isa('TAEB::Action::Cast')) {
             $which_spell = TAEB->action->respond_which_spell(TAEB->topline);
         }
 
