@@ -2,6 +2,7 @@
 package TAEB::Action::Throw;
 use Moose;
 extends 'TAEB::Action';
+with 'TAEB::Action::Role::Direction';
 
 use constant commands => 't';
 
@@ -11,14 +12,7 @@ has item => (
     required => 1,
 );
 
-has direction => (
-    is       => 'rw',
-    isa      => 'Str',
-    required => 1,
-);
-
 sub respond_throw_what { shift->item->slot }
-sub respond_what_direction { shift->direction }
 
 # we don't get a message when we throw one dagger
 sub done { TAEB->inventory->decrease_quantity(shift->item->slot) }
