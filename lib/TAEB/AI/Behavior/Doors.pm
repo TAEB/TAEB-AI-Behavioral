@@ -19,7 +19,7 @@ sub prepare {
             # can we unlock? if so, try it
             if ($locktool) {
                 TAEB->debug("Lock tool $locktool");
-                $self->next('a' . $locktool->slot . $dir . 'y');
+                $self->do(unlock => implement => $locktool, direction => $dir);
                 $self->currently("Applying lock tool in direction " . $dir);
                 $have_action = 1;
             }

@@ -68,10 +68,13 @@ my @prompts = (
     qr/^What do you want to write with\?/              => 'respond_write_with',
     qr/^What do you want to write in the (.*?) here\?/ => 'respond_write_what',
     qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'respond_dip_into_water',
-    qr/^What do you want to dip\?/       => 'respond_dip_what',
-    qr/^What do you want to dip into\?/  => 'respond_dip_into_what',
-    qr/^What do you want to throw\?/     => 'respond_throw_what',
-    qr/^In what direction\?/             => 'respond_what_direction',
+    qr/^What do you want to dip\?/          => 'respond_dip_what',
+    qr/^What do you want to dip into\?/     => 'respond_dip_into_what',
+    qr/^What do you want to throw\?/        => 'respond_throw_what',
+    qr/^In what direction\?/                => 'respond_what_direction',
+    qr/^What do you want to use or apply\?/ => 'respond_apply_what',
+    qr/^Lock it\?/                          => 'respond_lock',
+    qr/^Unlock it\?/                        => 'respond_unlock',
 );
 
 has messages => (
