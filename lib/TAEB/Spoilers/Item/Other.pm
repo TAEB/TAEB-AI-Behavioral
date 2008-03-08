@@ -72,6 +72,9 @@ has list => (
         # tag each other item with its name
         while (my ($name, $stats) = each %$other) {
             $stats->{name} = $name;
+
+            # everything actually has the same appearance as identity
+            $stats->{appearance} = $name;
         }
 
         return $other;
