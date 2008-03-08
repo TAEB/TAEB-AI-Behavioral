@@ -43,6 +43,17 @@ sub at {
     return $self->tiles->[$y][$x];
 }
 
+sub at_direction {
+    my $self      = shift;
+    my $x         = @_ > 2 ? shift : TAEB->x;
+    my $y         = @_ > 1 ? shift : TAEB->y;
+    my $direction = shift;
+
+    my ($dx, $dy) = vi2delta($direction);
+
+    $self->at($x + $dx, $y + $dy);
+}
+
 sub update_tile {
     my $self     = shift;
     my $x        = shift;
