@@ -2,6 +2,11 @@
 package TAEB::Knowledge::Spell;
 use Moose;
 
+use overload
+    q{""} => sub {
+        shift->debug_display;
+    };
+
 has name => (
     is       => 'rw',
     isa      => 'Str',
@@ -57,6 +62,15 @@ sub castable {
 sub forgotten {
     my $self = shift;
     return TAEB->turn > $self->learned_at + 20_000;
+}
+
+sub debug_display {
+    my $self = shift;
+
+    return sprintf '[%s: %s (%d)]',
+           blessed($self),
+           $self->name,
+           $self->learned_at;
 }
 
 1;
