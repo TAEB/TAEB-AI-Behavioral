@@ -3,39 +3,50 @@ package TAEB::AI::Behavior::BuffSelf;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
-has protection_level => (
+sub use_spells { ('protection', 'haste self') }
+
+has buff_level => (
     is      => 'rw',
-    isa     => 'Int',
-    default => 0,
+    isa     => 'HashRef[Int]',
+    default => sub { {} },
 );
 
 sub prepare {
     my $self = shift;
+    my ($max_spell, $max_priority) = (undef, 0);
 
-    if (my $spell = TAEB->find_castable("protection")) {
-        $self->next("Z" . $spell->slot);
-        $self->currently("Casting protection.");
-        return $self->protection_level ? 50 : 100;
+    for ($self->use_spells) {
+        my $spell = TAEB->find_castable($_)
+            or next;
+        my $priority = $self->buff_level->{$spell->name} ? 50 : 100;
+
+        ($max_spell, $max_priority) = ($spell, $priority)
+            if $priority > $max_priority;
     }
 
-    return 0;
+    return 0 if $max_priority == 0;
+
+    $self->next("Z" . $spell->slot);
+    $self->currently("Casting ".($max_spell->name).".");
+    return $max_priority;
 }
 
 sub urgencies {
     return {
-       100 => "casting the first hit of protection",
-        50 => "casting a subsequent hit of protection",
+       100 => "casting the first hit of a buff spell",
+        50 => "casting a subsequent hit of a buff spell",
     },
 }
 
-sub msg_protection {
-    my $self         = shift;
-    my $is_protected = shift;
-    my $delta        = shift;
+sub msg_buff {
+    my $self      = shift;
+    my $spellname = shift;
+    my $is_buffed = shift;
+    my $delta     = shift;
 
-    $self->protection_level($self->protection_level + $delta);
-    if ($self->protection_level xor $is_protected) {
-        $self->protection_level($is_protected);
+    $self->buff_level->{$spellname} += $delta;
+    if ($self->buff_level->{$spellname} xor $is_buffed) {
+        $self->buff_level->{$spellname} = $is_buffed;
     }
 }
 

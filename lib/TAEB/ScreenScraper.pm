@@ -15,13 +15,19 @@ my %msg_string = (
     "As the hand retreats, the fountain disappears!" =>
         ['dungeon_feature', 'fountain dries up'],
     "The air around you begins to shimmer with a golden haze." =>
-        ['protection', 1, +1],
+        ['buff', 'protection', 1, +1],
     "The golden haze around you becomes more dense." =>
-        ['protection', 1, +1],
+        ['buff', 'protection', 1, +1],
     "The golden haze around you becomes less dense." =>
-        ['protection', 1, -1],
+        ['buff', 'protection', 1, -1],
     "The golden haze around you disappears." =>
-        ['protection', 0, -1],
+        ['buff', 'protection', 0, -1],
+    "You are suddenly moving much faster." =>
+        ['buff', 'haste self', 1, +1],
+    "Your legs get new energy." =>
+        ['buff', 'haste self', 1, +1],
+    "You feel yourself slowing down." =>
+        ['buff', 'haste self', 0, -1],
 );
 
 my @msg_regex = (
