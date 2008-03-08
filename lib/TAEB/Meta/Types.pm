@@ -21,5 +21,7 @@ enum ItemClass => qw(gold weapon armor food scroll spellbook potion amulet ring 
 
 enum TileType => tile_types;
 
+enum DoorState => qw(locked unlocked unknown);
+
 1;
 
