@@ -3,11 +3,6 @@ package TAEB::AI::Behavior::Projectiles;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
-has projectile => (
-    is  => 'rw',
-    isa => 'TAEB::World::Item',
-);
-
 sub prepare {
     my $self = shift;
 
@@ -26,18 +21,10 @@ sub prepare {
     # no monster found
     return 0 if !$direction;
 
-    $self->projectile($projectile);
-    $self->next(join '', 't', $projectile->slot, $direction);
+    $self->do(throw => item => $projectile);
     $self->currently("Throwing a $projectile at a monster.");
     return 100;
 }
-
-after next_action => sub {
-    my $self = shift;
-
-    # mark that we've thrown the item
-    TAEB->inventory->decrease_quantity($self->projectile->slot);
-};
 
 my %pickup = map { $_ => 1 } qw/dagger dart shuriken/;
 sub pickup {

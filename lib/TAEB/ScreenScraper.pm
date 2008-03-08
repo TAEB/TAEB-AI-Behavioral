@@ -43,6 +43,10 @@ my @msg_regex = (
         qr/^You cannot escape from (?:the )?(.*)!/,
             ['cannot_escape', sub { $1 || '' }],
     ],
+    [
+        qr/^You throw (\d+) /,
+            ['throw_count', sub { $1 }],
+    ],
 );
 
 my @god_anger = (

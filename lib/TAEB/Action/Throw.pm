@@ -20,5 +20,16 @@ has direction => (
 sub respond_throw_what { shift->item->slot }
 sub respond_what_direction { shift->direction }
 
+# we don't get a message when we throw one dagger
+sub done { TAEB->inventory->decrease_quantity(shift->item->slot) }
+
+sub msg_throw_count {
+    my $self  = shift;
+    my $count = shift;
+
+    # done takes care of the other one
+    TAEB->inventory->decrease_quantity(shift->item->slot, $count - 1);
+}
+
 1;
 
