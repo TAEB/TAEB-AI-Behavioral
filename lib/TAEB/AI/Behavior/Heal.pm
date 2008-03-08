@@ -11,7 +11,7 @@ sub prepare {
     my $spell = TAEB->find_castable("healing")
              || TAEB->find_castable("extra healing");
     if ($spell) {
-        $self->next("Z" . $spell->slot . ".");
+        $self->do(cast => spell => $spell, direction => ".");
         $self->currently("Casting heal at myself.");
         return 100;
     }

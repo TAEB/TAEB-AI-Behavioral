@@ -214,6 +214,12 @@ sub handle_menus {
         };
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
+        my $which_spell = '';
+
+        if (TAEB->action->isa('TAEB::Action::Cast')) {
+            $which_spell = TAEB->action->respond_which_spell(TAEB->topline);
+        }
+
         $selector = sub {
             my $personality = shift;
             my $slot        = shift;
@@ -225,7 +231,7 @@ sub handle_menus {
 
             TAEB->enqueue_message('know_spell',
                 $slot, $name, $forgotten eq '*', $fail);
-            return 0;
+            return $which_spell eq $slot;
         };
     }
     elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {

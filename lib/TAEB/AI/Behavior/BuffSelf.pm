@@ -26,7 +26,7 @@ sub prepare {
 
     return 0 if $max_priority == 0;
 
-    $self->next("Z" . $max_spell->slot);
+    $self->do(cast => spell => $max_spell);
     $self->currently("Casting ".($max_spell->name).".");
     return $max_priority;
 }

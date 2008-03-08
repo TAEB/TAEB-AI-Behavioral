@@ -26,7 +26,7 @@ sub prepare {
     # no monster found
     return 0 if !$direction;
 
-    $self->next('Z' . $spell->slot . $direction);
+    $self->do(cast => spell => $spell, direction => $direction);
     $self->currently("Casting ".$spell->name." at a monster");
     return 100;
 }
