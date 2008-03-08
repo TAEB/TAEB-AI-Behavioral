@@ -93,12 +93,19 @@ has possibility_tracker => (
     default => sub {
         my $self = shift;
 
-        TAEB->error($self->raw . " has an undefined item class.")
-            if !defined $self->class;
-        TAEB->error($self->raw . " has an undefined appearance.")
-            if !defined $self->appearance;
+        my $possibility_tracker = TAEB::Knowledge->appearances->{$self->class};
+        if (!$possibility_tracker) {
+            TAEB->error($self->raw . " gives no possibility tracker for class " . $self->class);
+            return;
+        }
 
-        TAEB::Knowledge->appearances->{$self->class}{$self->appearance};
+        $possibility_tracker = $possibility_tracker->{$self->appearance};
+        if (!$possibility_tracker) {
+            TAEB->error($self->raw . " gives no possibility tracker for appearance " . $self->appearance);
+            return;
+        }
+
+        return $possibility_tracker;
     },
     handles => [qw/exclude_possibility has_possibilities possibilities rule_out rule_out_all_but identify_as/],
 );
