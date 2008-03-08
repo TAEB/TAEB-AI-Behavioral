@@ -3,12 +3,17 @@ package TAEB::AI::Behavior::AttackSpell;
 use Moose;
 extends 'TAEB::AI::Behavior';
 
+sub use_spells { ('magic missile', 'sleep') }
+
 sub prepare {
     my $self = shift;
 
-    # do we have an attack spell?
-    my $spell = TAEB->find_castable("sleep")
-        or return 0;
+    my $spell;
+    for ($self->use_spells) {
+        $spell = TAEB->find_castable($_) and last;
+    }
+
+    return 0 unless $spell;
 
     my $direction = TAEB->current_level->radiate(
         sub { shift->has_monster },
