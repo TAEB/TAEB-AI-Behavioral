@@ -497,7 +497,7 @@ sub send_messages {
         TAEB->debug("Dequeueing message $msgname.");
 
         # this list should not be hardcoded. ideas?
-        for my $recipient (TAEB->senses, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, "TAEB::Spoilers::Item::Artifact", "TAEB::Knowledge") {
+        for my $recipient (TAEB->senses, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, TAEB->action, "TAEB::Spoilers::Item::Artifact", "TAEB::Knowledge") {
             if ($recipient->can('send_message')) {
                 $recipient->send_message($msgname, @$_);
             }
