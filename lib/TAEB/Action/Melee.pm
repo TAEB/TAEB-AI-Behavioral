@@ -4,7 +4,10 @@ use Moose;
 extends 'TAEB::Action';
 with 'TAEB::Action::Role::Direction';
 
-use constant command => 'F';
+# sadly, Melee doesn't give an "In what direction?" message
+sub command {
+    'F' . shift->direction
+}
 
 make_immutable;
 
