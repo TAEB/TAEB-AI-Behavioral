@@ -723,15 +723,6 @@ has list => (
                 appearance => 'hilted polearm',
                 plural => 'ranseurs',
             },
-            'rocks/gems/glass' => {
-                'sdam'   => 'd3',
-                'ldam'   => 'd3',
-                'tohit'  => '0',
-                'hands'  => 1,
-                'weight' => 40,
-                'type'   => 'vary',
-                plural => 'rocks/gems/glasses',
-            },
             'rubber hose' => {
                 'sdam'   => 'd4',
                 'ldam'   => 'd3',
