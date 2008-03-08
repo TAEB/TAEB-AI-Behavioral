@@ -245,17 +245,15 @@ This will send the message to itself and each of its behaviors.
 
 =cut
 
-override send_message => sub {
+sub send_message {
     my $self = shift;
     my $msgname = shift;
-
-    super;
 
     while (my ($name, $behavior) = each %{ $self->behaviors }) {
         $behavior->$msgname(@_)
             if $behavior->can($msgname);
     }
-};
+}
 
 make_immutable;
 
