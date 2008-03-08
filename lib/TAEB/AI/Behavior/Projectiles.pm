@@ -12,7 +12,7 @@ sub prepare {
     my $self = shift;
 
     # do we have a projectile to throw?
-    my $projectile = TAEB->inventory->find(sub { $self->pickup(@_) })
+    my $projectile = TAEB->find_item(sub { $self->pickup(@_) })
         or return 0;
 
     my $direction = TAEB->current_level->radiate(

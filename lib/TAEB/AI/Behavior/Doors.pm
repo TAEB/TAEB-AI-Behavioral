@@ -7,9 +7,9 @@ sub prepare {
     my $self = shift;
 
     my $have_action = 0;
-    my $locktool = TAEB->inventory->find('key')
-                || TAEB->inventory->find('lock pick')
-                || TAEB->inventory->find('credit card');
+    my $locktool = TAEB->find_item('key')
+                || TAEB->find_item('lock pick')
+                || TAEB->find_item('credit card');
 
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
@@ -62,7 +62,7 @@ sub pickup {
 
     for my $unlocker ('key', 'lock pick', 'credit card') {
         # we already have this or better
-        return 0 if TAEB->inventory->find($unlocker);
+        return 0 if TAEB->find_item($unlocker);
 
         # this is better than our best unlocker
         return 1 if $item->identity eq $unlocker;

@@ -165,6 +165,9 @@ has inventory => (
     is      => 'rw',
     isa     => 'TAEB::World::Inventory',
     default => sub { TAEB::World::Inventory->new },
+    handles => {
+        find_item => 'find',
+    },
 );
 
 has spells => (
