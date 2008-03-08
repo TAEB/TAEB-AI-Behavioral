@@ -14,10 +14,13 @@ sub prepare {
 
     # are we on >? if so, head down
     my ($action, $currently) = $self->match_tile(TAEB->current_tile);
-    if (defined($actioon) && @$action)) {
+    if (ref($action) eq 'ARRAY' && @$action) {
         $self->currently($currently);
         $self->do(@$action);
         return 100;
+    }
+    elsif (defined $action) {
+        die blessed($self) . "->match_tile must return an array reference and a 'currently' string, or undef.";
     }
 
     # find our >
