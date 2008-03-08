@@ -180,8 +180,6 @@ after type => sub {
         bless $self => 'TAEB::World::Tile'
             unless blessed($self) eq 'TAEB::World::Tile';
     }
-
-    return $ret;
 };
 
 sub has_monster {
