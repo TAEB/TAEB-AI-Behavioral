@@ -32,6 +32,8 @@ my %msg_string = (
         ['door', 'locked'],
     "This door resists!" =>
         ['door', 'resists'],
+    "You succeed in unlocking the door." =>
+        ['door', 'just_unlocked'],
 );
 
 my @msg_regex = (

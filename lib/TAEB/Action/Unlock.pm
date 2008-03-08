@@ -15,17 +15,29 @@ has implement => (
 sub respond_apply_what { shift->implement->slot }
 
 sub respond_lock {
-    # XXX: mark the door as unlocked
+    $tile->locked('unlocked');
     return 'n';
 }
 
 sub respond_unlock {
-    # XXX: mark the door as locked (we'll unlock it soon)
+    $tile->locked('locked');
     return 'y';
 }
 
 sub msg_unlocked_door {
-    # XXX: mark the door as unlocked
+    my $tile = $self->target_tile('closeddoor');
+    $tile->locked('unlocked');
+}
+
+sub msg_door {
+    my $self = shift;
+    my $type = shift;
+
+    my $tile = $self->target_tile('closeddoor');
+
+    if ($type eq 'just_unlocked') {
+        $tile->locked('unlocked');
+    }
 }
 
 make_immutable;

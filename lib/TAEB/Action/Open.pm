@@ -10,11 +10,7 @@ sub msg_door {
     my $self = shift;
     my $type = shift;
 
-    my $tile = TAEB->current_level->at_delta($self->direction);
-    unless ($tile->type eq 'closeddoor') {
-        TAEB->warning("Tried to change state of a ".$tile->type.". I can only handle closeddoor.");
-        return;
-    }
+    my $tile = $self->target_tile('closeddoor');
 
     if ($type eq 'locked') {
         $tile->locked('locked');

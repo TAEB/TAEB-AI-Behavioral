@@ -10,5 +10,16 @@ has direction => (
 
 sub respond_what_direction { shift->direction }
 
+sub target_tile {
+    my $self = shift;
+    my $tile = TAEB->current_level->at_delta($self->direction);
+
+    if (@_ && grep { $tile->type eq $_ } @_ == 0) {
+        TAEB->warning(blessed($self) . " can only handle tiles of type: @_");
+    }
+
+    return $tile;
+}
+
 1;
 
