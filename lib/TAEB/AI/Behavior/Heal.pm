@@ -14,6 +14,18 @@ sub prepare {
         return 100;
     }
 
+    # we've probably been writing Elbereth a bunch, so find a healing potion
+    if (TAEB->hp * 3 < TAEB->maxhp) {
+        my $potion = TAEB->find_item("potion of healing")
+                  || TAEB->find_item("potion of extra healing")
+                  || TAEB->find_item("potion of full healing");
+        if ($potion) {
+            $self->next("q" . $potion->slot);
+            $self->currently("Quaffing a $potion");
+            return 90;
+        }
+    }
+
     unless (TAEB->senses->in_wereform || TAEB->senses->is_blind) {
         $self->write_elbereth;
         return 80;
@@ -25,6 +37,7 @@ sub prepare {
 sub urgencies {
     return {
        100 => "casting a healing spell",
+        90 => "quaffing a potion of healing, extra healing, or full healing",
         80 => "writing Elbereth due to low HP",
     },
 }
