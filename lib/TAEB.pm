@@ -193,7 +193,7 @@ has deferred_messages => (
 
 has action => (
     is  => 'rw',
-    isa => 'TAEB::Action',
+    isa => 'Maybe[TAEB::Action]',
 );
 
 =head2 BUILD
