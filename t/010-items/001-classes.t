@@ -19,7 +19,7 @@ use TAEB::Test::Items (
     ["P - a blessed lichen corpse",                     {class => "food"}     ],
     ["R - an uncursed guardian naga egg",               {class => "food"}     ],
     ["w - an uncursed empty tin",                       {class => "food"}     ],
-    ["N - an uncursed blank scroll",                    {class => "scroll"}   ],
+    ["N - an uncursed scroll of blank paper",           {class => "scroll"}   ],
     ["k - an uncursed spellbook of blank paper",        {class => "spellbook"}],
     ["T - the uncursed Book of the Dead",               {class => "spellbook"}],
     ["C - an uncursed potion of water",                 {class => "potion"}   ],
