@@ -1,7 +1,7 @@
 #!perl -T
 use TAEB::Test::Items (
     ["x - a samurai sword",                   {class => "weapon"}   ],
-    ["y - a crude dagger",                    {class => "weapon"}   ],
+    ["y - 5 crude daggers",                   {class => "weapon"}   ],
     ["z - a broad pick",                      {class => "weapon"}   ],
     ["f - a double-headed axe named Cleaver", {class => "weapon"}   ],
     ["s - a poisoned arrow",                  {class => "weapon"}   ],
@@ -11,7 +11,7 @@ use TAEB::Test::Items (
     ["h - a visored helmet named The Mitre of Holiness", {class => "armor"} ],
     ["s - a pair of riding gloves",           {class => "armor"}    ],
     ["i - an egg",                            {class => "food"}     ],
-    ["D - a tin",                             {class => "food"}     ],
+    ["D - 2 tins",                            {class => "food"}     ],
     ["f - a scroll labeled PRATYAVAYAH",      {class => "scroll"}   ],
     ["m - a scroll labeled JUYED AWK YACC",   {class => "scroll"}   ],
     ["E - 2 scrolls labeled FOOBIE BLETCH",   {class => "scroll"}   ],
@@ -21,7 +21,7 @@ use TAEB::Test::Items (
     ["g - a papyrus spellbook",               {class => "spellbook"}],
     ["N - a murky potion",                    {class => "potion"}   ],
     ["O - a sky blue potion",                 {class => "potion"}   ],
-    ["P - a brown potion",                    {class => "potion"}   ],
+    ["P - 2 brown potions",                   {class => "potion"}   ],
     ["h - a hexagonal amulet",                {class => "amulet"}   ],
     ["G - a triangular amulet",               {class => "amulet"}   ],
     ["H - a pyramidal amulet",                {class => "amulet"}   ],
