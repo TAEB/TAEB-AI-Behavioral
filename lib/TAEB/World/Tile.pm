@@ -165,6 +165,14 @@ sub update {
         # and do the rebless, which does all the typechecking and whatnot
         $new_pkg->meta->rebless_instance($self);
     }
+    else {
+        # if the new package doesn't exist, then we need to revert to the
+        # regular Tile class
+        # we check blessed($self) because apparently bless is an expensive
+        # operation, and the check will eliminate 99.9% of reblesses
+        bless $self => 'TAEB::World::Tile'
+            unless blessed($self) eq 'TAEB::World::Tile';
+    }
 }
 
 sub has_monster {
