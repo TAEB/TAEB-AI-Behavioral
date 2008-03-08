@@ -30,7 +30,7 @@ sub prepare {
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
         if ($tile->has_monster) {
-            $self->next($dir);
+            $self->do(melee => direction => $dir);
             $self->currently("Attacking a " . $tile->glyph);
             $found_monster = 1;
         }
