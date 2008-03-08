@@ -89,7 +89,7 @@ has plural_of_list => (
                 if ("TAEB::Spoilers::Item::$type"->can($attr)) {
                     for my $name (@{"TAEB::Spoilers::Item::$type"->$attr}) {
                         if ("TAEB::Spoilers::Item::$type"->can('pluralize_unided')) {
-                            $plural_of{$name} = "TAEB::Spoilers::Item::$type"->pluralize_unided($name);
+                            $plural_of{$name} = "TAEB::Spoilers::Item::$type"->pluralize_unided($name) unless $plural_of{$name};
                         }
                     }
                 }
@@ -97,7 +97,7 @@ has plural_of_list => (
             if ("TAEB::Spoilers::Item::$type"->can('constant_appearances')) {
                 for my $name (keys %{"TAEB::Spoilers::Item::$type"->constant_appearances}) {
                     if ("TAEB::Spoilers::Item::$type"->can('pluralize_unided')) {
-                        $plural_of{$name} = "TAEB::Spoilers::Item::$type"->pluralize_unided($name);
+                        $plural_of{$name} = "TAEB::Spoilers::Item::$type"->pluralize_unided($name) unless $plural_of{$name};
                     }
                 }
             }
