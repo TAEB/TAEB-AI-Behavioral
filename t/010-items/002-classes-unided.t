@@ -14,7 +14,7 @@ use TAEB::Test::Items (
     ["D - a tin",                             {class => "food"}     ],
     ["f - a scroll labeled PRATYAVAYAH",      {class => "scroll"}   ],
     ["m - a scroll labeled JUYED AWK YACC",   {class => "scroll"}   ],
-    ["E - a scroll labeled FOOBIE BLETCH",    {class => "scroll"}   ],
+    ["E - 2 scrolls labeled FOOBIE BLETCH",   {class => "scroll"}   ],
     ["l - an orange spellbook",               {class => "spellbook"}],
     ["n - a light blue spellbook",            {class => "spellbook"}],
     ["u - a magenta spellbook",               {class => "spellbook"}],
