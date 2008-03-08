@@ -13,6 +13,7 @@ has list => (
             'gold piece' => {
                 cost   => 1,
                 weight => 0.01,
+                glyph  => '$',
                 plural => 'gold pieces',
             },
             'boulder' => {
