@@ -220,6 +220,8 @@ It will return any input it receives, so you can follow along at home.
 sub step {
     my $self = shift;
 
+    TAEB->debug("Starting a new step.");
+
     $self->scraper->clear;
 
     $self->process_input;
