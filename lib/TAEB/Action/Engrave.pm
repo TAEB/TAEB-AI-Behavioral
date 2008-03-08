@@ -5,7 +5,7 @@ extends 'TAEB::Action';
 
 use constant command => 'E';
 
-has engraver => (
+has with => (
     is      => 'rw',
     isa     => 'TAEB::World::Item | Str',
     default => '-',
@@ -19,7 +19,7 @@ has text => (
 
 sub engrave_slot {
     my $self = shift;
-    my $engraver = $self->engraver;
+    my $engraver = $self->with;
 
     return $engraver->slot if blessed $engraver;
     return $engraver;

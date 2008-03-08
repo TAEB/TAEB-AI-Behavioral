@@ -83,12 +83,21 @@ sub write_elbereth {
 
     $self->currently("Writing Elbereth.");
 
-    my $command = defer {
-        TAEB->current_tile->elbereths(TAEB->current_tile->elbereths + 1);
-        "E-  Elbereth\n";
-    };
+    my $item;
+    if ($best) {
+        $item = TAEB->find_item("wand of fire")
+             || TAEB->find_item("wand of lightning")
+             || TAEB->find_item("athame")
+             || TAEB->find_item("wand of digging")
+             || TAEB->find_item("magic marker")
+             || '-';
+    }
+    else {
+        $item = TAEB->find_item("athame")
+             || '-';
+    }
 
-    $self->next($command);
+    $self->do->engrave(with => $item);
 }
 
 =head2 next (Str)
