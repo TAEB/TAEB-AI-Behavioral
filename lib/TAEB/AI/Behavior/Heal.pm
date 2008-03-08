@@ -26,7 +26,7 @@ sub prepare {
         }
     }
 
-    unless (TAEB->senses->in_wereform || TAEB->senses->is_blind) {
+    if (TAEB->can_elbereth) {
         $self->write_elbereth;
         return 80;
     }

@@ -181,6 +181,12 @@ sub can_pray {
     return $self->max_god_anger == 0;
 }
 
+sub can_elbereth {
+    my $self = shift;
+    return not TAEB->senses->in_wereform
+            || TAEB->senses->is_blind;
+}
+
 make_immutable;
 
 1;
