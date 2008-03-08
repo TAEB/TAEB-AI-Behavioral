@@ -114,6 +114,16 @@ has list => (
                 cost => 45, weight => 5, nutrition => 800, time => 2,
                 plural => 'lembas wafers',
             },
+            'empty tin' => {
+                nutrition  => 0,
+                plural     => 'empty tins',
+                appearance => 'tin',
+            },
+            'tin of spinach' => {
+                nutrition  => 800,
+                plural     => 'tins of spinach',
+                appearance => 'tin',
+            },
         };
 
         # Collect monster corpses, tins, and eggs
