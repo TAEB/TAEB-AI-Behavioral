@@ -41,8 +41,16 @@ has list => (
                 $items->{$stats->{appearance}} = lc $type
                     if defined $stats->{appearance};
             }
-            if ("TAEB::Spoilers::Item::$type"->can('randomized_appearances')) {
-                for my $name (@{"TAEB::Spoilers::Item::$type"->randomized_appearances}) {
+            for my $attr (qw/randomized_appearances
+                             multi_identity_appearances/) {
+                if ("TAEB::Spoilers::Item::$type"->can($attr)) {
+                    for my $name (@{"TAEB::Spoilers::Item::$type"->$attr}) {
+                        $items->{$name} = lc $type;
+                    }
+                }
+            }
+            if ("TAEB::Spoilers::Item::$type"->can('constant_appearances')) {
+                for my $name (keys %{"TAEB::Spoilers::Item::$type"->constant_appearances}) {
                     $items->{$name} = lc $type;
                 }
             }
