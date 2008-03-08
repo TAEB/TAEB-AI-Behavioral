@@ -30,6 +30,8 @@ my %msg_string = (
         ['buff', 'haste self', 0, -1],
     "This door is locked." =>
         ['door', 'locked'],
+    "This door resists!" =>
+        ['door', 'resists'],
 );
 
 my @msg_regex = (
