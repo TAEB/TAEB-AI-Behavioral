@@ -965,6 +965,8 @@ has list => (
                     'weight'    => 30,
                     'nutrition' => 10,
                     'acidic'    => '100%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'acolyte' => {
@@ -997,6 +999,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'aligned priest' => {
@@ -1417,6 +1421,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'black naga' => {
@@ -1525,6 +1531,8 @@ has list => (
                     'nutrition' => 20,
                     'cold'      => '13%',
                     'poison'    => '13%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'bone devil' => {
@@ -1559,6 +1567,8 @@ has list => (
                     'nutrition' => 30,
                     'cold'      => '3%',
                     'poison'    => '3%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'brown pudding' => {
@@ -1579,6 +1589,7 @@ has list => (
                     'cold'      => '11%',
                     'poison'    => '11%',
                     'shock'     => '11%',
+                    vegetarian  => 1,
                 }
             },
             'bugbear' => {
@@ -1958,6 +1969,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'dwarf' => {
@@ -2054,6 +2067,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2500,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'electric eel' => {
@@ -2153,6 +2168,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'erinys' => {
@@ -2250,6 +2267,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'fire giant' => {
@@ -2284,6 +2303,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'flaming sphere' => {
@@ -2354,6 +2375,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'forest centaur' => {
@@ -2505,6 +2528,8 @@ has list => (
                     'fire'      => '10%',
                     'shock'     => '10%',
                     'sleep'     => '10%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'ghost' => {
@@ -2521,6 +2546,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'ghoul' => {
@@ -2720,6 +2747,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1800,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'glass piercer' => {
@@ -2864,6 +2893,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 450,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'golden naga' => {
@@ -2934,6 +2965,7 @@ has list => (
                     'cold'      => '7%',
                     'fire'      => '7%',
                     'poison'    => '7%',
+                    vegetarian  => 1,
                 }
             },
             'gray unicorn' => {
@@ -2986,6 +3018,8 @@ has list => (
                     'weight'    => 50,
                     'nutrition' => 30,
                     'acidic'    => '100%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'green slime' => {
@@ -3004,7 +3038,8 @@ has list => (
                     'nutrition' => 150,
                     'acidic'    => '100%',
                     'poisonous' => '100%',
-                    'slime' => '100%',
+                    'slime'     => '100%',
+                    vegetarian  => 1,
                 }
             },
             'gremlin' => {
@@ -3434,6 +3469,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'iguana' => {
@@ -3498,6 +3535,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2000,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'iron piercer' => {
@@ -3911,6 +3950,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 20,
                     'nutrition' => 200,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'lieutenant' => {
@@ -4308,6 +4349,8 @@ has list => (
                     'weight'    => 50,
                     'nutrition' => 20,
                     'acidic'    => '100%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'ogre' => {
@@ -4767,6 +4810,8 @@ has list => (
                     'weight'    => 200,
                     'nutrition' => 100,
                     'poison'    => '33%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'rabid rat' => {
@@ -4851,6 +4896,8 @@ has list => (
                     'nutrition' => 30,
                     'fire'      => '3%',
                     'poison'    => '3%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'red naga' => {
@@ -5212,6 +5259,8 @@ has list => (
                     'weight'    => 100,
                     'nutrition' => 100,
                     'poison'    => '20%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'silver dragon' => {
@@ -5330,6 +5379,8 @@ has list => (
                     'weight'    => 50,
                     'nutrition' => 20,
                     'acidic'    => '100%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'stalker' => {
@@ -5364,6 +5415,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'stone giant' => {
@@ -5693,6 +5746,8 @@ has list => (
                     'nutrition' => 100,
                     'hallucination' => '100%',
                     'poison'    => '20%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'vrock' => {
@@ -5821,6 +5876,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2500,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'water moccasin' => {
@@ -6191,6 +6248,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'yellow mold' => {
@@ -6210,6 +6269,8 @@ has list => (
                     'hallucination' => '100%',
                     'poison'    => '7%',
                     'poisonous' => '100%',
+                    vegetarian  => 1,
+                    vegan       => 1,
                 }
             },
             'yeti' => {
