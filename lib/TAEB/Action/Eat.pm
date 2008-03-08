@@ -55,9 +55,34 @@ sub respond_eat_what {
 
 sub done {
     my $self = shift;
-    if (blessed $self->food) {
-        TAEB->inventory->decrease_quantity($self->food->slot)
+    my $food = $self->food;
+
+    if (blessed $food) {
+        TAEB->inventory->decrease_quantity($food->slot)
     }
+    else {
+        $food = TAEB::World::Item->new_item($food);
+    }
+
+    # XXX: did we get interrupted?
+    if (my $stats = TAEB::Spoilers::Item::Food->food($food)) {
+        TAEB->senses->nutrition(TAEB->senses->nutrition + $stats->{nutrition});
+    }
+    else {
+        TAEB->warning("Unable to find spoiler information for food '$food'");
+    }
+}
+
+# is there any food around?
+sub any_food {
+    my $self = shift;
+
+    for (TAEB->current_tile->items, TAEB->inventory->items) {
+        return 1 if $_->type eq 'food'
+                 && TAEB::Spoilers::Item::Food->should_eat($_);
+    }
+
+    return 0;
 }
 
 make_immutable;
