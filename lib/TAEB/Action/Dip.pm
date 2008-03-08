@@ -19,9 +19,19 @@ has into => (
 
 sub respond_dip_what { shift->item->slot }
 
-sub respond_dip_into_fountain { shift->into eq 'fountain' ? 'y' : 'n' }
+sub respond_dip_into_water {
+    my $self = shift;
+    my $water = shift;
 
-sub respond_dip_into {
+    # fountains are very much a special case - if water we want moat, pool, etc
+    return 'y' if $self->into eq 'water' && $water ne 'fountain';
+
+    return 'y' if $self->into eq $water;
+
+    return 'n';
+}
+
+sub respond_dip_into_what {
     my $self = shift;
     return $self->into->slot if blessed($self->into);
 
