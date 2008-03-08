@@ -258,20 +258,18 @@ sub step {
             $self->action(undef);
         }
 
-        # force stringification because of Scalar::Defer. it's a Perl bug
-        # so not much we can do about it
-        my $next_action = "" . $self->personality->next_action;
+        $self->personality->currently('?');
+        $self->action($self->personality->next_action);
 
         $self->out(
-            "\e[23H%s\e[23HCurrently: %s (%s)  \e[%d;%dH",
+            "\e[23H%s\e[23HCurrently: %s (%s) \e[%d;%dH",
             $self->vt->row_plaintext(22),
             $self->personality->currently,
-            substr($next_action, 0, 5),
+            $self->action->command,
             $self->y + 1,
             $self->x + 1,
         );
-        $self->personality->currently('?');
-        $self->write($next_action);
+        $self->write($self->action->run);
     }
 }
 
