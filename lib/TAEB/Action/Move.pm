@@ -2,6 +2,7 @@
 package TAEB::Action::Move;
 use Moose;
 extends 'TAEB::Action';
+use TAEB::Util 'vi2delta';
 
 has path => (
     is  => 'rw',
@@ -11,6 +12,24 @@ has path => (
 has direction => (
     is  => 'rw',
     isa => 'Str',
+);
+
+has x0 => (
+    is      => 'ro',
+    isa     => 'Int',
+    default => sub { TAEB->x },
+);
+
+has y0 => (
+    is      => 'ro',
+    isa     => 'Int',
+    default => sub { TAEB->y },
+);
+
+has z0 => (
+    is      => 'ro',
+    isa     => 'Int',
+    default => sub { TAEB->z },
 );
 
 sub BUILD {
@@ -31,6 +50,31 @@ sub command {
     # XXX: this will break when we have something like stepping onto a teleport
     # trap with TC (intentionally)
     return substr($self->directions, 0, 1);
+}
+
+# if we didn't move, and we tried to move diagonally, and the tile we're trying
+# to move onto is obscured, then assume that tile is a door.
+# XXX: we could also be # in a pit or bear trap
+sub done {
+    my $self = shift;
+
+    # we only care if we didn't move
+    return if TAEB->x - $self->x0
+           || TAEB->y - $self->y0
+           || TAEB->z - $self->z0;
+
+    my $dir = substr($self->directions, 0, 1);
+    my ($dx, $dy) = vi2delta($dir);
+
+    # we only care if we tried to move diagonally
+    return unless $dx && $dy;
+
+    # we only care if the tile was obscured
+    my $tile = TAEB->current_level->at(TAEB->x + $dx, TAEB->y + $dy);
+    return unless $tile->type eq 'obscured';
+
+    TAEB->debug("Changing tile at (" . $tile->x . ", " . $tile->y . ") from obscured to opendoor because I tried to move diagonally onto it and I didn't move.");
+    $tile->type('opendoor');
 }
 
 make_immutable;
