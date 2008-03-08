@@ -33,6 +33,24 @@ is run.
 
 sub done { }
 
+=head2 new_action Str, Args => Action
+
+This will create a new action with the specified name and arguments. The name
+is typically the package name in lower case.
+
+=cut
+
+sub new_action {
+    my $self = shift;
+    my $name = shift;
+
+    my $package = "TAEB::Action::\L\u$name";
+    eval "use $package";
+    die $@ if $@;
+
+    return $package->new(@_);
+}
+
 make_immutable;
 
 1;
