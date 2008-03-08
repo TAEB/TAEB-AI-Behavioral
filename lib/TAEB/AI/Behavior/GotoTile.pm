@@ -13,10 +13,10 @@ sub prepare {
     my $self = shift;
 
     # are we on >? if so, head down
-    my ($next, $currently) = $self->match_tile(TAEB->current_tile);
-    if (defined($next) && length($next)) {
+    my ($action, $currently) = $self->match_tile(TAEB->current_tile);
+    if (defined($actioon) && @$action)) {
         $self->currently($currently);
-        $self->next($next);
+        $self->do(@$action);
         return 100;
     }
 
@@ -42,10 +42,11 @@ sub using_urgency     { "using " . shift->tile_description }
 sub heading_urgency   { "heading towards " . shift->tile_description }
 sub currently_heading { "Heading towards " . shift->tile_description }
 
-=head2 match_tile Tile -> (Str, Str)
+=head2 match_tile Tile -> ([Name, Args], Str)
 
-This will try to match the given tile. If successful, it returns the next
-action and the "currently" string. Otherwise, return C<undef>.
+This will try to match the given tile. If successful, it returns the arguments
+to C<do> (the action name and its initial arguments) and the "currently"
+string. Otherwise, return C<undef>.
 
 =cut
 
