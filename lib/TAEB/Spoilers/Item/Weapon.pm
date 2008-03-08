@@ -616,15 +616,6 @@ has list => (
                 'type'   => 'iron',
                 plural => 'maces',
             },
-            'martial arts' => {
-                'sdam'   => 'd4',
-                'ldam'   => 'd4',
-                'tohit'  => '0',
-                'hands'  => 1,
-                'weight' => 40,
-                'type'   => 'none',
-                plural => 'martial artses',
-            },
             'morning star' => {
                 'sdam'   => '2d4',
                 'ldam'   => 'd6+1',
