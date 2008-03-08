@@ -6347,7 +6347,7 @@ has list => (
 
         # tag each monster with whether it uses "a" or "an"
         while (my ($name, $stats) = each %$monsters) {
-            my $an = $name =~ /^[aeiou]/ ? 'an' : 'a';
+            my $an = $name =~ /^[aeiou]/i ? 'an' : 'a';
             $stats->{an} ||= $an;
         }
 
