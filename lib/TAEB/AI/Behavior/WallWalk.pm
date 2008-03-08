@@ -27,7 +27,7 @@ sub prepare {
                 }, $tile);
             if ($dark && $wall) {
                 $target = 1;
-                $self->next($dir);
+                $self->do(move => direction => $dir);
                 $self->currently("Wallwalking in a dark room");
             }
         }
