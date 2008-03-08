@@ -29,6 +29,7 @@ sub weight_behaviors {
     my $behaviors = {
         FixHunger          => 1_000_000,
         Heal               => 750_000,
+        AttackSpell        => 75_000,
         Fight              => 50_000,
         Projectiles        => 49_000,
         AttackSpell        => 48_500,
