@@ -39,11 +39,12 @@ sub prepare {
 
 }
 
+sub currently { "Searching at a dead end" }
+
 sub next_action {
     my $self = shift;
 
     # begin the search
-    $self->currently("Searching at a dead end");
     TAEB->current_tile->each_neighbor(sub {
         my $self = shift;
         $self->searched($self->searched + 10);
