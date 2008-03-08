@@ -70,6 +70,15 @@ has list => (
             },
         };
 
+        # Collect monster statues
+        my $monsterlist = TAEB::Spoilers::Monster->list;
+        while (my ($name, $stats) = each %$monsterlist) {
+            $other->{"statue of $stats->{an} $name"} = {
+                %{ $other->{statue} },
+                plural => "statues of $name",
+            };
+        }
+
         # tag each other item with its name
         while (my ($name, $stats) = each %$other) {
             $stats->{name} = $name;
