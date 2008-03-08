@@ -71,21 +71,21 @@ for (my $i = 0; $i < @god_anger; $i += 2) {
 }
 
 my @prompts = (
-    qr/^What do you want to write with\?/   => 'respond_write_with',
-    qr/^What do you want to dip\?/          => 'respond_dip_what',
-    qr/^What do you want to dip into\?/     => 'respond_dip_into_what',
-    qr/^What do you want to throw\?/        => 'respond_throw_what',
-    qr/^In what direction\?/                => 'respond_what_direction',
-    qr/^What do you want to use or apply\?/ => 'respond_apply_what',
-    qr/^Lock it\?/                          => 'respond_lock',
-    qr/^Unlock it\?/                        => 'respond_unlock',
-    qr/^Drink from the (fountain|sink)\?/   => 'respond_drink_from',
-    qr/^What do you want to drink\?/        => 'respond_drink_what',
-    qr/^What do you want to eat\?/          => 'respond_eat_what',
+    qr/^What do you want to write with\?/   => 'write_with',
+    qr/^What do you want to dip\?/          => 'dip_what',
+    qr/^What do you want to dip into\?/     => 'dip_into_what',
+    qr/^What do you want to throw\?/        => 'throw_what',
+    qr/^In what direction\?/                => 'what_direction',
+    qr/^What do you want to use or apply\?/ => 'apply_what',
+    qr/^Lock it\?/                          => 'lock',
+    qr/^Unlock it\?/                        => 'unlock',
+    qr/^Drink from the (fountain|sink)\?/   => 'drink_from',
+    qr/^What do you want to drink\?/        => 'drink_what',
+    qr/^What do you want to eat\?/          => 'eat_what',
 
-    qr/^What do you want to write in the (.*?) here\?/ => 'respond_write_what',
-    qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'respond_dip_into_water',
-    qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'respond_eat_ground',
+    qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
+    qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
+    qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
 );
 
 has messages => (
@@ -296,7 +296,7 @@ sub handle_fallback {
 
     if (TAEB->vt->y == 0) {
         for (my $i = 0; $i < @prompts; $i += 2) {
-            if (my $code = TAEB->action->can($prompts[$i+1])) {
+            if (my $code = TAEB->action->can("respond_" . $prompts[$i+1])) {
                 if (TAEB->topline =~ $prompts[$i]) {
 
                     # pass $1, $2, $3, etc to the action's handler
