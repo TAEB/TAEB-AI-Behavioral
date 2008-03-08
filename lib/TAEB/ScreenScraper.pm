@@ -223,6 +223,7 @@ sub handle_menus {
         my $which_spell = "\e";
 
         if (TAEB->action && TAEB->action->isa('TAEB::Action::Cast')) {
+            TAEB->debug(blessed(TAEB->action) . " is responding to which_spell.");
             $which_spell = TAEB->action->respond_which_spell(TAEB->topline);
         }
 
@@ -303,6 +304,7 @@ sub handle_fallback {
         for (my $i = 0; $i < @prompts; $i += 2) {
             if (my $code = TAEB->action->can("respond_" . $prompts[$i+1])) {
                 if (TAEB->topline =~ $prompts[$i]) {
+                    TAEB->debug(blessed(TAEB->action) . " is responding to " . $prompts[$i+1]".");
 
                     # pass $1, $2, $3, etc to the action's handler
                     no strict 'refs';
