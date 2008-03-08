@@ -28,6 +28,8 @@ my %msg_string = (
         ['buff', 'haste self', 1, +1],
     "You feel yourself slowing down." =>
         ['buff', 'haste self', 0, -1],
+    "This door is locked." =>
+        ['door', 'locked'],
 );
 
 my @msg_regex = (

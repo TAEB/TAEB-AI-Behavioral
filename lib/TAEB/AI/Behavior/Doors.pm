@@ -35,7 +35,7 @@ sub prepare {
             }
         }
         else {
-            $self->next('o' . $dir);
+            $self->do(open => direction => $dir);
             $self->currently("Trying to open a door (" . $dir . ")");
             $have_action = 1;
         }
