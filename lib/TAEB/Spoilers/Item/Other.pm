@@ -81,6 +81,21 @@ has list => (
     },
 );
 
+has constant_appearances => (
+    is         => 'ro',
+    isa        => 'HashRef',
+    auto_deref => 1,
+    lazy       => 1,
+    default    => sub {
+        my $self = shift;
+        my $appearances = {};
+        while (my ($item, $stats) = each %{ $self->list }) {
+            $appearances->{$stats->{appearance}} = $stats->{name}
+        }
+        return $appearances;
+    },
+);
+
 sub other {
     my $self = shift;
     my $item = shift;
