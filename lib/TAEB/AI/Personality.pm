@@ -72,21 +72,6 @@ replaced by a different one.
 sub deinstitute {
 }
 
-=head2 send_message Str, *
-
-This will send the message to itself. This is here because
-Personality::Behavioral will override it.
-
-=cut
-
-sub send_message {
-    my $self = shift;
-    my $msgname = shift;
-
-    $self->$msgname(@_)
-        if $self->can($msgname);
-}
-
 =head2 want_item Item -> Bool
 
 Does TAEB want this item?
