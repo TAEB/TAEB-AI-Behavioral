@@ -13,10 +13,8 @@ sub prepare {
         },
     );
 
-    $self->if_path($path);
+    $self->if_path($path, "Exploring", 100);
 }
-
-sub currently { "Exploring" }
 
 sub urgencies {
     return {
