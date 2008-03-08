@@ -16,8 +16,13 @@ sub respond_drink_from {
     my $msg  = shift;
     my $from = shift;
 
+    # no, we want to drink an item, not from the floor tile
     return 'n' if blessed $self->from;
+
+    # we're specific about this. really
     return 'y' if $from eq $self->from;
+
+    # this means something probably went wrong. respond_drink_what will catch it
     return 'n';
 }
 
