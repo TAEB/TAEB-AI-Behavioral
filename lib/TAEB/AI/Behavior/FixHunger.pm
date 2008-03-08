@@ -8,7 +8,7 @@ sub prepare {
     my $self = shift;
 
     if (TAEB->can_pray && TAEB->senses->nutrition < 0) {
-        $self->next("#pray\n");
+        $self->do("pray");
         $self->currently("Praying for food.");
         return 100;
     }
