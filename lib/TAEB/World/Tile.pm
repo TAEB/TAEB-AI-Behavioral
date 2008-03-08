@@ -148,6 +148,13 @@ sub update {
     # something other than 'obscured'
     $self->type($newtype);
     $self->floor_glyph($newglyph);
+}
+
+after type => sub {
+    my $self = shift;
+    return if @_ == 0;
+
+    my $newtype = shift;
 
     # automatically upgrade the tile if upgrading would make it more specific
     # (e.g. TAEB::World::Tile -> TAEB::World::Tile::Stairs)
@@ -173,7 +180,9 @@ sub update {
         bless $self => 'TAEB::World::Tile'
             unless blessed($self) eq 'TAEB::World::Tile';
     }
-}
+
+    return $ret;
+};
 
 sub has_monster {
     my $self = shift;
