@@ -17,6 +17,7 @@ use TAEB::Spoilers;
 use TAEB::Knowledge;
 use TAEB::World;
 use TAEB::AI::Senses;
+use TAEB::Action;
 
 use Module::Refresh;
 
@@ -190,6 +191,11 @@ has deferred_messages => (
     default => sub { [] },
 );
 
+has action => (
+    is  => 'rw',
+    isa => 'TAEB::Action',
+);
+
 =head2 BUILD
 
 This will initialize L<Module::Refresh>.
@@ -247,6 +253,10 @@ sub step {
         $self->write("\e\eS");
     }
     elsif ($self->state eq 'playing') {
+        if ($self->action) {
+            $self->action->done;
+            $self->action(undef);
+        }
 
         # force stringification because of Scalar::Defer. it's a Perl bug
         # so not much we can do about it
