@@ -50,11 +50,6 @@ sub update_tile {
     my $newglyph = shift;
     my $color    = shift;
 
-    # replace with stairs if applicable
-    if (($newglyph eq '<' || $newglyph eq '>') && $self->tiles->[$y][$x]->type ne 'stairs') {
-        $self->tiles->[$y][$x] = TAEB::World::Tile::Stairs->new_from($self->tiles->[$y][$x]);
-    }
-
     $self->tiles->[$y][$x]->update($newglyph, $color);
 }
 

@@ -148,6 +148,13 @@ sub update {
     # something other than 'obscured'
     $self->type($newtype);
     $self->floor_glyph($newglyph);
+
+    # automatically upgrade the tile if upgrading would make it more specific
+    # (e.g. TAEB::World::Tile -> TAEB::World::Tile::Stairs)
+    my $new_pkg = "TAEB::World::Tile::\L\u$newtype";
+    if (eval { $new_pkg->isa(blessed($self)) }) {
+        $new_pkg->meta->rebless_instance($self);
+    }
 }
 
 sub has_monster {
