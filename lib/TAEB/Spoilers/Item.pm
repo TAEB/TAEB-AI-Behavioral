@@ -84,6 +84,23 @@ has plural_of_list => (
                             warn "No plural for $type '$name'.";
                         };
             }
+            for my $attr (qw/randomized_appearances
+                             multi_identity_appearances/) {
+                if ("TAEB::Spoilers::Item::$type"->can($attr)) {
+                    for my $name (@{"TAEB::Spoilers::Item::$type"->$attr}) {
+                        if ("TAEB::Spoilers::Item::$type"->can('pluralize_unided')) {
+                            $plural_of{$name} = "TAEB::Spoilers::Item::$type"->pluralize_unided($name);
+                        }
+                    }
+                }
+            }
+            if ("TAEB::Spoilers::Item::$type"->can('constant_appearances')) {
+                for my $name (keys %{"TAEB::Spoilers::Item::$type"->constant_appearances}) {
+                    if ("TAEB::Spoilers::Item::$type"->can('pluralize_unided')) {
+                        $plural_of{$name} = "TAEB::Spoilers::Item::$type"->pluralize_unided($name);
+                    }
+                }
+            }
         }
 
         return \%plural_of;
@@ -161,29 +178,9 @@ has all_identities => (
     },
 );
 
-sub try_normalize_class {
-    my $self = shift;
-    my $item = shift;
-
-    # special case: we pretend it's amulet of Amulet of Yendor
-    return if $item =~ /Amulet of Yendor/;
-
-    if (my ($class, $kind) = $item =~ /^(.*?) of (.*)$/) {
-        $class = lc $class;
-        $class =~ s/s$//;
-        return ($class, $kind) if any { $class eq lc } $self->types;
-    }
-
-    return;
-}
-
 sub type_to_class {
     my $self = shift;
     my $item = shift;
-
-    if (my ($class) = $self->try_normalize_class($item)) {
-        return $class;
-    }
 
     return $self->list->{$item};
 }
@@ -200,20 +197,12 @@ sub singularize {
     my $self = shift;
     my $item = shift;
 
-    if (my ($class, $kind) = $self->try_normalize_class($item)) {
-        return "$class of $kind";
-    }
-
     return $self->singular_of_list->{$item} || $item;
 }
 
 sub pluralize {
     my $self = shift;
     my $item = shift;
-
-    if (my ($class, $kind) = $self->try_normalize_class($item)) {
-        return "${class}s of $kind";
-    }
 
     return $self->plural_of_list->{$item} || $item;
 }
