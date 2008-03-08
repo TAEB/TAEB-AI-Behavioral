@@ -10,6 +10,7 @@ sub prepare {
     my $rocks    = 0;
     my $searched = 0;
 
+    # rearrange these tiles into a loop and double it
     TAEB->each_orthogonal(sub {
         my $tile = shift;
         if ($tile->type eq 'rock' || $tile->type eq 'wall') {
@@ -21,8 +22,8 @@ sub prepare {
             $tiles .= $tile->glyph;
         }
     });
+    $tiles x= 2;
 
-    # rearrange these tiles into a loop and double it
     # stop us from searching forever :)
     return 0 if $searched >= $rocks * 10;
 
@@ -35,23 +36,13 @@ sub prepare {
 
     # Dead end
 
-    return (($tiles x 2) =~ /888/) ? 100 : 0;
+    return 0 unless $tiles =~ /888/;
 
+    $self->do('search');
+    return 100;
 }
 
 sub currently { "Searching at a dead end" }
-
-sub next_action {
-    my $self = shift;
-
-    # begin the search
-    TAEB->current_tile->each_neighbor(sub {
-        my $self = shift;
-        $self->searched($self->searched + 10);
-    });
-
-    return '10s';
-}
 
 sub urgencies {
     return {

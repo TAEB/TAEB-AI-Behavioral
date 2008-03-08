@@ -16,37 +16,23 @@ sub prepare {
         },
     );
 
-    $self->path($path);
-
-    return $path && length($path->path) ? 100 : 0;
-}
-
-sub next_action {
-    my $self = shift;
-
-    # keep moving if we have traveling to do
-    if (length($self->path->path) > 1) {
-        $self->currently("Heading to a search hotspot");
-        return substr($self->path->path, 0, 1)
+    # are we adjacent to an unsearched wall? if so, begin searching
+    if (length($path) <= 1) {
+        $self->currently("Searching.");
+        $self->do('search');
+        return 100;
     }
 
-    # otherwise begin the search
-    $self->currently("Searching");
-    TAEB->current_tile->each_neighbor(sub {
-        my $self = shift;
-        $self->searched($self->searched + 10);
-    });
-
-    return '10s';
+    $self->currently("Heading to a search hotspot");
+    $self->do(move => path => $path);
+    return 50;
 }
 
 sub urgencies {
     return {
-        100 => [
-            "path to an unsearched wall",
-            "searching an adjacent unsearched wall",
-        ],
-    },
+        100 => "path to an unsearched wall",
+         50 => "searching an adjacent unsearched wall",
+    }
 }
 
 make_immutable;
