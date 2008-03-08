@@ -419,10 +419,11 @@ sub keypress {
         my ($z, $y, $x) = (TAEB->z, TAEB->y, TAEB->x);
         while (1) {
             my $tile = TAEB->current_level->at($x, $y);
+            (my $class = blessed $tile) =~ s/^TAEB::World:://;
 
             # draw some info about the tile at the top
             $self->out("\e[H");
-            $self->out(sprintf '(%d, %d) g="%s" f="%s" t="%s"', $x, $y, $tile->glyph, $tile->floor_glyph, $tile->type);
+            $self->out(sprintf '(%d, %d) g="%s" f="%s" t="%s" c="%s"', $x, $y, $tile->glyph, $tile->floor_glyph, $tile->type, $class);
             $self->out(sprintf "\e[K\e[%d;%dH", $y+1, $x+1);
 
             # where to next?
