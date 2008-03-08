@@ -113,14 +113,15 @@ has dungeon => (
     lazy    => 1,
     default => sub { TAEB::World::Dungeon->new },
     handles => {
-        current_level    => 'current_level',
-        current_tile     => 'current_tile',
-        map_like         => 'map_like',
-        each_adjacent    => 'each_adjacent',
-        each_orthogonal  => 'each_orthogonal',
-        x                => 'x',
-        y                => 'y',
-        z                => 'z',
+        current_level           => 'current_level',
+        current_tile            => 'current_tile',
+        map_like                => 'map_like',
+        each_adjacent           => 'each_adjacent',
+        each_orthogonal         => 'each_orthogonal',
+        each_adjacent_inclusive => 'each_adjacent_inclusive',
+        x                       => 'x',
+        y                       => 'y',
+        z                       => 'z',
     },
 );
 

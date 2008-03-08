@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Dungeon;
 use Moose;
-use TAEB::Util 'delta2vi';
 
 has branches => (
     is      => 'rw',
@@ -57,9 +56,9 @@ sub current_tile {
 
 =head2 each_adjacent Code[, Tile]
 
-Runs the coderef for each tile adjacent to the given tile (or the current
-tile). The coderef will receive two arguments: the tile object and the vi key
-corresponding to the direction.
+Runs the coderef for each tile adjacent to the given tile. The coderef will
+receive two arguments: the tile object and the vi key corresponding to the
+direction.
 
 =cut
 
@@ -68,36 +67,30 @@ sub each_adjacent {
     my $code = shift;
     my $tile = shift || $self->current_tile;
 
-    my $level = $tile->level;
-    my $x     = $tile->x;
-    my $y     = $tile->y;
+    $tile->each_adjacent($code);
+}
 
-    for my $dy (-1 .. 1) {
-        for my $dx (-1 .. 1) {
-            next unless $dy || $dx; # skip 0, 0
-            my $dir = delta2vi($dx, $dy);
+=head2 each_adjacent_inclusive Code[, Tile]
 
-            my $tile = $level->at(
-                $dx + $x,
-                $dy + $y,
-            );
+Runs the coderef for each tile adjacent to the given tile (and the given tile).
+The coderef will receive two arguments: the tile object and the vi key
+corresponding to the direction.
 
-            if (!defined($tile)) {
-                TAEB->error("Calling TAEB->each_adjacent at ($x, $y) falls off the map");
-                next;
-            }
+=cut
 
-            $code->($tile, $dir);
-        }
-    }
+sub each_adjacent_inclusive {
+    my $self = shift;
+    my $code = shift;
+    my $tile = shift || $self->current_tile;
+
+    $tile->each_adjacent_inclusive($code);
 }
 
 =head2 each_orthogonal Code[, Tile]
 
-Runs the coderef for each tile adjacent to the given tile (or the current
-tile) in one of the cardinal directions (no diagonals). The coderef will
-receive two arguments: the tile object and the vi key corresponding to the
-direction.
+Runs the coderef for each tile adjacent to the given tile in one of the
+cardinal directions (no diagonals). The coderef will receive two arguments: the
+tile object and the vi key corresponding to the direction.
 
 =cut
 
@@ -106,24 +99,7 @@ sub each_orthogonal {
     my $code = shift;
     my $tile = shift || $self->current_tile;
 
-    my $level = $tile->level;
-    my $x     = $tile->x;
-    my $y     = $tile->y;
-
-    for my $dy (-1 .. 1) {
-        for my $dx (-1 .. 1) {
-            next unless $dy || $dx; # skip 0, 0
-            next if     $dy && $dx; # skip diagonals
-            my $dir = delta2vi($dx, $dy);
-
-            my $tile = $level->at(
-                $dx + $x,
-                $dy + $y,
-            );
-
-            $code->($tile, $dir);
-        }
-    }
+    $tile->each_adjacent($code);
 }
 
 make_immutable;

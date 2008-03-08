@@ -144,9 +144,9 @@ sub next_action {
     }
 
     $self->currently("Searching the adjacent walls.");
-    TAEB->current_tile->each_adjacent(sub {
-        my $self = shift;
-        $self->searched($self->searched + 10);
+    TAEB->each_adjacent(sub {
+        my $tile = shift;
+        $tile->searched($tile->searched + 10);
     });
 
     return '10s';

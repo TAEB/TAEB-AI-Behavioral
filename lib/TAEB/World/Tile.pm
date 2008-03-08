@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile;
 use Moose;
-use TAEB::Util 'glyph_to_type';
+use TAEB::Util qw/glyph_to_type delta2vi/;
 
 has level => (
     is       => 'rw',
@@ -217,31 +217,74 @@ sub each_adjacent {
     my $self = shift;
     my $code = shift;
 
-    my ($x, $y) = ($self->x, $self->y);
+    $self->each_orthogonal($code);
+    $self->each_diagonal($code);
+}
+
+sub each_adjacent_inclusive {
+    my $self = shift;
+    my $code = shift;
+
+    $code->($self, '.');
+    $self->each_adjacent($code);
+}
+
+sub each_orthogonal {
+    my $self  = shift;
+    my $code  = shift;
+
+    my $level = $self->level;
+    my $x     = $self->x;
+    my $y     = $self->y;
 
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
-            # NOT skipping 0, 0
-            my $tile = $self->level->at($x + $dx, $y + $dy)
-                or next;
-            $code->($tile);
+            next unless $dy || $dx; # skip 0, 0
+            next if $dy && $dx; # skip diagonals
+
+            my $dir = delta2vi($dx, $dy);
+
+            my $tile = $level->at(
+                $dx + $x,
+                $dy + $y,
+            );
+
+            if (!defined($tile)) {
+                TAEB->error("Calling TAEB->each_orthogonal at ($x, $y) falls off the map");
+                next;
+            }
+
+            $code->($tile, $dir);
         }
     }
 }
 
-sub each_other_adjacent {
-    my $self = shift;
-    my $code = shift;
+sub each_diagonal {
+    my $self  = shift;
+    my $code  = shift;
 
-    my ($x, $y) = ($self->x, $self->y);
+    my $level = $self->level;
+    my $x     = $self->x;
+    my $y     = $self->y;
 
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
-            next unless $dy || $dx;
+            next unless $dy || $dx; # skip 0, 0
+            next unless $dy && $dx; # skip orthogonals
 
-            my $tile = $self->level->at($x + $dx, $y + $dy)
-                or next;
-            $code->($tile);
+            my $dir = delta2vi($dx, $dy);
+
+            my $tile = $level->at(
+                $dx + $x,
+                $dy + $y,
+            );
+
+            if (!defined($tile)) {
+                TAEB->error("Calling TAEB->each_diagonal at ($x, $y) falls off the map");
+                next;
+            }
+
+            $code->($tile, $dir);
         }
     }
 }

@@ -110,7 +110,7 @@ sub autoexplore {
             my $tile = $self->dungeon->current_level->at($x, $y);
 
             if (!$tile->explored && $tile->type ne 'rock') {
-                $tile->each_other_adjacent(sub {
+                $tile->each_adjacent(sub {
                     next TILE if shift->type eq 'rock'
                 });
 
