@@ -15,7 +15,7 @@ sub prepare {
         my ($tile, $dir) = @_;
         return unless $tile->type eq 'closeddoor';
 
-        if (TAEB->messages =~ /This door is locked\./) {
+        if ($tile->locked eq 'locked') {
             # can we unlock? if so, try it
             if ($locktool) {
                 TAEB->debug("Lock tool $locktool");
