@@ -184,6 +184,14 @@ sub food {
     return $self->list->{$item};
 }
 
+sub pluralize_unided {
+    my $self = shift;
+    my $item = shift;
+
+    $item =~ s/\b(tin|egg)\b/$1s/;
+    return $item;
+}
+
 sub should_eat {
     my $self = shift;
     my $item = shift;

@@ -150,5 +150,13 @@ sub scroll {
     return $self->list->{$item};
 }
 
+sub pluralize_unided {
+    my $self = shift;
+    my $item = shift;
+
+    $item =~ s/\bscroll\b/scrolls/;
+    return $item;
+}
+
 1;
 

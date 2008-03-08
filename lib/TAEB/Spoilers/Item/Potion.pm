@@ -130,5 +130,13 @@ sub potion {
     return $self->list->{$item};
 }
 
+sub pluralize_unided {
+    my $self = shift;
+    my $item = shift;
+
+    $item =~ s/\bpotion\b/potions/;
+    return $item;
+}
+
 1;
 

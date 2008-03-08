@@ -989,5 +989,19 @@ sub weapon {
     return $self->list->{$item};
 }
 
+sub pluralize_unided {
+    my $self = shift;
+    my $item = shift;
+
+    my @stackable = ('stout spear',
+                     'runed arrow', 'runed dagger', 'runed spear',
+                     'crude arrow', 'crude dagger', 'crude spear',
+                     'throwing spear', 'throwing star', 'bamboo arrow');
+    my %stackable = map { $_ => 1 } @stackable;
+
+    return $item unless $stackable{$item};
+    return $item.'s';
+}
+
 1;
 

@@ -286,5 +286,13 @@ sub gem {
     return $self->list->{$item};
 }
 
+sub pluralize_unided {
+    my $self = shift;
+    my $item = shift;
+
+    $item =~ s/\b(gem|stone|rock)\b/$1s/;
+    return $item;
+}
+
 1;
 
