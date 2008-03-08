@@ -3,6 +3,11 @@ package TAEB::World::Spells;
 use Moose;
 use List::Util 'first';
 
+use overload
+    q{""} => sub {
+        shift->debug_display;
+    };
+
 my @slots = ('a' .. 'z', 'A' .. 'Z');
 
 has _spells => (
@@ -79,6 +84,19 @@ sub msg_know_spell {
             $spell->learned_at(TAEB->turn);
         }
     }
+}
+
+sub debug_display {
+    my $self = shift;
+    my @spells;
+
+    return "No magic." unless $self->has_spells;
+
+    for my $slot (sort $self->slots) {
+        push @spells, $self->get($slot);
+    }
+
+    return join "\n", @spells;
 }
 
 1;
