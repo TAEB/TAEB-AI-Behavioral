@@ -373,6 +373,14 @@ has list => (
             },
         };
 
+        # Collect monster figurines
+        my $monsterlist = TAEB::Spoilers::Monster->list;
+        while (my ($name, $stats) = each %$monsterlist) {
+            $tools->{"figurine of $stats->{an} $name"} = {
+                %{ $tools->{figurine} },
+                plural => "figurines of $name",
+            };
+        }
         # tag each tool with its name and appearance
         while (my ($name, $stats) = each %$tools) {
             $stats->{name} = $name;
