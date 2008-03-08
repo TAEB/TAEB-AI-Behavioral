@@ -16,12 +16,7 @@ sub prepare {
     if (TAEB->senses->nutrition < 400) {
         for my $item (TAEB->inventory->items) {
             if (TAEB::Spoilers::Item::Food->should_eat($item)) {
-                $self->next(defer {
-                    TAEB->inventory->decrease_quantity($item);
-                    # XXX: we need spoilers in our items
-                    TAEB->senses->nutrition(TAEB->senses->nutrition + 300);
-                    "e" . $item->slot;
-                });
+                $self->do(eat => $item);
                 $self->currently("Eating food.");
                 return 50;
             }

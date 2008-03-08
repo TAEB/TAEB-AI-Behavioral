@@ -81,9 +81,11 @@ my @prompts = (
     qr/^Unlock it\?/                        => 'respond_unlock',
     qr/^Drink from the (fountain|sink)\?/   => 'respond_drink_from',
     qr/^What do you want to drink\?/        => 'respond_drink_what',
+    qr/^What do you want to eat\?/          => 'respond_eat_what',
 
     qr/^What do you want to write in the (.*?) here\?/ => 'respond_write_what',
     qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'respond_dip_into_water',
+    qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'respond_eat_ground',
 );
 
 has messages => (
