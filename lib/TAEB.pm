@@ -18,6 +18,8 @@ use TAEB::Knowledge;
 use TAEB::World;
 use TAEB::AI::Senses;
 
+use Module::Refresh;
+
 =head1 NAME
 
 TAEB - Tactical Amulet Extraction Bot
@@ -181,6 +183,18 @@ has deferred_messages => (
     default => sub { [] },
 );
 
+=head2 BUILD
+
+This will initialize L<Module::Refresh>.
+
+=cut
+
+sub BUILD {
+    my $self = shift;
+
+    Module::Refresh->new;
+}
+
 =head2 step
 
 This will perform one input/output iteration of TAEB.
@@ -320,14 +334,8 @@ sub keypress {
 
     # refresh modules
     if ($c eq 'r') {
-        if ($INC{"Module/Refresh.pm"}) {
-            Module::Refresh->refresh;
-            return "Modules refreshed.";
-        }
-
-        require Module::Refresh;
         Module::Refresh->refresh;
-        return "Modules refreshed. You will have to write and do this again.";
+        return "Modules refreshed.";
     }
 
     # pause for a key

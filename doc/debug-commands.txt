@@ -25,14 +25,7 @@ share.
 
 r
     Reload his code. Perl doesn't have perfect support for this, but it should
-    mostly do the right thing. The first reload doesn't count, it just sets
-    the base-line. Which kind of sucks. Typically what I do is:
-        Edit some code. Save it.
-        Hit 'r'. This does nothing except set the base-line.
-        `touch` the files I've changed.
-        Hit 'r'. This will now reload the code.
-    I'll probably fix this very soon. Like, as soon as I'm done writing this.
-    Because I know how!
+    mostly do the right thing.
 
 p
     Pause TAEB until you type any other key. Note that the key you type will
