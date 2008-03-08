@@ -244,7 +244,7 @@ sub step {
         $self->state('playing');
     }
     elsif ($self->state eq 'saving') {
-        $self->write("S");
+        $self->write("\e\eS");
     }
     elsif ($self->state eq 'playing') {
 
