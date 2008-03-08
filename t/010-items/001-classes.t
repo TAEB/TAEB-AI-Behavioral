@@ -32,5 +32,5 @@ use TAEB::Test::Items (
     ["u - a figurine of a lichen",                      {class => "tool"}     ],
     ["u - 53 rocks",                                    {class => "gem"}      ],
     ["n - the Heart of Ahriman",                        {class => "gem"}      ],
-    ["v - a statue of a lichen",                        {class => "statue"}   ],
+    ["v - a statue of a lichen",                        {class => "other"}    ],
 );
