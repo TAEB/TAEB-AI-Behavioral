@@ -28,5 +28,7 @@ sub msg_unlocked_door {
     # XXX: mark the door as unlocked
 }
 
+make_immutable;
+
 1;
 

@@ -15,5 +15,7 @@ sub msg_door {
     # mark the door as locked
 }
 
+make_immutable;
+
 1;
 

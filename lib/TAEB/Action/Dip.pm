@@ -39,5 +39,7 @@ sub respond_dip_into_what {
     return "\e";
 }
 
+make_immutable;
+
 1;
 

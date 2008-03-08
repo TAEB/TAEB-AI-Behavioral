@@ -25,5 +25,7 @@ sub msg_throw_count {
     TAEB->inventory->decrease_quantity(shift->item->slot, $count - 1);
 }
 
+make_immutable;
+
 1;
 

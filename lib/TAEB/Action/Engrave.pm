@@ -29,5 +29,7 @@ sub respond_write_with { shift->engrave_slot }
 
 sub respond_write_what { shift->text . "\n" }
 
+make_immutable;
+
 1;
 

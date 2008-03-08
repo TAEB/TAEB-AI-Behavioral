@@ -7,5 +7,7 @@ with 'TAEB::Action::Role::Direction';
 # ctrl-D
 use constant command => chr(4);
 
+make_immutable;
+
 1;
 

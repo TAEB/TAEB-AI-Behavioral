@@ -33,5 +33,7 @@ sub command {
     return substr($self->directions, 0, 1);
 }
 
+make_immutable;
+
 1;
 
