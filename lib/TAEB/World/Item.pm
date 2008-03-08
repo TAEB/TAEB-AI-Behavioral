@@ -194,7 +194,9 @@ sub new_item {
         $new_item->appearance($stats->{appearance});
     }
     else {
-        TAEB->warning("Can't find $item as either an identity or an appearance");
+        if (!exists TAEB::Spoilers::Item->list->{$item}) {
+            TAEB->warning("Can't find $item as either an identity or an appearance");
+        }
         $new_item->appearance($item);
     }
 
