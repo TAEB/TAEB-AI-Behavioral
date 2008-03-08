@@ -33,7 +33,7 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types glyph_to_type delta2vi deltas), keys %colors],
+    exports => [qw(tile_types glyph_to_type delta2vi vi2delta deltas), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -124,6 +124,28 @@ sub delta2vi {
     my $dx = shift;
     my $dy = shift;
     return $directions[$dy+1][$dx+1];
+}
+
+=head2 vi2delta Str -> Int, Int
+
+This will return a dx, dy key for the given vi key (also accepted is C<.>).
+
+=cut
+
+my %vi2delta = (
+    '.' => [ 0,  0],
+     h  => [-1,  0],
+     j  => [ 0,  1],
+     k  => [ 0, -1],
+     l  => [ 1,  0],
+     y  => [-1, -1],
+     u  => [ 1, -1],
+     b  => [-1,  1],
+     n  => [ 1,  1],
+);
+
+sub vi2delta {
+    return @{ $vi2delta{ lc $_[0] } || [] };
 }
 
 sub deltas {
