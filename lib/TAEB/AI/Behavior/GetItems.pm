@@ -9,7 +9,7 @@ sub prepare {
     my $self = shift;
 
     if (any { TAEB->want_item($_) } TAEB->current_tile->items) {
-        $self->next(",");
+        $self->do("pickup");
         return 100;
     }
 
