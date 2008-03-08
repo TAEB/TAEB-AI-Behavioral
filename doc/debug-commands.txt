@@ -10,8 +10,7 @@ share.
 ~
     Open up a REPL. You can do things like:
         Take control:
-            use TAEB::AI::Personality::Human;
-            TAEB->personality(TAEB::AI::Personality::Human->new)
+            TAEB->personality("human")
         Query TAEB's stats:
             TAEB->hp
             TAEB->maxhp
