@@ -32,6 +32,10 @@ Version 0.01 released ???
 
 our $VERSION = '0.01';
 
+# report errors to the screen? should only be done while playing NetHack, not
+# during REPL or testing
+our $ToScreen = 0;
+
 has interface => (
     is       => 'rw',
     isa      => 'TAEB::Interface',
@@ -390,6 +394,7 @@ sub keypress {
 
             no warnings 'redefine';
             require Devel::REPL::Script;
+            local $TAEB::ToScreen;
             Devel::REPL::Script->new->run;
         };
 
@@ -494,7 +499,7 @@ sub send_messages {
 after qw/info warning/ => sub {
     my ($logger, $message) = @_;
 
-    if (TAEB->info_to_screen && -t *STDOUT) {
+    if (TAEB->info_to_screen && $TAEB::ToScreen) {
         TAEB->out("\e[2H\e[42m$message");
         sleep 3;
         TAEB->out(TAEB->redraw);
@@ -505,7 +510,7 @@ after qw/info warning/ => sub {
 after warning => sub {
     my ($logger, $message) = @_;
 
-    if (!-t *STDOUT) {
+    if (!$TAEB::ToScreen) {
         local $SIG{__WARN__};
         warn $message;
     }
@@ -522,7 +527,7 @@ around qw/error critical/ => sub {
 after qw/error critical/ => sub {
     my ($logger, $message) = @_;
 
-    if (-t *STDOUT) {
+    if ($TAEB::ToScreen) {
         $message = Carp::shortmess($message);
         TAEB->out("\e[2H\e[41m$message");
         sleep 3;

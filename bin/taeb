@@ -79,6 +79,7 @@ $SIG{CONT} = sub {
     print TAEB->redraw;
 };
 
+$TAEB::ToScreen = 1;
 $| = 1;
 ReadMode 3;
 END { ReadMode 0 }
