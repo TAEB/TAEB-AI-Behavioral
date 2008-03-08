@@ -296,7 +296,7 @@ has list => (
                 'hands'  => 2,
                 'weight' => 100,
                 'type'   => 'iron',
-                appearance => 'peaked polearm',
+                appearance => 'beaked polearm',
                 plural => 'bec-de-corbins',
             },
             'bill-guisarme' => {
