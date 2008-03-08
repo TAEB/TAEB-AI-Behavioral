@@ -152,7 +152,17 @@ sub update {
     # automatically upgrade the tile if upgrading would make it more specific
     # (e.g. TAEB::World::Tile -> TAEB::World::Tile::Stairs)
     my $new_pkg = "TAEB::World::Tile::\L\u$newtype";
-    if (eval { $new_pkg->isa(blessed($self)) }) {
+
+    # does the new package even exist?
+    if (eval { $new_pkg->meta }) {
+
+        # are we a superclass of the new package? if not, we need to revert
+        # to a regular Tile so we can be reblessed into a subclass of Tile
+        unless (eval { $new_pkg->isa(blessed($self)) }) {
+            bless $self => 'TAEB::World::Tile';
+        }
+
+        # and do the rebless, which does all the typechecking and whatnot
         $new_pkg->meta->rebless_instance($self);
     }
 }
