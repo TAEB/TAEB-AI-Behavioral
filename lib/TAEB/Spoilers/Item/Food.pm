@@ -170,9 +170,22 @@ has constant_appearances => (
         my $self = shift;
         my $appearances = {};
         while (my ($item, $stats) = each %{ $self->list }) {
+            next if $item =~ /(?:tin|egg)/;
             $appearances->{$stats->{appearance}} = $stats->{name}
         }
         return $appearances;
+    },
+);
+
+# XXX: not entirely correct, since identifying these doesn't make future
+# instances of that identity identified
+has multi_identity_appearances => (
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    lazy       => 1,
+    default    => sub {
+        [qw/tin egg/]
     },
 );
 
