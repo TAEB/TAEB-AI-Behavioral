@@ -195,7 +195,7 @@ has list => (
                 ac         => 9,
                 material   => 'dragon hide',
             },
-            'orange dragon scale mail:' => {
+            'orange dragon scale mail' => {
                 cost       => 900,
                 weight     => 40,
                 ac         => 9,
