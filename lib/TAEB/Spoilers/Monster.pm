@@ -8,7 +8,7 @@ has list => (
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
-        return {
+        my $monsters = {
             'Aleax' => {
                 'ac'          => 0,
                 'attacks'     => 'W1d6 W1d6 1d4',
@@ -6343,7 +6343,15 @@ has list => (
                     'nutrition' => 600,
                 }
             },
+        };
+
+        # tag each monster with whether it uses "a" or "an"
+        while (my ($name, $stats) = each %$monsters) {
+            my $an = $name =~ /^[aeiou]/ ? 'an' : 'a';
+            $stats->{an} ||= $an;
         }
+
+        return $monsters;
     },
 );
 
