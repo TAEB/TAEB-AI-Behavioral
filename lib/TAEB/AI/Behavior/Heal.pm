@@ -8,7 +8,9 @@ sub prepare {
 
     return 0 if TAEB->hp * 2 > TAEB->maxhp;
 
-    if (my $spell = TAEB->find_castable("healing")) {
+    my $spell = TAEB->find_castable("healing")
+             || TAEB->find_castable("extra healing");
+    if ($spell) {
         $self->next("Z" . $spell->slot . ".");
         $self->currently("Casting heal at myself.");
         return 100;
