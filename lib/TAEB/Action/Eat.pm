@@ -19,8 +19,8 @@ sub respond_eat_ground {
     # no, we want to eat something in our inventory
     return 'n' if blessed $self->food;
 
-    # XXX: check to see if the item on the ground is kosher to eat
-    return 'y' if $self->food eq 'any';
+    return 'y' if $self->food eq 'any'
+               && TAEB::Spoilers::Item::Food->should_eat($food);
 
     # we're specific about this. really
     return 'y' if $food eq $self->food;
@@ -36,7 +36,8 @@ sub respond_eat_what {
     if ($self->food eq 'any') {
         my $food = TAEB->find_item(sub {
             my $try = shift;
-            return $try->class eq 'food'; # XXX: and that it's safe to eat
+            return $try->class eq 'food'
+                && TAEB::Spoilers::Item::Food->should_eat($item);
         });
         if ($food) {
             return $food->slot;
