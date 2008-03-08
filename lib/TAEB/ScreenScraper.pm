@@ -66,6 +66,8 @@ my @prompts = (
     qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'respond_dip_into_water',
     qr/^What do you want to dip\?/       => 'respond_dip_what',
     qr/^What do you want to dip into\?/  => 'respond_dip_into_what',
+    qr/^What do you want to throw\?/     => 'respond_throw_what',
+    qr/^In what direction\?/             => 'respond_what_direction',
 );
 
 has messages => (
