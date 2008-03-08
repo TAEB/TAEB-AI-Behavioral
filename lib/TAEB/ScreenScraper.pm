@@ -208,11 +208,15 @@ sub handle_menus {
     elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
         $menu->select_count('none');
         TAEB->current_tile->items([]);
+        my $skip = 1;
         $selector = sub {
             my $personality = shift;
             my $slot        = shift;
 
-            return if /^\s*Things that are here:/;
+            # skip the items until we get "Things that are here" which
+            # typically is a message like "There is a door here"
+            do { $skip = 0; return } if /^\s*Things that are here:/;
+            return if $skip;
 
             my $item = TAEB::World::Item->new_item($_);
             TAEB->debug("Adding $item to the current tile.");
