@@ -110,7 +110,7 @@ sub next_behavior {
     return $self->behaviors->{$max_behavior};
 }
 
-=head2 behavior_action [Behavior] -> Str
+=head2 behavior_action [Behavior] -> Action
 
 This will automatically do whatever bookkeeping is necessary to run the given
 behavior. If no behavior is given, C<next_behavior> will be called.
@@ -186,7 +186,7 @@ sub autoload_behaviors {
     keys %{ $self->weight_behaviors }
 }
 
-=head2 next_action -> Str
+=head2 next_action -> Action
 
 Defaults to just consulting the behaviors for action.
 

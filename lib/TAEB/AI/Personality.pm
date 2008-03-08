@@ -33,21 +33,22 @@ Version 0.01 released ???
 
 our $VERSION = '0.01';
 
-=head2 next_action -> STRING
+=head2 next_action -> Action
 
 This is the method called by the main TAEB code to get individual commands. It
 will be called with a C<$self> which will be your TAEB::AI::Personality object,
 and a TAEB object for interacting with the rest of the system (such as for
 looking at the map).
 
-It should just return the string to send to NetHack.
+It should return the L<TAEB::Action> object to send to NetHack.
 
 Your subclass B<must> override this method.
 
 =cut
 
 sub next_action {
-    die "You must override the 'next_action' method in TAEB::AI::Personality.";
+    my $class = blessed($_[0]) || $_[0];
+    die "You must override the 'next_action' method in $class.";
 }
 
 =head2 institute
