@@ -15,18 +15,17 @@ has implement => (
 sub respond_apply_what { shift->implement->slot }
 
 sub respond_lock {
-    $tile->locked('unlocked');
+    shift->target_tile('closeddoor')->locked('unlocked');
     return 'n';
 }
 
 sub respond_unlock {
-    $tile->locked('locked');
+    shift->target_tile('closeddoor')->locked('locked');
     return 'y';
 }
 
 sub msg_unlocked_door {
-    my $tile = $self->target_tile('closeddoor');
-    $tile->locked('unlocked');
+    shift->target_tile('closeddoor')->locked('unlocked');
 }
 
 sub msg_door {
