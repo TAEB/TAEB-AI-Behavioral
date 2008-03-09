@@ -43,6 +43,7 @@ sub respond_eat_what {
                 && TAEB::Spoilers::Item::Food->should_eat($try);
         });
         if ($food) {
+            $self->food($food);
             return $food->slot;
         }
         TAEB->error("There's no safe food in my inventory, so I can't eat 'anything'. Sending escape, but I doubt this will work.");
