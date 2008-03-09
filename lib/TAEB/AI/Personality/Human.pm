@@ -16,37 +16,25 @@ Version 0.01 released ???
 
 our $VERSION = '0.01';
 
-=head2 institute
-
-This will put the terminal in the correct read mode.
-
-=cut
-
-sub institute {
-    ReadMode(3);
-}
-
-=head2 deinstitute
-
-This will reset the terminal to the default read mode.
-
-=cut
-
-sub deinstitute {
-    ReadMode(0);
-}
-
 =head2 next_action TAEB -> STRING
 
 This will consult a magic 8-ball to determine what move to make next.
 
 =cut
 
+sub _get_key {
+    ReadMode 3;
+    my $c = ReadKey(0);
+    ReadMode 0;
+    return $c;
+}
+
 sub next_action {
     while (1) {
-        my $c = ReadKey(0);
+        my $c = _get_key;
+
         if ($c eq "~") {
-            my $out = TAEB->keypress(ReadKey(0));
+            my $out = TAEB->keypress(_get_key);
             if (defined $out) {
                 TAEB->out("\e[2H\e[44m$out");
                 sleep 3;
@@ -54,7 +42,7 @@ sub next_action {
             }
         }
         else {
-            return $c;
+            return TAEB::Action->new_action(custom => string => $c);
         }
     }
 }
