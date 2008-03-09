@@ -51,8 +51,9 @@ sub new_action {
     my $name = shift;
 
     my $package = "TAEB::Action::\L\u$name";
-    eval "use $package";
-    die $@ if $@;
+    unless (eval "use $package; 1") {
+        die "Unable to load $package: $@";
+    }
 
     return $package->new(@_);
 }
