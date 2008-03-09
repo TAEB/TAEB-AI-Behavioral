@@ -25,7 +25,7 @@ has type => (
     trigger => sub {
         my $self = shift;
         $self->rebless(@_);
-    };
+    },
 );
 
 has glyph => (
@@ -154,41 +154,44 @@ sub update {
     $self->floor_glyph($newglyph);
 }
 
+# automatically upgrade the tile if upgrading would make it more specific
+# (e.g. TAEB::World::Tile -> TAEB::World::Tile::Stairs)
+# we also downgrade (and possibly upgrade) tiles if they change type
+# since this is run whenever we change type, this should keep the tile's
+# class completely up to date
 sub rebless {
     my $self    = shift;
     my $newtype = shift;
 
-    # automatically upgrade the tile if upgrading would make it more specific
-    # (e.g. TAEB::World::Tile -> TAEB::World::Tile::Stairs)
     my $new_pkg = "TAEB::World::Tile::\L\u$newtype";
 
-    # does the new package even exist?
-    if (eval { $new_pkg->meta }) {
+    # if the new_pkg doesn't exist, then just go with the regular Tile
+    return $self->downgrade unless eval { $new_pkg->meta };
 
-        # are we a superclass of the new package? if not, we need to revert
-        # to a regular Tile so we can be reblessed into a subclass of Tile
-        unless (eval { $new_pkg->isa(blessed($self)) }) {
-            TAEB->debug("$new_pkg is not a subclass of " . blessed($self) . ", so I'm temporarily reblessing it into TAEB::World::Tile.");
-            bless $self => 'TAEB::World::Tile';
-        }
+    # no work to be done, yay
+    return if blessed($self) eq $new_pkg;
 
-        TAEB->debug("Reblessing a " . blessed($self) . " into $new_pkg.");
-
-        # and do the rebless, which does all the typechecking and whatnot
-        $new_pkg->meta->rebless_instance($self);
+    # are we a superclass of the new package? if not, we need to revert
+    # to a regular Tile so we can be reblessed into a subclass of Tile
+    # in other words, Moose doesn't let you rebless into a sibling class
+    unless (eval { $new_pkg->isa(blessed($self)) }) {
+        $self->downgrade("Reblessing a " . blessed($self) . " into TAEB::World::Tile (temporarily) because Moose doesn't let us rebless into sibling classes.");
     }
-    else {
-        # if the new package doesn't exist, then we need to revert to the
-        # regular Tile class
-        # we check blessed($self) because apparently bless is an expensive
-        # operation, and the check will eliminate 99.9% of reblesses
-        unless (blessed($self) eq 'TAEB::World::Tile') {
-            TAEB->debug("Reblessing a " . blessed($self) . " into TAEB::World::Tile because we don't have a $newtype class.");
 
-            bless $self => 'TAEB::World::Tile';
-        }
-    }
-};
+    TAEB->debug("Reblessing a " . blessed($self) . " into $new_pkg.");
+
+    # and do the rebless, which does all the typechecking and whatnot
+    $new_pkg->meta->rebless_instance($self);
+}
+
+sub downgrade {
+    my $self = shift;
+    my $msg  = shift
+            || "Reblessing " . blessed($self) . " into TAEB::World::Tile.";
+
+    TAEB->debug($msg);
+    bless $self => 'TAEB::World::Tile';
+}
 
 sub has_monster {
     my $self = shift;
