@@ -4,7 +4,7 @@ use Moose;
 extends 'TAEB::Action';
 with 'TAEB::Action::Role::Direction';
 
-use constant commands => 't';
+use constant command => 't';
 
 has item => (
     is       => 'rw',
