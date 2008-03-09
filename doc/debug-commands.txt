@@ -46,3 +46,5 @@ Esc
 q
     Makes TAEB save and exit at the next command. Slightly better than ^C.
 
+Q
+    Makes TAEB quit the current game, immediately.

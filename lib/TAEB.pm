@@ -433,6 +433,11 @@ sub keypress {
         return "Bye bye then.";
     }
 
+    if ($c eq 'Q') {
+        $self->write("\e\e#quit\ny");
+        return "Until we meet again, then.";
+    }
+
     if ($c eq ';') {
         my ($z, $y, $x) = (TAEB->z, TAEB->y, TAEB->x);
         while (1) {
