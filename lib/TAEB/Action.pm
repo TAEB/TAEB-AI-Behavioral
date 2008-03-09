@@ -2,6 +2,12 @@
 package TAEB::Action;
 use Moose;
 
+has responded_this_step => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 =head2 command
 
 This is the basic command for the action. For example, C<E> for engraving, and
