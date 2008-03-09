@@ -17,7 +17,7 @@ sub respond_apply_what { shift->implement->slot }
 sub respond_lock { 'n' }
 sub respond_unlock { 'y' }
 
-sub msg_unlocked_door {
+sub msg_just_unlocked_door {
     shift->target_tile('closeddoor')->locked('unlocked');
 }
 
