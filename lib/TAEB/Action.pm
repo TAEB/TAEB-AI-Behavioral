@@ -4,6 +4,7 @@ use Moose;
 
 use TAEB::Action::Ascend;
 use TAEB::Action::Cast;
+use TAEB::Action::Custom;
 use TAEB::Action::Descend;
 use TAEB::Action::Dip;
 use TAEB::Action::Eat;
