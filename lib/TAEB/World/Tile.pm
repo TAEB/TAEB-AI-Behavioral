@@ -186,6 +186,9 @@ sub rebless {
 
 sub downgrade {
     my $self = shift;
+
+    return $self if blessed($self) eq 'TAEB::World::Tile';
+
     my $msg  = shift
             || "Reblessing " . blessed($self) . " into TAEB::World::Tile.";
 
