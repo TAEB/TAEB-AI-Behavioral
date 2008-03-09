@@ -40,7 +40,7 @@ sub respond_eat_what {
         my $food = TAEB->find_item(sub {
             my $try = shift;
             return $try->class eq 'food'
-                && TAEB::Spoilers::Item::Food->should_eat($item);
+                && TAEB::Spoilers::Item::Food->should_eat($try);
         });
         if ($food) {
             return $food->slot;
