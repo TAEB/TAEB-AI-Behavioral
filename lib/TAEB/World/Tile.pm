@@ -271,6 +271,7 @@ sub each_orthogonal {
             );
 
             if (!defined($tile)) {
+                TAEB->error("Calling TAEB->each_orthogonal at ($x, $y) falls off the map");
                 next;
             }
 
@@ -300,6 +301,7 @@ sub each_diagonal {
             );
 
             if (!defined($tile)) {
+                TAEB->error("Calling TAEB->each_diagonal at ($x, $y) falls off the map");
                 next;
             }
 
