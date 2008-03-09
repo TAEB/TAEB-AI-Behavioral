@@ -1,7 +1,7 @@
 # improve the consistency of telnet ping/pong
 OPTIONS=!sparkle
 OPTIONS=runmode:teleport
-OPTIONS=!timed_delay   # this will complain on some nethack builds, but oh well
+OPTIONS=!timed_delay
 
 # display
 OPTIONS=showexp
