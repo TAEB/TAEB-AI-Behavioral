@@ -176,7 +176,7 @@ sub handle_menus {
     elsif (TAEB->topline =~ /^\s*Discoveries\s*$/) {
         $menu->select_count('none');
         $selector = sub {
-            my ($identity, $appearance) = /^ (.*?) \((.*?)\)/
+            my ($identity, $appearance) = /^\s+(.*?) \((.*?)\)/
                 or return;
             TAEB->debug("Discovery: $appearance is $identity");
             TAEB->enqueue_message('discovery', $identity, $appearance);
