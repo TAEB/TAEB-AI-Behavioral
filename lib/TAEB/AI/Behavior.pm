@@ -84,7 +84,7 @@ sub write_elbereth {
              || '-';
     }
 
-    $self->do(engrave => with => $item);
+    $self->do(engrave => implement => $item);
 }
 
 =head2 pickup Item -> Bool
