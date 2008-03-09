@@ -78,7 +78,7 @@ sub any_food {
     my $self = shift;
 
     for (TAEB->current_tile->items, TAEB->inventory->items) {
-        return 1 if $_->type eq 'food'
+        return 1 if $_->class eq 'food'
                  && TAEB::Spoilers::Item::Food->should_eat($_);
     }
 
