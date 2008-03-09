@@ -257,8 +257,8 @@ sub step {
     }
     elsif ($self->state eq 'playing') {
         # if the action hasn't responded to anything, then we know it's done
-        my $reuse_action = $self->action->responded_this_step;
-        $self->action->responded_this_step(0);
+        my $reuse_action = $self->action && $self->action->responded_this_step;
+        $self->action->responded_this_step(0) if $self->action;
 
         if (!$reuse_action) {
             if ($self->action) {
