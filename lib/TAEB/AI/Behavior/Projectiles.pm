@@ -21,7 +21,7 @@ sub prepare {
     # no monster found
     return 0 if !$direction;
 
-    $self->do(throw => item => $projectile);
+    $self->do(throw => item => $projectile, direction => $direction);
     $self->currently("Throwing a $projectile at a monster.");
     return 100;
 }
