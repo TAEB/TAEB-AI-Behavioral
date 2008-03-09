@@ -17,7 +17,7 @@ sub prepare {
     );
 
     # are we adjacent to an unsearched wall? if so, begin searching
-    if (length($path) <= 1) {
+    if (length($path->path) <= 1) {
         $self->currently("Searching.");
         $self->do('search');
         return 100;
