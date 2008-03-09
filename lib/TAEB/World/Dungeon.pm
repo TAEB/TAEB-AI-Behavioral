@@ -99,7 +99,7 @@ sub each_orthogonal {
     my $code = shift;
     my $tile = shift || $self->current_tile;
 
-    $tile->each_adjacent($code);
+    $tile->each_orthogonal($code);
 }
 
 make_immutable;
