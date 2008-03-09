@@ -14,15 +14,8 @@ has implement => (
 
 sub respond_apply_what { shift->implement->slot }
 
-sub respond_lock {
-    shift->target_tile('closeddoor')->locked('unlocked');
-    return 'n';
-}
-
-sub respond_unlock {
-    shift->target_tile('closeddoor')->locked('locked');
-    return 'y';
-}
+sub respond_lock { 'n' }
+sub respond_unlock { 'y' }
 
 sub msg_unlocked_door {
     shift->target_tile('closeddoor')->locked('unlocked');
