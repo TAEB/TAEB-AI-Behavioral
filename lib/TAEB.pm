@@ -271,7 +271,7 @@ sub step {
         }
 
         $self->out(
-            "\e[23H%s\e[23HCurrently: %s (%s)   \e[%d;%dH",
+            "\e[23H%s\e[23H%s (%s)   \e[%d;%dH",
             $self->vt->row_plaintext(22),
             $self->personality->currently,
             $self->action->command,
