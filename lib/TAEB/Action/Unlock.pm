@@ -21,6 +21,10 @@ sub msg_just_unlocked_door {
     shift->target_tile('closeddoor')->locked('unlocked');
 }
 
+sub msg_interrupted_unlocking {
+    shift->target_tile('closeddoor')->locked('locked');
+}
+
 sub msg_door {
     my $self = shift;
     my $type = shift;
