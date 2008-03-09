@@ -166,8 +166,11 @@ after type => sub {
         # are we a superclass of the new package? if not, we need to revert
         # to a regular Tile so we can be reblessed into a subclass of Tile
         unless (eval { $new_pkg->isa(blessed($self)) }) {
+            TAEB->debug("$new_pkg is not a subclass of " . blessed($self) . ", so I'm temporarily reblessing it into TAEB::World::Tile.");
             bless $self => 'TAEB::World::Tile';
         }
+
+        TAEB->debug("Reblessing a " . blessed($self) . " into $new_pkg.");
 
         # and do the rebless, which does all the typechecking and whatnot
         $new_pkg->meta->rebless_instance($self);
@@ -177,8 +180,11 @@ after type => sub {
         # regular Tile class
         # we check blessed($self) because apparently bless is an expensive
         # operation, and the check will eliminate 99.9% of reblesses
-        bless $self => 'TAEB::World::Tile'
-            unless blessed($self) eq 'TAEB::World::Tile';
+        unless (blessed($self) eq 'TAEB::World::Tile') {
+            TAEB->debug("Reblessing a " . blessed($self) . " into TAEB::World::Tile because we don't have a $newtype class.");
+
+            bless $self => 'TAEB::World::Tile';
+        }
     }
 };
 
