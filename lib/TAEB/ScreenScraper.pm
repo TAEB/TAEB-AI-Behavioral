@@ -83,9 +83,10 @@ my @prompts = (
     qr/^What do you want to drink\?/        => 'drink_what',
     qr/^What do you want to eat\?/          => 'eat_what',
 
-    qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
     qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
     qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
+    qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
+    qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
     qr/^Do you want to add to the current engraving\?/  => 'add_engraving',
 );
 
