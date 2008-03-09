@@ -2,6 +2,24 @@
 package TAEB::Action;
 use Moose;
 
+use TAEB::Action::Ascend;
+use TAEB::Action::Cast;
+use TAEB::Action::Descend;
+use TAEB::Action::Dip;
+use TAEB::Action::Eat;
+use TAEB::Action::Engrave;
+use TAEB::Action::Kick;
+use TAEB::Action::Melee;
+use TAEB::Action::Move;
+use TAEB::Action::Open;
+use TAEB::Action::Pickup;
+use TAEB::Action::Pray;
+use TAEB::Action::Quaff;
+use TAEB::Action::Role::Direction;
+use TAEB::Action::Search;
+use TAEB::Action::Throw;
+use TAEB::Action::Unlock;
+
 has responded_this_step => (
     is      => 'rw',
     isa     => 'Bool',
@@ -51,10 +69,6 @@ sub new_action {
     my $name = shift;
 
     my $package = "TAEB::Action::\L\u$name";
-    unless (eval "use $package; 1") {
-        die "Unable to load $package: $@";
-    }
-
     return $package->new(@_);
 }
 
