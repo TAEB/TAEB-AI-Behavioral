@@ -22,6 +22,10 @@ has type => (
     is      => 'rw',
     isa     => 'TileType',
     default => 'rock',
+    trigger => sub {
+        my $self = shift;
+        $self->rebless(@_);
+    };
 );
 
 has glyph => (
@@ -150,10 +154,8 @@ sub update {
     $self->floor_glyph($newglyph);
 }
 
-after type => sub {
-    my $self = shift;
-    return if @_ == 0;
-
+sub rebless {
+    my $self    = shift;
     my $newtype = shift;
 
     # automatically upgrade the tile if upgrading would make it more specific
