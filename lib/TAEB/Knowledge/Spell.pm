@@ -56,6 +56,10 @@ sub castable {
 
     return 0 if $self->forgotten;
     return 0 if $self->level * 5 > TAEB->power;
+
+    # "You are too hungry to cast!" (detect food is exempted by NH itself)
+    return 0 if TAEB->senses->nutrition < 1 && $self->name ne 'detect food';
+
     return 1;
 }
 
