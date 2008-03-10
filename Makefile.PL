@@ -67,6 +67,11 @@ features(
         -default => 0,
         requires('Net::Hiveminder'),
     ],
+    'REPL on ~' => [
+        -default => 1,
+        requires('Devel::REPL'),
+        recommends('Term::ReadLine::Gnu'),
+    ],
 );
 
 build_requires 'Test::More';
