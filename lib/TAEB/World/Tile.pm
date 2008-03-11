@@ -258,6 +258,10 @@ sub each_orthogonal {
     my $x     = $self->x;
     my $y     = $self->y;
 
+    if ($y <= 0) {
+        TAEB->error("each_orthogonal called with a y argument of $y. This usually indicates an unhandled --More-- or prompt.");
+    }
+
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
             next unless $dy || $dx; # skip 0, 0
@@ -287,6 +291,10 @@ sub each_diagonal {
     my $level = $self->level;
     my $x     = $self->x;
     my $y     = $self->y;
+
+    if ($y <= 0) {
+        TAEB->error("each_diagonal called with a y argument of $y. This usually indicates an unhandled --More-- or prompt.");
+    }
 
     for my $dy (-1 .. 1) {
         for my $dx (-1 .. 1) {
