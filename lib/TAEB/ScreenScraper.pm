@@ -211,6 +211,7 @@ sub handle_menus {
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
         my $which_spell = TAEB->get_response(TAEB->topline) || "\e";
+        $which_spell = ' ' if TAEB->state eq 'prepare_spells';
         $committer = sub { $which_spell };
 
         $selector = sub {
