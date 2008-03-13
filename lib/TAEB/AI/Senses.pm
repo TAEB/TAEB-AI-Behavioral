@@ -89,6 +89,12 @@ has level => (
     default => 1,
 );
 
+has prev_turn => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 0,
+);
+
 has turn => (
     is      => 'rw',
     isa     => 'Int',
@@ -167,6 +173,14 @@ sub update {
     $self->is_stunned($botl =~ /\bStun/);
     $self->is_confused($botl =~ /\bConf/);
     $self->is_hallucinating($botl =~ /\bHal/);
+
+    if ($self->turn != $self->prev_turn) {
+        for ($self->prev_turn + 1 .. $self->turn) {
+            TAEB->send_message(turn => $_);
+        }
+    }
+
+    $self->prev_turn($self->turn);
 }
 
 sub msg_god_angry {
