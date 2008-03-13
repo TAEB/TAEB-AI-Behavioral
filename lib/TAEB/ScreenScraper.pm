@@ -230,14 +230,7 @@ sub handle_menus {
         };
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
-        my $which_spell = "\e";
-
-        if (TAEB->action && TAEB->action->isa('TAEB::Action::Cast')) {
-            TAEB->debug(blessed(TAEB->action) . " is responding to which_spell.");
-            TAEB->action->responded_this_step(1);
-            $which_spell = TAEB->action->respond_which_spell(TAEB->topline);
-        }
-
+        my $which_spell = TAEB->get_response || "\e";
         $committer = sub { $which_spell };
 
         $selector = sub {
@@ -330,24 +323,10 @@ sub handle_menus {
 sub handle_fallback {
     my $self = shift;
 
-    if (TAEB->vt->y == 0) {
-        for (my $i = 0; $i < @prompts; $i += 2) {
-            if (my $code = TAEB->action->can("respond_" . $prompts[$i+1])) {
-                if (TAEB->topline =~ $prompts[$i]) {
-                    TAEB->debug(blessed(TAEB->action) . " is responding to " . $prompts[$i+1].".");
-                    TAEB->action->responded_this_step(1);
-
-                    # pass $1, $2, $3, etc to the action's handler
-                    no strict 'refs';
-                    TAEB->write(
-                        TAEB->action->$code(
-                            TAEB->topline,
-                            map { $$_ } 1 .. $#+
-                        )
-                    );
-                }
-            }
-        }
+    my $response = TAEB->get_response;
+    if (defined $response) {
+        TAEB->write($response);
+        die "Recursing screenscraper.\n";
     }
 
     if (TAEB->topline =~ /^Really attack /) {
@@ -366,11 +345,40 @@ sub handle_fallback {
         die "Game over, man!";
     }
 
-    if (TAEB->topline =~ /There .* here; eat (it|them)\? \[ynq\] \(n\)/ && TAEB->vt->y == 0) {
-        TAEB->write(" ");
+    $self->messages($self->messages . TAEB->topline);
+}
+
+=head2 get_response -> Maybe Str
+
+=cut
+
+sub get_response {
+    if (TAEB->vt->y == 0) {
+        for (my $i = 0; $i < @prompts; $i += 2) {
+            for my $responder (TAEB->personality, TAEB->action) {
+                if (my $code = $responder->can("respond_" . $prompts[$i+1])) {
+                    if (TAEB->topline =~ $prompts[$i]) {
+                        # pass $1, $2, $3, etc to the action's handler
+                        no strict 'refs';
+                        my $response = $responder->$code(
+                            TAEB->topline,
+                            map { $$_ } 1 .. $#+
+                        );
+                        next unless defined $response;
+
+                        TAEB->debug(blessed($responder) . " is responding to " . $prompts[$i+1].".");
+                        # XXX: yes this sets the responded flag on the
+                        # action, even if the personality is the one that
+                        # responds
+                        TAEB->action->responded_this_step(1);
+                        return $response;
+                    }
+                }
+            }
+        }
     }
 
-    $self->messages($self->messages . TAEB->topline);
+    return;
 }
 
 =head2 farlook Int, Int -> (Str | Str, Str, Str, Str)
