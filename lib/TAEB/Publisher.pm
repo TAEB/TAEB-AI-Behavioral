@@ -110,6 +110,8 @@ sub get_response {
 
     for (my $i = 0; $i < @prompts; $i += 2) {
         for my $responder (TAEB->personality, TAEB->action) {
+            next unless $responder;
+
             if (my $code = $responder->can("respond_" . $prompts[$i+1])) {
                 if ($line =~ $prompts[$i]) {
                     # pass $1, $2, $3, etc to the action's handler
