@@ -342,6 +342,11 @@ sub handle_fallback {
 
 =head2 get_response -> Maybe Str
 
+This is used to check for and get a response to any known prompt on the top
+line. Consultd are the personality and action.
+
+If no response is given, C<undef> is returned.
+
 =cut
 
 sub get_response {
