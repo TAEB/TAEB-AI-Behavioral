@@ -233,7 +233,7 @@ sub handle_menus {
         };
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
-        my $which_spell = TAEB->get_response || "\e";
+        my $which_spell = $self->get_response || "\e";
         $committer = sub { $which_spell };
 
         $selector = sub {
@@ -331,7 +331,7 @@ sub handle_fallback {
         die "Game over, man!";
     }
 
-    my $response = TAEB->get_response;
+    my $response = $self->get_response;
     if (defined $response) {
         TAEB->write($response);
         die "Recursing screenscraper.\n";
