@@ -192,6 +192,12 @@ has queued_messages => (
     default => sub { [] },
 );
 
+has delayed_messages => (
+    is      => 'rw',
+    isa     => 'ArrayRef',
+    default => sub { [] },
+);
+
 has action => (
     is  => 'rw',
     isa => 'Maybe[TAEB::Action]',
@@ -230,6 +236,7 @@ sub step {
         $self->dungeon->update;
         $self->senses->update;
 
+        $self->tick_messages;
         $self->send_messages;
     }
 
@@ -521,6 +528,26 @@ sub send_messages {
             elsif ($recipient->can($msgname)) {
                 $recipient->$msgname(@$_)
             }
+        }
+    }
+}
+
+sub delay_message {
+    my $self = shift;
+    push @{ $self->delayed_messages }, [@_];
+}
+
+sub tick_messages {
+    my $self = shift;
+
+    for (my $i = 0; $i < @{ $self->delayed_messages }; ) {
+        local $_ = $self->delayed_messages->[$i];
+        if (--$_->[0] == 0) {
+            my (undef, $msg, @args) = @{ splice @{ $self->delayed_messages }, $i, 1 };
+            $self->send_message($msg => @args);
+        }
+        else {
+            ++$i;
         }
     }
 }
