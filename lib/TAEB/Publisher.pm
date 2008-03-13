@@ -14,9 +14,16 @@ has delayed_messages => (
     default => sub { [] },
 );
 
+has turn_messages => (
+    is      => 'rw',
+    isa     => 'HashRef[ArrayRef]',
+    default => sub { {} },
+);
+
 sub update {
     my $self = shift;
     $self->tick_messages;
+    $self->turn_messages;
     $self->send_messages;
 }
 
@@ -112,6 +119,38 @@ sub get_response {
     }
 
     return;
+}
+
+=head2 send_at_turn turn message args
+
+Send the given message at the given turn.
+
+=cut
+
+sub send_at_turn {
+    my $self = shift;
+    my $turn = shift;
+
+    push @{ $self->turn_messages->{$turn} }, [@_];
+}
+
+=head2 send_in_turns turn message args
+
+Send the given message in the given number of turns.
+
+=cut
+
+sub send_in_turns {
+    my $self = shift;
+    my $turn = TAEB->turn + shift;
+    $self->send_at_turn($turn, @_);
+}
+
+sub turn_messages {
+    my $self = shift;
+    for (@{ splice @{ $self->turn_messages->{TAEB->turn} || [] } || [] }) {
+        $self->send_message(@$_);
+    }
 }
 
 make_immutable;
