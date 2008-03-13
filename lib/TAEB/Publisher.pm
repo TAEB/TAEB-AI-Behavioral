@@ -71,30 +71,6 @@ sub tick_messages {
     }
 }
 
-my @prompts = (
-    qr/^What do you want to write with\?/   => 'write_with',
-    qr/^What do you want to dip\?/          => 'dip_what',
-    qr/^What do you want to dip into\?/     => 'dip_into_what',
-    qr/^What do you want to throw\?/        => 'throw_what',
-    qr/^In what direction\?/                => 'what_direction',
-    qr/^What do you want to use or apply\?/ => 'apply_what',
-    qr/^Lock it\?/                          => 'lock',
-    qr/^Unlock it\?/                        => 'unlock',
-    qr/^Drink from the (fountain|sink)\?/   => 'drink_from',
-    qr/^What do you want to drink\?/        => 'drink_what',
-    qr/^What do you want to eat\?/          => 'eat_what',
-    qr/^For what do you wish\?/             => 'wish',
-    qr/^Really attack (.*?)\?/              => 'really_attack',
-    qr/^Call (.*?):/                        => 'call_item',
-    qr/^\s*Choose which spell to cast/      => 'which_spell',
-
-    qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
-    qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
-    qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
-    qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
-    qr/^Do you want to add to the current engraving\?/ => 'add_engraving',
-);
-
 =head2 get_response -> Maybe Str
 
 This is used to check for and get a response to any known prompt on the top
@@ -107,13 +83,15 @@ If no response is given, C<undef> is returned.
 sub get_response {
     my $self = shift;
     my $line = shift;
+    my $matched = 0;
 
-    for (my $i = 0; $i < @prompts; $i += 2) {
+    for (my $i = 0; $i < @TAEB::ScreenScraper::prompts; $i += 2) {
+        my ($re, $name) = @TAEB::ScreenScraper::prompts[$i, $i + 1];
         for my $responder (TAEB->personality, TAEB->action) {
             next unless $responder;
 
-            if (my $code = $responder->can("respond_" . $prompts[$i+1])) {
-                if ($line =~ $prompts[$i]) {
+            if (my $code = $responder->can("respond_$name")) {
+                if ($matched ||= $line =~ $re) {
                     # pass $1, $2, $3, etc to the action's handler
                     no strict 'refs';
                     my $response = $responder->$code(
@@ -122,7 +100,7 @@ sub get_response {
                     );
                     next unless defined $response;
 
-                    TAEB->debug(blessed($responder) . " is responding to " . $prompts[$i+1].".");
+                    TAEB->debug(blessed($responder) . " is responding to $name.");
                     # XXX: yes this sets the responded flag on the
                     # action, even if the personality is the one that
                     # responds

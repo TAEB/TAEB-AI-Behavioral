@@ -3,7 +3,7 @@ package TAEB::ScreenScraper;
 use Moose;
 use NetHack::Menu;
 
-my %msg_string = (
+our %msg_string = (
     "You are blinded by a blast of light!" =>
         ['status_change', 'blindness', 1],
     "You can see again." =>
@@ -44,7 +44,7 @@ my %msg_string = (
         ['door', 'interrupted_unlocking'],
 );
 
-my @msg_regex = (
+our @msg_regex = (
     [
         qr/^There is a (staircase (?:up|down)) here\.$/,
             ['dungeon_feature', sub { $1 }],
@@ -63,7 +63,7 @@ my @msg_regex = (
     ],
 );
 
-my @god_anger = (
+our @god_anger = (
     qr/^You feel that .*? is (bummed|displeased)\.$/                   => 1,
     qr/^"Thou must relearn thy lessons!"$/                             => 3,
     qr/^"Thou durst (scorn|call upon) me\?"$/                          => 8,
@@ -77,6 +77,30 @@ for (my $i = 0; $i < @god_anger; $i += 2) {
         ['god_angry' => $god_anger[$i+1]],
     ];
 }
+
+our @prompts = (
+    qr/^What do you want to write with\?/   => 'write_with',
+    qr/^What do you want to dip\?/          => 'dip_what',
+    qr/^What do you want to dip into\?/     => 'dip_into_what',
+    qr/^What do you want to throw\?/        => 'throw_what',
+    qr/^In what direction\?/                => 'what_direction',
+    qr/^What do you want to use or apply\?/ => 'apply_what',
+    qr/^Lock it\?/                          => 'lock',
+    qr/^Unlock it\?/                        => 'unlock',
+    qr/^Drink from the (fountain|sink)\?/   => 'drink_from',
+    qr/^What do you want to drink\?/        => 'drink_what',
+    qr/^What do you want to eat\?/          => 'eat_what',
+    qr/^For what do you wish\?/             => 'wish',
+    qr/^Really attack (.*?)\?/              => 'really_attack',
+    qr/^Call (.*?):/                        => 'call_item',
+    qr/^\s*Choose which spell to cast/      => 'which_spell',
+
+    qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
+    qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
+    qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
+    qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
+    qr/^Do you want to add to the current engraving\?/ => 'add_engraving',
+);
 
 has messages => (
     is => 'rw',
