@@ -192,7 +192,7 @@ has publisher => (
     isa     => 'TAEB::Publisher',
     lazy    => 1,
     default => sub { TAEB::Publisher->new },
-    handles => [qw/enqueue_message send_messages delay_message tick_messages/],
+    handles => [qw/enqueue_message send_messages delay_message tick_messages get_response/],
 );
 
 has action => (

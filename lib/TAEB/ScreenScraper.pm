@@ -78,29 +78,6 @@ for (my $i = 0; $i < @god_anger; $i += 2) {
     ];
 }
 
-my @prompts = (
-    qr/^What do you want to write with\?/   => 'write_with',
-    qr/^What do you want to dip\?/          => 'dip_what',
-    qr/^What do you want to dip into\?/     => 'dip_into_what',
-    qr/^What do you want to throw\?/        => 'throw_what',
-    qr/^In what direction\?/                => 'what_direction',
-    qr/^What do you want to use or apply\?/ => 'apply_what',
-    qr/^Lock it\?/                          => 'lock',
-    qr/^Unlock it\?/                        => 'unlock',
-    qr/^Drink from the (fountain|sink)\?/   => 'drink_from',
-    qr/^What do you want to drink\?/        => 'drink_what',
-    qr/^What do you want to eat\?/          => 'eat_what',
-    qr/^For what do you wish\?/             => 'wish',
-    qr/^Really attack (.*?)\?/              => 'really_attack',
-    qr/^Call (.*?):/                        => 'call_item',
-
-    qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
-    qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
-    qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
-    qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
-    qr/^Do you want to add to the current engraving\?/ => 'add_engraving',
-);
-
 has messages => (
     is => 'rw',
     isa => 'Str',
@@ -233,7 +210,7 @@ sub handle_menus {
         };
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
-        my $which_spell = $self->get_response || "\e";
+        my $which_spell = TAEB->get_response(TAEB->topline) || "\e";
         $committer = sub { $which_spell };
 
         $selector = sub {
@@ -331,51 +308,15 @@ sub handle_fallback {
         die "Game over, man!";
     }
 
-    my $response = $self->get_response;
-    if (defined $response) {
-        TAEB->write($response);
-        die "Recursing screenscraper.\n";
-    }
-
-    $self->messages($self->messages . TAEB->topline);
-}
-
-=head2 get_response -> Maybe Str
-
-This is used to check for and get a response to any known prompt on the top
-line. Consultd are the personality and action.
-
-If no response is given, C<undef> is returned.
-
-=cut
-
-sub get_response {
     if (TAEB->vt->y == 0) {
-        for (my $i = 0; $i < @prompts; $i += 2) {
-            for my $responder (TAEB->personality, TAEB->action) {
-                if (my $code = $responder->can("respond_" . $prompts[$i+1])) {
-                    if (TAEB->topline =~ $prompts[$i]) {
-                        # pass $1, $2, $3, etc to the action's handler
-                        no strict 'refs';
-                        my $response = $responder->$code(
-                            TAEB->topline,
-                            map { $$_ } 1 .. $#+
-                        );
-                        next unless defined $response;
-
-                        TAEB->debug(blessed($responder) . " is responding to " . $prompts[$i+1].".");
-                        # XXX: yes this sets the responded flag on the
-                        # action, even if the personality is the one that
-                        # responds
-                        TAEB->action->responded_this_step(1);
-                        return $response;
-                    }
-                }
-            }
+        my $response = TAEB->get_response(TAEB->topline);
+        if (defined $response) {
+            TAEB->write($response);
+            die "Recursing screenscraper.\n";
         }
     }
 
-    return;
+    $self->messages($self->messages . TAEB->topline);
 }
 
 =head2 farlook Int, Int -> (Str | Str, Str, Str, Str)
