@@ -122,6 +122,12 @@ sub enhance {
     return 1;
 }
 
+sub respond_wish {
+    my $self = shift;
+    return "2 blessed potions of full healing";
+
+}
+
 make_immutable;
 
 1;

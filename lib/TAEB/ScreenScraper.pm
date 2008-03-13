@@ -95,7 +95,8 @@ my @prompts = (
     qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
     qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
     qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
-    qr/^Do you want to add to the current engraving\?/  => 'add_engraving',
+    qr/^Do you want to add to the current engraving\?/ => 'add_engraving',
+    qr/^For what do you wish\?/ => 'wish',
 );
 
 has messages => (
