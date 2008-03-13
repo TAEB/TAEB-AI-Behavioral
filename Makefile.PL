@@ -72,6 +72,10 @@ features(
         requires('Devel::REPL'),
         recommends('Term::ReadLine::Gnu'),
     ],
+    'Source code and commit stats (bin/lc)' => [
+        -default => 0,
+        requires("File::Next"),
+    ],
 );
 
 build_requires 'Test::More';
