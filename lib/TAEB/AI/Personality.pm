@@ -122,11 +122,9 @@ sub enhance {
     return 1;
 }
 
-sub respond_wish {
-    my $self = shift;
-    return "2 blessed potions of full healing";
-
-}
+sub respond_wish          { "2 blessed potions of full healing" }
+sub respond_call_item     { "\n" }
+sub respond_really_attack { "y" }
 
 make_immutable;
 

@@ -90,13 +90,15 @@ my @prompts = (
     qr/^Drink from the (fountain|sink)\?/   => 'drink_from',
     qr/^What do you want to drink\?/        => 'drink_what',
     qr/^What do you want to eat\?/          => 'eat_what',
+    qr/^For what do you wish\?/             => 'wish',
+    qr/^Really attack (.*?)\?/              => 'really_attack',
+    qr/^Call (.*?):/                        => 'call_item',
 
     qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
     qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
     qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
     qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
     qr/^Do you want to add to the current engraving\?/ => 'add_engraving',
-    qr/^For what do you wish\?/ => 'wish',
 );
 
 has messages => (
@@ -324,26 +326,15 @@ sub handle_menus {
 sub handle_fallback {
     my $self = shift;
 
+    if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
+        TAEB->write("y");
+        die "Game over, man!";
+    }
+
     my $response = TAEB->get_response;
     if (defined $response) {
         TAEB->write($response);
         die "Recursing screenscraper.\n";
-    }
-
-    if (TAEB->topline =~ /^Really attack /) {
-        # try to get rid of it
-        TAEB->write('y');
-        die "Recursing screenscraper.\n";
-    }
-
-    if (TAEB->topline =~ /^Call / && TAEB->vt->y == 0) {
-        TAEB->write("\n");
-        die "Recursing screenscraper.\n";
-    }
-
-    if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
-        TAEB->write("y");
-        die "Game over, man!";
     }
 
     $self->messages($self->messages . TAEB->topline);
