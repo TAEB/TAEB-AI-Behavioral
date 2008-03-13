@@ -186,7 +186,7 @@ has spells => (
     },
 );
 
-has deferred_messages => (
+has queued_messages => (
     is      => 'rw',
     isa     => 'ArrayRef',
     default => sub { [] },
@@ -500,12 +500,12 @@ sub enqueue_message {
 
     TAEB->debug("Queued message $msgname.");
 
-    push @{ $self->deferred_messages }, ["msg_$msgname", @_];
+    push @{ $self->queued_messages }, ["msg_$msgname", @_];
 }
 
 sub send_messages {
     my $self = shift;
-    my @msgs = splice @{ $self->deferred_messages };
+    my @msgs = splice @{ $self->queued_messages };
 
     for (@msgs) {
         my $msgname = shift @$_;
