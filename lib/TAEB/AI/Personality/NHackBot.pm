@@ -3,6 +3,15 @@ package TAEB::AI::Personality::NHackBot;
 use Moose;
 extends 'TAEB::AI::Personality';
 
+has path => (
+    is => 'rw',
+    isa => 'TAEB::World::Path',
+    trigger => sub {
+        my ($self, $path) = @_;
+        TAEB->info("Current path: @{[$path->path]}.") if $path;
+    },
+);
+
 =head1 NAME
 
 TAEB::AI::Personality::NHackBot - Know thy roots
