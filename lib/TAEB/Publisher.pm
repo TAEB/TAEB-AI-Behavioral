@@ -70,7 +70,7 @@ sub tick_messages {
     for (my $i = 0; $i < @{ $self->delayed_messages }; ) {
         if (--$self->delayed_messages->[$i][0] == 0) {
             my (undef, $msg, @args) = @{ splice @{ $self->delayed_messages }, $i, 1 };
-            $self->send_message($msg => @args);
+            $self->enqueue_message($msg => @args);
         }
         else {
             ++$i;
@@ -149,7 +149,7 @@ sub send_in_turns {
 sub turn_messages {
     my $self = shift;
     for (@{ splice @{ $self->turn_messages->{TAEB->turn} || [] } || [] }) {
-        $self->send_message(@$_);
+        $self->enqueue_message(@$_);
     }
 }
 

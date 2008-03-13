@@ -176,7 +176,7 @@ sub update {
 
     if ($self->turn != $self->prev_turn) {
         for ($self->prev_turn + 1 .. $self->turn) {
-            TAEB->send_message(turn => $_);
+            TAEB->enqueue_message(turn => $_);
         }
     }
 

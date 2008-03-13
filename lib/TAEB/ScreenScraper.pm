@@ -134,8 +134,8 @@ sub scrape {
         s/\s+ /  /g;
         $self->messages($_);
 
-        # iterate over the messages, invoke TAEB->send_message for each one we
-        # know about
+        # iterate over the messages, invoke TAEB->enqueue_message for each one
+        # we know about
         MESSAGE: for (split /  /, $_) {
             if (exists $msg_string{$_}) {
                 TAEB->enqueue_message(
