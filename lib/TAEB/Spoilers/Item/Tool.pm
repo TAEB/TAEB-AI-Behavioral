@@ -309,7 +309,7 @@ has list => (
                 cost => 80,
                 weight => 3,
                 charge => '',
-                plural => 'lenseses', # XXX: NetHack actually does this
+                plural => 'lenseses', # NetHack actually does this
             },
             'blindfold' => {
                 cost => 20,
