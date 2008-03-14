@@ -4,6 +4,10 @@ All of its NetHack-playing logic is in lib/TAEB/AI/. The framework is the rest
 of lib/. For example, lib/TAEB/Spoilers/ includes data about NetHack's
 monsters, items, etc.
 
+The idea of TAEB is to abstract away the machinations of playing NetHack so
+that the AI can do things declaratively. For a good example, look at:
+    lib/TAEB/AI/Behavior/DipForExcalibur.pm
+
 AI is currently broken into two parts, Behaviors and Personalities. Behaviors
 are small objects that are slightly higher level individual actions, such as
 "FixHunger". Personalities make use of Behaviors and ultimately decide which
@@ -13,7 +17,7 @@ one is run next.
 
 Warning: TAEB makes heavy use of CPAN.
 
-$  perl Makefile.PL
+$ perl Makefile.PL
 
 Answer the defaults to any dependencies it asks about. You may have to set up
 CPAN. The defaults are usually fine. Be sure to set a mirror though.
