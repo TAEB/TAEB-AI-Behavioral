@@ -287,6 +287,8 @@ sub step {
 
 =head2 log_in
 
+Log into NetHack
+
 =cut
 
 sub log_in {
