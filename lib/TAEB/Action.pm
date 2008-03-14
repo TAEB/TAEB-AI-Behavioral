@@ -20,6 +20,7 @@ use TAEB::Action::Role::Direction;
 use TAEB::Action::Search;
 use TAEB::Action::Throw;
 use TAEB::Action::Unlock;
+use TAEB::Action::Wield;
 
 has responded_this_step => (
     is      => 'rw',
