@@ -21,7 +21,6 @@ has y => (
 
 sub update {
     my $self  = shift;
-    # XXX: ugh. this needs to be smarter.
     $self->x(TAEB->vt->x);
     $self->y(TAEB->vt->y);
 
