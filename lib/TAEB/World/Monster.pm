@@ -12,6 +12,12 @@ has id => (
     },
 );
 
+has tile => (
+    is       => 'rw',
+    isa      => 'TAEB::World::Tile',
+    weak_ref => 1,
+);
+
 has name => (
     is  => 'rw',
     isa => 'Str',
