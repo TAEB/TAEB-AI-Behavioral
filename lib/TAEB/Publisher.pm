@@ -148,9 +148,13 @@ sub send_in_turns {
 
 sub turn_messages {
     my $self = shift;
-    for (@{ splice @{ $self->turn_messages->{TAEB->turn} || [] } || [] }) {
+    my @messages = splice @{ $self->turn_messages->{TAEB->turn} || [] };
+
+    for (@messages) {
         $self->enqueue_message(@$_);
     }
+
+    delete $self->turn_messages->{TAEB->turn};
 }
 
 make_immutable;
