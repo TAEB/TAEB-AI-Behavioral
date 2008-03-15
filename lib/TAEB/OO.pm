@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::OO;
-use TAEB::OO;
+use Moose;
 
 sub import {
     my $caller = caller;
