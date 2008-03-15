@@ -13,6 +13,7 @@ sub weight_behaviors {
     return {
         FixHunger          => 1_000_000,
         Heal               => 750_000,
+        FixStatus          => 700_000,
         Descend            => 80_000,
         AttackSpell        => 75_000,
         BuffSelf           => 70_000,
