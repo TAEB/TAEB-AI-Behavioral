@@ -143,12 +143,12 @@ sub telnet_negotiation {
     my $self = shift;
     my $option = shift;
 
-    TAEB->debug("Telnet negotiation: received $option");
-
     if ($option =~ / 99$/) {
         ${*$self}{got_pong} = 1;
         return '';
     }
+
+    TAEB->debug("Telnet negotiation: received $option");
 
     if ($option =~ /DO TTYPE/) {
         return join '',
