@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Item;
 use TAEB::OO;
+use List::MoreUtils 'uniq';
 
 use overload
     q{""} => sub {
@@ -270,6 +271,18 @@ sub debug_display {
                     $quan,
                     $enchantment,
                     $self->identity;
+}
+
+sub lookup_spoiler {
+    my $self  = shift;
+    my $field = shift;
+    my @values;
+
+    for ($self->possibilities) {
+        push @values, TAEB::Spoilers::Item->stats($_, $field);
+    }
+
+    return uniq @values;
 }
 
 make_immutable;
