@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Cartographer;
-use Moose;
+use TAEB::OO;
 
 has dungeon => (
     is       => 'rw',

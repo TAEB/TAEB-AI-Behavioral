@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::VT;
-use Moose;
+use TAEB::OO;
 extends 'Term::VT102::ZeroBased';
 
 =head2 topline

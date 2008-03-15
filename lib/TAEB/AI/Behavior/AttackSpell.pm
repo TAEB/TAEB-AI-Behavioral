@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::AttackSpell;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
 sub use_spells { ('magic missile', 'sleep') }

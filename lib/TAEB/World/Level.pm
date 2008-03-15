@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Level;
-use Moose;
+use TAEB::OO;
 use TAEB::Util qw/deltas delta2vi vi2delta/;
 
 has tiles => (

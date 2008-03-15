@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Other;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::World::Item';
 # for instance, iron balls, chains, statues, etc
 

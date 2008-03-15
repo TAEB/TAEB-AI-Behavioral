@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile::Stairs;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::World::Tile';
 
 has other_side => (

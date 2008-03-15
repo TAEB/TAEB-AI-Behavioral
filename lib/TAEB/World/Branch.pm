@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Branch;
-use Moose;
+use TAEB::OO;
 
 has name => (
     is       => 'rw',

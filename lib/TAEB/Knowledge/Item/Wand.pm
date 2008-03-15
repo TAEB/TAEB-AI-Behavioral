@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Item::Wand;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::Knowledge::Item';
 
 my @_groups = (

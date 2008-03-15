@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::WallWalk;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
 sub prepare {

@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::FixHunger;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 use Scalar::Defer 'defer';
 

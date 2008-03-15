@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Interface;
-use Moose;
+use TAEB::OO;
 
 =head1 NAME
 

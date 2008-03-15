@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Senses;
-use Moose;
+use TAEB::OO;
 
 has role => (
     is  => 'rw',

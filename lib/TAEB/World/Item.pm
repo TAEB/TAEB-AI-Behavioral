@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item;
-use Moose;
+use TAEB::OO;
 
 use overload
     q{""} => sub {

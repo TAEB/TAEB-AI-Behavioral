@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Amulet;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::World::Item';
 with 'TAEB::World::Item::Role::Wearable';
 

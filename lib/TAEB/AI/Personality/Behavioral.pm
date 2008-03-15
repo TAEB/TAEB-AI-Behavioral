@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality::Behavioral;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Personality';
 
 =head1 NAME

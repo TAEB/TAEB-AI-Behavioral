@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Food;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::World::Item';
 
 has '+class' => (

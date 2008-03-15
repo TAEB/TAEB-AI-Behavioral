@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile::Closeddoor;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::World::Tile';
 
 has locked => (

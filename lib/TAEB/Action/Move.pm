@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Action::Move;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::Action';
 use TAEB::Util 'vi2delta';
 

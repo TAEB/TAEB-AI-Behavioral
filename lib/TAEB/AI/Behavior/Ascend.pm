@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::Ascend;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Behavior::GotoTile';
 
 sub match_tile {

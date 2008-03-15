@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Spells;
-use Moose;
+use TAEB::OO;
 use List::Util 'first';
 
 use overload

@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Spell;
-use Moose;
+use TAEB::OO;
 
 use overload
     q{""} => sub {

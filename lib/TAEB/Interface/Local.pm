@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Interface::Local;
-use Moose;
+use TAEB::OO;
 use IO::Pty::Easy;
 use Time::HiRes 'sleep';
 

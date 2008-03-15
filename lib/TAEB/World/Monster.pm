@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Monster;
-use Moose;
+use TAEB::OO;
 use String::Koremutake;
 
 has id => (

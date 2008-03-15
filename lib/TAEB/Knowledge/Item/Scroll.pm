@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Item::Scroll;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::Knowledge::Item';
 
 make_immutable;

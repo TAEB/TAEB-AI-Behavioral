@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Item;
-use Moose;
+use TAEB::OO;
 
 has appearance => (
     is       => 'ro',

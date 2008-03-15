@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Action::Search;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::Action';
 
 has started => (

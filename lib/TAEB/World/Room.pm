@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Room;
-use Moose;
+use TAEB::OO;
 
 has tiles => (
     is       => 'rw',

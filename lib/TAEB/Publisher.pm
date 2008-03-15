@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Publisher;
-use Moose;
+use TAEB::OO;
 
 has queued_messages => (
     is      => 'rw',

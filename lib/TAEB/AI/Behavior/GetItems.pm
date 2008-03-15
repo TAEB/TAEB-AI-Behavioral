@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::GetItems;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
 use List::MoreUtils 'any';

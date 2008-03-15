@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::GotoTile;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
 =head1 NAME

@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Action::Eat;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::Action';
 
 use constant command => "e";

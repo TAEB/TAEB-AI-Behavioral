@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Action;
-use Moose;
+use TAEB::OO;
 
 use TAEB::Action::Apply;
 use TAEB::Action::Ascend;

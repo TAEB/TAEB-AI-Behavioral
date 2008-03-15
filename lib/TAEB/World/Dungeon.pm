@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Dungeon;
-use Moose;
+use TAEB::OO;
 
 has branches => (
     is      => 'rw',

@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality::Human;
-use Moose;
+use TAEB::OO;
 use Term::ReadKey;
 extends 'TAEB::AI::Personality';
 

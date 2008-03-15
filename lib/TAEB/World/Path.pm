@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Path;
-use Moose;
+use TAEB::OO;
 use Heap::Simple;
 use TAEB::Util 'delta2vi', 'deltas';
 

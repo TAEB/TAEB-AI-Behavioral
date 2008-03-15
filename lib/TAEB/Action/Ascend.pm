@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Action::Ascend;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::Action';
 
 use constant command => '<';

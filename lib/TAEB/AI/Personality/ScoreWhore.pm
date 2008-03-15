@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality::ScoreWhore;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Personality::Behavioral';
 
 has time_spent_on => (

@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::DeadEnd;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
 sub prepare {

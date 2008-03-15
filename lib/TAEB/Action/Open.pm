@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Action::Open;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::Action';
 with 'TAEB::Action::Role::Direction';
 

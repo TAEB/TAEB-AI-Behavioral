@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality;
-use Moose;
+use TAEB::OO;
 
 has currently => (
     is => 'rw',

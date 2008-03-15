@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::ScreenScraper;
-use Moose;
+use TAEB::OO;
 use NetHack::Menu;
 
 our %msg_string = (

@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::EkimFight;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
 sub prepare {

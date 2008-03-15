@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile;
-use Moose;
+use TAEB::OO;
 use TAEB::Util qw/glyph_to_type delta2vi/;
 
 has level => (
