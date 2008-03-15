@@ -107,43 +107,68 @@ has in_beartrap => (
     default => 0,
 );
 
-sub update {
-    my $self   = shift;
+has str => (
+    is      => 'rw',
+    isa     => 'Str',
+    default => 0,
+);
+
+has [qw/dex con int wis cha/] => (
+    is      => 'rw',
+    isa     => 'Int',
+    default => 0,
+);
+
+sub parse_botl {
+    my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
     my $botl   = TAEB->vt->row_plaintext(23);
-    local $_ = TAEB->topline;
 
-    if ($botl =~ /HP:(\d+)\((\d+)\)/) {
-        $self->hp($1);
-        $self->maxhp($2);
+    if ($status =~ /^(\w+)?.*?St:(\d+(?:\/(?:\*\*|\d+))?) Dx:(\d+) Co:(\d+) In:(\d+) Wi:(\d+) Ch:(\d+)\s*(\w+)\s*(.*)$/) {
+        # $1 name
+        $self->str($2);
+        $self->dex($3);
+        $self->con($4);
+        $self->int($5);
+        $self->wis($6);
+        $self->cha($7);
+        # $8 alignment
+
+        # we can't assume that TAEB will always have showscore. for example,
+        # slackwell.com (where he's playing as of this writing) doesn't have
+        # that compiled in
+        if ($9 =~ /S:(\d+)\s*/) {
+            # $1 score
+        }
     }
     else {
-        TAEB->error("Unable to parse HP from '$botl'");
+        TAEB->error("Unable to parse the status line '$status'");
     }
 
-    if ($botl =~ /Pw:(\d+)\((\d+)\)/) {
-        $self->power($1);
-        $self->maxpower($2);
+    if ($botl =~ /^(Dlvl:\d+|Home \d+|Fort Ludios|End Game|Astral Plane)\s+(?:\$|\*):(\d+)\s+HP:(\d+)\((\d+)\)\s+Pw:(\d+)\((\d+)\)\s+AC:([0-9-]+)\s+(?:Exp|Xp|HD):(\d+)(?:\/(\d+))?(?:\s+T:(\d+))?\s+(.*?)\s*$/) {
+        # $1 dlvl (cartographer does this)
+        # $2 gold
+        $self->hp($3);
+        $self->maxhp($4);
+        $self->power($5);
+        $self->maxpower($6);
+        # $7 AC
+        $self->level($8);
+        # $9 experience
+        $self->turn($10);
+        # $self->status(join(' ', split(/\s+/, $11)));
     }
     else {
-        TAEB->error("Unable to parse power from '$botl'");
+        TAEB->error("Unable to parse the botl line '$botl'");
     }
+}
 
-    if ($botl =~ m{Xp:(\d+)/(\d+)}) {
-        $self->level($1);
-    }
-
-    if ($botl =~ m{T:(\d+)}) {
-        $self->turn($1);
-    }
-    else {
-        TAEB->error("Unable to parse turncount from '$botl'");
-    }
+sub find_statuses {
+    my $self = shift;
+    my $status = TAEB->vt->row_plaintext(22);
+    my $botl   = TAEB->vt->row_plaintext(23);
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
-
-    # we lose 1 nutrition per turn. good enough for now
-    $self->nutrition($self->nutrition - 1);
 
     # we can definitely know some things about our nutrition
     if ($botl =~ /\bSat/) {
@@ -167,6 +192,13 @@ sub update {
     $self->is_stunned($botl =~ /\bStun/);
     $self->is_confused($botl =~ /\bConf/);
     $self->is_hallucinating($botl =~ /\bHal/);
+}
+
+sub update {
+    my $self = shift;
+
+    $self->parse_botl;
+    $self->find_statuses;
 
     if ($self->turn != $self->prev_turn) {
         for ($self->prev_turn + 1 .. $self->turn) {
@@ -208,6 +240,11 @@ sub msg_beartrap {
 sub msg_walked {
     my $self = shift;
     $self->in_beartrap(0);
+}
+
+sub msg_turn {
+    my $self = shift;
+    $self->nutrition($self->nutrition - 1);
 }
 
 make_immutable;
