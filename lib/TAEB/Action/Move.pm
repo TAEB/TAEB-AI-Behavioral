@@ -53,7 +53,7 @@ sub command {
 }
 
 # if we didn't move, and we tried to move diagonally, and the tile we're trying
-# to move onto is obscured, then assume that tile is a door.
+# to move onto (or off of) is obscured, then assume that tile is a door.
 # XXX: we could also be # in a pit or bear trap
 sub done {
     my $self = shift;
@@ -72,11 +72,13 @@ sub done {
     return unless $dx && $dy;
 
     # we only care if the tile was obscured
-    my $tile = TAEB->current_level->at(TAEB->x + $dx, TAEB->y + $dy);
-    return unless $tile->type eq 'obscured';
+    for ([TAEB->x, TAEB->y], [TAEB->x + $dx, TAEB->y + $dy]) {
+        my $tile = TAEB->current_level->at(@$_);
+        return unless $tile->type eq 'obscured';
 
-    TAEB->debug("Changing tile at (" . $tile->x . ", " . $tile->y . ") from obscured to opendoor because I tried to move diagonally onto it and I didn't move.");
-    $tile->type('opendoor');
+        TAEB->debug("Changing tile at (" . $tile->x . ", " . $tile->y . ") from obscured to opendoor because I tried to move diagonally off or onto it and I didn't move.");
+        $tile->type('opendoor');
+    }
 }
 
 make_immutable;
