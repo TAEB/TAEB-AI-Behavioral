@@ -264,7 +264,6 @@ sub handle_menus {
     }
     elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
         $menu->select_count('none');
-        TAEB->current_tile->items([]);
         my $skip = 1;
         TAEB->enqueue_message('clear_floor' => $item);
         $selector = sub {
