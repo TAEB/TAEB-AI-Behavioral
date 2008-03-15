@@ -369,7 +369,9 @@ sub keypress {
 
     # pause for a key
     if ($c eq 'p') {
+        TAEB->out("\e[2H\e[44mPaused.");
         Term::ReadKey::ReadKey(0);
+        TAEB->out(TAEB->redraw);
         return undef;
     }
 
