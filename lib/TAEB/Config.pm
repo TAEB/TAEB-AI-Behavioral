@@ -114,7 +114,13 @@ sub get_alignment {
 # yes autoload is bad. but, I am lazy
 our $AUTOLOAD;
 sub AUTOLOAD {
+    my $self = shift;
     $AUTOLOAD =~ s{.*::}{};
+
+    if (@_) {
+        TAEB->config->contents->{$AUTOLOAD} = shift;
+    }
+
     return TAEB->config->contents->{$AUTOLOAD};
 }
 
