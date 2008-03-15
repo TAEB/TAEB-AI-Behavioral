@@ -64,13 +64,7 @@ sub done {
         $food = TAEB::World::Item->new_item($food);
     }
 
-    # XXX: did we get interrupted?
-    if (my $stats = TAEB::Spoilers::Item::Food->food($food)) {
-        TAEB->senses->nutrition(TAEB->senses->nutrition + $stats->{nutrition});
-    }
-    else {
-        TAEB->warning("Unable to find spoiler information for food '$food'");
-    }
+    TAEB->senses->nutrition(TAEB->senses->nutrition + $food->nutrition);
 }
 
 # is there any food around?
