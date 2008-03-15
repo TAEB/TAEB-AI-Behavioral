@@ -66,7 +66,7 @@ our @msg_regex = (
             ['throw_count', sub { $1 }],
     ],
     [
-        qr/^(?:A|Your) bear trap closes on your/,
+        qr/^(?:A|Your) bear trap closes on your|You are caught in a bear trap/,
             ['beartrap'],
     ],
 );
