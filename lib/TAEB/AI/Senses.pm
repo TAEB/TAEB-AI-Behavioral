@@ -188,9 +188,11 @@ sub update {
     $self->parse_botl;
     $self->find_statuses;
 
-    if ($self->turn != $self->prev_turn) {
-        for ($self->prev_turn + 1 .. $self->turn) {
-            TAEB->enqueue_message(turn => $_);
+    if ($self->prev_turn) {
+        if ($self->turn != $self->prev_turn) {
+            for ($self->prev_turn + 1 .. $self->turn) {
+                TAEB->enqueue_message(turn => $_);
+            }
         }
     }
 
