@@ -53,12 +53,6 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has can_kick => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 1,
-);
-
 has is_blind => (
     is      => 'rw',
     isa     => 'Bool',
@@ -107,6 +101,12 @@ has max_god_anger => (
     default => 0,
 );
 
+has in_beartrap => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub update {
     my $self   = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -141,12 +141,6 @@ sub update {
     }
 
     $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
-
-    if (/You can't move your leg/ || /You are caught in a bear trap/) {
-        $self->can_kick(0);
-    }
-    # XXX: there's no message when you leave a bear trap. I'm not sure of the
-    # best solution right now. a way to say "run this code when I move" maybe
 
     # we lose 1 nutrition per turn. good enough for now
     $self->nutrition($self->nutrition - 1);
@@ -197,8 +191,23 @@ sub can_pray {
 
 sub can_elbereth {
     my $self = shift;
-    return not TAEB->senses->in_wereform
-            || TAEB->senses->is_blind;
+    return not $self->in_wereform
+            || $self->is_blind;
+}
+
+sub can_kick {
+    my $self = shift;
+    return not $self->in_beartrap;
+}
+
+sub msg_beartrap {
+    my $self = shift;
+    my $self->in_beartrap(1);
+}
+
+sub msg_walked {
+    my $self = shift;
+    $self->in_beartrap(0);
 }
 
 make_immutable;

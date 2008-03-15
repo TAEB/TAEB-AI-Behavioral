@@ -61,6 +61,10 @@ our @msg_regex = (
         qr/^You throw (\d+) /,
             ['throw_count', sub { $1 }],
     ],
+    [
+        qr/^(?:A|Your) bear trap closes on your/,
+            ['beartrap'],
+    ],
 );
 
 our @god_anger = (

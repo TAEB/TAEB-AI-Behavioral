@@ -63,6 +63,8 @@ sub done {
            || TAEB->y - $self->y0
            || TAEB->z - $self->z0;
 
+    TAEB->enqueue_message('walked');
+
     my $dir = substr($self->directions, 0, 1);
     my ($dx, $dy) = vi2delta($dir);
 
