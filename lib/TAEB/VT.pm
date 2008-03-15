@@ -79,6 +79,24 @@ sub at {
     $self->row_plaintext($y, $x, $x);
 }
 
+=head2 as_string [Str] -> Str
+
+Will join together all of the rows in the VT with the optional delimiter
+(default is the empty string).
+
+=cut
+
+sub as_string {
+    my $delimiter = shift || '';
+    my @rows;
+
+    for my $row (0.. $self->rows - 1) {
+        push @rows, $self->row_plaintext($row);
+    }
+
+    return join($delimiter, @rows);
+}
+
 =head2 redraw -> Str
 
 Returns a string that, when printed, will redraw the entire screen, directly as
