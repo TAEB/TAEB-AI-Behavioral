@@ -1,0 +1,10 @@
+These tasks are intended for coders just starting out with TAEB development.
+
+* Write new Actions (which are an abstraction of NetHack commands). In
+  increasing order of difficulty:
+      e(x)change weapons
+      (r)ead scroll/spellbook/fortune cookie
+      (z)ap wand (don't forget to handle direction)
+      (w)ear armor
+      (o)pen doors/chests/etc
+
