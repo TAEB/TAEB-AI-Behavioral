@@ -124,7 +124,7 @@ sub new_item {
         m{^                                                # anchor the regex
           (?:([\w\#\$])\s[+-]\s)?\s*                       # inventory slot
           (an?|the|\d+)?\s*                                # number
-          (blessed|(?:un)?cursed)?\s*                      # cursedness
+          (blessed|(?:un)?cursed|(?:un)?holy)?\s*          # cursedness
           (greased)?\s*                                    # greasy
           (poisoned)?\s*                                   # poisoned
           ((?:(?:very|thoroughly)\ )?(?:burnt|rusty))?\s*  # erosion 1
@@ -200,7 +200,13 @@ sub new_item {
         $new_item->appearance($item);
     }
 
-    $new_item->buc($buc)                   if defined $buc;
+    if (defined $buc) {
+        $buc =~ s/unholy/cursed/;
+        $buc =~ s/holy/blessed/;
+
+        $new_item->buc($buc);
+    }
+
     # XXX: this should go into Spoilers::Item::Tool at some point
     my $is_weaptool = $class eq 'tool' && $item =~ /pick-axe|hook|unicorn/;
     if (!defined $buc &&
