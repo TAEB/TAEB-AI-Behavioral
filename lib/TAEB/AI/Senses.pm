@@ -83,6 +83,11 @@ has [qw/dex con int wis cha/] => (
     default => 0,
 );
 
+has score => (
+    isa     => 'Int',
+    default => 0,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -102,7 +107,7 @@ sub parse_botl {
         # slackwell.com (where he's playing as of this writing) doesn't have
         # that compiled in
         if ($9 =~ /S:(\d+)\s*/) {
-            # $1 score
+            $self->score($1);
         }
     }
     else {
