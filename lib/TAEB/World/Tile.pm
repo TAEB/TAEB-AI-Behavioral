@@ -272,7 +272,7 @@ sub each_orthogonal {
             my $tile = $level->at(
                 $dx + $x,
                 $dy + $y,
-            );
+            ) or next;
 
             $code->($tile, $dir);
         }
@@ -301,7 +301,7 @@ sub each_diagonal {
             my $tile = $level->at(
                 $dx + $x,
                 $dy + $y,
-            );
+            ) or next;
 
             $code->($tile, $dir);
         }
