@@ -202,7 +202,7 @@ sub can_kick {
 
 sub msg_beartrap {
     my $self = shift;
-    my $self->in_beartrap(1);
+    $self->in_beartrap(1);
 }
 
 sub msg_walked {
