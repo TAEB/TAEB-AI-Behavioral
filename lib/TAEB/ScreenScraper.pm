@@ -265,7 +265,7 @@ sub handle_menus {
     elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
         $menu->select_count('none');
         my $skip = 1;
-        TAEB->enqueue_message('clear_floor' => $item);
+        TAEB->enqueue_message('clear_floor');
         $selector = sub {
             my $personality = shift;
             my $slot        = shift;
