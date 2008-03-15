@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item;
-use TAEB::OO;
+use TAEB::OO 'install_spoilers';
 use List::MoreUtils 'uniq';
 
 use overload
@@ -284,6 +284,8 @@ sub lookup_spoiler {
 
     return uniq @values;
 }
+
+install_spoilers(qw/weight cost edible artifact material/);
 
 make_immutable;
 no Moose;
