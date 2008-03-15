@@ -157,12 +157,15 @@ has all_appearances => (
     auto_deref => 1,
     default    => sub {
         my $self = shift;
-        my @random = $self->randomized_appearances
+        my (@random, @constant, @multi);
+
+        @random = $self->randomized_appearances
             if $self->can('randomized_appearances');
-        my @constant = keys %{ $self->constant_appearances }
+        @constant = keys %{ $self->constant_appearances }
             if $self->can('constant_appearances');
-        my @multi = $self->multi_identity_appearances
+        @multi = $self->multi_identity_appearances
             if $self->can('multi_identity_appearances');
+
         return [@random, @constant, @multi];
     },
 );
