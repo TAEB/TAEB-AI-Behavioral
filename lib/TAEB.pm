@@ -255,10 +255,12 @@ sub handle_playing {
     $self->action($self->personality->next_action);
 
     $self->out(
-        "\e[23H%s\e[23H%s (%s)   \e[%d;%dH",
+        "\e[23H%s\e[23H\e[K%s (%s)\e[40GN:%d S:%s\e[%d;%dH",
         $self->vt->row_plaintext(22),
         $self->personality->currently,
         $self->action->command,
+        $self->senses->nutrition,
+        ($self->senses->score || '?'),
         $self->y + 1,
         $self->x + 1,
     );
