@@ -53,25 +53,7 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has is_blind => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has is_stunned => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has is_confused => (
-    is      => 'rw',
-    isa     => 'Bool',
-    default => 0,
-);
-
-has is_hallucinating => (
+has [qw/is_blind is_stunned is_confused is_hallucinating/] => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
