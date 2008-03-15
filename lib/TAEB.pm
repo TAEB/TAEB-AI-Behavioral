@@ -235,57 +235,38 @@ sub step {
         $self->publisher->update;
     }
 
-    if ($self->state eq 'logging_in') {
-        $self->log_in;
-    }
-    elsif ($self->state eq 'prepare_discoveries') {
-        $self->write("\\");
-        $self->state('prepare_inventory');
-    }
-    elsif ($self->state eq 'prepare_inventory') {
-        $self->write("Da\n");
-        $self->state('prepare_spells');
-    }
-    elsif ($self->state eq 'prepare_spells') {
-        $self->write("Z");
-        $self->state('prepare_crga');
-    }
-    elsif ($self->state eq 'prepare_crga') {
-        $self->write("\cx");
-        $self->state('playing');
-    }
-    elsif ($self->state eq 'saving') {
-        $self->write("\e\eS");
-    }
-    elsif ($self->state eq 'playing') {
-        if ($self->action) {
-            $self->action->done;
-            $self->action(undef);
-        }
-
-        $self->personality->currently('?');
-        $self->action($self->personality->next_action);
-
-        $self->out(
-            "\e[23H%s\e[23H%s (%s)   \e[%d;%dH",
-            $self->vt->row_plaintext(22),
-            $self->personality->currently,
-            $self->action->command,
-            $self->y + 1,
-            $self->x + 1,
-        );
-
-        $self->write($self->action->run);
-    }
+    my $method = "handle_" . $self->state;
+    $self->$method;
 }
 
-=head2 log_in
+sub handle_playing {
+    my $self = shift;
 
-Log into NetHack
+    $self->action->done
+        if $self->action;
 
-=cut
+    $self->personality->currently('?');
+    $self->action($self->personality->next_action);
 
-sub log_in {
+    $self->out(
+        "\e[23H%s\e[23H%s (%s)   \e[%d;%dH",
+        $self->vt->row_plaintext(22),
+        $self->personality->currently,
+        $self->action->command,
+        $self->y + 1,
+        $self->x + 1,
+    );
+
+    $self->write($self->action->run);
+}
+
+sub handle_prepare_discoveries {
+    my $self = shift;
+    $self->write("\\");
+    $self->state('prepare_inventory');
+}
+
+sub handle_logging_in {
     my $self = shift;
 
     if ($self->vt->contains("Shall I pick a character's ")) {
@@ -316,6 +297,33 @@ sub log_in {
         $self->write("     \e     #quit\ny         ");
         die "Using etc/TAEB.nethackrc is MANDATORY";
     }
+}
+
+sub handle_prepare_inventory {
+    my $self = shift;
+
+    $self->write("Da\n");
+    $self->state('prepare_spells');
+}
+
+sub handle_prepare_spells {
+    my $self = shift;
+
+    $self->write("Z");
+    $self->state('prepare_crga');
+}
+
+sub handle_prepare_crga {
+    my $self = shift;
+
+    $self->write("\cx");
+    $self->state('playing');
+}
+
+sub handle_saving {
+    my $self = shift;
+
+    $self->write("\e\eS");
 }
 
 =head2 process_input [Bool]
