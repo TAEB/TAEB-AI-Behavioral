@@ -77,6 +77,7 @@ Updates the current_level if Dlvl appears to have changed.
 sub check_dlvl {
     my $self = shift;
 
+    # (Dlvl:\d+|Home \d+|Fort Ludios|End Game|Astral Plane)
     TAEB->vt->row_plaintext(23) =~ /^Dlvl:(\d+) /
         or TAEB->error("Unable to parse the botl for dlvl: ".TAEB->vt->row_plaintext(23));
 
