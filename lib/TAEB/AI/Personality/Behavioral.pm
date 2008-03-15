@@ -10,7 +10,6 @@ TAEB::AI::Personality::Behavioral - base class for personalities with behaviors
 =cut
 
 has behaviors => (
-    is      => 'rw',
     isa     => 'HashRef[TAEB::AI::Behavior]',
     default => sub {
         my $self      = shift;

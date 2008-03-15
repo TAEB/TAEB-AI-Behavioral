@@ -8,13 +8,11 @@ has '+class' => (
 );
 
 has is_partly_eaten => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has is_laid_by_you => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );

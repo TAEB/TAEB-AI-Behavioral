@@ -4,13 +4,11 @@ use TAEB::OO;
 extends 'TAEB::Action';
 
 has started => (
-    is      => 'rw',
     isa     => 'Int',
     default => sub { TAEB->turn },
 );
 
 has iterations => (
-    is      => 'rw',
     isa     => 'Int',
     default => 10,
 );

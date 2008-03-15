@@ -9,7 +9,6 @@ has '+class' => (
 );
 
 has is_chained_to_you => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );

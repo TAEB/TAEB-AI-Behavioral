@@ -6,7 +6,6 @@ extends 'TAEB::Action';
 use constant command => "q";
 
 has from => (
-    is       => 'rw',
     isa      => 'TAEB::World::Item | Str',
     required => 1,
 );

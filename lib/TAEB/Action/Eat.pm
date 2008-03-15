@@ -6,7 +6,6 @@ extends 'TAEB::Action';
 use constant command => "e";
 
 has food => (
-    is       => 'rw',
     isa      => 'TAEB::World::Item | Str',
     required => 1,
 );

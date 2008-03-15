@@ -3,100 +3,82 @@ package TAEB::AI::Senses;
 use TAEB::OO;
 
 has role => (
-    is  => 'rw',
     isa => 'Role',
 );
 
 has race => (
-    is  => 'rw',
     isa => 'Race',
 );
 
 has align => (
-    is  => 'rw',
     isa => 'Align',
 );
 
 has gender => (
-    is  => 'rw',
     isa => 'Gender',
 );
 
 has hp => (
-    is  => 'rw',
     isa => 'Int',
 );
 
 has maxhp => (
-    is  => 'rw',
     isa => 'Int',
 );
 
 has power => (
-    is  => 'rw',
     isa => 'Int',
 );
 
 has maxpower => (
-    is  => 'rw',
     isa => 'Int',
 );
 
 has nutrition => (
-    is      => 'rw',
     isa     => 'Int',
     default => 700,
 );
 
 has in_wereform => (
-    is  => 'rw',
     isa => 'Bool',
 );
 
 has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic/] => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has level => (
-    is      => 'rw',
     isa     => 'Int',
     default => 1,
 );
 
 has prev_turn => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );
 
 has turn => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );
 
 has max_god_anger => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );
 
 has in_beartrap => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has str => (
-    is      => 'rw',
     isa     => 'Str',
     default => 0,
 );
 
 has [qw/dex con int wis cha/] => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );

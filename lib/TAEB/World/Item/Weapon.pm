@@ -10,7 +10,6 @@ has '+class' => (
 );
 
 has is_poisoned => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );

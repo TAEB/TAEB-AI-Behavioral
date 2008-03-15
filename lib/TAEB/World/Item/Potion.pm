@@ -9,7 +9,6 @@ has '+class' => (
 );
 
 has is_diluted => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );

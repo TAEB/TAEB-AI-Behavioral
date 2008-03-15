@@ -3,19 +3,16 @@ package TAEB::World::Cartographer;
 use TAEB::OO;
 
 has dungeon => (
-    is       => 'rw',
     isa      => 'TAEB::World::Dungeon',
     weak_ref => 1,
     required => 1,
 );
 
 has x => (
-    is => 'rw',
     isa => 'Int',
 );
 
 has y => (
-    is => 'rw',
     isa => 'Int',
 );
 

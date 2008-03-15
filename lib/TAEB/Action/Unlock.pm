@@ -7,7 +7,6 @@ with 'TAEB::Action::Role::Direction';
 use constant command => 'a';
 
 has implement => (
-    is       => 'rw',
     isa      => 'TAEB::World::Item',
     required => 1,
 );

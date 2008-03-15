@@ -19,28 +19,26 @@ our $VERSION = '0.01';
 extends 'TAEB::Interface';
 
 has server => (
-    is => 'rw',
-    isa => 'Str',
+    is      => 'ro',
+    isa     => 'Str',
     default => 'nethack.alt.org',
 );
 
 has account => (
-    is => 'ro',
+    is  => 'ro',
     isa => 'Str',
 );
 
 has password => (
-    is => 'ro',
+    is  => 'ro',
     isa => 'Str',
 );
 
 has socket => (
-    is => 'rw',
     isa => 'IO::Socket::Telnet',
 );
 
 has sent_login => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );

@@ -4,7 +4,6 @@ use TAEB::OO;
 extends 'TAEB::AI::Personality';
 
 has path => (
-    is => 'rw',
     isa => 'TAEB::World::Path',
     trigger => sub {
         my ($self, $path) = @_;

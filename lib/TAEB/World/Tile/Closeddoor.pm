@@ -4,7 +4,6 @@ use TAEB::OO;
 extends 'TAEB::World::Tile';
 
 has locked => (
-    is      => 'rw',
     isa     => 'DoorState',
     default => 'unknown',
 );

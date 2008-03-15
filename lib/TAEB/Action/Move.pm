@@ -5,12 +5,10 @@ extends 'TAEB::Action';
 use TAEB::Util 'vi2delta';
 
 has path => (
-    is  => 'rw',
     isa => 'TAEB::World::Path',
 );
 
 has direction => (
-    is  => 'rw',
     isa => 'Str',
 );
 

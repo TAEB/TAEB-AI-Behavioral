@@ -3,19 +3,16 @@ package TAEB::Publisher;
 use TAEB::OO;
 
 has queued_messages => (
-    is      => 'rw',
     isa     => 'ArrayRef',
     default => sub { [] },
 );
 
 has delayed_messages => (
-    is      => 'rw',
     isa     => 'ArrayRef',
     default => sub { [] },
 );
 
 has turn_messages => (
-    is      => 'rw',
     isa     => 'HashRef[ArrayRef]',
     default => sub { {} },
 );

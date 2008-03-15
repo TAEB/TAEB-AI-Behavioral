@@ -34,12 +34,10 @@ What monster last attacked us? That's the one we're looking for.
 =cut
 
 has last_direction => (
-    is => 'rw',
     isa => 'Int',
 );
 
 has looking_for => (
-    is => 'rw',
     isa => 'Str',
 );
 

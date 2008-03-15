@@ -113,7 +113,6 @@ our @prompts = (
 );
 
 has messages => (
-    is => 'rw',
     isa => 'Str',
 );
 

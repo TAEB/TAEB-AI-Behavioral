@@ -8,25 +8,21 @@ use overload
     };
 
 has name => (
-    is       => 'rw',
     isa      => 'Str',
     required => 1,
 );
 
 has learned_at => (
-    is       => 'rw',
     isa      => 'Int',
     default  => sub { TAEB->turn },
 );
 
 has fail => (
-    is       => 'rw',
     isa      => 'Int',
     required => 1,
 );
 
 has slot => (
-    is       => 'rw',
     isa      => 'Str',
     required => 1,
 );

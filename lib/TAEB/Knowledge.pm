@@ -26,7 +26,6 @@ has types => (
 );
 
 has appearances => (
-    is      => 'rw',
     isa     => 'HashRef[HashRef[TAEB::Knowledge::Item]]',
     lazy    => 1,
     default => sub {
@@ -49,7 +48,6 @@ has appearances => (
 );
 
 has appearance_of => (
-    is      => 'rw',
     isa     => 'HashRef[Str]',
     default => sub { {} },
 );

@@ -12,13 +12,11 @@ has '+class' => (
 );
 
 has is_partly_used => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has candles_attached => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );

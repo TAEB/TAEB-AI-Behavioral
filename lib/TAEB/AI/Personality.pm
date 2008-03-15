@@ -3,7 +3,6 @@ package TAEB::AI::Personality;
 use TAEB::OO;
 
 has currently => (
-    is => 'rw',
     isa => 'Str',
     default => "?",
     trigger => sub {

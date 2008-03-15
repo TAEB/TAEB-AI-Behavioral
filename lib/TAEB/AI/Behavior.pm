@@ -4,12 +4,10 @@ use TAEB::OO;
 use Scalar::Defer 'defer';
 
 has currently => (
-    is  => 'rw',
     isa => 'Str',
 );
 
 has action => (
-    is  => 'rw',
     isa => 'TAEB::Action',
 );
 

@@ -17,13 +17,11 @@ Version 0.01 released ???
 extends 'TAEB::Interface';
 
 has name => (
-    is => 'rw',
     isa => 'Str',
     default => 'nethack',
 );
 
 has pty => (
-    is => 'rw',
     isa => 'IO::Pty::Easy',
 );
 

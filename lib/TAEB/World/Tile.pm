@@ -4,7 +4,6 @@ use TAEB::OO;
 use TAEB::Util qw/glyph_to_type delta2vi/;
 
 has level => (
-    is       => 'rw',
     isa      => 'TAEB::World::Level',
     weak_ref => 1,
     required => 1,
@@ -12,14 +11,12 @@ has level => (
 );
 
 #has room => (
-#    is       => 'rw',
 #    isa      => 'TAEB::World::Room',
 #    weak_ref => 1,
 #);
 
 
 has type => (
-    is      => 'rw',
     isa     => 'TileType',
     default => 'rock',
     trigger => sub {
@@ -29,61 +26,51 @@ has type => (
 );
 
 has glyph => (
-    is      => 'rw',
     isa     => 'Str',
     default => ' ',
 );
 
 has floor_glyph => (
-    is      => 'rw',
     isa     => 'Str',
     default => ' ',
 );
 
 has stepped_on => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );
 
 has x => (
-    is       => 'rw',
     isa      => 'Int',
     required => 1,
 );
 
 has y => (
-    is       => 'rw',
     isa      => 'Int',
     required => 1,
 );
 
 has searched => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );
 
 has explored => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has elbereths => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );
 
 has interesting => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has monster => (
-    is       => 'rw',
     isa      => 'TAEB::World::Monster',
     weak_ref => 1,
 );

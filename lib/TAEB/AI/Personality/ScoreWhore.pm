@@ -4,7 +4,6 @@ use TAEB::OO;
 extends 'TAEB::AI::Personality::Behavioral';
 
 has time_spent_on => (
-    is            => 'rw',
     isa           => 'HashRef[Int]',
     default       => sub { {} },
     documentation => "How much time was spent (in other words, how many actions were made) on each level",

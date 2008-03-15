@@ -6,13 +6,11 @@ extends 'TAEB::Action';
 use constant command => 'E';
 
 has implement => (
-    is      => 'rw',
     isa     => 'TAEB::World::Item | Str',
     default => '-',
 );
 
 has text => (
-    is      => 'rw',
     isa     => 'Str',
     default => 'Elbereth',
 );

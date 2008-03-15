@@ -4,7 +4,6 @@ use TAEB::OO;
 extends 'TAEB::Action';
 
 has string => (
-    is       => 'rw',
     isa      => 'Str',
     required => 1,
 );

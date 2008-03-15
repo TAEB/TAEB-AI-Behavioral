@@ -6,13 +6,11 @@ extends 'TAEB::Action';
 use constant command => 'Z';
 
 has spell => (
-    is       => 'rw',
     isa      => 'TAEB::Knowledge::Spell',
     required => 1,
 );
 
 has direction => (
-    is  => 'rw',
     isa => 'Str',
 );
 

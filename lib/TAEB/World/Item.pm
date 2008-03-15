@@ -9,80 +9,67 @@ use overload
     };
 
 has raw => (
-    is            => 'rw',
     isa           => 'Str',
     documentation => "The raw string NetHack gave us for the item. Don't use it for code, use it only for logging.",
 );
 
 has appearance => (
-    is            => 'rw',
     isa           => 'Str',
 );
 
 has class => (
-    is            => 'rw',
     isa           => 'ItemClass',
     default       => 'unknown',
     documentation => "Armor, weapon, scroll, etc.",
 );
 
 has slot => (
-    is  => 'rw',
     isa => 'Str',
 );
 
 has quantity => (
-    is      => 'rw',
     isa     => 'Int',
     default => 1,
 );
 
 has buc => (
-    is      => 'rw',
     isa     => 'BUC',
     default => 'unknown',
 );
 
 has is_greased => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has generic_name => (
-    is            => 'rw',
     isa           => 'Str',
     default       => '',
     documentation => "called X",
 );
 
 has specific_name => (
-    is            => 'rw',
     isa           => 'Str',
     default       => '',
     documentation => "named X",
 );
 
 has is_wielding => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has is_offhand => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has is_quivered => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has cost => (
-    is      => 'rw',
     isa     => 'Int',
     default => 0,
 );

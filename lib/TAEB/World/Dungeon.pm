@@ -3,7 +3,6 @@ package TAEB::World::Dungeon;
 use TAEB::OO;
 
 has branches => (
-    is      => 'rw',
     isa     => 'HashRef[TAEB::World::Branch]',
     default => sub {
         my $self = shift;
@@ -18,13 +17,11 @@ has branches => (
 );
 
 has current_level => (
-    is => 'rw',
     isa => 'TAEB::World::Level',
     handles => [qw/z/],
 );
 
 has cartographer => (
-    is      => 'rw',
     isa     => 'TAEB::World::Cartographer',
     default => sub {
         my $self = shift;

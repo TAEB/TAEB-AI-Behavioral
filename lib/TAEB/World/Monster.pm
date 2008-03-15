@@ -13,24 +13,20 @@ has id => (
 );
 
 has tile => (
-    is       => 'rw',
     isa      => 'TAEB::World::Tile',
     weak_ref => 1,
 );
 
 has type => (
-    is  => 'rw',
     isa => 'Str',
 );
 
 has peaceful => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
 has tame => (
-    is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );

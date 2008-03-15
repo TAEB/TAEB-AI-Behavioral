@@ -6,13 +6,11 @@ extends 'TAEB::Action';
 use constant command => "#dip\n";
 
 has item => (
-    is       => 'rw',
     isa      => 'TAEB::World::Item',
     required => 1,
 );
 
 has into => (
-    is      => 'rw',
     isa     => 'TAEB::World::Item | Str',
     default => 'fountain',
 );

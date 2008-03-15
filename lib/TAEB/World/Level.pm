@@ -4,7 +4,6 @@ use TAEB::OO;
 use TAEB::Util qw/deltas delta2vi vi2delta/;
 
 has tiles => (
-    is      => 'rw',
     isa     => 'ArrayRef[ArrayRef[TAEB::World::Tile]]',
     default => sub {
         my $self = shift;
@@ -18,18 +17,15 @@ has tiles => (
 );
 
 has branch => (
-    is       => 'rw',
     isa      => 'TAEB::World::Branch',
     weak_ref => 1,
 );
 
 has z => (
-    is  => 'rw',
     isa => 'Int',
 );
 
 has monsters => (
-    is      => 'rw',
     isa     => 'HashRef[TAEB::World::Monster]',
 );
 
