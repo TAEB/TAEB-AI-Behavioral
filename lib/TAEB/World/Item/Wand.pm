@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Wand;
-use TAEB::OO;
+use TAEB::OO 'install_spoilers';
 extends 'TAEB::World::Item';
 with 'TAEB::World::Item::Role::Chargeable';
 with 'TAEB::World::Item::Role::Erodable';
@@ -8,6 +8,8 @@ with 'TAEB::World::Item::Role::Erodable';
 has '+class' => (
     default => 'wand',
 );
+
+install_spoilers(qw/charges type/);
 
 make_immutable;
 no Moose;

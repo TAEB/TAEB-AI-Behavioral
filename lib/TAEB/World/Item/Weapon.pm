@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Weapon;
-use TAEB::OO;
+use TAEB::OO 'install_spoilers';
 extends 'TAEB::World::Item';
 with 'TAEB::World::Item::Role::Enchantable';
 with 'TAEB::World::Item::Role::Erodable';
@@ -15,6 +15,7 @@ has is_poisoned => (
     default => 0,
 );
 
+install_spoilers(qw/sdam ldam tohit hands/);
 make_immutable;
 no Moose;
 

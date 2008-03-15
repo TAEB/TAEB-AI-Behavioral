@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Food;
-use TAEB::OO;
+use TAEB::OO 'install_spoilers';
 extends 'TAEB::World::Item';
 
 has '+class' => (
@@ -18,6 +18,8 @@ has is_laid_by_you => (
     isa     => 'Bool',
     default => 0,
 );
+
+install_spoilers(qw/nutrition time/);
 
 make_immutable;
 no Moose;
