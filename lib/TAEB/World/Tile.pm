@@ -352,6 +352,7 @@ sub debug_draw_rock {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

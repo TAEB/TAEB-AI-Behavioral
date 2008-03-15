@@ -116,6 +116,7 @@ sub debug_display {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

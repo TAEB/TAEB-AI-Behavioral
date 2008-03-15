@@ -82,6 +82,7 @@ sub write {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

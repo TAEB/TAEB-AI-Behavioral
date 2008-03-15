@@ -103,6 +103,7 @@ sub each_orthogonal {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

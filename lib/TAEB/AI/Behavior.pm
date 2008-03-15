@@ -156,6 +156,7 @@ sub if_path {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

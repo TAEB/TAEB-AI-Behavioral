@@ -15,6 +15,7 @@ has is_chained_to_you => (
 );
 
 make_immutable;
+no Moose;
 
 1;
 

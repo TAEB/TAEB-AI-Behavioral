@@ -20,6 +20,7 @@ has dungeon => (
 );
 
 make_immutable;
+no Moose;
 
 1;
 

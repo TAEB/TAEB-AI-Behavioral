@@ -26,6 +26,7 @@ sub msg_throw_count {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

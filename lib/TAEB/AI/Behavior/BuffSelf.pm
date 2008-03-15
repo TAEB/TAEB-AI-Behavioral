@@ -51,6 +51,7 @@ sub msg_buff {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

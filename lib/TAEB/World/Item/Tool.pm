@@ -24,6 +24,7 @@ has candles_attached => (
 );
 
 make_immutable;
+no Moose;
 
 1;
 

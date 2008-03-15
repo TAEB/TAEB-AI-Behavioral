@@ -56,6 +56,7 @@ sub urgencies {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

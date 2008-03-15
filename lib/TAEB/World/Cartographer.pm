@@ -159,6 +159,7 @@ sub msg_dungeon_feature {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

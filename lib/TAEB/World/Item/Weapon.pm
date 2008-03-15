@@ -16,6 +16,7 @@ has is_poisoned => (
 );
 
 make_immutable;
+no Moose;
 
 1;
 

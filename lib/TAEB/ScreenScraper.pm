@@ -474,6 +474,7 @@ sub crow_flies {
 =cut
 
 make_immutable;
+no Moose;
 
 1;
 

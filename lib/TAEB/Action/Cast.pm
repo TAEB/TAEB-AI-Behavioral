@@ -20,6 +20,7 @@ sub respond_what_direction { shift->direction }
 sub respond_which_spell { shift->spell->slot }
 
 make_immutable;
+no Moose;
 
 1;
 

@@ -154,6 +154,7 @@ sub turn_messages {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

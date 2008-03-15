@@ -87,6 +87,7 @@ sub any_food {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

@@ -30,6 +30,7 @@ sub next_action {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

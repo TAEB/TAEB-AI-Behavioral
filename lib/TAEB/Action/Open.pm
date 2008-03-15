@@ -21,6 +21,7 @@ sub msg_door {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

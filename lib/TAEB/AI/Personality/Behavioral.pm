@@ -256,6 +256,7 @@ sub send_message {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

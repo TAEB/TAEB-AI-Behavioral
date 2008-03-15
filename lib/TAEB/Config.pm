@@ -119,6 +119,7 @@ sub AUTOLOAD {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

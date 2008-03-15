@@ -77,6 +77,7 @@ sub pickup {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

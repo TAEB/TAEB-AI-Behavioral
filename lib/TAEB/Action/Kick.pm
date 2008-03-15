@@ -8,6 +8,7 @@ with 'TAEB::Action::Role::Direction';
 use constant command => chr(4);
 
 make_immutable;
+no Moose;
 
 1;
 

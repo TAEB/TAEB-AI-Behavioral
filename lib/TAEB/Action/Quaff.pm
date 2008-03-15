@@ -42,6 +42,7 @@ sub done {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

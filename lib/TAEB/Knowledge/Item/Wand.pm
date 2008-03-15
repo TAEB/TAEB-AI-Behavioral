@@ -50,6 +50,7 @@ sub engrave_useful {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

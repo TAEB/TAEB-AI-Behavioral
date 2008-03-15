@@ -6,6 +6,7 @@ extends 'TAEB::Action';
 use constant command => '<';
 
 make_immutable;
+no Moose;
 
 1;
 

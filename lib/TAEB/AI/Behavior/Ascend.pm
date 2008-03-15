@@ -11,6 +11,7 @@ use constant tile_description => 'the upstairs';
 use constant using_urgency    => 'ascending';
 
 make_immutable;
+no Moose;
 
 1;
 

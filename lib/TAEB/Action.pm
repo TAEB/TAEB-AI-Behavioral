@@ -70,6 +70,7 @@ sub new_action {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

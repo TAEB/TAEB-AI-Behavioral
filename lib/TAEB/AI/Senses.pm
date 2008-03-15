@@ -246,6 +246,7 @@ sub msg_status_change {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

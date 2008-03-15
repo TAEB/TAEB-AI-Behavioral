@@ -41,6 +41,7 @@ sub respond_dip_into_what {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

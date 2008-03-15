@@ -185,6 +185,7 @@ sub telnet_negotiation {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

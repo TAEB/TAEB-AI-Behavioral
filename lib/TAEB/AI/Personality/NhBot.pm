@@ -131,6 +131,7 @@ sub random {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

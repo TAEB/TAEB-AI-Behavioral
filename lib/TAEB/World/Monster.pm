@@ -88,6 +88,7 @@ has shopkeeper => (
 );
 
 make_immutable;
+no Moose;
 
 1;
 

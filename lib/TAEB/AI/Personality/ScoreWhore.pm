@@ -53,6 +53,7 @@ sub weight_behaviors {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

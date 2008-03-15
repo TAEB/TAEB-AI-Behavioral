@@ -11,6 +11,7 @@ has '+class' => (
 );
 
 make_immutable;
+no Moose;
 
 1;
 

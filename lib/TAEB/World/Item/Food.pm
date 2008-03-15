@@ -20,6 +20,7 @@ has is_laid_by_you => (
 );
 
 make_immutable;
+no Moose;
 
 1;
 

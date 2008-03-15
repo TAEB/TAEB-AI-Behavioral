@@ -24,6 +24,7 @@ around weight_behaviors => sub {
 };
 
 make_immutable;
+no Moose;
 
 1;
 

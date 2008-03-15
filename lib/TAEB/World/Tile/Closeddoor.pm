@@ -14,6 +14,7 @@ has '+type' => (
 );
 
 make_immutable;
+no Moose;
 
 1;
 

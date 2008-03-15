@@ -127,6 +127,7 @@ sub respond_call_item     { "\n" }
 sub respond_really_attack { "y" }
 
 make_immutable;
+no Moose;
 
 1;
 

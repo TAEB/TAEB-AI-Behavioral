@@ -71,6 +71,7 @@ sub tile_description {
 }
 
 make_immutable;
+no Moose;
 
 1;
 

@@ -30,6 +30,7 @@ sub respond_write_what    { shift->text . "\n" }
 sub respond_add_engraving { 'y' }
 
 make_immutable;
+no Moose;
 
 1;
 

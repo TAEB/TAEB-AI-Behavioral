@@ -12,6 +12,7 @@ TAEB::AI::Personality::Quit - I just can't take it any more...
 sub next_action { "#quit\ny" }
 
 make_immutable;
+no Moose;
 
 1;
 
