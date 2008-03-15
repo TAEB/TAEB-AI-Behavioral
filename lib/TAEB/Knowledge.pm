@@ -59,8 +59,9 @@ sub msg_discovery {
     my $identity   = shift;
     my $appearance = shift;
 
-    # XXX: DOY SEND HELP
-    my ($class) = $identity =~ /^(.*?) of /;
+    my ($class) = $identity =~ /^(.*?) of /
+        or return;
+
     if (lc($class) eq 'scroll') {
         $appearance = "scroll labeled $appearance";
     }
