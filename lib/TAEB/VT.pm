@@ -87,6 +87,7 @@ Will join together all of the rows in the VT with the optional delimiter
 =cut
 
 sub as_string {
+    my $self = shift;
     my $delimiter = shift || '';
     my @rows;
 
