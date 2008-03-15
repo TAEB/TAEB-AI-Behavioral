@@ -108,10 +108,6 @@ sub get_response {
                     next unless defined $response;
 
                     TAEB->debug(blessed($responder) . " is responding to $name.");
-                    # XXX: yes this sets the responded flag on the
-                    # action, even if the personality is the one that
-                    # responds
-                    TAEB->action->responded_this_step(1);
                     return $response;
                 }
             }

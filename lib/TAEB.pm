@@ -258,19 +258,13 @@ sub step {
         $self->write("\e\eS");
     }
     elsif ($self->state eq 'playing') {
-        # if the action hasn't responded to anything, then we know it's done
-        my $reuse_action = $self->action && $self->action->responded_this_step;
-        $self->action->responded_this_step(0) if $self->action;
-
-        if (!$reuse_action) {
-            if ($self->action) {
-                $self->action->done;
-                $self->action(undef);
-            }
-
-            $self->personality->currently('?');
-            $self->action($self->personality->next_action);
+        if ($self->action) {
+            $self->action->done;
+            $self->action(undef);
         }
+
+        $self->personality->currently('?');
+        $self->action($self->personality->next_action);
 
         $self->out(
             "\e[23H%s\e[23H%s (%s)   \e[%d;%dH",
@@ -281,7 +275,7 @@ sub step {
             $self->x + 1,
         );
 
-        $self->write($self->action->run) unless $reuse_action;
+        $self->write($self->action->run);
     }
 }
 
