@@ -7,6 +7,8 @@ sub prepare {
     my $self = shift;
 
     my $have_action = 0;
+    my $ignore_doors = 0;
+
     my $locktool = TAEB->find_item('key')
                 || TAEB->find_item('lock pick')
                 || TAEB->find_item('credit card');
@@ -31,6 +33,7 @@ sub prepare {
             }
             # oh well
             else {
+                $ignore_doors = 1;
                 return;
             }
         }
@@ -40,6 +43,7 @@ sub prepare {
             $have_action = 1;
         }
     });
+    return 0 if $ignore_doors;
     return 100 if $have_action;
 
     my $path = TAEB::World::Path->first_match(sub {
