@@ -92,6 +92,7 @@ our @prompts = (
     qr/^What do you want to dip into\?/     => 'dip_into_what',
     qr/^What do you want to throw\?/        => 'throw_what',
     qr/^What do you want to wield\?/        => 'wield_what',
+    qr/^What do you want to use or apply\?/ => 'apply_what',
     qr/^In what direction\?/                => 'what_direction',
     qr/^What do you want to use or apply\?/ => 'apply_what',
     qr/^Lock it\?/                          => 'lock',
