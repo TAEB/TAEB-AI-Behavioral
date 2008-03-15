@@ -184,7 +184,8 @@ sub color {
     return $attr[0] + 8*$attr[2];
 }
 
-# make_immutable seems to break here!
+# make_immutable breaks here because we need to inherit the constructor from
+# Term::VT102
 
 1;
 
