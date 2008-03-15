@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge;
-use MooseX::Singleton;
+use TAEB::OO;
 
 use TAEB::Knowledge::Item;
 use TAEB::Knowledge::Item::Amulet;

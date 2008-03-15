@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use TAEB::Test;
 
-TAEB::Knowledge->msg_discovery('potion of sickness' => 'effervescent');
-TAEB::Knowledge->msg_discovery('scroll of enchant weapon' => 'KIRJE');
+TAEB->knowledge->msg_discovery('potion of sickness' => 'effervescent');
+TAEB->knowledge->msg_discovery('scroll of enchant weapon' => 'KIRJE');
 
 my @tests = (
     ["potion of sickness", {

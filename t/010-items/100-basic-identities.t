@@ -3,9 +3,9 @@ use strict;
 use warnings;
 use TAEB::Test tests => 33;
 
-ok(TAEB::Knowledge->appearances->{wand}{'balsa wand'}, "we have an appearance object for balsa wands");
+ok(TAEB->knowledge->appearances->{wand}{'balsa wand'}, "we have an appearance object for balsa wands");
 
-my $balsa = TAEB::Knowledge->appearances->{wand}{'balsa wand'};
+my $balsa = TAEB->knowledge->appearances->{wand}{'balsa wand'};
 my %balsa_poss = map { $_ => 1} TAEB::Spoilers::Item::Wand->all_identities;
 
 is_deeply([sort $balsa->possibilities], [sort keys %balsa_poss], "we start with all possibilities.. possible");
@@ -32,7 +32,7 @@ ok($balsa->has_possibility('wand of teleportation'), "yes! it's tele damnit, why
 
 # ------------------------------------------------------------------------------
 
-my $maple = TAEB::Knowledge->appearances->{wand}{'maple wand'};
+my $maple = TAEB->knowledge->appearances->{wand}{'maple wand'};
 my %maple_poss = map { $_ => 1} TAEB::Spoilers::Item::Wand->all_identities;
 delete $maple_poss{"wand of teleportation"}; # that's balsa!
 

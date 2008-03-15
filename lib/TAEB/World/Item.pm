@@ -93,7 +93,7 @@ has possibility_tracker => (
     default => sub {
         my $self = shift;
 
-        my $possibility_tracker = TAEB::Knowledge->appearances->{$self->class};
+        my $possibility_tracker = TAEB->knowledge->appearances->{$self->class};
         if (!$possibility_tracker) {
             TAEB->error($self->raw . " gives no possibility tracker for class " . $self->class);
             return;
@@ -187,8 +187,8 @@ sub new_item {
     # for now
     my $stats = "TAEB::Spoilers::Item::$class_name"->$class($item);
 
-    if (defined TAEB::Knowledge->appearance_of->{$item}) {
-        $new_item->appearance(TAEB::Knowledge->appearance_of->{$item});
+    if (defined TAEB->knowledge->appearance_of->{$item}) {
+        $new_item->appearance(TAEB->knowledge->appearance_of->{$item});
     }
     elsif (defined($stats) && defined($stats->{appearance})) {
         $new_item->appearance($stats->{appearance});

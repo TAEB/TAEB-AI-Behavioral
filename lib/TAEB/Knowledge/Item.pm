@@ -84,12 +84,12 @@ around exclude_possibility => sub {
         my $identity = shift @possibilities;
         TAEB->debug("($type, $appearance) is a '$identity'. Ruling it out of other appearances.");
 
-        for my $other (values %{ TAEB::Knowledge->appearances->{$type} }) {
+        for my $other (values %{ TAEB->knowledge->appearances->{$type} }) {
             next if $other->appearance eq $appearance;
             $other->rule_out($identity);
         }
 
-        TAEB::Knowledge->appearance_of->{$identity} = $appearance;
+        TAEB->knowledge->appearance_of->{$identity} = $appearance;
     }
 };
 

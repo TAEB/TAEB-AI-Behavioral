@@ -200,6 +200,12 @@ has action => (
     isa => 'Maybe[TAEB::Action]',
 );
 
+has knowledge => (
+    is      => 'rw',
+    isa     => 'TAEB::Knowledge',
+    default => sub { TAEB::Knowledge->new },
+);
+
 =head2 BUILD
 
 This will initialize L<Module::Refresh>.
