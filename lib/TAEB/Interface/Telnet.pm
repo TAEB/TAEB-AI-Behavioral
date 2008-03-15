@@ -110,6 +110,7 @@ sub read {
         print { $self->socket } join '', 'l',
                                          $self->account,  "\n",
                                          $self->password, "\n",
+                                         '1', # for multi-game DGL
                                          'p';
         TAEB->debug("Logging in as " . $self->account);
         $self->sent_login(1);
