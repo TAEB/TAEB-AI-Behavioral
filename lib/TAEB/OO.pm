@@ -2,19 +2,41 @@
 package TAEB::OO;
 use Moose;
 use TAEB::Meta::Class;
+use Sub::Exporter;
+use Sub::Name;
 
-sub import {
-    my $caller = caller;
+{
+    my $CALLER;
 
-    strict->import;
-    warnings->import;
+    my %exports = (
+        install_spoilers => sub {
+            return subname 'TAEB::OO::install_spoilers' => sub {
+                for my $field (@_) {
+                    $CALLER->meta->add_method($field => sub {
+                        shift->lookup_spoiler($field);
+                    });
+                }
+            };
+        },
+    );
 
-    return if $caller eq 'main';
+    my $exporter = Sub::Exporter::build_exporter({
+        exports => \%exports,
+    });
 
-    Moose::init_meta($caller, 'Moose::Object', 'TAEB::Meta::Class');
-    Moose->import({into => $caller});
+    sub import {
+        $CALLER = caller;
 
-    return 1;
+        strict->import;
+        warnings->import;
+
+        return if $CALLER eq 'main';
+
+        Moose::init_meta($CALLER, 'Moose::Object', 'TAEB::Meta::Class');
+        Moose->import({into => $CALLER});
+
+        goto $exporter;
+    };
 }
 
 1;
