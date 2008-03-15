@@ -150,7 +150,7 @@ sub find_statuses {
     my $status = TAEB->vt->row_plaintext(22);
     my $botl   = TAEB->vt->row_plaintext(23);
 
-    $self->in_wereform($status =~ /^TAEB the Were/ ? 1 : 0);
+    $self->in_wereform($status =~ /^\S+ the Were/ ? 1 : 0);
 
     # we can definitely know some things about our nutrition
     if ($botl =~ /\bSat/) {
