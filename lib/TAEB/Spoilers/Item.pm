@@ -210,5 +210,22 @@ sub pluralize {
     return $self->plural_of_list->{$item} || $item;
 }
 
+sub stats {
+    my $self  = shift;
+    my $item  = shift;
+    my $field = shift;
+
+    my $type = $self->list->{$item}
+        or return;
+
+    my $pkg = "TAEB::Spoilers::Item::\u$type";
+    my $stats = $pkg->list->{$item};
+
+    if ($field) {
+        return $stats->{$field};
+    }
+    return $stats;
+}
+
 1;
 
