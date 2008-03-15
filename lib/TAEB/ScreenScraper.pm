@@ -266,6 +266,7 @@ sub handle_menus {
         $menu->select_count('none');
         TAEB->current_tile->items([]);
         my $skip = 1;
+        TAEB->enqueue_message('clear_floor' => $item);
         $selector = sub {
             my $personality = shift;
             my $slot        = shift;
