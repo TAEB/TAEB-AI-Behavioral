@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior;
 use TAEB::OO;
-use Scalar::Defer 'defer';
 
 has currently => (
     isa => 'Str',

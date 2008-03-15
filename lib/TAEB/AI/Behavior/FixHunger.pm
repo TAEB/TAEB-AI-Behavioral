@@ -2,7 +2,6 @@
 package TAEB::AI::Behavior::FixHunger;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
-use Scalar::Defer 'defer';
 
 sub prepare {
     my $self = shift;
