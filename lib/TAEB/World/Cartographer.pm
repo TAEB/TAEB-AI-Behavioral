@@ -155,6 +155,20 @@ sub msg_dungeon_feature {
     $tile->floor_glyph($floor);
 }
 
+sub msg_clear_floor {
+    my $self = shift;
+    my $item = shift;
+
+    TAEB->current_tile->clear_items;
+}
+
+sub msg_floor_item {
+    my $self = shift;
+    my $item = shift;
+
+    TAEB->current_tile->add_item($item);
+}
+
 make_immutable;
 no Moose;
 
