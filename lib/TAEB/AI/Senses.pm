@@ -53,7 +53,7 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has [qw/is_blind is_stunned is_confused is_hallucinating/] => (
+has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic/] => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
@@ -150,7 +150,13 @@ sub find_statuses {
     my $status = TAEB->vt->row_plaintext(22);
     my $botl   = TAEB->vt->row_plaintext(23);
 
-    $self->in_wereform($status =~ /^\S+ the Were/ ? 1 : 0);
+    if ($status =~ /^\S+ the Were/) {
+        $self->in_wereform(1);
+        $self->is_lycanthropic(1);
+    }
+    else {
+        $self->in_wereform(0);
+    }
 
     # we can definitely know some things about our nutrition
     if ($botl =~ /\bSat/) {
@@ -227,6 +233,16 @@ sub msg_walked {
 sub msg_turn {
     my $self = shift;
     $self->nutrition($self->nutrition - 1);
+}
+
+sub msg_status_change {
+    my $self     = shift;
+    my $status   = shift;
+    my $now_have = shift;
+
+    if ($status eq 'lycanthropy') {
+        $self->is_lycanthropic($now_have);
+    }
 }
 
 make_immutable;

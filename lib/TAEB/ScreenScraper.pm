@@ -8,6 +8,10 @@ our %msg_string = (
         ['status_change', 'blindness', 1],
     "You can see again." =>
         ['status_change', 'blindness', 0],
+    "You feel feverish." =>
+        ['status_change', 'lycanthropy', 1],
+    "You feel purified." =>
+        ['status_change', 'lycanthropy', 0],
     "From the murky depths, a hand reaches up to bless the sword." =>
         ['excalibur'],
     "The fountain dries up!" =>
