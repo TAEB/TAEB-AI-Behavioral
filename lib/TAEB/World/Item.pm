@@ -282,7 +282,7 @@ sub lookup_spoiler {
         push @values, TAEB::Spoilers::Item->stats($_, $field);
     }
 
-    return uniq @values;
+    return uniq grep { defined } @values;
 }
 
 install_spoilers(qw/weight cost edible artifact material/);
