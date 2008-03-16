@@ -65,8 +65,8 @@ has elbereths => (
     default => 0,
 );
 
-has interesting => (
-    isa     => 'Bool',
+has interesting_at => (
+    isa     => 'Int',
     default => 0,
 );
 
@@ -139,6 +139,9 @@ sub update {
     if ($newtype eq 'obscured') {
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
+
+        # XXX: will this break when we improve has_monster?
+        $self->interesting_at(TAEB->turn) unless $self->has_monster;
 
         $self->type('obscured') if $oldtype eq 'rock' || $oldtype eq 'closeddoor';
         return;
