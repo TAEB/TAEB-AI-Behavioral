@@ -72,7 +72,6 @@ sub pickup {
         return 1 if $item->identity eq $unlocker;
     }
 
-    TAEB->warning("Fell off Doors->pickup.");
     return 0;
 }
 
