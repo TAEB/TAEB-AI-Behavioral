@@ -482,7 +482,17 @@ sub keypress {
 
             # draw some info about the tile at the top
             $self->out("\e[H");
-            $self->out(sprintf '(%d, %d) g="%s" f="%s" t="%s" i=%d c="%s"', $x, $y, $tile->glyph, $tile->floor_glyph, $tile->type, $tile->item_count, $class);
+            $self->out(
+                sprintf '(%d, %d) g="%s" f="%s" t="%s" i=%d%s c="%s"',
+                        $x,
+                        $y,
+                        $tile->glyph,
+                        $tile->floor_glyph,
+                        $tile->type,
+                        $tile->item_count,
+                        $tile->might_have_new_item ? '*' : '',
+                        $class,
+            );
             $self->out(sprintf "\e[K\e[%d;%dH", $y+1, $x+1);
 
             # where to next?
