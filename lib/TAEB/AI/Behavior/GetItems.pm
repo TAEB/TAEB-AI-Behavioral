@@ -3,12 +3,12 @@ package TAEB::AI::Behavior::GetItems;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
-use List::MoreUtils 'any';
-
 sub prepare {
     my $self = shift;
 
-    if (any { TAEB->want_item($_) } TAEB->current_tile->items) {
+    my @want = grep { TAEB->want_item($_) } TAEB->current_tile->items;
+    if (@want) {
+        TAEB->debug("TAEB wants items! @want");
         $self->currently("Picking up items");
         $self->do("pickup");
         return 100;
