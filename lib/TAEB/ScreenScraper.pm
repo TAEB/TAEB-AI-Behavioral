@@ -235,7 +235,7 @@ sub handle_menus {
         $selector = sub {
             my $item = TAEB::World::Item->new_item($_);
             TAEB->enqueue_message('floor_item' => $item);
-            TAEB->personality->pickup($item);
+            TAEB->want_item($item);
         };
     }
     elsif (TAEB->topline =~ /^\s*Discoveries\s*$/) {
