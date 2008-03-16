@@ -171,7 +171,7 @@ has constant_appearances => (
         my $self = shift;
         my $appearances = {};
         while (my ($item, $stats) = each %{ $self->list }) {
-            next if $item =~ /(?:tin|egg)/;
+            next if $item =~ /\b(?:tin|egg)\b/;
             $appearances->{$stats->{appearance}} = $stats->{name}
         }
         return $appearances;
