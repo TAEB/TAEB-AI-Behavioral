@@ -265,8 +265,15 @@ sub lookup_spoiler {
     my $field = shift;
     my @values;
 
-    for ($self->possibilities) {
-        push @values, grep { defined } TAEB::Spoilers::Item->stats($_, $field);
+    if (my $stats = TAEB::Spoilers::Item->stats($self->appearance)) {
+        push @values, grep { defined }
+                      $stats->{$field};
+    }
+    else {
+        for ($self->possibilities) {
+            push @values, grep { defined }
+                          TAEB::Spoilers::Item->stats($_, $field);
+        }
     }
 
     if (wantarray) {
