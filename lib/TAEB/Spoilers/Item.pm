@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Spoilers::Item;
 use MooseX::Singleton;
-use List::MoreUtils 'any';
 
 use TAEB::Spoilers::Item::Armor;
 use TAEB::Spoilers::Item::Artifact;
