@@ -64,7 +64,7 @@ sub done {
         $food = TAEB::World::Item->new_item($food);
     }
 
-    TAEB->debug("That food just increased our nutrition by " . $food->nutrition);
+    TAEB->debug("Eating $food is increasing our nutrition by " . $food->nutrition);
     TAEB->senses->nutrition(TAEB->senses->nutrition + $food->nutrition);
 }
 
