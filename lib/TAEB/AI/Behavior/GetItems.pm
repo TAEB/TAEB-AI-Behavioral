@@ -2,6 +2,7 @@
 package TAEB::AI::Behavior::GetItems;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
+use List::MoreUtils 'any';
 
 sub prepare {
     my $self = shift;
