@@ -345,6 +345,12 @@ sub debug_draw_rock {
     $self->type eq 'rock' ? '*' : $self->glyph
 }
 
+sub might_have_new_item {
+    my $self = shift;
+    return $self->interesting_at > $self->last_stepped + 1
+        || $self->type eq 'obscured' && $self->last_stepped == 0;
+}
+
 make_immutable;
 no Moose;
 
