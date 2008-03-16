@@ -82,8 +82,9 @@ has items => (
     default    => sub { [] },
     auto_deref => 1,
     provides   => {
-        push  => 'add_item',
-        clear => 'clear_items',
+        push   => 'add_item',
+        clear  => 'clear_items',
+        delete => 'remove_item',
     },
 );
 
