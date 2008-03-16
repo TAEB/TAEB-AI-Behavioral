@@ -74,6 +74,17 @@ sub prepare {
     return 0;
 }
 
+sub pickup {
+    my $self = shift;
+    my $item = shift;
+
+    for (@can_fix) {
+        return 1 if $item->identity eq $_;
+    }
+
+    return;
+}
+
 sub urgencies {
     return {
        100 => "using a unicorn horn to fix status effects",

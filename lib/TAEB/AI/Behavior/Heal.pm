@@ -8,7 +8,7 @@ sub prepare {
 
     if (TAEB->hp * 2 <= TAEB->maxhp) {
         my $spell = TAEB->find_castable("healing")
-                || TAEB->find_castable("extra healing");
+                 || TAEB->find_castable("extra healing");
         if ($spell) {
             $self->do(cast => spell => $spell, direction => ".");
             $self->currently("Casting heal at myself.");
@@ -18,8 +18,8 @@ sub prepare {
         # we've probably been writing Elbereth a bunch, so find a healing potion
         if (TAEB->hp * 3 < TAEB->maxhp) {
             my $potion = TAEB->find_item("potion of healing")
-                    || TAEB->find_item("potion of extra healing")
-                    || TAEB->find_item("potion of full healing");
+                      || TAEB->find_item("potion of extra healing")
+                      || TAEB->find_item("potion of full healing");
             if ($potion) {
                 $self->do(quaff => from => $potion);
                 $self->currently("Quaffing a $potion");
@@ -45,6 +45,17 @@ sub prepare {
     }
 
     return 0;
+}
+
+sub pickup {
+    my $self = shift;
+    my $item = shift;
+
+    for (map { "potion of $_" } 'healing', 'extra healing', 'full healing') {
+        return 1 if $item->identity eq $_;
+    }
+
+    return;
 }
 
 sub urgencies {
