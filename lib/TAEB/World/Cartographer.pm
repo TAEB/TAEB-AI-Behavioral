@@ -178,7 +178,7 @@ sub msg_got_item {
     # remove slot
     (my $raw = $item->raw) =~ s/^. - //;
 
-    for my $i (0 .. TAEB->current_tile->item_count) {
+    for my $i (0 .. TAEB->current_tile->item_count - 1) {
         (my $item = TAEB->current_tile->items->[$i]->raw) =~ s/^. - //;
         if ($raw eq $item) {
             TAEB->current_tile->remove_item($i);
