@@ -177,7 +177,7 @@ sub msg_got_item {
     (my $raw = $item->raw) =~ s/^. - //;
 
     for (my $i = 0; $i < TAEB->current_tile->items; ++$i) {
-        (my $item = TAEB->current_tile->items->[$i]) =~ s/^. - //;
+        (my $item = TAEB->current_tile->items->[$i]->raw) =~ s/^. - //;
         if ($raw eq $item) {
             TAEB->current_tile->remove_item($i);
             return;
