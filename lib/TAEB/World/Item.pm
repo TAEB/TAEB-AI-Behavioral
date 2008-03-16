@@ -266,10 +266,24 @@ sub lookup_spoiler {
     my @values;
 
     for ($self->possibilities) {
-        push @values, TAEB::Spoilers::Item->stats($_, $field);
+        push @values, grep { defined } TAEB::Spoilers::Item->stats($_, $field);
     }
 
-    return uniq grep { defined } @values;
+    if (wantarray) {
+        return uniq @values;
+    }
+    else {
+        my %seen;
+        $seen{$_}++
+            for @values;
+
+        my $max = $values[0];
+        for (keys %seen) {
+            $max = $_ if $seen{$_} > $seen{$max};
+        }
+
+        return $max;
+    }
 }
 
 install_spoilers(qw/weight cost edible artifact material/);
