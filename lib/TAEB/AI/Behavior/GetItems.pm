@@ -19,7 +19,7 @@ sub prepare {
         my $tile = shift;
         $tile->is_walkable or return;
 
-        return 1 if $tile->interesting_at > $tile->last_stepped;
+        return 1 if $tile->interesting_at > $tile->last_stepped + 1;
 
         return any { TAEB->want_item($_) } $tile->items;
     });
