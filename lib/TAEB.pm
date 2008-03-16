@@ -21,6 +21,7 @@ use TAEB::Action;
 use TAEB::Publisher;
 
 use Module::Refresh;
+use Term::ReadKey;
 
 =head1 NAME
 
@@ -357,7 +358,24 @@ sub process_input {
     $self->scraper->scrape
         if $scrape && $self->state ne 'logging_in';
 
+    $self->human_input;
+
     return $input;
+}
+
+sub human_input {
+    my $self = shift;
+
+    my $c = Term::ReadKey::ReadKey($self->read_wait)
+        unless Scalar::Util::blessed($self->personality) =~ /\bHuman\b/;
+    if (defined $c) {
+        my $out = $self->keypress($c);
+        if (defined $out) {
+            $self->out("\e[2H\e[44m$out");
+            sleep 3;
+            $self->out($self->redraw);
+        }
+    }
 }
 
 =head2 keypress Str

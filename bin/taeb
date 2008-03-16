@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use lib 'lib';
 use Getopt::Whatever;
-use Term::ReadKey;
 
 use TAEB;
 
@@ -53,7 +52,7 @@ $SIG{__WARN__} = sub { TAEB->warning(@_) };
 $SIG{__DIE__} = sub {
     return if "@_ $_" =~ /Game over, man/;
     require Carp::REPL;
-    ReadMode 0;
+    Term::ReadKey::ReadMode 0;
     print "\ec";
     warn "@_";
     Carp::REPL::repl(@_);
@@ -62,7 +61,7 @@ $SIG{__DIE__} = sub {
 my $tstp = $SIG{TSTP} = sub {
 
     # restore regular line-based ReadMode for shell commands
-    ReadMode 0;
+    Term::ReadKey::ReadMode 0;
 
     # if we don't invoke TSTP then we won't be suspended
     $SIG{TSTP} = 'DEFAULT';
@@ -73,7 +72,7 @@ $SIG{CONT} = sub {
     $SIG{TSTP} = $tstp;
 
     # restore character-based ReadMode for TAEB input
-    ReadMode 3;
+    Term::ReadKey::ReadMode 3;
 
     # redraw the screen
     print TAEB->redraw;
@@ -81,21 +80,11 @@ $SIG{CONT} = sub {
 
 $TAEB::ToScreen = 1;
 $| = 1;
-ReadMode 3;
-END { ReadMode 0 }
+Term::ReadKey::ReadMode 3;
+END { Term::ReadKey::ReadMode 0 }
 # }}}
 
 while (1) {
     TAEB->step;
-    my $c = ReadKey(TAEB->read_wait)
-        unless Scalar::Util::blessed(TAEB->personality) =~ /\bHuman\b/;
-    if (defined $c) {
-        my $out = TAEB->keypress($c);
-        if (defined $out) {
-            TAEB->out("\e[2H\e[44m$out");
-            sleep 3;
-            TAEB->out(TAEB->redraw);
-        }
-    }
 }
 
