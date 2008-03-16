@@ -86,6 +86,8 @@ sub check_dlvl {
 
         my $branch = $self->dungeon->branches->{dungeons};
         $self->dungeon->current_level($branch->levels->[$dlvl] ||= TAEB::World::Level->new(branch => $branch, z => $dlvl));
+
+        TAEB->enqueue_message('dlvl_change', $level->z => $dlvl);
     }
 }
 

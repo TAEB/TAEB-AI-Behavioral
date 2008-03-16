@@ -137,6 +137,10 @@ sub update {
         return;
     }
 
+    return if $oldtype eq $newtype && $self->floor_glyph eq $newglyph;
+
+    TAEB->enqueue_message('tile_update' => $self);
+
     # so this is definitely a dungeon feature, since glyph_to_type returned
     # something other than 'obscured'
     $self->type($newtype);
