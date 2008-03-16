@@ -10,50 +10,50 @@ has list => (
     default => sub {
         my $amulets = {
             'Eye of the Aethiopica' => {
-                cost   => 4000,
+                base   => 4000,
                 edible => 1,
                 artifact => 1,
             },
             'amulet of change' => {
-                cost   => 150,
+                base   => 150,
                 edible => 1,
             },
             'amulet of ESP' => {
-                cost   => 150,
+                base   => 150,
                 edible => 1,
             },
             'amulet of life saving' => {
-                cost   => 150,
+                base   => 150,
             },
             'amulet of magical breathing' => {
-                cost   => 150,
+                base   => 150,
                 edible => 1,
             },
             'amulet of reflection' => {
-                cost   => 150,
+                base   => 150,
             },
             'amulet of restful sleep' => {
-                cost   => 150,
+                base   => 150,
                 edible => 1,
             },
             'amulet of strangulation' => {
-                cost   => 150,
+                base   => 150,
                 edible => 1,
             },
             'amulet of unchanging' => {
-                cost   => 150,
+                base   => 150,
                 edible => 1,
             },
             'amulet versus poison' => {
-                cost   => 150,
+                base   => 150,
                 edible => 1,
             },
             'cheap plastic imitation Amulet of Yendor' => {
-                cost   => 0,
+                base   => 0,
                 appearance => 'Amulet of Yendor',
             },
             'Amulet of Yendor' => {
-                cost   => 30000,
+                base   => 30000,
                 appearance => 'Amulet of Yendor',
             },
         };

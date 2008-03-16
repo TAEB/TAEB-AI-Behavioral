@@ -11,13 +11,13 @@ has list => (
     default => sub {
         my $other = {
             'gold piece' => {
-                cost   => 1,
+                base   => 1,
                 weight => 0.01,
                 glyph  => '$',
                 plural => 'gold pieces',
             },
             'boulder' => {
-                cost      => 0,
+                base      => 0,
                 weight    => 6000,
                 glyph     => '0',
                 sdam      => 'd20',
@@ -26,7 +26,7 @@ has list => (
                 plural    => 'boulders',
             },
             'statue' => {
-                cost      => 0,
+                base      => 0,
                 weight    => 900,
                 glyph     => '`',
                 sdam      => 'd20',
@@ -35,7 +35,7 @@ has list => (
                 plural    => 'statues',
             },
             'heavy iron ball' => {
-                cost      => 10,
+                base      => 10,
                 weight    => 480,
                 glyph     => '0',
                 sdam      => 'd25',
@@ -44,7 +44,7 @@ has list => (
                 plural    => 'heavy iron balls',
             },
             'iron chain' => {
-                cost      => 0,
+                base      => 0,
                 weight    => 120,
                 glyph     => '_',
                 sdam      => 'd4+1',
@@ -53,7 +53,7 @@ has list => (
                 plural    => 'iron chains',
             },
             'acid venom' => {
-                cost   => 0,
+                base   => 0,
                 weight => 1,
                 glyph  => '.',
                 color  => COLOR_BROWN,
@@ -62,7 +62,7 @@ has list => (
                 plural => 'acid venoms',
             },
             'blinding venom' => {
-                cost   => 0,
+                base   => 0,
                 weight => 1,
                 glyph  => '.',
                 color  => COLOR_BROWN,

@@ -10,83 +10,83 @@ has list => (
     default => sub {
         my $potions = {
             'potion of booze' => {
-                cost => 50,
+                base => 50,
             },
             'potion of fruit juice' => {
-                cost => 50,
+                base => 50,
             },
             'potion of see invisible' => {
-                cost => 50,
+                base => 50,
             },
             'potion of sickness' => {
-                cost => 50,
+                base => 50,
             },
             'potion of confusion' => {
-                cost => 100,
+                base => 100,
             },
             'potion of extra healing' => {
-                cost => 100,
+                base => 100,
             },
             'potion of hallucination' => {
-                cost => 100,
+                base => 100,
             },
             'potion of healing' => {
-                cost => 100,
+                base => 100,
             },
             'potion of restore ability' => {
-                cost => 100,
+                base => 100,
             },
             'potion of sleeping' => {
-                cost => 100,
+                base => 100,
             },
             'potion of water' => {
-                cost       => 100,
+                base       => 100,
                 appearance => 'clear potion',
             },
             'potion of blindness' => {
-                cost => 150,
+                base => 150,
             },
             'potion of gain energy' => {
-                cost => 150,
+                base => 150,
             },
             'potion of invisibility' => {
-                cost => 150,
+                base => 150,
             },
             'potion of monster detection' => {
-                cost => 150,
+                base => 150,
             },
             'potion of object detection' => {
-                cost => 150,
+                base => 150,
             },
             'potion of enlightenment' => {
-                cost => 200,
+                base => 200,
             },
             'potion of full healing' => {
-                cost => 200,
+                base => 200,
             },
             'potion of levitation' => {
-                cost => 200,
+                base => 200,
             },
             'potion of polymorph' => {
-                cost => 200,
+                base => 200,
             },
             'potion of speed' => {
-                cost => 200,
+                base => 200,
             },
             'potion of acid' => {
-                cost => 250,
+                base => 250,
             },
             'potion of oil' => {
-                cost => 250,
+                base => 250,
             },
             'potion of gain ability' => {
-                cost => 300,
+                base => 300,
             },
             'potion of gain level' => {
-                cost => 300,
+                base => 300,
             },
             'potion of paralysis' => {
-                cost => 300,
+                base => 300,
             },
         };
 

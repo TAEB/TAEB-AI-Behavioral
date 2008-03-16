@@ -293,7 +293,7 @@ sub lookup_spoiler {
     }
 }
 
-install_spoilers(qw/weight cost edible artifact material/);
+install_spoilers(qw/weight base edible artifact material/);
 
 make_immutable;
 no Moose;
