@@ -19,7 +19,8 @@ sub prepare {
         my $tile = shift;
         $tile->is_walkable or return;
 
-        return 1 if $tile->interesting_at > $tile->last_stepped + 1;
+        return 1 if $tile->interesting_at > $tile->last_stepped + 1
+                 || $tile->type eq 'obscured' && $tile->last_stepped == 0;
 
         return any { TAEB->want_item($_) } $tile->items;
     });
