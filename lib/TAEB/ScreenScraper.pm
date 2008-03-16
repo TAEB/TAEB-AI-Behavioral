@@ -69,6 +69,10 @@ our @msg_regex = (
         qr/^(?:A|Your) bear trap closes on your|You are caught in a bear trap/,
             ['beartrap'],
     ],
+    [
+        qr/^You see here (.*?)\./,
+            ['floor_item', sub { TAEB::World::Item->new_item($1) }],
+    ],
 );
 
 our @god_anger = (
