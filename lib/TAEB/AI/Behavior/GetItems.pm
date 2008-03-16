@@ -16,7 +16,12 @@ sub prepare {
     }
 
     my $path = TAEB::World::Path->first_match(sub {
-        return any { TAEB->want_item($_) } shift->items;
+        my $tile = shift;
+        $tile->is_walkable or return;
+
+        return 1 $tile->interesting_at > $tile->last_stepped;
+
+        return any { TAEB->want_item($_) } $tile->items;
     });
 
     $self->if_path($path => "Heading towards an item");
