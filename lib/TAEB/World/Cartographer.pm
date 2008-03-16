@@ -169,6 +169,24 @@ sub msg_floor_item {
     TAEB->current_tile->add_item($item);
 }
 
+sub msg_got_item {
+    my $self = shift;
+    my $item = shift;
+
+    # remove slot
+    (my $raw = $item->raw) =~ s/^. - //;
+
+    for (my $i = 0; $i < TAEB->current_tile->items; ++$i) {
+        (my $item = TAEB->current_tile->items->[$i]) =~ s/^. - //;
+        if ($raw eq $item) {
+            TAEB->current_tile->remove_item($i);
+            return;
+        }
+    }
+
+    TAEB->error("Unable to remove $item from the floor. Did we just pick it up or no?");
+}
+
 make_immutable;
 no Moose;
 
