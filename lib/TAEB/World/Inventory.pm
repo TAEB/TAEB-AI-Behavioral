@@ -119,6 +119,7 @@ sub msg_got_item {
     my $self = shift;
     my $item = shift;
 
+    return if $item->appearance eq 'gold piece';
     $self->update($item->slot => $item);
 }
 
