@@ -115,6 +115,13 @@ sub debug_display {
     return join "\n", @items;
 }
 
+sub msg_got_item {
+    my $self = shift;
+    my $item = shift;
+
+    $self->update($item->slot => $item);
+}
+
 make_immutable;
 no Moose;
 

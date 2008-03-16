@@ -75,6 +75,10 @@ our @msg_regex = (
         qr/^You see here (.*?)\./,
             ['floor_item', sub { TAEB::World::Item->new_item($1) }],
     ],
+    [
+        qr/^(. - .*?)\.$/,
+            ['got_item', sub { TAEB::World::Item->new_item($1) }],
+    ],
 );
 
 our @god_anger = (
