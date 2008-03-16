@@ -426,6 +426,8 @@ sub keypress {
             # turn off Term::ReadKey
             Term::ReadKey::ReadMode(0);
 
+            $ENV{PERL_RL} ||= TAEB->config->readline;
+
             no warnings 'redefine';
             require Devel::REPL::Script;
             local $TAEB::ToScreen;
