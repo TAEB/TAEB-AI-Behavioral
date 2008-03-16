@@ -89,6 +89,12 @@ has items => (
     },
 );
 
+has last_stepped => (
+    isa           => 'Int',
+    default       => 0,
+    documentation => "The last turn that we were on this tile",
+);
+
 =head2 basic_cost -> Int
 
 This returns the basic cost of entering a tile. It's not very smart, but it
@@ -226,6 +232,7 @@ sub step_on {
 
     $self->stepped_on($self->stepped_on + 1);
     $self->explored(1);
+    $self->last_stepped(TAEB->turn);
 }
 
 sub each_adjacent {
