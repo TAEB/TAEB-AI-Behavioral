@@ -85,6 +85,7 @@ has items => (
         push   => 'add_item',
         clear  => 'clear_items',
         delete => 'remove_item',
+        count  => 'item_count',
     },
 );
 
