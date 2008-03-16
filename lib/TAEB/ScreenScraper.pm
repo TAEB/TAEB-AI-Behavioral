@@ -46,6 +46,8 @@ our %msg_string = (
         ['door', 'interrupted_unlocking'],
     "You stop unlocking the door." =>
         ['door', 'interrupted_unlocking'],
+    "There is nothing here to pick up." =>
+        ['clear_floor'],
 );
 
 our @msg_regex = (
