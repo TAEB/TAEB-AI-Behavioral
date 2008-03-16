@@ -76,7 +76,7 @@ our @msg_regex = (
             ['floor_item', sub { TAEB::World::Item->new_item($1) }],
     ],
     [
-        qr/^(. - .*?)\.$/,
+        qr/^(. - .*?|\d+ gold pieces?)\.$/,
             ['got_item', sub { TAEB::World::Item->new_item($1) }],
     ],
 );
