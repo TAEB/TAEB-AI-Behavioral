@@ -69,7 +69,7 @@ has is_quivered => (
     default => 0,
 );
 
-has cost => (
+has price => (
     isa     => 'Int',
     default => 0,
 );
@@ -108,7 +108,7 @@ sub new_item {
     my ($slot, $num, $buc, $greased, $poisoned, $ero1, $ero2, $proof, $used,
         $eaten, $dilute, $spe, $item, $call, $name, $recharges, $charges,
         $ncandles, $lit_candelabrum, $lit, $laid, $chain, $quiver, $offhand,
-        $wield, $wear, $cost) = $raw =~
+        $wield, $wear, $price) = $raw =~
         m{^                                                # anchor the regex
           (?:([\w\#\$])\s[+-]\s)?\s*                       # inventory slot
           (an?|the|\d+)?\s*                                # number
@@ -233,7 +233,7 @@ sub new_item {
     $new_item->is_chained_to_you(1)        if defined $chain;
     $new_item->is_wielding(1)              if defined $wield;
     $new_item->is_wearing(1)               if defined $wear;
-    $new_item->cost($cost)                 if defined $cost;
+    $new_item->price($price)               if defined $price;
 
     return $new_item;
 }
