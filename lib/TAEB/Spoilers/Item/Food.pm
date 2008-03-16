@@ -130,7 +130,6 @@ has list => (
         my $monsterlist = TAEB::Spoilers::Monster->list;
         while (my ($name, $stats) = each %$monsterlist) {
             $foods->{"$name corpse"}             = $stats->{corpse};
-            $foods->{"$name corpse"}{appearance} = "$name corpse";
             $foods->{"$name corpse"}{corpse}     = 1;
             $foods->{"$name corpse"}{plural}     = "$name corpses";
 
