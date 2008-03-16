@@ -215,7 +215,7 @@ This will initialize L<Module::Refresh>.
 sub BUILD {
     my $self = shift;
 
-    Module::Refresh->new;
+    Module::Refresh->refresh;
 }
 
 =head2 step
