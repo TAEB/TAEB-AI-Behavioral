@@ -73,11 +73,11 @@ our @msg_regex = (
     ],
     [
         qr/^You see here (.*?)\./,
-            ['floor_item', sub { TAEB::World::Item->new_item($1) }],
+            ['floor_item', sub { TAEB->new_item($1) }],
     ],
     [
         qr/^(. - .*?|\d+ gold pieces?)\.$/,
-            ['got_item', sub { TAEB::World::Item->new_item($1) }],
+            ['got_item', sub { TAEB->new_item($1) }],
     ],
 );
 
@@ -233,7 +233,7 @@ sub handle_menus {
     if (TAEB->topline =~ /Pick up what\?/) {
         TAEB->enqueue_message('clear_floor');
         $selector = sub {
-            my $item = TAEB::World::Item->new_item($_);
+            my $item = TAEB->new_item($_);
             TAEB->enqueue_message('floor_item' => $item);
             TAEB->want_item($item);
         };
@@ -288,7 +288,7 @@ sub handle_menus {
             do { $skip = 0; return } if /^\s*Things that are here:/;
             return if $skip;
 
-            my $item = TAEB::World::Item->new_item($_);
+            my $item = TAEB->new_item($_);
             TAEB->debug("Adding $item to the current tile.");
             TAEB->enqueue_message('floor_item' => $item);
             return 0;
@@ -318,7 +318,7 @@ sub handle_menus {
         $selector = sub {
             my $personality = shift;
             my $slot        = shift;
-            my $item        = TAEB::World::Item->new_item($_);
+            my $item        = TAEB->new_item($_);
 
             # if we can drop the item, drop it!
             return 1 if TAEB->personality->drop($item);

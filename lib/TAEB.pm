@@ -633,5 +633,10 @@ around personality => sub {
     return $self->$orig(@_);
 };
 
+sub new_item {
+    my $self = shift;
+    TAEB::World::Item->new_item(@_);
+}
+
 1;
 

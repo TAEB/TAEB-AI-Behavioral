@@ -61,7 +61,7 @@ sub done {
         TAEB->inventory->decrease_quantity($food->slot)
     }
     else {
-        $food = TAEB::World::Item->new_item($food);
+        $food = TAEB->new_item($food);
     }
 
     TAEB->debug("Eating $food is increasing our nutrition by " . $food->nutrition);

@@ -29,7 +29,7 @@ sub test_items {
         my $appearance = shift @$test;
         my %expected = @$test == 1 ? %{ $test->[0] } : @$test;
 
-        my $item = eval { TAEB::World::Item->new_item($appearance) };
+        my $item = eval { TAEB->new_item($appearance) };
         warn $@ if $@;
 
         while (my ($attr, $attr_expected) = each %expected) {
