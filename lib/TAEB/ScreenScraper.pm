@@ -231,8 +231,11 @@ sub handle_menus {
     my $committer = sub { $menu->commit };
 
     if (TAEB->topline =~ /Pick up what\?/) {
+        TAEB->enqueue_message('clear_floor');
         $selector = sub {
-            TAEB->personality->pickup(TAEB::World::Item->new_item($_));
+            my $item = TAEB::World::Item->new_item($_);
+            TAEB->enqueue_message('floor_item' => $item);
+            TAEB->personality->pickup($item);
         };
     }
     elsif (TAEB->topline =~ /^\s*Discoveries\s*$/) {
