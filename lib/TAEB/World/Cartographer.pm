@@ -193,6 +193,16 @@ sub msg_got_item {
     TAEB->error("Unable to remove $item from the floor. Did we just pick it up or no?");
 }
 
+sub msg_floor_message {
+    my $self = shift;
+    my $message = shift;
+
+    my $elbereths = $message =~ s/elbereth//gi || 0;
+    my $tile = TAEB->current_tile;
+    TAEB->info("Tile (".$tile->x.",".$tile->y.") has $elbereths elbereths");
+    $tile->elbereths($elbereths);
+}
+
 make_immutable;
 no Moose;
 

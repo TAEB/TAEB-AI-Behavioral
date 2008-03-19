@@ -79,6 +79,10 @@ our @msg_regex = (
         qr/^(. - .*?|\d+ gold pieces?)\.$/,
             ['got_item', sub { TAEB->new_item($1) }],
     ],
+    [
+        qr/^You read: \"(.*)\"\./,
+            ['floor_message', sub { $1 }],
+    ],
 );
 
 our @god_anger = (
