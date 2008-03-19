@@ -203,7 +203,7 @@ sub handle_more {
         # so that our message parsing (which just splits on double spaces)
         # doesn't explode
         my $new_messages = $1;
-        $new_messages =~ s/(?<=You read: \")(.*)(?=\"\.)/$1 =~ tr: :_:g/e;
+        $new_messages =~ s/(?<=You read: \")(.*)(?=\"\.)/$1 =~ tr: :_:/e;
         $self->messages($self->messages . '  ' . $new_messages);
 
         # try to get rid of the --More--
