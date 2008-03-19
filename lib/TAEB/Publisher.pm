@@ -87,10 +87,10 @@ If no response is given, C<undef> is returned.
 sub get_response {
     my $self = shift;
     my $line = shift;
-    my $matched = 0;
-    my @captures;
 
     for (my $i = 0; $i < @TAEB::ScreenScraper::prompts; $i += 2) {
+        my $matched = 0;
+        my @captures;
         my ($re, $name) = @TAEB::ScreenScraper::prompts[$i, $i + 1];
         for my $responder (TAEB->personality, TAEB->action) {
             next unless $responder;
