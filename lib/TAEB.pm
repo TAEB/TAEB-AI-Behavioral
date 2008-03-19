@@ -73,7 +73,11 @@ has vt => (
     is       => 'rw',
     isa      => 'TAEB::VT',
     required => 1,
-    default  => sub { TAEB::VT->new(cols => 80, rows => 24) },
+    default  => sub {
+        my $vt = TAEB::VT->new(cols => 80, rows => 24);
+        $vt->option_set(LINEWRAP => 1);
+        return $vt;
+    },
     handles  => [qw(topline redraw)],
 );
 
