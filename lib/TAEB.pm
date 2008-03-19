@@ -427,43 +427,7 @@ sub keypress {
 
     # console
     if ($c eq '~') {
-        eval {
-            # clear the top half of the screen
-            for (1..13) {
-                $self->out("\e[${_}H\e[K");
-            }
-            # silly banner
-            $self->out("\e[1;37m+"
-                . "\e[1;30m" . ('-' x 50)
-                . "\e[1;37m[ "
-                . "\e[1;36mT\e[0;36mAEB \e[1;36mC\e[0;36monsole"
-                . " \e[1;37m]"
-                . "\e[1;30m" . ('-' x 12)
-                . "\e[1;37m+"
-                . "\e[m");
-
-            # make the top half scroll
-            $self->out("\e[1;12r\e[12;1H");
-
-            # turn off Term::ReadKey
-            Term::ReadKey::ReadMode(0);
-
-            $ENV{PERL_RL} ||= TAEB->config->readline;
-
-            no warnings 'redefine';
-            require Devel::REPL::Script;
-            local $TAEB::ToScreen;
-            Devel::REPL::Script->new->run;
-        };
-
-        # turn on Term::ReadKey
-        Term::ReadKey::ReadMode(3);
-
-        # unscroll terminal
-        $self->out("\e3");
-
-        # back to normal
-        $self->out(TAEB->redraw);
+        $self->console;
 
         return;
     }
@@ -640,6 +604,48 @@ around personality => sub {
 sub new_item {
     my $self = shift;
     TAEB::World::Item->new_item(@_);
+}
+
+sub console {
+    my $self = shift;
+
+    eval {
+        # clear the top half of the screen
+        for (1..13) {
+            $self->out("\e[${_}H\e[K");
+        }
+        # silly banner
+        $self->out("\e[1;37m+"
+            . "\e[1;30m" . ('-' x 50)
+            . "\e[1;37m[ "
+            . "\e[1;36mT\e[0;36mAEB \e[1;36mC\e[0;36monsole"
+            . " \e[1;37m]"
+            . "\e[1;30m" . ('-' x 12)
+            . "\e[1;37m+"
+            . "\e[m");
+
+        # make the top half scroll
+        $self->out("\e[1;12r\e[12;1H");
+
+        # turn off Term::ReadKey
+        Term::ReadKey::ReadMode(0);
+
+        $ENV{PERL_RL} ||= TAEB->config->readline;
+
+        no warnings 'redefine';
+        require Devel::REPL::Script;
+        local $TAEB::ToScreen;
+        Devel::REPL::Script->new->run;
+    };
+
+    # turn on Term::ReadKey
+    Term::ReadKey::ReadMode(3);
+
+    # unscroll terminal
+    $self->out("\e3");
+
+    # back to normal
+    $self->out(TAEB->redraw);
 }
 
 1;
