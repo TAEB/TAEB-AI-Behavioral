@@ -88,6 +88,7 @@ sub get_response {
     my $self = shift;
     my $line = shift;
     my $matched = 0;
+    my @captures;
 
     for (my $i = 0; $i < @TAEB::ScreenScraper::prompts; $i += 2) {
         my ($re, $name) = @TAEB::ScreenScraper::prompts[$i, $i + 1];
@@ -95,12 +96,10 @@ sub get_response {
             next unless $responder;
 
             if (my $code = $responder->can("respond_$name")) {
-                if ($matched ||= $line =~ $re) {
-                    # pass $1, $2, $3, etc to the action's handler
-                    no strict 'refs';
+                if ($matched ||= @captures = $line =~ $re) {
                     my $response = $responder->$code(
                         TAEB->topline,
-                        map { $$_ } 1 .. $#+
+                        @captures,
                     );
                     next unless defined $response;
 
