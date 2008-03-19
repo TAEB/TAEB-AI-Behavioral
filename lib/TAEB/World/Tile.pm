@@ -353,7 +353,8 @@ sub might_have_new_item {
 
 sub elbereths {
     my $self = shift;
-    return $self->engraving =~ s/elbereth//gi || 0;
+    my $engraving = $self->engraving;
+    return $engraving =~ s/elbereth//gi || 0;
 }
 
 make_immutable;
