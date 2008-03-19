@@ -26,11 +26,6 @@ sub prepare {
                 return 90;
             }
         }
-
-        if (TAEB->can_elbereth) {
-            $self->write_elbereth;
-            return 80;
-        }
     }
 
     # now casual healing
@@ -62,7 +57,6 @@ sub urgencies {
     return {
        100 => "casting a healing spell",
         90 => "quaffing a potion of healing, extra healing, or full healing",
-        80 => "writing Elbereth due to low HP",
     },
 }
 

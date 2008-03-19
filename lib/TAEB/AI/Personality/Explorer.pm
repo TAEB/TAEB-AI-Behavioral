@@ -14,6 +14,7 @@ sub weight_behaviors {
         FixHunger          => 1_000_000,
         Heal               => 750_000,
         FixStatus          => 700_000,
+        Defend             => 400_000,
         AttackSpell        => 75_000,
         BuffSelf           => 70_000,
         Fight              => 50_000,
