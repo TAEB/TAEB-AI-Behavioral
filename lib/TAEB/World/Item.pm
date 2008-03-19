@@ -293,6 +293,12 @@ sub lookup_spoiler {
     }
 }
 
+sub is_autopickuped {
+    my $self = shift;
+    return 1 if $self->appearance eq 'gold piece';
+    return 0;
+}
+
 install_spoilers(qw/weight base edible artifact material/);
 
 make_immutable;

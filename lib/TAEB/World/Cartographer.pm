@@ -190,6 +190,8 @@ sub msg_got_item {
         return;
     }
 
+    return if $item->is_autopickuped;
+
     TAEB->error("Unable to remove $item from the floor. Did we just pick it up or no?");
 }
 
