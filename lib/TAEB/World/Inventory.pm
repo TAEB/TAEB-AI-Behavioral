@@ -59,6 +59,20 @@ sub update {
 
     TAEB->debug("Inventory: slot '$slot' has item $item.");
 
+    my $slot_item = $self->get($slot);
+    if (defined $slot_item) {
+        if ($item->appearance ne $slot_item->appearance) {
+            TAEB->error("Adding an item to a used inventory slot")
+            $item->slot($slot);
+            $self->set($slot => $item);
+        }
+        else {
+            TAEB->debug("Increasing the quantity of $slot_item by ".$item->quantity);
+            $slot_item->quantity($item->quantity + $slot_item->quantity);
+        }
+        return;
+    }
+
     $item->slot($slot);
     $self->set($slot => $item);
 }
