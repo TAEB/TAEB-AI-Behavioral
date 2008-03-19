@@ -199,7 +199,12 @@ sub handle_more {
     # while there's a --More-- on the screen..
     while (TAEB->vt->as_string =~ /^(.*?)--More--/) {
         # add the text to the buffer
-        $self->messages($self->messages . '  ' . $1);
+        # XXX: hack here: replacing all spaces in an engraving with underscores
+        # so that our message parsing (which just splits on double spaces)
+        # doesn't explode
+        my $new_messages = $1;
+        $new_messages =~ s/(?<=You read: \")(.*)(?=\"\.)/$1 =~ tr: :_:g/e;
+        $self->messages($self->messages . '  ' . $new_messages);
 
         # try to get rid of the --More--
         TAEB->write(' ');
