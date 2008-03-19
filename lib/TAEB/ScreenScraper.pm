@@ -298,25 +298,6 @@ sub handle_menus {
             return 0;
         };
     }
-    elsif (TAEB->topline =~ /You read:/) {
-        my $read_text = '';
-        if (TAEB->vt->contains("--More--")) {
-            my $row = 0;
-            do {
-                $read_text .= TAEB->vt->row_plaintext($row++);
-            } until ($read_text =~ /--More--/);
-            $read_text =~ s/.*?You read: \"//;
-            $read_text =~ s/\"\.--More--.*?//;
-        }
-        else {
-            $read_text = TAEB->topline;
-            $read_text =~ s/.*You read: \"(.*)\"\./$1/;
-        }
-        my $elbereths = $read_text =~ s/elbereth//gi || 0;
-        my $tile = TAEB->current_tile;
-        TAEB->info("Tile (".$tile->x.",".$tile->y.") has $elbereths elbereths");
-        $tile->elbereths($elbereths);
-    }
     elsif (TAEB->topline =~ /What would you like to drop\?/) {
         # this one is special: it'll handle updating the inventory
         $selector = sub {
