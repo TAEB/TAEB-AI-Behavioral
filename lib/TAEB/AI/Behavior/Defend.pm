@@ -5,7 +5,7 @@ extends 'TAEB::AI::Behavior';
 
 sub prepare {
     my $self = shift;
-    return 0 if TAEB->hp * 2 <= TAEB->maxhp;
+    return 0 if TAEB->hp * 2 > TAEB->maxhp;
 
     if (TAEB->can_elbereth) {
         $self->write_elbereth;
