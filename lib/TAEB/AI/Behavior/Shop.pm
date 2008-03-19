@@ -11,7 +11,7 @@ sub prepare {
 
     if (@drop) {
         $self->currently("Dropping items due to having a price.");
-        $self->do(drop => items => \@items);
+        $self->do(drop => items => \@drop);
         return 100;
     }
 
