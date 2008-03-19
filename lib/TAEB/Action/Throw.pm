@@ -4,6 +4,8 @@ use TAEB::OO;
 extends 'TAEB::Action';
 with 'TAEB::Action::Role::Direction';
 
+use TAEB::Util 'vi2delta';
+
 use constant command => 't';
 
 has item => (
@@ -14,7 +16,19 @@ has item => (
 sub respond_throw_what { shift->item->slot }
 
 # we don't get a message when we throw one dagger
-sub done { TAEB->inventory->decrease_quantity(shift->item->slot) }
+sub done {
+    my $self = shift;
+    TAEB->inventory->decrease_quantity($self->item->slot);
+
+    # now mark squares in the path of the projectile as interesting so we pick
+    # up projectiles we've thrown
+    my ($dx, $dy) = vi2delta($self->direction);
+    for (1 .. 8) {
+        my $tile = TAEB->current_level->at($dx * $_, $dy * $_)
+            or next;
+        $tile->interesting_at(TAEB->turn);
+    }
+}
 
 sub msg_throw_count {
     my $self  = shift;
