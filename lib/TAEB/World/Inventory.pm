@@ -84,6 +84,11 @@ sub decrease_quantity {
         $item = $self->get($slot);
     }
 
+    if (!$item) {
+        TAEB->error("Tried to decrease the quantity of empty slot $slot by $quantity.");
+        return;
+    }
+
     my $old_quantity = $item->quantity;
     my $new_quantity = $old_quantity - $quantity;
 
