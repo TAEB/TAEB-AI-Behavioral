@@ -314,7 +314,8 @@ sub handle_menus {
             return 1 if TAEB->personality->drop($item);
 
             # otherwise, we still have the item, so mark it in our inventory
-            TAEB->inventory->update($slot, $item);
+            TAEB->inventory->update($slot, $item)
+                unless $item->appearance eq 'gold piece';
             return 0;
         };
     }
