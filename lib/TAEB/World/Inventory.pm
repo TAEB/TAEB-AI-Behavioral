@@ -62,7 +62,7 @@ sub update {
     my $slot_item = $self->get($slot);
     if (defined $slot_item) {
         if ($item->appearance ne $slot_item->appearance) {
-            TAEB->error("Adding an item to a used inventory slot")
+            TAEB->error("Adding an item to a used inventory slot");
             $item->slot($slot);
             $self->set($slot => $item);
         }
