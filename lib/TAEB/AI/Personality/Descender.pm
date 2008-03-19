@@ -24,6 +24,7 @@ sub weight_behaviors {
         GetItems           => 24_000,
         Doors              => 10_000,
         DeadEnd            => 5_000,
+        Shop               => 4_000,
         Explore            => 2_500,
         Search             => 1_000,
         RandomWalk         => 1,

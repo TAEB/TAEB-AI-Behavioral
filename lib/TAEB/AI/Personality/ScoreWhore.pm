@@ -38,6 +38,7 @@ sub weight_behaviors {
         DipForExcalibur    => 24_500,
         GetItems           => 24_000,
         Doors              => 10_000,
+        Shop               => 7_500,
         DeadEnd            => 5_000,
         Explore            => 2_500,
         Search             => 1_000,
