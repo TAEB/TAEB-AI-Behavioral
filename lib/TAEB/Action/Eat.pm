@@ -64,8 +64,11 @@ sub done {
         $food = TAEB->new_item($food);
     }
 
-    TAEB->debug("Eating $food is increasing our nutrition by " . $food->nutrition);
-    TAEB->senses->nutrition(TAEB->senses->nutrition + $food->nutrition);
+    my $old_nutrition = TAEB->senses->nutrition;
+    my $new_nutrition = $old_nutrition + $food->nutrition;
+
+    TAEB->debug("Eating $food is increasing our nutrition from $old_nutrition to $new_nutrition");
+    TAEB->senses->nutrition($new_nutrition);
 }
 
 # is there any food around?
