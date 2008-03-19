@@ -8,6 +8,7 @@ use TAEB::Action::Cast;
 use TAEB::Action::Custom;
 use TAEB::Action::Descend;
 use TAEB::Action::Dip;
+use TAEB::Action::Drop;
 use TAEB::Action::Eat;
 use TAEB::Action::Engrave;
 use TAEB::Action::Kick;
