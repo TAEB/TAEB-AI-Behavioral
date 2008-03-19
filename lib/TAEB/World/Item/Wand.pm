@@ -9,7 +9,7 @@ has '+class' => (
     default => 'wand',
 );
 
-install_spoilers(qw/charges type/);
+install_spoilers(qw/maxcharges type/);
 
 make_immutable;
 no Moose;
