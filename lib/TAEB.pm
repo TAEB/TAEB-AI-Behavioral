@@ -544,7 +544,7 @@ after qw/info warning/ => sub {
     my ($logger, $message) = @_;
 
     if (TAEB->info_to_screen && $TAEB::ToScreen) {
-        TAEB->out("\e[2H\e[42m$message");
+        TAEB->out("\e[2H\e[42m$message\e[m");
         sleep 3;
         TAEB->out(TAEB->redraw);
     }
@@ -573,7 +573,7 @@ after qw/error critical/ => sub {
 
     if ($TAEB::ToScreen) {
         $message = Carp::shortmess($message);
-        TAEB->out("\e[2H\e[41m$message");
+        TAEB->out("\e[2H\e[41m$message\e[m");
         sleep 3;
         TAEB->out(TAEB->redraw);
     }
