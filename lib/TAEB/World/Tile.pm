@@ -60,9 +60,9 @@ has explored => (
     default => 0,
 );
 
-has elbereths => (
-    isa     => 'Int',
-    default => 0,
+has engraving => (
+    isa     => 'Str',
+    default => '',
 );
 
 has interesting_at => (
@@ -349,6 +349,11 @@ sub might_have_new_item {
     my $self = shift;
     return $self->interesting_at > $self->last_stepped + 1
         || $self->type eq 'obscured' && $self->last_stepped == 0;
+}
+
+sub elbereths {
+    my $self = shift;
+    return $self->engraving =~ s/elbereth//gi || 0;
 }
 
 make_immutable;
