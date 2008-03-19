@@ -7,17 +7,23 @@ sub prepare {
     my $self = shift;
     return 0 if TAEB->hp * 2 > TAEB->maxhp;
 
-    if (TAEB->can_elbereth) {
+    TAEB->write(":");
+    TAEB->process_input;
+
+    if (TAEB->can_elbereth && TAEB->current_tile->elbereths < 3) {
         $self->write_elbereth;
         return 100;
     }
 
-    return 0;
+    $self->currently("resting on an Elbereth tile");
+    $self->do('search');
+    return 80;
 }
 
 sub urgencies {
     return {
        100 => "writing Elbereth due to low HP",
+       80  => "resting on an Elbereth tile",
     },
 }
 
