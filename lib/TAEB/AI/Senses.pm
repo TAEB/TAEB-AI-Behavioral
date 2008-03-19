@@ -234,6 +234,12 @@ sub msg_status_change {
     }
 }
 
+sub elbereth_count {
+    TAEB->write(":");
+    TAEB->process_input;
+    TAEB->current_tile->elbereths;
+}
+
 make_immutable;
 no Moose;
 

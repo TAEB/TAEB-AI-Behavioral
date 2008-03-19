@@ -7,10 +7,7 @@ sub prepare {
     my $self = shift;
     return 0 if TAEB->hp * 2 > TAEB->maxhp;
 
-    TAEB->write(":");
-    TAEB->process_input;
-
-    if (TAEB->can_elbereth && TAEB->current_tile->elbereths < 3) {
+    if (TAEB->can_elbereth && TAEB->senses->elbereth_count < 3) {
         $self->write_elbereth;
         return 100;
     }
