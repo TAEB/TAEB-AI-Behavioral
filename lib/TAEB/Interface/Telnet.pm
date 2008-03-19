@@ -24,6 +24,12 @@ has server => (
     default => 'nethack.alt.org',
 );
 
+has port => (
+    is      => 'ro',
+    isa     => 'Int',
+    default => 23,
+);
+
 has account => (
     is  => 'ro',
     isa => 'Str',
@@ -49,7 +55,11 @@ sub BUILD {
     TAEB->debug("Connecting to " . $self->server . ".");
 
     # this has to be done in BUILD because it needs server
-    my $socket = IO::Socket::Telnet->new(PeerAddr => $self->server);
+    my $socket = IO::Socket::Telnet->new(
+        PeerAddr => $self->server,
+        PeerPort => $self->port,
+    );
+
     die "Unable to connect to " . $self->server . ": $!"
         if !defined($socket);
 
