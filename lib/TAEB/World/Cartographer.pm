@@ -171,19 +171,23 @@ sub msg_floor_item {
     TAEB->current_tile->add_item($item);
 }
 
+my @check = qw/appearance quantity/;
 sub msg_got_item {
     my $self = shift;
     my $item = shift;
 
-    # remove slot
-    (my $raw = $item->raw) =~ s/^. - //;
-
+    ITEM:
     for my $i (0 .. TAEB->current_tile->item_count - 1) {
-        (my $item = TAEB->current_tile->items->[$i]->raw) =~ s/^. - //;
-        if ($raw eq $item) {
-            TAEB->current_tile->remove_item($i);
-            return;
+        my $tile_item = TAEB->current_tile->items->[$i];
+        for (@check) {
+            if ($item->$_ ne $tile_item->$_) {
+                next ITEM;
+            }
         }
+
+        # all fields match, success!
+        TAEB->current_tile->remove_item($i);
+        return;
     }
 
     TAEB->error("Unable to remove $item from the floor. Did we just pick it up or no?");
