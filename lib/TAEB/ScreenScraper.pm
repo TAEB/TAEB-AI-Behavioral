@@ -193,9 +193,8 @@ sub handle_more {
     my $self = shift;
 
     # while there's a --More-- on the screen..
-    while (TAEB->vt->contains("--More--")) {
+    while (TAEB->vt->as_string =~ /^(.*?)--More--/) {
         # add the text to the buffer
-        TAEB->vt->as_string =~ /^(.*?)--More--/;
         $self->messages($self->messages . '  ' . $1);
 
         # try to get rid of the --More--
