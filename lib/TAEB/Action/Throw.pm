@@ -21,7 +21,7 @@ sub msg_throw_count {
     my $count = shift;
 
     # done takes care of the other one
-    TAEB->inventory->decrease_quantity(shift->item->slot, $count - 1);
+    TAEB->inventory->decrease_quantity($self->item->slot, $count - 1);
 }
 
 make_immutable;
