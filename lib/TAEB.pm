@@ -76,6 +76,7 @@ has vt => (
     default  => sub {
         my $vt = TAEB::VT->new(cols => 80, rows => 24);
         $vt->option_set(LINEWRAP => 1);
+        $vt->option_set(LFTOCRLF => 1);
         return $vt;
     },
     handles  => [qw(topline redraw)],
