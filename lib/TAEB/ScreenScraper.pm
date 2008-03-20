@@ -363,7 +363,7 @@ sub handle_fallback {
         }
     }
 
-    $self->messages($self->messages . TAEB->topline);
+    $self->messages($self->messages . '  ' . TAEB->topline);
 }
 
 =head2 farlook Int, Int -> (Str | Str, Str, Str, Str)
