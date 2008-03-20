@@ -118,6 +118,7 @@ our @prompts = (
     qr/^Really attack (.*?)\?/              => 'really_attack',
     qr/^Call (.*?):/                        => 'call_item',
     qr/^\s*Choose which spell to cast/      => 'which_spell',
+    qr/^You don't have that object/         => 'missing_item',
 
     qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
     qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',

@@ -89,6 +89,14 @@ sub any_food {
     return 0;
 }
 
+sub respond_missing_item {
+    my $self = shift;
+    TAEB->debug("We don't have item " . $self->food . ", escaping.");
+    TAEB->inventory->remove($self->food->slot);
+    $self->aborted(1);
+    return "\e";
+}
+
 make_immutable;
 no Moose;
 
