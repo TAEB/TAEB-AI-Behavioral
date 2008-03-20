@@ -12,6 +12,7 @@ use TAEB::Test::Items (
     ["q - an uncursed +0 crystal plate mail",           {class => "armor"}    ],
     ["h - the uncursed +0 Mitre of Holiness",           {class => "armor"}    ],
     ["t - a set of gray dragon scales",                 {class => "armor"}    ],
+    ["x - an elven mithril-coat",                       {class => "armor"}    ],
     ["d - 2 uncursed food rations",                     {class => "food"}     ],
     ["j - a cursed tin of lichen",                      {class => "food"}     ],
     ["K - an uncursed tin of newt meat",                {class => "food"}     ],

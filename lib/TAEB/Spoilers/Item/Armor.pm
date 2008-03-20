@@ -82,7 +82,7 @@ has list => (
                 material   => 'iron',
                 mc         => 1,
             },
-            'elven mithril coat' => {
+            'elven mithril-coat' => {
                 base       => 240,
                 weight     => 150,
                 ac         => 5,
@@ -102,7 +102,7 @@ has list => (
                 ac         => 6,
                 material   => 'iron',
             },
-            'dwarvish mithril coat' => {
+            'dwarvish mithril-coat' => {
                 base       => 240,
                 weight     => 150,
                 ac         => 6,
