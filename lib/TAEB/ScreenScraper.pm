@@ -394,8 +394,16 @@ sub farlook {
     TAEB->write(';' . $directions . '.');
     TAEB->process_input;
 
-    my $description = TAEB->topline;
-    return $description =~ /^(.)\s*(.*?)\s*\((.*)\)\s*(?:\[(.*)\])?\s*$/ if wantarray;
+    # use TAEB->messages as it may consist of multiple lines
+    my $description;
+    if (TAEB->vt->topline =~ /^\S/) {
+        $description = TAEB->vt->topline;
+    }
+    else {
+        $description = TAEB->messages;
+    }
+    return $description =~ /^(.)\s*(.*?)\s*\((.*)\)\s*(?:\[(.*)\])?\s*$/
+        if wantarray;
     return $description;
 }
 
