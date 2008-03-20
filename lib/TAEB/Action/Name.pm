@@ -13,8 +13,11 @@ has item => (
 has name => (
     isa      => 'Str',
     required => 1,
+    lazy     => 1,
     default  => sub {
-        String::Koremutake->new->integer_to_koremutake(int(rand(2**31)));
+        my $self = shift;
+        my $k = String::Koremutake->new;
+        $self->item->appearance . $k->integer_to_koremutake(int(rand(2**31)));
     },
 );
 
