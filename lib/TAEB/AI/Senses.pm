@@ -237,7 +237,11 @@ sub msg_status_change {
 sub elbereth_count {
     TAEB->write(":");
     TAEB->process_input;
-    TAEB->current_tile->elbereths;
+    my $tile = TAEB->current_tile;
+    my $elbereths = $tile->elbereths;
+    TAEB->info("Tile (".$tile->x.", ".$tile->y.") has $elbereths Elbereths (".
+                $tile->engraving.")");
+    return $elbereths;
 }
 
 make_immutable;
