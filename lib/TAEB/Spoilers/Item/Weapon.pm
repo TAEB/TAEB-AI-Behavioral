@@ -605,7 +605,7 @@ has list => (
                 'weight' => 150,
                 'base'   => 10,
                 'material'   => 'iron',
-                appearance => 'angled polearm',
+                appearance => 'angled poleaxe',
                 plural => 'halberds',
             },
             'javelin' => {
