@@ -3,7 +3,7 @@ package TAEB::Action::Drop;
 use TAEB::OO;
 extends 'TAEB::Action';
 
-use constant command => 'd';
+use constant command => 'D';
 
 # logic is elsewhere sadly
 
