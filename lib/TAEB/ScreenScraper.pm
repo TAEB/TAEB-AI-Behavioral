@@ -312,12 +312,12 @@ sub handle_menus {
         $selector = sub {
             my $personality = shift;
             my $slot        = shift;
-            my $item        = TAEB->inventory->get($slot);
+            my $new_item    = TAEB->new_item($_);
+            my $item        = TAEB->inventory->get($slot) || $new_item;
 
             # if we can drop the item, drop it!
-            return 1 if TAEB->personality->drop($item);
-
-            my $new_item = TAEB->new_item($_);
+            return 1 if TAEB->state eq 'playing'
+                     && TAEB->personality->drop($item);
 
             # otherwise, we still have the item, so mark it in our inventory
             TAEB->inventory->update($slot, $new_item)
