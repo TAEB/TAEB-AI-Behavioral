@@ -117,7 +117,6 @@ our @prompts = (
     qr/^What do you want to eat\?/          => 'eat_what',
     qr/^For what do you wish\?/             => 'wish',
     qr/^Really attack (.*?)\?/              => 'really_attack',
-    qr/^Call (.*?):/                        => 'call_item',
     qr/^\s*Choose which spell to cast/      => 'which_spell',
     qr/^You don't have that object/         => 'missing_item',
 
@@ -126,6 +125,9 @@ our @prompts = (
     qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
     qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
     qr/^Do you want to add to the current engraving\?/ => 'add_engraving',
+    qr/^Name an individual object\?/        => 'name_specific',
+    qr/^What do you want to (?:call|name)\?/ => 'name_what',
+    qr/^Call (.*?):/                        => 'name',
 );
 
 has messages => (

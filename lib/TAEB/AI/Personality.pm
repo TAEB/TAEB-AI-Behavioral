@@ -122,7 +122,6 @@ sub enhance {
 }
 
 sub respond_wish          { "2 blessed potions of full healing" }
-sub respond_call_item     { "\n" }
 sub respond_really_attack { "y" }
 
 make_immutable;
