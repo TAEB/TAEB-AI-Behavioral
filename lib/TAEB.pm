@@ -255,7 +255,7 @@ sub handle_playing {
     my $self = shift;
 
     $self->action->done
-        if $self->action;
+        if $self->action && !$self->action->aborted;
 
     $self->personality->currently('?');
     $self->action($self->personality->next_action);
