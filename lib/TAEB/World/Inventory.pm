@@ -70,11 +70,11 @@ sub update {
             TAEB->debug("Increasing the quantity of $slot_item by ".$item->quantity);
             $slot_item->quantity($item->quantity + $slot_item->quantity);
         }
-        return;
     }
-
-    $item->slot($slot);
-    $self->set($slot => $item);
+    else {
+        $item->slot($slot);
+        $self->set($slot => $item);
+    }
 }
 
 =head2 decrease_quantity (Str|Item)[, Int]
