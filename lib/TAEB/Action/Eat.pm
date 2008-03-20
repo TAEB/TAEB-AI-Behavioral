@@ -13,7 +13,7 @@ has food => (
 sub respond_eat_ground {
     my $self = shift;
     my $msg  = shift;
-    my $food = shift;
+    my $food = TAEB->new_item(shift);
 
     # no, we want to eat something in our inventory
     return 'n' if blessed $self->food;
