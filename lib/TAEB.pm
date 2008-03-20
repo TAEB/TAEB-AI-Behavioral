@@ -375,7 +375,7 @@ sub human_input {
     if (defined $c) {
         my $out = $self->keypress($c);
         if (defined $out) {
-            $self->out("\e[2H\e[44m$out");
+            $self->out("\e[2H\e[44m$out\e[m");
             sleep 3;
             $self->out($self->redraw);
         }
@@ -401,7 +401,7 @@ sub keypress {
 
     # pause for a key
     if ($c eq 'p') {
-        TAEB->out("\e[2H\e[44mPaused.");
+        TAEB->out("\e[2H\e[44mPaused.\e[m");
         Term::ReadKey::ReadKey(0);
         TAEB->out(TAEB->redraw);
         return undef;
