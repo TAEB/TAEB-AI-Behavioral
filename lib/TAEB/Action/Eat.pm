@@ -31,7 +31,7 @@ sub respond_eat_ground {
     }
 
     # we're specific about this. really
-    return 'y' if $food eq $self->food;
+    return 'y' if $food->identity eq $self->food;
 
     # no thanks, I brought my own lunch
     return 'n';
