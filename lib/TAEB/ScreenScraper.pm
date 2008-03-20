@@ -1,5 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::ScreenScraper;
+use List::Util qw/min max/;
 use TAEB::OO;
 use NetHack::Menu;
 
