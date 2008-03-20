@@ -18,10 +18,16 @@ sub respond_eat_ground {
     # no, we want to eat something in our inventory
     return 'n' if blessed $self->food;
 
-    if ($self->food eq 'any' && TAEB::Spoilers::Item::Food->should_eat($food)) {
-        # keep track of what we're eating for nutrition purposes later
-        $self->food($food);
-        return 'y';
+    if ($self->food eq 'any') {
+        if (TAEB::Spoilers::Item::Food->should_eat($food)) {
+            TAEB->debug("Floor-food $food is good enough for me.");
+            # keep track of what we're eating for nutrition purposes later
+            $self->food($food);
+            return 'y';
+        }
+        else {
+            TAEB->debug("Floor-food $food is on the blacklist. Pass.");
+        }
     }
 
     # we're specific about this. really
@@ -45,7 +51,7 @@ sub respond_eat_what {
             $self->food($food);
             return $food->slot;
         }
-        TAEB->error("There's no safe food in my inventory, so I can't eat 'anything'. Sending escape, but I doubt this will work.");
+        TAEB->error("There's no safe food in my inventory, so I can't eat 'any'. Sending escape, but I doubt this will work.");
     }
     else {
         TAEB->error("Unable to eat '" . $self->food . "'. Sending escape, but I doubt this will work.");
