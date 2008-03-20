@@ -22,7 +22,9 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    return $item->price ? 1 : 0;
+    return if $item->price == 0;
+    TAEB->debug("Yes, I want to drop $item because it costs money.");
+    return 1;
 }
 
 sub urgencies {
