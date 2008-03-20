@@ -319,8 +319,10 @@ sub handle_menus {
             my $item        = TAEB->inventory->get($slot) || $new_item;
 
             # if we can drop the item, drop it!
-            return 1 if TAEB->state eq 'playing'
-                     && TAEB->personality->drop($item);
+            if (TAEB->state eq 'playing' && TAEB->personality->drop($item)) {
+                TAEB->inventory->remove($slot);
+                return 1;
+            }
 
             # otherwise, we still have the item, so mark it in our inventory
             TAEB->inventory->update($slot, $new_item)
