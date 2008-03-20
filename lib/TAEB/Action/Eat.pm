@@ -63,11 +63,11 @@ sub done {
     my $self = shift;
     my $food = $self->food;
 
-    if (blessed $food) {
+    # we had no match for "any", so we have nothing to do
+    return unless blessed $food;
+
+    if ($food->slot) {
         TAEB->inventory->decrease_quantity($food->slot)
-    }
-    else {
-        $food = TAEB->new_item($food);
     }
 
     my $old_nutrition = TAEB->senses->nutrition;
