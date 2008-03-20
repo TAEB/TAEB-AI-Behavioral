@@ -206,7 +206,7 @@ sub handle_more {
         # so that our message parsing (which just splits on double spaces)
         # doesn't explode
         my $new_messages = $1;
-        $new_messages =~ s{You read:  "(.*)"\.}{
+        $new_messages =~ s{You read:  ?"(.*)"\.}{
             (my $copy = $1) =~ tr/ /_/;
             q{You read: "} . $copy . q{".}
         }e;
