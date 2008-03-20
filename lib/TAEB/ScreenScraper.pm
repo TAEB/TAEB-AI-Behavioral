@@ -159,16 +159,19 @@ sub scrape {
 
         # iterate over the messages, invoke TAEB->enqueue_message for each one
         # we know about
-        MESSAGE: for (split /  /, $_) {
-            if (exists $msg_string{$_}) {
+        MESSAGE: for my $line (split /  /, $_) {
+            $line =~ s/^\s+//;
+            $line =~ s/\s+$//;
+
+            if (exists $msg_string{$line}) {
                 TAEB->enqueue_message(
                     map { ref($_) eq 'CODE' ? $_->() : $_ }
-                    @{ $msg_string{$_} }
+                    @{ $msg_string{$line} }
                 );
                 next MESSAGE;
             }
             for my $something (@msg_regex) {
-                if ($_ =~ $something->[0]) {
+                if ($line =~ $something->[0]) {
                     TAEB->enqueue_message(
                         map { ref($_) eq 'CODE' ? $_->() : $_ }
                         @{ $something->[1] }
