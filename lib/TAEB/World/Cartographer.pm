@@ -30,6 +30,7 @@ sub update {
 
     for my $y (1 .. 21) {
         my $row = TAEB->vt->row_plaintext($y);
+        my @colors = TAEB->vt->row_color($y);
 
         for my $x (0 .. 79) {
             my $tile = $level->at($x, $y);
@@ -37,8 +38,7 @@ sub update {
 
             if ($on_map ne $tile->glyph) {
                 $needs_autoexplore = 1;
-                $level->update_tile($x, $y, $on_map,
-                                    TAEB->vt->color($x, $y));
+                $level->update_tile($x, $y, $on_map, $colors[$x]);
             }
 
             TAEB->out("\e[%d;%dH%s\e[m", 1+$y, 1+$x, $tile->$debug_draw)

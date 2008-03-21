@@ -205,6 +205,28 @@ sub color {
     return $attr[0] + 8*$attr[2];
 }
 
+=head2 row_color Int -> [Int]
+
+Returns 80 ints representing the color of each cell of the row.
+
+=cut
+
+sub row_color {
+    my $self = shift;
+    my $y = shift;
+
+    my $attrs = $self->row_attr($y);
+
+    return map {
+        # fields: fg, bg, bold, faint, standout, underline, blink, reverse
+        my @attr = $self->attr_unpack($_);
+
+        # bold is only 0 or 1
+        # this then maps into the constants from color.h (and in Util.pm)
+        $attr[0] + 8*$attr[2];
+    } $attrs =~ m{..}g;
+}
+
 around x => sub
 {
     my $orig = shift;
