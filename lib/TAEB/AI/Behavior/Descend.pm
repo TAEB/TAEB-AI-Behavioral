@@ -10,7 +10,7 @@ sub match_tile {
 use constant tile_description => 'the downstairs';
 use constant using_urgency    => 'descending';
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

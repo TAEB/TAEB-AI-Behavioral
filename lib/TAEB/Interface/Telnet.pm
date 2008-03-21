@@ -195,7 +195,7 @@ sub telnet_negotiation {
     return;
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

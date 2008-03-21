@@ -7,7 +7,7 @@ with 'TAEB::Action::Role::Direction';
 # ctrl-D
 use constant command => chr(4);
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

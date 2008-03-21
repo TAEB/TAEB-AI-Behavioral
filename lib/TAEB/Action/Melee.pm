@@ -9,7 +9,7 @@ sub command {
     'F' . shift->direction
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

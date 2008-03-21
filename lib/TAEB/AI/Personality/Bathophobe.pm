@@ -23,7 +23,7 @@ around weight_behaviors => sub {
     return $explorer_weights;
 };
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

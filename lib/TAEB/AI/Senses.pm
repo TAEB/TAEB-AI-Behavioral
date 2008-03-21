@@ -256,7 +256,7 @@ sub msg_nutrition {
     $self->nutrition($nutrition);
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

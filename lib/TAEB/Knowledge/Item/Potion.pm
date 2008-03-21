@@ -3,7 +3,7 @@ package TAEB::Knowledge::Item::Potion;
 use TAEB::OO;
 extends 'TAEB::Knowledge::Item';
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

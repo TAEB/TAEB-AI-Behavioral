@@ -203,7 +203,7 @@ sub color {
     return $attr[0] + 8*$attr[2];
 }
 
-# make_immutable breaks here because we need to inherit the constructor from
+# __PACKAGE__->meta->make_immutable breaks here because we need to inherit the constructor from
 # Term::VT102
 
 1;

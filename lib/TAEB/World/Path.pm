@@ -287,7 +287,7 @@ sub _dijkstra {
     return ($max_tile, $max_path);
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

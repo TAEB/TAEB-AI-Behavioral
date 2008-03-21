@@ -23,7 +23,7 @@ sub done {
     # XXX: we need to track TAEB's weapon
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

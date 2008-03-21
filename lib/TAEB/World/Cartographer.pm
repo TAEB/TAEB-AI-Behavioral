@@ -193,7 +193,7 @@ sub msg_floor_message {
     TAEB->current_tile->engraving($message);
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

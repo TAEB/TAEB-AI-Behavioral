@@ -315,7 +315,7 @@ sub maybe_is {
 
 install_spoilers(qw/weight base edible artifact material/);
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

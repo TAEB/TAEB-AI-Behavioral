@@ -49,7 +49,7 @@ sub engrave_useful {
     return 0;
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

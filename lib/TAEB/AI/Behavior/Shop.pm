@@ -63,7 +63,7 @@ sub msg_debt {
     $self->debt($gold);
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

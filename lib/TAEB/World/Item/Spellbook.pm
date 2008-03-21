@@ -10,7 +10,7 @@ has '+class' => (
 
 install_spoilers(qw/level read marker emergency role/);
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

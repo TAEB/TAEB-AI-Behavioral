@@ -77,7 +77,7 @@ sub new_action {
     return $package->new(@_);
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

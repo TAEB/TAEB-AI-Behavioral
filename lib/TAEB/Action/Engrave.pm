@@ -27,7 +27,7 @@ sub respond_write_with    { shift->engrave_slot }
 sub respond_write_what    { shift->text . "\n" }
 sub respond_add_engraving { 'y' }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

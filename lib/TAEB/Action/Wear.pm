@@ -12,7 +12,7 @@ has item => (
 
 sub respond_wear_what { shift->item->slot }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

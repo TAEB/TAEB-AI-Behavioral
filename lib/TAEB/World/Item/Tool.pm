@@ -22,7 +22,7 @@ has candles_attached => (
 );
 
 install_spoilers(qw/charge/);
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

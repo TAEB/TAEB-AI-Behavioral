@@ -29,7 +29,7 @@ sub next_action {
     return $actions[rand @actions];
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

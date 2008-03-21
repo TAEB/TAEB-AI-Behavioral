@@ -125,7 +125,7 @@ sub respond_wish          { "2 blessed potions of full healing" }
 sub respond_really_attack { "y" }
 sub respond_name          { "\n" }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

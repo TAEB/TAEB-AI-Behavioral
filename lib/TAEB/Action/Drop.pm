@@ -7,7 +7,7 @@ use constant command => "Da\n";
 
 # logic is elsewhere sadly
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

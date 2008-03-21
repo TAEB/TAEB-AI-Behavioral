@@ -70,7 +70,7 @@ sub tile_description {
     confess "$class must override tile_description.";
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

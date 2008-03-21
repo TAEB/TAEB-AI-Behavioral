@@ -142,7 +142,7 @@ sub msg_got_item {
     $self->update($item->slot => $item);
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

@@ -38,7 +38,7 @@ sub respond_dip_into_what {
     return "\e";
 }
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

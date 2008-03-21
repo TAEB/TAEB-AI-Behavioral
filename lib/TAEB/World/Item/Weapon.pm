@@ -15,7 +15,7 @@ has is_poisoned => (
 );
 
 install_spoilers(qw/sdam ldam tohit hands/);
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;

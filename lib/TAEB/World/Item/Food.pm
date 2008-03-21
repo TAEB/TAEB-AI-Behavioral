@@ -19,7 +19,7 @@ has is_laid_by_you => (
 
 install_spoilers(qw/nutrition time/);
 
-make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
