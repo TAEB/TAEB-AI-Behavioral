@@ -49,6 +49,12 @@ our %msg_string = (
         ['door', 'interrupted_unlocking'],
     "There is nothing here to pick up." =>
         ['clear_floor'],
+    '"You bit it, you bought it!"' =>
+        ['debt' => undef],
+    "You have no credit or debt in here." =>
+        ['debt', 0],
+    "You don't owe any money here." =>
+        ['debt', 0],
 );
 
 our @msg_regex = (
@@ -87,6 +93,10 @@ our @msg_regex = (
     [
         qr/^You read: \"(.*)\"\./,
             ['floor_message', sub { $1 }],
+    ],
+    [
+        qr/^You owe .*? (\d+) zorkmids?\./,
+            ['debt', sub { $1 }],
     ],
 );
 
