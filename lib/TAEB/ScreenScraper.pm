@@ -178,17 +178,9 @@ sub scrape {
         # handle other text
         $self->handle_fallback;
 
-        # get rid of all the redundant spaces
-        local $_ = $self->messages;
-        s/\s+ /  /g;
-        $self->messages($_);
-
         # iterate over the messages, invoke TAEB->enqueue_message for each one
         # we know about
-        for my $line (split /  /, $_) {
-            $line =~ s/^\s+//;
-            $line =~ s/\s+$//;
-
+        for my $line ($self->all_messages) {
             if (exists $msg_string{$line}) {
                 TAEB->enqueue_message(
                     map { ref($_) eq 'CODE' ? $_->() : $_ }
@@ -390,6 +382,16 @@ sub handle_fallback {
     }
 
     $self->messages($self->messages . '  ' . TAEB->topline);
+}
+
+sub all_messages {
+    my $self = shift;
+    local $_ = $self->messages;
+    s/\s+ /  /g;
+
+    return grep { length }
+           map { s/^\s+//; s/\s+$//; $_ }
+           split /  /, $_;
 }
 
 =head2 farlook Int, Int -> (Str | Str, Str, Str, Str)
