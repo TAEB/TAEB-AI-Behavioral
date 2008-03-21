@@ -111,7 +111,7 @@ sub new_item {
         $wield, $wear, $price) = $raw =~
         m{^                                                # anchor the regex
           (?:([\w\#\$])\s[+-]\s)?\s*                       # inventory slot
-          (an?|the|\d+)?\s*                                # number
+          ([Aa]n?|[Tt]he|\d+)?\s*                          # number
           (blessed|(?:un)?cursed|(?:un)?holy)?\s*          # cursedness
           (greased)?\s*                                    # greasy
           (poisoned)?\s*                                   # poisoned
@@ -141,7 +141,7 @@ sub new_item {
 
     $item = TAEB::Spoilers::Item->normalize($item);
 
-    $num = 1         if !defined($num) || $num =~ /[at]/;
+    $num = 1         if !defined($num) || $num =~ /[at]/i;
     $spe =~ s/^\+//  if defined $spe;
     $ncandles = 0    if (defined $ncandles && $ncandles =~ /no/);
     $lit = 1         if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
