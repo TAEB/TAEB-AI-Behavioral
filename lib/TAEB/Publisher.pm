@@ -35,22 +35,27 @@ sub enqueue_message {
 
 sub send_messages {
     my $self = shift;
-    my @msgs = splice @{ $self->queued_messages };
 
-    for (@msgs) {
-        my $msgname = shift @$_;
-        TAEB->debug("Dequeueing message $msgname.");
+    # if a subscriber generates a message, we want to send it out this turn,
+    # not next
+    while (@{ $self->queued_messages }) {
+        my @msgs = splice @{ $self->queued_messages };
 
-        # this list should not be hardcoded. instead, we should let anything
-        # subscribe to messages
-        for my $recipient (TAEB->senses, TAEB->personality, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, TAEB->action, TAEB->knowledge, "TAEB::Spoilers::Item::Artifact") {
-            next unless $recipient;
+        for (@msgs) {
+            my $msgname = shift @$_;
+            TAEB->debug("Dequeueing message $msgname.");
 
-            if ($recipient->can('send_message')) {
-                $recipient->send_message($msgname, @$_);
-            }
-            elsif ($recipient->can($msgname)) {
-                $recipient->$msgname(@$_)
+            # this list should not be hardcoded. instead, we should let anything
+            # subscribe to messages
+            for my $recipient (TAEB->senses, TAEB->personality, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, TAEB->action, TAEB->knowledge, "TAEB::Spoilers::Item::Artifact") {
+                next unless $recipient;
+
+                if ($recipient->can('send_message')) {
+                    $recipient->send_message($msgname, @$_);
+                }
+                elsif ($recipient->can($msgname)) {
+                    $recipient->$msgname(@$_)
+                }
             }
         }
     }
