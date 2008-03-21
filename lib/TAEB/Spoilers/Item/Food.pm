@@ -128,7 +128,8 @@ has list => (
 
         # Collect monster corpses, tins, and eggs
         my $monsterlist = TAEB::Spoilers::Monster->list;
-        while (my ($name, $stats) = each %$monsterlist) {
+        for my $name (keys %$monsterlist) {
+            my $stats = $monsterlist->{$name};
             $foods->{"$name corpse"}             = $stats->{corpse};
             $foods->{"$name corpse"}{corpse}     = 1;
             $foods->{"$name corpse"}{plural}     = "$name corpses";
@@ -152,7 +153,8 @@ has list => (
         }
 
         # tag each food with its name and appearance
-        while (my ($name, $stats) = each %$foods) {
+        for my $name (keys %$foods) {
+            my $stats = $foods->{$name};
             $stats->{name} = $name;
             $stats->{appearance} = $name unless $stats->{appearance};
         }

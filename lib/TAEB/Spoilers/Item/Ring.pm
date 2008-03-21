@@ -106,7 +106,8 @@ has list => (
         };
 
         # tag each ring with its name
-        while (my ($name, $stats) = each %$rings) {
+        for my $name (keys %$rings) {
+            my $stats = $rings->{$name};
             $stats->{name}   = $name;
             $stats->{weight} = 3 unless $stats->{weight};
             $stats->{no_plural} = 1;

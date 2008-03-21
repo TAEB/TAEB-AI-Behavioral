@@ -106,7 +106,8 @@ has list => (
         };
 
         # tag each scroll with its name and weight
-        while (my ($name, $stats) = each %$scrolls) {
+        for my $name (keys %$scrolls) {
+            my $stats = $scrolls->{$name};
             $stats->{name}   = $name;
             $stats->{weight} = 5;
             ($stats->{plural} = $name) =~ s/\bscroll\b/scrolls/;

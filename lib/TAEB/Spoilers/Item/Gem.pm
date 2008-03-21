@@ -249,7 +249,8 @@ has list => (
         };
 
         # tag each gem with its name and fill in the rest of the plurals
-        while (my ($name, $stats) = each %$gems) {
+        for my $name (keys %$gems) {
+            my $stats = $gems->{$name};
             $stats->{name}   = $name;
             ($stats->{plural} = $name) =~ s/ stone$/ stones/
                 unless $stats->{plural};

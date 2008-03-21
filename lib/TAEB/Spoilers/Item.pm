@@ -35,7 +35,8 @@ has list => (
 
         for my $type ($self->types) {
             my $list = "TAEB::Spoilers::Item::$type"->list;
-            while (my ($name, $stats) = each %$list) {
+            for my $name (keys %$list) {
+                my $stats = $list->{$name};
                 $items->{$name} = lc $type;
                 $items->{$stats->{appearance}} = lc $type
                     if defined $stats->{appearance};
@@ -72,7 +73,8 @@ has plural_of_list => (
             next if $exempt{$type};
 
             my $list = "TAEB::Spoilers::Item::$type"->list;
-            while (my ($name, $stats) = each %$list) {
+            for my $name (keys %$list) {
+                my $stats = $list->{$name};
                 # no_plural or artifact ignore
                 $stats->{no_plural} || $stats->{artifact}
                     or $plural_of{$name} = $stats->{plural}

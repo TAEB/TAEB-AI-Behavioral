@@ -375,14 +375,16 @@ has list => (
 
         # Collect monster figurines
         my $monsterlist = TAEB::Spoilers::Monster->list;
-        while (my ($name, $stats) = each %$monsterlist) {
+        for my $name (keys %$monsterlist) {
+            my $stats = $monsterlist->{$name};
             $tools->{"figurine of $stats->{an} $name"} = {
                 %{ $tools->{figurine} },
                 plural => "figurines of $name",
             };
         }
         # tag each tool with its name and appearance
-        while (my ($name, $stats) = each %$tools) {
+        for my $name (keys %$tools) {
+            my $stats = $tools->{$name};
             $stats->{name} = $name;
             $stats->{appearance} = $name unless $stats->{appearance};
         }
@@ -407,7 +409,8 @@ has constant_appearances => (
     default    => sub {
         my $self = shift;
         my $appearances = {};
-        while (my ($item, $stats) = each %{ $self->list }) {
+        for my $item (keys %{ $self->list }) {
+            my $stats = $self->list->{$item};
             next if grep { $_ eq $stats->{appearance} }
                          $self->multi_identity_appearances;
             $appearances->{$stats->{appearance}} = $stats->{name}

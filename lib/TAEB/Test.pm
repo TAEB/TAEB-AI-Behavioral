@@ -47,7 +47,8 @@ sub test_generic {
         my $obj = eval { $code->($name) };
         warn $@ if $@;
 
-        while (my ($attr, $attr_expected) = each %expected) {
+        for my $attr (keys %expected) {
+            my $attr_expected = $expected{$attr};
             if (defined $obj) {
                 Test::More::is($obj->$attr, $attr_expected,
                          "parsed $attr of $name");

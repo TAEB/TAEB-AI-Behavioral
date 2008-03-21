@@ -91,7 +91,8 @@ has list => (
         };
 
         # tag each potion with its name and weight
-        while (my ($name, $stats) = each %$potions) {
+        for my $name (keys %$potions) {
+            my $stats = $potions->{$name};
             $stats->{name}   = $name;
             $stats->{weight} = 20;
             ($stats->{plural} = $name) =~ s/\bpotion\b/potions/;

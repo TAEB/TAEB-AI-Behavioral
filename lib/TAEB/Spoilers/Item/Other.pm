@@ -72,7 +72,8 @@ has list => (
 
         # Collect monster statues
         my $monsterlist = TAEB::Spoilers::Monster->list;
-        while (my ($name, $stats) = each %$monsterlist) {
+        for my $name (keys %$monsterlist) {
+            my $stats = $monsterlist->{$name};
             $other->{"statue of $stats->{an} $name"} = {
                 %{ $other->{statue} },
                 plural => "statues of $name",
@@ -80,7 +81,8 @@ has list => (
         }
 
         # tag each other item with its name
-        while (my ($name, $stats) = each %$other) {
+        for my $name (keys %$other) {
+            my $stats = $other->{$name};
             $stats->{name} = $name;
 
             # everything actually has the same appearance as identity
@@ -99,7 +101,8 @@ has constant_appearances => (
     default    => sub {
         my $self = shift;
         my $appearances = {};
-        while (my ($item, $stats) = each %{ $self->list }) {
+        for my $item (keys %{ $self->list }) {
+            my $stats = $self->list->{$item};
             $appearances->{$stats->{appearance}} = $stats->{name}
         }
         return $appearances;

@@ -59,7 +59,8 @@ has list => (
         };
 
         # tag each amulet with its name and weight
-        while (my ($name, $stats) = each %$amulets) {
+        for my $name (keys %$amulets) {
+            my $stats = $amulets->{$name};
             $stats->{name}   = $name;
             $stats->{weight} = 20;
             $stats->{no_plural} = 1;

@@ -535,7 +535,8 @@ has list => (
         };
 
         # tag each armor with its name and appearance
-        while (my ($name, $stats) = each %$armor) {
+        for my $name (keys %$armor) {
+            my $stats = $armor->{$name};
             $stats->{name} = $name;
             $stats->{appearance} = $name unless $stats->{appearance};
         }
@@ -574,7 +575,8 @@ has constant_appearances => (
     default    => sub {
         my $self = shift;
         my $appearances = {};
-        while (my ($item, $stats) = each %{ $self->list }) {
+        for my $item (keys %{ $self->list }) {
+            my $stats = $self->list->{$item};
             next if !defined $stats->{appearance} ||
                     grep { $_ eq $stats->{appearance} }
                          $self->multi_identity_appearances;

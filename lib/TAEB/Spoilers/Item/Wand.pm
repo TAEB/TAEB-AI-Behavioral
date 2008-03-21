@@ -132,7 +132,8 @@ has list => (
         };
 
         # tag each wand with its name and weight
-        while (my ($name, $stats) = each %$wands) {
+        for my $name (keys %$wands) {
+            my $stats = $wands->{$name};
             $stats->{name}   = $name;
             $stats->{weight} = 7;
             $stats->{no_plural} = 1;

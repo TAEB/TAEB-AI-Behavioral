@@ -62,7 +62,8 @@ sub weight_behaviors {
     my $self    = shift;
     my $results = {};
 
-    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+    for my $name (keys %{ $self->behaviors }) {
+        my $behavior = $self->behaviors->{$name};
         my $method = "weight_$name";
 
         if ($self->can($method)) {
@@ -155,9 +156,11 @@ sub sort_behaviors {
     my %action_weight;
 
     # apply weights to urgencies, find maximum
-    while (my ($behavior, $weight) = each %$weights) {
+    for my $behavior (keys %$weights) {
+        my $weight = $weights->{$behavior};
         my $possibilities = $self->behaviors->{$behavior}->urgencies;
-        while (my ($urgency, $action) = each %$possibilities) {
+        for my $urgency (keys %$possibilities) {
+            my $action = $possibilities->{$urgency};
             my $weighted = $urgency * $weight;
 
             if (ref($action) ne 'ARRAY') {
@@ -204,7 +207,7 @@ Consult each behavior for what it should pick up.
 sub pickup {
     my $self = shift;
 
-    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+    for my $behavior (values %{ $self->behaviors }) {
         return 1 if $behavior->pickup(@_);
     }
 
@@ -221,7 +224,7 @@ sub drop {
     my $self = shift;
     my $should_drop = 0;
 
-    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+    for my $behavior (values %{ $self->behaviors}) {
         my $drop = $behavior->drop(@_);
 
         # behavior is indifferent. Next!
@@ -248,7 +251,7 @@ sub send_message {
     my $self = shift;
     my $msgname = shift;
 
-    while (my ($name, $behavior) = each %{ $self->behaviors }) {
+    for my $behavior (values %{ $self->behaviors }) {
         $behavior->$msgname(@_)
             if $behavior->can($msgname);
     }

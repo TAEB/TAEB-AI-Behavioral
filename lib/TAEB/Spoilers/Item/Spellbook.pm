@@ -287,7 +287,8 @@ has list => (
         };
 
         # tag each spellbook with its name and weight
-        while (my ($name, $stats) = each %$spellbooks) {
+        for my $name (keys %$spellbooks) {
+            my $stats = $spellbooks->{$name};
             $stats->{name}   = $name;
             $stats->{weight} = 50 unless $stats->{weight};
         }

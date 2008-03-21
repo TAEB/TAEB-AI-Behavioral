@@ -13,7 +13,8 @@ has list => (
 
         for (qw/Amulet Armor Gem Tool Weapon /) {
             my $list = "TAEB::Spoilers::Item::$_"->list;
-            while (my ($name, $stats) = each %$list) {
+            for my $name (keys %$list) {
+                my $stats = $list->{$name};
                 next unless $stats->{artifact};
                 $artifacts->{$name} = $stats;
             }
