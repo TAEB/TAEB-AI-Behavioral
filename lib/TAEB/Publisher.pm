@@ -75,31 +75,33 @@ sub tick_messages {
     }
 }
 
-=head2 get_response -> Maybe Str
+=head2 get_generic_response Paramhash -> Maybe Str
 
-This is used to check for and get a response to any known prompt on the top
-line. Consultd are the personality and action.
-
-If no response is given, C<undef> is returned.
+Don't use this.
 
 =cut
 
-sub get_response {
+sub get_generic_response {
     my $self = shift;
-    my $line = shift;
+    my %args = (
+        responders => [ TAEB->personality, TAEB->action ],
+        @_,
+    );
 
-    for (my $i = 0; $i < @TAEB::ScreenScraper::prompts; $i += 2) {
+    for (my $i = 0; $i < @{ $args{sets} }; $i += 2) {
         my $matched = 0;
         my @captures;
-        my ($re, $name) = @TAEB::ScreenScraper::prompts[$i, $i + 1];
-        for my $responder (TAEB->personality, TAEB->action) {
+        my ($re, $name) = @{ $args{sets} }[$i, $i + 1];
+
+        for my $responder (@{ $args{responders} }) {
             next unless $responder;
 
-            if (my $code = $responder->can("respond_$name")) {
-                if ($matched ||= @captures = $line =~ $re) {
+            if (my $code = $responder->can("$args{method}_$name")) {
+                if ($matched ||= @captures = $args{msg} =~ $re) {
+
                     my $response = $responder->$code(
                         @captures,
-                        TAEB->topline,
+                        $args{msg},
                     );
                     next unless defined $response;
 
@@ -111,6 +113,46 @@ sub get_response {
     }
 
     return;
+}
+
+=head2 get_exceptional_response Str -> Maybe Str
+
+This is used to check all messages for exceptions. Such as not having an item
+we expected to have.
+
+If no response is given, C<undef> is returned.
+
+=cut
+
+sub get_exceptional_response {
+    my $self = shift;
+    my $msg  = shift;
+
+    return $self->get_generic_response(
+        msg    => $msg,
+        sets   => \@TAEB::ScreenScraper::exceptions,
+        method => "exception",
+    );
+}
+
+=head2 get_response Str -> Maybe Str
+
+This is used to check for and get a response to any known prompt on the top
+line. Consulted are the personality and action.
+
+If no response is given, C<undef> is returned.
+
+=cut
+
+sub get_response {
+    my $self = shift;
+    my $line = shift;
+
+    return $self->get_generic_response(
+        msg    => $line,
+        sets   => \@TAEB::ScreenScraper::prompts,
+        method => "respond",
+    );
 }
 
 =head2 send_at_turn turn message args

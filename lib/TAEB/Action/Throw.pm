@@ -38,7 +38,7 @@ sub msg_throw_count {
     TAEB->inventory->decrease_quantity($self->item->slot, $count - 1);
 }
 
-sub respond_missing_item {
+sub exception_missing_item {
     my $self = shift;
     TAEB->debug("We don't have item " . $self->item . ", escaping.");
     TAEB->inventory->remove($self->food->slot);
