@@ -69,6 +69,9 @@ sub done {
     if ($food->slot) {
         TAEB->inventory->decrease_quantity($food->slot)
     }
+    else {
+        TAEB->enqueue_message('remove_floor_item' => $food);
+    }
 
     my $old_nutrition = TAEB->senses->nutrition;
     my $new_nutrition = $old_nutrition + $food->nutrition;
