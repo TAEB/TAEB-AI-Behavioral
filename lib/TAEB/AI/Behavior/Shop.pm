@@ -3,6 +3,11 @@ package TAEB::AI::Behavior::Shop;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
+has debt => (
+    isa     => 'Maybe[Int]',
+    default => 0,
+);
+
 # for now, we just drop unpaid items
 
 sub prepare {
@@ -31,6 +36,15 @@ sub urgencies {
     return {
         100 => "dropping an unpaid item",
     }
+}
+
+sub msg_debt {
+    my $self = shift;
+    my $gold = shift;
+
+    # gold is occasionally undefined. that's okay, that tells us to check
+    # how much we owe with the $ command
+    $self->debt($gold);
 }
 
 make_immutable;
