@@ -56,12 +56,12 @@ sub command {
 sub done {
     my $self = shift;
 
-    # we only care if we didn't move
-    return if TAEB->x - $self->x0
-           || TAEB->y - $self->y0
-           || TAEB->z - $self->z0;
+    if (TAEB->x - $self->x0 || TAEB->y - $self->y0 || TAEB->z - $self->z0) {
+        TAEB->enqueue_message('walked');
 
-    TAEB->enqueue_message('walked');
+        # the rest applies only if we haven't moved
+        return;
+    }
 
     my $dir = substr($self->directions, 0, 1);
     my ($dx, $dy) = vi2delta($dir);
