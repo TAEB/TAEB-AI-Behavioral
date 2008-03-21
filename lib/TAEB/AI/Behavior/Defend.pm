@@ -12,7 +12,7 @@ sub prepare {
         return 100;
     }
 
-    $self->currently("resting on an Elbereth tile");
+    $self->currently("Resting on an Elbereth tile".);
     $self->do('search');
     return 80;
 }
