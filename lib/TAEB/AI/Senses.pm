@@ -88,6 +88,11 @@ has score => (
     default => 0,
 );
 
+has gold => (
+    isa     => 'Int',
+    default => 0,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -116,7 +121,7 @@ sub parse_botl {
 
     if ($botl =~ /^(Dlvl:\d+|Home \d+|Fort Ludios|End Game|Astral Plane)\s+(?:\$|\*):(\d+)\s+HP:(\d+)\((\d+)\)\s+Pw:(\d+)\((\d+)\)\s+AC:([0-9-]+)\s+(?:Exp|Xp|HD):(\d+)(?:\/(\d+))?(?:\s+T:(\d+))?\s+(.*?)\s*$/) {
         # $1 dlvl (cartographer does this)
-        # $2 gold
+        $self->gold($2);
         $self->hp($3);
         $self->maxhp($4);
         $self->power($5);
