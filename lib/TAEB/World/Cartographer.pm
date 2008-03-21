@@ -101,25 +101,18 @@ with no unknown neighbors".
 sub autoexplore {
     my $self = shift;
 
-    # "Exiting subroutine via next". Yes, Perl. I know this.
-    no warnings 'exiting';
-
     for my $y (1 .. 21) {
         TILE: for my $x (0 .. 79) {
             my $tile = $self->dungeon->current_level->at($x, $y);
 
             if (!$tile->explored && $tile->type ne 'rock') {
-                $tile->each_adjacent(sub {
-                    next TILE if shift->type eq 'rock'
-                });
-
-                $tile->explored(1);
+                $tile->explored(1)
+                    unless $tile->any_adjacent(sub { shift->type eq 'rock' });
             }
 
             # XXX: corridors need love
         }
     }
-
 }
 
 sub msg_dungeon_feature {
