@@ -29,11 +29,15 @@ sub update {
     my $needs_autoexplore = 0;
 
     for my $y (1 .. 21) {
+        my $row = TAEB->vt->row_plaintext($y);
+
         for my $x (0 .. 79) {
             my $tile = $level->at($x, $y);
-            if (TAEB->vt->at($x, $y) ne $tile->glyph) {
+            my $on_map = substr($row, $x, 1);
+
+            if ($on_map ne $tile->glyph) {
                 $needs_autoexplore = 1;
-                $level->update_tile($x, $y, TAEB->vt->at($x, $y),
+                $level->update_tile($x, $y, $on_map,
                                     TAEB->vt->color($x, $y));
             }
 
