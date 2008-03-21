@@ -61,7 +61,7 @@ our %msg_string = (
 
 our @msg_regex = (
     [
-        qr/^There is a (staircase (?:up|down)) here\.$/,
+        qr/^There is a (staircase (?:up|down)|fountain|sink) here\.$/,
             ['dungeon_feature', sub { $1 }],
     ],
     [
