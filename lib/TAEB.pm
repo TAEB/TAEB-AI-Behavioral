@@ -114,26 +114,28 @@ has log => (
     },
 );
 
-my %dungeon_handles = (
-    current_level => 'current_level',
-    current_tile  => 'current_tile',
-    map_like      => 'map_like',
-    x             => 'x',
-    y             => 'y',
-    z             => 'z',
-);
+my %dungeon_handles;
 for my $tiletype (qw/orthogonal diagonal adjacent adjacent_inclusive/) {
     for my $controllertype (qw/each any all/) {
         $dungeon_handles{"${controllertype}_${tiletype}"} =
             "${controllertype}_${tiletype}";
     }
 }
+
 has dungeon => (
     is      => 'ro',
     isa     => 'TAEB::World::Dungeon',
     lazy    => 1,
     default => sub { TAEB::World::Dungeon->new },
-    handles => \%dungeon_handles,
+    handles => {
+        current_level => 'current_level',
+        current_tile  => 'current_tile',
+        map_like      => 'map_like',
+        x             => 'x',
+        y             => 'y',
+        z             => 'z',
+        %dungeon_handles,
+    },
 );
 
 has read_wait => (
