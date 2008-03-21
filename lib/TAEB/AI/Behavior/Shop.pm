@@ -28,7 +28,7 @@ sub prepare {
         return 90;
     }
 
-    if ($self->debt <= TAEB->senses->gold) {
+    if ($self->debt && $self->debt <= TAEB->senses->gold) {
         $self->currently("Paying off our " . $self->debt . " debt");
         $self->do(pay => item => 'any');
         return 80;
