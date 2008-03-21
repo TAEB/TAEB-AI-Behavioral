@@ -3,18 +3,6 @@ package TAEB::AI::Behavior::Projectiles;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
-my @projectiles = (
-    'dagger',
-    'orcish dagger',
-    'elven dagger',
-    'silver dagger',
-    'dart',
-    'boomerang',
-    'shuriken',
-);
-
-my %pickup = map { $_ => 1 } @projectiles;
-
 sub prepare {
     my $self = shift;
 
@@ -41,7 +29,10 @@ sub prepare {
 sub pickup {
     my $self = shift;
     my $item = shift;
-    return $pickup{$item->identity};
+
+    $item->identity =~ m{
+        \b(?:dagger|dart|arrow|shuriken|boomerang|spear)\b
+    };
 }
 
 sub urgencies {
