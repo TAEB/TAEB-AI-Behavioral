@@ -25,11 +25,30 @@ has name => (
 has peaceful => (
     isa     => 'Bool',
     default => 0,
+    trigger => sub {
+        return unless $_[1];
+        $_[0]->hostile(0);
+    },
 );
 
 has tame => (
     isa     => 'Bool',
     default => 0,
+    trigger => sub {
+        return unless $_[1];
+        $_[0]->peaceful(1);
+    },
+);
+
+has hostile => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 1,
+    trigger => sub {
+        return unless $_[1];
+        $_[0]->peaceful(0);
+        $_[0]->tame(0);
+    },
 );
 
 sub new_monster {
