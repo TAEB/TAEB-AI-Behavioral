@@ -8,7 +8,7 @@ sub import {
 
     main->import('Test::More');
 
-    plan_items(@_);
+    plan_tests(@_);
     test_items(@_);
 }
 

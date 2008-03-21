@@ -22,5 +22,5 @@ my @tests = (
         appearance => "scroll labeled KIRJE",
     }],
 );
-plan_items(@tests);
+plan_tests(@tests);
 test_items(@tests);

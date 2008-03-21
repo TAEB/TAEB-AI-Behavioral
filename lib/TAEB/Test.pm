@@ -60,15 +60,15 @@ sub test_generic {
     }
 }
 
-=head2 plan_items ITEM_LIST
+=head2 plan_tests ITEM_LIST
 
-This will take the item list and count the number of tests that would be run.
+This will take the test list and count the number of tests that would be run.
 If called in void context, the plan will be set for you. If called in nonvoid
-context, the number of item tests will be returned.
+context, the number of tests will be returned.
 
 =cut
 
-sub plan_items {
+sub plan_tests {
     my $tests = sum map {
         ref $_->[1] eq 'HASH'
         ? scalar keys %{ $_->[1] }
