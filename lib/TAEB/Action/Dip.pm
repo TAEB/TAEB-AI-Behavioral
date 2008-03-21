@@ -19,7 +19,7 @@ sub respond_dip_what { shift->item->slot }
 
 sub respond_dip_into_water {
     my $self  = shift;
-    my $msg   = shift;
+    my $item  = shift;
     my $water = shift;
 
     # fountains are very much a special case - if water we want moat, pool, etc

@@ -138,7 +138,7 @@ our @prompts = (
     qr/^\s*Choose which spell to cast/      => 'which_spell',
     qr/^You don't have that object/         => 'missing_item',
 
-    qr/^Dip it into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
+    qr/^Dip (.*?) into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
     qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
     qr/^What do you want to write in the (.*?) here\?/ => 'write_what',
     qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
