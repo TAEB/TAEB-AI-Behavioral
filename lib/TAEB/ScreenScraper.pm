@@ -147,6 +147,7 @@ our @prompts = (
     qr/^What do you want to (?:call|name)\?/ => 'name_what',
     qr/^Call (.*?):/                        => 'name',
     qr/^What do you want to wear\?/         => 'wear_what',
+    qr/^(.*?) for (\d+) zorkmids?\.  Pay\?/ => 'buy_item',
 );
 
 has messages => (

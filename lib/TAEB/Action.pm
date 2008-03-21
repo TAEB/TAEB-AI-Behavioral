@@ -16,6 +16,7 @@ use TAEB::Action::Kick;
 use TAEB::Action::Melee;
 use TAEB::Action::Move;
 use TAEB::Action::Open;
+use TAEB::Action::Pay;
 use TAEB::Action::Pickup;
 use TAEB::Action::Pray;
 use TAEB::Action::Quaff;
