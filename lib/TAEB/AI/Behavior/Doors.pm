@@ -14,7 +14,7 @@ sub prepare {
                 || TAEB->find_item('credit card');
 
     my ($door_tile, $door_dir);
-    if (TAEB->current_tile->any_adjacent(sub {
+    if (TAEB->any_adjacent(sub {
                                my ($tile, $dir) = @_;
                                ($door_tile, $door_dir) = ($tile, $dir)
                                      if $tile->type eq 'closeddoor'
