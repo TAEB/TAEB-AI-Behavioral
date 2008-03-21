@@ -36,7 +36,7 @@ has maxpower => (
 
 has nutrition => (
     isa     => 'Int',
-    default => 700,
+    default => 900,
 );
 
 has in_wereform => (
