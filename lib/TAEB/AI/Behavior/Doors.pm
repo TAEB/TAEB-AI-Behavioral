@@ -13,21 +13,25 @@ sub prepare {
                 || TAEB->find_item('lock pick')
                 || TAEB->find_item('credit card');
 
-    TAEB->each_adjacent(sub {
-        my ($tile, $dir) = @_;
-        return unless $tile->type eq 'closeddoor';
-
-        if ($tile->locked eq 'locked') {
+    my ($door_tile, $door_dir);
+    if (TAEB->current_tile->any_adjacent(sub {
+                               my ($tile, $dir) = @_;
+                               ($door_tile, $door_dir) = ($tile, $dir)
+                                     if $tile->type eq 'closeddoor'
+                           })) {
+        if ($door_tile->locked eq 'locked') {
             # can we unlock? if so, try it
             if ($locktool) {
                 TAEB->debug("Lock tool $locktool");
-                $self->do(unlock => implement => $locktool, direction => $dir);
-                $self->currently("Applying lock tool in direction " . $dir);
+                $self->do(unlock => implement => $locktool, direction =>
+                                                            $door_dir);
+                $self->currently("Applying lock tool in direction " .
+                                 $door_dir);
                 $have_action = 1;
             }
             # can we kick? if so, try it
             elsif (TAEB->senses->can_kick) {
-                $self->do(kick => direction => $dir);
+                $self->do(kick => direction => $door_dir);
                 $self->currently("Kicking down a door");
                 $have_action = 1;
             }
@@ -38,11 +42,11 @@ sub prepare {
             }
         }
         else {
-            $self->do(open => direction => $dir);
-            $self->currently("Trying to open a door (" . $dir . ")");
+            $self->do(open => direction => $door_dir);
+            $self->currently("Trying to open a door (" . $door_dir . ")");
             $have_action = 1;
         }
-    });
+    }
     return 0 if $ignore_doors;
     return 100 if $have_action;
 
