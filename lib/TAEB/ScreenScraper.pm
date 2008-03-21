@@ -81,7 +81,7 @@ our @msg_regex = (
             ['beartrap'],
     ],
     [
-        qr/^You see here (.*?)\./,
+        qr/^You (?:see|feel) here (.*?)\./,
             ['floor_item', sub { TAEB->new_item($1) }],
     ],
     [
