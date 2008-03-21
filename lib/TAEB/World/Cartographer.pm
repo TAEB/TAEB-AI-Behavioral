@@ -178,11 +178,10 @@ sub msg_remove_floor_item {
     for my $i (0 .. TAEB->current_tile->item_count - 1) {
         my $tile_item = TAEB->current_tile->items->[$i];
 
-        next if $item->maybe_is($tile_item);
-
-        # all fields match, success!
-        TAEB->current_tile->remove_item($i);
-        return;
+        if ($item->maybe_is($tile_item)) {
+            TAEB->current_tile->remove_item($i);
+            return;
+        }
     }
 
     return if $item->is_autopickuped;
