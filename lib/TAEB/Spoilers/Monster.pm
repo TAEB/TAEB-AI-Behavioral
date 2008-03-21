@@ -51,6 +51,7 @@ has list => (
                 'speed'       => 12,
                 'glyph'       => "@",
                 'color'       => COLOR_WHITE,
+                'unique'      => 1,
                 'corpse'      => {
                     'cannibal'  => "Hum",
                     'weight'    => 1450,
