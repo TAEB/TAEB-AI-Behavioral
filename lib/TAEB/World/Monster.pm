@@ -74,8 +74,9 @@ sub new_monster {
         elsif ($glyph eq '@' && $color eq COLOR_WHITE) {
             # better way to identify shopkeepers?
             $mon = TAEB::Spoilers::Monster->monster('shopkeeper');
-            $mon->{id} = $name;
-            $monster = TAEB::World::Monster->new($mon);
+            my %mon = %$mon;
+            $mon{id} = $name;
+            return TAEB::World::Monster->new(%mon);
         }
     }
     else {
