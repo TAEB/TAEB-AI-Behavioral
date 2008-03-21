@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 package TAEB::Action::Name;
 use TAEB::OO;
+use String::Koremutake;
 extends 'TAEB::Action';
 
 use constant command => "#name\n";
