@@ -72,7 +72,7 @@ sub done {
     # we only care if the tile was obscured
     for ([TAEB->x, TAEB->y], [TAEB->x + $dx, TAEB->y + $dy]) {
         my $tile = TAEB->current_level->at(@$_);
-        return unless $tile->type eq 'obscured';
+        next unless $tile->type eq 'obscured';
 
         TAEB->debug("Changing tile at (" . $tile->x . ", " . $tile->y . ") from obscured to opendoor because I tried to move diagonally off or onto it and I didn't move.");
         $tile->type('opendoor');
