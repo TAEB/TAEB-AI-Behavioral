@@ -607,6 +607,11 @@ sub new_item {
     TAEB::World::Item->new_item(@_);
 }
 
+sub new_monster {
+    my $self = shift;
+    TAEB::World::Monster->new_monster(@_);
+}
+
 sub console {
     my $self = shift;
 

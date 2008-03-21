@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Monster;
 use TAEB::OO;
+use TAEB::Util ':colors';
 use String::Koremutake;
 
 has id => (
@@ -17,7 +18,7 @@ has tile => (
     weak_ref => 1,
 );
 
-has type => (
+has name => (
     isa => 'Str',
 );
 
@@ -30,6 +31,43 @@ has tame => (
     isa     => 'Bool',
     default => 0,
 );
+
+sub new_monster {
+    my $self  = shift;
+    my $glyph = shift;
+    my $color = shift;
+    my $name  = shift;
+
+    my $monster;
+
+    if (defined($name)) {
+        my $mon = TAEB::Spoilers::Monster->monster($name);
+        if ($mon) {
+            $monster = TAEB::World::Monster->new($mon);
+        }
+        elsif ($glyph eq '@' && $color eq COLOR_WHITE) {
+            # better way to identify shopkeepers?
+            $mon = TAEB::Spoilers::Monster->monster('shopkeeper');
+            $mon->{id} = $name;
+            $monster = TAEB::World::Monster->new($mon);
+        }
+    }
+    else {
+        my %search;
+        $search{glyph} = $glyph if defined $glyph;
+        $search{color} = $color if defined $color;
+        my %result = TAEB::Spoilers::Monster->search(%search);
+        my @keys = keys %result;
+        if (@keys == 1) {
+            $monster = TAEB::World::Monster->new($result{$keys[0]});
+        }
+        else {
+            return @keys;
+        }
+    }
+
+    return $monster;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
