@@ -397,7 +397,7 @@ sub keypress {
     # refresh modules
     if ($c eq 'r') {
         Module::Refresh->refresh;
-        return "Modules refreshed.";
+        return "Modules refreshed. WARNING: This probably doesn't actually work.";
     }
 
     # pause for a key
