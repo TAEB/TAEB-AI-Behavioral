@@ -3,16 +3,18 @@ package TAEB::VT;
 use TAEB::OO;
 extends 'Term::VT102';
 
-=head2 topline
+has topline => (
+    isa => 'Str',
+    trigger => sub {
+        my $self = shift;
+        study $self->{topline};
+    },
+);
 
-Returns the top line of text. Merely a convenience function.
-
-=cut
-
-sub topline {
+after process => sub {
     my $self = shift;
-    $self->row_plaintext(0);
-}
+    $self->topline($self->row_plaintext(0));
+};
 
 =head2 find_row CODE
 
