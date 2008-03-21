@@ -62,7 +62,14 @@ sub new_monster {
     if (defined($name)) {
         my $mon = TAEB::Spoilers::Monster->monster($name);
         if ($mon) {
-            $monster = TAEB::World::Monster->new($mon);
+            return TAEB::World::Monster->new($mon);
+        }
+        my ($priest) = $name =~ /^((?:arch |high )?priest) of/;
+        if ($priest) {
+            $mon = TAEB::Spoilers::Monster->monster($name);
+            my %mon = %$mon;
+            $mon{id} = $name;
+            return TAEB::World::Monster->new(%mon);
         }
         elsif ($glyph eq '@' && $color eq COLOR_WHITE) {
             # better way to identify shopkeepers?
