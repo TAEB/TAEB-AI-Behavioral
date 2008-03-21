@@ -172,7 +172,7 @@ sub msg_floor_item {
 }
 
 my @check = qw/appearance quantity/;
-sub msg_got_item {
+sub msg_remove_floor_item {
     my $self = shift;
     my $item = shift;
 
