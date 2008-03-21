@@ -299,6 +299,20 @@ sub is_autopickuped {
     return 0;
 }
 
+my @check = qw/appearance quantity/;
+sub maybe_is {
+    my $self  = shift;
+    my $other = shift;
+
+    for (@check) {
+        if ($self->$_ ne $other->$_) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 install_spoilers(qw/weight base edible artifact material/);
 
 make_immutable;

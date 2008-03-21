@@ -171,19 +171,14 @@ sub msg_floor_item {
     TAEB->current_tile->add_item($item);
 }
 
-my @check = qw/appearance quantity/;
 sub msg_remove_floor_item {
     my $self = shift;
     my $item = shift;
 
-    ITEM:
     for my $i (0 .. TAEB->current_tile->item_count - 1) {
         my $tile_item = TAEB->current_tile->items->[$i];
-        for (@check) {
-            if ($item->$_ ne $tile_item->$_) {
-                next ITEM;
-            }
-        }
+
+        next if $item->maybe_is($tile_item);
 
         # all fields match, success!
         TAEB->current_tile->remove_item($i);
