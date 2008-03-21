@@ -55,6 +55,8 @@ our %msg_string = (
         ['debt', 0],
     "You don't owe any money here." =>
         ['debt', 0],
+    "Your stomach feels content." =>
+        ['nutrition' => 800],
 );
 
 our @msg_regex = (

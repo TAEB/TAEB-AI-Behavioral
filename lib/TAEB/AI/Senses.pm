@@ -249,6 +249,13 @@ sub elbereth_count {
     return $elbereths;
 }
 
+sub msg_nutrition {
+    my $self = shift;
+    my $nutrition = shift;
+
+    $self->nutrition($nutrition);
+}
+
 make_immutable;
 no Moose;
 
