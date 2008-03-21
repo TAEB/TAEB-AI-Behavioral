@@ -138,7 +138,6 @@ our @prompts = (
     qr/^For what do you wish\?/             => 'wish',
     qr/^Really attack (.*?)\?/              => 'really_attack',
     qr/^\s*Choose which spell to cast/      => 'which_spell',
-    qr/^You don't have that object/         => 'missing_item',
 
     qr/^Dip (.*?) into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
     qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
@@ -150,6 +149,10 @@ our @prompts = (
     qr/^Call (.*?):/                        => 'name',
     qr/^What do you want to wear\?/         => 'wear_what',
     qr/^(.*?) for (\d+) zorkmids?\.  Pay\?/ => 'buy_item',
+);
+
+our @exceptions = (
+    qr/^You don't have that object/         => 'missing_item',
 );
 
 has messages => (
@@ -371,6 +374,14 @@ sub handle_fallback {
     if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
         TAEB->write("y");
         die "Game over, man!";
+    }
+
+    for ($self->all_messages) {
+        my $response = TAEB->get_exceptional_response($_);
+        if (defined $response) {
+            TAEB->write($response);
+            die "Recursing screenscraper.\n";
+        }
     }
 
     if (TAEB->vt->y == 0) {
