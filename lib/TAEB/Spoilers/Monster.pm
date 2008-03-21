@@ -6386,10 +6386,11 @@ has list => (
         };
 
         # tag each monster with whether it uses "a" or "an"
-        # and whether it's unique or not
+        # whether it's unique or not and its name
         while (my ($name, $stats) = each %$monsters) {
             my $an = $name =~ /^[aeiou]/i ? 'an' : 'a';
             $stats->{an} ||= $an;
+            $stats->{name} = $name;
             $stats->{unique} = 0 unless $stats->{unique};
         }
 
