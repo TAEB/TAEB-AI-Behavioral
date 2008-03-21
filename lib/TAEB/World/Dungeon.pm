@@ -51,52 +51,17 @@ sub current_tile {
     $self->current_level->at;
 }
 
-=head2 each_adjacent Code[, Tile]
+for my $tiletype (qw/orthogonal diagonal adjacent adjacent_inclusive/) {
+    for my $controllertype (qw/each any all/) {
+        my $method = "${controllertype}_${tiletype}";
+        __PACKAGE__->meta->add_method($method => sub {
+            my $self = shift;
+            my $code = shift;
+            my $tile = shift || $self->current_tile;
 
-Runs the coderef for each tile adjacent to the given tile. The coderef will
-receive two arguments: the tile object and the vi key corresponding to the
-direction.
-
-=cut
-
-sub each_adjacent {
-    my $self = shift;
-    my $code = shift;
-    my $tile = shift || $self->current_tile;
-
-    $tile->each_adjacent($code);
-}
-
-=head2 each_adjacent_inclusive Code[, Tile]
-
-Runs the coderef for each tile adjacent to the given tile (and the given tile).
-The coderef will receive two arguments: the tile object and the vi key
-corresponding to the direction.
-
-=cut
-
-sub each_adjacent_inclusive {
-    my $self = shift;
-    my $code = shift;
-    my $tile = shift || $self->current_tile;
-
-    $tile->each_adjacent_inclusive($code);
-}
-
-=head2 each_orthogonal Code[, Tile]
-
-Runs the coderef for each tile adjacent to the given tile in one of the
-cardinal directions (no diagonals). The coderef will receive two arguments: the
-tile object and the vi key corresponding to the direction.
-
-=cut
-
-sub each_orthogonal {
-    my $self = shift;
-    my $code = shift;
-    my $tile = shift || $self->current_tile;
-
-    $tile->each_orthogonal($code);
+            $tile->$method($code);
+        })
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
