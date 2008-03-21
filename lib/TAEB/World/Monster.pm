@@ -88,9 +88,10 @@ sub new_monster {
         if (@keys == 1) {
             return TAEB::World::Monster->new($result{$keys[0]});
         }
+        return undef;
     }
 
-    return $monster;
+    return undef;
 }
 
 __PACKAGE__->meta->make_immutable;
