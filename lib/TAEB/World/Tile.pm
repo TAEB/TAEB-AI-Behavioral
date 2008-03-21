@@ -2,6 +2,7 @@
 package TAEB::World::Tile;
 use TAEB::OO;
 use TAEB::Util qw/glyph_to_type delta2vi/;
+use List::MoreUtils qw/any all apply/;
 
 has level => (
     isa      => 'TAEB::World::Level',
@@ -238,77 +239,68 @@ sub step_on {
     $self->last_stepped(TAEB->turn);
 }
 
-sub each_adjacent {
-    my $self = shift;
-    my $code = shift;
+sub iterate_tiles {
+    my $self       = shift;
+    my $controller = shift;
+    my $usercode   = shift;
+    my $directions = shift;
 
-    $self->each_orthogonal($code);
-    $self->each_diagonal($code);
-}
-
-sub each_adjacent_inclusive {
-    my $self = shift;
-    my $code = shift;
-
-    $code->($self, '.');
-    $self->each_adjacent($code);
-}
-
-sub each_orthogonal {
-    my $self  = shift;
-    my $code  = shift;
-
-    my $level = $self->level;
-    my $x     = $self->x;
-    my $y     = $self->y;
-
-    if ($y <= 0) {
-        TAEB->error("each_orthogonal called with a y argument of $y. This usually indicates an unhandled --More-- or prompt.");
+    if ($self->y <= 0) {
+        TAEB->error("" . (caller 1)[3] . " called with a y argument of ".$self->y.". This usually indicates an unhandled --More-- or prompt.");
     }
 
-    for my $dy (-1 .. 1) {
-        for my $dx (-1 .. 1) {
-            next unless $dy || $dx; # skip 0, 0
-            next if $dy && $dx; # skip diagonals
+    my @tiles = grep { defined } map {
+                                     $self->level->at(
+                                         $self->x + $_->[0],
+                                         $self->y + $_->[1]
+                                     )
+                                 } @$directions;
 
-            my $dir = delta2vi($dx, $dy);
-
-            my $tile = $level->at(
-                $dx + $x,
-                $dy + $y,
-            ) or next;
-
-            $code->($tile, $dir);
-        }
-    }
+    $controller->(sub {
+        my $tile = $_;
+        my ($dx, $dy) = ($tile->x - $self->x, $tile->y - $self->y);
+        my $dir = delta2vi($dx, $dy);
+        $usercode->($tile, $dir);
+    }, @tiles);
 }
 
-sub each_diagonal {
-    my $self  = shift;
-    my $code  = shift;
+my %tiletypes = (
+    diagonal => [
+        [-1, -1],          [-1, 1],
 
-    my $level = $self->level;
-    my $x     = $self->x;
-    my $y     = $self->y;
+        [ 1, -1],          [ 1, 1],
+    ],
+    orthogonal => [
+                  [-1, 0],
+        [ 0, -1],          [ 0, 1],
+                  [ 1, 0],
+    ],
+    adjacent => [
+        [-1, -1], [-1, 0], [-1, 1],
+        [ 0, -1],          [ 0, 1],
+        [ 1, -1], [ 1, 0], [ 1, 1],
+    ],
+    adjacent_inclusive => [
+        [-1, -1], [-1, 0], [-1, 1],
+        [ 0, -1], [ 0, 0], [ 0, 1],
+        [ 1, -1], [ 1, 0], [ 1, 1],
+    ],
+);
+my %controllers = (
+    each => \&apply,
+    all  => \&all,
+    any  => \&any,
+);
 
-    if ($y <= 0) {
-        TAEB->error("each_diagonal called with a y argument of $y. This usually indicates an unhandled --More-- or prompt.");
-    }
-
-    for my $dy (-1 .. 1) {
-        for my $dx (-1 .. 1) {
-            next unless $dy || $dx; # skip 0, 0
-            next unless $dy && $dx; # skip orthogonals
-
-            my $dir = delta2vi($dx, $dy);
-
-            my $tile = $level->at(
-                $dx + $x,
-                $dy + $y,
-            ) or next;
-
-            $code->($tile, $dir);
-        }
+for my $tiletype (keys %tiletypes) {
+    for my $name (keys %controllers) {
+        __PACKAGE__->meta->add_method("${name}_${tiletype}" => sub {
+            my $self = shift;
+            my $code = shift;
+            $self->iterate_tiles($controllers{$name},
+                                 $code,
+                                 $tiletypes{$tiletype})
+        })
     }
 }
 
