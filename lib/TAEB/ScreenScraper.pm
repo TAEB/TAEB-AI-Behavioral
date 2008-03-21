@@ -98,6 +98,10 @@ our @msg_regex = (
         qr/^You owe .*? (\d+) zorkmids?\./,
             ['debt', sub { $1 }],
     ],
+    [
+        qr/^You do not owe .* anything\./,
+            ['debt' => 0],
+    ],
 );
 
 our @god_anger = (
