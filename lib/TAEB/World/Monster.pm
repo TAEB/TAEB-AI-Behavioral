@@ -86,10 +86,7 @@ sub new_monster {
         my %result = TAEB::Spoilers::Monster->search(%search);
         my @keys = keys %result;
         if (@keys == 1) {
-            $monster = TAEB::World::Monster->new($result{$keys[0]});
-        }
-        else {
-            return @keys;
+            return TAEB::World::Monster->new($result{$keys[0]});
         }
     }
 
