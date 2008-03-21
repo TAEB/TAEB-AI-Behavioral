@@ -6,7 +6,7 @@ use TAEB;
 use parent 'Test::More';
 use List::Util 'sum';
 
-our @EXPORT = qw/test_items plan_items/;
+our @EXPORT = qw/test_items test_monsters plan_tests/;
 
 sub import_extra {
     Test::More->export_to_level(2);
@@ -24,22 +24,37 @@ Takes a list of two item arrayrefs, where the first item is a string of the item
 
 sub test_items {
     local $Test::Builder::Level = $Test::Builder::Level + 1;
+    test_generic(sub { TAEB->new_item(shift) }, @_);
+}
 
+=head2 test_monsters MONSTER_LIST
+
+Identical to test_items in style, except for monsters.
+
+=cut
+
+sub test_monsters {
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+    test_generic(sub { TAEB->new_monster(shift) }, @_);
+}
+
+sub test_generic {
+    my $code = shift;
     for my $test (@_) {
-        my $appearance = shift @$test;
+        my $name = shift @$test;
         my %expected = @$test == 1 ? %{ $test->[0] } : @$test;
 
-        my $item = eval { TAEB->new_item($appearance) };
+        my $obj = eval { $code->($name) };
         warn $@ if $@;
 
         while (my ($attr, $attr_expected) = each %expected) {
-            if (defined $item) {
-                Test::More::is($item->$attr, $attr_expected,
-                         "parsed $attr of $appearance");
+            if (defined $obj) {
+                Test::More::is($obj->$attr, $attr_expected,
+                         "parsed $attr of $name");
             }
             else {
-                Test::More::fail("parsed $attr of $appearance");
-                Test::More::diag("$appearance produced an undef item object");
+                Test::More::fail("parsed $attr of $name");
+                Test::More::diag("$name produced an undef object");
             }
         }
     }
