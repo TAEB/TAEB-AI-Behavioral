@@ -41,7 +41,7 @@ sub msg_throw_count {
 sub exception_missing_item {
     my $self = shift;
     TAEB->debug("We don't have item " . $self->item . ", escaping.");
-    TAEB->inventory->remove($self->food->slot);
+    TAEB->inventory->remove($self->item->slot);
     $self->aborted(1);
     return "\e";
 }
