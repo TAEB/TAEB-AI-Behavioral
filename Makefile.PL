@@ -17,7 +17,7 @@ requires 'MooseX::AttributeHelpers';
 requires 'Getopt::Whatever';
 
 # parse escape codes into an addressable screen
-requires 'Term::VT102::ZeroBased' => 1.01;
+requires 'Term::VT102';
 
 # human interaction
 requires 'Term::ReadKey';

@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::VT;
 use TAEB::OO;
-extends 'Term::VT102::ZeroBased';
+extends 'Term::VT102';
 
 =head2 topline
 
@@ -202,6 +202,60 @@ sub color {
     # this then maps into the constants from color.h (and in Util.pm)
     return $attr[0] + 8*$attr[2];
 }
+
+around x => sub
+{
+    my $orig = shift;
+    $orig->(@_) - 1;
+};
+
+around y => sub
+{
+    my $orig = shift;
+    $orig->(@_) - 1;
+};
+
+around status => sub
+{
+    my $orig = shift;
+    my ($x, $y, @others) = $orig->(@_);
+    --$x;
+    --$y;
+    return ($x, $y, @others);
+};
+
+around row_attr => sub
+{
+    my $orig  = shift;
+    my $self  = shift;
+    my $row   = @_ ? 1 + shift : undef;
+    my $start = @_ ? 1 + shift : undef;
+    my $end   = @_ ? 1 + shift : undef;
+
+    $orig->($self, $row, $start, $end, @_);
+};
+
+around row_text => sub
+{
+    my $orig  = shift;
+    my $self  = shift;
+    my $row   = @_ ? 1 + shift : undef;
+    my $start = @_ ? 1 + shift : undef;
+    my $end   = @_ ? 1 + shift : undef;
+
+    $orig->($self, $row, $start, $end, @_);
+};
+
+around row_plaintext => sub
+{
+    my $orig  = shift;
+    my $self  = shift;
+    my $row   = @_ ? 1 + shift : undef;
+    my $start = @_ ? 1 + shift : undef;
+    my $end   = @_ ? 1 + shift : undef;
+
+    $orig->($self, $row, $start, $end, @_);
+};
 
 # __PACKAGE__->meta->make_immutable breaks here because we need to inherit the constructor from
 # Term::VT102
