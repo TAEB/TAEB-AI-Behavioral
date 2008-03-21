@@ -12,7 +12,6 @@ has from => (
 
 sub respond_drink_from {
     my $self = shift;
-    my $msg  = shift;
     my $from = shift;
 
     # no, we want to drink an item, not from the floor tile

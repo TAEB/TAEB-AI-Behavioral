@@ -98,8 +98,8 @@ sub get_response {
             if (my $code = $responder->can("respond_$name")) {
                 if ($matched ||= @captures = $line =~ $re) {
                     my $response = $responder->$code(
-                        TAEB->topline,
                         @captures,
+                        TAEB->topline,
                     );
                     next unless defined $response;
 
