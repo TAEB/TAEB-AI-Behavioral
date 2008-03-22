@@ -12,6 +12,18 @@ has item => (
 
 sub respond_apply_what { shift->item->slot }
 
+sub msg_nothing_happens {
+    my $self = shift;
+    my $item = $self->item;
+
+    # nothing happens is good! we know we don't have these status effects
+    if ($item->identity eq 'unicorn horn') {
+        for (qw/blindness confusion stunning hallucination/) {
+            TAEB->enqueue_message(status_change => $_ => 0);
+        }
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -59,6 +59,8 @@ our %msg_string = (
         ['nutrition' => 800],
     "You hear crashing rock." =>
         ['pickaxe'],
+    "Nothing happens." =>
+        ['nothing_happens'],
 );
 
 our @msg_regex = (
