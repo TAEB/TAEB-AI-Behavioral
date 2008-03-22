@@ -151,6 +151,7 @@ our @prompts = (
     qr/^Call (.*?):/                        => 'name',
     qr/^What do you want to wear\?/         => 'wear_what',
     qr/^(.*?) for (\d+) zorkmids?\.  Pay\?/ => 'buy_item',
+    qr/You did (\d+) zorkmids worth of damage!/ => 'buy_door',
 );
 
 our @exceptions = (
