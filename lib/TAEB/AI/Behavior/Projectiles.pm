@@ -12,7 +12,7 @@ sub prepare {
 
     my $direction = TAEB->current_level->radiate(
         sub { shift->has_monster },
-        item => $projectile,
+        max => $projectile->throw_range,
     );
 
     # no monster found

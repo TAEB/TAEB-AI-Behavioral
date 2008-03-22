@@ -313,6 +313,43 @@ sub maybe_is {
     return 1;
 }
 
+sub throw_distance {
+    my $self = shift;
+    my $range = int(TAEB->senses->numeric_strength / 2);
+
+    if ($self->identity eq 'heavy iron ball') {
+        $range -= int($self->weight / 100);
+    }
+    else {
+        $range -= int($self->weight / 40);
+    }
+
+    $range = 1 if $range < 1;
+
+    if ($self->identity =~ /\b(?:arrow|crossbow bolt)\b/
+        || $self->class eq 'gem') {
+        if (0 && "Wielding a bow for arrows or crossbow for bolts or sling for gems") {
+            ++$range;
+        }
+        elsif ($self->class ne 'gem') {
+            $range = int($range / 2);
+        }
+    }
+
+    # are we on Air? are we levitating?
+
+    if ($self->identity eq 'boulder') {
+        $range = 20;
+    }
+    elsif ($self->identity eq "Mjollnir") {
+        $range = int(($range + 1) / 2);
+    }
+
+    # are we underwater?
+
+    return $range;
+}
+
 install_spoilers(qw/weight base edible artifact material/);
 
 __PACKAGE__->meta->make_immutable;
