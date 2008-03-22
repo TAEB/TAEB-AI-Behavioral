@@ -374,7 +374,7 @@ sub floodfill {
         next if $seen{$tile}++;
         $each_tile->($tile);
 
-        $tile->each_neighbor(sub {
+        $tile->each_adjacent(sub {
             my $t = shift;
             if (!$seen{$t}++ && $continue_condition->($t)) {
                 push @queue, $t;
