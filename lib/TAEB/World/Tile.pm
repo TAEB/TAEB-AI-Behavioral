@@ -113,7 +113,7 @@ sub basic_cost {
     $cost = $cost * .9 if $self->stepped_on;
 
     # prefer rooms to corridors to explore a bit more sanely
-    $cost = $cost * .9 if $self->type eq 'floor';
+    $cost = $cost * 1.05 if $self->type eq 'corridor';
 
     return int($cost);
 }
