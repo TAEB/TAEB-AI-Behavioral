@@ -63,12 +63,13 @@ sub is_degradation {
     my @orig = split '', $orig;
     my @cur  = split '', $cur;
 
-    while (@orig && @cur) {
-        my $o = shift @orig;
-        my $c = shift @cur;
+    O: for my $o (@orig) {
+        while (@cur) {
+            my $c = shift @cur;
 
-        next if $o eq $c;
-        next if any { $_ eq $c } split '', ($rubouts{ $o } || ' ?');
+            next O if $o eq $c;
+            next O if any { $_ eq $c } split '', ($rubouts{ $o } || ' ?');
+        }
 
         return 0;
     }

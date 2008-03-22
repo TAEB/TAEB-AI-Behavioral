@@ -23,3 +23,23 @@ degrade_progression(
     ""
 );
 
+degrade_progression(
+    "Elbereth" =>
+    "Elbe?eth" =>
+    "El e?et?" =>
+    "El e e??" =>
+    "El c e?"  =>
+    "El c e"   =>
+    "E  c ?"   =>
+    "E  c"     =>
+    "E  ?"     =>
+    "E"        =>
+    ""
+);
+
+degrade_progression(
+    "               x" =>
+                   "x" =>
+                   ""
+);
+
