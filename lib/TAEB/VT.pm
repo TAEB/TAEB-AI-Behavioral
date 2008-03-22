@@ -81,7 +81,7 @@ sub at {
     $self->row_plaintext($y, $x, $x);
 }
 
-=head2 as_string [Str] -> Str
+=head2 as_string [Str, Int, Int] -> Str
 
 Will join together all of the rows in the VT with the optional delimiter
 (default is the empty string).
@@ -91,9 +91,11 @@ Will join together all of the rows in the VT with the optional delimiter
 sub as_string {
     my $self = shift;
     my $delimiter = shift || '';
+    my $first_row = shift || 0;
+    my $last_row = shift || $self->rows - 1;
     my @rows;
 
-    for my $row (0.. $self->rows - 1) {
+    for my $row ($first_row.. $last_row) {
         push @rows, $self->row_plaintext($row);
     }
 
