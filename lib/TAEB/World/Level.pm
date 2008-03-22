@@ -34,6 +34,11 @@ has turns_spent_on => (
     default => 0,
 );
 
+has pickaxe => (
+    isa     => 'Int',
+    default => 0,
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;

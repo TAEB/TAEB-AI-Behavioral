@@ -197,6 +197,10 @@ sub msg_floor_message {
     TAEB->current_tile->engraving($message);
 }
 
+sub msg_pickaxe {
+    TAEB->current_level->pickaxe(TAEB->turn);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
