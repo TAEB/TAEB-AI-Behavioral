@@ -20,7 +20,8 @@ sub prepare {
         },
     );
 
-    $self->done_exploring(1) if !$path;
+    # shops screw this up for now
+    #$self->done_exploring(1) if !$path;
 
     $self->if_path($path, "Exploring", 100);
 }
