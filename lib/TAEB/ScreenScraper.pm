@@ -65,6 +65,8 @@ our %msg_string = (
         [wand => 'cold'],
     "The wand unsuccessfully fights your attempt to write!" =>
         [wand => 'striking'],
+    "A lit field surrounds you!" =>
+        [wand => 'light'],
 );
 
 our @msg_regex = (
