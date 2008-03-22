@@ -16,7 +16,7 @@ sub prepare {
 
     # do we have a projectile to throw?
     my $projectile;
-    for @projectiles {
+    for (@projectiles) {
         $projectile = TAEB->find_item($_) and last;
     }
     return 0 unless defined $projectile;
