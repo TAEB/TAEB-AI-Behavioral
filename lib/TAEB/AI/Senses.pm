@@ -229,13 +229,21 @@ sub msg_turn {
     $self->nutrition($self->nutrition - 1);
 }
 
+my %method_of = (
+    lycanthropy   => 'is_lycanthropic',
+    blindness     => 'is_blind',
+    confusion     => 'is_confused',
+    stunning      => 'is_stunned',
+    hallucination => 'is_hallucinating',
+);
+
 sub msg_status_change {
     my $self     = shift;
     my $status   = shift;
     my $now_have = shift;
 
-    if ($status eq 'lycanthropy') {
-        $self->is_lycanthropic($now_have);
+    if (my $method = $method_of{$status}) {
+        $self->$method($now_have);
     }
 }
 
