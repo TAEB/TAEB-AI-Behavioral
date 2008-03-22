@@ -13,7 +13,7 @@ sub prepare {
     my $pt = $item->possibility_tracker;
 
     if ($pt->can('engrave_useful') && $pt->engrave_useful) {
-        $self->do(engrave => implement => $item);
+        $self->do(engrave => item => $item);
         $self->currently("Engrave identifying a wand");
         return 100;
     }
