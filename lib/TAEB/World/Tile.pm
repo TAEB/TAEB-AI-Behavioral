@@ -16,7 +16,6 @@ has level => (
 #    weak_ref => 1,
 #);
 
-
 has type => (
     isa     => 'TileType',
     default => 'rock',
