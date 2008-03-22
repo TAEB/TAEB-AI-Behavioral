@@ -365,21 +365,20 @@ sub elbereths {
 sub floodfill {
     my $self               = shift;
     my $continue_condition = shift;
-    my $each_tile          = shift;
+    my $update_tile        = shift;
 
     return unless $continue_condition->($self);
 
     my @queue = $self;
     my %seen;
 
-    while (@queue) {
-        my $tile = shift @queue;
+    while (my $tile = shift @queue) {
         next if $seen{$tile}++;
-        $each_tile->($tile);
+        $update_tile->($tile);
 
         $tile->each_adjacent(sub {
             my $t = shift;
-            if (!$seen{$t}++ && $continue_condition->($t)) {
+            if (!$seen{$t} && $continue_condition->($t)) {
                 push @queue, $t;
             }
         });
