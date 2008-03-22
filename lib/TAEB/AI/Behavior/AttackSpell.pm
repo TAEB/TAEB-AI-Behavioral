@@ -49,6 +49,8 @@ sub prepare {
         $self->currently("Zapping a ".$wand->identity." at a monster");
         return 90;
     }
+
+    return 0;
 }
 
 sub urgencies {
