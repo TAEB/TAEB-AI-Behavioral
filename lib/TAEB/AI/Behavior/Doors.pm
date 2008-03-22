@@ -9,7 +9,7 @@ sub prepare {
     my $have_action = 0;
     my $ignore_doors = 0;
 
-    my $locktool = TAEB->find_item('key')
+    my $locktool = TAEB->find_item('skeleton key')
                 || TAEB->find_item('lock pick')
                 || TAEB->find_item('credit card');
 
