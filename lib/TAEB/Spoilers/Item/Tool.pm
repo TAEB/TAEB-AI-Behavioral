@@ -427,5 +427,13 @@ sub tool {
     return $self->list->{$item};
 }
 
+sub pluralize_unided {
+    my $self = shift;
+    my $item = shift;
+
+    $item =~ s/\bcandle\b/candles/;
+    return $item;
+}
+
 1;
 
