@@ -3,12 +3,23 @@ package TAEB::AI::Behavior::Projectiles;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
+my @projectiles = (
+    qr/\bdagger\b/,
+    qr/\bspear\b/,
+    qr/\bshuriken\b/,
+    qr/\bboomerang\b/,
+    qr/\bdart\b/,
+);
+
 sub prepare {
     my $self = shift;
 
     # do we have a projectile to throw?
-    my $projectile = TAEB->find_item(sub { $self->pickup(@_) })
-        or return 0;
+    my $projectile;
+    for @projectiles {
+        $projectile = TAEB->find_item($_) and last;
+    }
+    return 0 unless defined $projectile;
 
     my $direction = TAEB->current_level->radiate(
         sub { shift->has_monster },
