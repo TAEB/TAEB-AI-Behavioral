@@ -63,6 +63,14 @@ sub msg_debt {
     $self->debt($gold);
 }
 
+sub pickup {
+    my $self = shift;
+    my $item = shift;
+
+    return 1 if $item->appearance eq 'gold piece';
+    return 0;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
