@@ -75,7 +75,7 @@ sub done {
         next unless $tile->type eq 'obscured';
 
         TAEB->debug("Changing tile at (" . $tile->x . ", " . $tile->y . ") from obscured to opendoor because I tried to move diagonally off or onto it and I didn't move.");
-        $tile->type('opendoor');
+        $tile->change_type('opendoor' => '-');
     }
 }
 
