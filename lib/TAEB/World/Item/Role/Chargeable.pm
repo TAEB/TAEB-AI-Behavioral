@@ -5,15 +5,18 @@ use Moose::Role;
 has recharges => (
     is      => 'rw',
     isa     => 'Int',
+    default => 0,
 );
 
 has charges => (
     is      => 'rw',
-    isa     => 'Int',
+    isa     => 'Maybe[Int]',
+    default => undef,
 );
 
 sub spend_charge {
     my $self = shift;
+    return if !defined($self->charges);
     TAEB->error("Tried to spend a charge with no charges to spare!")
         if $self->charges == 0;
     $self->charges($self->charges - 1);
