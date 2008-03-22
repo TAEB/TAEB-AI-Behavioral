@@ -158,14 +158,7 @@ sub update {
         return;
     }
 
-    return if $oldtype eq $newtype && $self->floor_glyph eq $newglyph;
-
-    TAEB->enqueue_message('tile_update' => $self);
-
-    # so this is definitely a dungeon feature, since glyph_to_type returned
-    # something other than 'obscured'
-    $self->type($newtype);
-    $self->floor_glyph($newglyph);
+    $self->change_type($newtype => $newglyph);
 }
 
 # automatically upgrade the tile if upgrading would make it more specific
@@ -381,6 +374,19 @@ sub floodfill {
             }
         });
     }
+}
+
+sub change_type {
+    my $self     = shift;
+    my $newtype  = shift;
+    my $newfloor = shift;
+
+    return if $self->type eq $newtype && $self->floor_glyph eq $newfloor;
+
+    TAEB->enqueue_message('tile_update' => $self);
+
+    $self->type($newtype);
+    $self->floor_glyph($newglyph);
 }
 
 __PACKAGE__->meta->make_immutable;

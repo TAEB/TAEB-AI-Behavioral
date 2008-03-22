@@ -159,9 +159,7 @@ sub msg_dungeon_feature {
         TAEB->debug("msg_dungeon_feature('$feature') caused the current tile to be updated from ('$oldfloor', '$oldtype') to ('$floor', '$type')");
     }
 
-    # XXX: this doesn't handle upgrading Tile to Tile::Stairs
-    $tile->type($type);
-    $tile->floor_glyph($floor);
+    $tile->change_type($type => $floor);
 }
 
 sub msg_clear_floor {
