@@ -152,6 +152,10 @@ our @msg_regex = (
         qr/ \(unpaid, \d+ zorkmids?\)/,
             [debt => undef],
     ],
+    [
+        qr/^There are (?:several|many) objects here\./,
+            [check => 'floor_items'],
+    ],
 );
 
 our @god_anger = (
