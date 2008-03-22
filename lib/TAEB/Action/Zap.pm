@@ -8,7 +8,7 @@ with 'TAEB::Action::Role::Item';
 use constant command => 'z';
 
 has '+item' => (
-    isa => 'Item',
+    isa => 'TAEB::Type::Item',
     required => 1,
 );
 

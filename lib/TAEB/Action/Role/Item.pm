@@ -4,7 +4,7 @@ use Moose::Role;
 
 has item => (
     is  => 'rw',
-    isa => 'ItemOrStr',
+    isa => 'TAEB::Type::ItemOrStr',
 );
 
 sub exception_missing_item {
