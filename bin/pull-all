@@ -1,5 +1,7 @@
 #!/usr/bin/env perl
 @ARGV = "REPOSITORIES";
+@ARGV = "etc/REPOSITORIES" if -e "etc/REPOSITORIES";
+
 while (<>) {
     next unless /^\* (.*)/;
     print "Pulling from $1...\n";
