@@ -353,6 +353,30 @@ sub elbereths {
     return $engraving =~ s/elbereth//gi || 0;
 }
 
+sub floodfill {
+    my $self               = shift;
+    my $continue_condition = shift;
+    my $each_tile          = shift;
+
+    return unless $continue_condition->($self);
+
+    my @queue = $self;
+    my %seen;
+
+    while (@queue) {
+        my $tile = shift @queue;
+        next if $seen{$tile}++;
+        $each_tile->($tile);
+
+        $tile->each_neighbor(sub {
+            my $t = shift;
+            if (!$seen{$t}++ && $continue_condition->($t)) {
+                push @queue, $t;
+            }
+        });
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
