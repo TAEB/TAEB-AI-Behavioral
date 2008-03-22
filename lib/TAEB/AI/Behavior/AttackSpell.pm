@@ -23,7 +23,7 @@ sub prepare {
         for my $desired ($self->use_wands) {
             $wand = TAEB->find_item(sub {
                 my $item = shift;
-                return 0 unless $item->identity eq $desired
+                return 0 unless $item->identity eq $desired;
                 return 1 if !defined($item->charges);
                 return 1 if $item->charges;
                 return 0;
