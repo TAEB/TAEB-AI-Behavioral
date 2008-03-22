@@ -16,10 +16,14 @@ has charges => (
 
 sub spend_charge {
     my $self = shift;
+    my $count = shift || 1;
+
     return if !defined($self->charges);
-    TAEB->error("Tried to spend a charge with no charges to spare!")
-        if $self->charges == 0;
-    $self->charges($self->charges - 1);
+    $self->charges($self->charges - $count);
+    if ($self->charges < 0) {
+        $self->charges(0);
+        TAEB->error("$self had less than 0 charges!");
+    }
 }
 
 sub chance_to_recharge {
