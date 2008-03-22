@@ -19,6 +19,7 @@ sub weight_behaviors {
         BuffSelf           => 70_000,
         Fight              => 50_000,
         Projectiles        => 49_000,
+        Identify           => 24_750,
         DipForExcalibur    => 24_500,
         GetItems           => 24_000,
         Doors              => 10_000,
