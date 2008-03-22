@@ -259,7 +259,7 @@ sub iterate_tiles {
     my $directions = shift;
 
     if ($self->y <= 0) {
-        TAEB->error("" . (caller 1)[3] . " called with a y argument of ".$self->y.". This usually indicates an unhandled --More-- or prompt.");
+        TAEB->error("" . (caller 1)[3] . " called with a y argument of ".$self->y.". This usually indicates an unhandled prompt.");
     }
 
     my @tiles = grep { defined } map {
