@@ -140,6 +140,10 @@ our @msg_regex = (
         qr/^.*? zaps a .*? wand!/,
             ['check' => 'discoveries'],
     ],
+    [
+        qr/^"Usage fee, (\d+) zorkmids?\."/,
+            [debt => sub { $1 }],
+    ],
 );
 
 our @god_anger = (
