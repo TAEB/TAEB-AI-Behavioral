@@ -11,21 +11,15 @@ degrade_ok  "Elbereth" => "????????";
 degrade_ok  "Elbereth" => "       ?";
 degrade_nok "Elbereth" => "        ?";
 
-my @progression = (
+degrade_progression(
     "Elbereth" =>
-    "Elgereth" =>
-    "[lgereth" =>
-    "[?gerc?r" =>
-      "gcr??"  =>
-      "ccr?"   =>
-       "c??"   =>
-        "??"   =>
-         ""
+    "Elbcret?" =>
+    "E|b?re ?" =>
+    "F| ???"   =>
+    "F  ???"   =>
+    "F    ?"   =>
+    "F"        =>
+    "-"        =>
+    ""
 );
-
-for (my $i = 0; $i < @progression; ++$i) {
-    for (my $j = $i; $j < @progression; ++$j) {
-        degrade_ok($progression[$i] => $progression[$j]);
-    }
-}
 

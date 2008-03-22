@@ -6,7 +6,7 @@ use TAEB;
 use parent 'Test::More';
 use List::Util 'sum';
 
-our @EXPORT = qw/test_items test_monsters degrade_ok degrade_nok plan_tests/;
+our @EXPORT = qw/test_items test_monsters degrade_ok degrade_nok degrade_progression plan_tests/;
 
 sub import_extra {
     Test::More->export_to_level(2);
@@ -88,6 +88,22 @@ sub degrade_nok {
     my $got = shift;
 
     Test::More::ok(!TAEB::Spoilers::Engravings->is_degradation($exp, $got), "$exp does not degrade to $got");
+}
+
+=head2 degrade_progression Str, Str, Str, [...]
+
+Test whether a progression is possible. This will not only test adjacent
+engravings, but also an engraving to all of its children.
+
+=cut
+
+sub degrade_progression {
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+    for (my $i = 0; $i < @_; ++$i) {
+        for (my $j = $i; $j < @_; ++$j) {
+            degrade_ok($_[$i] => $_[$j]);
+        }
+    }
 }
 
 =head2 plan_tests ITEM_LIST
