@@ -21,7 +21,11 @@ sub prepare {
 
     unless ($spell) {
         for ($self->use_wands) {
-            $wand = TAEB->find_item($_) and last;
+            $wand = TAEB->find_item(sub {
+                my $item = shift;
+                $item->identity eq $_
+                && (!defined($item->charges) || $item->charges)
+            }) and last;
         }
     }
 
