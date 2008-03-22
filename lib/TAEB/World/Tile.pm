@@ -398,6 +398,22 @@ sub change_type {
     $self->floor_glyph($newglyph);
 }
 
+sub debug_line {
+    my $self = shift;
+    (my $class = blessed $self) =~ s/^TAEB::World:://;
+
+    sprintf '(%d, %d) g="%s" f="%s" t="%s" i=%d%s%s c="%s"',
+            $self->x,
+            $self->y,
+            $self->glyph,
+            $self->floor_glyph,
+            $self->type,
+            $self->item_count,
+            $self->might_have_new_item ? '*' : '',
+            $self->in_shop ? ' shop' : '',
+            $class,
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
