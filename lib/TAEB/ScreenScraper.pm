@@ -62,11 +62,11 @@ our %msg_string = (
     "Nothing happens." =>
         ['nothing_happens'],
     "A few ice cubes drop from the wand." =>
-        [wand => 'cold'],
+        [wand => 'wand of cold'],
     "The wand unsuccessfully fights your attempt to write!" =>
-        [wand => 'striking'],
+        [wand => 'wand of striking'],
     "A lit field surrounds you!" =>
-        [wand => 'light'],
+        [wand => 'wand of light'],
 );
 
 our @msg_regex = (
@@ -116,25 +116,25 @@ our @msg_regex = (
     ],
     [
         qr/^The engraving on the .*? vanishes!/,
-            [wand => 'teleportation', 'cancellation', 'make invisible'],
+            [wand => map { "wand of $_" } 'teleportation', 'cancellation', 'make invisible'],
     ],
     [
         qr/^The bugs on the .*? stop moving!/,
-            [wand => 'death', 'sleep'],
+            [wand => 'wand of death', 'wand of sleep'],
     ],
     [
         # digging, fire, lightning
-        qr/^This .*? is a wand of (\S+)!/,
+        qr/^This .*? is a (wand of \S+)!/,
             [wand => sub { $1 }],
     ],
     [
         qr/^The .*? is riddled by bullet holes!/,
-            [wand => 'magic missile'],
+            [wand => 'wand of magic missile'],
     ],
     [
         # slow monster, speed monster
         qr/^The bugs on the .*? (slow|speed) (?:up|down)\!/,
-            [wand => sub { "$1 monster" }],
+            [wand => sub { "wand of $1 monster" }],
     ],
     [
         qr/^.*? zaps a .*? wand!/,

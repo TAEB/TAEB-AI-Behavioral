@@ -49,7 +49,7 @@ sub engrave_useful {
 
 sub no_engrave_message {
     my $self = shift;
-    $self->rule_out_all_but('locking', 'nothing', 'opening', 'probing', 'undead turning', 'secret door detection');
+    $self->rule_out_all_but(map { "wand of $_" } 'locking', 'nothing', 'opening', 'probing', 'undead turning', 'secret door detection');
 }
 
 __PACKAGE__->meta->make_immutable;
