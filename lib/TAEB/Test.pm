@@ -6,7 +6,7 @@ use TAEB;
 use parent 'Test::More';
 use List::Util 'sum';
 
-our @EXPORT = qw/test_items test_monsters plan_tests/;
+our @EXPORT = qw/test_items test_monsters degrade_ok degrade_nok plan_tests/;
 
 sub import_extra {
     Test::More->export_to_level(2);
@@ -59,6 +59,35 @@ sub test_generic {
             }
         }
     }
+}
+
+=head2 degrade_ok original, current
+
+Tests whether the original string could possibly degrade to the current string.
+
+=cut
+
+sub degrade_ok {
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+    my $exp = shift;
+    my $got = shift;
+
+    Test::More::ok(TAEB::Spoilers::Engravings->is_degradation($exp, $got), "$exp degrades to $got");
+}
+
+=head2 degrade_nok original, current
+
+Tests whether the original string could NOT possibly degrade to the current
+string.
+
+=cut
+
+sub degrade_nok {
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+    my $exp = shift;
+    my $got = shift;
+
+    Test::More::ok(!TAEB::Spoilers::Engravings->is_degradation($exp, $got), "$exp does not degrade to $got");
 }
 
 =head2 plan_tests ITEM_LIST
