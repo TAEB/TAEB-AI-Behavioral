@@ -49,6 +49,11 @@ sub engrave_useful {
     return 0;
 }
 
+sub no_engrave_message {
+    my $self = shift;
+    #$self->rule_out_all_but('locking', 'nothing', 'opening', 'probing', 'undead turning', 'secret door detection');
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
