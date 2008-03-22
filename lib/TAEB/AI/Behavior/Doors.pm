@@ -68,7 +68,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    for my $unlocker ('key', 'lock pick', 'credit card') {
+    for my $unlocker ('skeleton key', 'lock pick', 'credit card') {
         # we already have this or better
         return 0 if TAEB->find_item($unlocker);
 
