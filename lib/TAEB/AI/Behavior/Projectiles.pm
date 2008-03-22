@@ -12,10 +12,7 @@ sub prepare {
 
     my $direction = TAEB->current_level->radiate(
         sub { shift->has_monster },
-
-        # how far to radiate. we can eventually calculate how far $projectile
-        # can travel..!
-        max => 6,
+        item => $projectile,
     );
 
     # no monster found

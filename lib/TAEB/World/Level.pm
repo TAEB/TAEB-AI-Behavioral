@@ -111,6 +111,42 @@ sub radiate {
         @_,
     );
 
+    if ($args{item}) {
+        my $range = int(TAEB->senses->numeric_strength / 2);
+
+        if ($args{item}->identity eq 'heavy iron ball') {
+            $range -= int($args{item}->weight / 100);
+        }
+        else {
+            $range -= int($args{item}->weight / 40);
+        }
+
+        $range = 1 if $range < 1;
+
+        if ($args{item}->identity =~ /\b(?:arrow|crossbow bolt)\b/
+         || $args{item}->class eq 'gem') {
+            if (0 && "Wielding a bow for arrows or crossbow for bolts or sling for gems") {
+                ++$range;
+            }
+            elsif ($args{item}->class ne 'gem') {
+                $range = int($range / 2);
+            }
+        }
+
+        # are we on Air? are we levitating?
+
+        if ($args{item}->identity eq 'boulder') {
+            $range = 20;
+        }
+        elsif ($args{item}->identity eq "Mjollnir") {
+            $range = int(($range + 1) / 2);
+        }
+
+        # are we underwater?
+
+        $args{max} = $range;
+    }
+
     # check each direction
     DIRECTION: for (deltas) {
         my ($dx, $dy) = @$_;
