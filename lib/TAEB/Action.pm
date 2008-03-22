@@ -21,6 +21,7 @@ use TAEB::Action::Pickup;
 use TAEB::Action::Pray;
 use TAEB::Action::Quaff;
 use TAEB::Action::Role::Direction;
+use TAEB::Action::Role::Item;
 use TAEB::Action::Search;
 use TAEB::Action::Throw;
 use TAEB::Action::Unlock;
