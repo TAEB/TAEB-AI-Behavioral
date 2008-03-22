@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use TAEB::Test tests => 719;
+use TAEB::Test tests => 1374;
 
 degrade_ok  "Elbereth" => "Elbereth";
 degrade_ok  "Elbereth" => "Flbereth";
