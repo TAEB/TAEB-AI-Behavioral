@@ -201,6 +201,13 @@ sub msg_pickaxe {
     TAEB->current_level->pickaxe(TAEB->turn);
 }
 
+sub msg_debt {
+    TAEB->current_tile->floodfill(
+        sub { shift->type eq 'floor' },
+        sub { shift->in_shop(1) },
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
