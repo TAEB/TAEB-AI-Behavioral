@@ -53,7 +53,7 @@ sub prepare {
     if ($wand) {
         $self->do(zap => item => $wand, direction => $direction);
         $self->currently("Zapping a ".$wand->identity." at a monster");
-        return 90;
+        return 50;
     }
 
     return 0;
@@ -62,7 +62,7 @@ sub prepare {
 sub urgencies {
     return {
         100 => "casting an attack spell at a monster",
-         90 => "zapping a wand at a monster",
+         50 => "zapping a wand at a monster",
     };
 }
 
