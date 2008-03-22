@@ -51,6 +51,7 @@ has personality => (
     handles  => [qw(want_item)],
     trigger  => sub {
         my ($self, $personality) = @_;
+        TAEB->info("Now using personality $personality.");
         $personality->institute;
     },
 );
