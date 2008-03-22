@@ -54,24 +54,25 @@ sub is_degradation {
     my $orig = shift;
     my $cur  = shift;
 
-    return 0 if length($cur) > length($orig);
-
-    # NetHack will eliminate trailing spaces, so we can just ignore any
-    # characters that are after the end of the current string
-    chop $orig until length($cur) == length($orig);
-
     my @orig = split '', $orig;
     my @cur  = split '', $cur;
 
-    O: for my $o (@orig) {
-        while (@cur) {
-            my $c = shift @cur;
+    C: for my $c (@cur) {
+        while (@orig) {
+            my $o = shift @orig;
 
-            next O if $o eq $c;
-            next O if any { $_ eq $c } split '', ($rubouts{ $o } || ' ?');
+            next C if $o eq $c;
+
+            if ($o eq ' ') {
+                next C if $c eq ' ';
+            }
+            else {
+                next C if any { $_ eq $c } split '', ($rubouts{ $o } || ' ?');
+            }
         }
 
-        return 0;
+        # we ran out of characters in the original engraving
+        return 0 if !@orig;
     }
 
     return 1;
