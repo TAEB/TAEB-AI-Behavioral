@@ -11,6 +11,10 @@ has implement => (
     required => 1,
 );
 
+has '+direction' => (
+    required => 1,
+);
+
 sub respond_apply_what { shift->implement->slot }
 
 sub respond_lock { 'n' }

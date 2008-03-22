@@ -13,6 +13,10 @@ has item => (
     required => 1,
 );
 
+has '+direction' => (
+    required => 1,
+);
+
 sub respond_throw_what { shift->item->slot }
 
 # we don't get a message when we throw one dagger

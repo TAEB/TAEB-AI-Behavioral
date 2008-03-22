@@ -2,6 +2,7 @@
 package TAEB::Action::Cast;
 use TAEB::OO;
 extends 'TAEB::Action';
+with 'TAEB::Action::Role::Direction';
 
 use constant command => 'Z';
 
@@ -10,11 +11,6 @@ has spell => (
     required => 1,
 );
 
-has direction => (
-    isa => 'Str',
-);
-
-sub respond_what_direction { shift->direction }
 sub respond_which_spell { shift->spell->slot }
 
 __PACKAGE__->meta->make_immutable;

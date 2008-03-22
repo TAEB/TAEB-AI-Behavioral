@@ -4,6 +4,10 @@ use TAEB::OO;
 extends 'TAEB::Action';
 with 'TAEB::Action::Role::Direction';
 
+has '+direction' => (
+    required => 1,
+);
+
 # ctrl-D
 use constant command => chr(4);
 

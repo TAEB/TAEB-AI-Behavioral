@@ -6,6 +6,10 @@ with 'TAEB::Action::Role::Direction';
 
 use constant command => 'o';
 
+has '+direction' => (
+    required => 1,
+);
+
 sub msg_door {
     my $self = shift;
     my $type = shift;
