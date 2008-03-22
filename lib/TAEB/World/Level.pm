@@ -29,6 +29,11 @@ has monsters => (
     isa     => 'HashRef[TAEB::World::Monster]',
 );
 
+has turns_spent_on => (
+    isa     => 'Int',
+    default => 0,
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
@@ -65,6 +70,7 @@ sub step_on {
     my $x = shift;
     my $y = shift;
 
+    $self->turns_spent_on($self->turns_spent_on + 1);
     $self->tiles->[$y][$x]->step_on;
 }
 

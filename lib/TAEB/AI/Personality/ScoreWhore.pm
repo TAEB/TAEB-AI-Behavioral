@@ -3,12 +3,6 @@ package TAEB::AI::Personality::ScoreWhore;
 use TAEB::OO;
 extends 'TAEB::AI::Personality::Behavioral';
 
-has time_spent_on => (
-    isa           => 'HashRef[Int]',
-    default       => sub { {} },
-    documentation => "How much time was spent (in other words, how many actions were made) on each level",
-);
-
 =head1 NAME
 
 TAEB::AI::Personality::ScoreWhore - milk each dungeon level for as long as possible
@@ -48,7 +42,7 @@ sub weight_behaviors {
 
     # Descend at a very leisurely pace
     $behaviors->{Descend} = 2000 if TAEB->level > TAEB->z
-                                 || $self->time_spent_on->{TAEB->z}++ >= 1000;
+                                 || TAEB->current_level->turns_spent_on >= 1000;
 
     return $behaviors;
 }
