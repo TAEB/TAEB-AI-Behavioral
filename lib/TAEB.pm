@@ -666,5 +666,18 @@ sub console {
     $self->out(TAEB->redraw);
 }
 
+sub msg_check {
+    my $self = shift;
+    my $thing = shift;
+
+    if ($self->can("prepare_$thing")) {
+        $self->state("prepare_$thing");
+        $self->nextstate('playing');
+    }
+    else {
+        $self->warning("I don't know how to check $thing.");
+    }
+}
+
 1;
 

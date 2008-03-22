@@ -134,6 +134,10 @@ our @msg_regex = (
         qr/^The bugs on the .*? (slow|speed) (?:up|down)\!/,
             [wand => sub { "$1 monster" }],
     ],
+    [
+        qr/^.*? zaps a .*? wand!/,
+            ['check' => 'discoveries'],
+    ],
 );
 
 our @god_anger = (
