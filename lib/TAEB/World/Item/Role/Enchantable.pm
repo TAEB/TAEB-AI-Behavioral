@@ -15,5 +15,7 @@ sub ench {
     return "+$ench";
 }
 
+no Moose::Role;
+
 1;
 

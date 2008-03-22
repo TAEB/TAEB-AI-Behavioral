@@ -21,5 +21,7 @@ sub target_tile {
     return $tile;
 }
 
+no Moose::Role;
+
 1;
 

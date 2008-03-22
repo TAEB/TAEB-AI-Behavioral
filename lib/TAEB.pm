@@ -679,5 +679,7 @@ sub msg_check {
     }
 }
 
+no Moose;
+
 1;
 

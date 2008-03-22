@@ -30,5 +30,8 @@ sub respond_buy_item {
     return 'n';
 }
 
+__PACKAGE__->meta->make_immutable;
+no Moose;
+
 1;
 

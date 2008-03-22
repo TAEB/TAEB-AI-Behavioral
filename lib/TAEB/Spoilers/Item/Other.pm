@@ -117,5 +117,7 @@ sub other {
     return $self->list->{$item};
 }
 
+no Moose;
+
 1;
 

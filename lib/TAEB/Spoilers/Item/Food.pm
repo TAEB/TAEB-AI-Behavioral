@@ -218,5 +218,7 @@ sub should_eat {
     return 1;
 }
 
+no Moose;
+
 1;
 

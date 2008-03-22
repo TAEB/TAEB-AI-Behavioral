@@ -18,5 +18,7 @@ sub exception_missing_item {
     return "\e";
 }
 
+no Moose::Role;
+
 1;
 

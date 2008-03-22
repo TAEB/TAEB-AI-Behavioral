@@ -20,5 +20,7 @@ has is_fooproof => (
     default => 0,
 );
 
+no Moose::Role;
+
 1;
 

@@ -139,5 +139,7 @@ sub pluralize_unided {
     return $item;
 }
 
+no Moose;
+
 1;
 

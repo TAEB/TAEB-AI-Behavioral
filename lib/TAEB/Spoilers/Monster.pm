@@ -6426,5 +6426,7 @@ sub search {
     return %ret;
 }
 
+no Moose;
+
 1;
 

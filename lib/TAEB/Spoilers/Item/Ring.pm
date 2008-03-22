@@ -139,5 +139,7 @@ sub ring {
     return $self->list->{$item};
 }
 
+no Moose;
+
 1;
 

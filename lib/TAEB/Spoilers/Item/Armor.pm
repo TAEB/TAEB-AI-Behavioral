@@ -594,5 +594,7 @@ sub armor {
     return $self->list->{$item};
 }
 
+no Moose;
+
 1;
 

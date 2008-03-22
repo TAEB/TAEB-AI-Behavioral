@@ -52,5 +52,7 @@ sub msg_excalibur {
     $self->seen(Excalibur => 1);
 }
 
+no Moose;
+
 1;
 

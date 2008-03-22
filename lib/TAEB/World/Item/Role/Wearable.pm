@@ -8,5 +8,7 @@ has is_wearing => (
     default => 0,
 );
 
+no Moose::Role;
+
 1;
 

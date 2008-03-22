@@ -99,5 +99,8 @@ sub debug_display {
     return join "\n", @spells;
 }
 
+__PACKAGE__->meta->make_immutable;
+no Moose;
+
 1;
 

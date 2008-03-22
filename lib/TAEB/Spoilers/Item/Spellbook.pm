@@ -331,5 +331,7 @@ sub spellbook {
     return $self->list->{$item};
 }
 
+no Moose;
+
 1;
 

@@ -39,5 +39,7 @@ use Sub::Name;
     };
 }
 
+no Moose;
+
 1;
 

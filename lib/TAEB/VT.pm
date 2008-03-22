@@ -286,5 +286,7 @@ around row_plaintext => sub
 # __PACKAGE__->meta->make_immutable breaks here because we need to inherit the constructor from
 # Term::VT102
 
+no Moose;
+
 1;
 

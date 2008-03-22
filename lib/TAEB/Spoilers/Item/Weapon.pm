@@ -1077,5 +1077,7 @@ sub pluralize_unided {
     return $item.'s';
 }
 
+no Moose;
+
 1;
 

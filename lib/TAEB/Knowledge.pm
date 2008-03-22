@@ -71,5 +71,8 @@ sub msg_discovery {
     $knowledge->identify_as($identity) if $knowledge;
 }
 
+__PACKAGE__->meta->make_immutable;
+no Moose;
+
 1;
 

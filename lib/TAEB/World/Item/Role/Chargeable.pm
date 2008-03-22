@@ -41,5 +41,7 @@ sub chance_to_recharge {
     return 100 - int(100 * (($n/7) ** 3));
 }
 
+no Moose::Role;
+
 1;
 

@@ -228,5 +228,7 @@ sub stats {
     return $stats;
 }
 
+no Moose;
+
 1;
 
