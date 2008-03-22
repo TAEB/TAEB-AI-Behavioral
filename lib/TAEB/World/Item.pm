@@ -313,7 +313,7 @@ sub maybe_is {
     return 1;
 }
 
-sub throw_distance {
+sub throw_range {
     my $self = shift;
     my $range = int(TAEB->senses->numeric_strength / 2);
 
