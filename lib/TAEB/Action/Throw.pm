@@ -27,8 +27,13 @@ sub done {
     # now mark squares in the path of the projectile as interesting so we pick
     # up projectiles we've thrown
     my ($dx, $dy) = vi2delta($self->direction);
+    my ($x, $y)   = (TAEB->x, TAEB->y);
+
     for (1 .. $self->item->throw_range) {
-        my $tile = TAEB->current_level->at($dx * $_, $dy * $_)
+        $x += $dx;
+        $y += $dy;
+
+        my $tile = TAEB->current_level->at($x, $y)
             or next;
         $tile->interesting_at(TAEB->turn);
     }
