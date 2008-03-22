@@ -144,6 +144,10 @@ our @msg_regex = (
         qr/^"Usage fee, (\d+) zorkmids?\."/,
             [debt => sub { $1 }],
     ],
+    [
+        qr/ \(unpaid, \d+ zorkmids?\)/,
+            [debt => undef],
+    ],
 );
 
 our @god_anger = (
