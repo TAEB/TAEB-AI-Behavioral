@@ -88,6 +88,12 @@ has state => (
     default => 'logging_in',
 );
 
+has nextstate => (
+    is      => 'rw',
+    isa     => 'Maybe[PlayState]',
+    default => undef,
+);
+
 has log => (
     is      => 'ro',
     isa     => 'Log::Dispatch',
@@ -283,7 +289,7 @@ sub handle_playing {
 sub handle_prepare_discoveries {
     my $self = shift;
     $self->write("\\");
-    $self->state('prepare_inventory');
+    $self->state($self->nextstate || 'prepare_inventory');
 }
 
 sub handle_logging_in {
@@ -310,7 +316,7 @@ sub handle_logging_in {
         $self->write(' ');
     }
     elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
-        $self->state('prepare_discoveries');
+        $self->state($self->nextstate || 'prepare_discoveries');
     }
     elsif ($self->topline =~ /^\s*It is written in the Book of /) {
         TAEB->error("Using etc/TAEB.nethackrc is MANDATORY");
@@ -323,21 +329,21 @@ sub handle_prepare_inventory {
     my $self = shift;
 
     $self->write("Da\n");
-    $self->state('prepare_spells');
+    $self->state($self->nextstate || 'prepare_spells');
 }
 
 sub handle_prepare_spells {
     my $self = shift;
 
     $self->write("Z");
-    $self->state('prepare_crga');
+    $self->state($self->nextstate || 'prepare_crga');
 }
 
 sub handle_prepare_crga {
     my $self = shift;
 
     $self->write("\cx");
-    $self->state('playing');
+    $self->state($self->nextstate || 'playing');
 }
 
 sub handle_saving {
