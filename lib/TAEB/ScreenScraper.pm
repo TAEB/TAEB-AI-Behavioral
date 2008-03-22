@@ -206,6 +206,7 @@ our @prompts = (
 
 our @exceptions = (
     qr/^You don't have that object/         => 'missing_item',
+    qr/^You don't have anything to zap/     => 'missing_item',
 );
 
 has messages => (
