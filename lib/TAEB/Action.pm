@@ -73,7 +73,12 @@ sub new_action {
     my $self = shift;
     my $name = shift;
 
-    my $package = "TAEB::Action::\L\u$name";
+    # guess case if all lowercase, otherwise use whatever we've got
+    if ($name eq lc $name) {
+        $name = ucfirst $name;
+    }
+
+    my $package = "TAEB::Action::$name";
     return $package->new(@_);
 }
 
