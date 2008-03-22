@@ -69,6 +69,8 @@ our %msg_string = (
         [wand => 'wand of light'],
     "There is a falling rock trap here." =>
         [dungeon_feature => "trap" => "falling rock trap"],
+    "Far below you, you see coins glistening in the water." =>
+        [floor_item => sub { TAEB->new_item("1 gold") }],
 );
 
 our @msg_regex = (
