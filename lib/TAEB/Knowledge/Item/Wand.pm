@@ -21,9 +21,7 @@ my @_groups = (
     [ qw/sleep death/ ],
     [ 'teleportation', 'make invisible', 'cancellation' ],
 
-    # these no-message wands are excluded because we cannot distinguish
-    # between engrave-giving-no-message and out-of-charges. bones piles, eg
-    #[ 'locking', 'nothing', 'opening', 'probing', 'undead turning', 'secret door detection' ],
+    [ 'locking', 'nothing', 'opening', 'probing', 'undead turning', 'secret door detection' ],
 );
 
 my @groups = map { { map { +"wand of $_" => 1 } @$_ } } @_groups;
@@ -51,7 +49,7 @@ sub engrave_useful {
 
 sub no_engrave_message {
     my $self = shift;
-    #$self->rule_out_all_but('locking', 'nothing', 'opening', 'probing', 'undead turning', 'secret door detection');
+    $self->rule_out_all_but('locking', 'nothing', 'opening', 'probing', 'undead turning', 'secret door detection');
 }
 
 __PACKAGE__->meta->make_immutable;
