@@ -140,6 +140,12 @@ sub msg_dungeon_feature {
         $floor = '.';
         $type  = 'floor';
     }
+    elsif ($feature eq 'trap') {
+        my $traptype = shift;
+
+        $floor = '^';
+        $type  = 'trap';
+    }
     else {
         # we don't know how to handle it :/
         return;

@@ -67,6 +67,8 @@ our %msg_string = (
         [wand => 'wand of striking'],
     "A lit field surrounds you!" =>
         [wand => 'wand of light'],
+    "There is a falling rock trap here." =>
+        [dungeon_feature => "trap" => "falling rock trap"],
 );
 
 our @msg_regex = (
