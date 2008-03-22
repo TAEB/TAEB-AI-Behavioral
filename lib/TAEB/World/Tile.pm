@@ -102,6 +102,12 @@ has in_shop => (
     documentation => "Is this tile inside a shop?",
 );
 
+has is_really_rock => (
+    isa           => 'Bool',
+    default       => 0,
+    documentation => "Ordinarily, items and monsters indicate that the tile is walkable. If we know that the tile is not walkable but has an item on it (such as gold embedded in rock), we want to keep the tile as rock.",
+);
+
 =head2 basic_cost -> Int
 
 This returns the basic cost of entering a tile. It's not very smart, but it
@@ -152,9 +158,14 @@ sub update {
         return if $newglyph eq 'X';
 
         # XXX: will this break when we improve has_monster? also, fucking @
-        $self->interesting_at(TAEB->turn) unless $self->has_monster || $self->glyph eq '@';
+        $self->interesting_at(TAEB->turn)
+            unless $self->has_monster
+                || $self->glyph eq '@';
 
-        $self->type('obscured') if $oldtype eq 'rock' || $oldtype eq 'closeddoor';
+        $self->type('obscured')
+            if ($oldtype eq 'rock' && !$self->is_really_rock)
+            || $oldtype eq 'closeddoor';
+
         return;
     }
 
