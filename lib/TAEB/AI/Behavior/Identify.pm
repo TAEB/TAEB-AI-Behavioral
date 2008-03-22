@@ -36,5 +36,11 @@ sub pickup {
     return 0;
 }
 
+sub urgencies {
+    return {
+        100 => "engrave identifying a wand",
+    }
+}
+
 1;
 
