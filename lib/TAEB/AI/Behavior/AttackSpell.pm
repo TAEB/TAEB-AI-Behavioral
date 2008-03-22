@@ -20,11 +20,13 @@ sub prepare {
     }
 
     unless ($spell) {
-        for ($self->use_wands) {
+        for my $desired ($self->use_wands) {
             $wand = TAEB->find_item(sub {
                 my $item = shift;
-                $item->identity eq $_
-                && (!defined($item->charges) || $item->charges)
+                return 0 unless $item->identity eq $desired
+                return 1 if !defined($item->charges);
+                return 1 if $item->charges;
+                return 0;
             }) and last;
         }
     }
