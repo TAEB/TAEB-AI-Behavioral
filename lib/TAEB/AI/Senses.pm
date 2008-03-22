@@ -264,6 +264,26 @@ sub msg_nutrition {
     $self->nutrition($nutrition);
 }
 
+# this is what NetHack uses to convert 18/whackiness to an integer
+# or so I think. crosscheck src/attrib.c and src/botl.c..
+sub numeric_strength {
+    my $self = shift;
+    my $str = $self->str;
+
+    if ($str =~ /^(\d+)(?:\/(\*\*|\d+))?$/) {
+        my $base = $1;
+        my $ext  = $2 || 0;
+        $ext = 100 if $ext eq '**' || $base <= 21;
+
+        return $base if $base <= 18;
+        return $base + int($ext / 2) if $base <= 21;
+        return $base;
+    }
+    else {
+        TAEB->error("Unable to parse strength $str.");
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
