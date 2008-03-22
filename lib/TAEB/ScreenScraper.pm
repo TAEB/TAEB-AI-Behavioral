@@ -61,6 +61,10 @@ our %msg_string = (
         ['pickaxe'],
     "Nothing happens." =>
         ['nothing_happens'],
+    "A few ice cubes drop from the wand." =>
+        [wand => 'cold'],
+    "The wand unsuccessfully fights your attempt to write!" =>
+        [wand => 'striking'],
 );
 
 our @msg_regex = (
@@ -107,6 +111,28 @@ our @msg_regex = (
     [
         qr/^You do not owe .* anything\./,
             ['debt' => 0],
+    ],
+    [
+        qr/^The engraving on the .*? vanishes!/,
+            [wand => 'teleportation', 'cancellation', 'make invisible'],
+    ],
+    [
+        qr/^The bugs on the .*? stop moving!/,
+            [wand => 'death', 'sleep'],
+    ],
+    [
+        # digging, fire, lightning
+        qr/^This .*? is a wand of (\S+)!/,
+            [wand => sub { $1 }],
+    ],
+    [
+        qr/^The .*? is riddled by bullet holes!/,
+            [wand => 'magic missile'],
+    ],
+    [
+        # slow monster, speed monster
+        qr/^The bugs on the .*? (slow|speed) (?:up|down)\!/,
+            [wand => sub { "$1 monster" }],
     ],
 );
 
