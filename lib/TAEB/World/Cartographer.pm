@@ -203,7 +203,10 @@ sub msg_pickaxe {
 
 sub msg_debt {
     TAEB->current_tile->floodfill(
-        sub { shift->type eq 'floor' },
+        sub {
+            my $t = shift;
+            $t->type eq 'floor' || $t->type eq 'obscured'
+        },
         sub { shift->in_shop(1) },
     );
 }
