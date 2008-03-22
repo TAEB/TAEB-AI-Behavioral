@@ -379,9 +379,9 @@ sub floodfill {
 sub change_type {
     my $self     = shift;
     my $newtype  = shift;
-    my $newfloor = shift;
+    my $newglyph = shift;
 
-    return if $self->type eq $newtype && $self->floor_glyph eq $newfloor;
+    return if $self->type eq $newtype && $self->floor_glyph eq $newglyph;
 
     TAEB->enqueue_message('tile_update' => $self);
 
