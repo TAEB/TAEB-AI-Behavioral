@@ -60,6 +60,17 @@ sub urgencies {
     };
 }
 
+sub pickup {
+    my $self = shift;
+    my $item = shift;
+
+    for ($self->use_wands) {
+        return 1 if $item->identity eq $_;
+    }
+
+    return 0;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
