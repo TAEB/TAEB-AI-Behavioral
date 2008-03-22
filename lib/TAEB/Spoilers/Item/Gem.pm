@@ -212,26 +212,26 @@ has list => (
                 engrave => 'soft',
                 appearance => 'yellowish brown gem',
             },
-            'luckstone' => {
-                base    => 60,
-                weight  => 10,
-                engrave => 'soft',
-                appearance => 'gray stone',
-                plural  => 'luckstones',
-            },
-            'touchstone' => {
-                base    => 45,
-                weight  => 10,
-                engrave => 'soft',
-                appearance => 'gray stone',
-                plural  => 'touchstones',
-            },
-            'flint stone' => {
-                base    => 1,
-                weight  => 10,
-                engrave => 'soft',
-                appearance => 'gray stone',
-            },
+            #'luckstone' => {
+            #    base    => 60,
+            #    weight  => 10,
+            #    engrave => 'soft',
+            #    appearance => 'gray stone',
+            #    plural  => 'luckstones',
+            #},
+            #'touchstone' => {
+            #    base    => 45,
+            #    weight  => 10,
+            #    engrave => 'soft',
+            #    appearance => 'gray stone',
+            #    plural  => 'touchstones',
+            #},
+            #'flint stone' => {
+            #    base    => 1,
+            #    weight  => 10,
+            #    engrave => 'soft',
+            #    appearance => 'gray stone',
+            #},
             'loadstone' => {
                 base    => 1,
                 weight  => 500,
@@ -268,7 +268,7 @@ has multi_identity_appearances => (
     auto_deref => 1,
     default    => sub {
         [map { "$_ gem" } (qw/white red blue orange black green yellow violet/,
-                           'yellowish brown'), 'gray stone'];
+                           'yellowish brown')]; #XXX: , 'gray stone'];
     },
 );
 
