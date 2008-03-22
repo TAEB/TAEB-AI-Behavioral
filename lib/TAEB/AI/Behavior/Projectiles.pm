@@ -39,7 +39,7 @@ sub pickup {
     my $item = shift;
 
     $item->identity =~ m{
-        \b(?:dagger|dart|arrow|shuriken|boomerang|spear)\b
+        \b(?:dagger|dart|shuriken|boomerang|spear)\b
     }x;
 }
 
