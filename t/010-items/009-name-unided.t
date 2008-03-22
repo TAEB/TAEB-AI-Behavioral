@@ -60,6 +60,8 @@ use TAEB::Test::Items (
      {appearance => "brass wand", identity => undef}],
     ["M - an oak wand",
      {appearance => "oak wand", identity => undef}],
+    ["7 candles",
+     {appearance => "candle", identity => undef}],
     ["g - 2 yellow gems",
      {appearance => "yellow gem", identity => undef}],
     ["I - a green gem",
