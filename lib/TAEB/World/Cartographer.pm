@@ -211,7 +211,12 @@ sub msg_debt {
             my $t = shift;
             $t->type eq 'floor' || $t->type eq 'obscured'
         },
-        sub { shift->in_shop(1) },
+        sub {
+            my $t = shift;
+            return if $t->in_shop;
+            TAEB->debug("(" . $t->x . ", " . $t->y . ") is in a shop!");
+            $t->in_shop(1);
+        },
     );
 }
 
