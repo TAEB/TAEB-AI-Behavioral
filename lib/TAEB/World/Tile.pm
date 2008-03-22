@@ -402,7 +402,11 @@ sub debug_line {
     my $self = shift;
     (my $class = blessed $self) =~ s/^TAEB::World:://;
 
-    sprintf '(%d, %d) g="%s" f="%s" t="%s" i=%d%s%s c="%s"',
+    my $engraving = $self->engraving
+                  ? length($self->engraving) . '/' . $self->elbereths . ' '
+                  : '';
+
+    sprintf '(%d, %d) g="%s" f="%s" t="%s" i=%d%s%s%s c="%s"',
             $self->x,
             $self->y,
             $self->glyph,
@@ -411,7 +415,8 @@ sub debug_line {
             $self->item_count,
             $self->might_have_new_item ? '*' : '',
             $self->in_shop ? ' shop' : '',
-            $class,
+            $engraving,
+            $class;
 }
 
 __PACKAGE__->meta->make_immutable;
