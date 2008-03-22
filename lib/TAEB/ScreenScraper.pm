@@ -402,6 +402,8 @@ sub handle_menus {
 sub handle_fallback {
     my $self = shift;
 
+    $self->messages($self->messages . '  ' . TAEB->topline);
+
     if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
         TAEB->write("y");
         die "Game over, man!";
@@ -422,8 +424,6 @@ sub handle_fallback {
             die "Recursing screenscraper.\n";
         }
     }
-
-    $self->messages($self->messages . '  ' . TAEB->topline);
 }
 
 sub all_messages {
