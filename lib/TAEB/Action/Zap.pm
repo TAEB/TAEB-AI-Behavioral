@@ -14,6 +14,7 @@ has '+item' => (
 
 sub respond_zap_what    { shift->item->slot }
 sub msg_nothing_happens { shift->item->charges(0) }
+sub msg_wrest_wand      { TAEB->inventory->remove(shift->item->slot) }
 sub done                { shift->item->spend_charge }
 
 __PACKAGE__->meta->make_immutable;
