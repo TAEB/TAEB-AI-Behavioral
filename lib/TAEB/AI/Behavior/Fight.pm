@@ -18,6 +18,7 @@ sub prepare {
     });
     return 100 if $found_monster;
 
+    return 0 unless TAEB->vt->as_string('', 1, 21) =~ /[a-zA-Z:'&]/;
     # look for the nearest tile with a monster
     my $path = TAEB::World::Path->first_match(
         sub { shift->has_monster },
