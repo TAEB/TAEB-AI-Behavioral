@@ -206,7 +206,8 @@ sub can_pray {
 sub can_elbereth {
     my $self = shift;
     return not $self->in_wereform
-            || $self->is_blind;
+            || $self->is_blind
+            || TAEB->current_tile->type eq 'fountain';
 }
 
 sub can_kick {
