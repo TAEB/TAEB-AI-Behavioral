@@ -39,6 +39,7 @@ if (TAEB->config->debug_personality) {
     die "Personality has no behaviors.\n"
         unless keys %$action_weight;
 
+    print "Personality " . Scalar::Util::blessed($personality) . ":\n";
     for my $action (sort {$action_weight->{$b}[0] <=> $action_weight->{$a}[0]} keys %$action_weight) {
         my ($urgency, $unweighted, $weight, $behavior) = @{ $action_weight->{$action} };
         printf "%10d  %s (%s)\n", $urgency, $action, $behavior;
