@@ -32,7 +32,7 @@ sub pickup {
 
     $item->identity =~ m{
         \b(?:dagger|dart|arrow|shuriken|boomerang|spear)\b
-    };
+    }x;
 }
 
 sub urgencies {
