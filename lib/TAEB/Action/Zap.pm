@@ -12,7 +12,9 @@ has '+item' => (
     required => 1,
 );
 
-sub respond_zap_what { shift->item->slot }
+sub respond_zap_what        { shift->item->slot }
+sub respond_nothing_happens { shift->item->charges(0) }
+sub done                    { shift->item->spend_charge }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
