@@ -102,6 +102,7 @@ sub degrade_progression {
     for (my $i = 0; $i < @_; ++$i) {
         for (my $j = $i; $j < @_; ++$j) {
             degrade_ok($_[$i] => $_[$j]);
+            degrade_nok($_[$j] => $_[$i]) unless $_[$i] eq $_[$j];
         }
     }
 }
