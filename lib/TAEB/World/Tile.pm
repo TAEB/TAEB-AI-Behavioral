@@ -109,7 +109,11 @@ sub basic_cost {
 
     $cost = 1000 if $self->type eq 'trap';
 
+    # prefer tiles we've stepped on to avoid traps
     $cost = $cost * .9 if $self->stepped_on;
+
+    # prefer rooms to corridors to explore a bit more sanely
+    $cost = $cost * .9 if $self->type eq 'floor';
 
     return int($cost);
 }
