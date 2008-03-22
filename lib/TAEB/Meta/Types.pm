@@ -23,6 +23,7 @@ enum TileType => tile_types;
 
 enum DoorState => qw(locked unlocked unknown);
 
+require TAEB::World::Item;
 subtype 'TAEB::Type::ItemOrStr'
      => as 'TAEB::World::Item | Str';
 

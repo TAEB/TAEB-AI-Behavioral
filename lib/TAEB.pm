@@ -8,6 +8,7 @@ use MooseX::AttributeHelpers;
 use Log::Dispatch;
 use Log::Dispatch::File;
 
+use TAEB::Meta::Types;
 use TAEB::Config;
 use TAEB::VT;
 use TAEB::ScreenScraper;
@@ -20,8 +21,6 @@ use TAEB::Publisher;
 
 use Module::Refresh;
 use Term::ReadKey;
-
-use TAEB::Meta::Types;
 
 =head1 NAME
 
