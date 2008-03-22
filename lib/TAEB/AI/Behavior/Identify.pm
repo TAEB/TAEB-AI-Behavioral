@@ -29,7 +29,7 @@ sub pickup {
     return 0 if $item->identity;
 
     # we only know how to handle wands
-    if ($item->appearance eq 'wand') {
+    if ($item->class eq 'wand') {
         return 1 if $item->possibility_tracker->engrave_useful;
     }
 
