@@ -41,6 +41,14 @@ sub msg_wand {
 sub done {
     my $self = shift;
     return unless blessed $self->implement;
+
+    if ($self->item->class eq 'wand') {
+        $self->item->spend_charge;
+    }
+    elsif ($self->item->identity eq 'magic marker') {
+        $self->item->spend_charge(int(length($self->text) / 2));
+    }
+
     return if $self->got_identifying_message;
     return if $self->implement->identity; # perhaps we identified it?
     $self->implement->possibility_tracker->no_engrave_message;
