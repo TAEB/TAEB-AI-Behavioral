@@ -26,6 +26,7 @@ use TAEB::Action::Search;
 use TAEB::Action::Throw;
 use TAEB::Action::Unlock;
 use TAEB::Action::Wield;
+use TAEB::Action::Zap;
 
 has aborted => (
     isa => 'Bool',
