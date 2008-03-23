@@ -367,7 +367,7 @@ sub handle_menus {
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
         my $which_spell = TAEB->get_response(TAEB->topline) || "\e";
-        $which_spell = ' ' if TAEB->state eq 'prepare_spells';
+        $which_spell = ' ' if TAEB->checking eq 'spells';
         $committer = sub { $which_spell };
 
         $selector = sub {
@@ -413,13 +413,11 @@ sub handle_menus {
             my $item        = TAEB->inventory->get($slot) || $new_item;
 
             # if we can drop the item, drop it!
-            if (TAEB->state eq 'playing' && TAEB->personality->drop($item)) {
+            if (!(TAEB->checking eq 'inventory')
+            && TAEB->personality->drop($item)) {
                 TAEB->inventory->remove($slot);
                 return 1;
             }
-
-            # updating at this stage will cause the item to duplicate
-            return 0 if TAEB->state eq 'playing';
 
             TAEB->inventory->update($slot, $new_item)
                 unless $new_item->appearance eq 'gold piece';

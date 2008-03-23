@@ -105,6 +105,13 @@ has [
     default => 0,
 );
 
+has checking => (
+    is      => 'rw',
+    isa     => 'Str',
+    default => '',
+    clearer => 'clear_checking',
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -314,6 +321,47 @@ sub msg_game_started {
     $self->poison_resistance(1) if $self->role eq 'Hea'
                                 || $self->role eq 'Bar'
                                 || $self->race eq 'Orc';
+}
+
+sub msg_check {
+    my $self = shift;
+    my $thing = shift;
+
+    if (!$thing) {
+        # discoveries must come before inventory, otherwise I'd meta this crap
+        $self->check_crga;
+        $self->check_spells;
+        $self->check_discoveries;
+        $self->check_inventory;
+    }
+    elsif (my $method = $self->can("check_$thing")) {
+        $self->checking($thing);
+        $self->$method;
+        $self->clear_checking;
+    }
+    else {
+        $self->warning("I don't know how to check $thing.");
+    }
+}
+
+sub check_discoveries {
+    TAEB->write("\\");
+    TAEB->process_input;
+}
+
+sub check_inventory {
+    TAEB->write("Da\n");
+    TAEB->process_input;
+}
+
+sub check_spells {
+    TAEB->write("Z");
+    TAEB->process_input;
+}
+
+sub check_crga {
+    TAEB->write("\cx");
+    TAEB->process_input;
 }
 
 __PACKAGE__->meta->make_immutable;

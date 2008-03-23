@@ -88,12 +88,6 @@ has state => (
     default => 'logging_in',
 );
 
-has nextstate => (
-    is      => 'rw',
-    isa     => 'Maybe[PlayState]',
-    default => undef,
-);
-
 has log => (
     is      => 'ro',
     isa     => 'Log::Dispatch',
@@ -183,7 +177,7 @@ has senses => (
     is => 'rw',
     isa => 'TAEB::Senses',
     default => sub { TAEB::Senses->new },
-    handles => [qw/hp maxhp power maxpower nutrition level role race gender align turn can_pray can_elbereth/],
+    handles => [qw/hp maxhp power maxpower nutrition level role race gender align turn can_pray can_elbereth checking/],
 );
 
 has inventory => (
@@ -292,12 +286,6 @@ sub handle_playing {
     $self->write($self->action->run);
 }
 
-sub handle_prepare_discoveries {
-    my $self = shift;
-    $self->write("\\");
-    $self->state($self->nextstate || 'prepare_inventory');
-}
-
 sub handle_logging_in {
     my $self = shift;
 
@@ -322,35 +310,15 @@ sub handle_logging_in {
         $self->write(' ');
     }
     elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
+        $self->enqueue_message('check');
         $self->enqueue_message('game_started');
-        $self->state($self->nextstate || 'prepare_discoveries');
+        $self->state('playing');
     }
     elsif ($self->topline =~ /^\s*It is written in the Book of /) {
         TAEB->error("Using etc/TAEB.nethackrc is MANDATORY");
         $self->write("     \e     #quit\ny         ");
         die "Using etc/TAEB.nethackrc is MANDATORY";
     }
-}
-
-sub handle_prepare_inventory {
-    my $self = shift;
-
-    $self->write("Da\n");
-    $self->state($self->nextstate || 'prepare_spells');
-}
-
-sub handle_prepare_spells {
-    my $self = shift;
-
-    $self->write("Z");
-    $self->state($self->nextstate || 'prepare_crga');
-}
-
-sub handle_prepare_crga {
-    my $self = shift;
-
-    $self->write("\cx");
-    $self->state($self->nextstate || 'playing');
 }
 
 sub handle_saving {
@@ -657,19 +625,6 @@ sub console {
 
     # back to normal
     $self->out(TAEB->redraw);
-}
-
-sub msg_check {
-    my $self = shift;
-    my $thing = shift;
-
-    if ($self->can("prepare_$thing")) {
-        $self->state("prepare_$thing");
-        $self->nextstate('playing');
-    }
-    else {
-        $self->warning("I don't know how to check $thing.");
-    }
 }
 
 no Moose;
