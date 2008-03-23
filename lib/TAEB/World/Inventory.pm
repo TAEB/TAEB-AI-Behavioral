@@ -87,6 +87,7 @@ sub update {
     my $self = shift;
     my $slot = shift;
     my $item = shift;
+    my $menu = shift;
 
     TAEB->debug("Inventory: slot '$slot' has item $item.");
 
@@ -97,7 +98,7 @@ sub update {
             $item->slot($slot);
             $self->set($slot => $item);
         }
-        else {
+        elsif (!$menu) {
             TAEB->debug("Increasing the quantity of $slot_item by ".$item->quantity);
             $slot_item->quantity($item->quantity + $slot_item->quantity);
         }
