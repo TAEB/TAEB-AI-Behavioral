@@ -29,6 +29,27 @@ sub is_enemy {
     return 1;
 }
 
+sub is_meleeable {
+    my $self = shift;
+
+    return 0 unless $self->is_enemy;
+
+    # floating eye (paralysis)
+    return 0 if $self->color eq COLOR_BLUE
+             && $self->glyph eq 'e';
+
+    # blue jelly (cold)
+    return 0 if $self->color eq COLOR_BLUE
+             && $self->glyph eq 'j'
+             && !TAEB->senses->cold_resistance;
+
+    # spotted jelly (acid)
+    return 0 if $self->color eq COLOR_GREEN
+             && $self->glyph eq 'j';
+
+    return 1;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
