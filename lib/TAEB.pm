@@ -318,6 +318,7 @@ sub handle_logging_in {
         $self->write(' ');
     }
     elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
+        $self->enqueue_message('game_started');
         $self->state($self->nextstate || 'prepare_discoveries');
     }
     elsif ($self->topline =~ /^\s*It is written in the Book of /) {
