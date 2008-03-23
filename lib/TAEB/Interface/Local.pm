@@ -50,7 +50,7 @@ sub read {
 
     # this is about the best we can do for consistency
     # in Telnet we have a complicated ping/pong that scales with network latency
-    sleep(0.1);
+    sleep(0.2);
 
     die "Pty inactive." unless $self->pty->is_active;
     my $out = $self->pty->read(1);
