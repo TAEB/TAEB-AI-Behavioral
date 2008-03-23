@@ -254,6 +254,9 @@ sub _dijkstra {
             my $xdx = $x + $dx;
             my $ydy = $y + $dy;
 
+            next if $xdx < 0 || $xdx > 79;
+            next if $ydy < 1 || $ydy > 21;
+
             next if $closed[$xdx][$ydy];
 
             # can't move diagonally off of doors
