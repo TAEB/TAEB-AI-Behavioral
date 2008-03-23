@@ -66,8 +66,8 @@ sub done {
     my $dir = substr($self->directions, 0, 1);
     my ($dx, $dy) = vi2delta($dir);
 
-    $self->handle_items_in_rock($dx, $dy);
     $self->handle_obscured_doors($dx, $dy);
+    $self->handle_items_in_rock($dx, $dy);
 }
 
 sub handle_items_in_rock {
@@ -77,6 +77,7 @@ sub handle_items_in_rock {
 
     my $tile = TAEB->current_tile;
     return if $tile->type eq 'trap'; # XXX check that it's a bear trap or pit
+    return if $tile->type eq 'opendoor' && $dx && $dy;
 
     my $dest = TAEB->current_level->at(TAEB->x + $dx, TAEB->y + $dy);
 
