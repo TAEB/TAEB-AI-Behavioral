@@ -212,7 +212,7 @@ sub dice {
     $num2 ||= 1;
     $bonus =~ s/\+//;
 
-    my $average = $num * $sides / 2 + $num2 * $sides2 / 2 + $bonus
+    my $average = $num * $sides / 2 + $num2 * $sides2 / 2 + $bonus;
     return $average if !wantarray;
 
     my $max = $num * $sides + $num2 * $sides2 + $bonus;
