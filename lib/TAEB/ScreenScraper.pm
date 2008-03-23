@@ -162,6 +162,10 @@ our @msg_regex = (
         qr/^The .*? stole (.*)\./,
             [lost_item => sub { TAEB->new_item($1) }],
     ],
+    [
+        qr/^You are (?:almost )?hit by (?:.*)(?:\.!)/,
+            [check => 'floor_items'],
+    ],
 );
 
 our @god_anger = (
