@@ -243,16 +243,7 @@ sub step {
 
     TAEB->debug("Starting a new step.");
 
-    $self->scraper->clear;
-
-    $self->process_input;
-
-    unless ($self->state eq 'logging_in') {
-        $self->dungeon->update;
-        $self->senses->update;
-        $self->publisher->update;
-    }
-
+    $self->full_input;
     $self->human_input;
 
     my $method = "handle_" . $self->state;
@@ -325,6 +316,25 @@ sub handle_saving {
     my $self = shift;
 
     $self->write("\e\eS");
+}
+
+=head2 full_input
+
+Run a full input loop, sending messages, updating the screen, and so on.
+
+=cut
+
+sub full_input {
+    my $self = shift;
+    $self->scraper->clear;
+
+    $self->process_input;
+
+    unless ($self->state eq 'logging_in') {
+        $self->dungeon->update;
+        $self->senses->update;
+        $self->publisher->update;
+    }
 }
 
 =head2 process_input [Bool]
