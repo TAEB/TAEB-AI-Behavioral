@@ -93,6 +93,11 @@ has gold => (
     default => 0,
 );
 
+has debt => (
+    isa     => 'Maybe[Int]',
+    default => 0,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -283,6 +288,15 @@ sub numeric_strength {
     else {
         TAEB->error("Unable to parse strength $str.");
     }
+}
+
+sub msg_debt {
+    my $self = shift;
+    my $gold = shift;
+
+    # gold is occasionally undefined. that's okay, that tells us to check
+    # how much we owe with the $ command
+    $self->debt($gold);
 }
 
 __PACKAGE__->meta->make_immutable;
