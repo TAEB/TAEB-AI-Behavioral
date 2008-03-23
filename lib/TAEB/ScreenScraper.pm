@@ -208,7 +208,7 @@ our @prompts = (
     qr/^\s*Choose which spell to cast/      => 'which_spell',
 
     qr/^Dip (.*?) into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
-    qr/^There (?:is|are) (.*?) here; eat (?:it|them)\?/ => 'eat_ground',
+    qr/^There (?:is|are) (.*?) here; eat (?:it|one)\?/ => 'eat_ground',
     qr/^What do you want to (?:write|engrave|burn|scribble|scrawl) (?:in|into|on) the (.*?) here\?/ => 'write_what',
     qr/^What do you want to add to the writing in the (.*?) here\?/ => 'write_what',
     qr/^Do you want to add to the current engraving\?/ => 'add_engraving',
