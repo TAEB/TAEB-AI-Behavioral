@@ -2,6 +2,7 @@
 package TAEB::World::Inventory;
 use TAEB::OO;
 use List::Util 'first';
+use List::MoreUtils 'apply';
 
 use overload
     q{""} => sub {
@@ -27,6 +28,31 @@ has [qw/wielded offhand quiver left_ring right_ring amulet helmet gloves boots
         body_armor cloak shield/] => (
     isa => 'TAEB::World::Item',
 );
+
+# XXX: redo this like we did with iterate_tiles, sometime when it isn't 5am
+sub each {
+    my $self = shift;
+    my $code = shift;
+    my $matcher = shift;
+
+    # pass in a coderef? return the first for which the coderef is true
+    if (ref($matcher) eq 'CODE') {
+        return apply { $code->($_) } (grep { $matcher->($_) } $self->items);
+    }
+
+    # pass in a regex? return the first item for which the regex matches ID
+    if (ref($matcher) eq 'Regexp') {
+        return apply { $code->($_) } (grep { $_->identity =~ $matcher } $self->items);
+    }
+
+    my $value = shift;
+    if (!defined($value)) {
+        # they passed in only one argument. assume they are checking identity
+        ($matcher, $value) = ('identity', $matcher);
+    }
+
+    return apply { $code->($_) } (grep { $_->$matcher eq $value } $self->items);
+}
 
 sub find {
     my $self = shift;
