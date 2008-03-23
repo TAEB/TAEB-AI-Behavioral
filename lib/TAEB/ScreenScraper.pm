@@ -73,6 +73,8 @@ our %msg_string = (
         [floor_item => sub { TAEB->new_item("1 gold") }],
     "You wrest one last charge from the worn-out wand." =>
         ['wrest_wand'],
+    "You are caught in a bear trap." =>
+        ['beartrap'],
 );
 
 our @msg_regex = (
@@ -93,8 +95,8 @@ our @msg_regex = (
             ['throw_count', sub { $1 }],
     ],
     [
-        qr/^(?:A|Your) bear trap closes on your|You are caught in a bear trap/,
-            ['beartrap'],
+        qr/^(?:A|Your) bear trap closes on your/,
+            [delay => 1 => 'beartrap'],
     ],
     [
         qr/^You (?:see|feel) here (.*?)\./,
