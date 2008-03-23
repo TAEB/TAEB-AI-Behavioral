@@ -410,7 +410,9 @@ sub handle_menus {
                 return 1;
             }
 
-            # otherwise, we still have the item, so mark it in our inventory
+            # updating at this stage will cause the item to duplicate
+            return 0 if TAEB->state eq 'playing';
+
             TAEB->inventory->update($slot, $new_item)
                 unless $new_item->appearance eq 'gold piece';
             return 0;
