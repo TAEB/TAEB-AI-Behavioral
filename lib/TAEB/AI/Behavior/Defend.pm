@@ -13,6 +13,8 @@ sub prepare {
     my ($adjacent_ignoring, $adjacent_respecting) = (0, 0);
     TAEB->each_adjacent(sub {
         my $monster = shift->monster or return;
+        return unless $monster->is_enemy;
+
         $monster->respects_elbereth
             ? ++$adjacent_respecting
             : ++$adjacent_ignoring
