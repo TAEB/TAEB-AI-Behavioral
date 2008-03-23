@@ -7,14 +7,41 @@ sub prepare {
     my $self = shift;
     return 0 if TAEB->hp * 2 > TAEB->maxhp;
 
-    if (TAEB->can_elbereth && TAEB->senses->elbereth_count < 3) {
+    my $can_elbereth = TAEB->can_elbereth;
+    my $elbereths    = TAEB->senses->elbereth_count;
+
+    my ($adjacent_ignoring, $adjacent_respecting) = (0, 0);
+    TAEB->each_adjacent(sub {
+        my $monster = shift->monster or return;
+        $monster->respects_elbereth
+            ? ++$adjacent_respecting
+            : ++$adjacent_ignoring
+    });
+
+    # if there's an adjacent monster that ignores Elbereth, then we only write
+    # Elbereth if there's no Elbereth on the ground AND there's an adjacent
+    # Elbereth-respecting monster. we don't rest on Elbereth
+    if ($adjacent_ignoring) {
+        if ($adjacent_respecting && $elbereths == 0) {
+            $self->write_elbereth;
+            return 100;
+        }
+        return 0;
+    }
+
+    # otherwise, we write Elbereth if we can and there's not already an
+    # excessive amount of them
+    if ($can_elbereth && $elbereths < 3) {
         $self->write_elbereth;
         return 100;
     }
 
-    $self->currently("Resting on an Elbereth tile.");
-    $self->do('search');
-    return 80;
+    # finally, we have an Elbereth under us, so we rest up to heal
+    if ($elbereths) {
+        $self->currently("Resting on an Elbereth tile.");
+        $self->do('search');
+        return 80;
+    }
 }
 
 sub urgencies {
