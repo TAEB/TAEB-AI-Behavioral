@@ -33,6 +33,7 @@ sub is_oracle {
 sub is_enemy {
     my $self = shift;
     return 0 if $self->is_shk;
+    return 0 if $self->is_oracle;
     return 1;
 }
 
