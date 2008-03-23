@@ -33,7 +33,7 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types glyph_to_type delta2vi vi2delta deltas), keys %colors],
+    exports => [qw(tile_types glyph_to_type delta2vi vi2delta deltas glyph_is_monster glyph_is_item), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -107,6 +107,9 @@ sub glyph_to_type {
    my $type = first { $intersect{$_} == 3 } keys %intersect;
    return $type || 'obscured';
 }
+
+sub glyph_is_monster { shift =~ /[a-zA-Z&';:1-5@]/ }
+sub glyph_is_item    { shift =~ /[`!%*()+=\["\$]/ }
 
 our @directions = (
     [qw/y k u/],
