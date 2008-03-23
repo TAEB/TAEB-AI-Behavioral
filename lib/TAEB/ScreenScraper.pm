@@ -225,6 +225,9 @@ sub scrape {
     }
 
     eval {
+        # You don't have that object!
+        $self->handle_exceptions;
+
         # handle ^X
         $self->handle_attributes;
 
@@ -269,6 +272,14 @@ sub clear {
     my $self = shift;
 
     $self->messages('');
+}
+
+sub handle_exceptions {
+    my $response = TAEB->get_exceptional_response(TAEB->topline);
+    if (defined $response) {
+        TAEB->write($response);
+        die "Recursing screenscraper.\n";
+    }
 }
 
 sub handle_more {
@@ -432,14 +443,6 @@ sub handle_fallback {
     if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
         TAEB->write("y");
         die "Game over, man!";
-    }
-
-    for ($self->all_messages) {
-        my $response = TAEB->get_exceptional_response($_);
-        if (defined $response) {
-            TAEB->write($response);
-            die "Recursing screenscraper.\n";
-        }
     }
 
     if (TAEB->vt->y == 0) {
