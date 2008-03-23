@@ -23,6 +23,13 @@ sub is_shk {
     $self->glyph eq '@' && $self->color eq COLOR_WHITE;
 }
 
+sub is_oracle {
+    my $self = shift;
+    return 0 if TAEB->z >= 5 && TAEB->z <= 9;
+    return 1 $self->glyph eq '@' && $self->color eq COLOR_BRIGHT_BLUE;
+    return 0;
+}
+
 sub is_enemy {
     my $self = shift;
     return 0 if $self->is_shk;
