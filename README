@@ -27,6 +27,18 @@ $ sudo make installdeps
 This will install the modules from CPAN. TAEB's dependencies themselves usually
 have a few dependencies. All in all you're probably looking at about 50 modules.
 
+There's one dependency not available on CPAN - NetHack::Menu version 0.05 (long
+story). Until that's cleaned up and uploaded, you'll have to get it from the
+repository:
+
+$ darcs get http://sartak.org/code/cpan/NetHack-Menu/
+$ cd NetHack-Menu
+$ perl Makefile.PL
+$ sudo make installdeps
+$ make test
+$ sudo make install
+
+
 Now it's time to set up TAEB for running on nethack.alt.org. First, create a
 new account. Use etc/TAEB.nethackrc for its nethack config.
 
