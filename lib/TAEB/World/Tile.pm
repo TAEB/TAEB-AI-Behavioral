@@ -417,7 +417,7 @@ sub try_monster {
     return unless glyph_is_monster($glyph);
     return if TAEB->x == $self->x && TAEB->y == $self->y;
 
-    $self->monster(TAEB::Monster->new(
+    $self->monster(TAEB::World::Monster->new(
         glyph => $glyph,
         color => $color,
         tile  => $self,
