@@ -22,7 +22,7 @@ sub prepare {
     # Elbereth if there's no Elbereth on the ground AND there's an adjacent
     # Elbereth-respecting monster. we don't rest on Elbereth
     if ($adjacent_ignoring) {
-        if ($adjacent_respecting && $elbereths == 0) {
+        if ($can_elbereth && $adjacent_respecting && $elbereths == 0) {
             $self->write_elbereth;
             return 100;
         }
