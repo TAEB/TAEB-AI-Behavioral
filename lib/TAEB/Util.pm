@@ -33,7 +33,7 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types glyph_to_type delta2vi vi2delta deltas glyph_is_monster glyph_is_item avg_dice max_dice min_dice), keys %colors],
+    exports => [qw(tile_types glyph_to_type delta2vi vi2delta deltas glyph_is_monster glyph_is_item dice), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -161,34 +161,21 @@ sub deltas {
 
 }
 
-sub avg_dice {
+sub dice {
     my $dice = shift;
     my ($num, $sides, $num2, $sides2, $bonus) =
         $dice =~ /(\d+)?d(\d+)(?:\+(\d+)?d(\d+))?([+-]\d+)?/;
     $num ||= 1;
     $num2 ||= 1;
     $bonus =~ s/\+//;
-    return $num * $sides / 2 + $num2 * $sides2 / 2 + $bonus;
-}
 
-sub max_dice {
-    my $dice = shift;
-    my ($num, $sides, $num2, $sides2, $bonus) =
-        $dice =~ /(\d+)?d(\d+)(?:\+(\d+)?d(\d+))?([+-]\d+)?/;
-    $num ||= 1;
-    $num2 ||= 1;
-    $bonus =~ s/\+//;
-    return $num * $sides + $num2 * $sides2 + $bonus;
-}
+    my $average = $num * $sides / 2 + $num2 * $sides2 / 2 + $bonus
+    return $average if !wantarray;
 
-sub min_dice {
-    my $dice = shift;
-    my ($num, $sides, $num2, $sides2, $bonus) =
-        $dice =~ /(\d+)?d(\d+)(?:\+(\d+)?d(\d+))?([+-]\d+)?/;
-    $num ||= 1;
-    $num2 ||= 1;
-    $bonus =~ s/\+//;
-    return $num + $num2 + $bonus;
+    my $max = $num * $sides + $num2 * $sides2 + $bonus;
+    my $min = $num + $num2 + $bonus;
+
+    return ($min, $average, $max);
 }
 
 1;

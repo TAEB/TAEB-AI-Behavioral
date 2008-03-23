@@ -1,18 +1,18 @@
 #!/usr/bin/perl
 package TAEB::AI::Behavior::Equip;
 use TAEB::OO;
-use TAEB::Util 'avg_dice';
+use TAEB::Util 'dice';
 extends 'TAEB::AI::Behavior';
 
 sub prepare {
     my $self = shift;
     my $current_weapon = TAEB->inventory->wielded;
-    my $current_avgdam = avg_dice($current_weapon->sdam);
+    my $current_avgdam = dice($current_weapon->sdam);
 
     my ($best_weapon, $best_avgdam) = ($current_weapon, $current_avgdam);
     TAEB->inventory->each(sub {
         return if $_->buc eq 'cursed';
-        my $avgdam = avg_dice($_->sdam);
+        my $avgdam = dice($_->sdam);
         if ($avgdam > $best_avgdam) {
             $best_avgdam = $avgdam;
             $best_weapon = $_;
