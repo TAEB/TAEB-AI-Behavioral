@@ -15,13 +15,13 @@ my @can_fix = (
         status    => 'blind',
         priority  => 80,
         action    => 'eat',
-        args      => sub { food => shift },
+        args      => sub { item => shift },
     },
     "sprig of wolfsbane" => {
         status    => 'lycanthropy',
         priority  => 80,
         action    => 'eat',
-        args      => sub { food => shift },
+        args      => sub { item => shift },
     },
     "holy water" => {
         status    => 'lycanthropy',
