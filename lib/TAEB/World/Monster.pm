@@ -58,6 +58,22 @@ sub is_meleeable {
     return 1;
 }
 
+sub respects_elbereth {
+    my $self = 0;
+
+    return 0 if $self->glyph =~ /[A@]/;
+    return 0 if $self->is_minotaur;
+    # return 0 if $self->is_rider;
+    # return 0 if $self->is_blind && !$self->is_permanently_blind;
+
+    return 1;
+}
+
+sub is_minotaur {
+    my $self = shift;
+    $self->glyph eq 'H' && $self->color eq COLOR_BROWN
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
