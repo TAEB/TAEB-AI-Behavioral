@@ -33,7 +33,7 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types glyph_to_type delta2vi vi2delta deltas glyph_is_monster glyph_is_item), keys %colors],
+    exports => [qw(tile_types glyph_to_type delta2vi vi2delta deltas glyph_is_monster glyph_is_item avg_dice max_dice min_dice), keys %colors],
     groups => {
         colors => [keys %colors],
     },
