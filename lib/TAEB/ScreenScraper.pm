@@ -156,7 +156,7 @@ our @msg_regex = (
     ],
     [
         qr/^There are (?:several|many) (?:more )?objects here\./,
-            [check => 'floor_items'],
+            [check => 'floor'],
     ],
     [
         qr/^The .*? stole (.*)\./,
@@ -164,7 +164,7 @@ our @msg_regex = (
     ],
     [
         qr/^You are (?:almost )?hit by (?:.*)(?:\.!)/,
-            [check => 'floor_items'],
+            [check => 'floor'],
     ],
 );
 

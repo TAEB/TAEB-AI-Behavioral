@@ -333,6 +333,7 @@ sub msg_check {
         $self->check_spells;
         $self->check_discoveries;
         $self->check_inventory;
+        $self->check_floor;
     }
     elsif (my $method = $self->can("check_$thing")) {
         $self->checking($thing);
@@ -361,6 +362,11 @@ sub check_spells {
 
 sub check_crga {
     TAEB->write("\cx");
+    TAEB->process_input;
+}
+
+sub check_floor {
+    TAEB->write(":");
     TAEB->process_input;
 }
 
