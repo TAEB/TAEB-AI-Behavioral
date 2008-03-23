@@ -2,35 +2,35 @@
 package TAEB::Action::Eat;
 use TAEB::OO;
 extends 'TAEB::Action';
+with 'TAEB::Action::Role::Item';
 
 use constant command => "e";
 
-has food => (
-    isa      => 'TAEB::World::Item | Str',
+has '+item' => (
     required => 1,
 );
 
 sub respond_eat_ground {
     my $self = shift;
-    my $food = TAEB->new_item(shift);
+    my $item = TAEB->new_item(shift);
 
     # no, we want to eat something in our inventory
-    return 'n' if blessed $self->food;
+    return 'n' if blessed $self->item;
 
-    if ($self->food eq 'any') {
-        if (TAEB::Spoilers::Item::Food->should_eat($food)) {
-            TAEB->debug("Floor-food $food is good enough for me.");
+    if ($self->item eq 'any') {
+        if (TAEB::Spoilers::Item::Food->should_eat($item)) {
+            TAEB->debug("Floor-food $item is good enough for me.");
             # keep track of what we're eating for nutrition purposes later
-            $self->food($food);
+            $self->item($item);
             return 'y';
         }
         else {
-            TAEB->debug("Floor-food $food is on the blacklist. Pass.");
+            TAEB->debug("Floor-food $item is on the blacklist. Pass.");
         }
     }
 
     # we're specific about this. really
-    return 'y' if $food->identity eq $self->food;
+    return 'y' if $item->identity eq $self->item;
 
     # no thanks, I brought my own lunch
     return 'n';
@@ -38,44 +38,46 @@ sub respond_eat_ground {
 
 sub respond_eat_what {
     my $self = shift;
-    return $self->food->slot if blessed($self->food);
+    return $self->item->slot if blessed($self->item);
 
-    if ($self->food eq 'any') {
-        my $food = TAEB->find_item(sub {
+    if ($self->item eq 'any') {
+        my $item = TAEB->find_item(sub {
             my $try = shift;
             return $try->class eq 'food'
                 && TAEB::Spoilers::Item::Food->should_eat($try);
         });
-        if ($food) {
-            $self->food($food);
-            return $food->slot;
+        if ($item) {
+            $self->item($item);
+            return $item->slot;
         }
         TAEB->error("There's no safe food in my inventory, so I can't eat 'any'. Sending escape, but I doubt this will work.");
     }
     else {
-        TAEB->error("Unable to eat '" . $self->food . "'. Sending escape, but I doubt this will work.");
+        TAEB->error("Unable to eat '" . $self->item . "'. Sending escape, but I doubt this will work.");
     }
-    return "\e";
+
+    $self->aborted(1);
+    return "\e\e\e";
 }
 
 sub done {
     my $self = shift;
-    my $food = $self->food;
+    my $item = $self->item;
 
     # we had no match for "any", so we have nothing to do
-    return unless blessed $food;
+    return unless blessed $item;
 
-    if ($food->slot) {
-        TAEB->inventory->decrease_quantity($food->slot)
+    if ($item->slot) {
+        TAEB->inventory->decrease_quantity($item->slot)
     }
     else {
-        TAEB->enqueue_message('remove_floor_item' => $food);
+        TAEB->enqueue_message('remove_floor_item' => $item);
     }
 
     my $old_nutrition = TAEB->senses->nutrition;
-    my $new_nutrition = $old_nutrition + $food->nutrition;
+    my $new_nutrition = $old_nutrition + $item->nutrition;
 
-    TAEB->debug("Eating $food is increasing our nutrition from $old_nutrition to $new_nutrition");
+    TAEB->debug("Eating $item is increasing our nutrition from $old_nutrition to $new_nutrition");
     TAEB->senses->nutrition($new_nutrition);
 }
 
@@ -89,14 +91,6 @@ sub any_food {
     }
 
     return 0;
-}
-
-sub exception_missing_item {
-    my $self = shift;
-    TAEB->debug("We don't have item " . $self->food . ", escaping.");
-    TAEB->inventory->remove($self->food->slot);
-    $self->aborted(1);
-    return "\e";
 }
 
 __PACKAGE__->meta->make_immutable;
