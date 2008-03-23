@@ -26,7 +26,7 @@ sub is_shk {
 sub is_oracle {
     my $self = shift;
     return 0 if TAEB->z >= 5 && TAEB->z <= 9;
-    return 1 $self->glyph eq '@' && $self->color eq COLOR_BRIGHT_BLUE;
+    return 1 if $self->glyph eq '@' && $self->color eq COLOR_BRIGHT_BLUE;
     return 0;
 }
 
