@@ -394,7 +394,7 @@ sub handle_more_menus {
 
             # now for each menu line, invoke the coderef
             for my $row (0 .. $endrow) {
-                my $line = TAEB->vt->row_plaintext($_, $begincol);
+                my $line = TAEB->vt->row_plaintext($row, $begincol);
                 $each->($line);
             }
 
