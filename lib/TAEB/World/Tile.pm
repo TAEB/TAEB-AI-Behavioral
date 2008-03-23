@@ -213,13 +213,15 @@ sub is_walkable {
              && $self->y == TAEB->y;
 
     # XXX: yes. I know. shut up.
-    return 0 if $self->glyph eq '0' || $self->glyph eq '@';
+    return 0 if $self->glyph eq '0';
 
-    # obscured is probably walkable
-    # XXX: fish
+    return 0 if $self->monster;
+
+    # obscured is walkable, the Move action will catch it and mark it
+    # as rock otherwise
     return 1 if $self->type eq 'obscured';
 
-    # quick hack for doors
+    # doors use the same glyphs as walls
     return 1 if $self->type eq 'opendoor';
 
     $self->floor_glyph =~ /[.<>^\\_{#]/;
