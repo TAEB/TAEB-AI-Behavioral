@@ -143,7 +143,7 @@ our @msg_regex = (
             [wand => sub { "wand of $1 monster" }],
     ],
     [
-        qr/^.*? zaps a .*? wand!/,
+        qr/^.*? zaps an? .*? wand!/,
             ['check' => 'discoveries'],
     ],
     [
