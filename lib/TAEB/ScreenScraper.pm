@@ -155,7 +155,7 @@ our @msg_regex = (
             [debt => undef],
     ],
     [
-        qr/^There are (?:several|many) objects here\./,
+        qr/^There are (?:several|many) (?:more )?objects here\./,
             [check => 'floor_items'],
     ],
     [
