@@ -117,9 +117,6 @@ sub basic_cost {
     # prefer tiles we've stepped on to avoid traps
     $cost = $cost * .9 if $self->stepped_on;
 
-    # prefer rooms to corridors to explore a bit more sanely
-    $cost = $cost * 1.05 if $self->type eq 'corridor';
-
     return int($cost);
 }
 
