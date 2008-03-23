@@ -488,7 +488,7 @@ sub keypress {
                 # XXX: redraw screen, change current_level, etc
             }
             elsif ($c eq ';' || $c eq '.' || $c eq "\e"
-                || $c eq "\n" || $c eq ' ') {
+                || $c eq "\n" || $c eq ' ' || $c eq 'q' || $c eq 'Q') {
                 last;
             }
 
