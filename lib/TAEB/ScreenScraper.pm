@@ -343,7 +343,8 @@ sub handle_more_menus {
 
     if (TAEB->topline =~ /^\s*Discoveries\s*$/) {
         $each = sub {
-            my ($identity, $appearance) = /^\s+(.*?) \((.*?)\)/
+            my $line = shift;
+            my ($identity, $appearance) = $line =~ /^\s+(.*?) \((.*?)\)/
                 or return;
             TAEB->debug("Discovery: $appearance is $identity");
             TAEB->enqueue_message('discovery', $identity, $appearance);
