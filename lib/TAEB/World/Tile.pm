@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile;
 use TAEB::OO;
-use TAEB::Util qw/glyph_to_type delta2vi/;
+use TAEB::Util qw/glyph_to_type delta2vi glyph_is_monster/;
 use List::MoreUtils qw/any all apply/;
 
 has level => (
@@ -71,8 +71,7 @@ has interesting_at => (
 );
 
 has monster => (
-    isa      => 'TAEB::World::Monster',
-    weak_ref => 1,
+    isa => 'TAEB::World::Monster',
 );
 
 has items => (
@@ -140,6 +139,7 @@ sub update {
     return if $newglyph =~ m{^[\\/-]$} && $color == 1;
 
     $self->glyph($newglyph);
+    $self->monster(undef);
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
@@ -153,6 +153,10 @@ sub update {
     # XXX: if the type is olddoor then we probably kicked/opened the door and
     # something walked onto it. this needs improvement
     if ($newtype eq 'obscured') {
+        if (glyph_is_monster($newglyph)) {
+            $self->monster(TAEB::Monster->new(glyph => $newglyph, color => $color));
+        }
+
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
 
