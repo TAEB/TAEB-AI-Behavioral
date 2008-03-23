@@ -11,7 +11,6 @@ use TAEB::Action::Dip;
 use TAEB::Action::Drop;
 use TAEB::Action::Eat;
 use TAEB::Action::Engrave;
-use TAEB::Action::Gold;
 use TAEB::Action::Kick;
 use TAEB::Action::Melee;
 use TAEB::Action::Move;
