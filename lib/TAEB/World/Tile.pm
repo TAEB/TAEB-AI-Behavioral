@@ -101,12 +101,6 @@ has in_shop => (
     documentation => "Is this tile inside a shop?",
 );
 
-has is_really_rock => (
-    isa           => 'Bool',
-    default       => 0,
-    documentation => "Ordinarily, items and monsters indicate that the tile is walkable. If we know that the tile is not walkable but has an item on it (such as gold embedded in rock), we want to keep the tile as rock.",
-);
-
 =head2 basic_cost -> Int
 
 This returns the basic cost of entering a tile. It's not very smart, but it
@@ -163,7 +157,7 @@ sub update {
             unless $self->monster;
 
         $self->type('obscured')
-            if ($oldtype eq 'rock' && !$self->is_really_rock)
+            if $oldtype eq 'rock'
             || $oldtype eq 'closeddoor';
 
         return;

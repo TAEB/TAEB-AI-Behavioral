@@ -84,7 +84,6 @@ sub handle_items_in_rock {
     return unless $dest->type eq 'obscured'
                || ($dest->type eq 'opendoor' && $dest->glyph eq '-');
 
-    $dest->is_really_rock(1);
     $dest->change_type('rock' => ' ');
 }
 
