@@ -9,7 +9,7 @@ sub prepare {
     # look for the nearest tile with a monster
     # XXX: this must be a walking distance, not teleport or something
     my $path = TAEB::World::Path->first_match(
-        sub { shift->monster },
+        sub { shift->has_enemy },
     );
 
     # there's a monster on the map, but we don't know how to reach it
@@ -29,7 +29,7 @@ sub prepare {
     my $found_monster;
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
-        if ($tile->monster) {
+        if ($tile->has_enemy) {
             $self->do(melee => direction => $dir);
             $self->currently("Attacking a " . $tile->glyph);
             $found_monster = 1;

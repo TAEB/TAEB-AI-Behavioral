@@ -10,7 +10,7 @@ sub prepare {
     my $found_monster;
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
-        if ($tile->monster) {
+        if ($tile->has_enemy) {
             $self->do(melee => direction => $dir);
             $self->currently("Attacking a " . $tile->glyph);
             $found_monster = 1;
@@ -21,7 +21,7 @@ sub prepare {
     return 0 unless TAEB->vt->as_string('', 1, 21) =~ /[a-zA-Z&';:1-5]/;
     # look for the nearest tile with a monster
     my $path = TAEB::World::Path->first_match(
-        sub { shift->monster },
+        sub { shift->has_enemy },
     );
 
     $self->if_path($path =>

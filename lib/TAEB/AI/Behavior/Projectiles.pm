@@ -22,7 +22,7 @@ sub prepare {
     return 0 unless defined $projectile;
 
     my $direction = TAEB->current_level->radiate(
-        sub { shift->monster },
+        sub { shift->has_enemy },
         max => $projectile->throw_range,
     );
 
