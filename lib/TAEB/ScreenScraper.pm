@@ -343,8 +343,7 @@ sub handle_more_menus {
 
     if (TAEB->topline =~ /^\s*Discoveries\s*$/) {
         $each = sub {
-            my $line = shift;
-            my ($identity, $appearance) = $line =~ /^\s+(.*?) \((.*?)\)/
+            my ($identity, $appearance) = /^\s+(.*?) \((.*?)\)/
                 or return;
             TAEB->debug("Discovery: $appearance is $identity");
             TAEB->enqueue_message('discovery', $identity, $appearance);
@@ -354,9 +353,6 @@ sub handle_more_menus {
         TAEB->enqueue_message('clear_floor');
         my $skip = 1;
         $each = sub {
-            my $personality = shift;
-            my $slot        = shift;
-
             # skip the items until we get "Things that are here" which
             # typically is a message like "There is a door here"
             do { $skip = 0; return } if /^\s*Things that are here:/;
@@ -396,6 +392,7 @@ sub handle_more_menus {
             # now for each menu line, invoke the coderef
             for my $row (0 .. $endrow) {
                 my $line = TAEB->vt->row_plaintext($row, $begincol);
+                local $_ = $line;
                 $each->($line);
             }
 
