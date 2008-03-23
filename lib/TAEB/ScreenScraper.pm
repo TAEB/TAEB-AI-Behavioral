@@ -239,6 +239,9 @@ sub scrape {
         # handle ^X
         $self->handle_attributes;
 
+        # handle --More-- menus
+        $self->handle_more_menus;
+
         # handle menus
         $self->handle_menus;
 
@@ -334,6 +337,74 @@ sub handle_attributes {
     }
 }
 
+sub handle_more_menus {
+    my $self = shift;
+    my $each;
+
+    if (TAEB->topline =~ /^\s*Discoveries\s*$/) {
+        $each = sub {
+            my ($identity, $appearance) = /^\s+(.*?) \((.*?)\)/
+                or return;
+            TAEB->debug("Discovery: $appearance is $identity");
+            TAEB->enqueue_message('discovery', $identity, $appearance);
+        };
+    }
+    elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
+        TAEB->enqueue_message('clear_floor');
+        my $skip = 1;
+        $each = sub {
+            my $personality = shift;
+            my $slot        = shift;
+
+            # skip the items until we get "Things that are here" which
+            # typically is a message like "There is a door here"
+            do { $skip = 0; return } if /^\s*Things that are here:/;
+            return if $skip;
+
+            my $item = TAEB->new_item($_);
+            TAEB->debug("Adding $item to the current tile.");
+            TAEB->enqueue_message('floor_item' => $item);
+            return 0;
+        };
+    }
+
+    if ($each) {
+        my $iter = 0;
+        while (1) {
+            ++$iter;
+
+            # find which row the menu stops
+            my $endrow = TAEB->vt->find_row(sub { shift =~ /--More--/ });
+            if (!defined $endrow) {
+                die "Recursing screenscraper.\n" if $iter > 1;
+
+                TAEB->error("It looked like there was a no-select menu here, but I couldn't find --More--");
+                return;
+            }
+
+            # find the first column the menu begins
+            TAEB->vt->row_plaintext($endrow) =~ /^(.*?)--More--/;
+            my $begincol = length $1;
+
+            if ($iter > 1) {
+                # on subsequent iterations, the --More-- will be in the second
+                # column when the menu is continuing
+                die "Recursing screenscraper.\n" if $begincol != 1;
+            }
+
+            # now for each menu line, invoke the coderef
+            for my $row (0 .. $endrow) {
+                my $line = TAEB->vt->row_plaintext($_, $begincol);
+                $each->($line);
+            }
+
+            # get to the next page of the menu
+            TAEB->write(' ');
+            TAEB->process_input(0);
+        }
+    }
+}
+
 sub handle_menus {
     my $self = shift;
     my $menu = NetHack::Menu->new(vt => TAEB->vt);
@@ -347,15 +418,6 @@ sub handle_menus {
             my $item = TAEB->new_item($_);
             TAEB->enqueue_message('floor_item' => $item);
             TAEB->want_item($item);
-        };
-    }
-    elsif (TAEB->topline =~ /^\s*Discoveries\s*$/) {
-        $menu->select_count('none');
-        $selector = sub {
-            my ($identity, $appearance) = /^\s+(.*?) \((.*?)\)/
-                or return;
-            TAEB->debug("Discovery: $appearance is $identity");
-            TAEB->enqueue_message('discovery', $identity, $appearance);
         };
     }
     elsif (TAEB->topline =~ /Pick a skill to enhance/) {
@@ -383,25 +445,6 @@ sub handle_menus {
             TAEB->enqueue_message('know_spell',
                 $slot, $name, $forgotten eq '*', $fail);
 
-            return 0;
-        };
-    }
-    elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
-        $menu->select_count('none');
-        my $skip = 1;
-        TAEB->enqueue_message('clear_floor');
-        $selector = sub {
-            my $personality = shift;
-            my $slot        = shift;
-
-            # skip the items until we get "Things that are here" which
-            # typically is a message like "There is a door here"
-            do { $skip = 0; return } if /^\s*Things that are here:/;
-            return if $skip;
-
-            my $item = TAEB->new_item($_);
-            TAEB->debug("Adding $item to the current tile.");
-            TAEB->enqueue_message('floor_item' => $item);
             return 0;
         };
     }
