@@ -352,7 +352,7 @@ sub throw_range {
     return $range;
 }
 
-install_spoilers(qw/weight base edible artifact material/);
+install_spoilers(qw/weight base edible artifact material sdam ldam/);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
