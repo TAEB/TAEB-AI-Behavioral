@@ -77,12 +77,27 @@ our %feature_colors = (
     COLOR_BRIGHT_MAGENTA, 'trap',
 );
 
-our @glyphs = uniq 'obscured', map { ref $_ ? @$_ : $_ } values %glyphs;
+our @types = uniq 'obscured', map { ref $_ ? @$_ : $_ } values %glyphs;
+
+=head2 tile_types -> [str]
+
+Returns the list of all the tile types TAEB uses.
+
+=cut
 
 sub tile_types {
-    return @glyphs;
+    return @types;
 }
 
+=head2 glyph_to_type str[, str] -> str
+
+This will look up the given glyph (and if given color) and return a tile type
+for it. Note that monsters and items (and any other miss) will return
+"obscured".
+
+=cut
+
+# XXX: should we memoize this?
 sub glyph_to_type {
     my $glyph = shift;
 
@@ -108,7 +123,20 @@ sub glyph_to_type {
    return $type || 'obscured';
 }
 
+=head2 glyph_is_monster str -> bool
+
+Returns whether the given glyph is that of a monster.
+
+=cut
+
 sub glyph_is_monster { shift =~ /[a-zA-Z&';:1-5@]/ }
+
+=head2 glyph_is_item str -> bool
+
+Returns whether the given glyph is that of an item.
+
+=cut
+
 sub glyph_is_item    { shift =~ /[`!%*()+=\["\$]/ }
 
 our @directions = (
@@ -151,6 +179,13 @@ sub vi2delta {
     return @{ $vi2delta{ lc $_[0] } || [] };
 }
 
+=head2 deltas -> [[dx, dy]]
+
+Returns a list of arrayreferences, each a pair of delta x and delta y. Suitable
+for iterating over.
+
+=cut
+
 sub deltas {
     # northwest northeast southwest southeast
     # north south west east
@@ -160,6 +195,14 @@ sub deltas {
     );
 
 }
+
+=head2 dice spec -> avg | min avg max
+
+Given a regular dice spec (e.g. "10d5" or "d4+2d6"), returns the average,
+minimum, and maximum. In scalar context, it will return just the average. In
+list context, it will return a list of (minimum, average, maximum).
+
+=cut
 
 sub dice {
     my $dice = shift;
