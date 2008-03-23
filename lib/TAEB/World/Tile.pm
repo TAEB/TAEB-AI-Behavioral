@@ -158,7 +158,6 @@ sub update {
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
 
-        # XXX: will this break when we improve has_monster? also, fucking @
         $self->interesting_at(TAEB->turn)
             unless $self->monster;
 
