@@ -274,11 +274,15 @@ sub handle_playing {
     $self->personality->currently('?');
     $self->action($self->personality->next_action);
 
+    my $command = $self->action->command;
+    $command =~ s/\n/\\n/g;
+    $command =~ s/\e/\\e/g;
+    $command =~ s/\cd/^D/g;
     $self->out(
         "\e[23H%s\e[23H\e[K%s (%s)\e[40GN:%d S:%s\e[%d;%dH",
         $self->vt->row_plaintext(22),
         $self->personality->currently,
-        $self->action->command,
+        $command,
         $self->senses->nutrition,
         ($self->senses->score || '?'),
         $self->y + 1,
