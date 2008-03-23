@@ -98,6 +98,13 @@ has debt => (
     default => 0,
 );
 
+has [
+    qw/poison_resistance cold_resistance fire_resistance shock_resistance/
+] => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -297,6 +304,16 @@ sub msg_debt {
     # gold is occasionally undefined. that's okay, that tells us to check
     # how much we owe with the $ command
     $self->debt($gold);
+}
+
+sub msg_game_started {
+    my $self = shift;
+
+    $self->cold_resistance(1) if $self->role eq 'Val';
+
+    $self->poison_resistance(1) if $self->role eq 'Hea'
+                                || $self->role eq 'Bar'
+                                || $self->race eq 'Orc';
 }
 
 __PACKAGE__->meta->make_immutable;
