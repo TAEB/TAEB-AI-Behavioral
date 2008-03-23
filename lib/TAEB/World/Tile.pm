@@ -427,7 +427,7 @@ sub try_monster {
 sub has_enemy {
     my $monster = shift->monster
         or return 0;
-    return $monster->is_enemy;
+    return $monster->is_enemy ? $monster : undef;
 }
 
 __PACKAGE__->meta->make_immutable;
