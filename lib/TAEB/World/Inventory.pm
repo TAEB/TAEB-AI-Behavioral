@@ -23,6 +23,11 @@ has inventory => (
     },
 );
 
+has [qw/wielded offhand quiver left_ring right_ring amulet helmet gloves boots
+        body_armor cloak shield/] => (
+    isa => 'TAEB::World::Item',
+);
+
 sub find {
     my $self = shift;
     my $matcher = shift;
@@ -149,6 +154,27 @@ sub msg_lost_item {
     my $inv_item = $self->find(appearance => $item->appearance);
     $self->decrease_quantity($inv_item->slot, $item->quantity);
 }
+
+after set => sub {
+    my $self = shift;
+    my ($slot, $item) = @_;
+
+    $self->wielded($item)    if $item->is_wielding;
+    $self->offhand($item)    if $item->is_offhand;
+    $self->quiver($item)     if $item->is_quivered;
+    # XXX: make TAEB::World::Item know the difference between left hand and
+    #      right hand rings (it's displayed in the inventory)
+    #$self->left_ring($item)  if $item->is_left_ring;
+    #$self->right_ring($item) if $item->is_right_ring;
+    $self->amulet($item)     if $item->class eq 'amulet' && $item->is_wearing;
+    # XXX: bah, need to subclass armor
+    #$self->helmet($item)     if $item->subclass eq 'helmet' && $item->is_wearing;
+    #$self->gloves($item)     if $item->subclass eq 'gloves' && $item->is_wearing;
+    #$self->boots($item)      if $item->subclass eq 'boots' && $item->is_wearing;
+    #$self->body_armor($item) if $item->subclass eq 'armor' && $item->is_wearing;
+    #$self->cloak($item)      if $item->subclass eq 'cloak' && $item->is_wearing;
+    #$self->shield($item)     if $item->subclass eq 'shield' && $item->is_wearing;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
