@@ -12,7 +12,8 @@ sub prepare {
     my $item = shift @items;
     my $pt = $item->possibility_tracker;
 
-    if ($pt->can('engrave_useful') && $pt->engrave_useful) {
+    if ($pt->can('engrave_useful') && $pt->engrave_useful &&
+        $item->price == 0) {
         $self->do(engrave => item => $item);
         $self->currently("Engrave identifying a wand");
         return 100;
