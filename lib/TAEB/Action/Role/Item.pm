@@ -15,7 +15,7 @@ sub exception_missing_item {
     TAEB->inventory->remove($self->item->slot);
     TAEB->enqueue_message(check => 'inventory');
     $self->aborted(1);
-    return "\e";
+    return "\e\e\e";
 }
 
 no Moose::Role;
