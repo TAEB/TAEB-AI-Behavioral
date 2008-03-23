@@ -371,6 +371,7 @@ for my $check (keys %check_command) {
 
     __PACKAGE__->meta->add_method("check_$check" => sub {
         my $self = shift;
+        TAEB->scraper->clear;
         TAEB->write($command);
         TAEB->process_input;
         $post->($self) if $post;
