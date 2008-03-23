@@ -34,7 +34,7 @@ sub prepare {
     return 0 unless $spell || $wand;
 
     my $direction = TAEB->current_level->radiate(
-        sub { shift->has_monster },
+        sub { shift->monster },
 
         # how far to radiate. we can eventually calculate how far beam/ray
         # can travel..!

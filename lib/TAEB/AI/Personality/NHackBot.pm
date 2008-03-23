@@ -34,8 +34,7 @@ sub next_action {
 
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
-        $fight = $dir
-            if $tile->has_monster;
+        $fight = $dir if $tile->monster;
     });
 
     $self->currently("Attacking a monster."),
@@ -60,7 +59,7 @@ sub next_action {
     # XXX: this ignores @ due to annoyance
     if (TAEB->map_like(qr/[a-zA-Z~&';:]/)) {
         my $path = TAEB::World::Path->first_match(
-            sub { shift->has_monster },
+            sub { shift->monster },
         );
 
         if ($path) {

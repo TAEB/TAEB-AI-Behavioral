@@ -162,8 +162,7 @@ sub update {
 
         # XXX: will this break when we improve has_monster? also, fucking @
         $self->interesting_at(TAEB->turn)
-            unless $self->has_monster
-                || $self->glyph eq '@';
+            unless $self->monster;
 
         $self->type('obscured')
             if ($oldtype eq 'rock' && !$self->is_really_rock)
@@ -215,17 +214,6 @@ sub downgrade {
 
     TAEB->debug($msg);
     bless $self => 'TAEB::World::Tile';
-}
-
-sub has_monster {
-    my $self = shift;
-
-    # rationale: TAEB is no monster, he's just misunderstood
-    return 0 if $self->x == TAEB->x
-             && $self->y == TAEB->y;
-
-    # XXX: @ is currently not included because of shks
-    $self->glyph =~ /[a-zA-Z&';:1-5]/;
 }
 
 sub is_walkable {
