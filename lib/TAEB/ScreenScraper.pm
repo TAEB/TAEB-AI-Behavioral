@@ -370,18 +370,17 @@ sub handle_more_menus {
         while (1) {
             ++$iter;
 
-            # find which row the menu stops
-            my $endrow = TAEB->vt->find_row(sub { shift =~ /--More--/ });
-            if (!defined $endrow) {
-                die "Recursing screenscraper.\n" if $iter > 1;
-
-                TAEB->error("It looked like there was a no-select menu here, but I couldn't find --More--");
-                return;
-            }
-
             # find the first column the menu begins
-            TAEB->vt->row_plaintext($endrow) =~ /^(.*?)--More--/;
-            my $begincol = length $1;
+            my ($endrow, $begincol);
+            my $lastrow_contents = TAEB->vt->row_plaintext(TAEB->vt->y);
+            if ($lastrow_contents =~ /^(.*?)--More--/) {
+                $endrow = TAEB->vt->y;
+                $begincol = length $1;
+            }
+            else {
+                die "Recursing screenscraper.\n" if $iter > 1;
+                die "Unable to find --More-- on the end row: $lastrow_contents";
+            }
 
             if ($iter > 1) {
                 # on subsequent iterations, the --More-- will be in the second
@@ -390,10 +389,9 @@ sub handle_more_menus {
             }
 
             # now for each menu line, invoke the coderef
-            for my $row (0 .. $endrow) {
-                my $line = TAEB->vt->row_plaintext($row, $begincol);
-                local $_ = $line;
-                $each->($line);
+            for my $row (0 .. $endrow - 1) {
+                local $_ = TAEB->vt->row_plaintext($row, $begincol, 80);
+                $each->($_);
             }
 
             # get to the next page of the menu
