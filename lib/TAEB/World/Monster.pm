@@ -23,6 +23,12 @@ sub is_shk {
     $self->glyph eq '@' && $self->color eq COLOR_WHITE;
 }
 
+sub is_enemy {
+    my $self = shift;
+    return 0 if $self->is_shk;
+    return 1;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

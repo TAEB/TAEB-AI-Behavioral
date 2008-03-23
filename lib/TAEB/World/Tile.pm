@@ -424,6 +424,12 @@ sub try_monster {
     ));
 }
 
+sub has_enemy {
+    my $monster = shift->monster
+        or return 0;
+    return $monster->is_enemy;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
