@@ -311,6 +311,9 @@ sub msg_debt {
     # gold is occasionally undefined. that's okay, that tells us to check
     # how much we owe with the $ command
     $self->debt($gold);
+    if (!defined($gold)) {
+        TAEB->enqueue_message(check => 'debt');
+    }
 }
 
 sub msg_game_started {
@@ -334,6 +337,7 @@ sub msg_check {
         $self->check_discoveries;
         $self->check_inventory;
         $self->check_floor;
+        $self->check_debt;
     }
     elsif (my $method = $self->can("check_$thing")) {
         $self->checking($thing);
@@ -368,6 +372,13 @@ sub check_crga {
 sub check_floor {
     TAEB->write(":");
     TAEB->process_input;
+}
+
+sub check_debt {
+    my $self = shift;
+    TAEB->write('$');
+    TAEB->process_input;
+    $self->debt(0) if !defined($self->debt);
 }
 
 __PACKAGE__->meta->make_immutable;

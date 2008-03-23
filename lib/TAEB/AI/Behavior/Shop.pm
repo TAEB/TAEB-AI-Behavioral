@@ -8,19 +8,12 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    # the shopkeeper just told us we owe him. how much?
-    if (!defined(TAEB->senses->debt)) {
-        $self->currently("Figuring out how much money we owe");
-        $self->do('gold');
-        return 100;
-    }
-
     my @drop = grep { $_->price } TAEB->inventory->items;
 
     if (@drop) {
         $self->currently("Dropping items due to having a price.");
         $self->do(drop => items => \@drop);
-        return 90;
+        return 100;
     }
 
     if (TAEB->senses->debt && TAEB->senses->debt <= TAEB->senses->gold) {
@@ -43,8 +36,7 @@ sub drop {
 
 sub urgencies {
     return {
-        100 => "figuring out how much money we owe",
-         90 => "dropping an unpaid item",
+        100 => "dropping an unpaid item",
          80 => "paying bills",
     }
 }
