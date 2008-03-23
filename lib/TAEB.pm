@@ -253,8 +253,10 @@ sub step {
 sub handle_playing {
     my $self = shift;
 
-    $self->action->done
-        if $self->action && !$self->action->aborted;
+    if ($self->action && !$self->action->aborted) {
+        $self->action->done;
+        $self->publisher->send_messages;
+    }
 
     $self->personality->currently('?');
     $self->action($self->personality->next_action);
