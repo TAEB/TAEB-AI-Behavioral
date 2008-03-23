@@ -259,6 +259,8 @@ sub step {
         $self->publisher->update;
     }
 
+    $self->human_input;
+
     my $method = "handle_" . $self->state;
     $self->$method;
 }
@@ -374,8 +376,6 @@ sub process_input {
 
     $self->scraper->scrape
         if $scrape && $self->state ne 'logging_in';
-
-    $self->human_input;
 
     return $input;
 }
