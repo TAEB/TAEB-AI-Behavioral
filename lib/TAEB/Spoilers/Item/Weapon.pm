@@ -594,7 +594,7 @@ has list => (
                 'weight' => 80,
                 'base'   => 5,
                 'material'   => 'iron',
-                appearance => 'pruning polearm',
+                appearance => 'pruning hook',
                 plural => 'guisarmes',
             },
             'halberd' => {
