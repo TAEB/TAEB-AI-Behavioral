@@ -75,6 +75,8 @@ our %msg_string = (
         ['wrest_wand'],
     "You are caught in a bear trap." =>
         ['beartrap'],
+    "You can't move your leg!" =>
+        ['beartrap'],
 );
 
 our @msg_regex = (
