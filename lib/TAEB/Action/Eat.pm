@@ -60,7 +60,7 @@ sub respond_eat_what {
     return "\e\e\e";
 }
 
-sub done {
+sub post_responses {
     my $self = shift;
     my $item = $self->item;
 

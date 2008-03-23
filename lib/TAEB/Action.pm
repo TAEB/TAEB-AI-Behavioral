@@ -54,6 +54,15 @@ continue interaction.
 
 sub run { shift->command }
 
+=head2 post_responses
+
+This is called just after all responses will be queried, but before the
+cartographer, senses, messages, etc are done for this step.
+
+=cut
+
+sub post_responses { }
+
 =head2 done
 
 This is called just before the action is freed, just before the next command

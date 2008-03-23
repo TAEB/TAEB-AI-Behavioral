@@ -243,7 +243,7 @@ sub step {
 
     TAEB->debug("Starting a new step.");
 
-    $self->full_input;
+    $self->full_input(1);
     $self->human_input;
 
     my $method = "handle_" . $self->state;
@@ -326,9 +326,14 @@ Run a full input loop, sending messages, updating the screen, and so on.
 
 sub full_input {
     my $self = shift;
+    my $main_call = shift;
+
     $self->scraper->clear;
 
     $self->process_input;
+
+    $self->action->post_responses
+        if $main_call && $self->action && !$self->action->aborted;
 
     unless ($self->state eq 'logging_in') {
         $self->dungeon->update;
