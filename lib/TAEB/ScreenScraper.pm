@@ -77,6 +77,8 @@ our %msg_string = (
         ['beartrap'],
     "You can't move your leg!" =>
         ['beartrap'],
+    "You can't write on the water!" =>
+        [dungeon_feature => 'fountain'],
 );
 
 our @msg_regex = (
