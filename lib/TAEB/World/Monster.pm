@@ -59,7 +59,7 @@ sub is_meleeable {
 }
 
 sub respects_elbereth {
-    my $self = 0;
+    my $self = shift;
 
     return 0 if $self->glyph =~ /[A@]/;
     return 0 if $self->is_minotaur;
