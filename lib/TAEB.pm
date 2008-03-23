@@ -15,7 +15,7 @@ use TAEB::ScreenScraper;
 use TAEB::Spoilers;
 use TAEB::Knowledge;
 use TAEB::World;
-use TAEB::AI::Senses;
+use TAEB::Senses;
 use TAEB::Action;
 use TAEB::Publisher;
 
@@ -181,8 +181,8 @@ has ttyrec => (
 
 has senses => (
     is => 'rw',
-    isa => 'TAEB::AI::Senses',
-    default => sub { TAEB::AI::Senses->new },
+    isa => 'TAEB::Senses',
+    default => sub { TAEB::Senses->new },
     handles => [qw/hp maxhp power maxpower nutrition level role race gender align turn can_pray can_elbereth/],
 );
 

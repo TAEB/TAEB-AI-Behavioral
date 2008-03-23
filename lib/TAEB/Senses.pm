@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::AI::Senses;
+package TAEB::Senses;
 use TAEB::OO;
 
 has role => (
