@@ -43,7 +43,7 @@ requires 'String::Koremutake';
 requires 'Time::HiRes';
 
 # NetHack-specific things
-requires 'NetHack::Menu' => '0.02';
+requires 'NetHack::Menu' => '0.05';
 
 features(
     'ttyrec output' => [
