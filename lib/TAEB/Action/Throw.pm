@@ -3,13 +3,14 @@ package TAEB::Action::Throw;
 use TAEB::OO;
 extends 'TAEB::Action';
 with 'TAEB::Action::Role::Direction';
+with 'TAEB::Action::Role::Item';
 
 use TAEB::Util 'vi2delta';
 
 use constant command => 't';
 
-has item => (
-    isa      => 'TAEB::World::Item',
+has '+item' => (
+    isa      => 'TAEB::Type::Item',
     required => 1,
 );
 
@@ -45,14 +46,6 @@ sub msg_throw_count {
 
     # done takes care of the other one
     TAEB->inventory->decrease_quantity($self->item->slot, $count - 1);
-}
-
-sub exception_missing_item {
-    my $self = shift;
-    TAEB->debug("We don't have item " . $self->item . ", escaping.");
-    TAEB->inventory->remove($self->item->slot);
-    $self->aborted(1);
-    return "\e";
 }
 
 __PACKAGE__->meta->make_immutable;
