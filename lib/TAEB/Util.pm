@@ -164,7 +164,7 @@ sub deltas {
 sub avg_dice {
     my $dice = shift;
     my ($num, $sides, $num2, $sides2, $bonus) =
-        $dice =~ /(\d+)?d(\d+)(?:+(\d+)?d(\d+))?([+-]\d+)?/;
+        $dice =~ /(\d+)?d(\d+)(?:\+(\d+)?d(\d+))?([+-]\d+)?/;
     $num ||= 1;
     $num2 ||= 1;
     $bonus =~ s/\+//;
@@ -174,7 +174,7 @@ sub avg_dice {
 sub max_dice {
     my $dice = shift;
     my ($num, $sides, $num2, $sides2, $bonus) =
-        $dice =~ /(\d+)?d(\d+)(?:+(\d+)?d(\d+))?([+-]\d+)?/;
+        $dice =~ /(\d+)?d(\d+)(?:\+(\d+)?d(\d+))?([+-]\d+)?/;
     $num ||= 1;
     $num2 ||= 1;
     $bonus =~ s/\+//;
@@ -184,7 +184,7 @@ sub max_dice {
 sub min_dice {
     my $dice = shift;
     my ($num, $sides, $num2, $sides2, $bonus) =
-        $dice =~ /(\d+)?d(\d+)(?:+(\d+)?d(\d+))?([+-]\d+)?/;
+        $dice =~ /(\d+)?d(\d+)(?:\+(\d+)?d(\d+))?([+-]\d+)?/;
     $num ||= 1;
     $num2 ||= 1;
     $bonus =~ s/\+//;
