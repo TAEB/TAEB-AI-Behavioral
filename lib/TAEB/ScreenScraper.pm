@@ -158,6 +158,10 @@ our @msg_regex = (
         qr/^There are (?:several|many) objects here\./,
             [check => 'floor_items'],
     ],
+    [
+        qr/^The .*? stole (.*)\./,
+            [lost_item => sub { TAEB->new_item($1) }],
+    ],
 );
 
 our @god_anger = (

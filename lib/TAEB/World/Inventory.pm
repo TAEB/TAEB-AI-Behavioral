@@ -142,6 +142,14 @@ sub msg_got_item {
     $self->update($item->slot => $item);
 }
 
+sub msg_lost_item {
+    my $self = shift;
+    my $item = shift;
+
+    my $inv_item = $self->find(appearance => $item->appearance);
+    $self->decrease_quantity($inv_item->slot, $item->quantity);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
