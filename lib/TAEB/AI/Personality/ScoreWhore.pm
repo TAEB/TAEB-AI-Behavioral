@@ -26,7 +26,7 @@ sub weight_behaviors {
         Defend             => 400_000,
         AttackSpell        => 75_000,
         BuffSelf           => 70_000,
-        Fight              => 50_000,
+        Melee              => 50_000,
         Projectiles        => 49_000,
         Identify           => 24_750,
         DipForExcalibur    => 24_500,

@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Fight;
+package TAEB::AI::Behavior::Melee;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
