@@ -20,7 +20,8 @@ sub respond_wield_what { shift->to_wield }
 
 sub done {
     my $self = shift;
-    # XXX: we need to track TAEB's weapon
+    TAEB->inventory->wielded($self->weapon);
+    # XXX: we need to track TAEB's offhand weapon too
 }
 
 __PACKAGE__->meta->make_immutable;
