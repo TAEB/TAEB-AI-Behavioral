@@ -71,7 +71,8 @@ has interesting_at => (
 );
 
 has monster => (
-    isa => 'TAEB::World::Monster',
+    isa     => 'TAEB::World::Monster',
+    clearer => 'clear_monster',
 );
 
 has items => (
@@ -139,7 +140,7 @@ sub update {
     return if $newglyph =~ m{^[\\/-]$} && $color == 1;
 
     $self->glyph($newglyph);
-    $self->monster(undef);
+    $self->clear_monster;
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
