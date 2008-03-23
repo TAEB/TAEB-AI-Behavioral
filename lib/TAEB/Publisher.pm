@@ -45,6 +45,11 @@ sub send_messages {
             my $msgname = shift @$_;
             TAEB->debug("Sending message $msgname.");
 
+            if ($msgname eq 'delay') {
+                $self->delay_message(@$_);
+                next;
+            }
+
             # this list should not be hardcoded. instead, we should let anything
             # subscribe to messages
             for my $recipient (TAEB->senses, TAEB->personality, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, TAEB->action, TAEB->knowledge, "TAEB::Spoilers::Item::Artifact") {
