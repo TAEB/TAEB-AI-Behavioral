@@ -4,6 +4,8 @@ use MooseX::Singleton;
 use TAEB::Util ':colors';
 extends 'TAEB::Spoilers::Item';
 
+use TAEB::Spoilers::Monster; # for statues
+
 has list => (
     is      => 'ro',
     isa     => 'HashRef',

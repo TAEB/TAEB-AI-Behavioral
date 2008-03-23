@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Spoilers::Item::Tool;
 use MooseX::Singleton;
+use TAEB::Spoilers::Monster; # for figurines
 extends 'TAEB::Spoilers::Item';
 
 has list => (
