@@ -153,9 +153,7 @@ sub update {
     # XXX: if the type is olddoor then we probably kicked/opened the door and
     # something walked onto it. this needs improvement
     if ($newtype eq 'obscured') {
-        if (glyph_is_monster($newglyph)) {
-            $self->monster(TAEB::Monster->new(glyph => $newglyph, color => $color));
-        }
+        $self->try_monster($newglyph, $color);
 
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
@@ -409,6 +407,21 @@ sub debug_line {
             $self->in_shop ? ' shop' : '',
             $engraving,
             $class;
+}
+
+sub try_monster {
+    my $self  = shift;
+    my $glyph = shift;
+    my $color = shift;
+
+    return unless glyph_is_monster($glyph);
+    return if TAEB->x == $self->x && TAEB->y == $self->y;
+
+    $self->monster(TAEB::Monster->new(
+        glyph => $glyph,
+        color => $color,
+        tile  => $self,
+    ));
 }
 
 __PACKAGE__->meta->make_immutable;
