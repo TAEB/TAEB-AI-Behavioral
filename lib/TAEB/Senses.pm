@@ -349,36 +349,32 @@ sub msg_check {
     }
 }
 
-sub check_discoveries {
-    TAEB->write("\\");
-    TAEB->process_input;
-}
+my %check_command = (
+    discoveries => "\\",
+    inventory   => "Da\n",
+    spells      => "Z",
+    crga        => "\cx",
+    floor       => ":",
+    debt        => '$',
+);
 
-sub check_inventory {
-    TAEB->write("Da\n");
-    TAEB->process_input;
-}
+my %post_check = (
+    debt => sub {
+        my $self = shift;
+        $self->debt(0) if !defined($self->debt);
+    },
+);
 
-sub check_spells {
-    TAEB->write("Z");
-    TAEB->process_input;
-}
+for my $check (keys %check_command) {
+    my $command = $check_command{$check};
+    my $post    = $post_check{$check};
 
-sub check_crga {
-    TAEB->write("\cx");
-    TAEB->process_input;
-}
-
-sub check_floor {
-    TAEB->write(":");
-    TAEB->process_input;
-}
-
-sub check_debt {
-    my $self = shift;
-    TAEB->write('$');
-    TAEB->process_input;
-    $self->debt(0) if !defined($self->debt);
+    __PACKAGE__->meta->add_method("check_$check" => sub {
+        my $self = shift;
+        TAEB->write($command);
+        TAEB->process_input;
+        $post->($self) if $post;
+    });
 }
 
 __PACKAGE__->meta->make_immutable;
