@@ -312,7 +312,7 @@ has list => (
                 appearance => 'double-headed axe',
                 plural => 'battle-axes',
             },
-            'bec-de-corbin' => {
+            'bec de corbin' => {
                 'sdam'   => 'd8',
                 'ldam'   => 'd6',
                 'tohit'  => '0',
@@ -321,7 +321,7 @@ has list => (
                 'base'   => 8,
                 'material'   => 'iron',
                 appearance => 'beaked polearm',
-                plural => 'bec-de-corbins',
+                plural => 'bec de corbins',
             },
             'bill-guisarme' => {
                 'sdam'   => '2d4',
