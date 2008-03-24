@@ -23,8 +23,8 @@ share.
     go to different levels with > and <.
 
 r
-    Reload his code. Perl doesn't have perfect support for this, but it should
-    mostly do the right thing.
+    This used to reload his code. But it's not perfect, and doesn't play well
+    with Moose's make_immutable, so it's dropped for now.
 
 p
     Pause TAEB until you type any other key. Note that the key you type will

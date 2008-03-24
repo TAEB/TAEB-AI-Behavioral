@@ -19,7 +19,6 @@ use TAEB::Senses;
 use TAEB::Action;
 use TAEB::Publisher;
 
-use Module::Refresh;
 use Term::ReadKey;
 
 =head1 NAME
@@ -218,18 +217,6 @@ has knowledge => (
     default => sub { TAEB::Knowledge->new },
 );
 
-=head2 BUILD
-
-This will initialize L<Module::Refresh>.
-
-=cut
-
-sub BUILD {
-    my $self = shift;
-
-    Module::Refresh->refresh;
-}
-
 =head2 step
 
 This will perform one input/output iteration of TAEB.
@@ -398,8 +385,7 @@ sub keypress {
 
     # refresh modules
     if ($c eq 'r') {
-        Module::Refresh->refresh;
-        return "Modules refreshed. WARNING: This probably doesn't actually work.";
+        return "Module::Refresh is broken. Sorry.";
     }
 
     # pause for a key
