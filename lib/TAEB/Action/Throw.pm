@@ -36,7 +36,7 @@ sub done {
 
         my $tile = TAEB->current_level->at($x, $y)
             or next;
-        $tile->interesting_at(TAEB->turn);
+        $tile->interesting_at(TAEB->turn) unless $tile->glyph eq '.';
     }
 }
 
