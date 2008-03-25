@@ -18,8 +18,18 @@ has got_pudding => (
     default => 0,
 );
 
+has kicked => (
+    isa           => 'Int',
+    default       => 0,
+    documentation => "How many times has this sink been kicked?",
+);
+
 has '+type' => (
     default => 'sink',
+);
+
+has '+glyph' => (
+    default => '{',
 );
 
 __PACKAGE__->meta->make_immutable;

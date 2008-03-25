@@ -14,7 +14,8 @@ sub prepare {
         return ($sink, $dir) = ($tile, $d)
             if $tile->type eq 'sink'
             && $tile->glyph eq '{' # no items or monsters on it
-            && !$tile->got_pudding;
+            && !$tile->got_pudding
+            && $tile->kicked < 50;
 
         return 0;
     };

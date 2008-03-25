@@ -18,6 +18,12 @@ sub msg_dishwasher { shift->target_tile('sink')->got_foocubus(1) }
 sub msg_pudding    { shift->target_tile('sink')->got_pudding(1) }
 sub msg_ring_sink  { shift->target_tile('sink')->got_ring(1) }
 
+sub done {
+    my $self = shift;
+    my $target = $self->target_tile;
+    $target->kicked($target->kicked + 1) if $target->can('kicked');
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
