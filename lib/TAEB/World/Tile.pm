@@ -390,23 +390,29 @@ sub change_type {
 
 sub debug_line {
     my $self = shift;
-    (my $class = blessed $self) =~ s/^TAEB::World:://;
+    my @bits;
 
-    my $engraving = $self->engraving
-                  ? length($self->engraving) . '/' . $self->elbereths . ' '
-                  : '';
+    push @bits, sprintf '(%d,%d)', $self->x, $self->y;
+    push @bits, $1 if (blessed $self) =~ /TAEB::World::Tile::(.+)/;
+    push @bits, 't=' . $self->type;
 
-    sprintf '(%d, %d) g="%s" f="%s" t="%s" i=%d%s%s%s c="%s"',
-            $self->x,
-            $self->y,
-            $self->glyph,
-            $self->floor_glyph,
-            $self->type,
-            $self->item_count,
-            $self->might_have_new_item ? '*' : '',
-            $self->in_shop ? ' shop' : '',
-            $engraving,
-            $class;
+    push @bits, 'g<' . $self->glyph . '>';
+    push @bits, 'f<' . $self->floor_glyph . '>'
+        if $self->glyph ne $self->floor_glyph;
+
+    push @bits, sprintf 'i=%d%s',
+                    $self->item_count,
+                    $self->might_have_new_item ? '*' : '';
+
+    if ($self->engraving) {
+        push @bits, sprintf 'E=%d/%d',
+                        length($self->engraving),
+                        $self->elbereths;
+    }
+
+    push @bits, 'shop' if $self->in_shop;
+
+    return join ' ', @bits;
 }
 
 sub try_monster {
