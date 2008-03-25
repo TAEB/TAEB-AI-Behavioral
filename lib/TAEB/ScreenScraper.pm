@@ -229,6 +229,7 @@ our @prompts = (
     qr/^(.*?) for (\d+) zorkmids?\.  Pay\?/ => 'buy_item',
     qr/You did (\d+) zorkmids worth of damage!/ => 'buy_door',
     qr/^"Hello stranger, who are you\?"/ => 'vault_guard',
+    qr/^Do you want to keep the save file\?/ => 'save_file',
 );
 
 our @exceptions = (
