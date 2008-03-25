@@ -172,7 +172,10 @@ sub rebless {
     my $self    = shift;
     my $newtype = shift;
 
+    my $old_pkg = blessed $self;
     my $new_pkg = "TAEB::World::Tile::\L\u$newtype";
+
+    $self->unblessed($old_pkg => $new_pkg);
 
     # if the new_pkg doesn't exist, then just go with the regular Tile
     return $self->downgrade unless eval { $new_pkg->meta };
@@ -191,7 +194,11 @@ sub rebless {
 
     # and do the rebless, which does all the typechecking and whatnot
     $new_pkg->meta->rebless_instance($self);
+    $self->reblessed($old_pkg => $new_pkg);
 }
+
+sub unblessed { }
+sub reblessed { }
 
 sub downgrade {
     my $self = shift;
