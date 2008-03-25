@@ -39,6 +39,15 @@ has pickaxe => (
     default => 0,
 );
 
+has exits => (
+    metaclass => 'Collection::Array',
+    isa       => 'ArrayRef[TAEB::World::Tile]',
+    default   => sub { [] },
+    provides  => {
+        push => 'add_exit',
+    },
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
