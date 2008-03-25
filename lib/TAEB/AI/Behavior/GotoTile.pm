@@ -12,7 +12,7 @@ TAEB::AI::Behavior::GotoTile - generic go-to-a-tile-and-do-something behavior
 sub prepare {
     my $self = shift;
 
-    # are we on >? if so, head down
+    # are we on the tile? if so, go for it
     my ($action, $currently) = $self->match_tile(TAEB->current_tile);
     if (ref($action) eq 'ARRAY' && @$action) {
         $self->currently($currently);
@@ -23,13 +23,17 @@ sub prepare {
         die blessed($self) . "->match_tile must return an array reference and a 'currently' string, or undef.";
     }
 
-    # find our >
+    return 0 unless $self->first_pass;
+
+    # find our tile
     my $path = TAEB::World::Path->first_match(
         sub { ($self->match_tile(@_))[0] },
     );
 
     $self->if_path($path => $self->currently_heading);
 }
+
+sub first_pass { 1 }
 
 sub urgencies {
     my $self = shift;
