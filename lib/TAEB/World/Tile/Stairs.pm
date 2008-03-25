@@ -12,6 +12,16 @@ has '+type' => (
     default => 'stairs',
 );
 
+sub unblessed {
+    my $self = shift;
+    $self->level->remove_exit($self);
+}
+
+sub reblessed {
+    my $self = shift;
+    $self->level->add_exit($self);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
