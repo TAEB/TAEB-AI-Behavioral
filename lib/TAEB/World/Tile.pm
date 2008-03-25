@@ -4,6 +4,14 @@ use TAEB::OO;
 use TAEB::Util qw/glyph_to_type delta2vi glyph_is_monster/;
 use List::MoreUtils qw/any all apply/;
 
+use overload
+    q{""} => sub {
+        my $self = shift;
+        sprintf "[%s: %s]",
+            $self->meta->name,
+            $self->debug_line;
+    };
+
 has level => (
     isa      => 'TAEB::World::Level',
     weak_ref => 1,
