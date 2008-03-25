@@ -336,6 +336,7 @@ sub msg_check {
         $self->check_spells;
         $self->check_discoveries;
         $self->check_inventory;
+        $self->check_enhance;
         $self->check_floor;
         $self->check_debt;
     }
@@ -356,6 +357,7 @@ my %check_command = (
     crga        => "\cx",
     floor       => ":",
     debt        => '$',
+    enhance     => "#enhance\n",
 );
 
 my %post_check = (

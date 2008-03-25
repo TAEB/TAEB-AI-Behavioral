@@ -88,7 +88,7 @@ our @msg_regex = (
     ],
     [
         qr/^You feel more confident in your (?:(weapon|spell casting|fighting) )?skills\.$/,
-            ['powerup', sub { "enhance", $1 || '' }],
+            [check => 'enhance'],
     ],
     [
         qr/^You cannot escape from (?:the )?(.*)!/,
