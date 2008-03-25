@@ -40,8 +40,9 @@ has pickaxe => (
 );
 
 has exits => (
-    isa     => 'ArrayRef[TAEB::World::Tile]',
-    default => sub { [] },
+    isa        => 'ArrayRef[TAEB::World::Tile]',
+    default    => sub { [] },
+    auto_deref => 1,
 );
 
 sub at {
@@ -169,6 +170,18 @@ sub remove_exit {
 
     splice @{ $self->exits }, $i, 1;
 }
+
+sub exits_of_type {
+    my $self = shift;
+    my $type = shift;
+    my @tiles = grep { $_->type eq $type } $self->exits;
+
+    return @tiles if wantarray;
+    return $tiles[0];
+}
+
+sub stairs_down { shift->exits_of_type('stairsdown') }
+sub stairs_up { shift->exits_of_type('stairsup') }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
