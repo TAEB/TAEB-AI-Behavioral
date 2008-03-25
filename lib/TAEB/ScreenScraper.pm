@@ -79,6 +79,12 @@ our %msg_string = (
         ['beartrap'],
     "You can't write on the water!" =>
         [dungeon_feature => 'fountain'],
+    "The dish washer returns!" =>
+        ['dishwasher'],
+    "Muddy waste pops up from the drain." =>
+        ['ring_sink'],
+    "A black ooze gushes up from the drain!" =>
+        ['pudding'],
 );
 
 our @msg_regex = (
