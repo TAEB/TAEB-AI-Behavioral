@@ -15,6 +15,11 @@ has text => (
     default => 'Elbereth',
 );
 
+has add_engraving => (
+    isa     => 'Bool',
+    default => 0,
+)
+
 has got_identifying_message => (
     isa     => 'Bool',
     default => 0,
@@ -30,7 +35,7 @@ sub engrave_slot {
 
 sub respond_write_with    { shift->engrave_slot }
 sub respond_write_what    { shift->text . "\n" }
-sub respond_add_engraving { 'y' }
+sub respond_add_engraving { shift->add_engraving ? 'y' : 'n' }
 
 sub msg_wand {
     my $self = shift;
