@@ -229,6 +229,11 @@ sub can_elbereth {
             || TAEB->current_tile->type eq 'fountain';
 }
 
+sub can_open {
+    my $self = shift;
+    return not $self->in_wereform;
+}
+
 sub can_kick {
     my $self = shift;
     return not $self->in_beartrap;

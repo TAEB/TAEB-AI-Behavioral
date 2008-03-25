@@ -6,6 +6,8 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
+    return 0 unless TAEB->senses->can_open;
+
     my $have_action = 0;
     my $ignore_doors = 0;
 
