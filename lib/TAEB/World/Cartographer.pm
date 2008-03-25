@@ -126,11 +126,11 @@ sub msg_dungeon_feature {
 
     if ($feature eq 'staircase down') {
         $floor = '>';
-        $type  = 'stairs';
+        $type  = 'stairsdown';
     }
     elsif ($feature eq 'staircase up') {
         $floor = '<';
-        $type  = 'stairs';
+        $type  = 'stairsup';
     }
     elsif ($feature eq 'fountain' || $feature eq 'sink') {
         $floor = '{';

@@ -42,8 +42,8 @@ use Sub::Exporter -setup => {
 our %glyphs = (
     ' '  => 'rock',
     ']'  => 'closeddoor',
-    '>'  => 'stairs',
-    '<'  => 'stairs',
+    '>'  => 'stairsdown',
+    '<'  => 'stairsup',
     '^'  => 'trap',
     '_'  => 'altar',
     '~'  => 'water',
@@ -64,9 +64,9 @@ our %glyphs = (
 # traps are a bit hairy. with some remapping magic could rectify..
 our %feature_colors = (
     COLOR_BLUE,    [qw/fountain trap water underwater/],
-    COLOR_BROWN,   [qw/opendoor closeddoor drawbridge stairs trap/],
+    COLOR_BROWN,   [qw/opendoor closeddoor drawbridge stairsup stairsdown trap/],
     COLOR_CYAN,    [qw/bars ice trap/],
-    COLOR_GRAY,    [qw/altar corridor floor grave sink stairs trap wall/],
+    COLOR_GRAY,    [qw/altar corridor floor grave sink stairsup stairsdown trap wall/],
     COLOR_GREEN,   'tree',
     COLOR_MAGENTA, 'trap',
     COLOR_ORANGE,  'trap',

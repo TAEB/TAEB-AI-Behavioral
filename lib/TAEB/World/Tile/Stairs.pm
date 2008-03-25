@@ -8,10 +8,6 @@ has other_side => (
     weak_ref => 1,
 );
 
-has '+type' => (
-    default => 'stairs',
-);
-
 sub unblessed {
     my $self = shift;
     $self->level->remove_exit($self);

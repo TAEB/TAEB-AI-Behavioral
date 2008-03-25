@@ -29,6 +29,8 @@ use TAEB::World::Spells;
 use TAEB::World::Tile::Closeddoor;
 use TAEB::World::Tile::Sink;
 use TAEB::World::Tile::Stairs;
+use TAEB::World::Tile::Stairsup;
+use TAEB::World::Tile::Stairsdown;
 use TAEB::World::Tile;
 
 1;
