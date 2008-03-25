@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Action::Descend;
 use TAEB::OO;
-extends 'TAEB::Action';
+extends 'TAEB::Action::Ascend';
 
 use constant command => '>';
 
