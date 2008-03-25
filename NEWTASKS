@@ -1,16 +1,3 @@
 These tasks are intended for coders just starting out with TAEB development.
 
-* Write new Actions (which are an abstraction of NetHack commands). In
-  increasing order of difficulty:
-      e(x)change weapons
-      (r)ead scroll/spellbook/fortune cookie
-      (z)ap wand (don't forget to handle direction)
-      (w)ear armor
-      (o)pen doors/chests/etc
-
-* Enhance skills. This one isn't too hard, and will be useful. You'll want:
-  - an Enhance action
-  - a msg_can_enhance (there are three or four different messages for this)
-  - an Enhance behavior which waits for msg_can_enhance
-  - bonus points for asking the personality about each skill to enhance
-
+We've kinda got nothing right now :(
