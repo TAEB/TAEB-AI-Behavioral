@@ -40,12 +40,8 @@ has pickaxe => (
 );
 
 has exits => (
-    metaclass => 'Collection::Array',
-    isa       => 'ArrayRef[TAEB::World::Tile]',
-    default   => sub { [] },
-    provides  => {
-        push => 'add_exit',
-    },
+    isa     => 'ArrayRef[TAEB::World::Tile]',
+    default => sub { [] },
 );
 
 sub at {
@@ -146,6 +142,32 @@ sub radiate {
         }
     }
 
+}
+
+sub find_exit {
+    my $self = shift;
+    my $tile = shift;
+
+    for (my $i = 0; $i < @{ $self->exits }; ++$i) {
+        return $i if $self->exits->[$i] == $tile;
+    }
+
+    return undef;
+}
+
+sub add_exit {
+    my $self = shift;
+    my $tile = shift;
+
+    push @{ $self->exits }, $tile unless defined $self->find_exit($tile);
+}
+
+sub remove_exit {
+    my $self = shift;
+    my $tile = shift;
+    defined(my $i = $self->find_exit($tile)) or return;
+
+    splice @{ $self->exits }, $i, 1;
 }
 
 __PACKAGE__->meta->make_immutable;
