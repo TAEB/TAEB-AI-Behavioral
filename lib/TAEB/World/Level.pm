@@ -3,6 +3,16 @@ package TAEB::World::Level;
 use TAEB::OO;
 use TAEB::Util qw/deltas delta2vi vi2delta/;
 
+use overload
+    q{""} => sub {
+        my $self = shift;
+        sprintf "[%s: branch=%s, dlvl=%d, exits=%d]",
+            $self->meta->name,
+            $self->branch,
+            $self->z,
+            scalar @{ $self->exits };
+    };
+
 has tiles => (
     isa     => 'ArrayRef[ArrayRef[TAEB::World::Tile]]',
     default => sub {
