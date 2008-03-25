@@ -30,11 +30,19 @@ sub is_oracle {
     return 0;
 }
 
+sub is_vault_guard {
+    my $self = shift;
+    return 0 unless TAEB->following_vault_guard;
+    return 1 if $self->glyph eq '@' && $self->color eq COLOR_BLUE;
+    return 0;
+}
+
 sub is_enemy {
     my $self = shift;
     return 0 if $self->is_shk;
     return 0 if $self->is_oracle;
     return 0 if $self->is_coaligned_unicorn;
+    return 0 if $self->is_vault_guard;
     return 1;
 }
 

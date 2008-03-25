@@ -176,7 +176,7 @@ has senses => (
     is => 'rw',
     isa => 'TAEB::Senses',
     default => sub { TAEB::Senses->new },
-    handles => [qw/hp maxhp power maxpower nutrition level role race gender align turn can_pray can_elbereth checking/],
+    handles => [qw/hp maxhp power maxpower nutrition level role race gender align turn can_pray can_elbereth checking following_vault_guard/],
 );
 
 has inventory => (

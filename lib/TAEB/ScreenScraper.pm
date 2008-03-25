@@ -85,6 +85,10 @@ our %msg_string = (
         ['ring_sink'],
     "A black ooze gushes up from the drain!" =>
         ['pudding'],
+    "Suddenly one of the Vault's guards enters!" =>
+        ['vault_guard' => 1],
+    "Suddenly, the guard disappears." =>
+        ['vault_guard' => 0],
 );
 
 our @msg_regex = (
@@ -224,6 +228,7 @@ our @prompts = (
     qr/^What do you want to wear\?/         => 'wear_what',
     qr/^(.*?) for (\d+) zorkmids?\.  Pay\?/ => 'buy_item',
     qr/You did (\d+) zorkmids worth of damage!/ => 'buy_door',
+    qr/^"Hello stranger, who are you\?"/ => 'vault_guard',
 );
 
 our @exceptions = (

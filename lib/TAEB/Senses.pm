@@ -105,6 +105,11 @@ has [
     default => 0,
 );
 
+has following_vault_guard => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 has checking => (
     is      => 'rw',
     isa     => 'Str',
@@ -329,6 +334,13 @@ sub msg_game_started {
     $self->poison_resistance(1) if $self->role eq 'Hea'
                                 || $self->role eq 'Bar'
                                 || $self->race eq 'Orc';
+}
+
+sub msg_vault_guard {
+    my $self = shift;
+    my $following = shift;
+
+    $self->following_vault_guard($following);
 }
 
 sub msg_check {
