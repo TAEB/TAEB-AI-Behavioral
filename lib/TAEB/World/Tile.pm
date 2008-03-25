@@ -436,6 +436,10 @@ sub has_enemy {
     return $monster->is_enemy ? $monster : undef;
 }
 
+# doors occasionally explode, leaving TAEB in a mildly inconsistent state
+# this fixes such explosions
+sub locked { 'unlocked' }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
