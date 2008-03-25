@@ -18,7 +18,7 @@ has text => (
 has add_engraving => (
     isa     => 'Bool',
     default => 0,
-)
+);
 
 has got_identifying_message => (
     isa     => 'Bool',
