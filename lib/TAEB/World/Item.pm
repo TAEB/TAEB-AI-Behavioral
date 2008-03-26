@@ -253,11 +253,12 @@ sub debug_display {
                     ? $self->ench . ' '
                     : '';
 
+    my $name = $self->identity || $self->appearance;
     return sprintf '[%s: %s%s%s]',
                     blessed($self),
                     $quan,
                     $enchantment,
-                    $self->identity;
+                    $name;
 }
 
 sub lookup_spoiler {
