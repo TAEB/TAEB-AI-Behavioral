@@ -224,7 +224,7 @@ sub drop {
     my $self = shift;
     my $should_drop = 0;
 
-    for my $behavior (values %{ $self->behaviors}) {
+    for my $behavior (values %{ $self->behaviors }) {
         my $drop = $behavior->drop(@_);
 
         # behavior is indifferent. Next!
