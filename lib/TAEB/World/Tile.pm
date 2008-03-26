@@ -424,7 +424,8 @@ sub debug_line {
                         $self->elbereths;
     }
 
-    push @bits, 'shop' if $self->in_shop;
+    push @bits, 'shop'  if $self->in_shop;
+    push @bits, 'vault' if $self->in_vault;
 
     return join ' ', @bits;
 }
