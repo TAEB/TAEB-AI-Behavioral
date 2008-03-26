@@ -26,6 +26,14 @@ sub prepare {
                 return 90;
             }
         }
+
+        if (TAEB->hp * 7 < TAEB->maxhp || TAEB->hp < 6) {
+            if (TAEB->can_pray) {
+                $self->do('pray');
+                $self->currently("Praying for healing");
+                return 80;
+            }
+        }
     }
 
     # now casual healing
@@ -57,6 +65,7 @@ sub urgencies {
     return {
        100 => "casting a healing spell",
         90 => "quaffing a potion of healing, extra healing, or full healing",
+        80 => "praying for health",
     },
 }
 
