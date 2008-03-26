@@ -2,6 +2,7 @@
 package TAEB::World::Level;
 use TAEB::OO;
 use TAEB::Util qw/deltas delta2vi vi2delta/;
+use Scalar::Util 'refaddr';
 
 use overload
     q{""} => sub {
@@ -160,7 +161,7 @@ sub find_exit {
     my $tile = shift;
 
     for (my $i = 0; $i < @{ $self->exits }; ++$i) {
-        return $i if $self->exits->[$i] == $tile;
+        return $i if refaddr($self->exits->[$i]) == refaddr($tile);
     }
 
     return undef;
