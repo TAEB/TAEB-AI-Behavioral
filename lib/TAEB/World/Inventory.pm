@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Inventory;
 use TAEB::OO;
-use List::Util 'first';
+use List::Util 'first', 'sum';
 use List::MoreUtils 'apply';
 
 use overload
@@ -27,6 +27,12 @@ has inventory => (
 has [qw/wielded offhand quiver left_ring right_ring amulet helmet gloves boots
         body_armor cloak shield/] => (
     isa => 'TAEB::World::Item',
+);
+
+has weight => (
+    isa      => 'Int',
+    required => 1,
+    default  => 0,
 );
 
 # XXX: redo this like we did with iterate_tiles, sometime when it isn't 5am
@@ -201,6 +207,8 @@ after set => sub {
     #$self->body_armor($item) if $item->subclass eq 'armor' && $item->is_wearing;
     #$self->cloak($item)      if $item->subclass eq 'cloak' && $item->is_wearing;
     #$self->shield($item)     if $item->subclass eq 'shield' && $item->is_wearing;
+
+    $self->weight(sum map { $_->weight } $self->items);
 };
 
 __PACKAGE__->meta->make_immutable;
