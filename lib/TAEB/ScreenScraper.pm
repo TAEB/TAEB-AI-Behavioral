@@ -89,6 +89,8 @@ our %msg_string = (
         ['vault_guard' => 1],
     "Suddenly, the guard disappears." =>
         ['vault_guard' => 0],
+    "\"You've been warned, knave!\"" =>
+        ['vault_guard' => 0],
 );
 
 our @msg_regex = (
@@ -181,6 +183,10 @@ our @msg_regex = (
     [
         qr/^You are (?:almost )?hit by (?:.*)(?:\.!)/,
             [check => 'floor'],
+    ],
+    [
+        qr/"I repeat, (?:drop that gold and )?follow me!"/ =>
+            ['vault_guard' => 1],
     ],
 );
 
