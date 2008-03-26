@@ -3,6 +3,7 @@ package TAEB::World::Path;
 use TAEB::OO;
 use Heap::Simple;
 use TAEB::Util 'delta2vi', 'deltas';
+use List::Util 'sum';
 
 has from => (
     is       => 'ro',
@@ -258,6 +259,15 @@ sub _dijkstra {
             next if $ydy < 1 || $ydy > 21;
 
             next if $closed[$xdx][$ydy];
+
+            # can't move diagonally if we have lots in our inventory
+            # XXX: this should be 600, but we aren't going to be able to get
+            # the weight exact
+            if (TAEB->inventory->weight > 500 && $dx && $dy) {
+                my $tilex = $tile->level->at($xdx, $y);
+                my $tiley = $tile->level->at($x, $ydy);
+                next unless $tilex->is_walkable || $tiley->is_walkable;
+            }
 
             # can't move diagonally off of doors
             next if $tile->type eq 'opendoor'
