@@ -248,8 +248,6 @@ sub _dijkstra {
             }
         }
 
-        next unless $tile->is_walkable;
-
         for (deltas) {
             my ($dy, $dx) = @$_;
             my $xdx = $x + $dx;
@@ -283,6 +281,8 @@ sub _dijkstra {
                     && $dy;
 
             $closed[$xdx][$ydy] = 1;
+
+            next unless $next->is_walkable;
 
             my $dir = delta2vi($dx, $dy);
             my $cost = $next->basic_cost;
