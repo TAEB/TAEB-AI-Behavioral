@@ -220,6 +220,21 @@ sub msg_debt {
     );
 }
 
+sub msg_vault_guard {
+    TAEB->current_tile->floodfill(
+        sub {
+            my $t = shift;
+            $t->type eq 'floor' || $t->type eq 'obscured'
+        },
+        sub {
+            my $t = shift;
+            return if $t->in_vault;
+            TAEB->debug("(" . $t->x . ", " . $t->y . ") is in a vault!");
+            $t->in_vault(1);
+        },
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

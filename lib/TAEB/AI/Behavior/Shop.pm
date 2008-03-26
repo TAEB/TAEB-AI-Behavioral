@@ -45,6 +45,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
+    return 0 if TAEB->current_tile->in_vault;
     return 1 if $item->appearance eq 'gold piece';
     return 0;
 }

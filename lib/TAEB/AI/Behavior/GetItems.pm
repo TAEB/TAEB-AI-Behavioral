@@ -20,7 +20,7 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(sub {
         my $tile = shift;
         $tile->is_walkable or return;
-        return if $tile->in_shop;
+        return if $tile->in_shop || $tile->in_vault;
 
         return 1 if $tile->might_have_new_item;
         return any { TAEB->want_item($_) } $tile->items;
