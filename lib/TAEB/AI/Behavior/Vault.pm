@@ -47,6 +47,8 @@ sub urgencies {
     }
 }
 
+sub respond_vault_guard   { "TAEB\n" }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

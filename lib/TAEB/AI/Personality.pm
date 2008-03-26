@@ -124,7 +124,6 @@ sub enhance {
 sub respond_wish          { "2 blessed potions of full healing" }
 sub respond_really_attack { "y" }
 sub respond_name          { "\n" }
-sub respond_vault_guard   { "TAEB\n" }
 sub respond_save_file     { "n" }
 
 __PACKAGE__->meta->make_immutable;
