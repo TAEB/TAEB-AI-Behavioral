@@ -70,7 +70,7 @@ our %msg_string = (
     "There is a falling rock trap here." =>
         [dungeon_feature => "trap" => "falling rock trap"],
     "Far below you, you see coins glistening in the water." =>
-        [floor_item => sub { TAEB->new_item("1 gold") }],
+        [floor_item => sub { TAEB->new_item("1 gold piece") }],
     "You wrest one last charge from the worn-out wand." =>
         ['wrest_wand'],
     "You are caught in a bear trap." =>
