@@ -447,7 +447,7 @@ sub handle_menus {
             TAEB->want_item($item);
         };
     }
-    elsif (TAEB->topline =~ /Pick a skill to enhance/) {
+    elsif (TAEB->topline =~ /Pick a skill to advance/) {
         $selector = sub {
             my $personality = shift;
             my ($skill, $level) = /^\s*(.*?)\s*\[(.*)\]/
