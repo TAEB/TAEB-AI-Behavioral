@@ -7,8 +7,7 @@ sub prepare {
     my $self = shift;
 
     # Can't see altar flash when blind
-    if (TAEB->senses->is_blind)
-        return 0;
+    return 0 if TAEB->senses->is_blind;
 
     my @drop = grep { $_->buc eq 'unknown' } TAEB->inventory->items;
 
@@ -33,9 +32,9 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    return if ((TAEB->senses->is_blind) ||
-               ($item->buc eq 'unknown') ||
-               (TAEB->current_tile->type ne 'altar'));
+    return if TAEB->senses->is_blind
+           || $item->buc ne 'unknown'
+           || TAEB->current_tile->type ne 'altar';
 
     TAEB->debug("Yes, I want to drop $item because it needs to be cursechecked.");
     return 1;
