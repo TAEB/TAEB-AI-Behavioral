@@ -239,7 +239,9 @@ sub can_engrave {
     my $self = shift;
     return not $self->in_wereform
             || $self->is_blind
-            || TAEB->current_tile->type eq 'fountain';
+            || $self->engulfed
+            || TAEB->current_tile->type eq 'fountain'
+            || TAEB->current_tile->type eq 'altar';
 }
 
 sub can_open {
