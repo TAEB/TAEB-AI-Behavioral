@@ -235,7 +235,7 @@ sub can_pray {
     return $self->max_god_anger == 0;
 }
 
-sub can_elbereth {
+sub can_engrave {
     my $self = shift;
     return not $self->in_wereform
             || $self->is_blind

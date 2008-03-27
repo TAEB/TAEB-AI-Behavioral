@@ -7,8 +7,8 @@ sub prepare {
     my $self = shift;
     return 0 if TAEB->hp * 2 > TAEB->maxhp;
 
-    my $can_elbereth = TAEB->can_elbereth;
-    my $elbereths    = TAEB->senses->elbereth_count;
+    my $can_engrave = TAEB->can_engrave;
+    my $elbereths   = TAEB->senses->elbereth_count;
 
     my ($adjacent_ignoring, $adjacent_respecting) = (0, 0);
     TAEB->each_adjacent(sub {
@@ -24,7 +24,7 @@ sub prepare {
     # Elbereth if there's no Elbereth on the ground AND there's an adjacent
     # Elbereth-respecting monster. we don't rest on Elbereth
     if ($adjacent_ignoring) {
-        if ($can_elbereth && $adjacent_respecting && $elbereths == 0) {
+        if ($can_engrave && $adjacent_respecting && $elbereths == 0) {
             $self->write_elbereth;
             return 100;
         }
@@ -33,7 +33,7 @@ sub prepare {
 
     # otherwise, we write Elbereth if we can and there's not already an
     # excessive amount of them
-    if ($can_elbereth && $elbereths < 3) {
+    if ($can_engrave && $elbereths < 3) {
         $self->write_elbereth;
         return 100;
     }
