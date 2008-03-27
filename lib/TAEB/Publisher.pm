@@ -37,7 +37,7 @@ sub send_messages {
 
         for (@msgs) {
             my $msgname = shift @$_;
-            TAEB->debug("Sending message $msgname.");
+            TAEB->debug("Sending message $msgname with arguments @$_.");
 
             # this list should not be hardcoded. instead, we should let anything
             # subscribe to messages
