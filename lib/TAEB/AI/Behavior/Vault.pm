@@ -34,8 +34,8 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    return 0 unless TAEB->current_tile->in_vault &&
-                    $item->appearance eq 'gold piece';
+    return unless TAEB->current_tile->in_vault &&
+                  $item->appearance eq 'gold piece';
     TAEB->debug("Dropping my gold because I'm in a vault");
     return 1;
 }
