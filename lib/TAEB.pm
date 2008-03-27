@@ -325,13 +325,10 @@ sub full_input {
         if $main_call && $self->action && !$self->action->aborted;
 
     unless ($self->state eq 'logging_in') {
-        $self->publisher->update;
+        $self->dungeon->update;
         $self->senses->update;
         $self->publisher->update;
-        $self->dungeon->update;
     }
-
-    $self->publisher->update;
 }
 
 =head2 process_input [Bool]
