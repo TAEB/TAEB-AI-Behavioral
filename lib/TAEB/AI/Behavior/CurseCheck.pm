@@ -9,7 +9,7 @@ sub prepare {
     # Can't see altar flash when blind
     return 0 if TAEB->senses->is_blind;
 
-    my @drop = grep { $_->buc eq 'unknown' } TAEB->inventory->items;
+    my @drop = grep { $_->buc eq 'unknown' && $_->appearance ne 'gold piece' } TAEB->inventory->items;
 
     # No point in cursechecking no items
     return 0 unless @drop;
