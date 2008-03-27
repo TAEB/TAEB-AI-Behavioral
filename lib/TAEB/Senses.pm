@@ -47,7 +47,7 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic/] => (
+has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed/] => (
     isa     => 'Bool',
     default => 0,
 );
@@ -118,11 +118,6 @@ has checking => (
     isa     => 'Str',
     default => '',
     clearer => 'clear_checking',
-);
-
-has engulfed => (
-    isa     => 'Bool',
-    default => 0,
 );
 
 sub parse_botl {
@@ -239,7 +234,7 @@ sub can_engrave {
     my $self = shift;
     return not $self->in_wereform
             || $self->is_blind
-            || $self->engulfed
+            || $self->is_engulfed
             || TAEB->current_tile->type eq 'fountain'
             || TAEB->current_tile->type eq 'altar'
             || TAEB->current_tile->type eq 'grave';
@@ -290,7 +285,7 @@ sub msg_status_change {
 
 sub msg_engulfed {
     my $self = shift;
-    $self->msg_status_change(engulfed => @_);
+    $self->msg_status_change(is_engulfed => @_);
 }
 
 sub elbereth_count {

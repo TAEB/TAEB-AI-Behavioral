@@ -21,7 +21,7 @@ sub update {
     $self->x(TAEB->vt->x);
     $self->y(TAEB->vt->y);
 
-    if (TAEB->senses->engulfed) {
+    if (TAEB->senses->is_engulfed) {
         return if $self->check_engulfed;
     }
 
