@@ -241,7 +241,8 @@ sub can_engrave {
             || $self->is_blind
             || $self->engulfed
             || TAEB->current_tile->type eq 'fountain'
-            || TAEB->current_tile->type eq 'altar';
+            || TAEB->current_tile->type eq 'altar'
+            || TAEB->current_tile->type eq 'grave';
 }
 
 sub can_open {
