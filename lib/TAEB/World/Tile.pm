@@ -455,6 +455,20 @@ sub has_enemy {
 # this fixes such explosions
 sub locked { 'unlocked' }
 
+sub searchability {
+    my $self = shift;
+    my $searchability = 0;
+
+    $self->each_adjacent(sub {
+        my $tile = shift;
+        return unless $tile->type eq 'wall' || $tile->type eq 'rock';
+        return unless $tile->searched < 30;
+        $searchability += 30 - $tile->searched;
+    });
+
+    return $searchability;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
