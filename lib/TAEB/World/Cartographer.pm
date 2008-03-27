@@ -21,6 +21,10 @@ sub update {
     $self->x(TAEB->vt->x);
     $self->y(TAEB->vt->y);
 
+    if (TAEB->senses->engulfed) {
+        return if $self->check_engulfed;
+    }
+
     $self->check_dlvl;
 
     my $level = $self->dungeon->current_level;
@@ -233,6 +237,40 @@ sub msg_vault_guard {
             $t->in_vault(1);
         },
     );
+}
+
+=head2 check_engulfed -> Bool
+
+Checks the screen to see if we're still engulfed. If so, returns 1. Otherwise,
+returns 0 and tells the rest of the system that we're no longer engulfed.
+
+=cut
+
+my @engulf_expected = (
+    [-1, -1] => '/',
+    [0, -1]  => '-',
+    [1, -1]  => '\\',
+    [-1, 0]  => '|',
+    [1, 0]   => '|',
+    [-1, 1]  => '\\',
+    [0, 1]   => '-',
+    [1, 1]   => '/',
+);
+
+sub check_engulfed {
+    my $self = shift;
+
+    for (my $i = 0; $i < @engulf_expected; $i += 2) {
+        my ($deltas, $glyph) = @engulf_expected[$i, $i + 1];
+        my ($dx, $dy) = @$deltas;
+
+        next if TAEB->vt->at(TAEB->x + $dx, TAEB->y + $dy) eq $glyph;
+
+        TAEB->enqueue_message(engulfed => 0);
+        return 0;
+    }
+
+    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;
