@@ -353,14 +353,14 @@ sub handle_attributes {
     if (TAEB->topline =~ /^(\s+)Base Attributes/) {
         my $skip = length($1) + 17;
 
-        for ([4, 'race'], [11, 'role'], [12, 'gender'], [13, 'align']) {
+        for ([3, 'name'], [4, 'race'], [11, 'role'], [12, 'gender'], [13, 'align']) {
             my ($row, $method) = @$_;
             my $attribute = substr(TAEB->vt->row_plaintext($row), $skip, 3);
             $attribute = ucfirst lc $attribute;
             TAEB->$method($attribute);
         }
 
-        TAEB->info(sprintf 'It seems we are a %s %s %s %s.', TAEB->role, TAEB->race, TAEB->gender, TAEB->align);
+        TAEB->info(sprintf 'It seems we are a %s %s %s %s named %s.', TAEB->role, TAEB->race, TAEB->gender, TAEB->align, TAEB->name);
 
         TAEB->write(' ');
         die "Recursing screenscraper.\n";

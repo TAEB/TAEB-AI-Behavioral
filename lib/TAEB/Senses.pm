@@ -2,6 +2,10 @@
 package TAEB::Senses;
 use TAEB::OO;
 
+has name => (
+    isa => 'Str',
+);
+
 has role => (
     isa => 'Role',
 );
