@@ -126,6 +126,7 @@ sub respond_really_attack { "y" }
 sub respond_name          { "\n" }
 sub respond_save_file     { "n" }
 sub respond_vault_guard   { TAEB->name."\n" }
+sub respond_advance_without_practice { "n" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
