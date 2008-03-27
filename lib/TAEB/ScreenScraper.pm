@@ -93,6 +93,8 @@ our %msg_string = (
         ['vault_guard' => 0],
     "You get expelled!" =>
         [engulfed => 0],
+    "You activated a magic portal!" =>
+        ['portal'],
 );
 
 our @msg_regex = (
