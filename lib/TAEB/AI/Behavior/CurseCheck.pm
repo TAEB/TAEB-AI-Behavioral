@@ -32,9 +32,9 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    return if TAEB->senses->is_blind
-           || $item->buc ne 'unknown'
-           || TAEB->current_tile->type ne 'altar';
+    return if TAEB->current_tile->type ne 'altar'
+           || TAEB->senses->is_blind
+           || $item->buc ne 'unknown';
 
     TAEB->debug("Yes, I want to drop $item because it needs to be cursechecked.");
     return 1;
