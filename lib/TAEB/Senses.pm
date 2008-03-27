@@ -271,6 +271,7 @@ my %method_of = (
     confusion     => 'is_confused',
     stunning      => 'is_stunned',
     hallucination => 'is_hallucinating',
+    engulfed      => 'is_engulfed',
 );
 
 sub msg_status_change {
@@ -285,7 +286,7 @@ sub msg_status_change {
 
 sub msg_engulfed {
     my $self = shift;
-    $self->msg_status_change(is_engulfed => @_);
+    $self->msg_status_change(engulfed => @_);
 }
 
 sub elbereth_count {
