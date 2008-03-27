@@ -91,6 +91,8 @@ our %msg_string = (
         ['vault_guard' => 0],
     "\"You've been warned, knave!\"" =>
         ['vault_guard' => 0],
+    "You get expelled!" =>
+        [engulfed => 0],
 );
 
 our @msg_regex = (
@@ -187,6 +189,10 @@ our @msg_regex = (
     [
         qr/"I repeat, (?:drop that gold and )?follow me!"/ =>
             ['vault_guard' => 1],
+    ],
+    [
+        qr/^(.*?) engulfs you!/ =>
+            ['engulfed' => 1],
     ],
 );
 

@@ -117,6 +117,11 @@ has checking => (
     clearer => 'clear_checking',
 );
 
+has engulfed => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -275,6 +280,11 @@ sub msg_status_change {
     if (my $method = $method_of{$status}) {
         $self->$method($now_have);
     }
+}
+
+sub msg_engulfed {
+    my $self = shift;
+    $self->msg_status_change(engulfed => @_);
 }
 
 sub elbereth_count {
