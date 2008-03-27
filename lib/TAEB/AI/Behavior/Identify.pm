@@ -14,7 +14,7 @@ sub prepare {
 
     if ($pt->can('engrave_useful') && $pt->engrave_useful &&
         $item->price == 0 && !TAEB->senses->is_blind) {
-        if (TAEB->current_tile->engraving == '') {
+        if (TAEB->current_tile->engraving eq '') {
             $self->do(engrave => item => '-');
             $self->currently("Prepping for engrave-id by dusting");
             return 100;
