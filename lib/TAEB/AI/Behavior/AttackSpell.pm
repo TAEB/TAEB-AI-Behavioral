@@ -3,7 +3,7 @@ package TAEB::AI::Behavior::AttackSpell;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
-sub use_spells { ('magic missile', 'sleep') }
+sub use_spells { ('magic missile', 'sleep', 'force bolt') }
 
 sub use_wands {
     map { "wand of $_" }
