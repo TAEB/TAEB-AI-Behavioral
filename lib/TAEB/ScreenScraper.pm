@@ -382,7 +382,7 @@ sub handle_more_menus {
             TAEB->enqueue_message('discovery', $identity, $appearance);
         };
     }
-    elsif (TAEB->topline =~ /Things that are here:/ || TAEB->vt->row_plaintext(2) =~ /Things that are here:/) {
+    elsif (TAEB->topline =~ /Things that (?:are|you feel) here:/ || TAEB->vt->row_plaintext(2) =~ /Things that (?:are|you feel) here:/) {
         TAEB->enqueue_message('clear_floor');
         my $skip = 1;
         $each = sub {
