@@ -150,6 +150,10 @@ sub msg_dungeon_feature {
         $floor = '^';
         $type  = 'trap';
     }
+    elsif ($feature eq 'grave') {
+        $floor = '\\';
+        $type = 'grave';
+    }
     else {
         # we don't know how to handle it :/
         return;

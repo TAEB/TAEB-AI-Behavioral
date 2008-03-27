@@ -93,13 +93,11 @@ our %msg_string = (
         ['vault_guard' => 0],
     "You get expelled!" =>
         [engulfed => 0],
-    "You activated a magic portal!" =>
-        ['portal'],
 );
 
 our @msg_regex = (
     [
-        qr/^There is a (staircase (?:up|down)|fountain|sink) here\.$/,
+        qr/^There is a (staircase (?:up|down)|fountain|sink|grave) here\.$/,
             ['dungeon_feature', sub { $1 }],
     ],
     [
