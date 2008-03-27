@@ -203,7 +203,7 @@ has publisher => (
     isa     => 'TAEB::Publisher',
     lazy    => 1,
     default => sub { TAEB::Publisher->new },
-    handles => [qw/enqueue_message delay_message get_exceptional_response get_response send_at_turn send_in_turns/],
+    handles => [qw/enqueue_message get_exceptional_response get_response send_at_turn send_in_turns/],
 );
 
 has action => (

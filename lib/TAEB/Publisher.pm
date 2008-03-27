@@ -7,11 +7,6 @@ has queued_messages => (
     default => sub { [] },
 );
 
-has delayed_messages => (
-    isa     => 'ArrayRef',
-    default => sub { [] },
-);
-
 has turn_messages => (
     isa     => 'HashRef[ArrayRef]',
     default => sub { {} },
@@ -19,7 +14,6 @@ has turn_messages => (
 
 sub update {
     my $self = shift;
-    $self->tick_messages;
     $self->turn_messages;
     $self->send_messages;
 }
@@ -45,11 +39,6 @@ sub send_messages {
             my $msgname = shift @$_;
             TAEB->debug("Sending message $msgname.");
 
-            if ($msgname eq 'delay') {
-                $self->delay_message(@$_);
-                next;
-            }
-
             # this list should not be hardcoded. instead, we should let anything
             # subscribe to messages
             for my $recipient (TAEB->senses, TAEB->personality, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, TAEB->action, TAEB->knowledge, "TAEB::Spoilers::Item::Artifact") {
@@ -62,25 +51,6 @@ sub send_messages {
                     $recipient->$msgname(@$_)
                 }
             }
-        }
-    }
-}
-
-sub delay_message {
-    my $self = shift;
-    push @{ $self->delayed_messages }, [@_];
-}
-
-sub tick_messages {
-    my $self = shift;
-
-    for (my $i = 0; $i < @{ $self->delayed_messages }; ) {
-        if (--$self->delayed_messages->[$i][0] == 0) {
-            my (undef, $msg, @args) = @{ splice @{ $self->delayed_messages }, $i, 1 };
-            $self->enqueue_message($msg => @args);
-        }
-        else {
-            ++$i;
         }
     }
 }

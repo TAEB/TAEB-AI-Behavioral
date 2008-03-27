@@ -114,7 +114,7 @@ our @msg_regex = (
     ],
     [
         qr/^(?:A|Your) bear trap closes on your/,
-            [delay => 1 => 'beartrap'],
+            ['beartrap'],
     ],
     [
         qr/^You (?:see|feel) here (.*?)\./,
