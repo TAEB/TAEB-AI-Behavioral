@@ -10,7 +10,7 @@ has started => (
 
 has iterations => (
     isa     => 'Int',
-    default => 10,
+    default => 20,
 );
 
 sub command { shift->iterations . 's' }
