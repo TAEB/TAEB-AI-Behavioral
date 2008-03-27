@@ -14,9 +14,16 @@ sub prepare {
 
     if ($pt->can('engrave_useful') && $pt->engrave_useful &&
         $item->price == 0) {
-        $self->do(engrave => item => $item);
-        $self->currently("Engrave identifying a wand");
-        return 100;
+        if (TAEB->current_tile->engraving == '') {
+            $self->do(engrave => item => '-');
+            $self->currently("Prepping for engrave-id by dusting");
+            return 100;
+        }
+        else {
+            $self->do(engrave => item => $item);
+            $self->currently("Engrave identifying a wand");
+            return 90;
+        }
     }
 
     return 0;
@@ -39,7 +46,8 @@ sub pickup {
 
 sub urgencies {
     return {
-        100 => "engrave identifying a wand",
+        100 => "prepping for engrave-id by dusting",
+         90 => "engrave identifying a wand",
     }
 }
 
