@@ -264,8 +264,10 @@ sub check_engulfed {
         my ($deltas, $glyph) = @engulf_expected[$i, $i + 1];
         my ($dx, $dy) = @$deltas;
 
-        next if TAEB->vt->at(TAEB->x + $dx, TAEB->y + $dy) eq $glyph;
+        my $got = TAEB->vt->at(TAEB->x + $dx, TAEB->y + $dy);
+        next if $got eq $glyph;
 
+        TAEB->info("We're no longer engulfed! I expected to see $glyph at delta ($dx, $dy) but I saw $got.");
         TAEB->enqueue_message(engulfed => 0);
         return 0;
     }
