@@ -45,6 +45,7 @@ sub msg_wand {
 
 sub done {
     my $self = shift;
+    $self->engraving($self->engraving . $self->text);
     return unless blessed $self->item;
 
     if ($self->item->class eq 'wand') {
