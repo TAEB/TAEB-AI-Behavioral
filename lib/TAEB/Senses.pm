@@ -111,7 +111,6 @@ has following_vault_guard => (
 );
 
 has checking => (
-    is      => 'rw',
     isa     => 'Str',
     default => '',
     clearer => 'clear_checking',
