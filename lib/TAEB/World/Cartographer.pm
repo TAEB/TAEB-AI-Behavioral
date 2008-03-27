@@ -206,6 +206,7 @@ sub msg_floor_message {
     my $self = shift;
     my $message = shift;
 
+    TAEB->debug(TAEB->current_tile . " is now engraved with \'$message\'");
     TAEB->current_tile->engraving($message);
 }
 
