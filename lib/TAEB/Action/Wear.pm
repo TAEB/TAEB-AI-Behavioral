@@ -12,6 +12,12 @@ has item => (
 
 sub respond_wear_what { shift->item->slot }
 
+sub done {
+    my $self = shift;
+    $self->item->is_wearing(1);
+    # XXX: needs to track where it is worn as well
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

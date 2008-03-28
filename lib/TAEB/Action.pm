@@ -24,6 +24,7 @@ use TAEB::Action::Role::Item;
 use TAEB::Action::Search;
 use TAEB::Action::Throw;
 use TAEB::Action::Unlock;
+use TAEB::Action::Wear;
 use TAEB::Action::Wield;
 use TAEB::Action::Zap;
 
