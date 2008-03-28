@@ -61,12 +61,10 @@ sub calculate_path {
     );
 }
 
-=head2 first_match [Tile,] Code -> Maybe Path
+=head2 first_match Code, ARGS -> Maybe Path
 
 This will return a path to the first tile for which the coderef returns a true
 value.
-
-The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 =cut
 
@@ -76,9 +74,9 @@ sub first_match {
     my %args = @_;
     $args{from} ||= TAEB->current_tile;
 
-    my ($to, $path) = $class->_dijkstra($args{from}, sub {
+    my ($to, $path) = $class->_dijkstra(sub {
         $code->(@_) ? 'q' : undef
-    }, $args{through_unknown});
+    }, %args);
 
     $to or return;
 
@@ -90,12 +88,10 @@ sub first_match {
     );
 }
 
-=head2 max_match [Tile,] Code -> Maybe Path
+=head2 max_match Code, ARGS -> Maybe Path
 
 This will return a path to the first tile for which the coderef returns the
 maximum value.
-
-The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 =cut
 
@@ -105,8 +101,7 @@ sub max_match {
     my %args = @_;
     $args{from} ||= TAEB->current_tile;
 
-    my ($to, $path) = $class->_dijkstra($args{from}, $code,
-                                        $args{through_unknown});
+    my ($to, $path) = $class->_dijkstra($code, %args);
 
     $to or return;
 
@@ -168,20 +163,19 @@ sub _calculate_intralevel_path {
     my $to_x = $to->x;
     my $to_y = $to->y;
 
-    my ($tile, $path) = $class->_dijkstra($from, sub {
+    my ($tile, $path) = $class->_dijkstra(sub {
         my $tile = shift;
         $tile->x == $to_x && $tile->y == $to_y ? 'q' : undef
-    });
+    }, from => $from);
 
     return ($path, length($path) ? 1 : 0);
 }
 
-=head2 _dijkstra Tile, Code -> Tile, Str
+=head2 _dijkstra Code, ARGS -> Tile, Str
 
-This performs a search for some tile. The starting tile is given as the first
-argument. The code reference is evaluated for each tile along the way. It
-receives the current tile and the path to it as its arguments. It's expected to
-return one of the following:
+This performs a search for some tile. The code reference is evaluated for each
+tile along the way. It receives the current tile and the path to it as its
+arguments. It's expected to return one of the following:
 
 =over 4
 
@@ -201,15 +195,29 @@ This is used to indicate that the current tile is not a valid solution.
 
 =back
 
+The optional arguments are:
+
+=over 4
+
+=item from (default: TAEB->current_tile)
+
+The starting tile
+
+=item through_unknown (default: false)
+
+Whether to assume unknown tiles are walkable
+
 =cut
 
 my $debug_color = 0;
 
 sub _dijkstra {
     my $class  = shift;
-    my $from   = shift;
     my $scorer = shift;
-    my $through_unknown = shift;
+    my %args   = @_;
+
+    my $from            = $args{from} || TAEB->current_tile;
+    my $through_unknown = $args{through_unknown};
 
     my ($debug, $debug_length);
     if ($debug = TAEB->config->debug_dijkstra) {
