@@ -11,6 +11,7 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(
         sub { shift->has_enemy },
         through_unknown => 1,
+        include_endpoints => 1,
     );
 
     # there's a monster on the map, but we don't know how to reach it
