@@ -234,6 +234,8 @@ sub is_walkable {
     return 1 if $self->x == TAEB->x
              && $self->y == TAEB->y;
 
+    return 0 if $self->y < 1 || $self->y > 21;
+
     # XXX: yes. I know. shut up.
     return 0 if $self->glyph eq '0';
 
