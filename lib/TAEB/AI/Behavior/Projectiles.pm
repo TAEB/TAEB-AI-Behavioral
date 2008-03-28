@@ -40,7 +40,7 @@ sub pickup {
 
     $item->identity =~ m{
         \b(?:dagger|dart|shuriken|boomerang|spear)\b
-    }x;
+    }x && $item->buc ne 'cursed';
 }
 
 sub urgencies {
