@@ -163,7 +163,7 @@ sub debug_line {
     return "No inventory." unless $self->has_items;
 
     for my $slot (sort $self->slots) {
-        push @items, sprintf '%s - %s', $slot, $self->get($slot);
+        push @items, sprintf '%s - %s', $slot, $self->get($slot)->debug_line;
     }
 
     return join "\n", @items;
