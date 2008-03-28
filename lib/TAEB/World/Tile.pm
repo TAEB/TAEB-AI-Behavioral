@@ -93,7 +93,13 @@ has items => (
     },
 );
 
-has last_stepped => (
+has last_step => (
+    isa           => 'Int',
+    default       => 0,
+    documentation => "The last step that we were on this tile",
+);
+
+has last_turn => (
     isa           => 'Int',
     default       => 0,
     documentation => "The last turn that we were on this tile",
@@ -160,7 +166,7 @@ sub update {
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
 
-        $self->interesting_at(TAEB->turn)
+        $self->interesting_at(TAEB->step)
             unless $self->monster;
 
         $self->type('obscured')
@@ -257,7 +263,8 @@ sub step_on {
 
     $self->stepped_on($self->stepped_on + 1);
     $self->explored(1);
-    $self->last_stepped(TAEB->turn);
+    $self->last_turn(TAEB->turn);
+    $self->last_step(TAEB->step);
 }
 
 sub iterate_tiles {
@@ -360,8 +367,8 @@ sub debug_draw_rock {
 
 sub might_have_new_item {
     my $self = shift;
-    return $self->interesting_at > $self->last_stepped + 1
-        || $self->type eq 'obscured' && $self->last_stepped == 0;
+    return $self->interesting_at > $self->last_step + 1
+        || $self->type eq 'obscured' && $self->last_step == 0;
 }
 
 sub elbereths {
