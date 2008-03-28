@@ -93,6 +93,13 @@ sub any_food {
     return 0;
 }
 
+before exception_missing_item => sub {
+    my $self = shift;
+    if ($self->item eq 'any') {
+        TAEB->enqueue_message(check => 'inventory');
+    }
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
