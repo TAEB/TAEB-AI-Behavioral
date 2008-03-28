@@ -72,17 +72,18 @@ The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 sub first_match {
     my $class = shift;
-    my $from  = @_ > 1 ? shift : TAEB->current_tile;
     my $code  = shift;
+    my %args = @_;
+    $args{from} ||= TAEB->current_tile;
 
-    my ($to, $path) = $class->_dijkstra($from, sub {
+    my ($to, $path) = $class->_dijkstra($args{from}, sub {
         $code->(@_) ? 'q' : undef
-    });
+    }, $args{through_unknown});
 
     $to or return;
 
     Moose::Object::new($class,
-        from     => $from,
+        from     => $args{from},
         to       => $to,
         path     => $path,
         complete => 1,
@@ -100,15 +101,17 @@ The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 sub max_match {
     my $class = shift;
-    my $from  = @_ > 1 ? shift : TAEB->current_tile;
     my $code  = shift;
+    my %args = @_;
+    $args{from} ||= TAEB->current_tile;
 
-    my ($to, $path) = $class->_dijkstra($from, $code);
+    my ($to, $path) = $class->_dijkstra($args{from}, $code,
+                                        $args{through_unknown});
 
     $to or return;
 
     Moose::Object::new($class,
-        from     => $from,
+        from     => $args{from},
         to       => $to,
         path     => $path,
         complete => 1,
@@ -206,6 +209,7 @@ sub _dijkstra {
     my $class  = shift;
     my $from   = shift;
     my $scorer = shift;
+    my $through_unknown = shift;
 
     my ($debug, $debug_length);
     if ($debug = TAEB->config->debug_dijkstra) {
@@ -282,7 +286,7 @@ sub _dijkstra {
 
             $closed[$xdx][$ydy] = 1;
 
-            next unless $next->is_walkable;
+            next unless $next->is_walkable($through_unknown);
 
             my $dir = delta2vi($dx, $dy);
             my $cost = $next->basic_cost;
