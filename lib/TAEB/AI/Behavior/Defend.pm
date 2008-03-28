@@ -25,7 +25,7 @@ sub prepare {
         # adjacent Elbereth-respecting monster. we don't rest on Elbereth
         if ($adjacent_ignoring) {
             if ($can_engrave && $adjacent_respecting && $elbereths == 0) {
-                $self->write_elbereth;
+                $self->write_elbereth(add_engraving => $elbereths ? 1 : 0);
                 return 100;
             }
             return 0;
@@ -34,7 +34,7 @@ sub prepare {
         # otherwise, we write Elbereth if we can and there's not already an
         # excessive amount of them
         if ($can_engrave && $elbereths < 3) {
-            $self->write_elbereth;
+            $self->write_elbereth(add_engraving => $elbereths ? 1 : 0);
             return 100;
         }
 
