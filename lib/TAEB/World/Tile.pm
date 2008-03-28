@@ -61,6 +61,13 @@ has explored => (
 has engraving => (
     isa     => 'Str',
     default => '',
+    trigger => sub {
+        my $self = shift;
+        my $engraving = shift;
+        if (length($engraving) > 255) {
+            $self->engraving(substr($engraving, 0, 255));
+        }
+    },
 );
 
 has interesting_at => (
