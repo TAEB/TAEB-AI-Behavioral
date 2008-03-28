@@ -36,7 +36,13 @@ sub done {
 
         my $tile = TAEB->current_level->at($x, $y)
             or next;
-        $tile->interesting_at(TAEB->turn) unless $tile->glyph eq '.';
+        $tile->is_walkable(1)
+            or next;
+
+        # . tiles would show the projectile we threw
+        next if $tile->glyph eq '.';
+
+        $tile->interesting_at(TAEB->turn);
     }
 }
 
