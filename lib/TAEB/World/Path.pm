@@ -48,8 +48,9 @@ The "from" tile is optional. If elided, TAEB's current tile will be used.
 
 sub calculate_path {
     my $class = shift;
-    my $from  = @_ > 1 ? shift : TAEB->current_tile;
+    my $from  = @_ > 1 && @_ % 2 == 0 ? shift : TAEB->current_tile;
     my $to    = shift;
+    my %args  = @_;
 
     my ($path, $complete) = $class->_calculate_path($from, $to);
 
