@@ -81,11 +81,6 @@ has interesting_at => (
 has monster => (
     isa     => 'TAEB::World::Monster',
     clearer => 'clear_monster',
-    trigger => sub {
-        my $self = shift;
-        my $monster = shift;
-        $self->level->add_monster($monster);
-    },
 );
 
 has items => (
@@ -456,7 +451,16 @@ sub try_monster {
         color => $color,
         tile  => $self,
     ));
+
+    $self->level->add_monster($self->monster);
 }
+
+before clear_monster => sub {
+    my $self = shift;
+    my $monster = $self->monster or return;
+
+    $self->level->remove_monster($monster);
+};
 
 sub has_enemy {
     my $monster = shift->monster
