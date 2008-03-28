@@ -85,7 +85,10 @@ sub first_match {
         my $exit = TAEB->current_level->exit_towards($args{on_level})
             or return;
 
-        return $class->calculate_path($args{from} => $exit->other_side);
+        return $class->calculate_path(
+            $args{from} => $exit,
+            traverse_destination => 1,
+        );
     }
 
     my ($to, $path) = $class->_dijkstra(sub {
@@ -120,8 +123,12 @@ sub max_match {
         my $exit = TAEB->current_level->exit_towards($args{on_level})
             or return;
 
-        return $class->calculate_path($args{from} => $exit->other_side);
+        return $class->calculate_path(
+            $args{from} => $exit,
+            traverse_destination => 1,
+        );
     }
+
 
     my ($to, $path) = $class->_dijkstra($code, %args);
 
