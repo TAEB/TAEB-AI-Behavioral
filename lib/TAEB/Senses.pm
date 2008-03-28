@@ -67,6 +67,11 @@ has turn => (
     default => 0,
 );
 
+has step => (
+    isa     => 'Int',
+    default => 0,
+);
+
 has max_god_anger => (
     isa     => 'Int',
     default => 0,
@@ -203,6 +208,12 @@ sub find_statuses {
 
 sub update {
     my $self = shift;
+    my $main = shift;
+
+    if ($main) {
+        $self->step($self->step + 1);
+        TAEB->enqueue_message(step => $self->step);
+    }
 
     $self->parse_botl;
     $self->find_statuses;
