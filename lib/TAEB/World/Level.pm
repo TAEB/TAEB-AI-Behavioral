@@ -235,8 +235,14 @@ sub exit_towards {
     my $other = shift;
 
     if ($self->branch == $other->branch) {
-        return $self->has_type('stairsdown') if $self->z > $other->z;
-        return $self->has_type('stairsup');
+        my @exits;
+        if ($self->z > $other->z) {
+            @exits = $self->has_type('stairsdown')
+        }
+        else {
+            @exits = $self->has_type('stairsup');
+        }
+        return $exits[0];
     }
 
     die "I don't know how to do $self->exit_towards($other) when the levels are in different branches.";
