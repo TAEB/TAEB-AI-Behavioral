@@ -277,6 +277,8 @@ sub scrape {
     }
 
     eval {
+        local $SIG{__DIE__};
+
         # You don't have that object!
         $self->handle_exceptions;
 

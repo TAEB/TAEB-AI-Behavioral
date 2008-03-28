@@ -97,9 +97,9 @@ sub read {
     $self->socket->do(chr(99));
     ${*{$self->socket}}{got_pong} = 0;
 
-    local $SIG{__DIE__};
-
     eval {
+        local $SIG{__DIE__};
+
         while (1) {
             my $b;
             defined $self->socket->recv($b, 4096, 0) and do {
