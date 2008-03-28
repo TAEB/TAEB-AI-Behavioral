@@ -25,6 +25,7 @@ sub prepare {
             my $tile = shift;
             $tile->has_enemy && $tile->monster->is_meleeable
         },
+        through_unknown => 1,
     );
 
     $self->if_path($path =>
