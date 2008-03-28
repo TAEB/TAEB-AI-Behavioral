@@ -219,6 +219,11 @@ sub has_type {
 
 sub has_enemies { grep { $_->is_enemy } shift->monsters }
 
+sub exits {
+    my $self = shift;
+    return map { @{ $self->tiles_by_type->{$_} } } qw/stairsup stairsdown/;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
