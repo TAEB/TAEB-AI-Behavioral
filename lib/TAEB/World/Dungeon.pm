@@ -64,6 +64,25 @@ for my $tiletype (qw/orthogonal diagonal adjacent adjacent_inclusive/) {
     }
 }
 
+=head2 nearest_level Code -> Maybe Level
+
+Finds the nearest level for which the code reference returns true.
+
+=cut
+
+sub nearest_level {
+    my $self = shift;
+    my $code = shift;
+
+    my @queue = TAEB->current_level;
+    while (my $level = shift @queue) {
+        return $level if $code->($level);
+        push @queue, $_ for $level->exits;
+    }
+
+    return;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
