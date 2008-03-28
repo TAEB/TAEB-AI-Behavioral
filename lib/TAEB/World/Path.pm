@@ -185,6 +185,8 @@ sub _calculate_intralevel_path {
     my $from  = shift;
     my $to    = shift;
 
+    return ('', 1) if $from == $to;
+
     if ($from->level != $to->level) {
         confess "_calculate_intralevel_path called on tiles that weren't on the same level.";
     }
