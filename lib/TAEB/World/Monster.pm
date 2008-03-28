@@ -16,6 +16,7 @@ has color => (
 has tile => (
     isa      => 'TAEB::World::Tile',
     weak_ref => 1,
+    handles  => [qw/x y z/],
 );
 
 sub is_shk {
