@@ -14,6 +14,8 @@ my @projectiles = (
 sub prepare {
     my $self = shift;
 
+    return 0 unless TAEB->current_level->has_monsters;
+
     # do we have a projectile to throw?
     my $projectile;
     for (@projectiles) {
