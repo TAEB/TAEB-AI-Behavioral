@@ -13,6 +13,21 @@ has spell => (
 
 sub respond_which_spell { shift->spell->slot }
 
+sub exception_hunger_cast {
+    my $self = shift;
+
+    if (TAEB->senses->nutrition > 10) {
+        TAEB->senses->nutrition(10);
+        TAEB->info("Adjusting our nutrition to 10 because we're too hungry to cast spells");
+        $self->aborted(1);
+    }
+    else {
+        TAEB->error("Our nutrition is known to be <= 10 and we got a 'too hungry to cast' message. Why did you cast?");
+    }
+
+    return "\e\e\e";
+}
+
 sub done {
     my $spell = shift->spell;
 

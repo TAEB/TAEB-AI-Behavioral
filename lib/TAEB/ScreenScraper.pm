@@ -254,8 +254,9 @@ our @prompts = (
 );
 
 our @exceptions = (
-    qr/^You don't have that object/         => 'missing_item',
-    qr/^You don't have anything to (?:zap|eat)/     => 'missing_item',
+    qr/^You don't have that object/             => 'missing_item',
+    qr/^You don't have anything to (?:zap|eat)/ => 'missing_item',
+    qr/^You are too hungry to cast that spell/  => 'hunger_cast',
 );
 
 has messages => (
