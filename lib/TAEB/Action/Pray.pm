@@ -5,6 +5,10 @@ extends 'TAEB::Action';
 
 use constant command => "#pray\n";
 
+sub done {
+    TAEB->senses->last_prayed(TAEB->turn);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -125,6 +125,11 @@ has checking => (
     clearer => 'clear_checking',
 );
 
+has last_prayed => (
+    isa     => 'Int',
+    default => -400,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -238,7 +243,8 @@ sub msg_god_angry {
 
 sub can_pray {
     my $self = shift;
-    return $self->max_god_anger == 0;
+    return $self->max_god_anger == 0
+        && TAEB->turn > $self->last_prayed + 500
 }
 
 sub can_engrave {
