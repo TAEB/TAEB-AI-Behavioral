@@ -17,7 +17,8 @@ has name => (
 );
 
 has levels => (
-    isa => 'ArrayRef[TAEB::World::Level]',
+    isa     => 'ArrayRef[TAEB::World::Level]',
+    default => sub { [] },
 );
 
 has dungeon => (
