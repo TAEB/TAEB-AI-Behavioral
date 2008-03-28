@@ -37,7 +37,7 @@ sub BUILD {
     my $self = shift;
     my $dungeons = $self->branches->{dungeons};
     my $level = TAEB::World::Level->new(branch => $dungeons, z => 1);
-    $dungeons->levels([$level]);
+    $dungeons->levels([undef, $level]);
     $self->current_level($level);
 }
 
