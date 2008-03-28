@@ -529,6 +529,11 @@ after qw/error critical/ => sub {
     }
 };
 
+# print out backtrace when TAEB dies
+$SIG{__DIE__} = sub {
+    print STDERR Carp::longmess;
+};
+
 sub out {
     my $self = shift;
     my $out = shift;
