@@ -42,9 +42,9 @@ sub done {
     my $hunger = 2 * $energy;
 
     if (TAEB->role eq 'Wiz') {
-           if (TAEB->int >= 17) { $hunger = 0 }
-        elsif (TAEB->int == 16) { $hunger = int($hunger / 4) }
-        elsif (TAEB->int == 15) { $hunger = int($hunger / 2) }
+           if (TAEB->senses->int >= 17) { $hunger = 0 }
+        elsif (TAEB->senses->int == 16) { $hunger = int($hunger / 4) }
+        elsif (TAEB->senses->int == 15) { $hunger = int($hunger / 2) }
     }
 
     if ($hunger > $nutrition - 3) {
