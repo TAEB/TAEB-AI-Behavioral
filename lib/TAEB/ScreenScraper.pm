@@ -496,6 +496,7 @@ sub handle_menus {
             if (!(TAEB->checking eq 'inventory')
             && TAEB->personality->drop($item)) {
                 TAEB->inventory->remove($slot);
+                TAEB->enqueue_message('floor_item' => $item);
                 return 1;
             }
 
