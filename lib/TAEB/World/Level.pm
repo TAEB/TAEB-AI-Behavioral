@@ -37,7 +37,16 @@ has z => (
 );
 
 has monsters => (
-    isa     => 'HashRef[TAEB::World::Monster]',
+    metaclass  => 'Collection::Array',
+    is         => 'rw',
+    isa        => 'ArrayRef[TAEB::World::Monster]',
+    auto_deref => 1,
+    default    => sub { [] },
+    provides   => {
+        push   => 'add_monster',
+        clear  => 'clear_monsters',
+        empty  => 'has_monsters',
+    }
 );
 
 has turns_spent_on => (

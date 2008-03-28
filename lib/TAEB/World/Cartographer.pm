@@ -31,6 +31,8 @@ sub update {
 
     my $debug_draw = TAEB->config->debug_draw;
     my $needs_autoexplore = 0;
+    # XXX: do this better - track where monsters move to
+    $level->clear_monsters();
 
     for my $y (1 .. 21) {
         my $row = TAEB->vt->row_plaintext($y);

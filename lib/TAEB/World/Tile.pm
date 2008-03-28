@@ -81,6 +81,11 @@ has interesting_at => (
 has monster => (
     isa     => 'TAEB::World::Monster',
     clearer => 'clear_monster',
+    trigger => sub {
+        my $self = shift;
+        my $monster = shift;
+        $self->level->add_monster($monster);
+    },
 );
 
 has items => (
