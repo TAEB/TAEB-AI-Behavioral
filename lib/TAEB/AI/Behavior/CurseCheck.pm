@@ -8,7 +8,9 @@ sub prepare {
 
     # Can't see altar flash when blind
     return 0 if TAEB->senses->is_blind;
-    return 0 unless TAEB->current_level->has_type('altar');
+
+    my $level = TAEB->nearest_level(sub { shift->has_type('altar') })
+        or return 0;
 
     my @drop = grep { $_->buc eq 'unknown' && $_->appearance ne 'gold piece' } TAEB->inventory->items;
 
@@ -24,6 +26,7 @@ sub prepare {
     # find an altar to cursecheck on
     my $path = TAEB::World::Path->first_match(
         sub { shift->type eq 'altar' },
+        on_level => $level,
     );
 
     $self->if_path($path => "Heading towards an altar");
