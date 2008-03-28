@@ -51,7 +51,6 @@ if (TAEB->config->debug_personality) {
 # signal and terminal munging {{{
 $SIG{__WARN__} = sub { TAEB->warning(@_) };
 $SIG{__DIE__} = sub {
-    return if "@_ $_" =~ /Game over, man/;
     require Carp::REPL;
     Term::ReadKey::ReadMode 0;
     print "\ec";
@@ -62,8 +61,12 @@ $SIG{__DIE__} = sub {
 # error-log any deaths
 my $old_sigdie = $SIG{__DIE__};
 $SIG{__DIE__} = sub {
-    TAEB->error("@_");
-    $old_sigdie->(@_) if ref($old_sigdie) eq 'CODE';
+
+    unless ("@_ $_" =~ /Game over, man/) {
+        TAEB->error("@_");
+        $old_sigdie->(@_) if ref($old_sigdie) eq 'CODE';
+    }
+
     die @_;
 };
 
