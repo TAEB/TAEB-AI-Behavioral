@@ -129,6 +129,7 @@ has dungeon => (
     handles => {
         current_level => 'current_level',
         current_tile  => 'current_tile',
+        nearest_level => 'nearest_level',
         map_like      => 'map_like',
         x             => 'x',
         y             => 'y',
