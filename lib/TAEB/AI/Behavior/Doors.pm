@@ -53,8 +53,8 @@ sub prepare {
     return 100 if $have_action;
 
     my $path = TAEB::World::Path->first_match(sub {
-        shift->any_adjacent(sub { shift->type eq 'closeddoor' })
-    });
+        shift->type eq 'closeddoor'
+    }, include_endpoints => 1);
 
     $self->if_path($path => "Heading towards a door");
 }

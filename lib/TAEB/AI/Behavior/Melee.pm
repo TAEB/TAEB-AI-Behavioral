@@ -27,6 +27,7 @@ sub prepare {
             $tile->has_enemy && $tile->monster->is_meleeable
         },
         through_unknown => 1,
+        include_endpoints => 1,
     );
 
     $self->if_path($path =>
