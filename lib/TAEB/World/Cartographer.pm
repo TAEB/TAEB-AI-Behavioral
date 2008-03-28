@@ -84,7 +84,10 @@ sub check_dlvl {
 
     # (Dlvl:\d+|Home \d+|Fort Ludios|End Game|Astral Plane)
     TAEB->vt->row_plaintext(23) =~ /^Dlvl:(\d+) /
-        or TAEB->error("Unable to parse the botl for dlvl: ".TAEB->vt->row_plaintext(23));
+        or do {
+            TAEB->error("Unable to parse the botl for dlvl: ".TAEB->vt->row_plaintext(23));
+            return;
+    };
 
     my $dlvl = $1;
     my $level = $self->dungeon->current_level;
