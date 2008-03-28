@@ -6,7 +6,7 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    return 0 unless TAEB->current_level->has_monsters;
+    return 0 unless TAEB->current_level->has_enemies;
 
     # if there's an adjacent monster, attack it
     my $found_monster;

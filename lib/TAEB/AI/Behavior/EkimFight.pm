@@ -6,6 +6,8 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
+    return unless TAEB->current_level->has_enemies;
+
     # look for the nearest tile with a monster
     # XXX: this must be a walking distance, not teleport or something
     my $path = TAEB::World::Path->first_match(

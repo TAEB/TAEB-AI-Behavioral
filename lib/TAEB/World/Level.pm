@@ -217,6 +217,8 @@ sub has_type {
     return @{ $self->tiles_by_type->{$type} }
 }
 
+sub has_enemies { grep { $_->is_enemy } shift->monsters }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
