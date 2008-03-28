@@ -167,6 +167,10 @@ our @msg_regex = (
             [wand => sub { "wand of $1 monster" }],
     ],
     [
+        qr/^The engraving now reads:/,
+            [wand => 'wand of polymorph'],
+    ],
+    [
         qr/^.*? zaps an? .*? wand!/,
             ['check' => 'discoveries'],
     ],
