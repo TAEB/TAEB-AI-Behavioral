@@ -242,7 +242,12 @@ sub exit_towards {
     die "I don't know how to do $self->exit_towards($other) when the levels are in different branches.";
 }
 
-sub adjacent_levels { grep { defined } map { $_->other_side } shift->exits }
+sub adjacent_levels {
+    map  { $_->level }
+    grep { defined }
+    map  { $_->other_side }
+    shift->exits
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
