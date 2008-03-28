@@ -25,7 +25,7 @@ sub prepare {
 
     for (@exits) {
         if (my $path = TAEB::World::Path->calculate_path($_)) {
-            my $p = $self->if_path($path => "Heading to an explored exit");
+            my $p = $self->if_path($path => "Heading to an unexplored exit", 100);
             return $p if $p;
         }
     }
