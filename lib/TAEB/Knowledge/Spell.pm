@@ -2,10 +2,7 @@
 package TAEB::Knowledge::Spell;
 use TAEB::OO;
 
-use overload
-    q{""} => sub {
-        shift->debug_display;
-    };
+use overload %TAEB::Meta::Overload::default;
 
 has name => (
     isa      => 'Str',
@@ -64,7 +61,7 @@ sub forgotten {
     return TAEB->turn > $self->learned_at + 20_000;
 }
 
-sub debug_display {
+sub debug_line {
     my $self = shift;
 
     return sprintf '[%s: %s - %s (%d)]',

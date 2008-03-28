@@ -4,10 +4,7 @@ use TAEB::OO;
 use List::Util 'first', 'sum';
 use List::MoreUtils 'apply';
 
-use overload
-    q{""} => sub {
-        shift->debug_display;
-    };
+use overload %TAEB::Meta::Overload::default;
 
 has inventory => (
     metaclass => 'Collection::Hash',
@@ -159,7 +156,7 @@ sub decrease_quantity {
     return $new_quantity;
 }
 
-sub debug_display {
+sub debug_line {
     my $self = shift;
     my @items;
 

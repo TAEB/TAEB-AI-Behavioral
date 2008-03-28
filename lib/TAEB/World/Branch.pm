@@ -3,6 +3,7 @@ package TAEB::World::Branch;
 use TAEB::OO;
 
 use overload
+    %TAEB::Meta::Overload::default,
     q{""} => sub {
         my $self = shift;
         sprintf "[%s: name=%s]",

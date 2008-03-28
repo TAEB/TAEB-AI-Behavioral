@@ -3,10 +3,7 @@ package TAEB::World::Item;
 use TAEB::OO 'install_spoilers';
 use List::MoreUtils 'uniq';
 
-use overload
-    q{""} => sub {
-        shift->debug_display;
-    };
+use overload %TAEB::Meta::Overload::default;
 
 has raw => (
     isa           => 'Str',
@@ -246,7 +243,7 @@ sub identity {
     return $possibilities[0];
 }
 
-sub debug_display {
+sub debug_line {
     my $self = shift;
     my $quan = $self->quantity == 1 ? '' : $self->quantity . 'x ';
     my $enchantment = $self->can('ench') && $self->enchantment

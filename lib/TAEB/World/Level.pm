@@ -2,9 +2,9 @@
 package TAEB::World::Level;
 use TAEB::OO;
 use TAEB::Util qw/deltas delta2vi vi2delta tile_types/;
-use Scalar::Util 'refaddr';
 
 use overload
+    %TAEB::Meta::Overload::default,
     q{""} => sub {
         my $self = shift;
         sprintf "[%s: branch=%s, dlvl=%d]",
@@ -171,7 +171,7 @@ sub remove_monster {
     my $monster = shift;
 
     for (my $i = 0; $i < $self->monster_count; ++$i) {
-        if (refaddr($self->monsters->[$i]) == refaddr($monster)) {
+        if ($self->monsters->[$i] == $monster) {
             splice @{ $self->monsters }, $i, 1;
             return 1;
         }
@@ -201,7 +201,7 @@ sub unregister_tile {
     return if $self->is_unregisterable($type);
 
     for (my $i = 0; $i < @{ $self->tiles_by_type->{$type} }; ++$i) {
-        if (refaddr($self->tiles_by_type->{$type}->[$i]) == refaddr($tile)) {
+        if ($self->tiles_by_type->{$type}->[$i] == $tile) {
             splice @{ $self->tiles_by_type->{$type} }, $i, 1;
             return 1;
         }

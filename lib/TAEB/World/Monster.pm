@@ -3,13 +3,7 @@ package TAEB::World::Monster;
 use TAEB::OO;
 use TAEB::Util qw/:colors/;
 
-use overload
-    q{""} => sub {
-        my $self = shift;
-        sprintf "[%s: %s]",
-            $self->meta->name,
-            $self->debug_line;
-    };
+use overload %TAEB::Meta::Overload::default;
 
 has glyph => (
     isa      => 'Str',

@@ -3,10 +3,7 @@ package TAEB::World::Spells;
 use TAEB::OO;
 use List::Util 'first';
 
-use overload
-    q{""} => sub {
-        shift->debug_display;
-    };
+use overload %TAEB::Meta::Overload::default;
 
 my @slots = ('a' .. 'z', 'A' .. 'Z');
 
@@ -86,7 +83,7 @@ sub msg_know_spell {
     }
 }
 
-sub debug_display {
+sub debug_line {
     my $self = shift;
     my @spells;
 
