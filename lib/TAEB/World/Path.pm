@@ -159,16 +159,7 @@ sub _calculate_path {
         my ($p, $c) = $class->_calculate_intralevel_path($from, $exit);
 
         $path .= $p;
-
-        if ($exit->type eq 'stairsdown') {
-            $path .= '>';
-        }
-        elsif ($exit->type eq 'stairsup') {
-            $path .= '<';
-        }
-        else {
-            die "I don't know how to take $exit!";
-        }
+        $path .= $exit->traverse_command;
 
         $from = $exit->other_side;
 
