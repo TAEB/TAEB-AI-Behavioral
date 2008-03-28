@@ -203,6 +203,20 @@ sub exits_of_type {
 sub stairs_down { shift->exits_of_type('stairsdown') }
 sub stairs_up { shift->exits_of_type('stairsup') }
 
+sub remove_monster {
+    my $self    = shift;
+    my $monster = shift;
+
+    for (my $i = 0; $i < $self->monster_count; ++$i) {
+        if (refaddr($self->monsters->[$i]) == refaddr($monster)) {
+            splice @{ $self->monsters }, $i, 1;
+            return 1;
+        }
+    }
+
+    TAEB->warning("Unable to remove $monster from the current level!");
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
