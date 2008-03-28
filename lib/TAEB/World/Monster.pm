@@ -3,6 +3,14 @@ package TAEB::World::Monster;
 use TAEB::OO;
 use TAEB::Util qw/:colors/;
 
+use overload
+    q{""} => sub {
+        my $self = shift;
+        sprintf "[%s: %s]",
+            $self->meta->name,
+            $self->debug_line;
+    };
+
 has glyph => (
     isa      => 'Str',
     required => 1,
@@ -100,6 +108,17 @@ sub is_coaligned_unicorn {
     }
 
     return TAEB->align eq 'Cha';
+}
+
+sub debug_line {
+    my $self = shift;
+    my @bits;
+
+    push @bits, sprintf '(%d,%d)', $self->x, $self->y;
+    push @bits, 'g<' . $self->glyph . '>';
+    push @bits, 'c<' . $self->color . '>';
+
+    return join ' ', @bits;
 }
 
 __PACKAGE__->meta->make_immutable;
