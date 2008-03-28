@@ -236,12 +236,15 @@ sub exit_towards {
 
     if ($self->branch == $other->branch) {
         my @exits;
-        if ($self->z > $other->z) {
+
+        # we're too high, we need to go down
+        if ($other->z > $self->z) {
             @exits = $self->has_type('stairsdown')
         }
         else {
             @exits = $self->has_type('stairsup');
         }
+
         return $exits[0];
     }
 
