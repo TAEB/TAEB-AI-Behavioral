@@ -435,6 +435,13 @@ sub debug_line {
     push @bits, 'shop'  if $self->in_shop;
     push @bits, 'vault' if $self->in_vault;
 
+    if ($self->has_enemy) {
+        push @bits, 'enemy';
+    }
+    elsif ($self->monster) {
+        push @bits, 'monster';
+    }
+
     return join ' ', @bits;
 }
 
