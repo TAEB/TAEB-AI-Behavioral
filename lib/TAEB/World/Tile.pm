@@ -188,7 +188,7 @@ sub rebless {
     $self->unblessed($old_pkg => $new_pkg);
 
     # if the new_pkg doesn't exist, then just go with the regular Tile
-    return $self->downgrade unless eval { $new_pkg->meta };
+    return $self->downgrade unless eval { local $SIG{__DIE__}; $new_pkg->meta };
 
     # no work to be done, yay
     return if blessed($self) eq $new_pkg;
@@ -196,7 +196,7 @@ sub rebless {
     # are we a superclass of the new package? if not, we need to revert
     # to a regular Tile so we can be reblessed into a subclass of Tile
     # in other words, Moose doesn't let you rebless into a sibling class
-    unless (eval { $new_pkg->isa(blessed($self)) }) {
+    unless (eval { local $SIG{__DIE__}; $new_pkg->isa(blessed($self)) }) {
         $self->downgrade("Reblessing a " . blessed($self) . " into TAEB::World::Tile (temporarily) because Moose doesn't let us rebless into sibling classes.");
     }
 

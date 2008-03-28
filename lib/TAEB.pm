@@ -594,6 +594,8 @@ sub console {
     my $self = shift;
 
     eval {
+        local $SIG{__DIE__};
+
         # clear the top half of the screen
         for (1..13) {
             $self->out("\e[${_}H\e[K");
