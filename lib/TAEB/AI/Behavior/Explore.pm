@@ -2,12 +2,14 @@
 package TAEB::AI::Behavior::Explore;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
+use List::MoreUtils 'any';
 
 sub prepare {
     my $self = shift;
     my $current = TAEB->current_tile;
 
-    if ($current->can('other_side') && !defined($current->other_side)) {
+    my @exits = grep { !defined($_->other_side) } TAEB->current_level->exits;
+    if (any { $current == $_ } @exits) {
         $self->currently("Seeing what's on the other side of this exit");
         if ($current->type eq 'stairsdown') {
             $self->do('descend');
@@ -21,7 +23,6 @@ sub prepare {
         return 100;
     }
 
-    my @exits = grep { !defined($_->other_side) } TAEB->current_level->exits;
     for (@exits) {
         if (my $path = TAEB::World::Path->calculate_path($_)) {
             my $p = $self->if_path($path => "Heading to an explored exit");
