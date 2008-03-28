@@ -54,6 +54,10 @@ sub calculate_path {
 
     my ($path, $complete) = $class->_calculate_path($from, $to);
 
+    if ($complete && $args{traverse_destination} && $to->can('traverse_command')) {
+        $path .= $to->traverse_command;
+    }
+
     Moose::Object::new($class,
         from     => $from,
         to       => $to,
