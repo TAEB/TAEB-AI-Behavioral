@@ -30,13 +30,7 @@ sub prepare {
         }
     }
 
-    my $path = TAEB::World::Path->first_match(
-        sub {
-            my $tile = shift;
-            !$tile->explored && $tile->is_walkable
-        },
-    );
-
+    my $path = TAEB::World::Path->first_match(sub { not shift->explored });
     $self->if_path($path, "Exploring", 100);
 }
 
