@@ -46,6 +46,7 @@ has monsters => (
         push   => 'add_monster',
         clear  => 'clear_monsters',
         empty  => 'has_monsters',
+        count  => 'monster_count',
     }
 );
 
