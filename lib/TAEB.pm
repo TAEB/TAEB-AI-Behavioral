@@ -325,9 +325,9 @@ sub full_input {
         if $main_call && $self->action && !$self->action->aborted;
 
     unless ($self->state eq 'logging_in') {
-        $self->dungeon->update;
-        $self->senses->update;
-        $self->publisher->update;
+        $self->dungeon->update($main_call);
+        $self->senses->update($main_call);
+        $self->publisher->update($main_call);
     }
 }
 
