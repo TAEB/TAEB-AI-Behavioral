@@ -95,15 +95,8 @@ sub check_dlvl {
     if ($level->z != $dlvl) {
         TAEB->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
 
-        my $branch = $self->dungeon->branches->{dungeons};
-
-        my $newlevel = $branch->levels->[$dlvl] ||= do {
-            TAEB->info("Creating a new level object in check_dlvl for $branch, dlvl=$dlvl");
-            TAEB::World::Level->new(branch => $branch, z => $dlvl);
-        };
-
+        my $newlevel = $self->dungeon->branches->{dungeons}->get_level($dlvl);
         $self->dungeon->current_level($newlevel);
-
         TAEB->enqueue_message('dlvl_change', $level->z => $dlvl);
     }
 }
