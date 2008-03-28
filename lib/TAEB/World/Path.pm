@@ -72,7 +72,16 @@ sub first_match {
     my $class = shift;
     my $code  = shift;
     my %args = @_;
-    $args{from} ||= TAEB->current_tile;
+
+    $args{from}     ||= TAEB->current_tile;
+    $args{on_level} ||= TAEB->current_level;
+
+    if ($args{on_level} != TAEB->current_level) {
+        my $exit = TAEB->current_level->exit_towards($args{on_level})
+            or return;
+
+        return $class->calculate_path($args{from} => $exit->other_side);
+    }
 
     my ($to, $path) = $class->_dijkstra(sub {
         $code->(@_) ? 'q' : undef
@@ -99,7 +108,15 @@ sub max_match {
     my $class = shift;
     my $code  = shift;
     my %args = @_;
-    $args{from} ||= TAEB->current_tile;
+    $args{from}     ||= TAEB->current_tile;
+    $args{on_level} ||= TAEB->current_level;
+
+    if ($args{on_level} != TAEB->current_level) {
+        my $exit = TAEB->current_level->exit_towards($args{on_level})
+            or return;
+
+        return $class->calculate_path($args{from} => $exit->other_side);
+    }
 
     my ($to, $path) = $class->_dijkstra($code, %args);
 
