@@ -35,10 +35,7 @@ has cartographer => (
 # worry about level generation on level change)
 sub BUILD {
     my $self = shift;
-    my $dungeons = $self->branches->{dungeons};
-    my $level = TAEB::World::Level->new(branch => $dungeons, z => 1);
-    $dungeons->levels([$level]);
-    $self->current_level($level);
+    $self->current_level($self->branches->{dungeons}->get_level(1));
 }
 
 =head2 current_tile -> Tile
