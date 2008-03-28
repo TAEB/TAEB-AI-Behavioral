@@ -27,10 +27,6 @@ has level => (
 has type => (
     isa     => 'TileType',
     default => 'rock',
-    trigger => sub {
-        my $self = shift;
-        $self->rebless(@_);
-    },
 );
 
 has glyph => (
@@ -406,8 +402,14 @@ sub change_type {
 
     TAEB->enqueue_message('tile_update' => $self);
 
+    $self->level->unregister_tile($self);
+
     $self->type($newtype);
     $self->floor_glyph($newglyph);
+
+    $self->level->register_tile($self);
+
+    $self->rebless($newtype);
 }
 
 sub debug_line {
