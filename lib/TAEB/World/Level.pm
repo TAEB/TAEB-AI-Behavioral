@@ -149,7 +149,7 @@ sub radiate {
             }
 
             # stop radiating
-            $tile->is_walkable or next DIRECTION;
+            $tile->is_walkable(1) or next DIRECTION;
 
         }
     }
