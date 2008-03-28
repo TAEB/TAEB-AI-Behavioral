@@ -12,7 +12,8 @@ has starting_tile => (
 );
 
 sub done {
-    my $start   = shift->starting_tile;
+    my $self    = shift;
+    my $start   = $self->starting_tile;
     my $current = TAEB->current_tile;
 
     if ($start->isa('TAEB::World::Tile::Stairs') && !$start->other_side) {
