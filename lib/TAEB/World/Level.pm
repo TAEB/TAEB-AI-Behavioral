@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Level;
 use TAEB::OO;
-use TAEB::Util qw/deltas delta2vi vi2delta/;
+use TAEB::Util qw/deltas delta2vi vi2delta tile_types/;
 use Scalar::Util 'refaddr';
 
 use overload
@@ -57,6 +57,13 @@ has turns_spent_on => (
 has pickaxe => (
     isa     => 'Int',
     default => 0,
+);
+
+has tiles_by_type => (
+    isa     => 'HashRef[ArrayRef[TAEB::World::Tile]]',
+    default => sub {
+        +{ map { $_ => [] } tile_types }
+    },
 );
 
 sub at {
@@ -171,6 +178,43 @@ sub remove_monster {
     }
 
     TAEB->warning("Unable to remove $monster from the current level!");
+}
+
+my @unregisterable = qw(rock wall floor corridor obscured);
+my %is_unregisterable = map { $_ => 1 } @unregisterable;
+sub is_unregisterable { $is_unregisterable{$_[1]} }
+
+sub register_tile {
+    my $self = shift;
+    my $tile = shift;
+    my $type = $tile->type;
+
+    push @{ $self->tiles_by_type->{$type} }, $tile
+        unless $self->is_unregisterable($type);
+}
+
+sub unregister_tile {
+    my $self = shift;
+    my $tile = shift;
+    my $type = $tile->type;
+
+    return if $self->is_unregisterable($type);
+
+    for (my $i = 0; $i < @{ $self->tiles_by_type->{$type} }; ++$i) {
+        if (refaddr($self->tiles_by_type->{$type}->[$i]) == refaddr($tile)) {
+            splice @{ $self->tiles_by_type->{$type} }, $i, 1;
+            return 1;
+        }
+    }
+
+    TAEB->warning("Unable to unregister $tile");
+}
+
+sub has_type {
+    my $self = shift;
+    my $type = shift;
+
+    return @{ $self->tiles_by_type->{$type} }
 }
 
 __PACKAGE__->meta->make_immutable;
