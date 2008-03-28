@@ -7,11 +7,10 @@ use Scalar::Util 'refaddr';
 use overload
     q{""} => sub {
         my $self = shift;
-        sprintf "[%s: branch=%s, dlvl=%d, exits=%d]",
+        sprintf "[%s: branch=%s, dlvl=%d]",
             $self->meta->name,
             $self->branch,
-            $self->z,
-            scalar @{ $self->exits };
+            $self->z;
     };
 
 has tiles => (
@@ -58,12 +57,6 @@ has turns_spent_on => (
 has pickaxe => (
     isa     => 'Int',
     default => 0,
-);
-
-has exits => (
-    isa        => 'ArrayRef[TAEB::World::Tile]',
-    default    => sub { [] },
-    auto_deref => 1,
 );
 
 sub at {
@@ -165,44 +158,6 @@ sub radiate {
     }
 
 }
-
-sub find_exit {
-    my $self = shift;
-    my $tile = shift;
-
-    for (my $i = 0; $i < @{ $self->exits }; ++$i) {
-        return $i if refaddr($self->exits->[$i]) == refaddr($tile);
-    }
-
-    return undef;
-}
-
-sub add_exit {
-    my $self = shift;
-    my $tile = shift;
-
-    push @{ $self->exits }, $tile unless defined $self->find_exit($tile);
-}
-
-sub remove_exit {
-    my $self = shift;
-    my $tile = shift;
-    defined(my $i = $self->find_exit($tile)) or return;
-
-    splice @{ $self->exits }, $i, 1;
-}
-
-sub exits_of_type {
-    my $self = shift;
-    my $type = shift;
-    my @tiles = grep { $_->type eq $type } $self->exits;
-
-    return @tiles if wantarray;
-    return $tiles[0];
-}
-
-sub stairs_down { shift->exits_of_type('stairsdown') }
-sub stairs_up { shift->exits_of_type('stairsup') }
 
 sub remove_monster {
     my $self    = shift;

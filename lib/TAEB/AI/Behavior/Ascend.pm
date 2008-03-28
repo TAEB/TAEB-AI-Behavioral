@@ -7,8 +7,6 @@ sub match_tile {
     $_[1]->floor_glyph eq '<' ? (['ascend'], 'Ascending') : undef
 }
 
-sub first_pass { TAEB->current_level->stairs_up }
-
 use constant tile_description => 'the upstairs';
 use constant using_urgency    => 'ascending';
 

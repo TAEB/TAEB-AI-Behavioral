@@ -8,16 +8,6 @@ has other_side => (
     weak_ref => 1,
 );
 
-sub unblessed {
-    my $self = shift;
-    $self->level->remove_exit($self);
-}
-
-sub reblessed {
-    my $self = shift;
-    $self->level->add_exit($self);
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
