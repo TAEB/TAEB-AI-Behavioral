@@ -2,6 +2,7 @@
 package TAEB::Action::Wear;
 use TAEB::OO;
 extends 'TAEB::Action';
+with 'TAEB::Action::Role::Item';
 
 use constant command => "W";
 
