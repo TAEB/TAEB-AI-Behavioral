@@ -13,8 +13,8 @@ sub prepare {
     # only one Excalibur. Alas.
     return 0 if TAEB::Spoilers::Item::Artifact->seen("Excalibur");
 
-    # eventually we'll look on other levels
-    return 0 unless TAEB->current_level->has_type("fountain");
+    my $level = TAEB->nearest_level(sub { shift->has_type('fountain') })
+        or return 0;
 
     # do we have a long sword to dip in our inventory?
     my $longsword = TAEB->find_item("long sword")
@@ -30,6 +30,7 @@ sub prepare {
     # find a fountain
     my $path = TAEB::World::Path->first_match(
         sub { shift->type eq 'fountain' },
+        on_level => $level,
     );
 
     $self->if_path($path => "Heading towards a fountain");
