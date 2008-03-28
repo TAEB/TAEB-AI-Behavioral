@@ -50,12 +50,9 @@ sub name {
     return $pkg;
 }
 
-=head2 write_elbereth [Bool]
+=head2 write_elbereth add_engraving => 1, method => 'dust' | 'best'
 
-This will do the best it can to write an Elbereth. The optional boolean
-specifies whether a depletable method should be used. If it's false, only
-methods such as finger-in-dust or Magicbane will be used. If it's true, it
-will use the best method it can (starting with wand of fire and going down).
+This will do the best it can to write an Elbereth.
 
 Just call it instead of C<< $self->commands >> and C<< $self->currently >>.
 
@@ -63,12 +60,16 @@ Just call it instead of C<< $self->commands >> and C<< $self->currently >>.
 
 sub write_elbereth {
     my $self = shift;
-    my $best = shift;
+    my %args = (
+        method        => 'dust',
+        add_engraving => 1,
+        @_,
+    );
 
     $self->currently("Writing Elbereth.");
 
     my $item;
-    if ($best) {
+    if ($args{method} eq 'best') {
         $item = TAEB->find_item("wand of fire")
              || TAEB->find_item("wand of lightning")
              || TAEB->find_item("athame")
@@ -81,7 +82,7 @@ sub write_elbereth {
              || '-';
     }
 
-    $self->do(engrave => item => $item);
+    $self->do(engrave => item => $item, add_engraving => $args{add_engraving});
 }
 
 =head2 pickup Item -> Bool
