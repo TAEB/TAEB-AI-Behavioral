@@ -8,7 +8,7 @@ has other_side => (
     weak_ref => 1,
 );
 
-sub traverse_command { shift->glyph }
+sub traverse_command { shift->floor_glyph }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
