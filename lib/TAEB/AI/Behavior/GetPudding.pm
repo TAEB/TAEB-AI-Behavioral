@@ -7,6 +7,7 @@ sub prepare {
     my $self = shift;
 
     return 0 unless TAEB->senses->can_kick;
+    return 0 unless TAEB->current_level->has_type('sink');
 
     my ($sink, $dir);
     my $check = sub {

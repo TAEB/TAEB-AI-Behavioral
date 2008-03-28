@@ -13,6 +13,8 @@ sub use_wands {
 sub prepare {
     my $self = shift;
 
+    return 0 unless TAEB->current_level->has_enemies;
+
     my ($spell, $wand);
 
     for ($self->use_spells) {

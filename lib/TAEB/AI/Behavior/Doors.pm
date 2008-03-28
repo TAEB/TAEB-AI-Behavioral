@@ -7,6 +7,7 @@ sub prepare {
     my $self = shift;
 
     return 0 unless TAEB->senses->can_open;
+    return 0 unless TAEB->current_level->has_type('closeddoor');
 
     my $have_action = 0;
     my $ignore_doors = 0;

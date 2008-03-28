@@ -8,6 +8,7 @@ sub prepare {
 
     # Can't see altar flash when blind
     return 0 if TAEB->senses->is_blind;
+    return 0 unless TAEB->current_level->has_type('altar');
 
     my @drop = grep { $_->buc eq 'unknown' && $_->appearance ne 'gold piece' } TAEB->inventory->items;
 

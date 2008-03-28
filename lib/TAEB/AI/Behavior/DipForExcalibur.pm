@@ -13,6 +13,9 @@ sub prepare {
     # only one Excalibur. Alas.
     return 0 if TAEB::Spoilers::Item::Artifact->seen("Excalibur");
 
+    # eventually we'll look on other levels
+    return 0 unless TAEB->current_level->has_type("fountain");
+
     # do we have a long sword to dip in our inventory?
     my $longsword = TAEB->find_item("long sword")
         or return 0;
