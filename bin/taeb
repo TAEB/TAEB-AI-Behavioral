@@ -59,6 +59,14 @@ $SIG{__DIE__} = sub {
     Carp::REPL::repl(@_);
 } if TAEB->config->carp_repl;
 
+# error-log any deaths
+my $old_sigdie = $SIG{__DIE__};
+$SIG{__DIE__} = sub {
+    TAEB->error("@_");
+    $old_sigdie->(@_);
+    die @_;
+};
+
 my $tstp = $SIG{TSTP} = sub {
 
     # restore regular line-based ReadMode for shell commands
