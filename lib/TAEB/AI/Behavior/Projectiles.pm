@@ -14,8 +14,6 @@ my @projectiles = (
 sub prepare {
     my $self = shift;
 
-    return 0 unless TAEB->vt->as_string('', 1, 21) =~ /[a-zA-Z&\@';:1-5]/;
-
     # do we have a projectile to throw?
     my $projectile;
     for (@projectiles) {
