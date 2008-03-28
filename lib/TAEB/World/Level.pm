@@ -224,6 +224,18 @@ sub exits {
     return map { @{ $self->tiles_by_type->{$_} } } qw/stairsup stairsdown/;
 }
 
+sub exit_towards {
+    my $self = shift;
+    my $other = shift;
+
+    if ($self->branch eq $other->branch) {
+        return $self->has_type('stairsdown') if $self->z > $other->z;
+        return $self->has_type('stairsup');
+    }
+
+    die "I don't know how to do $self->exit_towards($other) when the levels are in different branches.";
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
