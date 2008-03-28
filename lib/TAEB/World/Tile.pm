@@ -228,6 +228,7 @@ sub downgrade {
 
 sub is_walkable {
     my $self = shift;
+    my $through_unknown = shift;
 
     # current tile is always walkable
     return 1 if $self->x == TAEB->x
@@ -244,6 +245,11 @@ sub is_walkable {
 
     # doors use the same glyphs as walls
     return 1 if $self->type eq 'opendoor';
+
+    # we can path through unlit areas that we haven't seen as rock for sure yet
+    return 1 if $through_unknown &&
+                $self->type eq 'rock' &&
+                $self->all_adjacent(sub { shift->stepped_on == 0 });
 
     $self->floor_glyph =~ /[.<>^\\_{#]/;
 }
