@@ -126,13 +126,22 @@ sub _calculate_path {
     my $path  = '';
 
     while ($from->level ne $to->level) {
-        my $stairs = $from->level->stairs_to($to);
-        my ($p, $c) = $class->_calculate_intralevel_path($from, $stairs);
+        my $exit = $from->level->exit_towards($to);
+        my ($p, $c) = $class->_calculate_intralevel_path($from, $exit);
 
         $path .= $p;
-        # XXX: append whatever we need to go from $from to $stairs->other_side
 
-        $from  = $stairs->other_side;
+        if ($exit->type eq 'stairsdown') {
+            $path .= '>';
+        }
+        elsif ($exit->type eq 'stairsup') {
+            $path .= '<';
+        }
+        else {
+            die "I don't know how to take $exit!";
+        }
+
+        $from = $exit->other_side;
 
         return ($path, 0) if !$c;
     }
