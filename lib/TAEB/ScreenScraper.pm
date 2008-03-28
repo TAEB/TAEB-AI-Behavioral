@@ -198,6 +198,10 @@ our @msg_regex = (
         qr/^(.*?) engulfs you!/ =>
             ['engulfed' => 1],
     ],
+    [
+        qr/^(.*?) reads a scroll of / =>
+            [check => 'discoveries'],
+    ],
 );
 
 our @god_anger = (
