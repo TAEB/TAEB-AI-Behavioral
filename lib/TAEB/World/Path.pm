@@ -207,6 +207,11 @@ The starting tile
 
 Whether to assume unknown tiles are walkable
 
+=item include_endpoints (default: false)
+
+Whether to include nonwalkable endpoints in the scorer checks (in essence, do
+you want to include monsters, walls, etc as targets?)
+
 =cut
 
 my $debug_color = 0;
@@ -216,8 +221,9 @@ sub _dijkstra {
     my $scorer = shift;
     my %args   = @_;
 
-    my $from            = $args{from} || TAEB->current_tile;
-    my $through_unknown = $args{through_unknown};
+    my $from              = $args{from} || TAEB->current_tile;
+    my $through_unknown   = $args{through_unknown};
+    my $include_endpoints = $args{include_endpoints};
 
     my ($debug, $debug_length);
     if ($debug = TAEB->config->debug_dijkstra) {
@@ -260,6 +266,10 @@ sub _dijkstra {
             }
         }
 
+        if ($include_endpoints) {
+            next unless $tile->is_walkable($through_unknown);
+        }
+
         for (deltas) {
             my ($dy, $dx) = @$_;
             my $xdx = $x + $dx;
@@ -294,7 +304,9 @@ sub _dijkstra {
 
             $closed[$xdx][$ydy] = 1;
 
-            next unless $next->is_walkable($through_unknown);
+            if (!$include_endpoints) {
+                next unless $next->is_walkable($through_unknown);
+            }
 
             my $dir = delta2vi($dx, $dy);
             my $cost = $next->basic_cost;
