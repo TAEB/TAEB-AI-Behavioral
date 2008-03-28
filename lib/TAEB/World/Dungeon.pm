@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Dungeon;
 use TAEB::OO;
+use Scalar::Util 'refaddr';
 
 has branches => (
     isa     => 'HashRef[TAEB::World::Branch]',
@@ -75,9 +76,13 @@ sub nearest_level {
     my $code = shift;
 
     my @queue = TAEB->current_level;
+    my %seen;
+
     while (my $level = shift @queue) {
+        ++$seen{refaddr $level};
         return $level if $code->($level);
-        push @queue, $_ for $level->exits;
+
+        push @queue, grep { !$seen{refaddr $_} } $level->adjacent_levels;
     }
 
     return;
