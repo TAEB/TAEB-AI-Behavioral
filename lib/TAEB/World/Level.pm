@@ -234,7 +234,7 @@ sub exit_towards {
     my $self = shift;
     my $other = shift;
 
-    if ($self->branch eq $other->branch) {
+    if ($self->branch == $other->branch) {
         return $self->has_type('stairsdown') if $self->z > $other->z;
         return $self->has_type('stairsup');
     }
