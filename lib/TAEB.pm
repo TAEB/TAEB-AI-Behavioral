@@ -217,7 +217,7 @@ has knowledge => (
     default => sub { TAEB::Knowledge->new },
 );
 
-=head2 step
+=head2 iterate
 
 This will perform one input/output iteration of TAEB.
 
@@ -225,7 +225,7 @@ It will return any input it receives, so you can follow along at home.
 
 =cut
 
-sub step {
+sub iterate {
     my $self = shift;
 
     TAEB->debug("Starting a new step.");
