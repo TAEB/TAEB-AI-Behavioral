@@ -267,8 +267,19 @@ has messages => (
     isa => 'Str',
 );
 
+has calls_this_turn => (
+    isa => 'Int',
+);
+
 sub scrape {
     my $self = shift;
+
+    $self->calls_this_turn($self->call_this_turn + 1);
+    if ($self->calls_this_turn > 500) {
+        TAEB->critical("It seems I'm iterating endlessly and making no progress. I'm going to attempt to save and exit!");
+        TAEB->write("\e\e\e\eSy       ");
+        die "It seems I'm iterating endlessly and making no progress. I'm going to attempt to save and exit!";
+    }
 
     # very big special case
     if (TAEB->vt->row_plaintext(23) =~ /^--More--\s+$/) {
@@ -324,6 +335,12 @@ sub scrape {
     elsif ($@) {
         die "$@\n";
     }
+}
+
+sub msg_turn {
+    my $self = shift;
+
+    $self->calls_this_turn(0);
 }
 
 sub clear {
