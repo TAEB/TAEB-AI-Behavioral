@@ -33,6 +33,11 @@ has floor_glyph => (
     default => ' ',
 );
 
+has color => (
+    isa     => 'Int',
+    default => 0,
+);
+
 has stepped_on => (
     isa     => 'Int',
     default => 0,
@@ -148,6 +153,7 @@ sub update {
     return if $newglyph =~ m{^[\\/-]$} && $color == 1;
 
     $self->glyph($newglyph);
+    $self->color($color);
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';

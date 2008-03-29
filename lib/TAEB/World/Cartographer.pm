@@ -42,7 +42,7 @@ sub update {
 
             $tile->try_monster($on_map, $colors[$x]);
 
-            if ($on_map ne $tile->glyph) {
+            if ($on_map ne $tile->glyph || $colors[$x] != $tile->color) {
                 $needs_autoexplore = 1;
                 $level->update_tile($x, $y, $on_map, $colors[$x]);
             }
