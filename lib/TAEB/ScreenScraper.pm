@@ -268,7 +268,8 @@ has messages => (
 );
 
 has calls_this_turn => (
-    isa => 'Int',
+    isa     => 'Int',
+    default => 0,
 );
 
 sub scrape {
