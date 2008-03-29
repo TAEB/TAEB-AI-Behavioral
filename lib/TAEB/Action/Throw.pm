@@ -35,9 +35,9 @@ sub done {
         $y += $dy;
 
         my $tile = TAEB->current_level->at($x, $y)
-            or next;
+            or last;
         $tile->is_walkable(1)
-            or next;
+            or last;
 
         # . tiles would show the projectile we threw
         next if $tile->glyph eq '.';
