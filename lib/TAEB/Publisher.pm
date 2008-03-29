@@ -41,7 +41,7 @@ sub send_messages {
 
             # this list should not be hardcoded. instead, we should let anything
             # subscribe to messages
-            for my $recipient (TAEB->senses, TAEB->personality, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, TAEB->action, TAEB->knowledge, "TAEB::Spoilers::Item::Artifact") {
+            for my $recipient (TAEB->senses, TAEB->personality, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, TAEB->action, TAEB->knowledge, TAEB->scraper, "TAEB::Spoilers::Item::Artifact") {
                 next unless $recipient;
 
                 if ($recipient->can('send_message')) {
