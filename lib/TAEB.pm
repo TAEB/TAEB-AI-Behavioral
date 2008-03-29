@@ -47,7 +47,7 @@ has interface => (
 has personality => (
     is       => 'rw',
     isa      => 'TAEB::AI::Personality',
-    handles  => [qw(want_item)],
+    handles  => [qw(want_item currently next_action)],
     trigger  => sub {
         my ($self, $personality) = @_;
         TAEB->info("Now using personality $personality.");
@@ -247,8 +247,8 @@ sub handle_playing {
         $self->publisher->send_messages;
     }
 
-    $self->personality->currently('?');
-    $self->action($self->personality->next_action);
+    $self->currently('?');
+    $self->action($self->next_action);
 
     my $command = $self->action->command;
     $command =~ s/\n/\\n/g;
