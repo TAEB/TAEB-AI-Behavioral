@@ -82,8 +82,11 @@ sub handle_items_in_rock {
     my $dest = TAEB->current_level->at(TAEB->x + $dx, TAEB->y + $dy);
 
     # the second clause here is for when handle_obscured_doors is run
+    # the third clause here is because we assume floors that go to ' ' are dark
+    # room tiles
     return unless $dest->type eq 'obscured'
-               || ($dest->type eq 'opendoor' && $dest->glyph eq '-');
+               || ($dest->type eq 'opendoor' && $dest->glyph eq '-')
+               || ($dest->type eq 'floor' && $dest->glyph eq ' ';
 
     $dest->change_type('rock' => ' ');
 }
