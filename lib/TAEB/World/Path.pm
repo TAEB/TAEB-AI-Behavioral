@@ -168,7 +168,8 @@ sub _calculate_path {
 
     my ($p, $c) = $class->_calculate_intralevel_path($from, $to);
 
-    $path .= $p;
+    $path .= $p if defined $p;
+
     return ($path, $c);
 }
 
@@ -199,7 +200,7 @@ sub _calculate_intralevel_path {
         $tile->x == $to_x && $tile->y == $to_y ? 'q' : undef
     }, from => $from);
 
-    return ($path, length($path) ? 1 : 0);
+    return ($path, defined($path) && length($path) ? 1 : 0);
 }
 
 =head2 _dijkstra Code, ARGS -> Tile, Str
