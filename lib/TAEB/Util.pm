@@ -106,7 +106,12 @@ sub glyph_to_type {
     # use color in an effort to differentiate tiles
     my $color = shift;
 
-    return 'obscured' unless $glyphs{$glyph} && $feature_colors{$color};
+    # solid rock doesn't really have a color
+    return $glyphs{$glyph} if $glyphs{$glyph}
+                           && !exists($feature_colors{$color});
+
+    return 'obscured' unless $glyphs{$glyph}
+                          && !defined($feature_colors{$color});
 
     my @a = map { ref $_ ? @$_ : $_ } $glyphs{$glyph};
     my @b = map { ref $_ ? @$_ : $_ } $feature_colors{$color};
