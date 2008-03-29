@@ -37,13 +37,13 @@ sub weight_behaviors {
         DeadEnd            => 5_000,
         Explore            => 2_500,
         CurseCheck         => 2_250,
-        Search             => 1_000,
+        Search             => 100,
         Descend            => 2,
         RandomWalk         => 1,
     };
 
     # Descend at a very leisurely pace
-    $behaviors->{Descend} = 2000 if TAEB->level > TAEB->z
+    $behaviors->{Descend} = 1000 if TAEB->level > TAEB->z
                                  || TAEB->current_level->turns_spent_on >= 1000;
 
     return $behaviors;
