@@ -148,7 +148,6 @@ sub update {
     return if $newglyph =~ m{^[\\/-]$} && $color == 1;
 
     $self->glyph($newglyph);
-    $self->clear_monster;
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
@@ -162,8 +161,6 @@ sub update {
     # XXX: if the type is olddoor then we probably kicked/opened the door and
     # something walked onto it. this needs improvement
     if ($newtype eq 'obscured') {
-        $self->try_monster($newglyph, $color);
-
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
 
@@ -460,7 +457,11 @@ sub try_monster {
     my $glyph = shift;
     my $color = shift;
 
-    return unless glyph_is_monster($glyph);
+    unless (glyph_is_monster($glyph)) {
+        $self->clear_monster;
+        return;
+    }
+
     return if TAEB->x == $self->x && TAEB->y == $self->y;
 
     $self->monster(TAEB::World::Monster->new(

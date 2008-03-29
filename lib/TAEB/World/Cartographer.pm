@@ -40,6 +40,8 @@ sub update {
             my $tile = $level->at($x, $y);
             my $on_map = substr($row, $x, 1);
 
+            $tile->try_monster($on_map, $colors[$x]);
+
             if ($on_map ne $tile->glyph) {
                 $needs_autoexplore = 1;
                 $level->update_tile($x, $y, $on_map, $colors[$x]);
