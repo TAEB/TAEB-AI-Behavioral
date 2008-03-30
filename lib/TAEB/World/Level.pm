@@ -288,6 +288,17 @@ sub iterate_tile_vt {
     return 1;
 }
 
+sub matches_vt {
+    my $self = shift;
+    my $vt   = shift || TAEB->vt;
+
+    $self->iterate_tile_vt(sub {
+        my ($tile, $glyph, $color, $x, $y) = @_;
+
+
+    });
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

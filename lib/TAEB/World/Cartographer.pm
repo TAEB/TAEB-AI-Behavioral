@@ -96,7 +96,7 @@ sub check_dlvl {
         my $newlevel;
 
         for my $level (@levels) {
-            if ($level->match_vt) {
+            if ($level->matches_vt) {
                 $newlevel = $level;
                 last;
             }
