@@ -12,7 +12,7 @@ after done => sub {
     my $current = TAEB->current_tile;
 
     if (my $branch = $start->level->branch) {
-        if ($branch eq 'mines') {
+        if ($branch eq 'mines' || $branch eq 'quest' || $branch eq 'gehennom') {
             $current->level->branch($branch);
         }
     }
