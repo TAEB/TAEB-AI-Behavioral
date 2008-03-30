@@ -27,8 +27,8 @@ has tiles => (
 );
 
 has branch => (
-    isa      => 'TAEB::World::Branch',
-    weak_ref => 1,
+    isa      => 'TAEB::Type::Branch',
+    default  => 'dungeons',
 );
 
 has z => (
@@ -234,7 +234,7 @@ sub exit_towards {
     my $self = shift;
     my $other = shift;
 
-    if ($self->branch == $other->branch) {
+    if ($self->branch eq $other->branch) {
         my @exits;
 
         # we're too high, we need to go down
