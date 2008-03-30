@@ -463,11 +463,9 @@ sub try_monster {
     my $glyph = shift;
     my $color = shift;
 
-    unless (glyph_is_monster($glyph)) {
-        $self->_clear_monster if $self->monster;
-        return;
-    }
+    $self->_clear_monster if $self->monster;
 
+    return unless glyph_is_monster($glyph);
     return if TAEB->x == $self->x && TAEB->y == $self->y;
 
     $self->monster(TAEB::World::Monster->new(
