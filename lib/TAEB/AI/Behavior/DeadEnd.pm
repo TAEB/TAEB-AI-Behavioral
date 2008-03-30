@@ -10,6 +10,8 @@ sub prepare {
     my $searched = 0;
     my $walkable = 0;
 
+    return 0 unless TAEB->current_level->branch eq 'dungeons';
+
     # rearrange these tiles into a loop and double it
     TAEB->each_orthogonal(sub {
         my $tile = shift;
