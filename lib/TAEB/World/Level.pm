@@ -369,6 +369,20 @@ sub _detect_mines {
 
     # >6 or so floor tiles in a row (rooms have a max height)
 
+    my $mines = 0;
+    return 1 if $self->first_tile(sub {
+        my $tile = shift;
+        return 0 if $tile->type ne 'wall';
+
+        $tile->each_diagonal(sub {
+            my $t = shift;
+            $mines = 1 if $t->type eq 'wall'
+                       && $t->glyph eq $tile->glyph;
+        });
+
+        return $mines;
+    });
+
     return 0;
 }
 
