@@ -210,6 +210,10 @@ our @msg_regex = (
         qr/^(.*?) reads a scroll / =>
             [check => 'discoveries'],
     ],
+    [
+        qr/^(.*?) drinks an? .* potion|^(.*?) drinks a potion called / =>
+            [check => 'discoveries'],
+    ],
 );
 
 our @god_anger = (
