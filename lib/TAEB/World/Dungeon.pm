@@ -26,7 +26,8 @@ has cartographer => (
 # worry about level generation on level change)
 sub BUILD {
     my $self = shift;
-    $self->current_level($self->branches->{dungeons}->get_level(1));
+    my @dlvl1 = $self->get_levels(1);
+    $self->current_level($dlvl1[0]);
 }
 
 =head2 current_tile -> Tile
@@ -74,6 +75,31 @@ sub nearest_level {
     }
 
     return;
+}
+
+sub get_levels {
+    my $self = shift;
+    my $dlvl = shift;
+
+    my $index = $dlvl - 1;
+
+    unless ($self->levels->[$index]) {
+        TAEB->info("Creating a new level object in check_dlvl for $self, dlvl=$dlvl, index $index");
+
+        $self->levels->[$index] = [
+            TAEB::World::Level->new(
+                branch => $self,
+                z      => $dlvl,
+            )
+        ]
+    }
+
+    if (!wantarray) {
+        TAEB->error("Called get_levels in scalar context. Fix your code.");
+        return undef;
+    }
+
+    return @{ $self->levels->[$index] };
 }
 
 __PACKAGE__->meta->make_immutable;
