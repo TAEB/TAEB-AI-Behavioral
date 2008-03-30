@@ -6,6 +6,18 @@ extends 'TAEB::Action::Ascend';
 use constant command => '>';
 use constant complement_type => 'stairsup' => '<';
 
+after done => sub {
+    my $self    = shift;
+    my $start   = $self->starting_tile;
+    my $current = TAEB->current_tile;
+
+    if (my $branch = $start->level->branch) {
+        if ($branch eq 'mines') {
+            $current->level->branch($mines);
+        }
+    }
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
