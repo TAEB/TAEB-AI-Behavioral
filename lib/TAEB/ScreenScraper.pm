@@ -263,6 +263,7 @@ our @prompts = (
     qr/^"Hello stranger, who are you\?"/ => 'vault_guard',
     qr/^Do you want to keep the save file\?/ => 'save_file',
     qr/^Advance skills without practice\?/ => 'advance_without_practice',
+    qr/^Dump core\?/ => 'dump_core',
 );
 
 our @exceptions = (
