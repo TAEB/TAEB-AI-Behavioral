@@ -130,6 +130,11 @@ has last_prayed => (
     default => -400,
 );
 
+has autopickup => (
+    isa     => 'Bool',
+    default => 1,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -232,6 +237,12 @@ sub update {
     }
 
     $self->prev_turn($self->turn);
+
+    if ($self->autopickup ^ TAEB->current_tile->in_shop) {
+        TAEB->info("Toggling autopickup because we entered/exited a shop");
+        TAEB->write("@");
+        $self->autopickup(!$self->autopickup);
+    }
 }
 
 sub msg_god_angry {
