@@ -388,41 +388,25 @@ sub _detect_mines {
     return 0;
 }
 
-my $A1_row6 = << "6";
-                                ------  -----                                   
-6
+my $A1_row6  = qr/                                ------  -----/;
+my $A1_row11 = qr/                                |---------.---/;
+my $A1_row17 = qr/                                 |..----------/;
 
-my $A1_row11 = << "11";
-                                |---------.---                                  
-11
-
-my $A1_row17 = << "17";
-                                 |..----------                                  
-17
-
-my $B1_row6 = << "6";
-                                -------- ------                                 
-6
-
-my $B1_row11 = << "11";
-                                |^|------0----|                                 
-11
-
-my $B1_row16 = << "16";
-                                ----   --------                                 
-16
+my $B1_row6  = qr/                                -------- ------/;
+my $B1_row11 = qr/                                |.|------0----|/;
+my $B1_row16 = qr/                                ----   --------/;
 
 sub detect_sokoban_vt {
     my $self = shift;
     my $vt   = shift || TAEB->vt;
 
-    return 1 if $vt->row_plaintext(6)  eq $A1_row6
-             && $vt->row_plaintext(11) eq $A1_row11
-             && $vt->row_plaintext(17) eq $A1_row17;
+    return 1 if $vt->row_plaintext(6)  =~ $A1_row6
+             && $vt->row_plaintext(11) =~ $A1_row11
+             && $vt->row_plaintext(17) =~ $A1_row17;
 
-    return 1 if $vt->row_plaintext(6)  eq $B1_row6
-             && $vt->row_plaintext(11) eq $B1_row11
-             && $vt->row_plaintext(16) eq $B1_row16;
+    return 1 if $vt->row_plaintext(6)  =~ $B1_row6
+             && $vt->row_plaintext(11) =~ $B1_row11
+             && $vt->row_plaintext(16) =~ $B1_row16;
 
     return 0;
 }
