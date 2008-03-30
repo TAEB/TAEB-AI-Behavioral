@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality::Descender;
 use TAEB::OO;
-extends 'TAEB::AI::Personality::Behavioral';
+extends 'TAEB::AI::Personality::Explorer';
 
 =head1 NAME
 
@@ -9,29 +9,14 @@ TAEB::AI::Personality::Descender - descend as quickly as sanely possible
 
 =cut
 
-sub weight_behaviors {
-    return {
-        FixHunger          => 1_000_000,
-        Heal               => 750_000,
-        FixStatus          => 700_000,
-        Defend             => 400_000,
-        Descend            => 80_000,
-        AttackSpell        => 75_000,
-        BuffSelf           => 70_000,
-        Melee              => 50_000,
-        Projectiles        => 49_000,
-        Vault              => 30_000,
-        Identify           => 24_750,
-        GetItems           => 24_500,
-        DipForExcalibur    => 24_000,
-        Doors              => 10_000,
-        DeadEnd            => 5_000,
-        Shop               => 4_000,
-        Explore            => 2_500,
-        CurseCheck         => 2_250,
-        Search             => 1_000,
-        RandomWalk         => 1,
-    };
+around weight_behaviors => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $behaviors = $self->$orig;
+    $behaviors->{Descend} = 80_000;
+
+    return $behaviors;
 }
 
 __PACKAGE__->meta->make_immutable;
