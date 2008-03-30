@@ -26,8 +26,7 @@ has cartographer => (
 # worry about level generation on level change)
 sub BUILD {
     my $self = shift;
-    my @dlvl1 = $self->get_levels(1);
-    $self->current_level($dlvl1[0]);
+    $self->current_level( $self->create_level(1) );
 }
 
 =head2 current_tile -> Tile
