@@ -2,13 +2,14 @@
 package TAEB::AI::Behavior::Defend;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
+use Scalar::Defer 'lazy';
 
 sub prepare {
     my $self = shift;
 
     if (TAEB->hp * 2 <= TAEB->maxhp) {
         my $can_engrave = TAEB->can_engrave;
-        my $elbereths   = TAEB->senses->elbereth_count;
+        my $elbereths   = lazy { TAEB->senses->elbereth_count };
 
         my ($adjacent_ignoring, $adjacent_respecting) = (0, 0);
         TAEB->each_adjacent(sub {
