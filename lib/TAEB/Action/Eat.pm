@@ -44,8 +44,13 @@ sub respond_eat_what {
         my $item = TAEB->find_item(sub {
             my $try = shift;
             return $try->class eq 'food'
-                && TAEB::Spoilers::Item::Food->should_eat($try);
+                && TAEB::Spoilers::Item::Food->should_eat($try)
+                && $try->identity ne 'lizard corpse';
         });
+
+        # eat lizard corpses only in dire straits
+        $item ||= TAEB->find_item('lizard corpse') if TAEB->nutrition < 5;
+
         if ($item) {
             $self->item($item);
             return $item->slot;
