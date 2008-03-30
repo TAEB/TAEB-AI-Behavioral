@@ -97,7 +97,7 @@ sub check_dlvl {
     if ($level->z != $dlvl) {
         TAEB->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
 
-        my $newlevel = $self->dungeon->branches->{dungeons}->get_level($dlvl);
+        my $newlevel = $self->dungeon->get_level($dlvl);
         $self->dungeon->current_level($newlevel);
         TAEB->enqueue_message('dlvl_change', $level->z => $dlvl);
     }
