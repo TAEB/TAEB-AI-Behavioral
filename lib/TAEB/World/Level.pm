@@ -75,6 +75,11 @@ has tiles_by_type => (
     },
 );
 
+has is_minetown => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
