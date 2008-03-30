@@ -46,6 +46,7 @@ sub is_enemy {
     return 0 if $self->is_oracle;
     return 0 if $self->is_coaligned_unicorn;
     return 0 if $self->is_vault_guard;
+    return 0 if $self->is_watchman;
     return 1;
 }
 
@@ -102,6 +103,13 @@ sub is_coaligned_unicorn {
     }
 
     return TAEB->align eq 'Cha';
+}
+
+sub is_watchman {
+    my $self = shift;
+    return 0 unless $self->tile->level->is_minetown;
+    return 0 unless $self->glyph eq '@';
+    return $self->color eq COLOR_GRAY || $self->color eq COLOR_GREEN;
 }
 
 sub debug_line {
