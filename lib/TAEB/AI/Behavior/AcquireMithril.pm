@@ -13,12 +13,8 @@ sub prepare {
     # Yeah, so I'm lazy.
     grep { TAEB->role eq $_ } qw/Hea Tou Val/ or return 0;
 
-    # Call me picky if you must.
-    # At this point even cursed mithril will result in good AC
-    # and even MC3.  I'm not as picky -- sawtooth
-    return 0 if $item->is_wearing # ||
-    #            $item->buc eq "unknown" ||
-    #            $item->buc eq "cursed";
+    return 0 if $item->is_wearing
+             || $item->buc eq 'cursed';
 
     $self->currently("Putting on mithril.");
     $self->do(wear => item => $item);
