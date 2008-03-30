@@ -302,22 +302,52 @@ sub matches_vt {
     });
 }
 
+my %branch = (
+    dungeon => sub { shift->z < 29 },
+    mines   => sub {
+        my $self = shift;
+        $self->z >= 3 && $self->z <= 13;
+    },
+    sokoban => sub {
+        my $self = shift;
+
+        # oracle is 5 - 9
+        $self->z >= 2 && $self->z <= 10;
+    },
+);
+
 sub detect_branch {
     my $self = shift;
     return if defined $self->branch;
 
-    $self->_detect_dungeon if $self->z < 29;
-    $self->_detect_mines   if $self->z >= 3 && $self->z <= 13;
+    for my $name (keys %branch) {
+        if ($branch{$name}->($self)) {
+            my $method = "_detect_$name";
+            if ($self->$method) {
+                TAEB->info("$self is in branch $name!");
+                $self->branch($name);
+                last;
+            }
+        }
+    }
 }
 
 sub _detect_dungeon {
     my $self = shift;
 
+    return 0;
 }
 
 sub _detect_mines {
     my $self = shift;
 
+    return 0;
+}
+
+sub _detect_sokoban {
+    my $self = shift;
+
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;
