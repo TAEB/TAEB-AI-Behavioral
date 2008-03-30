@@ -33,7 +33,7 @@ sub update {
     my $needs_autoexplore = 0;
 
     $level->iterate_tile_vt(sub {
-        my ($tile, $glyph, $color, $x, $y);
+        my ($tile, $glyph, $color, $x, $y) = @_;
         $tile->try_monster($glyph, $color);
 
         if ($glyph ne $tile->glyph || $color != $tile->color) {
