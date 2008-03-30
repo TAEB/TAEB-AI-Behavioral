@@ -26,7 +26,7 @@ has cartographer => (
 # worry about level generation on level change)
 sub BUILD {
     my $self = shift;
-    $self->current_level( $self->create_level(1) );
+    $self->current_level( $self->create_level(1, branch => 'dungeons') );
 }
 
 =head2 current_tile -> Tile
@@ -89,9 +89,10 @@ sub get_levels {
     return @{ $self->levels->[$index] ||= [] };
 }
 
-=head2 create_level dlvl
+=head2 create_level dlvl, ARGS
 
-Creates a new level and sticks it into the dungeon level tree.
+Creates a new level and sticks it into the dungeon level tree. The given ARGS
+will be passed to C<< ->new >>.
 
 =cut
 
@@ -105,6 +106,7 @@ sub create_level {
     my $level = TAEB::World::Level->new(
         z       => $dlvl,
         dungeon => $self,
+        @_,
     );
 
     push @{ $self->levels->[$index] ||= [] }, $level;
