@@ -12,22 +12,9 @@ has direction => (
     isa => 'Str',
 );
 
-has x0 => (
-    is      => 'ro',
-    isa     => 'Int',
-    default => sub { TAEB->x },
-);
-
-has y0 => (
-    is      => 'ro',
-    isa     => 'Int',
-    default => sub { TAEB->y },
-);
-
-has z0 => (
-    is      => 'ro',
-    isa     => 'Int',
-    default => sub { TAEB->z },
+has starting_tile => (
+    isa     => 'TAEB::World::Tile',
+    default => sub { TAEB->current_tile },
 );
 
 # if the first movement is < or >, then just use the Ascend or Descend actions
@@ -74,7 +61,11 @@ sub command {
 sub done {
     my $self = shift;
 
-    if (TAEB->x - $self->x0 || TAEB->y - $self->y0 || TAEB->z - $self->z0) {
+    my $walked = TAEB->x - $self->starting_tile->x
+              || TAEB->y - $self->starting_tile->y
+              || TAEB->z - $self->starting_tile->z;
+
+    if ($walked) {
         TAEB->enqueue_message('walked');
 
         # the rest applies only if we haven't moved
