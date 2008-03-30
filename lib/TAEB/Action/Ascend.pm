@@ -32,6 +32,18 @@ sub done {
     }
 }
 
+after done => sub {
+    my $self    = shift;
+    my $start   = $self->starting_tile;
+    my $current = TAEB->current_tile;
+
+    if (my $branch = $start->level->branch) {
+        if ($branch eq 'sokoban' || $branch eq 'vlad') {
+            $current->level->branch($branch);
+        }
+    }
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
