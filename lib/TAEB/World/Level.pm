@@ -383,11 +383,41 @@ sub _detect_mines {
     return 0;
 }
 
+my $A1_row6 = << "6";
+                                ------  -----                                   
+6
+
+my $A1_row11 = << "11";
+                                |---------.---                                  
+11
+
+my $A1_row17 = << "17";
+                                 |..----------                                  
+17
+
+my $B1_row6 = << "6";
+                                -------- ------                                 
+6
+
+my $B1_row11 = << "11";
+                                |^|------0----|                                 
+11
+
+my $B1_row16 = << "16";
+                                ----   --------                                 
+16
+
 sub detect_sokoban_vt {
     my $self = shift;
     my $vt   = shift || TAEB->vt;
 
-    # should be easy, just match against the two start maps
+    return 1 if $vt->row_plaintext(6)  eq $A1_row6
+             && $vt->row_plaintext(11) eq $A1_row11
+             && $vt->row_plaintext(17) eq $A1_row17;
+
+    return 1 if $vt->row_plaintext(6)  eq $B1_row6
+             && $vt->row_plaintext(11) eq $B1_row11
+             && $vt->row_plaintext(16) eq $B1_row16;
 
     return 0;
 }
