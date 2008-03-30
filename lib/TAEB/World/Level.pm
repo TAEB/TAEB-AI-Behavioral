@@ -273,8 +273,6 @@ sub iterate_tile_vt {
         my @colors = $vt->row_color($y);
 
         for my $x (0 .. 79) {
-            my $tile  = $self->at($x, $y);
-
             return unless $code->(
                 $self->at($x, $y),
                 $glyphs[$x],
