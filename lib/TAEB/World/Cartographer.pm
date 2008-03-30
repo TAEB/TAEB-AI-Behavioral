@@ -107,7 +107,11 @@ sub check_dlvl {
 
         unless ($newlevel) {
             $newlevel = $self->dungeon->create_level($dlvl);
-            $newlevel->detect_sokoban_vt if $dlvl >= 2 && $dlvl <= 10;
+            if ($dlvl >= 2 && $dlvl <= 10) {
+                if ($newlevel->detect_sokoban_vt) {
+                    $newlevel->branch('sokoban');
+                }
+            }
         }
 
         $self->dungeon->current_level($newlevel);
