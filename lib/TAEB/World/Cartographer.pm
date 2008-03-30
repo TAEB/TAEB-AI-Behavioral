@@ -25,7 +25,7 @@ sub update {
         return if $self->check_engulfed;
     }
 
-    $self->check_dlvl;
+    return unless $self->check_dlvl;
 
     my $level = $self->dungeon->current_level;
 
@@ -114,6 +114,8 @@ sub check_dlvl {
         $self->dungeon->current_level($newlevel);
         TAEB->enqueue_message('dlvl_change', $level->z => $dlvl);
     }
+
+    return 1;
 }
 
 =head2 autoexplore
