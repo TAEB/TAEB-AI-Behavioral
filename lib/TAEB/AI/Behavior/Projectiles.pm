@@ -23,13 +23,15 @@ sub prepare {
     }
     return 0 unless defined $projectile;
 
-    my $direction = TAEB->current_level->radiate(
+    my ($direction, $distance, $tile) = TAEB->current_level->radiate(
         sub { shift->has_enemy },
         max => $projectile->throw_range,
     );
 
     # no monster found
     return 0 if !$direction;
+
+    return if $tile->in_shop;
 
     $self->do(throw => item => $projectile, direction => $direction);
     $self->currently("Throwing a projectile at a monster.");
