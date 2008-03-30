@@ -3,6 +3,7 @@ package TAEB::Action::Eat;
 use TAEB::OO;
 extends 'TAEB::Action';
 with 'TAEB::Action::Role::Item';
+use List::MoreUtils 'any';
 
 use constant command => "e";
 
@@ -41,15 +42,7 @@ sub respond_eat_what {
     return $self->item->slot if blessed($self->item);
 
     if ($self->item eq 'any') {
-        my $item = TAEB->find_item(sub {
-            my $try = shift;
-            return $try->class eq 'food'
-                && TAEB::Spoilers::Item::Food->should_eat($try)
-                && $try->identity ne 'lizard corpse';
-        });
-
-        # eat lizard corpses only in dire straits
-        $item ||= TAEB->find_item('lizard corpse') if TAEB->nutrition < 5;
+        my $item = TAEB->find_item(sub { $self->can_eat(@_) });
 
         if ($item) {
             $self->item($item);
@@ -90,12 +83,20 @@ sub post_responses {
 sub any_food {
     my $self = shift;
 
-    for (TAEB->current_tile->items, TAEB->inventory->items) {
-        return 1 if $_->class eq 'food'
-                 && TAEB::Spoilers::Item::Food->should_eat($_);
-    }
+    return any { $self->can_eat($_) }
+           TAEB->current_tile->items,
+           TAEB->inventory->items;
+}
 
-    return 0;
+sub can_eat {
+    my $self = shift;
+    my $item = shift;
+
+    return 0 unless $item->class eq 'food';
+    return 0 unless TAEB::Spoilers::Item::Food->should_eat($item);
+    return 0 if $item->identity eq 'lizard corpse'
+             && TAEB->nutrition > 5;
+    return 1;
 }
 
 before exception_missing_item => sub {
