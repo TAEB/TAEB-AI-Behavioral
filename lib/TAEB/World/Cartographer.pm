@@ -106,7 +106,10 @@ sub check_dlvl {
             }
         }
 
-        $newlevel ||= $self->dungeon->create_level($dlvl);
+        unless ($newlevel) {
+            $newlevel = $self->dungeon->create_level($dlvl);
+            $newlevel->detect_sokoban_vt if $dlvl >= 2 && $dlvl <= 10;
+        }
 
         $self->dungeon->current_level($newlevel);
         TAEB->enqueue_message('dlvl_change', $level->z => $dlvl);

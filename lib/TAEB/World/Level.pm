@@ -327,12 +327,6 @@ my %branch = (
         my $self = shift;
         $self->z >= 3 && $self->z <= 13;
     },
-    sokoban => sub {
-        my $self = shift;
-
-        # oracle is 5 - 9
-        $self->z >= 2 && $self->z <= 10;
-    },
 );
 
 sub detect_branch {
@@ -389,10 +383,11 @@ sub _detect_mines {
     return 0;
 }
 
-sub _detect_sokoban {
+sub detect_sokoban_vt {
     my $self = shift;
+    my $vt   = shift || TAEB->vt;
 
-    # should be easy, just match against all of the known maps
+    # should be easy, just match against the two start maps
 
     return 0;
 }
