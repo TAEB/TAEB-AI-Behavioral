@@ -214,6 +214,10 @@ our @msg_regex = (
         qr/^(.*?) drinks an? .* potion|^(.*?) drinks a potion called / =>
             [check => 'discoveries'],
     ],
+    [
+        qr/^Autopickup: (ON|OFF).*/ =>
+            ['autopickup' => sub { $1 eq 'ON' }],
+    ],
 );
 
 our @god_anger = (

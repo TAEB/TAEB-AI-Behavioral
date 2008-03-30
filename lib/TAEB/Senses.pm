@@ -241,8 +241,13 @@ sub update {
     if ($self->autopickup ^ TAEB->current_tile->in_shop) {
         TAEB->info("Toggling autopickup because we entered/exited a shop");
         TAEB->write("@");
-        $self->autopickup(!$self->autopickup);
     }
+}
+
+sub msg_autopickup {
+    my $self    = shift;
+    my $enabled = shift;
+    $self->autopickup($enabled);
 }
 
 sub is_polymorphed {
@@ -401,6 +406,7 @@ sub msg_check {
         $self->check_enhance;
         $self->check_floor;
         $self->check_debt;
+        $self->check_autopickup;
     }
     elsif (my $method = $self->can("check_$thing")) {
         $self->checking($thing);
@@ -420,6 +426,7 @@ my %check_command = (
     floor       => ":",
     debt        => '$',
     enhance     => "#enhance\n",
+    autopickup  => "@@",
 );
 
 my %post_check = (
