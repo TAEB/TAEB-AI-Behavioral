@@ -80,26 +80,36 @@ sub nearest_level {
 sub get_levels {
     my $self = shift;
     my $dlvl = shift;
-
     my $index = $dlvl - 1;
-
-    unless ($self->levels->[$index]) {
-        TAEB->info("Creating a new level object in check_dlvl for $self, dlvl=$dlvl, index $index");
-
-        $self->levels->[$index] = [
-            TAEB::World::Level->new(
-                z       => $dlvl,
-                dungeon => $self,
-            )
-        ]
-    }
 
     if (!wantarray) {
         TAEB->error("Called get_levels in scalar context. Fix your code.");
         return undef;
     }
 
-    return @{ $self->levels->[$index] };
+    return @{ $self->levels->[$index] ||= [] };
+}
+
+=head2 create_level dlvl
+
+Creates a new level and sticks it into the dungeon level tree.
+
+=cut
+
+sub create_level {
+    my $self = shift;
+    my $dlvl = shift;
+    my $index = $dlvl - 1;
+
+    TAEB->info("Creating a new level object in check_dlvl for $self, dlvl=$dlvl, index $index");
+
+    my $level = TAEB::World::Level->new(
+        z       => $dlvl,
+        dungeon => $self,
+    );
+
+    push @{ $self->levels->[$index] ||= [] }, $level;
+    return $level;
 }
 
 __PACKAGE__->meta->make_immutable;
