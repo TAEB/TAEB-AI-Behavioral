@@ -123,6 +123,9 @@ sub debug_line {
     return join ' ', @bits;
 }
 
+# all monsters are in LOS because we only keep track of monsters in LOS
+sub in_los { return 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
