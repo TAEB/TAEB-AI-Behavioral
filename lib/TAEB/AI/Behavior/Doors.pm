@@ -37,7 +37,7 @@ sub prepare {
     return 0 unless TAEB->current_level->has_type('closeddoor');
 
     my ($action, %action_args) = $self->unlock_action;
-    my $currently = delete $can_unlock{currently};
+    my $currently = delete $action_args{currently};
 
     my ($door, $dir);
     TAEB->any_adjacent(sub {
