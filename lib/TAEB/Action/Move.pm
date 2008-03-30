@@ -23,6 +23,9 @@ around new => sub {
     my $class = shift;
     my %args  = @_;
 
+    # we only want to change Move
+    return $class->$orig(@_) if $class ne 'TAEB::Action::Move';
+
     my $action;
     my $start;
 
