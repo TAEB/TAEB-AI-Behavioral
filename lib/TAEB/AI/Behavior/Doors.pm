@@ -49,7 +49,7 @@ sub prepare {
     if ($door) {
         if ($door->locked eq 'locked') {
             if ($action) {
-                $self->do($action => %action_args);
+                $self->do($action => %action_args, direction => $dir);
                 $self->currently($currently);
                 return 100;
             }
