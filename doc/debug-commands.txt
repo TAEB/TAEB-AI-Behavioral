@@ -50,5 +50,5 @@ Q
     Makes TAEB quit the current game, immediately.
 
 ^R
-    Tells TAEB to send ^R to NetHack to redraw the screen.
+    Redraws the screen (and tries to unscroll the terminal and other stuff)
 
