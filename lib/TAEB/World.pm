@@ -3,7 +3,6 @@ package TAEB::World;
 use strict;
 use warnings;
 
-use TAEB::World::Branch;
 use TAEB::World::Cartographer;
 use TAEB::World::Dungeon;
 use TAEB::World::Inventory;
