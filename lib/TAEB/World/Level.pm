@@ -7,9 +7,10 @@ use overload
     %TAEB::Meta::Overload::default,
     q{""} => sub {
         my $self = shift;
+        my $branch = $self->branch || '???';
         sprintf "[%s: branch=%s, dlvl=%d]",
             $self->meta->name,
-            $self->branch,
+            $branch,
             $self->z;
     };
 
