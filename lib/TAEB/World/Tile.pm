@@ -82,7 +82,7 @@ has interesting_at => (
 
 has monster => (
     isa     => 'TAEB::World::Monster',
-    clearer => 'clear_monster',
+    clearer => '_clear_monster',
 );
 
 has items => (
@@ -464,7 +464,7 @@ sub try_monster {
     my $color = shift;
 
     unless (glyph_is_monster($glyph)) {
-        $self->clear_monster;
+        $self->_clear_monster if $self->monster;
         return;
     }
 
@@ -479,11 +479,9 @@ sub try_monster {
     $self->level->add_monster($self->monster);
 }
 
-before clear_monster => sub {
+before _clear_monster => sub {
     my $self = shift;
-    my $monster = $self->monster or return;
-
-    $self->level->remove_monster($monster);
+    $self->level->remove_monster($self->monster);
 };
 
 sub has_enemy {
