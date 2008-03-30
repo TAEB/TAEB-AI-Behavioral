@@ -1,17 +1,14 @@
 #!/usr/bin/env perl
 package TAEB::Action::Ascend;
 use TAEB::OO;
-extends 'TAEB::Action';
+extends 'TAEB::Action::Move';
 
 use constant command => '<';
 use constant complement_type => 'stairsdown' => '>';
 
-has starting_tile => (
-    isa     => 'TAEB::World::Tile',
-    default => sub { TAEB->current_tile },
-);
+sub direction { shift->command }
 
-sub done {
+before done => sub {
     my $self    = shift;
     my $start   = $self->starting_tile;
     my $current = TAEB->current_tile;
@@ -30,7 +27,7 @@ sub done {
         # :)
         #$current->other_side($start);
     }
-}
+};
 
 after done => sub {
     my $self    = shift;
