@@ -3,21 +3,24 @@ package TAEB::AI::Behavior::DipForExcalibur;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
+sub can_make_excalibur {
+    return unless TAEB->align eq 'Law';
+
+    # only one Excalibur. Alas.
+    return if TAEB::Spoilers::Item::Artifact->seen("Excalibur");
+}
+
 sub prepare {
     my $self = shift;
 
-    # are we eligible to dip for Excalibur?
-    return 0 unless TAEB->level >= 5;
-    return 0 unless TAEB->align eq 'Law';
+    return unless $self->can_make_excalibur;
 
-    # only one Excalibur. Alas.
-    return 0 if TAEB::Spoilers::Item::Artifact->seen("Excalibur");
+    # are we eligible to dip for Excalibur now?
+    return unless TAEB->level >= 5;
+
+    my $longsword = TAEB->find_item("long sword");
 
     my $level = TAEB->nearest_level(sub { shift->has_type('fountain') })
-        or return 0;
-
-    # do we have a long sword to dip in our inventory?
-    my $longsword = TAEB->find_item("long sword")
         or return 0;
 
     # are we standing on a fountain? if so, dip!
@@ -41,6 +44,17 @@ sub urgencies {
         100 => "dipping for Excalibur",
          50 => "path to fountain",
     };
+}
+
+sub pickup {
+    my $self = shift;
+    my $item = shift;
+
+    if ($item->identity eq 'long sword') {
+        return unless $self->can_make_excalibur;
+        return if TAEB->find_item("long sword");
+        return 1;
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
