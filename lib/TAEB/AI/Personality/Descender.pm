@@ -17,7 +17,7 @@ around weight_behaviors => sub {
     $behaviors->{Descend} = 80_000;
 
     return $behaviors;
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
