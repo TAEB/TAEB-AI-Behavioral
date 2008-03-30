@@ -13,7 +13,7 @@ after done => sub {
 
     if (my $branch = $start->level->branch) {
         if ($branch eq 'mines') {
-            $current->level->branch($mines);
+            $current->level->branch($branch);
         }
     }
 };
