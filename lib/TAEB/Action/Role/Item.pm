@@ -12,7 +12,6 @@ sub exception_missing_item {
     return unless blessed $self->item;
 
     TAEB->debug("We don't have item " . $self->item . ", escaping.");
-    TAEB->inventory->remove($self->item->slot);
     TAEB->enqueue_message(check => 'inventory');
     $self->aborted(1);
     return "\e\e\e";
