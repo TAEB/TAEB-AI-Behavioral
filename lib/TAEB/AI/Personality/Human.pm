@@ -22,12 +22,7 @@ This will consult a magic 8-ball to determine what move to make next.
 
 =cut
 
-sub _get_key {
-    ReadMode 3;
-    my $c = ReadKey(0);
-    ReadMode 0;
-    return $c;
-}
+sub _get_key { ReadKey(0) }
 
 sub next_action {
     while (1) {
