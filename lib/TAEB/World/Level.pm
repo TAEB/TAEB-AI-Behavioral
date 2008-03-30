@@ -293,7 +293,13 @@ sub matches_vt {
     $self->iterate_tile_vt(sub {
         my ($tile, $glyph, $color, $x, $y) = @_;
 
+        # the new level has rock where we used to have something else. that's
+        # a pretty clear indicator
+        return 0 if $glyph eq ' '
+                 && $tile->type ne 'rock'
+                 && $tile->type ne 'floor';
 
+        return 1;
     });
 }
 
