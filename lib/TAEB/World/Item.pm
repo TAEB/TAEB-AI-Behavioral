@@ -294,6 +294,8 @@ sub lookup_spoiler {
 
 sub is_autopickuped {
     my $self = shift;
+    return 0 if !TAEB->senses->autopickup;
+
     return 1 if $self->appearance eq 'gold piece';
     return 1 if $self->class eq 'wand';
 
