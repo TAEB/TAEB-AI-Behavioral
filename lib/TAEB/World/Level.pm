@@ -286,6 +286,20 @@ sub iterate_tile_vt {
     return 1;
 }
 
+sub first_tile {
+    my $self = shift;
+    my $code = shift;
+
+    for my $y (1 .. 21) {
+        for my $x (0 .. 79) {
+            my $tile = $self->at($x, $y);
+            return $tile if $code->($tile);
+        }
+    }
+
+    return;
+}
+
 sub matches_vt {
     my $self = shift;
     my $vt   = shift || TAEB->vt;
