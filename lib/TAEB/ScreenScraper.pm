@@ -203,7 +203,7 @@ our @msg_regex = (
             ['engulfed' => 1],
     ],
     [
-        qr/^(.*?) reads a scroll of / =>
+        qr/^(.*?) reads a scroll / =>
             [check => 'discoveries'],
     ],
 );
