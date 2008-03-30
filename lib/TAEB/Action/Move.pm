@@ -30,12 +30,30 @@ has z0 => (
     default => sub { TAEB->z },
 );
 
-sub BUILD {
-    my $self = shift;
+# if the first movement is < or >, then just use the Ascend or Descend actions
+around new => sub {
+    my $orig  = shift;
+    my $class = shift;
+    my %args  = @_;
+
+    my $action;
+    my $start;
 
     confess "You must specify a path or direction to the Move action."
-        unless $self->path || $self->direction;
-}
+        unless $args{path} || $args{direction};
+
+    $start = substr($args{path}->path, 0, 1) if $args{path};
+    $start = substr($args{direction},  0, 1) if $args{direction};
+
+    $action = 'Ascend'  if $start eq '<';
+    $action = 'Descend' if $start eq '>';
+
+    if ($action) {
+        return "TAEB::Action::$action"->new(%args);
+    }
+
+    $class->$orig(%args);
+};
 
 sub directions {
     my $self = shift;
@@ -108,7 +126,6 @@ sub handle_obscured_doors {
     }
 }
 
-__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
