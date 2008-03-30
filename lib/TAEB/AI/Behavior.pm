@@ -73,12 +73,14 @@ sub write_elbereth {
         $item = TAEB->find_item("wand of fire")
              || TAEB->find_item("wand of lightning")
              || TAEB->find_item("athame")
+             || TAEB->find_item("Magicbane")
              || TAEB->find_item("wand of digging")
              || TAEB->find_item("magic marker")
              || '-';
     }
     else {
         $item = TAEB->find_item("athame")
+             || TAEB->find_item("Magicbane")
              || '-';
     }
 
