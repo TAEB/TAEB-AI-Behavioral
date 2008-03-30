@@ -427,6 +427,30 @@ sub detect_sokoban_vt {
     return 0;
 }
 
+around is_minetown => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    return $self->$orig(@_) if @_;
+
+    my $is_minetown = $self->$orig;
+    return $is_minetown if $is_minetown;
+
+    return 0 unless $self->branch eq 'mines';
+    return 0 unless $self->z >= 5 && $self->z <= 8;
+
+    return 0 unless $self->has_type('closeddoor')
+                 || $self->has_type('opendoor')
+                 || $self->has_type('altar')
+                 || $self->has_type('sink')
+                 || $self->has_type('fountain')
+                 || $self->has_type('tree');
+
+    TAEB->info("$self is Minetown!");
+    $self->is_minetown(1);
+    return 1;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
