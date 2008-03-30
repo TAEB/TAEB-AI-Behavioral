@@ -88,8 +88,8 @@ sub get_levels {
 
         $self->levels->[$index] = [
             TAEB::World::Level->new(
-                branch => $self,
-                z      => $dlvl,
+                z       => $dlvl,
+                dungeon => $self,
             )
         ]
     }

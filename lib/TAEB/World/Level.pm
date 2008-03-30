@@ -26,6 +26,11 @@ has tiles => (
     },
 );
 
+has dungeon => (
+    isa      => 'TAEB::World::Dungeon',
+    weak_ref => 1,
+);
+
 has branch => (
     isa      => 'TAEB::Type::Branch',
     default  => 'dungeons',
