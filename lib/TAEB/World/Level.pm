@@ -159,8 +159,8 @@ sub radiate {
                 # if they ask for a scalar, give them the direction
                 return delta2vi($dx, $dy) if !wantarray;
 
-                # if they ask for a list, give them (direction, distance)
-                return (delta2vi($dx, $dy), $_);
+                # if they ask for a list, give them (direction, distance, $tile)
+                return (delta2vi($dx, $dy), $_, $tile);
             }
 
             # stop radiating
