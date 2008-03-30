@@ -191,7 +191,7 @@ our @msg_regex = (
             [lost_item => sub { TAEB->new_item($1) }],
     ],
     [
-        qr/^You are (?:almost )?hit by (?:.*)(?:\.!)/,
+        qr/^You are (?:almost )?hit by /,
             [check => 'floor'],
     ],
     [
