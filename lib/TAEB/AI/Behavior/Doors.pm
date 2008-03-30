@@ -2,12 +2,42 @@
 package TAEB::AI::Behavior::Doors;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
+use List::MoreUtils 'any';
+
+sub unlock_action {
+    my $self = shift;
+
+    if (TAEB->current_level->is_minetown) {
+        return if any { $_->is_watchman } TAEB->current_level->monsters;
+    }
+
+    # can we unlock? if so, try it
+    my $locktool = TAEB->find_item('skeleton key')
+                || TAEB->find_item('lock pick')
+                || TAEB->find_item('credit card');
+
+    return (unlock =>
+        implement => $locktool,
+        currently => "Unlocking a door",
+    ) if $locktool;
+
+    if (TAEB->senses->can_kick) {
+        return (kick =>
+            currently => "Kicking down a door",
+        );
+    }
+
+    return;
+}
 
 sub prepare {
     my $self = shift;
 
     return 0 unless TAEB->senses->can_open;
     return 0 unless TAEB->current_level->has_type('closeddoor');
+
+    my ($action, %action_args) = $self->unlock_action;
+    my $currently = delete $can_unlock{currently};
 
     my ($door, $dir);
     TAEB->any_adjacent(sub {
@@ -18,43 +48,25 @@ sub prepare {
 
     if ($door) {
         if ($door->locked eq 'locked') {
-            if (TAEB->current_level->is_minetown) {
-            	for (TAEB->current_level->monsters) {
-        		return 0 if $_->is_watchman
-                                 && $_->in_los;
-		}
-	    }
-
-            # can we unlock? if so, try it
-            my $locktool = TAEB->find_item('skeleton key')
-                        || TAEB->find_item('lock pick')
-                        || TAEB->find_item('credit card');
-
-            if ($locktool) {
-                $self->do(unlock => implement => $locktool, direction => $dir);
-                $self->currently("Unlocking a door");
+            if ($action) {
+                $self->do($action => %action_args);
+                $self->currently($currently);
                 return 100;
             }
-
-            # can we kick? if so, try it
-            if (TAEB->senses->can_kick) {
-                $self->do(kick => direction => $dir);
-                $self->currently("Kicking down a door");
-                return 100;
-            }
-
-            # oh well, nothing we can do
-            return 0;
         }
-
-        # it's not locked, so open it
-        $self->do(open => direction => $dir);
-        $self->currently("Trying to open a door");
-        return 100;
+        else {
+            # it's not locked, so open it
+            $self->do(open => direction => $dir);
+            $self->currently("Trying to open a door");
+            return 100;
+        }
     }
 
     my $path = TAEB::World::Path->first_match(sub {
-        shift->type eq 'closeddoor'
+        my $tile = shift;
+        return 0 unless $tile->type eq 'closeddoor';
+        return 0 if $tile->locked eq 'locked' && !$action;
+        return 1;
     }, include_endpoints => 1);
 
     $self->if_path($path => "Heading towards a door");
