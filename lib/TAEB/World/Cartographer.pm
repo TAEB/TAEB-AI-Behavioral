@@ -297,6 +297,19 @@ sub check_engulfed {
     return 1;
 }
 
+sub msg_branch {
+    my $self   = shift;
+    my $branch = shift;
+    my $level  = $self->dungeon->current_level;
+
+    $level->branch($branch)
+        if !defined($level->branch);
+
+    return if $level->branch eq $branch;
+
+    TAEB->error("Tried to set the branch of $level to $branch but it already has a branch.");
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -97,6 +97,10 @@ our %msg_string = (
         ['portal'],
     "Something is engraved here on the headstone." =>
         ['dungeon_feature', 'grave'],
+    "The heat and smoke are gone." =>
+        ['branch', 'vlad'],
+    "You smell smoke..." =>
+        ['branch', 'gehennom'],
 );
 
 our @msg_regex = (
