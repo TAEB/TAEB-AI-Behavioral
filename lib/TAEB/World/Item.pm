@@ -251,11 +251,12 @@ sub debug_line {
                     : '';
 
     my $name = $self->identity || $self->appearance;
-    return sprintf '[%s: %s%s%s]',
-                    blessed($self),
-                    $quan,
-                    $enchantment,
-                    $name;
+
+    return
+        join '',
+            $quan,
+            $enchantment,
+            $name;
 }
 
 sub lookup_spoiler {
