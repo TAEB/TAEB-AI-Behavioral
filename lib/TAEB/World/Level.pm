@@ -263,6 +263,31 @@ sub adjacent_levels {
     shift->exits
 }
 
+sub iterate_tile_vt {
+    my $self = shift;
+    my $code = shift;
+    my $vt   = shift || TAEB->vt;
+
+    for my $y (1 .. 21) {
+        my @glyphs = split '', $vt->row_plaintext($y);
+        my @colors = $vt->row_color($y);
+
+        for my $x (0 .. 79) {
+            my $tile  = $self->at($x, $y);
+
+            return unless $code->(
+                $self->at($x, $y),
+                $glyphs[$x],
+                $colors[$x],
+                $x,
+                $y,
+            );
+        }
+    }
+
+    return 1;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
