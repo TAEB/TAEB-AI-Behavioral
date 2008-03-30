@@ -7,6 +7,10 @@ use List::MoreUtils 'any';
 sub prepare {
     my $self = shift;
 
+    # picking up items while blind tends to work very badly
+    # e.g. "j - a wand"
+    return 0 if TAEB->senses->is_blind;
+
     unless (TAEB->current_tile->in_shop) {
         my @want = grep { TAEB->want_item($_) } TAEB->current_tile->items;
         if (@want) {
