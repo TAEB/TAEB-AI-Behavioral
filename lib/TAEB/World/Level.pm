@@ -33,7 +33,11 @@ has dungeon => (
 );
 
 has branch => (
-    isa => 'TAEB::Type::Branch',
+    isa     => 'TAEB::Type::Branch',
+    trigger => sub {
+        my ($self, $name) = @_;
+        TAEB->info("$self is in branch $name!");
+    },
 );
 
 has z => (
@@ -339,7 +343,6 @@ sub detect_branch {
         if ($branch{$name}->($self)) {
             my $method = "_detect_$name";
             if ($self->$method) {
-                TAEB->info("$self is in branch $name!");
                 $self->branch($name);
                 last;
             }
