@@ -18,6 +18,12 @@ sub prepare {
 
     if ($door) {
         if ($door->locked eq 'locked') {
+            if (TAEB->current_level->is_minetown) {
+            	for (TAEB->current_level->monsters) {  
+        		return 0 if $_->is_watchman
+                                 && $_->in_los;        
+		}
+	    }            
 
             # can we unlock? if so, try it
             my $locktool = TAEB->find_item('skeleton key')
