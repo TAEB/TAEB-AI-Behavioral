@@ -32,8 +32,7 @@ has dungeon => (
 );
 
 has branch => (
-    isa      => 'TAEB::Type::Branch',
-    default  => 'dungeons',
+    isa => 'TAEB::Type::Branch',
 );
 
 has z => (
