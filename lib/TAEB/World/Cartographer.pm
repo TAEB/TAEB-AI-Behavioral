@@ -30,14 +30,14 @@ sub update {
     my $level = $self->dungeon->current_level;
 
     my $debug_draw = TAEB->config->debug_draw;
-    my $needs_autoexplore = 0;
+    my $tile_changed = 0;
 
     $level->iterate_tile_vt(sub {
         my ($tile, $glyph, $color, $x, $y) = @_;
         $tile->try_monster($glyph, $color);
 
         if ($glyph ne $tile->glyph || $color != $tile->color) {
-            $needs_autoexplore = 1;
+            $tile_changed = 1;
             $level->update_tile($x, $y, $glyph, $color);
         }
 
@@ -51,7 +51,11 @@ sub update {
 
     $level->step_on($self->x, $self->y);
 
-    $self->autoexplore() if $needs_autoexplore;
+    if ($tile_changed) {
+        $self->autoexplore;
+        $self->dungeon->current_level->detect_branch;
+        TAEB->enqueue_message('tile_changes');
+    }
 }
 
 =head2 map_like Regex -> Bool

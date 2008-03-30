@@ -302,6 +302,24 @@ sub matches_vt {
     });
 }
 
+sub detect_branch {
+    my $self = shift;
+    return if defined $self->branch;
+
+    $self->_detect_dungeon if $self->z < 29;
+    $self->_detect_mines   if $self->z >= 3 && $self->z <= 13;
+}
+
+sub _detect_dungeon {
+    my $self = shift;
+
+}
+
+sub _detect_mines {
+    my $self = shift;
+
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
