@@ -264,6 +264,7 @@ our @prompts = (
     qr/^Do you want to keep the save file\?/ => 'save_file',
     qr/^Advance skills without practice\?/ => 'advance_without_practice',
     qr/^Dump core\?/ => 'dump_core',
+    qr/^Die\?/ => 'die',
 );
 
 our @exceptions = (
