@@ -23,6 +23,8 @@ enum TileType => tile_types;
 
 enum DoorState => qw(locked unlocked unknown);
 
+enum 'TAEB::Type::Branch' => qw(dungeons mines sokoban quest ludios gehennom vlad planes);
+
 require TAEB::World::Item;
 subtype 'TAEB::Type::ItemOrStr'
      => as 'TAEB::World::Item | Str';
