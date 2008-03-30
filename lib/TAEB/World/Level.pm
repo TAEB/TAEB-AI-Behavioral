@@ -336,17 +336,32 @@ sub detect_branch {
 sub _detect_dungeon {
     my $self = shift;
 
+    # dungeon features (fountain, sink, altar, door, etc)
+    # watch out for minetown
+
     return 0;
 }
 
 sub _detect_mines {
     my $self = shift;
 
+    # convex walls
+    # - futilius has crazy schemes!
+    #   + two diagonally adjacent walls of the same glyph
+    #   + something that looks like:
+    #         ---
+    #           |
+    #           ---
+
+    # >6 or so floor tiles in a row (rooms have a max height)
+
     return 0;
 }
 
 sub _detect_sokoban {
     my $self = shift;
+
+    # should be easy, just match against all of the known maps
 
     return 0;
 }
