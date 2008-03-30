@@ -48,3 +48,7 @@ q
 
 Q
     Makes TAEB quit the current game, immediately.
+
+^R
+    Tells TAEB to send ^R to NetHack to redraw the screen.
+

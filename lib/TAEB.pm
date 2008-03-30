@@ -416,6 +416,12 @@ sub keypress {
         return undef;
     }
 
+    # refresh NetHack's screen
+    if ($c eq "\cr") {
+        $self->write("\cr");
+        return undef;
+    }
+
     # console
     if ($c eq '~') {
         $self->console;
