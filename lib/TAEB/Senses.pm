@@ -245,6 +245,11 @@ sub update {
     }
 }
 
+sub is_polymorphed {
+    my $self = shift;
+    return $self->in_wereform;
+}
+
 sub msg_god_angry {
     my $self      = shift;
     my $max_anger = shift;
