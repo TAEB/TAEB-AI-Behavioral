@@ -32,25 +32,20 @@ sub update {
     my $debug_draw = TAEB->config->debug_draw;
     my $needs_autoexplore = 0;
 
-    for my $y (1 .. 21) {
-        my $row = TAEB->vt->row_plaintext($y);
-        my @colors = TAEB->vt->row_color($y);
+    $level->iterate_tile_vt(sub {
+        my ($tile, $glyph, $color, $x, $y);
+        $tile->try_monster($glyph, $color);
 
-        for my $x (0 .. 79) {
-            my $tile = $level->at($x, $y);
-            my $on_map = substr($row, $x, 1);
-
-            $tile->try_monster($on_map, $colors[$x]);
-
-            if ($on_map ne $tile->glyph || $colors[$x] != $tile->color) {
-                $needs_autoexplore = 1;
-                $level->update_tile($x, $y, $on_map, $colors[$x]);
-            }
-
-            TAEB->out("\e[%d;%dH%s\e[m", 1+$y, 1+$x, $tile->$debug_draw)
-                if $debug_draw;
+        if ($glyph ne $tile->glyph || $color != $tile->color) {
+            $needs_autoexplore = 1;
+            $level->update_tile($x, $y, $glyph, $color);
         }
-    }
+
+        TAEB->out("\e[%d;%dH%s\e[m", 1+$y, 1+$x, $tile->$debug_draw)
+            if $debug_draw;
+
+        return 1;
+    });
 
     TAEB->out("\e[%d;%dH", 1+$self->y, 1+$self->x) if $debug_draw;
 
