@@ -231,6 +231,12 @@ has knowledge => (
     default => sub { TAEB::Knowledge->new },
 );
 
+has new_game => (
+    is      => 'rw',
+    isa     => 'Maybe[Bool]',
+    default => undef,
+);
+
 =head2 iterate
 
 This will perform one input/output iteration of TAEB.
@@ -301,10 +307,12 @@ sub handle_logging_in {
         $self->write($self->config->get_alignment);
     }
     elsif ($self->topline =~ qr/Restoring save file\.\./) {
-        TAEB->info("We are now in NetHack, restoring a save file.");
+        $self->info("We are now in NetHack, restoring a save file.");
         $self->write(' ');
+        $self->new_game(0);
     }
-    elsif ($self->topline =~ qr/!  You are a/ || $self->topline =~ qr/welcome back to NetHack/) {
+    elsif ($self->topline =~ qr/, welcome( back)? to NetHack!/) {
+        $self->new_game($1 ? 0 : 1);
         $self->enqueue_message('check');
         $self->enqueue_message('game_started');
         $self->state('playing');
