@@ -210,10 +210,10 @@ sub find_statuses {
         $self->nutrition(150) if $self->nutrition < 150;
     }
 
-    $self->is_blind($botl =~ /\bBli/);
-    $self->is_stunned($botl =~ /\bStun/);
-    $self->is_confused($botl =~ /\bConf/);
-    $self->is_hallucinating($botl =~ /\bHal/);
+    $self->is_blind($botl =~ /\bBli/ ? 1 : 0);
+    $self->is_stunned($botl =~ /\bStun/ ? 1 : 0);
+    $self->is_confused($botl =~ /\bConf/ ? 1 : 0);
+    $self->is_hallucinating($botl =~ /\bHal/ ? 1 : 0);
 }
 
 sub update {
