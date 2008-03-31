@@ -27,10 +27,7 @@ sub load_from_argv {
 }
 # }}}
 
-my $interface   = load_from_argv('Interface', 'Local');
 my $personality = load_from_argv('AI::Personality', 'RandomWalk');
-
-TAEB->interface($interface);
 TAEB->personality($personality);
 
 if (TAEB->config->debug_personality) {
@@ -47,6 +44,9 @@ if (TAEB->config->debug_personality) {
 
     exit 0;
 }
+
+my $interface = load_from_argv('Interface', 'Local');
+TAEB->interface($interface);
 
 # signal and terminal munging {{{
 $SIG{__WARN__} = sub { TAEB->warning(@_) };
