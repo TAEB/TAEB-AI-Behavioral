@@ -21,9 +21,9 @@ sub prepare {
     my $longsword = TAEB->find_item("long sword");
 
     my $level = TAEB->nearest_level(sub {
-        my $tile = shift;
-        return 0 if $tile->level->is_minetown;
-        return $tile->has_type('fountain');
+        my $lvl = shift;
+        return 0 if $lvl->is_minetown;
+        return $lvl->has_type('fountain');
     });
 
     return 0 if !$level;
