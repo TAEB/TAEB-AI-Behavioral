@@ -20,7 +20,8 @@ sub prepare {
     # are we eligible to dip for Excalibur now?
     return 0 unless TAEB->level >= 5;
 
-    my $longsword = TAEB->find_item("long sword");
+    my $longsword = TAEB->find_item("long sword")
+        or return 0;
 
     my $level = TAEB->nearest_level(sub {
         my $lvl = shift;
