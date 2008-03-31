@@ -261,7 +261,15 @@ has persistent_dump => (
     is   => 'rw',
     lazy => 1,
     default => sub {
-        YAML::LoadFile(TAEB->config->state_file)
+        my $self = shift;
+        $self->out("\e[2H\e[44mLoading state file...\e[m");
+
+        local $SIG{__DIE__};
+        my $dump = eval { YAML::LoadFile(TAEB->config->state_file) } || undef;
+
+        $self->out($self->redraw);
+        TAEB->warning("Unable to load state file.") if !defined($dump);
+        return $dump;
     },
 );
 
@@ -703,10 +711,14 @@ sub dump {
 
     my $state_file = TAEB->config->state_file;
 
+    $self->out("\e[2H\e[44mCreating state file...\e[m");
+
     @temp{@stash} = delete @$self{@stash};
     eval { YAML::DumpFile($state_file => $self) };
     warn $@ if $@;
     @$self{@stash} = @temp{@stash};
+
+    $self->out($self->redraw);
 
     return $@ ? 0 : 1;
 }
