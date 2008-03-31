@@ -2,20 +2,17 @@
 package TAEB::Action::Drop;
 use TAEB::OO;
 extends 'TAEB::Action';
+with 'TAEB::Action::Role::Item';
 
 use constant command => "Da\n";
-
-has got_identifying_message => (
-    isa     => 'Bool',
-    default => 0,
-);
 
 # logic is elsewhere sadly
 
 sub msg_ring {
-    my $self = shift;
-    $self->got_identifying_message(1);
-    $self->item->rule_out_all_but(@_);
+    my $self     = shift;
+    my $identity = shift;
+    TAEB->debug("Identified ".$self->item->appearance." as $identity");
+    $self->item->identify_as($identity);
 }
 
 __PACKAGE__->meta->make_immutable;
