@@ -11,12 +11,11 @@ sub prepare {
     return 0 if TAEB->is_blind;
 
     my $ring = shift @items;
-    #my $pt = $ring->possibility_tracker;
 
     my $level = TAEB->nearest_level(sub { shift->has_type('sink') })
         or return 0;
 
-    # are we standing on a fountain? if so, dip!
+    # are we standing on a sink? if so, drop!
     if (TAEB->current_tile->type eq 'sink') {
         $self->currently("Dropping the ring in the sink");
         $self->do(drop => item => $ring);
