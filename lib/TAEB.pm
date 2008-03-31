@@ -336,10 +336,10 @@ sub full_input {
 
     $self->process_input;
 
-    $self->action->post_responses
-        if $main_call && $self->action && !$self->action->aborted;
-
     unless ($self->state eq 'logging_in') {
+        $self->action->post_responses
+            if $main_call && $self->action && !$self->action->aborted;
+
         $self->dungeon->update($main_call);
         $self->senses->update($main_call);
         $self->publisher->update($main_call);
