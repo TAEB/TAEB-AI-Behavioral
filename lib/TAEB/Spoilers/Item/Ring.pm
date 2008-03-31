@@ -131,6 +131,13 @@ has randomized_appearances => (
     }
 );
 
+has constant_appearances => (
+    is         => 'ro',
+    isa        => 'HashRef',
+    auto_deref => 1,
+    default    => sub { { 'meat ring' => 'meat ring' } },
+);
+
 has blind_appearances => (
     is         => 'ro',
     isa        => 'ArrayRef',
