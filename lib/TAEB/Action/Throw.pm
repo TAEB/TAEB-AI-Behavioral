@@ -53,6 +53,11 @@ sub done {
         $tile->is_walkable(1)
             or last;
 
+        # . tiles would show the projectile we threw
+        next if $tile->glyph eq '.';
+
+        $tile->interesting_at(TAEB->turn);
+
         # if we're throwing at a monster, then the projectile will always stop
         # at the monster's tile (unless we threw multiple and it killed the
         # monster - the subsequent projectiles can fly past)
@@ -60,11 +65,6 @@ sub done {
             last unless $self->threw_multiple
                      && $self->killed;
         }
-
-        # . tiles would show the projectile we threw
-        next if $tile->glyph eq '.';
-
-        $tile->interesting_at(TAEB->turn);
     }
 }
 
