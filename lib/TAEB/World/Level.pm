@@ -336,8 +336,8 @@ sub matches_vt {
 }
 
 my %branch = (
-    dungeon => sub { shift->z < 29 },
-    mines   => sub {
+    dungeons => sub { shift->z < 29 },
+    mines    => sub {
         my $self = shift;
         $self->z >= 3 && $self->z <= 13;
     },
@@ -358,7 +358,7 @@ sub detect_branch {
     }
 }
 
-sub _detect_dungeon {
+sub _detect_dungeons {
     my $self = shift;
 
     # out of range of the mines
