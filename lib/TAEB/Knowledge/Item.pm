@@ -13,7 +13,7 @@ has type => (
     required => 1,
 );
 
-has _identities => (
+has _possibilities => (
     metaclass => 'Collection::Hash',
     is        => 'rw',
     isa       => 'HashRef',
@@ -34,7 +34,7 @@ sub BUILD {
     my $identity = $spoiler->constant_appearances->{$self->appearance}
         if $spoiler->can('constant_appearances');
     if (defined $identity) {
-        $self->_identities->{$identity} = 1;
+        $self->_possibilities->{$identity} = 1;
     }
     else {
         if ($spoiler->can('randomized_appearances') &&
@@ -43,7 +43,7 @@ sub BUILD {
             # something like that, but we can't just do that directly with
             # what we have now because armor has multiple groups of
             # randomized_identities
-            $self->_identities({ map { $_ => 1 } $spoiler->all_identities });
+            $self->_possibilities({ map { $_ => 1 } $spoiler->all_identities });
         }
         # XXX: we don't handle multi_identity_appearances here, since there's
         # no way to track this outside of game. handle them elsewhere through
