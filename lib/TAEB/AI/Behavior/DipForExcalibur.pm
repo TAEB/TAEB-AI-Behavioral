@@ -13,10 +13,10 @@ sub can_make_excalibur {
 sub prepare {
     my $self = shift;
 
-    return unless $self->can_make_excalibur;
+    return 0 unless $self->can_make_excalibur;
 
     # are we eligible to dip for Excalibur now?
-    return unless TAEB->level >= 5;
+    return 0 unless TAEB->level >= 5;
 
     my $longsword = TAEB->find_item("long sword");
 
