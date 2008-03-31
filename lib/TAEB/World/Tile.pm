@@ -488,6 +488,12 @@ sub has_enemy {
     return $monster->is_enemy ? $monster : undef;
 }
 
+sub has_friendly {
+    my $monster = shift->monster
+        or return 0;
+    return $monster->is_enemy ? undef : $monster;
+}
+
 # doors occasionally explode, leaving TAEB in a mildly inconsistent state
 # this fixes such explosions
 sub locked { 'unlocked' }
