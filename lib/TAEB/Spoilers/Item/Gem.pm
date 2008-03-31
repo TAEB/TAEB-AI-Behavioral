@@ -279,6 +279,13 @@ has constant_appearances => (
     default    => sub { {rock => 'rock'} },
 );
 
+has blind_appearances => (
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { [qw/stone gem/] },
+);
+
 sub gem {
     my $self = shift;
     my $item = shift;

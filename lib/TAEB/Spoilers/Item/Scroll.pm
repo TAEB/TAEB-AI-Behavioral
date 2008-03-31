@@ -143,6 +143,13 @@ has constant_appearances => (
                          'unlabeled scroll' => 'scroll of blank paper'} },
 );
 
+has blind_appearances => (
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { [ 'scroll' ] },
+);
+
 sub scroll {
     my $self = shift;
     my $item = shift;

@@ -123,6 +123,13 @@ has constant_appearances => (
     default    => sub { {'clear potion' => 'potion of water'} },
 );
 
+has blind_appearances => (
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { [ 'potion' ] },
+);
+
 sub potion {
     my $self = shift;
     my $item = shift;

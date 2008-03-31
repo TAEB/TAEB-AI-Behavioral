@@ -131,6 +131,13 @@ has randomized_appearances => (
     }
 );
 
+has blind_appearances => (
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { [ 'ring' ] },
+);
+
 sub ring {
     my $self = shift;
     my $item = shift;

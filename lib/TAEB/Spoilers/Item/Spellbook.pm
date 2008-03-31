@@ -323,6 +323,13 @@ has constant_appearances => (
                          'papyrus spellbook' => 'Book of the Dead'} },
 );
 
+has blind_appearances => (
+    is         => 'ro',
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { [ 'spellbook' ] },
+);
+
 sub spellbook {
     my $self = shift;
     my $item = shift;
