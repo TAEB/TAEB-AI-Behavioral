@@ -237,6 +237,15 @@ has new_game => (
     default => undef,
 );
 
+has persistent_dump => (
+    is   => 'rw',
+    isa  => 'HashRef',
+    lazy => 1,
+    default => sub {
+        YAML::LoadFile(TAEB->config->state_file)
+    },
+);
+
 =head2 iterate
 
 This will perform one input/output iteration of TAEB.
