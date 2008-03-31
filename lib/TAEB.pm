@@ -134,7 +134,11 @@ has dungeon => (
     is      => 'ro',
     isa     => 'TAEB::World::Dungeon',
     lazy    => 1,
-    default => sub { TAEB::World::Dungeon->new },
+    default => sub {
+        my $self = shift;
+        return TAEB::World::Dungeon->new if $self->new_game;
+        return $self->persistent_dump->{dungeon};
+    },
     handles => {
         current_level => 'current_level',
         current_tile  => 'current_tile',
@@ -185,7 +189,11 @@ has ttyrec => (
 has senses => (
     is      => 'rw',
     isa     => 'TAEB::Senses',
-    default => sub { TAEB::Senses->new },
+    default => sub {
+        my $self = shift;
+        return TAEB::Senses->new if $self->new_game;
+        return $self->persistent_dump->{senses};
+    },
     lazy    => 1,
     handles => qr/^(?!check_|msg_|update)/,
 );
@@ -194,7 +202,11 @@ has inventory => (
     is      => 'rw',
     isa     => 'TAEB::World::Inventory',
     lazy    => 1,
-    default => sub { TAEB::World::Inventory->new },
+    default => sub {
+        my $self = shift;
+        return TAEB::World::Inventory->new if $self->new_game;
+        return $self->persistent_dump->{inventory};
+    },
     handles => {
         find_item => 'find',
     },
@@ -204,7 +216,11 @@ has spells => (
     is      => 'rw',
     isa     => 'TAEB::World::Spells',
     lazy    => 1,
-    default => sub { TAEB::World::Spells->new },
+    default => sub {
+        my $self = shift;
+        return TAEB::World::Spells->new if $self->new_game;
+        return $self->persistent_dump->{spells};
+    },
     handles => {
         find_spell    => 'find',
         find_castable => 'find_castable',
@@ -228,7 +244,11 @@ has knowledge => (
     is      => 'rw',
     isa     => 'TAEB::Knowledge',
     lazy    => 1,
-    default => sub { TAEB::Knowledge->new },
+    default => sub {
+        my $self = shift;
+        return TAEB::Knowledge->new if $self->new_game;
+        return $self->persistent_dump->{knowledge};
+    },
 );
 
 has new_game => (
