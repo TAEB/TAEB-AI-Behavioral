@@ -42,7 +42,8 @@ has list => (
                     if defined $stats->{appearance};
             }
             for my $attr (qw/randomized_appearances
-                             multi_identity_appearances/) {
+                             multi_identity_appearances
+                             blind_appearances/) {
                 if ("TAEB::Spoilers::Item::$type"->can($attr)) {
                     for my $name (@{"TAEB::Spoilers::Item::$type"->$attr}) {
                         $items->{$name} = lc $type;
@@ -86,7 +87,8 @@ has plural_of_list => (
                         };
             }
             for my $attr (qw/randomized_appearances
-                             multi_identity_appearances/) {
+                             multi_identity_appearances
+                             blind_appearances/) {
                 if ("TAEB::Spoilers::Item::$type"->can($attr)) {
                     for my $name (@{"TAEB::Spoilers::Item::$type"->$attr}) {
                         if ("TAEB::Spoilers::Item::$type"->can('pluralize_unided')) {
@@ -158,7 +160,7 @@ has all_appearances => (
     auto_deref => 1,
     default    => sub {
         my $self = shift;
-        my (@random, @constant, @multi);
+        my (@random, @constant, @multi, @blind);
 
         @random = $self->randomized_appearances
             if $self->can('randomized_appearances');
@@ -166,8 +168,10 @@ has all_appearances => (
             if $self->can('constant_appearances');
         @multi = $self->multi_identity_appearances
             if $self->can('multi_identity_appearances');
+        @blind = $self->blind_appearances
+            if $self->can('blind_appearances');
 
-        return [@random, @constant, @multi];
+        return [@random, @constant, @multi, @blind];
     },
 );
 
