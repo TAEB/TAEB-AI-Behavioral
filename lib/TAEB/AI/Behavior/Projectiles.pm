@@ -25,7 +25,8 @@ sub prepare {
 
     my ($direction, $distance, $tile) = TAEB->current_level->radiate(
         sub { shift->has_enemy },
-        max => $projectile->throw_range,
+        max     => $projectile->throw_range,
+        stopper => sub { shift->has_friendly },
     );
 
     # no monster found

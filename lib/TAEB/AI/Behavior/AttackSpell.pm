@@ -38,6 +38,7 @@ sub prepare {
 
     my $direction = TAEB->current_level->radiate(
         sub { shift->has_enemy },
+        stopper => sub { shift->has_friendly },
 
         # how far to radiate. we can eventually calculate how far beam/ray
         # can travel..!
