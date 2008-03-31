@@ -179,6 +179,10 @@ our @msg_regex = (
             [wand => 'wand of polymorph'],
     ],
     [
+        qr/^You (add to the writing|write) in the dust with a.* wand of (create monster|secret door detection)/,
+            [wand => sub { "wand of $2" }],
+    ],
+    [
         qr/^.*? zaps an? .*? wand!/,
             ['check' => 'discoveries'],
     ],
