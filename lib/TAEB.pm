@@ -288,23 +288,23 @@ sub handle_logging_in {
         TAEB->info("We are now in NetHack, starting a new character.");
         $self->write('n');
     }
-    elsif ($self->topline =~ "Choosing Character's Role") {
+    elsif ($self->topline =~ qr/Choosing Character's Role/) {
         $self->write($self->config->get_role);
     }
-    elsif ($self->topline =~ "Choosing Race") {
+    elsif ($self->topline =~ qr/Choosing Race/) {
         $self->write($self->config->get_race);
     }
-    elsif ($self->topline =~ "Choosing Gender") {
+    elsif ($self->topline =~ qr/Choosing Gender/) {
         $self->write($self->config->get_gender);
     }
-    elsif ($self->topline =~ "Choosing Alignment") {
+    elsif ($self->topline =~ qr/Choosing Alignment/) {
         $self->write($self->config->get_alignment);
     }
-    elsif ($self->topline =~ "Restoring save file..") {
+    elsif ($self->topline =~ qr/Restoring save file\.\./) {
         TAEB->info("We are now in NetHack, restoring a save file.");
         $self->write(' ');
     }
-    elsif ($self->topline =~ "!  You are a" || $self->topline =~ "welcome back to NetHack") {
+    elsif ($self->topline =~ qr/!  You are a/ || $self->topline =~ qr/welcome back to NetHack/) {
         $self->enqueue_message('check');
         $self->enqueue_message('game_started');
         $self->state('playing');
