@@ -34,6 +34,8 @@ after done => sub {
     my $start   = $self->starting_tile;
     my $current = TAEB->current_tile;
 
+    return unless $self->command eq '<';
+
     if (my $branch = $start->level->branch) {
         if ($branch eq 'sokoban' || $branch eq 'vlad') {
             $current->level->branch($branch);
