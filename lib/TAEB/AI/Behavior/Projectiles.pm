@@ -34,7 +34,11 @@ sub prepare {
 
     return if $tile->in_shop;
 
-    $self->do(throw => item => $projectile, direction => $direction);
+    $self->do(throw =>
+        item        => $projectile,
+        direction   => $direction,
+        target_tile => $tile,
+    );
     $self->currently("Throwing a projectile at a monster.");
     return 100;
 }
