@@ -10,6 +10,8 @@ TAEB::AI::Personality::Explore - descend only after exploring the level
 =cut
 
 sub weight_behaviors {
+    my $fight = TAEB->config->fight_behavior || 'Melee';
+
     return {
         FixHunger          => 1_000_000,
         Heal               => 750_000,
@@ -17,7 +19,7 @@ sub weight_behaviors {
         Defend             => 400_000,
         AttackSpell        => 175_000,
         BuffSelf           => 170_000,
-        Melee              => 80_000,
+        $fight             => 80_000,
         Projectiles        => 49_000,
         Vault              => 30_000,
         Identify           => 24_750,

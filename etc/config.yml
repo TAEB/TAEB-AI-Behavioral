@@ -5,6 +5,8 @@ personality: ScoreWhore
 role: Valkyrie
 race: Dwarf
 
+fight_behavior: Melee
+
 ttyrec: 1
 
 other_config:
