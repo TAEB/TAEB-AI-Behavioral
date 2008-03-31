@@ -249,6 +249,7 @@ sub handle_playing {
 
     $self->currently('?');
     $self->action($self->next_action);
+    TAEB->info("Current action: " . $self->action);
 
     my $command = $self->action->command;
     $command =~ s/\n/\\n/g;
