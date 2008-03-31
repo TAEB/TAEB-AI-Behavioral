@@ -25,6 +25,12 @@ sub prepare {
     return 100;
 }
 
+sub urgencies {
+    return {
+        100 => "equipping a better weapon",
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
