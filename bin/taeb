@@ -94,6 +94,12 @@ $TAEB::ToScreen = 1;
 $| = 1;
 Term::ReadKey::ReadMode 3;
 END { Term::ReadKey::ReadMode 0 }
+
+$SIG{INT} = sub {
+    TAEB->dump;
+    die "In the future, use 'q' to save gracefully you dingbat.";
+};
+
 # }}}
 
 while (1) {
