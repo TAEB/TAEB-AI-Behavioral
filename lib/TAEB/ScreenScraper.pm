@@ -129,16 +129,10 @@ our %msg_string = (
         ['ring' => 'ring of shock resistance'],
     "The hot water faucet flashes brightly for a moment." =>
         ['ring' => 'ring of fire resistance'],
-    "You see the ring slide right down the drain!" =>
-        ['ring' => 'ring of free action'],
     "The sink quivers upward for a moment." =>
         ['ring' => 'ring of levitation'],
     "The sink looks as good as new." =>
         ['ring' => 'ring of regeneration'],
-    "You thought your ring got lost in the sink, but there it is!" =>
-        ['ring' => 'ring of searching'],
-    "The ring is regurgitated!" =>
-        ['ring' => 'ring of slow digestion'],
     "The sink momentarily vanishes." =>
         ['ring' => 'ring of teleportation'],
     "You hear loud noises coming from the drain." =>
@@ -297,6 +291,18 @@ our @msg_regex = (
     [
         qr/^You smell rotten (.*)\./ =>
             ['ring' => 'ring of poison resistance'],
+    ],
+    [
+        qr/^You thought your (.*) got lost in the sink, but there it is!/ =>
+            ['ring' => 'ring of searching'],
+    ],
+    [
+        qr/^You see (.*) slide right down the drain!/ =>
+            ['ring' => 'ring of free action'],
+    ],
+    [
+        qr/(.*) is regurgitated!/ =>
+            ['ring' => 'ring of slow digestion'],
     ],
 );
 
