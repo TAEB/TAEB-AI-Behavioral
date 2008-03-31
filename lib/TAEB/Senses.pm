@@ -108,7 +108,7 @@ has debt => (
 );
 
 has [
-    qw/poison_resistance cold_resistance fire_resistance shock_resistance/
+    qw/poison_resistant cold_resistant fire_resistant shock_resistant/
 ] => (
     isa     => 'Bool',
     default => 0,
@@ -380,11 +380,11 @@ sub msg_debt {
 sub msg_game_started {
     my $self = shift;
 
-    $self->cold_resistance(1) if $self->role eq 'Val';
+    $self->cold_resistant(1) if $self->role eq 'Val';
 
-    $self->poison_resistance(1) if $self->role eq 'Hea'
-                                || $self->role eq 'Bar'
-                                || $self->race eq 'Orc';
+    $self->poison_resistant(1) if $self->role eq 'Hea'
+                               || $self->role eq 'Bar'
+                               || $self->race eq 'Orc';
 }
 
 sub msg_vault_guard {
