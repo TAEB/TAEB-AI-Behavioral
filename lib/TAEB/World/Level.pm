@@ -357,6 +357,10 @@ sub detect_branch {
 sub _detect_dungeon {
     my $self = shift;
 
+    # out of range of the mines
+    return 1 if $self->z < 3 || $self->z > 13;
+
+    # is there a parallel mines level?
     return 1 if any { $_->branch && $_->branch eq 'mines' }
                 $self->dungeon->get_levels($self->z);
 
@@ -369,6 +373,7 @@ sub _detect_dungeon {
 sub _detect_mines {
     my $self = shift;
 
+    # is there a parallel dungeons level?
     return 1 if any { $_->branch && $_->branch eq 'dungeons' }
                 $self->dungeon->get_levels($self->z);
 
