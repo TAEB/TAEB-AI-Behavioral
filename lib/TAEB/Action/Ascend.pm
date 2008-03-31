@@ -38,6 +38,12 @@ after done => sub {
         if ($branch eq 'sokoban' || $branch eq 'vlad') {
             $current->level->branch($branch);
         }
+
+        # dungeons branch propagates upwards except for sokoban, which is
+        # immediately identified
+        if ($branch eq 'dungeons' && !defined($current->level->branch)) {
+            $current->level->branch($branch);
+        }
     }
 };
 
