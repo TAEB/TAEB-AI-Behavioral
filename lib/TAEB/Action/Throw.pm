@@ -72,7 +72,7 @@ sub msg_throw_count {
     my $self  = shift;
     my $count = shift;
 
-    $self->threw_multiple($count);
+    $self->threw_multiple(1);
 
     # done takes care of the other one
     TAEB->inventory->decrease_quantity($self->item->slot, $count - 1);
