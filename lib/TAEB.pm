@@ -695,6 +695,8 @@ sub console {
 }
 
 sub dump {
+    return 0 unless TAEB->config->state_file;
+
     my $self = shift->instance;
     my %temp;
     my @stash = qw/interface config ttyrec vt scraper personality action publisher state log read_wait new_game persistent_dump/;
