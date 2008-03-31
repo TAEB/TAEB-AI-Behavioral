@@ -56,7 +56,7 @@ sub done {
         # if we're throwing at a monster, then the projectile will always stop
         # at the monster's tile (unless we threw multiple and it killed the
         # monster - the subsequent projectiles can fly past)
-        if ($tile eq $self->target_tile) {
+        if ($tile == $self->target_tile) {
             last unless $self->threw_multiple
                      && $self->killed;
         }
