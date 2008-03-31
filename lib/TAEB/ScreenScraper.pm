@@ -105,6 +105,50 @@ our %msg_string = (
         ['trapdoor'],
     "There's a gaping hole under you!" =>
         ['trapdoor'],
+    "Several flies buzz around the sink." =>
+        ['ring' => 'meat ring'],
+    "The faucets flash brightly for a moment." =>
+        ['ring' => 'ring of adornment'],
+    "The sink looks nothing like a fountain." =>
+        ['ring' => 'ring of protection from shape changers'],
+    "The sink seems to blend into the floor for a moment." =>
+        ['ring' => 'ring of stealth'],
+    "The water flow seems fixed." =>
+        ['ring' => 'ring of sustain ability'],
+    "The sink glows white for a moment." =>
+        ['ring' => 'ring of warning'],
+    "Several flies buzz angrily around the sink." =>
+        ['ring' => 'ring of aggravate monster'],
+    "The cold water faucet flashes brightly for a moment." =>
+        ['ring' => 'ring of cold resistance'],
+    "You don't see anything happen to the sink." =>
+        ['ring' => 'ring of invisibility'],
+    "You see some air in the sink." =>
+        ['ring' => 'ring of see invisible'],
+    "Static electricity surrounds the sink." =>
+        ['ring' => 'ring of shock resistance'],
+    "The hot water faucet flashes brightly for a moment." =>
+        ['ring' => 'ring of fire resistance'],
+    "You see the ring slide right down the drain!" =>
+        ['ring' => 'ring of free action'],
+    "The sink quivers upward for a moment." =>
+        ['ring' => 'ring of levitation'],
+    "The sink looks as good as new." =>
+        ['ring' => 'ring of regeneration'],
+    "You thought your ring got lost in the sink, but there it is!" =>
+        ['ring' => 'ring of searching'],
+    "The ring is regurgitated!" =>
+        ['ring' => 'ring of slow digestion'],
+    "The sink momentarily vanishes." =>
+        ['ring' => 'ring of teleportation'],
+    "You hear loud noises coming from the drain." =>
+        ['ring' => 'ring of conflict'],
+    "The sink momentarily looks like a fountain." =>
+        ['ring' => 'ring of polymorph'],
+    "The sink momentarily looks like a regularly erupting geyser." =>
+        ['ring' => 'ring of polymorph control'],
+    "The sink looks like it is being beamed aboard somewhere." =>
+        ['ring' => 'ring of teleport control'],
 );
 
 our @msg_regex = (
@@ -225,6 +269,34 @@ our @msg_regex = (
     [
         qr/^You kill .*/ =>
             ['killed'],
+    ],
+    [
+        qr/^Suddenly, .* vanishes from the sink!/ =>
+            ['ring' => 'ring of hunger'],
+    ],
+    [
+        qr/^The sink glows (silver|black) for a moment\./ =>
+            ['ring' => 'ring of protection'],
+    ],
+    [
+        qr/^The water flow seems (greater|lesser) now.\./ =>
+            ['ring' => 'ring of gain constitution'],
+    ],
+    [
+        qr/^The water flow seems (stronger|weaker) now.\./ =>
+            ['ring' => 'ring of gain strength'],
+    ],
+    [
+        qr/^The water flow (hits|misses) the drain\./ =>
+            ['ring' => 'ring of increase accuracy'],
+    ],
+    [
+        qr/^The water's force seems (greater|smaller) now\./ =>
+            ['ring' => 'ring of increase damage'],
+    ],
+    [
+        qr/^You smell rotten (.*)\./ =>
+            ['ring' => 'ring of poison resistance'],
     ],
 );
 
