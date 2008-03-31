@@ -259,7 +259,6 @@ has new_game => (
 
 has persistent_dump => (
     is   => 'rw',
-    isa  => 'HashRef',
     lazy => 1,
     default => sub {
         YAML::LoadFile(TAEB->config->state_file)
