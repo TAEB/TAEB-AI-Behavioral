@@ -248,7 +248,7 @@ sub exit_towards {
     my $self = shift;
     my $other = shift;
 
-    if ($self->branch eq $other->branch) {
+    if (!defined($other->branch) or ($self->branch eq $other->branch)) {
         my @exits;
 
         # we're too high, we need to go down
@@ -259,6 +259,12 @@ sub exit_towards {
             @exits = $self->has_type('stairsup');
         }
 
+        return $exits[0];
+    }
+    elsif ($self->z ne 1) {
+        # just go up.
+        my @exits;
+        @exits = $self->has_type('stairsup');
         return $exits[0];
     }
 
@@ -420,6 +426,7 @@ around is_minetown => sub {
     my $is_minetown = $self->$orig;
     return $is_minetown if $is_minetown;
 
+    return 0 unless defined($self->branch);
     return 0 unless $self->branch eq 'mines';
     return 0 unless $self->z >= 5 && $self->z <= 8;
 
