@@ -674,6 +674,19 @@ sub console {
     $self->out(TAEB->redraw);
 }
 
+sub dump {
+    my $self = shift->instance;
+    my %temp;
+    my @stash = qw/interface config ttyrec vt scraper personality state log read_wait new_game persistent_dump/;
+
+    @temp{@stash} = delete @$self{@stash};
+    eval { YAML::DumpFile(TAEB->config->state_file => $self) };
+    warn $@ if $@;
+    @$self{@stash} = @temp{@stash};
+
+    return $@ ? 0 : 1;
+}
+
 no Moose;
 
 1;
