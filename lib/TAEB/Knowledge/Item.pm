@@ -62,7 +62,7 @@ around exclude_possibility => sub {
     my $class = ucfirst $type;
 
     # don't rule anything out for blind appearances.
-    return if grep { $_ == $appearance } ("TAEB::Spoilers::Item::$class"->blind_appearances);
+    return if grep { $_ eq $appearance } ("TAEB::Spoilers::Item::$class"->blind_appearances);
 
     # ignore if we have only one possibility
     my @possibilities = $self->possibilities;
