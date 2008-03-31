@@ -267,7 +267,7 @@ has multi_identity_appearances => (
     isa        => 'ArrayRef',
     auto_deref => 1,
     default    => sub {
-        ['gem', (map { "$_ gem" } (qw/white red blue orange black green yellow violet/,
+        [(map { "$_ gem" } (qw/white red blue orange black green yellow violet/,
                            'yellowish brown')), 'gray stone'];
     },
 );
