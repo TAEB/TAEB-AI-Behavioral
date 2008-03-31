@@ -127,6 +127,11 @@ sub msg_trapdoor {
     TAEB->current_level->branch($self->starting_tile->branch);
 }
 
+sub msg_got_item {
+    my $self = shift;
+    TAEB->enqueue_message(remove_floor_item => @_);
+}
+
 no Moose;
 
 1;

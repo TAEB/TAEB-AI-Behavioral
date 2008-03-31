@@ -137,10 +137,6 @@ our @msg_regex = (
             ['got_item', sub { TAEB->new_item($1) }],
     ],
     [
-        qr/^(. - .*?|\d+ gold pieces?)\.$/,
-            ['remove_floor_item', sub { TAEB->new_item($1) }],
-    ],
-    [
         qr/^You read: \"(.*)\"\./,
             ['floor_message', sub { $1 }],
     ],
