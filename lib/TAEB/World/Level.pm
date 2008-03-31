@@ -2,6 +2,7 @@
 package TAEB::World::Level;
 use TAEB::OO;
 use TAEB::Util qw/deltas delta2vi vi2delta tile_types/;
+use List::MoreUtils 'any';
 
 use overload
     %TAEB::Meta::Overload::default,
@@ -356,6 +357,9 @@ sub detect_branch {
 sub _detect_dungeon {
     my $self = shift;
 
+    return 1 if any { $_->branch && $_->branch eq 'mines' }
+                $self->dungeon->get_levels($self->z);
+
     # dungeon features (fountain, sink, altar, door, etc)
     # watch out for minetown
 
@@ -364,6 +368,9 @@ sub _detect_dungeon {
 
 sub _detect_mines {
     my $self = shift;
+
+    return 1 if any { $_->branch && $_->branch eq 'dungeons' }
+                $self->dungeon->get_levels($self->z);
 
     # convex walls
     # - futilius has crazy schemes!
