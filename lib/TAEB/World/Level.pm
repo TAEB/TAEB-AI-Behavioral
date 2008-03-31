@@ -153,6 +153,8 @@ sub radiate {
         @_,
     );
 
+    my $stopper = $args{stopper} || sub { 0 };
+
     # check each direction
     DIRECTION: for (deltas) {
         my ($dx, $dy) = @$_;
@@ -163,6 +165,8 @@ sub radiate {
 
             # have we fallen off the map? if so, stop this line of radiation
             my $tile = TAEB->current_level->at($x, $y) or next DIRECTION;
+
+            next DIRECTION if $stopper->($tile);
 
             my $ret = $code->($tile);
             if ($ret) {
