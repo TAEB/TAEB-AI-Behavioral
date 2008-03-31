@@ -43,14 +43,15 @@ sub prepare {
 
     # not sure what happened, so just write Elbereth
     $self->write_elbereth;
-    $self->currently("Writing Elbereth in preparation for combat.");
-    return 100;
+    $self->currently("Writing extra Elbereths.");
+    return 30;
 }
 
 sub urgencies {
     return {
         100 => "writing Elbereth in preparation for combat",
          75 => "attacking a monster with Elbereth",
+         30 => "writing extra Elbereths even though we have a bunch",
     },
 }
 
