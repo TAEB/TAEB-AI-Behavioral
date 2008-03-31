@@ -10,8 +10,8 @@ sub prepare {
     return 0 unless @items;
     return 0 if TAEB->senses->is_blind;
 
-    my $item = shift @items;
-    #my $pt = $item->possibility_tracker;
+    my $ring = shift @items;
+    #my $pt = $ring->possibility_tracker;
 
     my $level = TAEB->nearest_level(sub { shift->has_type('sink') })
         or return 0;
