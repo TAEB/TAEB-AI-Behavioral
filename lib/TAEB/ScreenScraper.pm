@@ -101,6 +101,10 @@ our %msg_string = (
         ['branch', 'vlad'],
     "You smell smoke..." =>
         ['branch', 'gehennom'],
+    "A trap door opens up under you!" =>
+        ['trapdoor'],
+    "There's a gaping hole under you!" =>
+        ['trapdoor'],
 );
 
 our @msg_regex = (
