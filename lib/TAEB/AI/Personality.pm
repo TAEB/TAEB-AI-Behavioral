@@ -121,7 +121,6 @@ sub enhance {
     return 1;
 }
 
-sub respond_wish          { "2 blessed potions of full healing\n" }
 sub respond_really_attack { "y" }
 sub respond_name          { "\n" }
 sub respond_save_file     { "n" }
@@ -129,6 +128,23 @@ sub respond_vault_guard   { TAEB->name."\n" }
 sub respond_advance_without_practice { "n" }
 sub respond_dump_core { "n" }
 sub respond_die { "n" }
+
+sub respond_wish {
+    # We all know how much TAEB loves Elbereth. Let's give it Elbereth's best buddy.
+    return "blessed fixed +3 Magicbane\n" unless TAEB::Spoilers::Item::Artifact->seen("Magicbane");
+
+    # Half physical damage? Don't mind if I do! (Now with added grease for Eidolos!)
+    return "blessed fixed greased Master Key of Thievery\n" unless TAEB::Spoilers::Item::Artifact->seen('Master Key of Thievery') || TAEB->align eq 'Cha';
+
+    # We can always use more AC.
+    return "blessed fixed greased +3 dwarvish mithril-coat\n" unless TAEB->find_item(qr/mithril/);
+
+    # Healing sounds good, too.
+    return "2 blessed potions of full healing\n" if TAEB->knowledge->appearance_of->{"potion of full healing"};
+
+    # When in doubt, ask for more food.
+    return "2 blessed fixed greased lembas wafers";
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
