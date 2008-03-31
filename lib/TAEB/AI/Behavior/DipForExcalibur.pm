@@ -8,6 +8,8 @@ sub can_make_excalibur {
 
     # only one Excalibur. Alas.
     return if TAEB::Spoilers::Item::Artifact->seen("Excalibur");
+
+    return 1;
 }
 
 sub prepare {
