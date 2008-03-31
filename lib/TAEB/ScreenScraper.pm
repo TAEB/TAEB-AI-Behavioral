@@ -222,6 +222,10 @@ our @msg_regex = (
         qr/^Autopickup: (ON|OFF)/ =>
             ['autopickup' => sub { $1 eq 'ON' }],
     ],
+    [
+        qr/^You kill .*/ =>
+            ['killed'],
+    ],
 );
 
 our @god_anger = (
