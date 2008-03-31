@@ -1,5 +1,5 @@
 ---
-interface: Telnet
+interface: Local
 personality: ScoreWhore
 
 role: Valkyrie
