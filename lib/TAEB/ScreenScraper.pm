@@ -215,7 +215,7 @@ our @msg_regex = (
             [check => 'discoveries'],
     ],
     [
-        qr/^Autopickup: (ON|OFF).*/ =>
+        qr/^Autopickup: (ON|OFF)/ =>
             ['autopickup' => sub { $1 eq 'ON' }],
     ],
 );

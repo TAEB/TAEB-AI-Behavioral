@@ -237,11 +237,6 @@ sub update {
     }
 
     $self->prev_turn($self->turn);
-
-    if ($self->autopickup ^ TAEB->current_tile->in_shop) {
-        TAEB->info("Toggling autopickup because we entered/exited a shop");
-        TAEB->write("@");
-    }
 }
 
 sub msg_autopickup {
@@ -296,6 +291,12 @@ sub msg_beartrap {
 sub msg_walked {
     my $self = shift;
     $self->in_beartrap(0);
+
+    if (!$self->autopickup xor TAEB->current_tile->in_shop) {
+        TAEB->info("Toggling autopickup because we entered/exited a shop");
+        TAEB->write("@");
+        TAEB->process_input;
+    }
 }
 
 sub msg_turn {
