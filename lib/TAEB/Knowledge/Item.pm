@@ -85,7 +85,7 @@ around exclude_possibility => sub {
 
         for my $other (values %{ TAEB->knowledge->appearances->{$type} }) {
             next if $other->appearance eq $appearance;
-            my $spoiler = "TAEB::Spoilers::Item::$type";
+            my $spoiler = "TAEB::Spoilers::Item::" . ucfirst $type;
             next if grep { $other->appearance eq $_ }
                          $spoiler->blind_appearances;
             $other->rule_out($identity);
