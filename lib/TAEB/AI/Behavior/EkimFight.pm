@@ -23,7 +23,7 @@ sub prepare {
     return 0 if length($path->path) > 8;
 
     # if we have fewer than three Elbereths, write another
-    if (TAEB->current_tile->elbereths < 3) {
+    if (TAEB->senses->elbereth_count < 3) {
         $self->write_elbereth;
         $self->currently("Writing Elbereth in preparation for combat.");
         return 100;
