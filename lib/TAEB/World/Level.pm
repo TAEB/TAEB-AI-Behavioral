@@ -248,7 +248,7 @@ sub exit_towards {
     my $self = shift;
     my $other = shift;
 
-    if (!defined($other->branch) or ($self->branch eq $other->branch)) {
+    if (!defined($other->branch) || $self->branch eq $other->branch) {
         my @exits;
 
         # we're too high, we need to go down
@@ -263,9 +263,7 @@ sub exit_towards {
     }
     elsif ($self->z ne 1) {
         # just go up.
-        my @exits;
-        @exits = $self->has_type('stairsup');
-        return $exits[0];
+        return ($self->has_type('stairsup'))[0];
     }
 
     die "I don't know how to do $self->exit_towards($other) when the levels are in different branches.";
