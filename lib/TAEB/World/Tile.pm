@@ -10,7 +10,7 @@ has level => (
     isa      => 'TAEB::World::Level',
     weak_ref => 1,
     required => 1,
-    handles  => [qw/z/],
+    handles  => [qw/z branch/],
 );
 
 #has room => (
