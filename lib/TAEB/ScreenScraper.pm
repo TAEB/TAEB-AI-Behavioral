@@ -217,7 +217,7 @@ our @msg_regex = (
             [wand => sub { "wand of $2" }],
     ],
     [
-        qr/^.*? zaps an? .*? wand!/,
+        qr/^.*? zaps (?:(?:him|her|it)self with )?an? .*? wand!/,
             ['check' => 'discoveries'],
     ],
     [
