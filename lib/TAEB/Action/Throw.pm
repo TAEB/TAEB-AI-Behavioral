@@ -18,6 +18,20 @@ has '+direction' => (
     required => 1,
 );
 
+has target_tile => (
+    isa => 'TAEB::World::Tile',
+);
+
+has threw_multiple => (
+    isa     => 'Bool',
+    default => 0,
+);
+
+has killed => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub respond_throw_what { shift->item->slot }
 
 # we don't get a message when we throw one dagger
@@ -50,8 +64,16 @@ sub msg_throw_count {
     my $self  = shift;
     my $count = shift;
 
+    $self->threw_multiple($count);
+
     # done takes care of the other one
     TAEB->inventory->decrease_quantity($self->item->slot, $count - 1);
+}
+
+sub msg_killed {
+    my $self = shift;
+
+    $self->killed(1);
 }
 
 __PACKAGE__->meta->make_immutable;
