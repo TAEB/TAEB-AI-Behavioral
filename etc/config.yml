@@ -2,6 +2,8 @@
 interface: Local
 personality: ScoreWhore
 
+state_file: .TAEB.yml
+
 role: Valkyrie
 race: Dwarf
 
