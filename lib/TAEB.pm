@@ -137,7 +137,7 @@ has dungeon => (
     default => sub {
         my $self = shift;
         return TAEB::World::Dungeon->new if $self->new_game;
-        return $self->persistent_dump->{dungeon};
+        return delete $self->persistent_dump->{dungeon};
     },
     handles => {
         current_level => 'current_level',
@@ -192,7 +192,7 @@ has senses => (
     default => sub {
         my $self = shift;
         return TAEB::Senses->new if $self->new_game;
-        return $self->persistent_dump->{senses};
+        return delete $self->persistent_dump->{senses};
     },
     lazy    => 1,
     handles => qr/^(?!check_|msg_|update)/,
@@ -205,7 +205,7 @@ has inventory => (
     default => sub {
         my $self = shift;
         return TAEB::World::Inventory->new if $self->new_game;
-        return $self->persistent_dump->{inventory};
+        return delete $self->persistent_dump->{inventory};
     },
     handles => {
         find_item => 'find',
@@ -219,7 +219,7 @@ has spells => (
     default => sub {
         my $self = shift;
         return TAEB::World::Spells->new if $self->new_game;
-        return $self->persistent_dump->{spells};
+        return delete $self->persistent_dump->{spells};
     },
     handles => {
         find_spell    => 'find',
@@ -247,7 +247,7 @@ has knowledge => (
     default => sub {
         my $self = shift;
         return TAEB::Knowledge->new if $self->new_game;
-        return $self->persistent_dump->{knowledge};
+        return delete $self->persistent_dump->{knowledge};
     },
 );
 
