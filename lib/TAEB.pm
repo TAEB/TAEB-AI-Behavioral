@@ -709,6 +709,12 @@ sub dump {
     return $@ ? 0 : 1;
 }
 
+sub has_dump {
+    return 0 unless TAEB->config->state_file;
+    return 0 unless TAEB->persistent_dump;
+    return 1;
+}
+
 no Moose;
 
 1;
