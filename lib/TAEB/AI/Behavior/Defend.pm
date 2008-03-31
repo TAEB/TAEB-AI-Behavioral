@@ -9,7 +9,7 @@ sub prepare {
 
     if (TAEB->hp * 2 <= TAEB->maxhp) {
         my $can_engrave = TAEB->can_engrave;
-        my $elbereths   = lazy { TAEB->senses->elbereth_count };
+        my $elbereths   = lazy { TAEB->elbereth_count };
 
         my ($adjacent_ignoring, $adjacent_respecting) = (0, 0);
         TAEB->each_adjacent(sub {

@@ -35,11 +35,11 @@ sub prepare {
     my $self = shift;
 
     my %c;
-    $c{blind}       = TAEB->senses->is_blind;
-    $c{stun}        = TAEB->senses->is_stunned;
-    $c{conf}        = TAEB->senses->is_confused;
-    $c{hallu}       = TAEB->senses->is_hallucinating;
-    $c{lycanthropy} = TAEB->senses->is_lycanthropic;
+    $c{blind}       = TAEB->is_blind;
+    $c{stun}        = TAEB->is_stunned;
+    $c{conf}        = TAEB->is_confused;
+    $c{hallu}       = TAEB->is_hallucinating;
+    $c{lycanthropy} = TAEB->is_lycanthropic;
 
     for (my $i = 0; $i < @can_fix; $i += 2) {
         my ($item_name, $fix) = @can_fix[$i, $i+1];

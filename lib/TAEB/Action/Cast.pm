@@ -16,8 +16,8 @@ sub respond_which_spell { shift->spell->slot }
 sub exception_hunger_cast {
     my $self = shift;
 
-    if (TAEB->senses->nutrition > 10) {
-        TAEB->senses->nutrition(10);
+    if (TAEB->nutrition > 10) {
+        TAEB->nutrition(10);
         TAEB->info("Adjusting our nutrition to 10 because we're too hungry to cast spells");
         $self->aborted(1);
     }
@@ -34,7 +34,7 @@ sub done {
     # detect food doesn't make us hungry
     return if $spell->name eq 'detect food';
 
-    my $nutrition = TAEB->senses->nutrition;
+    my $nutrition = TAEB->nutrition;
 
     # in the future, let's check to see how much we actually spent (Amulet of
     # Yendor)
@@ -42,16 +42,16 @@ sub done {
     my $hunger = 2 * $energy;
 
     if (TAEB->role eq 'Wiz') {
-           if (TAEB->senses->int >= 17) { $hunger = 0 }
-        elsif (TAEB->senses->int == 16) { $hunger = int($hunger / 4) }
-        elsif (TAEB->senses->int == 15) { $hunger = int($hunger / 2) }
+           if (TAEB->int >= 17) { $hunger = 0 }
+        elsif (TAEB->int == 16) { $hunger = int($hunger / 4) }
+        elsif (TAEB->int == 15) { $hunger = int($hunger / 2) }
     }
 
     if ($hunger > $nutrition - 3) {
         $hunger = $nutrition - 3;
     }
 
-    TAEB->senses->nutrition($nutrition - $hunger);
+    TAEB->nutrition($nutrition - $hunger);
 }
 
 __PACKAGE__->meta->make_immutable;

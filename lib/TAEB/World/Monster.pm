@@ -62,7 +62,7 @@ sub is_meleeable {
     # blue jelly (cold)
     return 0 if $self->color eq COLOR_BLUE
              && $self->glyph eq 'j'
-             && !TAEB->senses->cold_resistant;
+             && !TAEB->cold_resistant;
 
     # spotted jelly (acid)
     return 0 if $self->color eq COLOR_GREEN

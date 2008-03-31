@@ -21,7 +21,7 @@ sub unlock_action {
         currently => "Unlocking a door",
     ) if $locktool;
 
-    if (TAEB->senses->can_kick) {
+    if (TAEB->can_kick) {
         return (kick =>
             currently => "Kicking down a door",
         );
@@ -33,7 +33,7 @@ sub unlock_action {
 sub prepare {
     my $self = shift;
 
-    return 0 unless TAEB->senses->can_open;
+    return 0 unless TAEB->can_open;
     return 0 unless TAEB->current_level->has_type('closeddoor');
 
     my ($action, %action_args) = $self->unlock_action;

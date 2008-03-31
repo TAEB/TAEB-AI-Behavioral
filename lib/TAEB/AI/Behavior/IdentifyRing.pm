@@ -8,7 +8,7 @@ sub prepare {
 
     my @items = grep { $self->pickup($_) } TAEB->inventory->items;
     return 0 unless @items;
-    return 0 if TAEB->senses->is_blind;
+    return 0 if TAEB->is_blind;
 
     my $ring = shift @items;
     #my $pt = $ring->possibility_tracker;

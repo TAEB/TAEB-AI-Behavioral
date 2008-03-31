@@ -7,7 +7,7 @@ sub prepare {
     my $self = shift;
 
     # Can't see altar flash when blind
-    return 0 if TAEB->senses->is_blind;
+    return 0 if TAEB->is_blind;
 
     my $level = TAEB->nearest_level(sub { shift->has_type('altar') })
         or return 0;
@@ -37,7 +37,7 @@ sub drop {
     my $item = shift;
 
     return if TAEB->current_tile->type ne 'altar'
-           || TAEB->senses->is_blind
+           || TAEB->is_blind
            || $item->buc ne 'unknown';
 
     TAEB->debug("Yes, I want to drop $item because it needs to be cursechecked.");

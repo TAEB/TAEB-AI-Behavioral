@@ -23,7 +23,7 @@ sub prepare {
     return 0 if length($path->path) > 8;
 
     # if we have fewer than three Elbereths, write another
-    if (TAEB->senses->can_engrave && TAEB->senses->elbereth_count < 3) {
+    if (TAEB->can_engrave && TAEB->elbereth_count < 3) {
         $self->write_elbereth;
         $self->currently("Writing Elbereth in preparation for combat.");
         return 100;
@@ -41,7 +41,7 @@ sub prepare {
     });
     return 75 if $found_monster;
 
-    return 0 unless TAEB->senses->can_engrave;
+    return 0 unless TAEB->can_engrave;
 
     # not sure what happened, so just write Elbereth
     $self->write_elbereth;

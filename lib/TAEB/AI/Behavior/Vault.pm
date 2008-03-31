@@ -6,7 +6,7 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    if (TAEB->senses->gold > 0 &&
+    if (TAEB->gold > 0 &&
         $self->drop(TAEB->new_item('1 gold piece'))) {
         $self->do('drop');
         $self->currently("Dropping my gold");

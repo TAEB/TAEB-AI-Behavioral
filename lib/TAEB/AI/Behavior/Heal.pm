@@ -28,7 +28,7 @@ sub prepare {
         }
 
         if (TAEB->hp * 7 < TAEB->maxhp || TAEB->hp < 6) {
-            if (!TAEB->senses->is_polymorphed && TAEB->can_pray) {
+            if (!TAEB->is_polymorphed && TAEB->can_pray) {
                 $self->do('pray');
                 $self->currently("Praying for healing");
                 return 80;

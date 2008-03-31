@@ -260,8 +260,8 @@ sub handle_playing {
         $self->vt->row_plaintext(22),
         $self->personality->currently,
         $command,
-        $self->senses->nutrition,
-        ($self->senses->score || '?'),
+        $self->nutrition,
+        ($self->score || '?'),
         $self->y + 1,
         $self->x + 1,
     );

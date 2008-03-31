@@ -36,7 +36,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return unless grep { TAEB->senses->role } qw/Hea Tou Val/;
+    return unless grep { TAEB->role } qw/Hea Tou Val/;
 
     return if $item->appearance !~ /mithril/
            || $item->buc eq 'cursed'

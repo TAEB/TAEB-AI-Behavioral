@@ -51,7 +51,7 @@ sub castable {
     return 0 if $self->power > TAEB->power;
 
     # "You are too hungry to cast!" (detect food is exempted by NH itself)
-    return 0 if TAEB->senses->nutrition <= 10 && $self->name ne 'detect food';
+    return 0 if TAEB->nutrition <= 10 && $self->name ne 'detect food';
 
     return 1;
 }

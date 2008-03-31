@@ -72,11 +72,11 @@ sub post_responses {
         TAEB->enqueue_message('remove_floor_item' => $item);
     }
 
-    my $old_nutrition = TAEB->senses->nutrition;
+    my $old_nutrition = TAEB->nutrition;
     my $new_nutrition = $old_nutrition + $item->nutrition;
 
     TAEB->debug("Eating $item is increasing our nutrition from $old_nutrition to $new_nutrition");
-    TAEB->senses->nutrition($new_nutrition);
+    TAEB->nutrition($new_nutrition);
 }
 
 # is there any food around?

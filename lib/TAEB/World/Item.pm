@@ -294,7 +294,7 @@ sub lookup_spoiler {
 
 sub is_autopickuped {
     my $self = shift;
-    return 0 if !TAEB->senses->autopickup;
+    return 0 if !TAEB->autopickup;
 
     return 1 if $self->appearance eq 'gold piece';
     return 1 if $self->class eq 'wand';
@@ -318,7 +318,7 @@ sub maybe_is {
 
 sub throw_range {
     my $self = shift;
-    my $range = int(TAEB->senses->numeric_strength / 2);
+    my $range = int(TAEB->numeric_strength / 2);
 
     if ($self->identity eq 'heavy iron ball') {
         $range -= int($self->weight / 100);
