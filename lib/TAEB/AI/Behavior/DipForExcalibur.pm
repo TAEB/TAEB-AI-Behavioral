@@ -20,8 +20,14 @@ sub prepare {
 
     my $longsword = TAEB->find_item("long sword");
 
-    my $level = TAEB->nearest_level(sub { shift->has_type('fountain') })
-        or return 0;
+    my $level = TAEB->nearest_level(sub {
+        my $tile = shift;
+        return 0 if $tile->level->is_minetown;
+        return $tile->has_type('fountain');
+    });
+
+    return 0 if !$level;
+    return 0 if TAEB->current_level->is_minetown;
 
     # are we standing on a fountain? if so, dip!
     if (TAEB->current_tile->type eq 'fountain') {
