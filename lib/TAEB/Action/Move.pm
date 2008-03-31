@@ -120,6 +120,13 @@ sub handle_obscured_doors {
     }
 }
 
+# falling into a trapdoor makes the new level the same branch as the old level
+sub msg_trapdoor {
+    my $self = shift;
+
+    TAEB->current_level->branch($self->starting_tile->branch);
+}
+
 no Moose;
 
 1;
