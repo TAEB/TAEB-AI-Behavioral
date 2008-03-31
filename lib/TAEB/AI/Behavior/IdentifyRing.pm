@@ -46,6 +46,19 @@ sub pickup {
     return 0;
 }
 
+sub drop {
+    my $self = shift;
+    my $item = shift;
+
+    return if TAEB->current_tile->type ne 'sink'
+           || TAEB->is_blind
+           || $item->identity;
+
+
+    TAEB->debug("Yes, I want to drop $item because I want to find out what it is.");
+    return 1;
+}
+
 sub urgencies {
     return {
         100 => "sink-identifying a ring",
