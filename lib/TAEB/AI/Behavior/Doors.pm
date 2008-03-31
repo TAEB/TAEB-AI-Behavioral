@@ -12,7 +12,8 @@ sub unlock_action {
     }
 
     # can we unlock? if so, try it
-    my $locktool = TAEB->find_item('skeleton key')
+    my $locktool = TAEB->find_item('Master Key of Thievery')
+                || TAEB->find_item('skeleton key')
                 || TAEB->find_item('lock pick')
                 || TAEB->find_item('credit card');
 
