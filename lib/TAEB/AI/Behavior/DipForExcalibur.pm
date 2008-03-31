@@ -30,13 +30,14 @@ sub prepare {
     });
 
     return 0 if !$level;
-    return 0 if TAEB->current_level->is_minetown;
 
-    # are we standing on a fountain? if so, dip!
-    if (TAEB->current_tile->type eq 'fountain') {
-        $self->currently("Dipping for Excalibur!");
-        $self->do(dip => item => $longsword, into => "fountain");
-        return 100;
+    unless (TAEB->current_level->is_minetown) {
+        # are we standing on a fountain? if so, dip!
+        if (TAEB->current_tile->type eq 'fountain') {
+            $self->currently("Dipping for Excalibur!");
+            $self->do(dip => item => $longsword, into => "fountain");
+            return 100;
+        }
     }
 
     # find a fountain
