@@ -53,6 +53,14 @@ sub done {
         $tile->is_walkable(1)
             or last;
 
+        # if we're throwing at a monster, then the projectile will always stop
+        # at the monster's tile (unless we threw multiple and it killed the
+        # monster - the subsequent projectiles can fly past)
+        if ($tile eq $self->target_tile) {
+            last unless $self->threw_multiple
+                     && $self->killed;
+        }
+
         # . tiles would show the projectile we threw
         next if $tile->glyph eq '.';
 
