@@ -178,7 +178,7 @@ has senses => (
     is => 'rw',
     isa => 'TAEB::Senses',
     default => sub { TAEB::Senses->new },
-    handles => qr/^(?!check_|msg_)/,
+    handles => qr/^(?!check_|msg_|update)/,
 );
 
 has inventory => (
