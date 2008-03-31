@@ -11,6 +11,7 @@ TAEB::AI::Personality::Behavioral - base class for personalities with behaviors
 
 has behaviors => (
     isa     => 'HashRef[TAEB::AI::Behavior]',
+    lazy    => 1,
     default => sub {
         my $self      = shift;
         my $behaviors = {};
