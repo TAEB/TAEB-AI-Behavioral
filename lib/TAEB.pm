@@ -336,6 +336,7 @@ sub handle_logging_in {
 sub handle_saving {
     my $self = shift;
 
+    $self->dump;
     $self->write("\e\eS");
 }
 
