@@ -677,7 +677,7 @@ sub console {
 sub dump {
     my $self = shift->instance;
     my %temp;
-    my @stash = qw/interface config ttyrec vt scraper personality state log read_wait new_game persistent_dump/;
+    my @stash = qw/interface config ttyrec vt scraper personality action publisher state log read_wait new_game persistent_dump/;
 
     @temp{@stash} = delete @$self{@stash};
     eval { YAML::DumpFile(TAEB->config->state_file => $self) };
