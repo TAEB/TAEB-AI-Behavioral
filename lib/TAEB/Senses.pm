@@ -330,7 +330,7 @@ sub msg_engulfed {
 
 sub elbereth_count {
     TAEB->write(":");
-    TAEB->process_input;
+    TAEB->full_input;
     my $tile = TAEB->current_tile;
     my $elbereths = $tile->elbereths;
     TAEB->info("Tile (".$tile->x.", ".$tile->y.") has $elbereths Elbereths (".
