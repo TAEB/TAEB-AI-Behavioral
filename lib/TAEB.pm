@@ -679,8 +679,10 @@ sub dump {
     my %temp;
     my @stash = qw/interface config ttyrec vt scraper personality action publisher state log read_wait new_game persistent_dump/;
 
+    my $state_file = TAEB->config->state_file;
+
     @temp{@stash} = delete @$self{@stash};
-    eval { YAML::DumpFile(TAEB->config->state_file => $self) };
+    eval { YAML::DumpFile($state_file => $self) };
     warn $@ if $@;
     @$self{@stash} = @temp{@stash};
 
