@@ -48,6 +48,10 @@ has personality => (
     is       => 'rw',
     isa      => 'TAEB::AI::Personality',
     lazy     => 1,
+    default  => sub {
+        use TAEB::AI::Personality::Human;
+        return TAEB::AI::Personality::Human->new;
+    },
     handles  => [qw(want_item currently next_action)],
     trigger  => sub {
         my ($self, $personality) = @_;
