@@ -77,7 +77,8 @@ sub find {
         ($matcher, $value) = ('identity', $matcher);
     }
 
-    return first {  $_->$matcher eq $value } $self->items;
+    return first { defined $_->$matcher && $_->$matcher eq $value }
+                 $self->items;
 }
 
 =head2 update Char, Item
