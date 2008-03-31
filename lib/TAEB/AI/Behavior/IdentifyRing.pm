@@ -6,9 +6,10 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
+    return 0 if TAEB->is_blind;
+
     my @items = grep { $self->pickup($_) } TAEB->inventory->items;
     return 0 unless @items;
-    return 0 if TAEB->is_blind;
 
     my $ring = shift @items;
 
