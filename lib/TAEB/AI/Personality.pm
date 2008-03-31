@@ -134,7 +134,9 @@ sub respond_wish {
     return "blessed fixed +3 Magicbane\n" unless TAEB::Spoilers::Item::Artifact->seen("Magicbane");
 
     # Half physical damage? Don't mind if I do! (Now with added grease for Eidolos!)
-    return "blessed fixed greased Master Key of Thievery\n" unless TAEB::Spoilers::Item::Artifact->seen('Master Key of Thievery') || TAEB->align eq 'Cha';
+    return "blessed fixed greased Master Key of Thievery\n"
+        if TAEB->align eq 'Cha'
+        && !TAEB::Spoilers::Item::Artifact->seen('Master Key of Thievery');
 
     # We can always use more AC.
     return "blessed fixed greased +3 dwarvish mithril-coat\n" unless TAEB->find_item(qr/mithril/);
