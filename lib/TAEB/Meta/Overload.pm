@@ -19,6 +19,9 @@ our %comparison = (
     },
 );
 
+$comparison{eq} = $comparison{'=='};
+$comparison{ne} = $comparison{'!='};
+
 our %stringification = (
     q{""} => sub {
         my $self = shift;
