@@ -47,6 +47,7 @@ has interface => (
 has personality => (
     is       => 'rw',
     isa      => 'TAEB::AI::Personality',
+    lazy     => 1,
     handles  => [qw(want_item currently next_action)],
     trigger  => sub {
         my ($self, $personality) = @_;
@@ -59,6 +60,7 @@ has scraper => (
     is       => 'rw',
     isa      => 'TAEB::ScreenScraper',
     required => 1,
+    lazy     => 1,
     default  => sub { TAEB::ScreenScraper->new },
     handles  => [qw(messages farlook)],
 );
@@ -66,12 +68,14 @@ has scraper => (
 has config => (
     is       => 'rw',
     isa      => 'TAEB::Config',
+    lazy     => 1,
     default  => sub { TAEB::Config->new },
 );
 
 has vt => (
     is       => 'rw',
     isa      => 'TAEB::VT',
+    lazy     => 1,
     required => 1,
     default  => sub {
         my $vt = TAEB::VT->new(cols => 80, rows => 24);
@@ -175,15 +179,17 @@ has ttyrec => (
 );
 
 has senses => (
-    is => 'rw',
-    isa => 'TAEB::Senses',
+    is      => 'rw',
+    isa     => 'TAEB::Senses',
     default => sub { TAEB::Senses->new },
+    lazy    => 1,
     handles => qr/^(?!check_|msg_|update)/,
 );
 
 has inventory => (
     is      => 'rw',
     isa     => 'TAEB::World::Inventory',
+    lazy    => 1,
     default => sub { TAEB::World::Inventory->new },
     handles => {
         find_item => 'find',
@@ -193,6 +199,7 @@ has inventory => (
 has spells => (
     is      => 'rw',
     isa     => 'TAEB::World::Spells',
+    lazy    => 1,
     default => sub { TAEB::World::Spells->new },
     handles => {
         find_spell    => 'find',
@@ -216,6 +223,7 @@ has action => (
 has knowledge => (
     is      => 'rw',
     isa     => 'TAEB::Knowledge',
+    lazy    => 1,
     default => sub { TAEB::Knowledge->new },
 );
 
