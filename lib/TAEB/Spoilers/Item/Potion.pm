@@ -120,7 +120,9 @@ has constant_appearances => (
     is         => 'ro',
     isa        => 'HashRef',
     auto_deref => 1,
-    default    => sub { {'clear potion' => 'potion of water'} },
+    default    => sub { {'clear potion' => 'potion of water',
+                         'potion of holy water'   => 'potion of water',
+                         'potion of unholy water' => 'potion of water'} },
 );
 
 has blind_appearances => (
