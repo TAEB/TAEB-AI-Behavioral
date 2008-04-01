@@ -76,6 +76,10 @@ features(
         -default => 0,
         requires("File::Next"),
     ],
+    'Fast persistence' => [
+        -default => 1,
+        requires('YAML::Syck'),
+    ],
 );
 
 build_requires 'Test::More';
