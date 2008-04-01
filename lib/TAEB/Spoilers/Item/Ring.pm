@@ -9,10 +9,6 @@ has list => (
     lazy    => 1,
     default => sub {
         my $rings = {
-            'meat ring' => {
-                base   => 5,
-                weight => 1,
-            },
             'ring of adornment' => {
                 base       => 100,
                 chargeable => 1,
@@ -129,13 +125,6 @@ has randomized_appearances => (
                             'black onyx', 'tiger eye')
         ];
     }
-);
-
-has constant_appearances => (
-    is         => 'ro',
-    isa        => 'HashRef',
-    auto_deref => 1,
-    default    => sub { { 'meat ring' => 'meat ring' } },
 );
 
 has blind_appearances => (
