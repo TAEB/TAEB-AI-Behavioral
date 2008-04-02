@@ -5,6 +5,7 @@ use lib 'lib';
 use Getopt::Whatever;
 
 use TAEB;
+use Curses;
 
 # load_from_argv {{{
 sub load_from_argv {
@@ -85,8 +86,13 @@ $SIG{CONT} = sub {
 
 $TAEB::ToScreen = 1;
 $| = 1;
-Term::ReadKey::ReadMode 3;
-END { Term::ReadKey::ReadMode 0 }
+
+initscr;
+END { endwin }
+noecho;
+cbreak;
+start_color;
+init_pair($_, $_, 0) for 0 .. 8;
 
 $SIG{INT} = sub {
     TAEB->dump;
