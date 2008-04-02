@@ -87,7 +87,7 @@ has vt => (
         $vt->option_set(LFTOCRLF => 1);
         return $vt;
     },
-    handles  => [qw(topline redraw)],
+    handles  => [qw(topline)],
 );
 
 has state => (
@@ -729,6 +729,19 @@ sub try_key {
     return undef if $c == -1;
     return $c;
 }
+
+sub redraw {
+    my $self = shift;
+
+    for my $y (1 .. 21) {
+        Curses::move($y, 0);
+        Curses::addstr(TAEB->vt->row_plaintext($y));
+    }
+
+    Curses::move(TAEB->y, TAEB->x);
+}
+
+sub out {}
 
 no Moose;
 
