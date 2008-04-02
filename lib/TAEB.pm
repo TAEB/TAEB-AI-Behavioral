@@ -560,9 +560,14 @@ after qw/error critical/ => sub {
 sub _notify {
     my $self  = shift;
     my $msg   = shift;
+    my $attr  = shift;
     my $sleep = @_ ? shift : 3;
 
-    $self->out("\e[2H$msg\e[m");
+    Curses::move(1, 0);
+    Curses::attron($attr);
+    Curses::addstr($msg);
+    Curses::attroff($attr);
+
     return if $sleep == 0;
 
     sleep $sleep;
@@ -571,14 +576,15 @@ sub _notify {
 
 sub notify {
     my $self = shift;
-    my $msg = "\e[44m" . shift;
-    $self->_notify($msg, @_);
+    my $msg  = shift;
+
+    $self->_notify($msg, Curses::COLOR_PAIR(TAEB::Util::COLOR_CYAN), @_);
 }
 
 sub complain {
     my $self = shift;
-    my $msg  = "\e[41m" . shift;
-    $self->_notify($msg, @_);
+    my $msg  = shift;
+    $self->_notify($msg, Curses::COLOR_PAIR(TAEB::Util::COLOR_RED), @_);
 }
 
 around write => sub {
