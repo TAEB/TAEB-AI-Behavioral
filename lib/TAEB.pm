@@ -731,8 +731,7 @@ sub redraw {
     }
 
     $self->draw_botl;
-
-    Curses::move(TAEB->y, TAEB->x);
+    $self->place_cursor;
 }
 
 sub draw_botl {
@@ -777,6 +776,13 @@ sub draw_botl {
     Curses::addstr(join ' ', @pieces);
 }
 
+sub place_cursor {
+    my $self = shift;
+    my $x    = shift || TAEB->x;
+    my $y    = shift || TAEB->y;
+
+    Curses::move($y, $x);
+}
 
 sub out {}
 
