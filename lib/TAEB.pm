@@ -565,6 +565,8 @@ sub _notify {
     my $attr  = shift;
     my $sleep = @_ ? shift : 3;
 
+    return if !defined($msg) || !length($msg);
+
     Curses::move(1, 0);
     Curses::attron($attr);
     Curses::addstr($msg);
