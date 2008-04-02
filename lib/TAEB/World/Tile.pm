@@ -499,6 +499,21 @@ sub draw_explored {
     Curses::addch($color | ord $self->display_glyph);
 }
 
+sub draw_debug {
+    my $self  = shift;
+    my $color = $self->in_shop
+              ? Curses::COLOR_PAIR(COLOR_MAGENTA)
+              : $self->might_have_new_item
+              ? Curses::COLOR_PAIR(COLOR_RED)
+              : $self->stepped_on
+              ? Curses::COLOR_PAIR(COLOR_BROWN)
+              : $self->explored
+              ? Curses::COLOR_PAIR(COLOR_GREEN)
+              : 0;
+
+    Curses::addch($color | ord $self->display_glyph);
+}
+
 sub display_glyph {
     my $self = shift;
     $self->glyph eq ' ' ? $self->floor_glyph : $self->glyph;
