@@ -683,14 +683,16 @@ sub handle_menus {
 
 sub handle_fallback {
     my $self = shift;
-
-    $self->messages($self->messages . '  ' . TAEB->topline);
+    my $topline = TAEB->topline;
+    $topline =~ s/\s+$/ /;
 
     if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
-        $self->messages($self->messages . 'y');
+        $self->messages($self->messages . '  ' . $topline . 'y');
         TAEB->write("y");
         die "Game over, man!";
     }
+
+    $self->messages($self->messages . '  ' . $topline);
 
     if (TAEB->vt->y == 0) {
         my $response = TAEB->get_response(TAEB->topline);
