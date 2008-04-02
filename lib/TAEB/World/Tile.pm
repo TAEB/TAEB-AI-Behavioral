@@ -489,7 +489,12 @@ sub draw {
         $bold  = Curses::A_BOLD;
     }
 
-    Curses::addch($bold | Curses::COLOR_PAIR($color) | ord $self->glyph);
+    Curses::addch($bold | Curses::COLOR_PAIR($color) | ord $self->display_glyph);
+}
+
+sub display_glyph {
+    my $self = shift;
+    $self->glyph eq ' ' ? $self->floor_glyph : $self->glyph;
 }
 
 __PACKAGE__->meta->make_immutable;
