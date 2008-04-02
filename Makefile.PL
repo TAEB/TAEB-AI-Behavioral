@@ -19,8 +19,8 @@ requires 'Getopt::Whatever';
 # parse escape codes into an addressable screen
 requires 'Term::VT102';
 
-# human interaction
-requires 'Term::ReadKey';
+# print on an addressable screen
+requires 'Curses';
 
 # logging
 requires 'Log::Dispatch';
