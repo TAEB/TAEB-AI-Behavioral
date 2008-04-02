@@ -14,6 +14,8 @@ sub prepare {
     my $self = shift;
     my ($max_spell, $max_priority) = (undef, 0);
 
+    return 0 unless TAEB->current_level->has_enemies;
+
     for ($self->use_spells) {
         my $spell = TAEB->find_castable($_)
             or next;
