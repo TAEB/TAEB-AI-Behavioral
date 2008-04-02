@@ -102,43 +102,6 @@ sub as_string {
     return join($delimiter, @rows);
 }
 
-=head2 redraw -> Str
-
-Returns a string that, when printed, will redraw the entire screen, directly as
-NetHack looks.
-
-Also prints that string >_>
-
-=cut
-
-sub redraw {
-    my $self = shift;
-
-    # this order is required for termcast to clear its buffer
-    my $out = "\e[2J\e[H";
-
-    for my $y (0 .. 23) {
-        my @attrs = $self->row_attr($y) =~ /../g;
-        my @chars = split '', $self->row_plaintext($y);
-
-        for (0..$#attrs)
-        {
-            my %attr;
-            @attr{qw/fg bg bold faint standout underline blink reverse/}
-                = $self->attr_unpack($attrs[$_]);
-            $chars[$_] = $self->attr_to_ansi(%attr) . $chars[$_];
-        }
-        $out .= sprintf "\e[%dH%s",
-                    $y + 1,
-                    join '', @chars;
-    }
-
-    $out .= sprintf "\e[%d;%dH", $self->y + 1, $self->x + 1;
-
-    print $out;
-    return $out;
-}
-
 =head2 attr_to_ansi Hash -> Str
 
 Takes a hash with the following keys, and returns the ANSI escape code that can
