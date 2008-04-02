@@ -13,7 +13,7 @@ sub prepare {
         return 1 if !defined($item->charges)
                  || $item->charges;
         return 0;
-    }) and last;
+    });
 
     return 0 unless $wand;
 
