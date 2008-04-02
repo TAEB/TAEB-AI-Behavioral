@@ -796,6 +796,7 @@ sub display_topline {
         # overwrite them
         Curses::move 0, 0;
         Curses::clrtoeol;
+        $self->place_cursor;
         return;
     }
 
@@ -830,6 +831,7 @@ sub display_topline {
             TAEB->redraw if @messages;
         }
     }
+    $self->place_cursor;
 }
 
 no Moose;
