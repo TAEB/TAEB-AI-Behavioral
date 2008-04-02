@@ -757,7 +757,10 @@ sub draw_botl {
     $command =~ s/\e/\\e/g;
     $command =~ s/\cd/^D/g;
 
-    Curses::addstr(sprintf '%s (%s)', $self->currently, $command);
+    my $currently = $self->checking
+                  ? "Checking " . $self->checking
+                  : $self->currently . " ($command)";
+    Curses::addstr($currently);
 
     Curses::clrtoeol;
     Curses::move(23, 0);
