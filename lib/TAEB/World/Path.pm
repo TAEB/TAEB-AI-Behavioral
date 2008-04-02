@@ -246,8 +246,6 @@ you want to include monsters, walls, etc as targets?)
 
 =cut
 
-my $debug_color = 0;
-
 sub _dijkstra {
     my $class  = shift;
     my $scorer = shift;
@@ -256,12 +254,6 @@ sub _dijkstra {
     my $from              = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
     my $include_endpoints = $args{include_endpoints};
-
-    my ($debug, $debug_length);
-    if ($debug = TAEB->config->debug_dijkstra) {
-        $debug_length = $debug =~ /length/;
-        $debug_color = ($debug_color + 1) % 6;
-    }
 
     my $max_score;
     my $max_tile;
@@ -277,19 +269,9 @@ sub _dijkstra {
         my ($tile, $path) = @{ $pq->extract_top };
         my ($x, $y) = ($tile->x, $tile->y);
 
-        TAEB->out(
-            "\e[%d;%dH\e[%dm%s",
-            1+$y, 1+$x, 31 + $debug_color,
-            $debug_length ? length($path) > 9 ? 0 : length($path): $tile->glyph
-        ) if $debug;
-
         my $score = $scorer->($tile, $path);
         if (defined $score) {
             if ($score eq 'q') {
-                TAEB->out(
-                    "\e[%d;%dH\e[m", 1+TAEB->y, 1+TAEB->x
-                ) if $debug;
-
                 return ($tile, $path);
             }
 
@@ -350,9 +332,6 @@ sub _dijkstra {
         }
     }
 
-    TAEB->out(
-        "\e[%d;%dH\e[m", 1+TAEB->y, 1+TAEB->x
-    ) if $debug;
     return ($max_tile, $max_path);
 }
 
