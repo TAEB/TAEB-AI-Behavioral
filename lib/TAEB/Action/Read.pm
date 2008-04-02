@@ -31,7 +31,6 @@ sub msg_learned_spell {
     my $name = shift;
 
     $self->item->identify_as("spellbook of $name");
-    TAEB->senses->check_spells;
 }
 
 sub can_read {

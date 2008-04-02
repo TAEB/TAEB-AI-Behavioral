@@ -319,6 +319,10 @@ our @msg_regex = (
             ['check' => 'inventory'],
     ],
     [
+        qr/You add the .* spell to your repertoire/ =>
+            [check => 'spells'],
+    ],
+    [
         qr/You add the (.*) spell to your repertoire/ =>
             ['learned_spell' => sub { $1 }],
     ],
