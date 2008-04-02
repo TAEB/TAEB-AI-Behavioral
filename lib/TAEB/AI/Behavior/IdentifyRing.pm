@@ -17,7 +17,7 @@ sub prepare {
     # are we standing on a sink? if so, drop!
     if (TAEB->current_tile->type eq 'sink') {
         $self->currently("Dropping the ring in the sink");
-        $self->do(drop => item => \@items);
+        $self->do(drop => items => \@items);
         return 100;
     }
 
