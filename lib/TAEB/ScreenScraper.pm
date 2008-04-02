@@ -143,6 +143,16 @@ our %msg_string = (
         ['ring' => 'ring of polymorph control'],
     "The sink looks like it is being beamed aboard somewhere." =>
         ['ring' => 'ring of teleport control'],
+    "You hear a strange wind." =>
+        ['dungeon_level' => 'oracle'],
+    "You hear convulsive ravings."  =>
+        ['dungeon_level' => 'oracle'],
+    "You hear snoring snakes."  =>
+        ['dungeon_level' => 'oracle'],
+    "You hear someone say \"No more woodchucks!\""  =>
+        ['dungeon_level' => 'oracle'],
+    "You hear a loud ZOT!"  =>
+        ['dungeon_level' => 'oracle'],
 );
 
 our @msg_regex = (
