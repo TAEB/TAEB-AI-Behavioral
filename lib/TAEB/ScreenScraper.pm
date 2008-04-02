@@ -304,6 +304,10 @@ our @msg_regex = (
         qr/(.*) is regurgitated!/ =>
             ['ring' => 'ring of slow digestion'],
     ],
+    [
+        qr/^You stop eating the (.*)\./ =>
+            ['check' => 'inventory'],
+    ],
 );
 
 our @god_anger = (
