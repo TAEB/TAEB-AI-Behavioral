@@ -573,6 +573,7 @@ sub _notify {
     Curses::attron($attr);
     Curses::addstr($msg);
     Curses::attroff($attr);
+    Curses::clrtoeol;
     $self->place_cursor;
 
     return if $sleep == 0;
