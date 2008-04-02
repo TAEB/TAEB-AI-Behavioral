@@ -10,9 +10,8 @@ sub prepare {
     return 0 unless @items;
 
     my $item = shift @items;
-    my $pt = $item->possibility_tracker;
 
-    $self->currently("reading a spellbook");
+    $self->currently("Reading a spellbook");
     $self->do(read => item => $item);
 
     return 100;
@@ -22,13 +21,10 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return if defined($item->identity);
+    return 0 unless $item->class eq 'spellbook';
+    return 0 if TAEB->knows_spell($item);
 
-    if ($item->class eq 'spellbook') {
-        return 1;
-    }
-
-    return;
+    return 1;
 }
 
 sub urgencies {
