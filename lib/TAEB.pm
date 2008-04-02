@@ -438,6 +438,16 @@ sub keypress {
              . ($self->single_step ? "enabled." : "disabled.");
     }
 
+    if ($c eq 'd') {
+        if ($self->config->draw eq 'draw_debug') {
+            $self->config->draw('draw')
+        }
+        else {
+            $self->config->draw('draw_debug')
+        }
+        return undef;
+    }
+
     # turn on/off info to screen
     if ($c eq 'i') {
         $self->info_to_screen(!$self->info_to_screen);
