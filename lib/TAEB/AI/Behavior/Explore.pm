@@ -9,6 +9,7 @@ sub prepare {
     my $current = TAEB->current_tile;
 
     my @exits = grep { !defined($_->other_side) } TAEB->current_level->exits;
+
     if (any { $current == $_ } @exits) {
         $self->currently("Seeing what's on the other side of this exit");
         if ($current->type eq 'stairsdown') {
@@ -29,6 +30,8 @@ sub prepare {
             return $p if $p;
         }
     }
+
+    return 0 if TAEB->current_level->fully_explored;
 
     my $path = TAEB::World::Path->first_match(sub { not shift->explored });
     $self->if_path($path, "Exploring", 100);
