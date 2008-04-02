@@ -742,14 +742,25 @@ sub draw_botl {
 
     Curses::addstr(sprintf '%s (%s)', $self->currently, $command);
 
-    Curses::move(22, 65);
-    Curses::addstr(sprintf 'N:%d S:%s',
-        $self->nutrition,
-        ($self->score || '?'),
-    );
-
     Curses::move(23, 0);
     Curses::clrtoeol;
+
+    my @pieces;
+    push @pieces, 'D:' . $self->current_level->z;
+    $pieces[-1] .= '/' . $self->current_level->branch
+        if $self->current_level->branch;
+
+    push @pieces, 'H:' . $self->hp . '/' . $self->maxhp;
+    push @pieces, 'P:' . $self->power . '/' . $self->maxpower
+        if $self->spells->has_spells;
+    push @pieces, 'A:' . $self->ac;
+    push @pieces, 'X:' . $self->level;
+    push @pieces, 'N:' . $self->nutrition;
+    push @pieces, 'T:' . $self->turn;
+    push @pieces, 'S:' . $self->score
+        if $self->score;
+
+    Curses::addstr(join ' ', @pieces);
 }
 
 
