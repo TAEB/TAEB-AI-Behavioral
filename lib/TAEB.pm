@@ -172,7 +172,7 @@ has senses => (
         return delete $self->persistent_dump->{senses};
     },
     lazy    => 1,
-    handles => qr/^(?!check_|msg_|update)/,
+    handles => qr/^(?!_check_|msg_|update)/,
 );
 
 has inventory => (

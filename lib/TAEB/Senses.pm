@@ -406,16 +406,16 @@ sub msg_check {
     $self->checking($thing || "everything");
     if (!$thing) {
         # discoveries must come before inventory, otherwise I'd meta this crap
-        $self->check_crga;
-        $self->check_spells;
-        $self->check_discoveries;
-        $self->check_inventory;
-        $self->check_enhance;
-        $self->check_floor;
-        $self->check_debt;
-        $self->check_autopickup;
+        $self->_check_crga;
+        $self->_check_spells;
+        $self->_check_discoveries;
+        $self->_check_inventory;
+        $self->_check_enhance;
+        $self->_check_floor;
+        $self->_check_debt;
+        $self->_check_autopickup;
     }
-    elsif (my $method = $self->can("check_$thing")) {
+    elsif (my $method = $self->can("_check_$thing")) {
         $self->$method;
     }
     else {
@@ -446,7 +446,7 @@ for my $check (keys %check_command) {
     my $command = $check_command{$check};
     my $post    = $post_check{$check};
 
-    __PACKAGE__->meta->add_method("check_$check" => sub {
+    __PACKAGE__->meta->add_method("_check_$check" => sub {
         my $self = shift;
         TAEB->write($command);
         TAEB->full_input;
