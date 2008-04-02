@@ -129,14 +129,11 @@ with no unknown neighbors".
 =cut
 
 sub autoexplore {
-    my $self  = shift;
-    my $level = $self->dungeon->current_level;
-
-    $level->fully_explored(1);
+    my $self = shift;
 
     for my $y (1 .. 21) {
         TILE: for my $x (0 .. 79) {
-            my $tile = $level->at($x, $y);
+            my $tile = $self->dungeon->current_level->at($x, $y);
 
             if (!$tile->explored && $tile->type ne 'rock') {
                 $tile->explored(1)
@@ -144,9 +141,6 @@ sub autoexplore {
             }
 
             # XXX: corridors need love
-
-            $level->fully_explored(0)
-                if !$tile->explored;
         }
     }
 }
