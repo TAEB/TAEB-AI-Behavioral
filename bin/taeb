@@ -4,8 +4,8 @@ use warnings;
 use lib 'lib';
 use Getopt::Whatever;
 
-use TAEB;
 use Curses;
+use TAEB;
 
 # load_from_argv {{{
 sub load_from_argv {
