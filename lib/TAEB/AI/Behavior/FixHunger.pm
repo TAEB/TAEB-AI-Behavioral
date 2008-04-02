@@ -6,7 +6,9 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    if (TAEB->can_pray && TAEB->nutrition < 0) {
+    if (TAEB->can_pray      &&
+        TAEB->nutrition < 0 &&
+        TAEB->current_tile->type ne 'altar') { # XXX: Should check if altar is coaligned.
         $self->do("pray");
         $self->currently("Praying for food.");
         return 100;
