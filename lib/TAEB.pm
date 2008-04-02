@@ -241,7 +241,7 @@ has persistent_dump => (
         return unless -r TAEB->config->state_file;
 
         my $self = shift;
-        $self->notify("Loading state file...");
+        $self->notify("Loading state file...", 0);
 
         local $SIG{__DIE__};
 
@@ -409,8 +409,6 @@ sub human_input {
         my $out = $self->keypress($c);
         if (defined $out) {
             $self->notify($out);
-            sleep 3;
-            $self->redraw;
         }
     }
 }
@@ -433,7 +431,7 @@ sub keypress {
 
     # pause for a key
     if ($c eq 'p') {
-        TAEB->notify("Paused.");
+        TAEB->notify("Paused.", 0);
         Term::ReadKey::ReadKey(0);
         TAEB->redraw;
         return undef;
@@ -543,8 +541,6 @@ after qw/info warning/ => sub {
 
     if (TAEB->info_to_screen && $TAEB::ToScreen) {
         TAEB->notify($message);
-        sleep 3;
-        TAEB->redraw;
     }
 };
 
@@ -572,8 +568,6 @@ after qw/error critical/ => sub {
     if ($TAEB::ToScreen) {
         $message = Carp::shortmess($message);
         TAEB->complain($message);
-        sleep 3;
-        TAEB->redraw;
     }
     else {
         confess $message;
@@ -583,20 +577,25 @@ after qw/error critical/ => sub {
 sub _notify {
     my $self  = shift;
     my $msg   = shift;
+    my $sleep = @_ ? 3 : shift;
 
     $self->out("\e[2H$msg\e[m");
+    return if $sleep == 0;
+
+    sleep $sleep;
+    $self->redraw;
 }
 
 sub notify {
     my $self = shift;
     my $msg = "\e[44m" . shift;
-    $self->_notify($msg);
+    $self->_notify($msg, @_);
 }
 
 sub complain {
     my $self = shift;
     my $msg  = "\e[41m" . shift;
-    $self->_notify($msg);
+    $self->_notify($msg, @_);
 }
 
 sub out {
@@ -710,7 +709,7 @@ sub dump {
 
     my $state_file = TAEB->config->state_file;
 
-    $self->notify("Creating state file...");
+    $self->notify("Creating state file...", 0);
 
     @temp{@stash} = delete @$self{@stash};
 
