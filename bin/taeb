@@ -74,14 +74,20 @@ $SIG{__DIE__} = sub {
 my $tstp = $SIG{TSTP} = sub {
     # if we don't invoke TSTP then we won't be suspended
     $SIG{TSTP} = 'DEFAULT';
+
+    def_prog_mode();
+    endwin();
+
     kill TSTP => $$;
 };
 
 $SIG{CONT} = sub {
     $SIG{TSTP} = $tstp;
 
-    # redraw the screen
+    # force a redraw of the screen
+    clear();
     TAEB->redraw;
+    refresh();
 };
 
 $TAEB::ToScreen = 1;
