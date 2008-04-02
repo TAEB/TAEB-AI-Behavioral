@@ -8,22 +8,17 @@ use List::MoreUtils 'any';
 use constant command => "r";
 
 has '+item' => (
+    isa      => 'TAEB::Type::Item',
     required => 1,
 );
 
-sub respond_read_what {
-    my $self = shift;
-    return $self->item->slot;
-}
+sub respond_read_what { shift->item->slot }
 
 sub post_responses {
     my $self = shift;
     my $item = $self->item;
 
-    # we had no match for "any", so we have nothing to do
-    return unless blessed $item;
-
-    if ($item->slot && $item->class eq 'scroll') {
+    if ($item->class eq 'scroll') {
         TAEB->inventory->decrease_quantity($item->slot)
     }
 
@@ -46,13 +41,6 @@ sub can_read {
     return 0 unless $item->class eq 'scroll' or $item->class eq 'spellbook';
     return 1;
 }
-
-before exception_missing_item => sub {
-    my $self = shift;
-    if ($self->item eq 'any') {
-        TAEB->enqueue_message(check => 'inventory');
-    }
-};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
