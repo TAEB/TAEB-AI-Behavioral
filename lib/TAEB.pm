@@ -566,8 +566,7 @@ after qw/error critical/ => sub {
     my ($logger, $message) = @_;
 
     if ($TAEB::ToScreen) {
-        $message = Carp::shortmess($message);
-        TAEB->complain($message);
+        TAEB->complain(Carp::shortmess($message));
     }
     else {
         confess $message;
