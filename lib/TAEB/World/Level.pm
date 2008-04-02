@@ -86,6 +86,11 @@ has is_oracle => (
     default => 0,
 );
 
+has is_rogue => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
@@ -489,7 +494,8 @@ sub msg_dungeon_level {
     TAEB->info("Hey, I know this level! It's $level!")
         if !$self->$islevel;
 
-    $self->branch('dungeons') if $level eq 'oracle';
+    $self->branch('dungeons') if $level eq 'oracle'
+                              || $level eq 'rogue';
 
     $self->$islevel(1);
 }

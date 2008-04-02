@@ -153,6 +153,8 @@ our %msg_string = (
         ['dungeon_level' => 'oracle'],
     "You hear a loud ZOT!"  =>
         ['dungeon_level' => 'oracle'],
+    "You enter what seems to be an older, more primitive world." =>
+        ['dungeon_level' => 'rogue'],
 );
 
 our @msg_regex = (
