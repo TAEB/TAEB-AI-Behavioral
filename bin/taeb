@@ -52,7 +52,6 @@ TAEB->interface($interface);
 $SIG{__WARN__} = sub { TAEB->warning(@_) };
 $SIG{__DIE__} = sub {
     require Carp::REPL;
-    Term::ReadKey::ReadMode 0;
     print "\ec";
     warn "@_";
     Carp::REPL::repl(@_);
@@ -72,10 +71,6 @@ $SIG{__DIE__} = sub {
 };
 
 my $tstp = $SIG{TSTP} = sub {
-
-    # restore regular line-based ReadMode for shell commands
-    Term::ReadKey::ReadMode 0;
-
     # if we don't invoke TSTP then we won't be suspended
     $SIG{TSTP} = 'DEFAULT';
     kill TSTP => $$;
@@ -83,9 +78,6 @@ my $tstp = $SIG{TSTP} = sub {
 
 $SIG{CONT} = sub {
     $SIG{TSTP} = $tstp;
-
-    # restore character-based ReadMode for TAEB input
-    Term::ReadKey::ReadMode 3;
 
     # redraw the screen
     TAEB->redraw;

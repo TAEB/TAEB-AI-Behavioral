@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality::Human;
 use TAEB::OO;
-use Term::ReadKey;
 extends 'TAEB::AI::Personality';
 
 =head1 NAME
@@ -22,14 +21,12 @@ This will consult a magic 8-ball to determine what move to make next.
 
 =cut
 
-sub _get_key { ReadKey(0) }
-
 sub next_action {
     while (1) {
-        my $c = _get_key;
+        my $c = TAEB->get_key;
 
         if ($c eq "~") {
-            my $out = TAEB->keypress(_get_key);
+            my $out = TAEB->keypress(TAEB->get_key);
             if (defined $out) {
                 TAEB->out("\e[2H\e[44m$out");
                 sleep 3;

@@ -403,7 +403,7 @@ sub process_input {
 sub human_input {
     my $self = shift;
 
-    my $c = Term::ReadKey::ReadKey($self->read_wait)
+    my $c = $self->get_key($self->read_wait)
         unless Scalar::Util::blessed($self->personality) =~ /\bHuman\b/;
     if (defined $c) {
         my $out = $self->keypress($c);
@@ -432,7 +432,7 @@ sub keypress {
     # pause for a key
     if ($c eq 'p') {
         TAEB->notify("Paused.", 0);
-        Term::ReadKey::ReadKey(0);
+        TAEB->get_key(0);
         TAEB->redraw;
         return undef;
     }
@@ -451,7 +451,7 @@ sub keypress {
 
     # user input (for emergencies only)
     if ($c eq "\e") {
-        $self->write(Term::ReadKey::ReadKey(0));
+        $self->write($self->get_key(0));
         return undef;
     }
 
@@ -492,7 +492,8 @@ sub keypress {
             $self->out(sprintf "\e[K\e[%d;%dH", $y+1, $x+1);
 
             # where to next?
-            my $c = Term::ReadKey::ReadKey(0);
+            my $c = $self->get_key(0);
+
                if ($c eq 'h') { --$x }
             elsif ($c eq 'j') { ++$y }
             elsif ($c eq 'k') { --$y }
@@ -678,9 +679,6 @@ sub console {
         # make the top half scroll
         $self->out("\e[1;12r\e[12;1H");
 
-        # turn off Term::ReadKey
-        Term::ReadKey::ReadMode(0);
-
         $ENV{PERL_RL} ||= TAEB->config->readline;
 
         no warnings 'redefine';
@@ -688,9 +686,6 @@ sub console {
         local $TAEB::ToScreen;
         Devel::REPL::Script->new->run;
     };
-
-    # turn on Term::ReadKey
-    Term::ReadKey::ReadMode(3);
 
     # unscroll terminal
     $self->out("\e3");
