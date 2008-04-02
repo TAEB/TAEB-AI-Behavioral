@@ -1,6 +1,6 @@
 #!perl
 package TAEB;
-use TAEB::Util;
+use TAEB::Util ':colors';
 
 use MooseX::Singleton;
 use MooseX::AttributeHelpers;
@@ -66,7 +66,7 @@ has scraper => (
     required => 1,
     lazy     => 1,
     default  => sub { TAEB::ScreenScraper->new },
-    handles  => [qw(all_messages messages farlook)],
+    handles  => [qw(parsed_messages all_messages messages farlook)],
 );
 
 has config => (
@@ -381,31 +381,8 @@ sub process_input {
     $self->scraper->scrape
         if $scrape && $self->state ne 'logging_in';
 
-    if ($self->state ne 'logging_in') {
-        my @messages = map { s/^(.{75})/$1.../; $_ } $self->all_messages;
-
-        if (@messages == 0) {
-            # we don't need to worry about the other rows, the map will
-            # overwrite them
-            Curses::move 0, 0;
-            Curses::clrtoeol;
-        }
-
-        while (my @msgs = splice @messages, 0, 20) {
-            my $y = 0;
-            for (@msgs) {
-                Curses::move $y++, 0;
-                Curses::addstr $_;
-                Curses::clrtoeol;
-            }
-
-            if (@msgs > 1) {
-                Curses::refresh;
-                sleep 0.3 * @msgs;
-                TAEB->redraw if @messages;
-            }
-        }
-    }
+    $self->display_topline
+        if $self->state ne 'logging_in';
 
     return $input;
 }
@@ -807,6 +784,50 @@ sub place_cursor {
     my $y    = shift || TAEB->y;
 
     Curses::move($y, $x);
+}
+
+sub display_topline {
+    my $self = shift;
+    my @messages = $self->parsed_messages;
+
+    if (@messages == 0) {
+        # we don't need to worry about the other rows, the map will
+        # overwrite them
+        Curses::move 0, 0;
+        Curses::clrtoeol;
+        return;
+    }
+
+    while (my @msgs = splice @messages, 0, 20) {
+        my $y = 0;
+        for (@msgs) {
+            my ($line, $matched) = @$_;
+
+            my $chopped = length($line) > 75;
+            $line = substr($line, 0, 75);
+
+            Curses::move $y++, 0;
+
+            my $color = $matched
+                      ? Curses::COLOR_PAIR(COLOR_GREEN)
+                      : Curses::COLOR_PAIR(COLOR_BROWN);
+
+            Curses::attron($color);
+            Curses::addstr($line);
+            Curses::attroff($color);
+
+            Curses::addstr '...' if $chopped;
+
+            Curses::clrtoeol;
+        }
+
+        if (@msgs > 1) {
+            Curses::refresh;
+            sleep 1;
+            sleep 2 if @msgs > 5;
+            TAEB->redraw if @messages;
+        }
+    }
 }
 
 no Moose;
