@@ -38,6 +38,9 @@ sub pickup {
     # we only care about unidentified stuff
     return 0 if $item->identity;
 
+    # We don't care about rings on sink tiles.
+    return 0 if TAEB->current_tile->type eq 'sink';
+
     # and rings
     return 0 unless $item->class eq 'ring';
 
