@@ -392,7 +392,7 @@ sub process_input {
     my $input = $self->read;
 
     $self->vt->process($input);
-    $self->out($input);
+    $self->redraw;
 
     $self->scraper->scrape
         if $scrape && $self->state ne 'logging_in';
