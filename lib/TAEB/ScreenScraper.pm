@@ -318,6 +318,10 @@ our @msg_regex = (
         qr/^You stop eating the (.*)\./ =>
             ['check' => 'inventory'],
     ],
+    [
+        qr/You add the (.*) spell to your repertoire/ =>
+            ['learned_spell' => sub { $1 }],
+    ],
 );
 
 our @god_anger = (
@@ -349,6 +353,7 @@ our @prompts = (
     qr/^What do you want to drink\?/        => 'drink_what',
     qr/^What do you want to eat\?/          => 'eat_what',
     qr/^What do you want to zap\?/          => 'zap_what',
+    qr/^What do you want to read\?/         => 'read_what',
     qr/^For what do you wish\?/             => 'wish',
     qr/^Really attack (.*?)\?/              => 'really_attack',
     qr/^\s*Choose which spell to cast/      => 'which_spell',

@@ -19,6 +19,7 @@ use TAEB::Action::Pay;
 use TAEB::Action::Pickup;
 use TAEB::Action::Pray;
 use TAEB::Action::Quaff;
+use TAEB::Action::Read;
 use TAEB::Action::Role::Direction;
 use TAEB::Action::Role::Item;
 use TAEB::Action::Search;

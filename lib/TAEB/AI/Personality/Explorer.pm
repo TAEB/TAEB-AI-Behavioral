@@ -23,6 +23,7 @@ sub weight_behaviors {
         Projectiles        => 49_000,
         Vault              => 30_000,
         Identify           => 24_750,
+        Spellbook          => 34_750,
         IdentifyRing       => 24_750,
         GetItems           => 24_500,
         DipForExcalibur    => 24_000,
