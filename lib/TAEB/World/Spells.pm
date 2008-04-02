@@ -96,6 +96,20 @@ sub debug_line {
     return join "\n", @spells;
 }
 
+sub knows_spell {
+    my $self = shift;
+    my $item = shift;
+
+    return 0 unless $item->class eq 'spellbook';
+    return 0 unless $item->identity;
+
+    if (my ($name) = $item->identity =~ /^spellbook of (.*)$/) {
+        return $self->get($name);
+    }
+
+    return;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

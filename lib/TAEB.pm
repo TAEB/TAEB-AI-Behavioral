@@ -201,6 +201,7 @@ has spells => (
     handles => {
         find_spell    => 'find',
         find_castable => 'find_castable',
+        knows_spell   => 'knows_spell',
     },
 );
 
