@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile;
 use TAEB::OO;
-use TAEB::Util qw/glyph_to_type delta2vi glyph_is_monster/;
+use TAEB::Util qw/glyph_to_type delta2vi glyph_is_monster :colors/;
 use List::MoreUtils qw/any all apply/;
 
 use overload %TAEB::Meta::Overload::default;
@@ -490,6 +490,13 @@ sub draw {
     }
 
     Curses::addch($bold | Curses::COLOR_PAIR($color) | ord $self->display_glyph);
+}
+
+sub draw_explored {
+    my $self  = shift;
+    my $color = $self->explored ? Curses::COLOR_PAIR(COLOR_GREEN) : 0;
+
+    Curses::addch($color | ord $self->display_glyph);
 }
 
 sub display_glyph {
