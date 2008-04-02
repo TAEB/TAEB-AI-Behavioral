@@ -480,7 +480,9 @@ sub searchability {
 }
 
 sub draw {
-    my $self  = shift;
+    my $self           = shift;
+    my $display_method = shift;
+
     my $color = $self->color;
     my $bold  = 0;
 
@@ -489,11 +491,13 @@ sub draw {
         $bold  = Curses::A_BOLD;
     }
 
-    Curses::addch($bold | Curses::COLOR_PAIR($color) | ord $self->display_glyph);
+    Curses::addch($bold | Curses::COLOR_PAIR($color) | ord $self->$display_method);
 }
 
 sub draw_debug {
-    my $self  = shift;
+    my $self           = shift;
+    my $display_method = shift;
+
     my $path  = TAEB->action && TAEB->action->can('path') && TAEB->action->path;
     my $color;
 
@@ -514,7 +518,7 @@ sub draw_debug {
              ? Curses::COLOR_PAIR(COLOR_GREEN)
              : 0;
 
-    Curses::addch($color | ord $self->display_glyph);
+    Curses::addch($color | ord $self->$display_method);
 }
 
 sub display_glyph {
