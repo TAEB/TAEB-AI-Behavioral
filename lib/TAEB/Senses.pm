@@ -135,6 +135,11 @@ has autopickup => (
     default => 1,
 );
 
+has ac => (
+    isa     => 'Int',
+    default => 10,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -168,7 +173,7 @@ sub parse_botl {
         $self->maxhp($4);
         $self->power($5);
         $self->maxpower($6);
-        # $7 AC
+        $self->ac($7);
         $self->level($8);
         # $9 experience
         $self->turn($10);
