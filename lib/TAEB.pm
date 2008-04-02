@@ -381,6 +381,32 @@ sub process_input {
     $self->scraper->scrape
         if $scrape && $self->state ne 'logging_in';
 
+    if ($self->state ne 'logging_in') {
+        my @messages = map { s/^(.{75})/$1.../; $_ } $self->all_messages;
+
+        if (@messages == 0) {
+            # we don't need to worry about the other rows, the map will
+            # overwrite them
+            Curses::move 0, 0;
+            Curses::clrtoeol;
+        }
+
+        while (my @msgs = splice @messages, 0, 20) {
+            my $y = 0;
+            for (@msgs) {
+                Curses::move $y++, 0;
+                Curses::addstr $_;
+                Curses::clrtoeol;
+            }
+
+            if (@msgs > 1) {
+                Curses::refresh;
+                sleep 0.3 * @msgs;
+                TAEB->redraw if @messages;
+            }
+        }
+    }
+
     return $input;
 }
 
