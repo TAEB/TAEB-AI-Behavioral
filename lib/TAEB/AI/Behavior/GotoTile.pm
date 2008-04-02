@@ -12,6 +12,8 @@ TAEB::AI::Behavior::GotoTile - generic go-to-a-tile-and-do-something behavior
 sub prepare {
     my $self = shift;
 
+    return 0 unless $self->first_pass;
+
     # are we on the tile? if so, go for it
     my ($action, $currently) = $self->match_tile(TAEB->current_tile);
     if (ref($action) eq 'ARRAY' && @$action) {
@@ -22,8 +24,6 @@ sub prepare {
     elsif (defined $action) {
         die blessed($self) . "->match_tile must return an array reference and a 'currently' string, or undef.";
     }
-
-    return 0 unless $self->first_pass;
 
     # find our tile
     my $path = TAEB::World::Path->first_match(
