@@ -355,7 +355,9 @@ sub full_input {
         $self->dungeon->update($main_call);
         $self->senses->update($main_call);
         $self->publisher->update($main_call);
+
         $self->redraw;
+        $self->display_topline;
     }
 }
 
@@ -380,9 +382,6 @@ sub process_input {
 
     $self->scraper->scrape
         if $scrape && $self->state ne 'logging_in';
-
-    $self->display_topline
-        if $self->state ne 'logging_in';
 
     return $input;
 }
