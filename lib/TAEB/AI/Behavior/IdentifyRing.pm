@@ -11,15 +11,13 @@ sub prepare {
     my @items = grep { $self->pickup($_) } TAEB->inventory->items;
     return 0 unless @items;
 
-    my $ring = shift @items;
-
     my $level = TAEB->nearest_level(sub { shift->has_type('sink') })
         or return 0;
 
     # are we standing on a sink? if so, drop!
     if (TAEB->current_tile->type eq 'sink') {
         $self->currently("Dropping the ring in the sink");
-        $self->do(drop => item => $ring);
+        $self->do(drop => item => \@items);
         return 100;
     }
 
@@ -32,6 +30,7 @@ sub prepare {
     $self->if_path($path => "Heading towards a sink");
 }
 
+# collect unknown rings
 sub pickup {
     my $self = shift;
     my $item = shift;
@@ -39,22 +38,21 @@ sub pickup {
     # we only care about unidentified stuff
     return 0 if $item->identity;
 
-    # collect unknown rings.
-    if ($item->class eq 'ring') {
-        return 1;
-    }
+    # and rings
+    return 0 unless $item->class eq 'ring';
 
-    return 0;
+    return 1;
 }
 
 sub drop {
     my $self = shift;
     my $item = shift;
 
+    return unless $item->class eq 'ring';
+
     return if TAEB->current_tile->type ne 'sink'
            || TAEB->is_blind
            || $item->identity;
-
 
     TAEB->debug("Yes, I want to drop $item because I want to find out what it is.");
     return 1;
