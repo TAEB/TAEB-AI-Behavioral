@@ -151,10 +151,10 @@ has dungeon => (
     },
 );
 
-has read_wait => (
+has single_step => (
     is      => 'rw',
-    isa     => 'Int',
-    default => -1,
+    isa     => 'Bool',
+    default => 0,
 );
 
 has info_to_screen => (
@@ -403,7 +403,7 @@ sub process_input {
 sub human_input {
     my $self = shift;
 
-    my $c = $self->check_key
+    my $c = $self->single_step ? $self->get_key : $self->check_key
         unless Scalar::Util::blessed($self->personality) =~ /\bHuman\b/;
 
     if (defined $c) {
@@ -440,8 +440,9 @@ sub keypress {
 
     # turn on/off step mode
     if ($c eq 's') {
-        my $wait = $self->read_wait($self->read_wait == -1 ? 0 : -1);
-        return "Single step mode " . ($wait ? "disabled." : "enabled.");
+        $self->single_step(not $self->single_step);
+        return "Single step mode "
+             . ($self->signle_step ? "enabled." : "disabled.");
     }
 
     # turn on/off info to screen
@@ -700,7 +701,7 @@ sub dump {
 
     my $self = shift->instance;
     my %temp;
-    my @stash = qw/interface config vt scraper personality action publisher state log read_wait new_game persistent_dump/;
+    my @stash = qw/interface config vt scraper personality action publisher state log single_step new_game persistent_dump/;
 
     my $state_file = TAEB->config->state_file;
 
