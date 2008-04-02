@@ -163,29 +163,6 @@ has info_to_screen => (
     default => 0,
 );
 
-has ttyrec => (
-    is => 'rw',
-    isa => 'GlobRef',
-    lazy => 1,
-    default => sub {
-        require Tie::Handle::TtyRec;
-        my ($sec, $min, $hour, $day, $month, $year) = localtime;
-        $year += 1900;
-        ++$month;
-
-        my $filename = sprintf
-            'log/ttyrec/%04d-%02d-%02d.%02d:%02d:%02d.ttyrec',
-            $year,
-            $month,
-            $day,
-            $hour,
-            $min,
-            $sec;
-
-        Tie::Handle::TtyRec->new($filename);
-    },
-);
-
 has senses => (
     is      => 'rw',
     isa     => 'TAEB::Senses',
@@ -612,9 +589,6 @@ sub out {
     }
 
     print $out;
-
-    $self->ttyrec->print($out)
-        if TAEB->config->ttyrec;
 }
 
 around write => sub {
@@ -713,7 +687,7 @@ sub dump {
 
     my $self = shift->instance;
     my %temp;
-    my @stash = qw/interface config ttyrec vt scraper personality action publisher state log read_wait new_game persistent_dump/;
+    my @stash = qw/interface config vt scraper personality action publisher state log read_wait new_game persistent_dump/;
 
     my $state_file = TAEB->config->state_file;
 

@@ -47,10 +47,6 @@ requires 'Scalar::Defer';
 requires 'NetHack::Menu' => '0.05';
 
 features(
-    'ttyrec output' => [
-        -default => 1,
-        requires('Tie::Handle::TtyRec' => '0.02'),
-    ],
     'REPL on exception' => [
         -default => 1,
         requires('Carp::REPL'),
