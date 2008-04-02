@@ -355,6 +355,7 @@ sub full_input {
         $self->dungeon->update($main_call);
         $self->senses->update($main_call);
         $self->publisher->update($main_call);
+        $self->redraw;
     }
 }
 
@@ -376,7 +377,6 @@ sub process_input {
     my $input = $self->read;
 
     $self->vt->process($input);
-    $self->redraw;
 
     $self->scraper->scrape
         if $scrape && $self->state ne 'logging_in';
