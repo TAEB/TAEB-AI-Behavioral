@@ -26,12 +26,7 @@ sub next_action {
         my $c = TAEB->get_key;
 
         if ($c eq "~") {
-            my $out = TAEB->keypress(TAEB->get_key);
-            if (defined $out) {
-                TAEB->out("\e[2H\e[44m$out");
-                sleep 3;
-                TAEB->redraw;
-            }
+            TAEB->notify(TAEB->keypress(TAEB->get_key));
         }
         else {
             return TAEB::Action->new_action(custom => string => $c);
