@@ -20,7 +20,7 @@ use TAEB::Senses;
 use TAEB::Action;
 use TAEB::Publisher;
 
-use Term::ReadKey;
+use Curses ();
 
 =head1 NAME
 
@@ -403,8 +403,9 @@ sub process_input {
 sub human_input {
     my $self = shift;
 
-    my $c = $self->get_key($self->read_wait)
+    my $c = $self->check_key
         unless Scalar::Util::blessed($self->personality) =~ /\bHuman\b/;
+
     if (defined $c) {
         my $out = $self->keypress($c);
         if (defined $out) {
@@ -432,7 +433,7 @@ sub keypress {
     # pause for a key
     if ($c eq 'p') {
         TAEB->notify("Paused.", 0);
-        TAEB->get_key(0);
+        TAEB->get_key;
         TAEB->redraw;
         return undef;
     }
@@ -451,7 +452,7 @@ sub keypress {
 
     # user input (for emergencies only)
     if ($c eq "\e") {
-        $self->write($self->get_key(0));
+        $self->write($self->get_key);
         return undef;
     }
 
@@ -492,7 +493,7 @@ sub keypress {
             $self->out(sprintf "\e[K\e[%d;%dH", $y+1, $x+1);
 
             # where to next?
-            my $c = $self->get_key(0);
+            my $c = $self->get_key;
 
                if ($c eq 'h') { --$x }
             elsif ($c eq 'j') { ++$y }
@@ -726,14 +727,16 @@ sub has_dump {
     return 1;
 }
 
-sub get_key {
+sub get_key { Curses::getch }
+
+sub check_key {
     my $self = shift;
-    my $time = shift;
 
-    Term::ReadKey::ReadMode(3);
-    my $c = Term::ReadKey::ReadKey($time);
-    Term::ReadKey::ReadMode(0);
+    Curses::nodelay(Curses::stdscr, 1);
+    my $c = Curses::getch;
+    Curses::nodelay(Curses::stdscr, 0);
 
+    return undef if $c == -1;
     return $c;
 }
 
