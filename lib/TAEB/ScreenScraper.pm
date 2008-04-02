@@ -381,6 +381,12 @@ has messages => (
     isa => 'Str',
 );
 
+has parsed_messages => (
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { [] },
+);
+
 has calls_this_turn => (
     isa     => 'Int',
     default => 0,
@@ -421,7 +427,10 @@ sub scrape {
         # iterate over the messages, invoke TAEB->enqueue_message for each one
         # we know about
         for my $line ($self->all_messages) {
+            my $matched = 0;
+
             if (exists $msg_string{$line}) {
+                $matched = 1;
                 TAEB->enqueue_message(
                     map { ref($_) eq 'CODE' ? $_->() : $_ }
                     @{ $msg_string{$line} }
@@ -429,12 +438,14 @@ sub scrape {
             }
             for my $something (@msg_regex) {
                 if ($line =~ $something->[0]) {
+                    $matched = 1;
                     TAEB->enqueue_message(
                         map { ref($_) eq 'CODE' ? $_->() : $_ }
                         @{ $something->[1] }
                     );
                 }
             }
+            push @{ $self->parsed_messages }, [$line => $matched];
         }
     };
 
@@ -469,6 +480,7 @@ sub clear {
     my $self = shift;
 
     $self->messages('');
+    $self->parsed_messages([]);
 }
 
 sub handle_exceptions {
