@@ -86,6 +86,11 @@ has is_oracle => (
     default => 0,
 );
 
+has fully_explored => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
