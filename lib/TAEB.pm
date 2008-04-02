@@ -773,8 +773,6 @@ sub place_cursor {
     Curses::move($y, $x);
 }
 
-sub out {}
-
 no Moose;
 
 1;
