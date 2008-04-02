@@ -579,7 +579,7 @@ after qw/error critical/ => sub {
 sub _notify {
     my $self  = shift;
     my $msg   = shift;
-    my $sleep = @_ ? 3 : shift;
+    my $sleep = @_ ? shift : 3;
 
     $self->out("\e[2H$msg\e[m");
     return if $sleep == 0;
