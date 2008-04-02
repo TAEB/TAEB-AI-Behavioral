@@ -29,7 +29,6 @@ sub update {
 
     my $level = $self->dungeon->current_level;
 
-    my $debug_draw = TAEB->config->debug_draw;
     my $tile_changed = 0;
 
     $level->iterate_tile_vt(sub {
@@ -41,13 +40,8 @@ sub update {
             $level->update_tile($x, $y, $glyph, $color);
         }
 
-        TAEB->out("\e[%d;%dH%s\e[m", 1+$y, 1+$x, $tile->$debug_draw)
-            if $debug_draw;
-
         return 1;
     });
-
-    TAEB->out("\e[%d;%dH", 1+$self->y, 1+$self->x) if $debug_draw;
 
     $level->step_on($self->x, $self->y);
 

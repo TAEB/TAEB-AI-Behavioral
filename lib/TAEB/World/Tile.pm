@@ -336,39 +336,6 @@ for my $tiletype (keys %tiletypes) {
     }
 }
 
-sub debug_draw_explored {
-    my $self = shift;
-    ($self->explored ? "\e[1;33m" : '') . $self->glyph
-}
-
-sub debug_draw_stepped {
-    my $self = shift;
-    ($self->stepped_on ? "\e[1;35m" : '') . $self->glyph
-}
-
-sub debug_draw_walkable {
-    my $self = shift;
-    ($self->is_walkable ? "\e[1;32m" : '') . $self->glyph
-}
-
-sub debug_draw_floor {
-    shift->floor_glyph
-}
-
-sub debug_draw_glyph {
-    shift->glyph
-}
-
-sub debug_draw_obscured {
-    my $self = shift;
-    $self->type eq 'obscured' ? '?' : $self->glyph
-}
-
-sub debug_draw_rock {
-    my $self = shift;
-    $self->type eq 'rock' ? '*' : $self->glyph
-}
-
 sub might_have_new_item {
     my $self = shift;
     return $self->interesting_at > $self->last_step + 1
