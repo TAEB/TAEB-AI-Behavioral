@@ -479,6 +479,11 @@ sub searchability {
     return $searchability;
 }
 
+sub draw {
+    my $self = shift;
+    Curses::addch(ord $self->glyph);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

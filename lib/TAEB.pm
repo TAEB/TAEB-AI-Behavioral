@@ -714,12 +714,12 @@ sub try_key {
 sub redraw {
     my $self = shift;
     my $level = TAEB->current_level;
+    my $draw = TAEB->config->draw || 'draw';
 
     for my $y (1 .. 21) {
         Curses::move($y, 0);
         for my $x (0 .. 79) {
-            my $tile = $level->at($x, $y);
-            Curses::addch(ord $tile->glyph);
+            $level->at($x, $y)->$draw;
         }
     }
 
