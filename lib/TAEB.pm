@@ -261,6 +261,8 @@ has persistent_dump => (
     is   => 'rw',
     lazy => 1,
     default => sub {
+        return unless -r TAEB->config->state_file;
+
         my $self = shift;
         $self->out("\e[2H\e[44mLoading state file...\e[m");
 
