@@ -573,6 +573,7 @@ sub _notify {
     Curses::attron($attr);
     Curses::addstr($msg);
     Curses::attroff($attr);
+    $self->place_cursor;
 
     return if $sleep == 0;
 
@@ -821,6 +822,7 @@ sub display_topline {
         }
 
         if (@msgs > 1) {
+            $self->place_cursor;
             Curses::refresh;
             sleep 1;
             sleep 2 if @msgs > 5;
