@@ -580,7 +580,10 @@ sub _notify {
     Curses::addstr($msg);
     Curses::attroff($attr);
     Curses::clrtoeol;
-    $self->place_cursor;
+
+    # using TAEB->x and TAEB->y here could screw up horrifically if the dungeon
+    # object isn't loaded yet, and loading it calls notify..
+    $self->place_cursor(TAEB->vt->x, TAEB->vt->y);
 
     return if $sleep == 0;
 
