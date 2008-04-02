@@ -49,32 +49,32 @@ requires 'NetHack::Menu' => '0.05';
 features(
     'REPL on exception' => [
         -default => 1,
-        requires('Carp::REPL'),
+        recommends('Carp::REPL'),
     ],
     'TAEB for local NetHack' => [
         -default => 0,
-        requires('IO::Pty::Easy'),
+        recommends('IO::Pty::Easy'),
     ],
     'Various NetHack source bits' => [
         -default => 0,
-        requires('Inline::C'),
+        recommends('Inline::C'),
     ],
     'Hiveminder todo tracking' => [
         -default => 0,
-        requires('Net::Hiveminder'),
+        recommends('Net::Hiveminder'),
     ],
     'REPL on ~' => [
         -default => 1,
-        requires('Devel::REPL'),
+        recommends('Devel::REPL'),
         recommends('Term::ReadLine::Gnu'),
     ],
     'Source code and commit stats (bin/lc)' => [
         -default => 0,
-        requires("File::Next"),
+        recommends("File::Next"),
     ],
     'Fast persistence' => [
         -default => 1,
-        requires('YAML::Syck'),
+        recommends('YAML::Syck'),
     ],
 );
 
