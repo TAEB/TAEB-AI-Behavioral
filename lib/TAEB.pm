@@ -722,7 +722,7 @@ sub try_key {
     my $c = Curses::getch;
     Curses::nodelay(Curses::stdscr, 0);
 
-    return undef if $c == -1;
+    return undef if int($c) == -1;
     return $c;
 }
 
