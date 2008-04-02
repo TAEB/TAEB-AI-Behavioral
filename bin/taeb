@@ -98,6 +98,7 @@ END { endwin }
 noecho;
 cbreak;
 start_color;
+use_default_colors;
 init_pair($_, $_, 0) for 0 .. 8;
 
 $SIG{INT} = sub {
