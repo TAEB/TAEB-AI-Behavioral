@@ -600,17 +600,6 @@ sub complain {
     $self->_notify($msg, @_);
 }
 
-sub out {
-    my $self = shift;
-    my $out = shift;
-
-    if (@_) {
-        $out = sprintf $out, @_;
-    }
-
-    print $out;
-}
-
 around write => sub {
     my $orig = shift;
     my $self = shift;
