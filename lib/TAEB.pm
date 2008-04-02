@@ -650,6 +650,16 @@ sub console {
         Curses::def_prog_mode();
         Curses::endwin();
 
+        print "\n"
+            . "\e[1;37m+"
+            . "\e[1;30m" . ('-' x 50)
+            . "\e[1;37m[ "
+            . "\e[1;36mT\e[0;36mAEB \e[1;36mC\e[0;36monsole"
+            . " \e[1;37m]"
+            . "\e[1;30m" . ('-' x 12)
+            . "\e[1;37m+"
+            . "\e[m\n";
+
         no warnings 'redefine';
         require Devel::REPL::Script;
         local $TAEB::ToScreen;
