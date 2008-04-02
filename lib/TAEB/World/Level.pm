@@ -494,6 +494,8 @@ sub msg_dungeon_level {
     TAEB->info("Hey, I know this level! It's $level!")
         if !$self->$islevel;
 
+    $self->branch = 'dungeons' if $level eq 'oracle';
+
     $self->$islevel(1);
 }
 
