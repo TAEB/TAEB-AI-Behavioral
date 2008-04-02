@@ -353,6 +353,26 @@ sub throw_range {
     return $range;
 }
 
+sub match {
+    my $self = shift;
+    my %args = @_;
+
+    for my $matcher (keys %args) {
+        my $attr = $self->$matcher;
+        return 0 unless defined $attr;
+
+        my $val = $args{$matcher};
+        if (ref($val) eq 'Regexp') {
+            return 0 unless $attr =~ $val;
+        }
+        else {
+            return 0 unless $attr eq $val;
+        }
+    }
+
+    return 1;
+}
+
 install_spoilers(qw/weight base edible artifact material sdam ldam/);
 
 __PACKAGE__->meta->make_immutable;
