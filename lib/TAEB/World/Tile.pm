@@ -480,8 +480,16 @@ sub searchability {
 }
 
 sub draw {
-    my $self = shift;
-    Curses::addch(ord $self->glyph);
+    my $self  = shift;
+    my $color = $self->color;
+    my $bold  = 0;
+
+    if ($color >= 8) {
+        $color -= 8;
+        $bold  = Curses::A_BOLD;
+    }
+
+    Curses::addch($bold | Curses::COLOR_PAIR($color) | ord $self->glyph);
 }
 
 __PACKAGE__->meta->make_immutable;
