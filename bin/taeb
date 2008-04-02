@@ -107,6 +107,8 @@ $SIG{INT} = sub {
 
 # }}}
 
+addstr "Loading TAEB...";
+
 while (1) {
     TAEB->iterate;
 }
