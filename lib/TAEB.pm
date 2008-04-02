@@ -645,24 +645,10 @@ sub console {
     eval {
         local $SIG{__DIE__};
 
-        # clear the top half of the screen
-        for (1..13) {
-            $self->out("\e[${_}H\e[K");
-        }
-        # silly banner
-        $self->out("\e[1;37m+"
-            . "\e[1;30m" . ('-' x 50)
-            . "\e[1;37m[ "
-            . "\e[1;36mT\e[0;36mAEB \e[1;36mC\e[0;36monsole"
-            . " \e[1;37m]"
-            . "\e[1;30m" . ('-' x 12)
-            . "\e[1;37m+"
-            . "\e[m");
-
-        # make the top half scroll
-        $self->out("\e[1;12r\e[12;1H");
-
         $ENV{PERL_RL} ||= TAEB->config->readline;
+
+        Curses::def_prog_mode();
+        Curses::endwin();
 
         no warnings 'redefine';
         require Devel::REPL::Script;
@@ -670,11 +656,9 @@ sub console {
         Devel::REPL::Script->new->run;
     };
 
-    # unscroll terminal
-    $self->out("\e3");
-
-    # back to normal
-    TAEB->redraw;
+    Curses::clear();
+    $self->redraw;
+    Curses::refresh();
 }
 
 sub dump {
