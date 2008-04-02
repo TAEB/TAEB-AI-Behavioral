@@ -403,7 +403,7 @@ sub process_input {
 sub human_input {
     my $self = shift;
 
-    my $c = $self->single_step ? $self->get_key : $self->check_key
+    my $c = $self->single_step ? $self->get_key : $self->try_key
         unless Scalar::Util::blessed($self->personality) =~ /\bHuman\b/;
 
     if (defined $c) {
@@ -442,7 +442,7 @@ sub keypress {
     if ($c eq 's') {
         $self->single_step(not $self->single_step);
         return "Single step mode "
-             . ($self->signle_step ? "enabled." : "disabled.");
+             . ($self->single_step ? "enabled." : "disabled.");
     }
 
     # turn on/off info to screen
@@ -730,7 +730,7 @@ sub has_dump {
 
 sub get_key { Curses::getch }
 
-sub check_key {
+sub try_key {
     my $self = shift;
 
     Curses::nodelay(Curses::stdscr, 1);
