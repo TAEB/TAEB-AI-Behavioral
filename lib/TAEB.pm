@@ -470,9 +470,11 @@ sub keypress {
         while (1) {
             my $tile = TAEB->current_level->at($x, $y);
 
+            Curses::move(0, 0);
             # draw some info about the tile at the top
-            $self->out("\e[H" . $tile->debug_line);
-            $self->out(sprintf "\e[K\e[%d;%dH", $y+1, $x+1);
+            Curses::addstr($tile->debug_line);
+            Curses::clrtoeol;
+            $self->place_cursor($x, $y);
 
             # where to next?
             my $c = $self->get_key;
