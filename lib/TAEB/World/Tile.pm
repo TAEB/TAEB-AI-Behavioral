@@ -501,15 +501,25 @@ sub draw_explored {
 
 sub draw_debug {
     my $self  = shift;
-    my $color = $self->in_shop
-              ? Curses::COLOR_PAIR(COLOR_MAGENTA)
-              : $self->might_have_new_item
-              ? Curses::COLOR_PAIR(COLOR_RED)
-              : $self->stepped_on
-              ? Curses::COLOR_PAIR(COLOR_BROWN)
-              : $self->explored
-              ? Curses::COLOR_PAIR(COLOR_GREEN)
-              : 0;
+    my $path  = TAEB->action && TAEB->action->can('path') && TAEB->action->path;
+    my $color;
+
+    if ($path) {
+        $color = Curses::COLOR_PAIR(COLOR_MAGENTA)
+            if $path->contains_tile($self);
+        $color |= Curses::A_BOLD
+            if $path->to eq $self;
+    }
+
+    $color ||= $self->in_shop
+             ? Curses::COLOR_PAIR(COLOR_CYAN)
+             : $self->might_have_new_item
+             ? Curses::COLOR_PAIR(COLOR_RED)
+             : $self->stepped_on
+             ? Curses::COLOR_PAIR(COLOR_BROWN)
+             : $self->explored
+             ? Curses::COLOR_PAIR(COLOR_GREEN)
+             : 0;
 
     Curses::addch($color | ord $self->display_glyph);
 }
