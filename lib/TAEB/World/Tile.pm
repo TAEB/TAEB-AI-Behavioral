@@ -503,7 +503,7 @@ sub draw_debug {
 
     if ($path) {
         $color = Curses::COLOR_PAIR(COLOR_MAGENTA)
-            if $path->contains_tile($self);
+            if $path->contains_tile($self) && $path->from ne $self;
         $color |= Curses::A_BOLD
             if $path->to eq $self;
     }
