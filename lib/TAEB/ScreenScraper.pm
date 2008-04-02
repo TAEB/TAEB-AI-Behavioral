@@ -687,6 +687,7 @@ sub handle_fallback {
     $self->messages($self->messages . '  ' . TAEB->topline);
 
     if (TAEB->topline =~ /^Really save\? / && TAEB->vt->y == 0) {
+        $self->messages($self->messages . 'y');
         TAEB->write("y");
         die "Game over, man!";
     }
@@ -694,6 +695,7 @@ sub handle_fallback {
     if (TAEB->vt->y == 0) {
         my $response = TAEB->get_response(TAEB->topline);
         if (defined $response) {
+            $self->messages($self->messages . $response);
             TAEB->write($response);
             die "Recursing screenscraper.\n";
         }
