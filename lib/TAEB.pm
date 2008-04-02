@@ -580,18 +580,23 @@ after qw/error critical/ => sub {
     }
 };
 
+sub _notify {
+    my $self  = shift;
+    my $msg   = shift;
+
+    $self->out("\e[2H$msg\e[m");
+}
+
 sub notify {
     my $self = shift;
-    my $msg  = shift;
-
-    $self->out("\e[2H\e[44m$msg\e[m");
+    my $msg = "\e[44m" . shift;
+    $self->_notify($msg);
 }
 
 sub complain {
     my $self = shift;
-    my $msg  = shift;
-
-    $self->out("\e[2H\e[41m$msg\e[m");
+    my $msg  = "\e[41m" . shift;
+    $self->_notify($msg);
 }
 
 sub out {
