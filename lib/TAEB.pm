@@ -739,7 +739,6 @@ sub draw_botl {
     return unless $self->state eq 'playing';
 
     Curses::move(22, 0);
-    Curses::clrtoeol;
 
     my $command = $self->action ? $self->action->command : '?';
     $command =~ s/\n/\\n/g;
@@ -748,8 +747,8 @@ sub draw_botl {
 
     Curses::addstr(sprintf '%s (%s)', $self->currently, $command);
 
-    Curses::move(23, 0);
     Curses::clrtoeol;
+    Curses::move(23, 0);
 
     my @pieces;
     push @pieces, 'D:' . $self->current_level->z;
@@ -774,6 +773,7 @@ sub draw_botl {
         if $self->score;
 
     Curses::addstr(join ' ', @pieces);
+    Curses::clrtoeol;
 }
 
 sub place_cursor {
