@@ -246,9 +246,7 @@ sub is_walkable {
     # XXX: yes. I know. shut up.
     return 0 if $self->glyph eq '0';
 
-    return 0 if $self->monster &&
-                abs($self->x - TAEB->x) <= 1 &&
-                abs($self->y - TAEB->y) <= 1;
+    return 0 if $self->monster;
 
     # obscured is walkable, the Move action will catch it and mark it
     # as rock otherwise
