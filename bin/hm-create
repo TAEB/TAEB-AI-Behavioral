@@ -4,5 +4,5 @@ use warnings;
 use Net::Hiveminder;
 
 my $hm = Net::Hiveminder->new(use_config => 1);
-print $hm->braindump("@ARGV", "group 3135"), "\n";
+print $hm->braindump("@ARGV", "group TAEB"), "\n";
 
