@@ -403,6 +403,7 @@ sub msg_check {
     my $self = shift;
     my $thing = shift;
 
+    $self->checking($thing || "everything");
     if (!$thing) {
         # discoveries must come before inventory, otherwise I'd meta this crap
         $self->check_crga;
@@ -415,13 +416,12 @@ sub msg_check {
         $self->check_autopickup;
     }
     elsif (my $method = $self->can("check_$thing")) {
-        $self->checking($thing);
         $self->$method;
-        $self->clear_checking;
     }
     else {
         $self->warning("I don't know how to check $thing.");
     }
+    $self->clear_checking;
 }
 
 my %check_command = (
