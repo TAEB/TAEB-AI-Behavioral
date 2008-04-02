@@ -26,6 +26,7 @@ sub weight_behaviors {
         IdentifyRing       => 24_750,
         GetItems           => 24_500,
         DipForExcalibur    => 24_000,
+        Wish               => 23_000,
         Doors              => 10_000,
         DeadEnd            => 5_000,
         Shop               => 4_000,
