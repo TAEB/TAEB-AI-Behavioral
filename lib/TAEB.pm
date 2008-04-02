@@ -250,7 +250,7 @@ has persistent_dump => (
             YAML::Syck::LoadFile(TAEB->config->state_file)
         } || undef;
 
-        $self->out($self->redraw);
+        $self->redraw;
         TAEB->warning("Unable to load state file.") if !defined($dump);
         return $dump;
     },
@@ -410,7 +410,7 @@ sub human_input {
         if (defined $out) {
             $self->out("\e[2H\e[44m$out\e[m");
             sleep 3;
-            $self->out($self->redraw);
+            $self->redraw;
         }
     }
 }
@@ -435,7 +435,7 @@ sub keypress {
     if ($c eq 'p') {
         TAEB->out("\e[2H\e[44mPaused.\e[m");
         Term::ReadKey::ReadKey(0);
-        TAEB->out(TAEB->redraw);
+        TAEB->redraw;
         return undef;
     }
 
@@ -463,7 +463,7 @@ sub keypress {
         $self->out("\e3");
 
         # back to normal
-        $self->out(TAEB->redraw);
+        TAEB->redraw;
         return undef;
     }
 
@@ -528,7 +528,7 @@ sub keypress {
         }
 
         # back to normal
-        $self->out(TAEB->redraw);
+        TAEB->redraw;
         return;
     }
 
@@ -544,7 +544,7 @@ after qw/info warning/ => sub {
     if (TAEB->info_to_screen && $TAEB::ToScreen) {
         TAEB->out("\e[2H\e[42m$message\e[m");
         sleep 3;
-        TAEB->out(TAEB->redraw);
+        TAEB->redraw;
     }
 };
 
@@ -573,7 +573,7 @@ after qw/error critical/ => sub {
         $message = Carp::shortmess($message);
         TAEB->out("\e[2H\e[41m$message\e[m");
         sleep 3;
-        TAEB->out(TAEB->redraw);
+        TAEB->redraw;
     }
     else {
         confess $message;
@@ -679,7 +679,7 @@ sub console {
     $self->out("\e3");
 
     # back to normal
-    $self->out(TAEB->redraw);
+    TAEB->redraw;
 }
 
 sub dump {
@@ -703,7 +703,7 @@ sub dump {
     warn $@ if $@;
     @$self{@stash} = @temp{@stash};
 
-    $self->out($self->redraw);
+    $self->redraw;
 
     return $@ ? 0 : 1;
 }

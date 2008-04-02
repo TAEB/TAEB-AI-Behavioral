@@ -33,7 +33,7 @@ sub next_action {
             if (defined $out) {
                 TAEB->out("\e[2H\e[44m$out");
                 sleep 3;
-                TAEB->out(TAEB->redraw);
+                TAEB->redraw;
             }
         }
         else {

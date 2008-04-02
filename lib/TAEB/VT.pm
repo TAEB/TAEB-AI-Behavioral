@@ -107,6 +107,8 @@ sub as_string {
 Returns a string that, when printed, will redraw the entire screen, directly as
 NetHack looks.
 
+Also prints that string >_>
+
 =cut
 
 sub redraw {
@@ -133,6 +135,7 @@ sub redraw {
 
     $out .= sprintf "\e[%d;%dH", $self->y + 1, $self->x + 1;
 
+    print $out;
     return $out;
 }
 
