@@ -459,9 +459,6 @@ sub keypress {
 
     # refresh NetHack's screen
     if ($c eq "\cr") {
-        # unscroll terminal
-        $self->out("\e3");
-
         # back to normal
         TAEB->redraw;
         return undef;
