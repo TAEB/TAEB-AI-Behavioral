@@ -51,6 +51,8 @@ sub prepare {
         $self->do('search');
         return 50;
     }
+
+    return 0;
 }
 
 sub urgencies {
