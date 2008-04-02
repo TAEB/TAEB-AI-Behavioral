@@ -16,9 +16,13 @@ sub prepare {
     return 0 unless TAEB->current_level->has_enemies;
 
     my ($spell, $wand);
-
+    my $urgency = 0;
     for ($self->use_spells) {
-        $spell = TAEB->find_castable($_) and last;
+        $spell = TAEB->find_castable($_);
+        next unless $spell;
+        $urgency = $self->try_to_cast($spell, undef);
+        TAEB->debug("Considering spell $spell, urgency $urgency");
+        return $urgency if $urgency > 0;
     }
 
     unless ($spell) {
@@ -30,14 +34,29 @@ sub prepare {
                 return 1 if !defined($item->charges);
                 return 1 if $item->charges;
                 return 0;
-            }) and last;
+            });
+            next unless $wand;
+            $urgency = $self->try_to_cast(undef, $wand);
+            return $urgency if $urgency > 0;
         }
     }
+    return 0;
+}
 
-    return 0 unless $spell || $wand;
+sub try_to_cast {
+    my $self = shift;
+    my $spell = shift;
+    my $wand = shift;
 
     my $direction = TAEB->current_level->radiate(
-        sub { shift->has_enemy },
+        sub { 
+            my $tile = shift;
+            return 0 unless $tile->has_enemy;
+            if ((defined($spell) && $spell eq 'sleep') || (defined($wand) && $wand eq 'wand of sleep')) {
+                return 0 unless $tile->monster->is_sleepable;
+            }
+            return 1;
+        },
         stopper => sub { shift->has_friendly },
 
         # how far to radiate. we can eventually calculate how far beam/ray

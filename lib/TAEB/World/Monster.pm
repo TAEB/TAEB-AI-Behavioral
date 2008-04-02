@@ -71,6 +71,10 @@ sub is_meleeable {
     return 1;
 }
 
+sub is_sleepable {
+    return is_meleeable;
+}
+
 sub respects_elbereth {
     my $self = shift;
 
