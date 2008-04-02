@@ -4,6 +4,7 @@ use TAEB::OO;
 use Heap::Simple;
 use TAEB::Util 'delta2vi', 'deltas';
 use List::Util 'sum';
+use Scalar::Util 'refaddr';
 
 has from => (
     is       => 'ro',
@@ -27,6 +28,27 @@ has complete => (
     is       => 'ro',
     isa      => 'Bool',
     required => 1,
+);
+
+has tiles => (
+    is      => 'ro',
+    isa     => 'HashRef[Int]',
+    lazy    => 1,
+    default => sub {
+        my $self = shift;
+        my $in   = {};
+        my $tile = $self->from;
+
+        for (split '', $self->path) {
+            last if ++$in->{refaddr $tile} >= 2;
+            $tile = $tile->level->at_direction($tile->x, $tile->y, $_)
+                or last;
+        }
+
+        $in->{ refaddr $self->to } ||= 1;
+
+        return $in;
+    },
 );
 
 sub new {
@@ -333,6 +355,13 @@ sub _dijkstra {
     }
 
     return ($max_tile, $max_path);
+}
+
+sub contains_tile {
+    my $self = shift;
+    my $tile = shift;
+
+    return $self->tiles->{refaddr $tile};
 }
 
 __PACKAGE__->meta->make_immutable;
