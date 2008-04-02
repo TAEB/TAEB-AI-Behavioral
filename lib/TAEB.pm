@@ -287,22 +287,6 @@ sub handle_playing {
     $self->currently('?');
     $self->action($self->next_action);
     TAEB->info("Current action: " . $self->action);
-
-    my $command = $self->action->command;
-    $command =~ s/\n/\\n/g;
-    $command =~ s/\e/\\e/g;
-    $command =~ s/\cd/^D/g;
-    $self->out(
-        "\e[23H%s\e[23H\e[K%s (%s)\e[40GN:%d S:%s\e[%d;%dH",
-        $self->vt->row_plaintext(22),
-        $self->personality->currently,
-        $command,
-        $self->nutrition,
-        ($self->score || '?'),
-        $self->y + 1,
-        $self->x + 1,
-    );
-
     $self->write($self->action->run);
 }
 
@@ -735,8 +719,35 @@ sub redraw {
         Curses::addstr(TAEB->vt->row_plaintext($y));
     }
 
-    Curses::move(TAEB->y, TAEB->x);
+    $self->draw_botl;
+
+    Curses::move(TAEB->vt->y, TAEB->vt->x);
 }
+
+sub draw_botl {
+    my $self = shift;
+    return unless $self->state eq 'playing';
+
+    Curses::move(22, 0);
+    Curses::clrtoeol;
+
+    my $command = $self->action ? $self->action->command : '?';
+    $command =~ s/\n/\\n/g;
+    $command =~ s/\e/\\e/g;
+    $command =~ s/\cd/^D/g;
+
+    Curses::addstr(sprintf '%s (%s)', $self->currently, $command);
+
+    Curses::move(22, 65);
+    Curses::addstr(sprintf 'N:%d S:%s',
+        $self->nutrition,
+        ($self->score || '?'),
+    );
+
+    Curses::move(23, 0);
+    Curses::clrtoeol;
+}
+
 
 sub out {}
 
