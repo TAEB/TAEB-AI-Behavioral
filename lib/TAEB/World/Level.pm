@@ -81,6 +81,11 @@ has is_minetown => (
     default => 0,
 );
 
+has is_oracle => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
@@ -455,6 +460,38 @@ around is_minetown => sub {
     $self->is_minetown(1);
     return 1;
 };
+
+around is_oracle => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    return $self->$orig(@_) if @_;
+
+    my $is_oracle = $self->$orig;
+    return $is_oracle if $is_oracle;
+
+    return 0 if defined($self->branch)
+             && $self->branch ne 'dungeons';
+    return 0 unless $self->z >= 5 && $self->z <= 9;
+
+    return 0 unless grep { $_->is_oracle } shift->monsters;
+
+    TAEB->info("This is the Oracle level!");
+    $self->is_oracle(1);
+    return 1;
+};
+
+sub msg_dungeon_level {
+    my $self = shift;
+    my $level = shift;
+    my $islevel = "is_$level";
+
+    TAEB->info("Hey, I know this level! It's $level!")
+        if !$self->$islevel;
+
+    $self->$islevel(1);
+}
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
