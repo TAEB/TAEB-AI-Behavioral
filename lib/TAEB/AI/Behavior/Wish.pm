@@ -9,9 +9,9 @@ sub prepare {
     my $wand = TAEB->find_item(sub {
         my $item = shift;
         return 0 unless defined($item->identity)
-                        && $item->identity ne 'wand of wishing';
+                     && $item->identity eq 'wand of wishing';
         return 1 if !defined($item->charges)
-                    || $item->charges;
+                 || $item->charges;
         return 0;
     }) and last;
 
