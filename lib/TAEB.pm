@@ -572,6 +572,7 @@ sub _notify {
 
     return if $sleep == 0;
 
+    Curses::refresh;
     sleep $sleep;
     $self->redraw;
 }
