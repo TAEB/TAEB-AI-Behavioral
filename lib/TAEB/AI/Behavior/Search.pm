@@ -6,8 +6,6 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    return 0 unless TAEB->current_level->fully_explored;
-
     my $path = TAEB::World::Path->max_match(
         sub {
             my ($tile, $path) = @_;
