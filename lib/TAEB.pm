@@ -256,6 +256,11 @@ has persistent_dump => (
     },
 );
 
+has pathfinds => (
+    is  => 'rw',
+    isa => 'Int',
+);
+
 =head2 iterate
 
 This will perform one input/output iteration of TAEB.
@@ -285,6 +290,7 @@ sub handle_playing {
     }
 
     $self->currently('?');
+    $self->pathfinds(0);
     $self->action($self->next_action);
     TAEB->info("Current action: " . $self->action);
     $self->write($self->action->run);
@@ -774,6 +780,7 @@ sub draw_botl {
     push @pieces, 'T:' . $self->turn;
     push @pieces, 'S:' . $self->score
         if $self->score;
+    push @pieces, 'P:' . $self->pathfinds;
 
     Curses::addstr(join ' ', @pieces);
     Curses::clrtoeol;

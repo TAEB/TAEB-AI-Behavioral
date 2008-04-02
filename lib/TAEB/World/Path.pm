@@ -273,6 +273,8 @@ sub _dijkstra {
     my $scorer = shift;
     my %args   = @_;
 
+    TAEB->pathfinds(TAEB->pathfinds + 1);
+
     my $from              = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
     my $include_endpoints = $args{include_endpoints};
