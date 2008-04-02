@@ -713,15 +713,19 @@ sub try_key {
 
 sub redraw {
     my $self = shift;
+    my $level = TAEB->current_level;
 
     for my $y (1 .. 21) {
         Curses::move($y, 0);
-        Curses::addstr(TAEB->vt->row_plaintext($y));
+        for my $x (0 .. 79) {
+            my $tile = $level->at($x, $y);
+            Curses::addch(ord $tile->glyph);
+        }
     }
 
     $self->draw_botl;
 
-    Curses::move(TAEB->vt->y, TAEB->vt->x);
+    Curses::move(TAEB->y, TAEB->x);
 }
 
 sub draw_botl {
