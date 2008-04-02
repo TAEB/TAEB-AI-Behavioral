@@ -750,9 +750,16 @@ sub draw_botl {
     $pieces[-1] .= uc substr($self->current_level->branch, 0, 1)
         if $self->current_level->branch;
 
-    push @pieces, 'H:' . $self->hp . '/' . $self->maxhp;
-    push @pieces, 'P:' . $self->power . '/' . $self->maxpower
-        if $self->spells->has_spells;
+    push @pieces, 'H:' . $self->hp;
+    $pieces[-1] .= '/' . $self->maxhp
+        if $self->hp != $self->maxhp;
+
+    if ($self->spells->has_spells) {
+        push @pieces, 'P:' . $self->power;
+        $pieces[-1] .= '/' . $self->maxpower
+            if $self->power != $self->maxpower;
+    }
+
     push @pieces, 'A:' . $self->ac;
     push @pieces, 'X:' . $self->level;
     push @pieces, 'N:' . $self->nutrition;
