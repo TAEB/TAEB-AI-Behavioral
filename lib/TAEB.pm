@@ -731,6 +731,17 @@ sub has_dump {
     return 1;
 }
 
+sub get_key {
+    my $self = shift;
+    my $time = shift;
+
+    Term::ReadKey::ReadMode(3);
+    my $c = Term::ReadKey::ReadKey($time);
+    Term::ReadKey::ReadMode(0);
+
+    return $c;
+}
+
 no Moose;
 
 1;
