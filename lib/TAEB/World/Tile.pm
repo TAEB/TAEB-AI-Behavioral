@@ -492,13 +492,6 @@ sub draw {
     Curses::addch($bold | Curses::COLOR_PAIR($color) | ord $self->display_glyph);
 }
 
-sub draw_explored {
-    my $self  = shift;
-    my $color = $self->explored ? Curses::COLOR_PAIR(COLOR_GREEN) : 0;
-
-    Curses::addch($color | ord $self->display_glyph);
-}
-
 sub draw_debug {
     my $self  = shift;
     my $path  = TAEB->action && TAEB->action->can('path') && TAEB->action->path;
