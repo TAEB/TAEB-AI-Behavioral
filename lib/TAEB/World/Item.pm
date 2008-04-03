@@ -360,6 +360,9 @@ sub match {
         if (!defined $val) {
             return 0 unless $maybe_invert->(defined $attr);
         }
+        elsif (!defined $attr) {
+            return 0;
+        }
         elsif (ref($val) eq 'Regexp') {
             return 0 unless $maybe_invert->($attr =~ $val);
         }
