@@ -3,6 +3,11 @@ package TAEB::AI::Behavior::Heal;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
+sub use_potions {
+    map { "potion of $_" }
+    'healing', 'extra healing', 'full healing'
+}
+
 sub prepare {
     my $self = shift;
 
@@ -54,7 +59,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    for (map { "potion of $_" } 'healing', 'extra healing', 'full healing') {
+    for ($self->use_potions) {
         return 1 if $item->identity eq $_;
     }
 
