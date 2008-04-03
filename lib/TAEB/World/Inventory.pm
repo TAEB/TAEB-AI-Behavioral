@@ -212,7 +212,7 @@ after set => sub {
     #$self->shield($item)     if $item->match(subclass => 'shield',
     #                                         is_wearing => 1);
 
-    $self->weight(sum map { $_->weight } $self->items);
+    $self->weight(sum map { $_->weight * $_->quantity } $self->items);
 };
 
 __PACKAGE__->meta->make_immutable;
