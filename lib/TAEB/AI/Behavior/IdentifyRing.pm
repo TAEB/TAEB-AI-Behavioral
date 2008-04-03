@@ -38,9 +38,6 @@ sub pickup {
     # we only care about unidentified stuff and rings
     return 0 unless $item->match(identity => undef, class => 'ring');
 
-    # We don't care about rings on sink tiles.
-    return 0 if TAEB->current_tile->type eq 'sink';
-
     return 1;
 }
 
