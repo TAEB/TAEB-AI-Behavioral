@@ -16,7 +16,6 @@ has appearance => (
 
 has class => (
     isa           => 'ItemClass',
-    default       => 'unknown',
     documentation => "Armor, weapon, scroll, etc.",
 );
 
