@@ -548,6 +548,7 @@ sub handle_attributes {
 sub handle_more_menus {
     my $self = shift;
     my $each;
+    my $line_3 = 0;
 
     if (TAEB->topline =~ /^\s*Discoveries\s*$/) {
         $each = sub {
@@ -557,7 +558,10 @@ sub handle_more_menus {
             TAEB->enqueue_message('discovery', $identity, $appearance);
         };
     }
-    elsif (TAEB->topline =~ /Things that (?:are|you feel) here:/ || TAEB->vt->row_plaintext(2) =~ /Things that (?:are|you feel) here:/) {
+    elsif (TAEB->topline =~ /Things that (?:are|you feel) here:/
+        || ($line_3 = TAEB->vt->row_plaintext(2) =~ /Things that (?:are|you feel) here:/)
+    ) {
+        $self->messages($self->messages . '  ' . TAEB->topline) if $line_3;
         TAEB->enqueue_message('clear_floor');
         my $skip = 1;
         $each = sub {
