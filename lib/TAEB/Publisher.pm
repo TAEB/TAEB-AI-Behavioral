@@ -178,9 +178,9 @@ sub turn_messages {
 
 sub remove_messages {
     my $self = shift;
-    my $msg  = shift;
 
     I: for (my $i = 0; $i < @{ $self->queued_messages }; ) {
+        next if @{ $self->queued_messages->[$i] } < @_;
         for (my $j = 0; $j < @_; ++$j) {
             if ($self->queued_messages->[$i][$j] ne $_[$j]) {
                 ++$i;
