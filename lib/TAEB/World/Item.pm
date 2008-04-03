@@ -323,7 +323,7 @@ sub throw_range {
     $range = 1 if $range < 1;
 
     if ($self->match(identity => qr/\b(?:arrow|crossbow bolt)\b/)
-        || $self->match(class => 'gem') {
+        || $self->match(class => 'gem')) {
         if (0 && "Wielding a bow for arrows or crossbow for bolts or sling for gems") {
             ++$range;
         }
