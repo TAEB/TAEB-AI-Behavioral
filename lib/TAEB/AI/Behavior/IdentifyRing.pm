@@ -35,11 +35,11 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    # we only care about unidentified stuff
-    return 0 if $item->identity;
+    # we only care about unidentified stuff and rings
+    return 0 unless $item->match(identity => undef, class => 'ring');
 
-    # and rings
-    return 0 unless $item->class eq 'ring';
+    # We don't care about rings on sink tiles.
+    return 0 if TAEB->current_tile->type eq 'sink';
 
     return 1;
 }
