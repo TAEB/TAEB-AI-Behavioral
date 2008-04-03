@@ -100,14 +100,9 @@ sub knows_spell {
     my $self = shift;
     my $item = shift;
 
-    return 0 unless $item->class eq 'spellbook';
-    return 0 unless $item->identity;
-
-    if (my ($name) = $item->identity =~ /^spellbook of (.*)$/) {
-        return $self->get($name);
-    }
-
-    return;
+    return 0 unless $item->match(class    => 'spellbook',
+                                 identity => qr/^spellbook of (.*)$/);
+    return $self->get($1);
 }
 
 __PACKAGE__->meta->make_immutable;

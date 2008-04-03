@@ -31,7 +31,7 @@ sub respond_eat_ground {
     }
 
     # we're specific about this. really
-    return 'y' if $item->identity eq $self->item;
+    return 'y' if $item->match(identity => $self->item);
 
     # no thanks, I brought my own lunch
     return 'n';
@@ -94,7 +94,7 @@ sub can_eat {
 
     return 0 unless $item->class eq 'food';
     return 0 unless TAEB::Spoilers::Item::Food->should_eat($item);
-    return 0 if $item->identity eq 'lizard corpse'
+    return 0 if $item->match(identity => 'lizard corpse')
              && TAEB->nutrition > 5;
     return 1;
 }

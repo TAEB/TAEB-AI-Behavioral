@@ -48,10 +48,10 @@ sub done {
     TAEB->current_tile->engraving(TAEB->current_tile->engraving . $self->text);
     return unless blessed $self->item;
 
-    if ($self->item->class eq 'wand') {
+    if ($self->item->match(class => 'wand')) {
         $self->item->spend_charge;
     }
-    elsif ($self->item->identity eq 'magic marker') {
+    elsif ($self->item->match(identity => 'magic marker')) {
         $self->item->spend_charge(int(length($self->text) / 2));
     }
 

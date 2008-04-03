@@ -155,6 +155,7 @@ sub scroll {
     my $item = shift;
 
     $item = $item->identity if ref($item);
+    return unless $item;
     return $self->list->{$item};
 }
 

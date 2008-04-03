@@ -30,7 +30,7 @@ sub drop {
     my $item = shift;
 
     return unless TAEB->current_tile->in_shop;
-    return if $item->price == 0;
+    return if $item->match(price => 0);
 
     TAEB->debug("Yes, I want to drop $item because it costs money.");
     return 1;
@@ -48,7 +48,7 @@ sub pickup {
     my $item = shift;
 
     return 0 if TAEB->current_tile->in_vault;
-    return 1 if $item->appearance eq 'gold piece';
+    return 1 if $item->match(appearance => 'gold piece');
     return 0;
 }
 

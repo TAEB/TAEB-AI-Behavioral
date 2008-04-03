@@ -47,9 +47,8 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    $item->identity =~ m{
-        \b(?:dagger|dart|shuriken|boomerang|spear)\b
-    }x && $item->buc ne 'cursed';
+    $item->match(identity => qr/\b(?:dagger|dart|shuriken|boomerang|spear)\b/,
+                 not_buc => 'cursed');
 }
 
 sub urgencies {

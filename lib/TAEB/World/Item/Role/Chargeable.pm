@@ -34,7 +34,7 @@ sub chance_to_recharge {
     return 100 if $n == 0;
 
     # can recharge /oW only once
-    return 0 if $self->identity eq 'wand of wishing';
+    return 0 if $self->match(identity => 'wand of wishing');
 
     # (n/7)^3
     # XXX: probably OK to use floating point

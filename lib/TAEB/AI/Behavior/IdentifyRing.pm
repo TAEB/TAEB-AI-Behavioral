@@ -38,9 +38,6 @@ sub pickup {
     # we only care about unidentified stuff
     return 0 if $item->identity;
 
-    # We don't care about rings on sink tiles.
-    return 0 if TAEB->current_tile->type eq 'sink';
-
     # and rings
     return 0 unless $item->class eq 'ring';
 
@@ -51,11 +48,10 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    return unless $item->class eq 'ring';
+    return unless $item->match(class => 'ring', identity => undef);
 
     return if TAEB->current_tile->type ne 'sink'
-           || TAEB->is_blind
-           || $item->identity;
+           || TAEB->is_blind;
 
     TAEB->debug("Yes, I want to drop $item because I want to find out what it is.");
     return 1;

@@ -23,8 +23,9 @@ around pickup => sub {
     my $self = shift;
     my $item = shift;
 
-    return 1 if $item->identity eq 'wand of fire'; # engraving
-    return 1 if $item->identity eq 'ring of slow digestion'; # sustenance
+    return 1 if $item->match(identity =>
+                             ['wand of fire', # engraving
+                              'ring of slow digestion']); # sustenance
 
     return $orig->($self, $item, @_);
 };

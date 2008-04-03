@@ -13,7 +13,7 @@ sub prepare {
     my $pt = $item->possibility_tracker;
 
     if ($pt->can('engrave_useful') && $pt->engrave_useful &&
-        $item->price == 0 && !TAEB->is_blind) {
+        $item->match(price => 0) && !TAEB->is_blind) {
         if (TAEB->current_tile->engraving eq '') {
             $self->do(engrave => item => '-');
             $self->currently("Prepping for engrave-id by dusting");
@@ -33,11 +33,8 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    # we only care about unidentified stuff
-    return 0 if $item->identity;
-
     # we only know how to handle wands
-    if ($item->class eq 'wand') {
+    if ($item->match(class => 'wand', identity => undef)) {
         return 1 if $item->possibility_tracker->engrave_useful;
     }
 

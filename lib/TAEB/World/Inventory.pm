@@ -45,7 +45,7 @@ sub each {
 
     # pass in a regex? return the first item for which the regex matches ID
     if (ref($matcher) eq 'Regexp') {
-        return apply { $code->($_) } (grep { $_->identity =~ $matcher } $self->items);
+        return apply { $code->($_) } (grep { $_->match(identity => $matcher) } $self->items);
     }
 
     my $value = shift;
@@ -54,7 +54,7 @@ sub each {
         ($matcher, $value) = ('identity', $matcher);
     }
 
-    return apply { $code->($_) } (grep { $_->$matcher eq $value } $self->items);
+    return apply { $code->($_) } (grep { $_->match($matcher => $value) } $self->items);
 }
 
 sub find {
@@ -68,7 +68,7 @@ sub find {
 
     # pass in a regex? return the first item for which the regex matches ID
     if (ref($matcher) eq 'Regexp') {
-        return first { $_->identity =~ $matcher } $self->items;
+        return first { $_->match(identity => $matcher) } $self->items;
     }
 
     my $value = shift;
@@ -77,8 +77,7 @@ sub find {
         ($matcher, $value) = ('identity', $matcher);
     }
 
-    return first { defined $_->$matcher && $_->$matcher eq $value }
-                 $self->items;
+    return first { $_->match($matcher => $value) } $self->items;
 }
 
 =head2 update Char, Item
@@ -97,7 +96,7 @@ sub update {
 
     my $slot_item = $self->get($slot);
     if (defined $slot_item) {
-        if ($item->appearance ne $slot_item->appearance) {
+        if ($item->match(not_appearance => $slot_item->appearance)) {
             TAEB->error("Adding an item to a used inventory slot");
             $item->slot($slot);
             $self->set($slot => $item);
@@ -174,7 +173,7 @@ sub msg_got_item {
     my $self = shift;
     my $item = shift;
 
-    return if $item->appearance eq 'gold piece';
+    return if $item->match(appearance => 'gold piece');
     $self->update($item->slot => $item);
 }
 
@@ -190,21 +189,28 @@ after set => sub {
     my $self = shift;
     my ($slot, $item) = @_;
 
-    $self->wielded($item)    if $item->is_wielding;
-    $self->offhand($item)    if $item->is_offhand;
-    $self->quiver($item)     if $item->is_quivered;
+    $self->wielded($item)    if $item->match(is_wielding => 1);
+    $self->offhand($item)    if $item->match(is_offhand => 1);
+    $self->quiver($item)     if $item->match(is_quivered => 1);
     # XXX: make TAEB::World::Item know the difference between left hand and
     #      right hand rings (it's displayed in the inventory)
-    #$self->left_ring($item)  if $item->is_left_ring;
-    #$self->right_ring($item) if $item->is_right_ring;
-    $self->amulet($item)     if $item->class eq 'amulet' && $item->is_wearing;
+    #$self->left_ring($item)  if $item->match(is_left_ring => 1);
+    #$self->right_ring($item) if $item->match(is_right_ring => 1);
+    $self->amulet($item)     if $item->match(class => 'amulet',
+                                             is_wearing => 1);
     # XXX: bah, need to subclass armor
-    #$self->helmet($item)     if $item->subclass eq 'helmet' && $item->is_wearing;
-    #$self->gloves($item)     if $item->subclass eq 'gloves' && $item->is_wearing;
-    #$self->boots($item)      if $item->subclass eq 'boots' && $item->is_wearing;
-    #$self->body_armor($item) if $item->subclass eq 'armor' && $item->is_wearing;
-    #$self->cloak($item)      if $item->subclass eq 'cloak' && $item->is_wearing;
-    #$self->shield($item)     if $item->subclass eq 'shield' && $item->is_wearing;
+    #$self->helmet($item)     if $item->match(subclass => 'helmet',
+    #                                         is_wearing => 1);
+    #$self->gloves($item)     if $item->match(subclass => 'gloves',
+    #                                         is_wearing => 1);
+    #$self->boots($item)      if $item->match(subclass => 'boots',
+    #                                         is_wearing => 1);
+    #$self->body_armor($item) if $item->match(subclass => 'body_armor',
+    #                                         is_wearing => 1);
+    #$self->cloak($item)      if $item->match(subclass => 'cloak',
+    #                                         is_wearing => 1);
+    #$self->shield($item)     if $item->match(subclass => 'shield',
+    #                                         is_wearing => 1);
 
     $self->weight(sum map { $_->weight } $self->items);
 };

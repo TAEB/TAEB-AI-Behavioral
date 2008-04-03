@@ -28,12 +28,8 @@ sub prepare {
     unless ($spell) {
         for my $desired ($self->use_wands) {
             $wand = TAEB->find_item(sub {
-                my $item = shift;
-                return 0 unless defined($item->identity);
-                return 0 unless $item->identity eq $desired;
-                return 1 if !defined($item->charges);
-                return 1 if $item->charges;
-                return 0;
+                shift->match(identity => $desired,
+                             charges  => sub { shift > 0 });
             });
             next unless $wand;
             $urgency = $self->try_to_cast(undef, $wand);
@@ -93,13 +89,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return 0 unless defined($item->identity);
-
-    for ($self->use_wands) {
-        return 1 if $item->identity eq $_;
-    }
-
-    return 0;
+    return $item->match(identity => [$self->use_wands]);
 }
 
 __PACKAGE__->meta->make_immutable;

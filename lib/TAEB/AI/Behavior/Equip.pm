@@ -11,14 +11,14 @@ sub prepare {
 
     my ($best_weapon, $best_avgdam) = ($current_weapon, $current_avgdam);
     TAEB->inventory->each(sub {
-        return if $_->buc eq 'cursed' || $_->buc eq 'unknown';
+        return if $_->match(buc => ['cursed', 'unknown']);
         my $avgdam = dice($_->sdam);
         if ($avgdam > $best_avgdam) {
             $best_avgdam = $avgdam;
             $best_weapon = $_;
         }
     }, class => 'weapon');
-    return 0 if $best_weapon->slot eq $current_weapon->slot;
+    return 0 if $best_weapon->match(slot => $current_weapon->slot);
 
     $self->do(wield => weapon => $best_weapon);
     $self->currently("Equipping a better weapon");

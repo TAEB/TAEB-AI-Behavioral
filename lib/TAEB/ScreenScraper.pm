@@ -669,7 +669,7 @@ sub handle_menus {
             }
 
             TAEB->inventory->update($slot, $new_item, 1)
-                unless $new_item->appearance eq 'gold piece';
+                unless $new_item->match(appearance => 'gold piece');
             return 0;
         };
     }

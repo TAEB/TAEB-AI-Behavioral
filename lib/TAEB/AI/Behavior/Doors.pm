@@ -89,7 +89,7 @@ sub pickup {
         return 0 if TAEB->find_item($unlocker);
 
         # this is better than our best unlocker
-        return 1 if $item->identity eq $unlocker;
+        return 1 if $item->match(identity => $unlocker);
     }
 
     return 0;

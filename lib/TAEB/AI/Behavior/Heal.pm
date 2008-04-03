@@ -22,9 +22,9 @@ sub prepare {
 
         # we've probably been writing Elbereth a bunch, so find a healing potion
         if (TAEB->hp * 3 < TAEB->maxhp) {
-            my $potion = TAEB->find_item("potion of healing")
-                      || TAEB->find_item("potion of extra healing")
-                      || TAEB->find_item("potion of full healing");
+            my $potion = TAEB->find_item(sub {
+                shift->match(identity => [$self->use_potions])
+            });
             if ($potion) {
                 $self->do(quaff => from => $potion);
                 $self->currently("Quaffing a $potion");
@@ -59,11 +59,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    for ($self->use_potions) {
-        return 1 if $item->identity eq $_;
-    }
-
-    return;
+    return $item->match(identity => [$self->use_potions]);
 }
 
 sub urgencies {

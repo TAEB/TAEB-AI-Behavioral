@@ -79,7 +79,7 @@ sub pickup {
     my $item = shift;
 
     for (@can_fix) {
-        return 1 if $item->identity eq $_;
+        return 1 if $item->match(identity => $_);
     }
 
     return;

@@ -17,7 +17,7 @@ sub msg_nothing_happens {
     my $item = $self->item;
 
     # nothing happens is good! we know we don't have these status effects
-    if ($item->identity eq 'unicorn horn') {
+    if ($item->match(identity => 'unicorn horn')) {
         for (qw/blindness confusion stunning hallucination/) {
             TAEB->enqueue_message(status_change => $_ => 0);
         }

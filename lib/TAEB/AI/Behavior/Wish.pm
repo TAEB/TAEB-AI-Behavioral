@@ -7,12 +7,8 @@ sub prepare {
     my $self = shift;
 
     my $wand = TAEB->find_item(sub {
-        my $item = shift;
-        return 0 unless defined($item->identity)
-                     && $item->identity eq 'wand of wishing';
-        return 1 if !defined($item->charges)
-                 || $item->charges;
-        return 0;
+        shift->match(identity => 'wand of wishing',
+                     charges  => [undef, sub { shift > 0 }]);
     });
 
     return 0 unless $wand;
@@ -32,8 +28,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return 0 unless defined($item->identity)
-                 && $item->identity eq 'wand of wishing';
+    return 0 unless $item->match(identity => 'wand of wishing');
 
     return 1;
 }

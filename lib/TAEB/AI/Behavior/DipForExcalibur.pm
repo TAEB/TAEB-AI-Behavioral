@@ -60,7 +60,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    if ($item->identity eq 'long sword') {
+    if ($item->match(identity => 'long sword')) {
         return unless $self->can_make_excalibur;
         return if TAEB->find_item("long sword");
         return 1;

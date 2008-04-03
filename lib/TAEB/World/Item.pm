@@ -296,31 +296,26 @@ sub is_autopickuped {
     my $self = shift;
     return 0 if !TAEB->autopickup;
 
-    return 1 if $self->appearance eq 'gold piece';
-    return 1 if $self->class eq 'wand';
+    return 1 if $self->match(appearance => 'gold piece');
+    return 1 if $self->match(class => 'wand');
 
     return 0;
 }
 
-my @check = qw/appearance quantity/;
 sub maybe_is {
     my $self  = shift;
     my $other = shift;
 
-    for (@check) {
-        if ($self->$_ ne $other->$_) {
-            return 0;
-        }
-    }
-
-    return 1;
+    return 1 if $self->match(appearance => $other->appearance,
+                             quantity   => $other->quantity);
+    return 0;
 }
 
 sub throw_range {
     my $self = shift;
     my $range = int(TAEB->numeric_strength / 2);
 
-    if ($self->identity eq 'heavy iron ball') {
+    if ($self->match(identity => 'heavy iron ball')) {
         $range -= int($self->weight / 100);
     }
     else {
@@ -329,8 +324,8 @@ sub throw_range {
 
     $range = 1 if $range < 1;
 
-    if ($self->identity =~ /\b(?:arrow|crossbow bolt)\b/
-        || $self->class eq 'gem') {
+    if ($self->match(identity => qr/\b(?:arrow|crossbow bolt)\b/)
+        || $self->match(class => 'gem') {
         if (0 && "Wielding a bow for arrows or crossbow for bolts or sling for gems") {
             ++$range;
         }
@@ -341,10 +336,10 @@ sub throw_range {
 
     # are we on Air? are we levitating?
 
-    if ($self->identity eq 'boulder') {
+    if ($self->match(identity => 'boulder')) {
         $range = 20;
     }
-    elsif ($self->identity eq "Mjollnir") {
+    elsif ($self->match(identity => 'Mjollnir')) {
         $range = int(($range + 1) / 2);
     }
 

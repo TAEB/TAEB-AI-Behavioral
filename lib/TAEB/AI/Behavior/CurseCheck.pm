@@ -12,7 +12,7 @@ sub prepare {
     my $level = TAEB->nearest_level(sub { shift->has_type('altar') })
         or return 0;
 
-    my @drop = grep { $_->buc eq 'unknown' && $_->appearance ne 'gold piece' } TAEB->inventory->items;
+    my @drop = grep { $_->match(buc => 'unknown', not_appearance => 'gold piece') } TAEB->inventory->items;
 
     # No point in cursechecking no items
     return 0 unless @drop;
@@ -38,7 +38,7 @@ sub drop {
 
     return if TAEB->current_tile->type ne 'altar'
            || TAEB->is_blind
-           || $item->buc ne 'unknown';
+           || $item->match(not_buc => 'unknown');
 
     TAEB->debug("Yes, I want to drop $item because it needs to be cursechecked.");
     return 1;
