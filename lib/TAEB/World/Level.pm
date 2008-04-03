@@ -486,6 +486,29 @@ around is_oracle => sub {
     return 1;
 };
 
+around is_rogue => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    return $self->$orig(@_) if @_;
+
+    my $is_rogue = $self->$orig;
+    return $is_rogue if $is_rogue;
+
+    my $botl = TAEB->vt->row_plaintext(23);
+    if ($botl =~ /(\$|\*):\d+/ ) {
+        $self->is_rogue($1 eq '*');
+        return ($self->is_rogue);
+    }
+    else
+    {
+        TAEB->error("Unable to parse the botl line '$botl'");
+    }
+
+    # We shouldn't get down here, but just in case:
+    return 0;
+};
+
 sub msg_dungeon_level {
     my $self = shift;
     my $level = shift;
