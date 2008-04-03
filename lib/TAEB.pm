@@ -260,6 +260,7 @@ has persistent_dump => (
 has pathfinds => (
     is  => 'rw',
     isa => 'Int',
+    default => 0,
 );
 
 =head2 iterate
