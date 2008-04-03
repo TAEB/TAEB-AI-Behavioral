@@ -359,11 +359,21 @@ sub match {
 
     for my $matcher (keys %args) {
         my $attr = $self->$matcher;
-        return 0 unless defined $attr;
-
         my $val = $args{$matcher};
+        return 0 unless defined $attr != defined $val;
+
         if (ref($val) eq 'Regexp') {
             return 0 unless $attr =~ $val;
+        }
+        elsif (ref($val) eq 'CODE') {
+            return 0 unless $val->($attr);
+        }
+        elsif (ref($val) eq 'ARRAY') {
+            my $success = 0;
+            for (@$val) {
+                $success = 1 if $attr eq $_;
+            }
+            return 0 unless $success;
         }
         else {
             return 0 unless $attr eq $val;
