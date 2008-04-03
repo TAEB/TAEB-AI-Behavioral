@@ -1,5 +1,7 @@
 #!perl
 package TAEB;
+use Curses ();
+
 use TAEB::Util ':colors';
 
 use MooseX::Singleton;
@@ -19,8 +21,6 @@ use TAEB::World;
 use TAEB::Senses;
 use TAEB::Action;
 use TAEB::Publisher;
-
-use Curses ();
 
 =head1 NAME
 
