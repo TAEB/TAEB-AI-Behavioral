@@ -209,7 +209,11 @@ sub pickup {
     my $self = shift;
 
     for my $behavior (values %{ $self->behaviors }) {
-        return 1 if $behavior->pickup(@_);
+        if ($behavior->pickup(@_)) {
+            my $name = $behavior->name;
+            TAEB->info("$name wants to pick up @_");
+            return 1;
+        }
     }
 
     return 0;
