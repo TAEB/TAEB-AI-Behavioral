@@ -346,38 +346,47 @@ sub throw_range {
     return $range;
 }
 
+sub _match {
+    my $self = shift;
+    my $name = shift;
+    my $seek = shift;
+    my $value = shift;
+
+    return !defined $value if !defined $seek;
+    return 0 if !defined $value;
+    return $value =~ $seek if (ref($seek) eq 'Regexp');
+    return $seek->($value) if ref($seek) eq 'CODE';
+    if (ref($seek) eq 'ARRAY') {
+        for (@$seek) {
+            return 1 if $self->match($name => $_);
+        }
+    }
+    return $value eq $seek;
+    return 0;
+}
+
 sub match {
     my $self = shift;
     my %args = @_;
 
+    # All the conditions must be true for true to be returned. Return
+    # immediately if a false condition is found.
     for my $matcher (keys %args) {
-        my $maybe_invert;
-        ($maybe_invert, $matcher) = $matcher =~ /^(not_)?(.*)$/;
-        $maybe_invert = $maybe_invert ? sub { !shift } : sub { shift };
+        my $invert;
+        my $name;
+        ($invert, $name) = $matcher =~ /^(not_)?(.*)$/;
+        $invert = $invert ? 1 : 0;
 
-        my $attr = $self->$matcher;
-        my $val = $args{$matcher};
-        if (!defined $val) {
-            return 0 unless $maybe_invert->(defined $attr);
-        }
-        elsif (!defined $attr) {
-            return 0;
-        }
-        elsif (ref($val) eq 'Regexp') {
-            return 0 unless $maybe_invert->($attr =~ $val);
-        }
-        elsif (ref($val) eq 'CODE') {
-            return 0 unless $maybe_invert->($val->($attr));
-        }
-        elsif (ref($val) eq 'ARRAY') {
-            my $success = 0;
-            for (@$val) {
-                $success = 1 if $self->match($matcher => $_);
-            }
-            return 0 unless $maybe_invert->($success);
+        my $seek = $args{$matcher};
+        my $value = $self->$name;
+
+        my $matched = $self->_match($name, $seek, $value) ? 1 : 0;
+        
+        if ($invert) {
+            return 0 if $matched;
         }
         else {
-            return 0 unless $maybe_invert->($attr eq $val);
+            return 0 unless $matched;
         }
     }
 
