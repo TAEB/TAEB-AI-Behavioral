@@ -33,7 +33,7 @@ sub urgencies {
 sub pickup {
     my $self = shift;
     my $item = shift;
-    $item->weight < 100 or return 0;
+    return 0 unless $item->match(weight => sub { shift() < 100 });
     return TAEB::Spoilers::Item::Food->should_eat($item);
 }
 
