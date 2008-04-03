@@ -371,7 +371,7 @@ sub match {
         elsif (ref($val) eq 'ARRAY') {
             my $success = 0;
             for (@$val) {
-                $success = 1 if $attr eq $_;
+                $success = 1 if $self->match($matcher => $_);
             }
             return 0 unless $success;
         }
