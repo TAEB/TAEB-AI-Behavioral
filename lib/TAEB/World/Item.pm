@@ -348,21 +348,19 @@ sub throw_range {
 
 sub _match {
     my $self = shift;
-    my $name = shift;
-    my $seek = shift;
     my $value = shift;
+    my $seek = shift;
 
     return !defined $value if !defined $seek;
     return 0 if !defined $value;
-    return $value =~ $seek if (ref($seek) eq 'Regexp');
+    return $value =~ $seek if ref($seek) eq 'Regexp';
     return $seek->($value) if ref($seek) eq 'CODE';
     if (ref($seek) eq 'ARRAY') {
         for (@$seek) {
-            return 1 if $self->match($name => $_);
+            return 1 if $self->_match($value => $_);
         }
     }
     return $value eq $seek;
-    return 0;
 }
 
 sub match {
@@ -372,16 +370,12 @@ sub match {
     # All the conditions must be true for true to be returned. Return
     # immediately if a false condition is found.
     for my $matcher (keys %args) {
-        my $invert;
-        my $name;
-        ($invert, $name) = $matcher =~ /^(not_)?(.*)$/;
-        $invert = $invert ? 1 : 0;
-
-        my $seek = $args{$matcher};
+        my ($invert, $name) = $matcher =~ /^(not_)?(.*)$/;
         my $value = $self->$name;
+        my $seek = $args{$matcher};
 
-        my $matched = $self->_match($name, $seek, $value) ? 1 : 0;
-        
+        my $matched = $self->_match($value => $seek) ? 1 : 0;
+
         if ($invert) {
             return 0 if $matched;
         }
