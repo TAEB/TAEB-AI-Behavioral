@@ -634,7 +634,7 @@ sub handle_menus {
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
         my $which_spell = TAEB->get_response(TAEB->topline) || "\e";
-        $which_spell = ' ' if TAEB->checking eq 'spells';
+        $which_spell = ' ' if TAEB->is_checking('spells');
         $committer = sub { $which_spell };
 
         $selector = sub {
@@ -661,7 +661,7 @@ sub handle_menus {
             my $item        = TAEB->inventory->get($slot) || $new_item;
 
             # if we can drop the item, drop it!
-            if (!(TAEB->checking eq 'inventory')
+            if (!(TAEB->is_checking('inventory'))
             && TAEB->personality->drop($item)) {
                 TAEB->inventory->remove($slot);
                 TAEB->enqueue_message('floor_item' => $item);

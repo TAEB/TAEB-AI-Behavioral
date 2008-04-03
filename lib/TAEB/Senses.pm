@@ -121,7 +121,6 @@ has following_vault_guard => (
 
 has checking => (
     isa     => 'Str',
-    default => '',
     clearer => 'clear_checking',
 );
 
@@ -253,6 +252,13 @@ sub msg_autopickup {
 sub is_polymorphed {
     my $self = shift;
     return $self->in_wereform;
+}
+
+sub is_checking {
+    my $self = shift;
+    my $what = shift;
+    return 0 unless defined($self->checking);
+    return $self->checking eq $what;
 }
 
 sub msg_god_angry {
