@@ -278,6 +278,8 @@ sub _dijkstra {
     my $from              = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
     my $include_endpoints = $args{include_endpoints};
+    my $sokoban           = $args{from}->branch
+                         && $args{from}->branch eq 'sokoban';
 
     my $max_score;
     my $max_tile;
@@ -330,7 +332,7 @@ sub _dijkstra {
             }
 
             # can't move diagonally past boulders in sokoban
-            if (TAEB->current_level->branch eq 'sokoban') {
+            if ($sokoban) {
                 next if !$tilex->is_walkable && !$tiley->is_walkable &&
                         ($tilex->glyph eq '0' || $tiley->glyph eq '0');
             }
