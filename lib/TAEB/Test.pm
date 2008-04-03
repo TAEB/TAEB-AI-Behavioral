@@ -2,6 +2,7 @@
 package TAEB::Test;
 use strict;
 use warnings;
+use Curses;
 use TAEB;
 use parent 'Test::More';
 use List::Util 'sum';
