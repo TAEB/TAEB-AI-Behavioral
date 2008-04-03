@@ -11,7 +11,7 @@ sub prepare {
 
     my ($best_weapon, $best_avgdam) = ($current_weapon, $current_avgdam);
     TAEB->inventory->each(sub {
-        return if $_->match(buc => ['cursed', 'unknown']);
+        return if $_->match(buc => ['cursed', undef]);
         my $avgdam = dice($_->sdam);
         if ($avgdam > $best_avgdam) {
             $best_avgdam = $avgdam;

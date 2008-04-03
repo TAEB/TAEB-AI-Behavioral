@@ -16,7 +16,7 @@ enum Race   => qw(Hum Elf Dwa Gno Orc);
 enum Align  => qw(Law Neu Cha);
 enum Gender => qw(Mal Fem);
 
-enum BUC    => qw(blessed uncursed cursed unknown);
+enum BUC    => qw(blessed uncursed cursed);
 enum ItemClass => qw(gold weapon armor food scroll spellbook potion amulet ring wand tool gem other unknown);
 
 enum TileType => tile_types;

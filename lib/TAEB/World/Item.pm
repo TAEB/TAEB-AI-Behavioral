@@ -31,7 +31,6 @@ has quantity => (
 
 has buc => (
     isa     => 'BUC',
-    default => 'unknown',
 );
 
 has is_greased => (
