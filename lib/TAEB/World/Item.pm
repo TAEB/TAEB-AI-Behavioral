@@ -358,25 +358,30 @@ sub match {
     my %args = @_;
 
     for my $matcher (keys %args) {
+        my $maybe_invert;
+        ($maybe_invert, $matcher) = $matcher =~ /^(not_)?(.*)$/;
+        $maybe_invert = $maybe_invert ? sub { !shift } : sub { shift };
+
         my $attr = $self->$matcher;
         my $val = $args{$matcher};
-        return 0 unless defined $attr != defined $val;
-
-        if (ref($val) eq 'Regexp') {
-            return 0 unless $attr =~ $val;
+        if (!defined $val) {
+            return 0 unless $maybe_invert->(defined $attr);
+        }
+        elsif (ref($val) eq 'Regexp') {
+            return 0 unless $maybe_invert->($attr =~ $val);
         }
         elsif (ref($val) eq 'CODE') {
-            return 0 unless $val->($attr);
+            return 0 unless $maybe_invert->($val->($attr));
         }
         elsif (ref($val) eq 'ARRAY') {
             my $success = 0;
             for (@$val) {
                 $success = 1 if $self->match($matcher => $_);
             }
-            return 0 unless $success;
+            return 0 unless $maybe_invert->($success);
         }
         else {
-            return 0 unless $attr eq $val;
+            return 0 unless $maybe_invert->($attr eq $val);
         }
     }
 
