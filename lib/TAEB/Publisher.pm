@@ -176,6 +176,21 @@ sub turn_messages {
     delete $self->turn_messages->{TAEB->turn};
 }
 
+sub remove_messages {
+    my $self = shift;
+    my $msg  = shift;
+
+    I: for (my $i = 0; $i < @{ $self->queued_messages }; ) {
+        for (my $j = 0; $j < @_; ++$j) {
+            if ($self->queued_messages->[$i][$j] ne $_[$j]) {
+                ++$i;
+                next I;
+            }
+        }
+        splice @{ $self->queued_messages }, $i, 1;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
