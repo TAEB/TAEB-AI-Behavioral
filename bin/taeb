@@ -62,7 +62,7 @@ $SIG{__DIE__} = sub {
 my $old_sigdie = $SIG{__DIE__};
 $SIG{__DIE__} = sub {
 
-    unless ("@_ $_" =~ /Game over, man/) {
+    unless ("@_" =~ /Game over, man/) {
         TAEB->error("@_");
         TAEB->dump;
         $old_sigdie->(@_) if ref($old_sigdie) eq 'CODE';
