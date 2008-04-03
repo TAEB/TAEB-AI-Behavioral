@@ -454,6 +454,7 @@ for my $check (keys %check_command) {
 
     __PACKAGE__->meta->add_method("_check_$check" => sub {
         my $self = shift;
+        TAEB->remove_messages(check => $check);
         TAEB->write($command);
         TAEB->full_input;
         $post->($self) if $post;
