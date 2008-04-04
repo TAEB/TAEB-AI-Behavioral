@@ -24,8 +24,8 @@ has shop_names => (
 );
 
 sub shop_type {
-    $self = shift;
-    $name = shift;
+    my $self = shift;
+    my $name = shift;
 
     if ($self->shop_names->{$name})
     {
