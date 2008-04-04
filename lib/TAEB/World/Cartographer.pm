@@ -299,6 +299,8 @@ sub is_engulfed {
         my $got = TAEB->vt->at(TAEB->x + $dx, TAEB->y + $dy);
         next if $got eq $glyph;
 
+        return 0 unless TAEB->is_engulfed;
+
         TAEB->info("We're no longer engulfed! I expected to see $glyph at delta ($dx, $dy) but I saw $got.");
         TAEB->enqueue_message(engulfed => 0);
         return 0;
