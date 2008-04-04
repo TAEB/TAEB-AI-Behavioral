@@ -49,6 +49,7 @@ sub next_action {
         $main::request->print(anon_template {
             html {
                 body {
+                    h2 { $action_name }
                     form {
                         for my $attr (@required) {
                             my $name = $attr->name;
@@ -65,6 +66,9 @@ sub next_action {
                                 };
                             }
                         }
+                    }
+                    pre {
+                        TAEB->vt->as_string("\n");
                     }
                 }
             }
