@@ -188,7 +188,7 @@ our @msg_regex = (
     ],
     [
         qr/^You read: \"(.*)\"\./,
-            ['floor_message', sub { $1 }],
+            ['floor_message', sub { (my $str = $1) =~ tr/_/ /; $str }],
     ],
     [
         qr/^You owe .*? (\d+) zorkmids?\./,
