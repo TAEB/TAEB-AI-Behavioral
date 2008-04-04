@@ -320,15 +320,12 @@ sub _dijkstra {
 
             next if $closed[$xdx][$ydy];
 
-            # for testing diagonal movement
-            my $tilex = $tile->level->at($xdx, $y);
-            my $tiley = $tile->level->at($x, $ydy);
-
             # can't move diagonally if we have lots in our inventory
             # XXX: this should be 600, but we aren't going to be able to get
             # the weight exact
             if ((TAEB->inventory->weight > 500 || $sokoban) && $dx && $dy) {
-                next unless $tilex->is_walkable || $tiley->is_walkable;
+                next unless $tile->level->at($xdx, $y)->is_walkable
+                         || $tile->level->at($x, $ydy)->is_walkable;
             }
 
             # can't move diagonally off of doors
