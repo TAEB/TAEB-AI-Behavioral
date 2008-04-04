@@ -716,6 +716,12 @@ sub handle_fallback {
             TAEB->write($response);
             die "Recursing screenscraper.\n";
         }
+        else {
+            $self->messages($self->messages . "(escaped)");
+            TAEB->write("\e");
+            TAEB->warning("Escaped out of unhandled prompt: " . TAEB->topline);
+            die "Recursing screenscraper.\n";
+        }
     }
 }
 
