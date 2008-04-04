@@ -64,8 +64,7 @@ sub forgotten {
 sub debug_line {
     my $self = shift;
 
-    return sprintf '[%s: %s - %s (%d)]',
-           blessed($self),
+    return sprintf '%s - %s (%d]',
            $self->slot,
            $self->name,
            $self->learned_at;
