@@ -106,6 +106,12 @@ sub check_dlvl {
                     $newlevel->branch('sokoban');
                 }
             }
+            if ($dlvl >= 10 && $dlvl <= 12) {
+                if ($newlevel->detect_bigroom_vt) {
+                    $newlevel->branch('dungeons');
+                    $newlevel->is_bigroom(1);
+                }
+            }
         }
 
         $self->dungeon->current_level($newlevel);
