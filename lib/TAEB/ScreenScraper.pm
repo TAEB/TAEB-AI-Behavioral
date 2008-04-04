@@ -350,6 +350,10 @@ our @msg_regex = (
         qr/You cannot escape from .*!/ =>
             ['grabbed' => 1],
     ],
+    [
+        qr/.* (?:releases you!|grip relaxes\.)/ =>
+            ['grabbed' => 0],
+    ],
 );
 
 our @god_anger = (
