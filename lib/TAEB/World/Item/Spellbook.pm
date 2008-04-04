@@ -8,6 +8,19 @@ has '+class' => (
     default => 'spellbook',
 );
 
+has difficult => (
+    isa     => 'Int',
+    default => 0,
+);
+
+sub spell {
+    my $self = shift;
+    
+    return unless defined $self->identity;
+    $self->identity =~ m/spellbook of (.*)/;
+    return $1;
+}
+
 install_spoilers(qw/level read marker emergency role/);
 
 __PACKAGE__->meta->make_immutable;
