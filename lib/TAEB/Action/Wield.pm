@@ -8,6 +8,7 @@ use constant command => "w";
 has weapon => (
     isa      => 'TAEB::World::Item | Str',
     required => 1,
+    provided => 1,
 );
 
 sub to_wield {

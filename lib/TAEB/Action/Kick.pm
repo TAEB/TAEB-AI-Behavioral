@@ -6,6 +6,7 @@ with 'TAEB::Action::Role::Direction';
 
 has '+direction' => (
     required => 1,
+    provided => 1,
 );
 
 # ctrl-D

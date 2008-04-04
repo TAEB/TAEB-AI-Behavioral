@@ -9,7 +9,8 @@ has path => (
 );
 
 has direction => (
-    isa => 'Str',
+    isa      => 'Str',
+    provided => 1,
 );
 
 has starting_tile => (

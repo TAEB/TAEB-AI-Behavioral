@@ -9,11 +9,13 @@ use constant command => "#dip\n";
 has '+item' => (
     isa      => 'TAEB::Type::Item',
     required => 1,
+    provided => 1,
 );
 
 has into => (
     isa     => 'TAEB::World::Item | Str',
     default => 'fountain',
+    provided => 1,
 );
 
 sub respond_dip_what { shift->item->slot }

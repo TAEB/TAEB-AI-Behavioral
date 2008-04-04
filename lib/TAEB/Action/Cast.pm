@@ -9,6 +9,7 @@ use constant command => 'Z';
 has spell => (
     isa      => 'TAEB::Knowledge::Spell',
     required => 1,
+    provided => 1,
 );
 
 sub respond_which_spell { shift->spell->slot }

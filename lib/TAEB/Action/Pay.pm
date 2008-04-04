@@ -8,6 +8,7 @@ use constant command => "p";
 has item => (
     isa      => 'TAEB::World::Item | Str',
     required => 1,
+    provided => 1,
 );
 
 sub respond_buy_item {

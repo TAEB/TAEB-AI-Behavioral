@@ -9,6 +9,7 @@ use constant command => "W";
 has item => (
     isa      => 'TAEB::World::Item',
     required => 1,
+    provided => 1,
 );
 
 sub respond_wear_what { shift->item->slot }

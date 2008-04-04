@@ -8,6 +8,7 @@ use constant command => "q";
 has from => (
     isa      => 'TAEB::World::Item | Str',
     required => 1,
+    provided => 1,
 );
 
 sub respond_drink_from {

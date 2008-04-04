@@ -8,6 +8,7 @@ use constant command => "a";
 has item => (
     isa      => 'TAEB::World::Item',
     required => 1,
+    provided => 1,
 );
 
 sub respond_apply_what { shift->item->slot }

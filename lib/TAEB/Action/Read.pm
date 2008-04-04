@@ -9,6 +9,7 @@ use constant command => "r";
 
 has '+item' => (
     isa      => 'TAEB::Type::Item',
+    provided => 1,
     required => 1,
 );
 

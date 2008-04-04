@@ -9,8 +9,9 @@ has started => (
 );
 
 has iterations => (
-    isa     => 'Int',
-    default => 20,
+    isa      => 'Int',
+    default  => 20,
+    provided => 1,
 );
 
 sub command { shift->iterations . 's' }

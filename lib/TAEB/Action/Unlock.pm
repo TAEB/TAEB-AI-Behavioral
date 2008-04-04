@@ -9,10 +9,12 @@ use constant command => 'a';
 has implement => (
     isa      => 'TAEB::World::Item',
     required => 1,
+    provided => 1,
 );
 
 has '+direction' => (
     required => 1,
+    provided => 1,
 );
 
 sub respond_apply_what { shift->implement->slot }

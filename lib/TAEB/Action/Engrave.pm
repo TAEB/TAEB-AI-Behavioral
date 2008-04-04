@@ -8,21 +8,25 @@ use constant command => 'E';
 
 has '+item' => (
     default => '-',
+    provided => 1,
 );
 
 has text => (
     isa     => 'Str',
     default => 'Elbereth',
+    provided => 1,
 );
 
 has add_engraving => (
     isa     => 'Bool',
     default => 1,
+    provided => 1,
 );
 
 has got_identifying_message => (
     isa     => 'Bool',
     default => 0,
+    provided => 1,
 );
 
 sub engrave_slot {

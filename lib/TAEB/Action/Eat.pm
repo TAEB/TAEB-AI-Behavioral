@@ -9,6 +9,7 @@ use constant command => "e";
 
 has '+item' => (
     required => 1,
+    provided => 1,
 );
 
 sub respond_eat_ground {
