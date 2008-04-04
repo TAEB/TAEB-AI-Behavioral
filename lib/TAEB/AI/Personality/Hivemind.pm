@@ -57,13 +57,32 @@ sub next_action {
                             label {
                                 attr { for => $name };
                                 $name
+                            };
+                            if ($attr->type_constraint->is_a_type_of('TAEB::Type::ItemOrStr')) {
+                                select {
+                                    attr {
+                                        id   => $name,
+                                        name => $name,
+                                    };
+
+                                    for my $slot (TAEB->inventory->slots) {
+                                        option {
+                                            attr {
+                                                value => $slot,
+                                            }
+                                            TAEB->inventory->get($slot)->debug_line
+                                        }
+                                    }
+                                }
                             }
-                            input {
-                                attr {
-                                    id => $name,
-                                    name => $name,
-                                    type => "text",
-                                };
+                            else {
+                                input {
+                                    attr {
+                                        id => $name,
+                                        name => $name,
+                                        type => "text",
+                                    };
+                                }
                             }
                         }
                     }
@@ -76,7 +95,12 @@ sub next_action {
 
         $main::request->next;
         for my $attr (@required) {
-            $args{$attr->name} = $main::request->param($attr->name);
+            my $value = $main::request->param($attr->name);
+
+            $value = TAEB->inventory->get($value)
+                if $attr->type_constraint->is_a_type_of('TAEB::Type::ItemOrStr');
+
+            $args{$attr->name} = $value;
         }
     }
 
