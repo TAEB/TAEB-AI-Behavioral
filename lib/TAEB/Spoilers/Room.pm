@@ -19,7 +19,7 @@ has shop_names => (
             "rare books"                      => 'book',
             "lighting store"                  => 'light',
         );
-        return %shop_names;
+        return \%shop_names;
     },
 );
 
