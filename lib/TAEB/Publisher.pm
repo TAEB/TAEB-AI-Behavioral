@@ -213,6 +213,8 @@ sub menu_select {
                 return $method->($responder, $slot, $item);
             }
         }
+
+        return 0;
     };
 }
 
