@@ -12,6 +12,16 @@ sub msg_got_item {
     TAEB->enqueue_message(remove_floor_item => @_);
 }
 
+sub begin_select_pickup {
+    TAEB->enqueue_message('clear_floor');
+}
+
+sub select_pickup {
+    my $item = TAEB->new_item($_);
+    TAEB->enqueue_message('floor_item' => $item);
+    TAEB->want_item($item);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
