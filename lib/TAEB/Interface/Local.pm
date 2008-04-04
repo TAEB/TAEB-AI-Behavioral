@@ -56,6 +56,14 @@ sub read {
     my $out = $self->pty->read(1);
     return '' if !defined($out);
     die "Pty closed." if $out eq '';
+
+    # sysread likes to give me blocks of 1024 characters. this is the best
+    # fix I could come up with. I think it'll work even if NetHack sends
+    # precisely 1024 bytes because it'll just time out after 1.2s or whatever.
+    if (length($out) == 1024) {
+        $out .= $self->read(@_);
+    }
+
     return $out;
 }
 
