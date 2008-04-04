@@ -14,9 +14,11 @@ after done => sub {
     return unless $self->command eq '>';
 
     if (my $branch = $start->level->branch) {
-        if ($branch eq 'mines' || $branch eq 'quest' || $branch eq 'gehennom') {
-            $current->level->branch($branch);
-        }
+        $current->level->branch($branch)
+            if $branch eq 'mines'
+            || $branch eq 'quest'
+            || $branch eq 'gehennom'
+            || ($branch eq 'dungeons' && $start->level->z > 4);
     }
 };
 
