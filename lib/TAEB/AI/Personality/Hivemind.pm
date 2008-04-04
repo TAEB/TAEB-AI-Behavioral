@@ -13,13 +13,18 @@ sub next_action {
         html {
             body {
                 form {
-                    input {
+                    select {
                         attr {
-                            id        => "cmd",
-                            type      => "text",
-                            size      => 1,
-                            maxlength => 1,
-                            name      => "c",
+                            name => "action",
+                        };
+
+                        for my $name (@TAEB::Action::actions) {
+                            option {
+                                attr {
+                                    value => $name,
+                                }
+                                $name
+                            }
                         }
                     }
                 }
@@ -34,8 +39,44 @@ sub next_action {
     });
 
     $main::request->next;
-    my $c = substr($main::request->param('c'), 0, 1);
-    return TAEB::Action->new_action(custom => string => $c);
+    my $action_name = $main::request->param('action');
+    my $action_meta = "TAEB::Action::$action_name"->meta;
+
+    my @required = grep { $_->provided }
+                   $action_meta->compute_all_applicable_attributes;
+    my %args;
+    if (@required) {
+        $main::request->print(anon_template {
+            html {
+                body {
+                    form {
+                        for my $attr (@required) {
+                            my $name = $attr->name;
+
+                            label {
+                                attr { for => $name };
+                                $name
+                            }
+                            input {
+                                attr {
+                                    id => $name,
+                                    name => $name,
+                                    type => "text",
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        $main::request->next;
+        for my $attr (@required) {
+            $args{$attr->name} = $main::request->param($attr->name);
+        }
+    }
+
+    return "TAEB::Action::$action_name"->new(%args);
 }
 
 sub respond {
