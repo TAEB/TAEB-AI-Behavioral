@@ -42,7 +42,7 @@ sub prepare {
         # finally, we have an Elbereth under us, so we rest up to heal
         if ($elbereths) {
             $self->currently("Resting on an Elbereth tile.");
-            $self->do('search');
+            $self->do('search', iterations => 5);
             return 80;
         }
     }
