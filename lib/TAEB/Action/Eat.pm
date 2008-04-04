@@ -54,6 +54,7 @@ sub respond_eat_what {
         TAEB->error("Unable to eat '" . $self->item . "'. Sending escape, but I doubt this will work.");
     }
 
+    TAEB->enqueue_message(check => 'inventory');
     $self->aborted(1);
     return "\e\e\e";
 }
