@@ -486,6 +486,7 @@ around is_oracle => sub {
     return 0 unless grep { $_->is_oracle } $self->monsters;
 
     TAEB->info("This is the Oracle level!");
+    $self->branch('dungeons');
     $self->is_oracle(1);
     return 1;
 };
@@ -502,6 +503,7 @@ around is_rogue => sub {
     my $botl = TAEB->vt->row_plaintext(23);
     if ($botl =~ /(\$|\*):\d+/ ) {
         $self->is_rogue($1 eq '*');
+        $self->branch('dungeons') if $self->is_rogue;
         return ($self->is_rogue);
     }
     else
@@ -538,7 +540,8 @@ around is_bigroom => sub {
 
     return 0 unless $self->z >= 10 && $self->z <= 12;
 
-    return $self->is_bigroom($self->detect_bigroom_vt);
+    $self->branch('dungeons') if $self->is_bigroom($self->detect_bigroom_vt);
+    return $self->is_bigroom;
 };
 
 sub msg_dungeon_level {
