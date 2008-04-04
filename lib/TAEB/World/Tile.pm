@@ -134,7 +134,8 @@ sub basic_cost {
     my $self = shift;
     my $cost = 100;
 
-    $cost = 1000 if $self->type eq 'trap';
+    $cost *= 10 if $self->type eq 'trap';
+    $cost *= 4  if $self->type eq 'ice';
 
     # prefer tiles we've stepped on to avoid traps
     $cost = $cost * .9 if $self->stepped_on;
