@@ -6,6 +6,12 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
+    if (TAEB->is_engulfed) {
+        $self->do(melee => direction => 'j');
+        $self->currently("Attacking our engulfer.");
+        return 100;
+    }
+
     return 0 unless TAEB->current_level->has_enemies;
 
     # look for the nearest tile with a monster
