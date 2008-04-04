@@ -33,7 +33,7 @@ has spoiler => (
         my $self = shift;
         my $name = "spellbook of " . $self->name;
 
-        Hash::Inflator->new(TAEB::Spoilers::Item::Spellbook->list->{$name});
+        Hash::Inflator->new(TAEB::Spoilers::Item::Spellbook->spellbook($name));
     },
 );
 
