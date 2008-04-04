@@ -328,6 +328,10 @@ our @msg_regex = (
         qr/You add the (.*) spell to your repertoire/ =>
             ['learned_spell' => sub { $1 }],
     ],
+    [
+        qr/crashes on .* and breaks into shards/ =>
+            ['check' => 'discoveries'],
+    ],
 );
 
 our @god_anger = (
