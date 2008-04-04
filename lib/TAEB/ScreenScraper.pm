@@ -332,6 +332,10 @@ our @msg_regex = (
         qr/crashes on .* and breaks into shards/ =>
             ['check' => 'discoveries'],
     ],
+    [   # Avoid matching shopkeeper name by checking for capital lettering.
+        qr/Welcome (?:again )? to(?: [A-Z]\S+)+ ([a-z ]+)!/ =>
+            ['enter_shop' => sub { TAEB::Spoilers::Room->shop_type($1) } ],
+    ],
 );
 
 our @god_anger = (
