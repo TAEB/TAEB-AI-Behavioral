@@ -191,6 +191,31 @@ sub remove_messages {
     }
 }
 
+sub menu_select {
+    my $self = shift;
+    my $name = shift;
+    my $num  = 0;
+
+    return sub {
+        my $slot = shift;
+        my $item = $_;
+
+        if ($num++ == 0) {
+            for my $responder (TAEB->personality, TAEB->action) {
+                if (my $method = $responder->can("begin_select_$name")) {
+                    $method->();
+                }
+            }
+        }
+
+        for my $responder (TAEB->personality, TAEB->action) {
+            if (my $method = $responder->can("select_$name")) {
+                return $method->($slot, $item);
+            }
+        }
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
