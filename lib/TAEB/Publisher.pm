@@ -201,14 +201,14 @@ sub menu_select {
         my $item = $_;
 
         if ($num++ == 0) {
-            for my $responder (TAEB->personality, TAEB->action) {
+            for my $responder (grep { defined } TAEB->personality, TAEB->action) {
                 if (my $method = $responder->can("begin_select_$name")) {
                     $method->($responder);
                 }
             }
         }
 
-        for my $responder (TAEB->personality, TAEB->action) {
+        for my $responder (grep { defined } TAEB->personality, TAEB->action) {
             if (my $method = $responder->can("select_$name")) {
                 return $method->($responder, $slot, $item);
             }
