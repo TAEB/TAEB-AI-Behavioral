@@ -6,6 +6,7 @@ use warnings;
 use TAEB::Spoilers::Monster;
 use TAEB::Spoilers::Item;
 use TAEB::Spoilers::Engravings;
+use TAEB::Spoilers::Room;
 
 1;
 
