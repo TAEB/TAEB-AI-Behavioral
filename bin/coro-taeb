@@ -1,0 +1,51 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use lib 'lib';
+
+use Continuity;
+use Curses;
+use TAEB;
+use TAEB::Interface::Local;
+use TAEB::AI::Personality::Hivemind;
+
+TAEB->personality(TAEB::AI::Personality::Hivemind->new);
+TAEB->interface(TAEB::Interface::Local->new);
+
+$| = 1;
+
+initscr;
+END { endwin }
+noecho;
+cbreak;
+start_color;
+use_default_colors;
+init_pair($_, $_, 0) for 0 .. 8;
+
+addstr "Loading TAEB...";
+
+Continuity->new->loop;
+
+our $request;
+sub main {
+    return if $request;
+    $request = shift;
+
+    # XXX: otherwise Coro or Continuity spews out tons of shit
+    close STDERR;
+    local $SIG{__WARN__} = sub { TAEB->warning(@_) };
+    local $SIG{__DIE__} = sub {
+
+        unless ("@_" =~ /Game over, man/) {
+            TAEB->error("@_");
+            TAEB->dump;
+        }
+
+        die @_;
+    };
+
+    while (1) {
+        TAEB->iterate;
+    }
+}
+
