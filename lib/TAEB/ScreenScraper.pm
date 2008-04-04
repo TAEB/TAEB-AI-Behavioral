@@ -638,10 +638,9 @@ sub handle_menus {
     }
     elsif (TAEB->topline =~ /Pick a skill to advance/) {
         $selector = sub {
-            my $personality = shift;
             my ($skill, $level) = /^\s*(.*?)\s*\[(.*)\]/
                 or warn "Unable to parse $_ as an #enhance item.";
-            $personality->enhance($skill, $level);
+            TAEB->personality->enhance($skill, $level);
         };
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
@@ -650,8 +649,7 @@ sub handle_menus {
         $committer = sub { $which_spell };
 
         $selector = sub {
-            my $personality = shift;
-            my $slot        = shift;
+            my $slot = shift;
 
             # force bolt             1    attack         0%
             my ($name, $forgotten, $fail) =
@@ -667,7 +665,6 @@ sub handle_menus {
     elsif (TAEB->topline =~ /What would you like to drop\?/) {
         # this one is special: it'll handle updating the inventory
         $selector = sub {
-            my $personality = shift;
             my $slot        = shift;
             my $new_item    = TAEB->new_item($_);
             my $item        = TAEB->inventory->get($slot) || $new_item;
@@ -693,12 +690,7 @@ sub handle_menus {
         TAEB->process_input(0);
     }
 
-    # wrap selector method so it gets the right $self
-    my $wrapper = $selector && sub {
-        $selector->(TAEB->personality, @_);
-    };
-
-    $menu->select($wrapper) if $wrapper;
+    $menu->select($selector) if $selector;
 
     TAEB->write($committer->());
     die "Recursing screenscraper.\n";
