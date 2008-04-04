@@ -155,6 +155,8 @@ our %msg_string = (
         ['dungeon_level' => 'oracle'],
     "You enter what seems to be an older, more primitive world." =>
         ['dungeon_level' => 'rogue'],
+    "You are being crushed." =>
+        ['grabbed' => 1],
 );
 
 our @msg_regex = (
@@ -339,6 +341,14 @@ our @msg_regex = (
     [   # Avoid matching shopkeeper name by checking for capital lettering.
         qr/Welcome (?:again )? to(?> [A-Z]\S+)+ ([a-z ]+)!/ =>
             ['enter_shop' => sub { TAEB::Spoilers::Room->shop_type($1) } ],
+    ],
+    [
+        qr/.* (?:grabs|swings itself around) you!/ =>
+            ['grabbed' => 1],
+    ],
+    [
+        qr/You cannot escape from .*!/ =>
+            ['grabbed' => 1],
     ],
 );
 
