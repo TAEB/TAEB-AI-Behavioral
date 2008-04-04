@@ -47,7 +47,7 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed/] => (
+has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed/] => (
     isa     => 'Bool',
     default => 0,
 );
@@ -322,6 +322,7 @@ my %method_of = (
     stunning      => 'is_stunned',
     hallucination => 'is_hallucinating',
     engulfed      => 'is_engulfed',
+    grabbed       => 'is_grabbed',
 );
 
 sub msg_status_change {
@@ -337,6 +338,11 @@ sub msg_status_change {
 sub msg_engulfed {
     my $self = shift;
     $self->msg_status_change(engulfed => @_);
+}
+
+sub msg_grabbed {
+    my $self = shift;
+    $self->msg_status_change(grabbed => @_);
 }
 
 sub elbereth_count {
