@@ -12,6 +12,11 @@ has '+type' => (
     default => 'closeddoor',
 );
 
+has is_shop => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
