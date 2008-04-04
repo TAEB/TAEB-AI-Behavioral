@@ -8,7 +8,6 @@ use constant command => 'E';
 
 has '+item' => (
     default => '-',
-    provided => 1,
 );
 
 has text => (

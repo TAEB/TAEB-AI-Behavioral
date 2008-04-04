@@ -4,8 +4,9 @@ use Moose::Role;
 use List::MoreUtils 'none';
 
 has direction => (
-    is  => 'rw',
-    isa => 'Str',
+    is       => 'rw',
+    isa      => 'Str',
+    provided => 1,
 );
 
 sub respond_what_direction { shift->direction }

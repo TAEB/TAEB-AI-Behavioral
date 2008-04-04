@@ -12,12 +12,10 @@ use constant command => 't';
 has '+item' => (
     isa      => 'TAEB::Type::Item',
     required => 1,
-    provided => 1,
 );
 
 has '+direction' => (
     required => 1,
-    provided => 1,
 );
 
 has target_tile => (

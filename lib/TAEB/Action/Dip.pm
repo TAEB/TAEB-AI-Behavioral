@@ -9,7 +9,6 @@ use constant command => "#dip\n";
 has '+item' => (
     isa      => 'TAEB::Type::Item',
     required => 1,
-    provided => 1,
 );
 
 has into => (

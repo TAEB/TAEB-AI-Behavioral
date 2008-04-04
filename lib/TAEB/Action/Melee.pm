@@ -6,7 +6,6 @@ with 'TAEB::Action::Role::Direction';
 
 has '+direction' => (
     required => 1,
-    provided => 1,
 );
 
 # sadly, Melee doesn't give an "In what direction?" message

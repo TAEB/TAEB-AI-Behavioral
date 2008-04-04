@@ -9,7 +9,6 @@ use constant command => 'z';
 
 has '+item' => (
     isa => 'TAEB::Type::Item',
-    provided => 1,
     required => 1,
 );
 

@@ -8,7 +8,6 @@ use constant command => 'o';
 
 has '+direction' => (
     required => 1,
-    provided => 1,
 );
 
 sub msg_door {
