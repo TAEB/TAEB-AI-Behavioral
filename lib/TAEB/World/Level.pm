@@ -132,7 +132,6 @@ sub step_on {
     my $x = shift;
     my $y = shift;
 
-    $self->turns_spent_on($self->turns_spent_on + 1);
     $self->tiles->[$y][$x]->step_on;
 }
 
@@ -557,6 +556,10 @@ sub msg_dungeon_level {
     $self->$islevel(1);
 }
 
+sub msg_turn {
+    my $self = shift;
+    $self->turns_spent_on($self->turns_spent_on + 1);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
