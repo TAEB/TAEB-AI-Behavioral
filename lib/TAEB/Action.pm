@@ -2,32 +2,14 @@
 package TAEB::Action;
 use TAEB::OO;
 
-use TAEB::Action::Apply;
-use TAEB::Action::Ascend;
-use TAEB::Action::Cast;
-use TAEB::Action::Custom;
-use TAEB::Action::Descend;
-use TAEB::Action::Dip;
-use TAEB::Action::Drop;
-use TAEB::Action::Eat;
-use TAEB::Action::Engrave;
-use TAEB::Action::Kick;
-use TAEB::Action::Melee;
-use TAEB::Action::Move;
-use TAEB::Action::Open;
-use TAEB::Action::Pay;
-use TAEB::Action::Pickup;
-use TAEB::Action::Pray;
-use TAEB::Action::Quaff;
-use TAEB::Action::Read;
-use TAEB::Action::Role::Direction;
-use TAEB::Action::Role::Item;
-use TAEB::Action::Search;
-use TAEB::Action::Throw;
-use TAEB::Action::Unlock;
-use TAEB::Action::Wear;
-use TAEB::Action::Wield;
-use TAEB::Action::Zap;
+our @actions = qw(
+    Apply Ascend Cast Custom Descend Dip Drop Eat Engrave Kick Melee Move Open
+    Pay Pickup Pray Quaff Read Search Throw Unlock Wear Wield Zap
+);
+
+for (@actions) {
+    require "TAEB/Action/$_.pm";
+}
 
 has aborted => (
     isa => 'Bool',
