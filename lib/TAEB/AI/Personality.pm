@@ -148,6 +148,13 @@ sub respond_wish {
     return "2 blessed fixed greased lembas wafers";
 }
 
+sub select_enhance {
+    my $self = shift;
+    my ($skill, $level) = /^\s*(.*?)\s*\[(.*)\]/
+        or warn "Unable to parse $_ as an #enhance item.";
+    $self->enhance($skill, $level);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

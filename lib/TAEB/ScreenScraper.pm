@@ -632,11 +632,7 @@ sub handle_menus {
         $selector = TAEB->menu_select('pickup');
     }
     elsif (TAEB->topline =~ /Pick a skill to advance/) {
-        $selector = sub {
-            my ($skill, $level) = /^\s*(.*?)\s*\[(.*)\]/
-                or warn "Unable to parse $_ as an #enhance item.";
-            TAEB->personality->enhance($skill, $level);
-        };
+        $selector = TAEB->menu_select('enhance');
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
         my $which_spell = TAEB->get_response(TAEB->topline) || "\e";
