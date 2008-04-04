@@ -50,9 +50,11 @@ sub prepare {
     if ($door) {
         if ($door->locked eq 'locked') {
             if ($action) {
-                $self->do($action => %action_args, direction => $dir);
-                $self->currently($currently);
-                return 100;
+                unless ($action eq 'kick' && $door->is_shop) {
+                    $self->do($action => %action_args, direction => $dir);
+                    $self->currently($currently);
+                    return 100;
+                }
             }
         }
         else {
@@ -66,6 +68,7 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(sub {
         my $tile = shift;
         return 0 unless $tile->type eq 'closeddoor';
+        return 0 if $tile->is_shop && ($action||'') eq 'kick';
         return 0 if $tile->locked eq 'locked' && !$action;
         return 1;
     }, include_endpoints => 1);
