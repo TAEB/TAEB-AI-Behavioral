@@ -203,14 +203,14 @@ sub menu_select {
         if ($num++ == 0) {
             for my $responder (TAEB->personality, TAEB->action) {
                 if (my $method = $responder->can("begin_select_$name")) {
-                    $method->();
+                    $method->($responder);
                 }
             }
         }
 
         for my $responder (TAEB->personality, TAEB->action) {
             if (my $method = $responder->can("select_$name")) {
-                return $method->($slot, $item);
+                return $method->($responder, $slot, $item);
             }
         }
     };
