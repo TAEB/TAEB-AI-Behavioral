@@ -4,9 +4,8 @@ use TAEB::OO;
 extends 'TAEB::World::Tile';
 use TAEB::Util ':colors';
 
-has locked => (
-    isa     => 'DoorState',
-    default => 'unknown',
+has state => (
+    isa => 'DoorState',
 );
 
 has '+type' => (
@@ -26,15 +25,25 @@ around draw_debug => sub {
     if ($self->is_shop) {
         return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_RED) | ord $self->$display_method);
     }
-    elsif ($self->locked eq 'locked') {
+    elsif ($self->locked) {
         return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BROWN) | ord $self->$display_method);
     }
-    elsif ($self->locked eq 'closed') {
+    elsif ($self->unlocked) {
         return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_GREEN) | ord $self->$display_method);
     }
 
     $self->$orig($display_method, @_);
 };
+
+sub locked {
+    my $self = shift;
+    $self->state && $self->state eq 'locked';
+}
+
+sub unlocked {
+    my $self = shift;
+    $self->state && $self->state eq 'unlocked';
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

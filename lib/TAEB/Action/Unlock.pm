@@ -21,11 +21,11 @@ sub respond_lock { 'n' }
 sub respond_unlock { 'y' }
 
 sub msg_just_unlocked_door {
-    shift->target_tile('closeddoor')->locked('unlocked');
+    shift->target_tile('closeddoor')->state('unlocked');
 }
 
 sub msg_interrupted_unlocking {
-    shift->target_tile('closeddoor')->locked('locked');
+    shift->target_tile('closeddoor')->state('locked');
 }
 
 sub msg_door {
@@ -35,7 +35,7 @@ sub msg_door {
     my $tile = $self->target_tile('closeddoor');
 
     if ($type eq 'just_unlocked') {
-        $tile->locked('unlocked');
+        $tile->state('unlocked');
     }
 }
 

@@ -50,7 +50,7 @@ sub prepare {
     for (@doors) {
         my ($door, $dir) = @$_;
 
-        if ($door->locked eq 'locked') {
+        if ($door->locked) {
             if ($action) {
                 unless ($action eq 'kick' && $door->is_shop) {
                     $self->do($action => %action_args, direction => $dir);
@@ -71,7 +71,7 @@ sub prepare {
         my $tile = shift;
         return 0 unless $tile->type eq 'closeddoor';
         return 0 if $tile->is_shop && ($action||'') eq 'kick';
-        return 0 if $tile->locked eq 'locked' && !$action;
+        return 0 if $tile->locked && !$action;
         return 1;
     }, include_endpoints => 1);
 

@@ -17,10 +17,10 @@ sub msg_door {
     my $tile = $self->target_tile('closeddoor');
 
     if ($type eq 'locked') {
-        $tile->locked('locked');
+        $tile->state('locked');
     }
     elsif ($type eq 'resists') {
-        $tile->locked('unlocked');
+        $tile->state('unlocked');
     }
 }
 
