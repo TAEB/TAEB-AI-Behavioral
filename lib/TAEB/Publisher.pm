@@ -81,7 +81,7 @@ sub get_generic_response {
         for my $responder (@{ $args{responders} }) {
             next unless $responder;
 
-            if (my $code = $responder->can("$args{method}_$name")) {
+            if (my $code = $responder->can("$args{method}_$name") || $responder->can($args{method})) {
                 if ($matched ||= @captures = $args{msg} =~ $re) {
 
                     my $response = $responder->$code(
