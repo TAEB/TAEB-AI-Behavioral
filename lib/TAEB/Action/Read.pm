@@ -21,9 +21,6 @@ sub post_responses {
     if ($item->match(class => 'scroll')) {
         TAEB->inventory->decrease_quantity($item->slot)
     }
-
-    $self->check_discoveries;
-    $self->check_inventory;
 }
 
 sub msg_learned_spell {
