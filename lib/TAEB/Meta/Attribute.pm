@@ -7,6 +7,12 @@ has '+is' => (
     default => 'rw',
 );
 
+has 'provided' => (
+    is      => 'rw',
+    isa     => 'Bool',
+    default => 0,
+);
+
 around _process_options => sub {
     my $orig = shift;
     my ($class, $name, $options) = @_;
