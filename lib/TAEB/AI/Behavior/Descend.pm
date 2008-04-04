@@ -20,7 +20,7 @@ sub correct_stairs {
     return 1 if @{ $self->stairsdown } == 1;
 
     # here we have multiple choices and this one is the mines. no thank you
-    return 0 $tile->other_side && $tile->other_side->branch eq 'mines';
+    return 0 if $tile->other_side && $tile->other_side->branch eq 'mines';
 
     return 1;
 }
