@@ -375,6 +375,8 @@ our @prompts = (
     qr/^For what do you wish\?/             => 'wish',
     qr/^Really attack (.*?)\?/              => 'really_attack',
     qr/^\s*Choose which spell to cast/      => 'which_spell',
+    
+    qr/^This spellbook is difficult to comprehend/ => 'difficult_spell',
 
     qr/^Dip (.*?) into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
     qr/^There (?:is|are) (.*?) here; eat (?:it|one)\?/ => 'eat_ground',
