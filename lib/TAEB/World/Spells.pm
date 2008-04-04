@@ -98,11 +98,12 @@ sub debug_line {
 
 sub knows_spell {
     my $self = shift;
-    my $item = shift;
+    my $name = shift;
 
-    return 0 unless $item->match(class    => 'spellbook',
-                                 identity => qr/^spellbook of (.*)$/);
-    return $self->get($1);
+    my $spell = $self->find($name);
+    return 0 unless defined $spell;
+    return 0 if $spell->forgotten;
+    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;
