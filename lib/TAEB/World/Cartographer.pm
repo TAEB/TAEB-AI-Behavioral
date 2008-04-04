@@ -224,6 +224,13 @@ sub msg_floor_message {
 
     TAEB->debug(TAEB->current_tile . " is now engraved with \'$message\'");
     TAEB->current_tile->engraving($message);
+
+    my @doors = TAEB->current_tile->grep_adjacent(sub { $_->type eq 'closeddoor' });
+    if (@doors) {
+        if (TAEB::Spoilers::Engravings->is_degradation("Closed for inventory" => $message)) {
+            $_->is_shop(1) for @doors;
+        }
+    }
 }
 
 sub msg_pickaxe {
