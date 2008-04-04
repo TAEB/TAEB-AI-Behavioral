@@ -91,6 +91,11 @@ has is_rogue => (
     default => 0,
 );
 
+has is_bigroom => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
@@ -509,6 +514,34 @@ around is_rogue => sub {
     return 0;
 };
 
+sub detect_bigroom_vt {
+    my $self = shift;
+
+    # Bigroom 1 + 2
+    # Technically also 3, but it'll take a lot of exploration,
+    # so we'll need something better for that one.
+    return 1 if TAEB->vt->row_plaintext(4) =~ /-{75}/;
+
+    # XXX : Find out good ways to detect 3,4,5. 
+    #       Maps: http://nethack.wikia.com/wiki/Bigr:oom
+
+    return 0;
+}
+
+around is_bigroom => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    return $self->$orig(@_) if @_;
+
+    my $is_bigroom = $self->$orig;
+    return $is_bigroom if $is_bigroom;
+
+    return 0 unless $self->z >= 10 && $self->z <= 12;
+
+    return $self->is_bigroom($self->detect_bigroom_vt);
+};
+
 sub msg_dungeon_level {
     my $self = shift;
     my $level = shift;
@@ -518,7 +551,8 @@ sub msg_dungeon_level {
         if !$self->$islevel;
 
     $self->branch('dungeons') if $level eq 'oracle'
-                              || $level eq 'rogue';
+                              || $level eq 'rogue'
+                              || $level eq 'bigroom';
 
     $self->$islevel(1);
 }
