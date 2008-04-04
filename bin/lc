@@ -7,6 +7,7 @@ my @files;
 my $iter = File::Next::files('lib/', 'bin/');
 
 while (defined (my $file = $iter->())) {
+    next if $file =~ /~$/;
     open my $handle, '<', $file
         or die "Unable to open $file for reading: $!";
 
