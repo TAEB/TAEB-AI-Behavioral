@@ -14,7 +14,8 @@ sub prepare {
     grep { TAEB->role eq $_ } qw/Hea Tou Val/ or return 0;
 
     return 0 if $item->match(is_wearing => 1) ||
-                $item->match(buc => 'cursed');
+                $item->match(buc => 'cursed') ||
+                $item->price;
 
     $self->currently("Putting on mithril.");
     $self->do(wear => item => $item);
