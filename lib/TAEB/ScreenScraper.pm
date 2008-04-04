@@ -629,12 +629,7 @@ sub handle_menus {
     my $committer = sub { $menu->commit };
 
     if (TAEB->topline =~ /Pick up what\?/) {
-        TAEB->enqueue_message('clear_floor');
-        $selector = sub {
-            my $item = TAEB->new_item($_);
-            TAEB->enqueue_message('floor_item' => $item);
-            TAEB->want_item($item);
-        };
+        $selector = TAEB->menu_select('pickup');
     }
     elsif (TAEB->topline =~ /Pick a skill to advance/) {
         $selector = sub {
