@@ -21,6 +21,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
+    return 0 if $item->price;
     return 0 unless $item->match(class => 'spellbook');
     return 0 if TAEB->knows_spell($item);
 
