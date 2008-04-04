@@ -40,14 +40,16 @@ sub prepare {
     my ($action, %action_args) = $self->unlock_action;
     my $currently = delete $action_args{currently};
 
-    my ($door, $dir);
+    my @doors;
     TAEB->any_adjacent(sub {
-        my ($tile, $d) = @_;
-        ($door, $dir) = ($tile, $d)
+        my ($tile, $dir) = @_;
+        push @doors, [$tile, $dir]
             if $tile->type eq 'closeddoor'
     });
 
-    if ($door) {
+    for (@doors) {
+        my ($door, $dir) = @$_;
+
         if ($door->locked eq 'locked') {
             if ($action) {
                 unless ($action eq 'kick' && $door->is_shop) {
