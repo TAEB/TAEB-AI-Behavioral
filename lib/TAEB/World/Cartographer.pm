@@ -21,9 +21,7 @@ sub update {
     $self->x(TAEB->vt->x);
     $self->y(TAEB->vt->y);
 
-    if (TAEB->senses->is_engulfed) {
-        return if $self->check_engulfed;
-    }
+    return if $self->is_engulfed;
 
     return unless $self->check_dlvl;
 
@@ -273,10 +271,10 @@ sub msg_vault_guard {
     );
 }
 
-=head2 check_engulfed -> Bool
+=head2 is_engulfed -> Bool
 
-Checks the screen to see if we're still engulfed. If so, returns 1. Otherwise,
-returns 0 and tells the rest of the system that we're no longer engulfed.
+Checks the screen to see if we're engulfed. It'll inform the rest of the system
+about our engulfedness. Returns 1 if we're engulfed, 0 if not.
 
 =cut
 
@@ -291,7 +289,7 @@ my @engulf_expected = (
     [ 1,  1] => '/',
 );
 
-sub check_engulfed {
+sub is_engulfed {
     my $self = shift;
 
     for (my $i = 0; $i < @engulf_expected; $i += 2) {
@@ -306,6 +304,8 @@ sub check_engulfed {
         return 0;
     }
 
+    TAEB->info("We're engulfed!");
+    TAEB->enqueue_message(engulfed => 1);
     return 1;
 }
 
