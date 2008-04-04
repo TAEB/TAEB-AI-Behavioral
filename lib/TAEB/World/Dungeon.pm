@@ -41,7 +41,7 @@ sub current_tile {
 }
 
 for my $tiletype (qw/orthogonal diagonal adjacent adjacent_inclusive/) {
-    for my $controllertype (qw/each any all/) {
+    for my $controllertype (qw/each any all grep/) {
         my $method = "${controllertype}_${tiletype}";
         __PACKAGE__->meta->add_method($method => sub {
             my $self = shift;

@@ -325,6 +325,7 @@ my %controllers = (
     each => \&apply,
     all  => \&all,
     any  => \&any,
+    grep => sub { my $code = shift; grep { $code->($_) } @_ },
 );
 
 for my $tiletype (keys %tiletypes) {

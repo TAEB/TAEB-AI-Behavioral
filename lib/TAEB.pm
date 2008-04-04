@@ -124,7 +124,7 @@ has log => (
 
 my %dungeon_handles;
 for my $tiletype (qw/orthogonal diagonal adjacent adjacent_inclusive/) {
-    for my $controllertype (qw/each any all/) {
+    for my $controllertype (qw/each any all grep/) {
         $dungeon_handles{"${controllertype}_${tiletype}"} =
             "${controllertype}_${tiletype}";
     }
