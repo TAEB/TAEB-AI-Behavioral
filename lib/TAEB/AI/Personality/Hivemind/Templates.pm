@@ -17,6 +17,12 @@ sub level {
     }
 }
 
+sub botl {
+    pre {
+        TAEB->vt->as_string("\n", 22, 23)
+    }
+}
+
 sub wrapper(&) {
     my $code = shift;
 
@@ -44,6 +50,7 @@ sub next_action {
 
         messages;
         level;
+        botl;
     }
 }
 
@@ -60,6 +67,7 @@ sub respond {
 
         messages;
         level;
+        botl;
     }
 }
 
