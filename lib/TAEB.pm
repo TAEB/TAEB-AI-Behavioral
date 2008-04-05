@@ -537,11 +537,8 @@ sub keypress {
                 last;
             }
 
-            $x += 80 if $x < 0;
-            $y += 24 if $y < 0;
-
-            $x -= 80 if $x >= 80;
-            $y -= 24 if $y >= 24;
+            $x %= 80;
+            $y = ($y-1)%21+1;
         }
 
         # back to normal
