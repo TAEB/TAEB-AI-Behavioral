@@ -347,6 +347,25 @@ sub msg_pit {
     $self->msg_status_change(pit => @_);
 }
 
+sub msg_life_saving {
+    my $self   = shift;
+    my $target = shift;
+    TAEB->debug("Life saving target: $target");
+    #note that naming a monster "Your" returns "Your's" as the target
+    if ($target eq 'Your') {
+        #At least I had it on!
+        #Remove it from inventory
+        my $item = TAEB->inventory->amulet;
+        TAEB->debug("Removing $item  from slot " . $item->slot . " beacuse it is life saving and we just used it.");
+        TAEB->inventory->decrease_quantity($item->slot);
+    }
+
+    # oh well, i guess it wasn't my "oLS
+    # trigger a discoveries check if we didn't know the appearance
+    TAEB->enqueue_message(check => 'discoveries') unless
+            TAEB->knowledge->appearance_of->{"amulet of life saving"};
+}
+
 sub msg_engulfed {
     my $self = shift;
     $self->msg_status_change(engulfed => @_);
