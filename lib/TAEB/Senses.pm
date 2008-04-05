@@ -82,6 +82,11 @@ has in_beartrap => (
     default => 0,
 );
 
+has in_pit => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 has str => (
     isa     => 'Str',
     default => 0,
@@ -286,7 +291,8 @@ sub can_engrave {
 
 sub can_open {
     my $self = shift;
-    return not $self->in_wereform;
+    return not $self->in_wereform
+            || $self->in_pit;
 }
 
 sub can_kick {
@@ -302,7 +308,7 @@ sub msg_beartrap {
 sub msg_walked {
     my $self = shift;
     $self->in_beartrap(0);
-
+    $self->in_pit(0);
     if (!$self->autopickup xor TAEB->current_tile->in_shop) {
         TAEB->info("Toggling autopickup because we entered/exited a shop");
         TAEB->write("@");
@@ -323,6 +329,7 @@ my %method_of = (
     hallucination => 'is_hallucinating',
     engulfed      => 'is_engulfed',
     grabbed       => 'is_grabbed',
+    pit           => 'in_pit',
 );
 
 sub msg_status_change {
@@ -333,6 +340,11 @@ sub msg_status_change {
     if (my $method = $method_of{$status}) {
         $self->$method($now_have);
     }
+}
+
+sub msg_pit {
+    my $self = shift;
+    $self->msg_status_change(pit => @_);
 }
 
 sub msg_engulfed {
