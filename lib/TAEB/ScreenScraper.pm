@@ -584,7 +584,10 @@ sub handle_attributes {
     if (TAEB->topline =~ /^(\s+)Base Attributes/) {
         my $skip = length($1) + 17;
 
-        for ([3, 'name'], [4, 'race'], [11, 'role'], [12, 'gender'], [13, 'align']) {
+        (my $name = substr(TAEB->vt->row_plaintext(3), $skip)) =~ s/ //g;
+        TAEB->name($name);
+
+        for ([4, 'race'], [11, 'role'], [12, 'gender'], [13, 'align']) {
             my ($row, $method) = @$_;
             my $attribute = substr(TAEB->vt->row_plaintext($row), $skip, 3);
             $attribute = ucfirst lc $attribute;
