@@ -218,6 +218,19 @@ sub menu_select {
     };
 }
 
+sub single_select {
+    my $self = shift;
+    my $name = shift;
+
+    for my $responder (grep { defined } TAEB->personality, TAEB->action) {
+        if (my $method = $responder->can("single_$name")) {
+            return $method->($responder, $name);
+        }
+    }
+
+    return;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
