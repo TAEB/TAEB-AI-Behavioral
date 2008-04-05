@@ -136,12 +136,18 @@ sub action_arguments {
                     $name
                 };
 
-                if ($attr->type_constraint->name eq 'Str') {
-                    input {
+                if ($attr->name eq 'direction') {
+                    select {
                         attr {
                             id   => $name,
-                            type => "text",
                             name => $name,
+                        };
+
+                        for my $dir (split '', 'hjklyubn.<>') {
+                            option {
+                                attr { value => $dir };
+                                $dir
+                            }
                         }
                     }
                 }
@@ -159,6 +165,15 @@ sub action_arguments {
                                 attr { value => $slot };
                                 TAEB->inventory->get($slot)->debug_line
                             }
+                        }
+                    }
+                }
+                elsif ($attr->type_constraint->name =~ qr/Str|Int/) {
+                    input {
+                        attr {
+                            id   => $name,
+                            type => "text",
+                            name => $name,
                         }
                     }
                 }
