@@ -105,7 +105,7 @@ sub action_arguments {
                         }
                     }
                 }
-                elsif ($attr->type_constraint->name eq 'TAEB::World::Item') {
+                elsif ($attr->type_constraint->name =~ /TAEB::World::Item/) {
                     $map{$name} = sub { TAEB->inventory->get(shift) };
 
                     select {
