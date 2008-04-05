@@ -72,5 +72,18 @@ sub respond {
     }
 }
 
+sub action_arguments {
+    my $self  = shift;
+    my @attrs = @_;
+    my $action_class = $attrs[0]->associated_class;
+
+    wrapper {
+        h2 { $action_class };
+        for my $attr (@attrs) {
+            h3 { $attr->name }
+        }
+    }
+}
+
 1;
 
