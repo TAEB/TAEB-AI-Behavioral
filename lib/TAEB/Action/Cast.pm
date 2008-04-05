@@ -12,7 +12,7 @@ has spell => (
     provided => 1,
 );
 
-sub respond_which_spell { shift->spell->slot }
+sub single_cast { shift->spell->slot }
 
 sub exception_hunger_cast {
     my $self = shift;

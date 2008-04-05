@@ -414,8 +414,7 @@ our @prompts = (
     qr/^What do you want to read\?/         => 'read_what',
     qr/^For what do you wish\?/             => 'wish',
     qr/^Really attack (.*?)\?/              => 'really_attack',
-    qr/^\s*Choose which spell to cast/      => 'which_spell',
-    
+
     qr/^This spellbook is difficult to comprehend/ => 'difficult_spell',
 
     qr/^Dip (.*?) into the (fountain|pool of water|water|moat)\?/ => 'dip_into_water',
@@ -681,8 +680,8 @@ sub handle_menus {
         $selector = TAEB->menu_select('enhance');
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
-        my $which_spell = TAEB->get_response(TAEB->topline) || "\e";
-        $which_spell = ' ' if TAEB->is_checking('spells');
+        my $which_spell = TAEB->single_select('cast') || "\e";
+        $which_spell = "\e" if TAEB->is_checking('spells');
         $committer = sub { $which_spell };
 
         $selector = sub {
