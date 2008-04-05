@@ -24,7 +24,7 @@ has tiles => (
             [ map {
                 TAEB::World::Tile->new(level => $self, x => $_, y => $y)
             } 0 .. 79 ]
-        } 0 .. 23 ]
+        } 0 .. 21 ]
     },
 );
 
