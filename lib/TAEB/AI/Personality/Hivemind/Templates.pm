@@ -117,7 +117,7 @@ sub action_arguments {
                         for my $slot (TAEB->inventory->slots) {
                             option {
                                 attr { value => $slot };
-                                TAEB->inventory->get($slot)
+                                TAEB->inventory->get($slot)->debug_line
                             }
                         }
                     }
