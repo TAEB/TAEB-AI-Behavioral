@@ -6,7 +6,10 @@ extends 'TAEB::Action::Move';
 use constant command => '<';
 use constant complement_type => 'stairsdown' => '>';
 
-sub direction { shift->command }
+has '+direction' => (
+    provided => 0,
+    default  => sub { shift->command },
+);
 
 before done => sub {
     my $self    = shift;
