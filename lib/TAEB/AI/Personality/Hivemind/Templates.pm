@@ -5,6 +5,10 @@ use warnings;
 use Template::Declare::Tags;
 use Template::Declare::Anon;
 
+sub onchange {
+    onchange => "this.form.submit(); return 0;",
+}
+
 sub messages {
     pre {
         TAEB->all_messages("\n")
@@ -75,6 +79,7 @@ sub next_action {
                         select {
                             attr {
                                 name => "action",
+                                onchange(),
                             };
 
                             for my $name (@TAEB::Action::actions) {
@@ -141,6 +146,7 @@ sub action_arguments {
                         attr {
                             id   => $name,
                             name => $name,
+                            @attrs == 1 ? onchange() : (),
                         };
 
                         for my $dir (split '', 'hjklyubn.<>') {
@@ -158,6 +164,7 @@ sub action_arguments {
                         attr {
                             id   => $name,
                             name => $name,
+                            @attrs == 1 ? onchange() : (),
                         };
 
                         for my $slot (TAEB->inventory->slots) {
