@@ -25,7 +25,7 @@ sub fill_action {
                       $action_meta->compute_all_applicable_attributes;
     return $pkg->new if !@required;
 
-    my ($out, %map) = TAEB::AI::Personality::Hivemind::Templates->action_arguments(@required);
+    my ($map, $out) = TAEB::AI::Personality::Hivemind::Templates->action_arguments(@required);
     $main::request->print($out);
     $main::request->next;
 
@@ -33,10 +33,8 @@ sub fill_action {
 
     for my $attr (@required) {
         my $name  = $attr->name;
-
         my $value = $main::request->param($name);
-        $value = $map{$name}->($value) if $map{$name};
-
+        $value = $map->{$name}->($value) if $map->{$name};
         $args{$name} = $value;
     }
 

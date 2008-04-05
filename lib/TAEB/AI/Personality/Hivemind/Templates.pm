@@ -130,7 +130,7 @@ sub action_arguments {
         botl;
     };
 
-    return ($print, %map);
+    return (\%map, scalar($print));
 }
 
 1;
