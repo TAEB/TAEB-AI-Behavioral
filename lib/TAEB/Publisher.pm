@@ -97,7 +97,7 @@ sub get_generic_response {
         }
     }
 
-    for my $responder (@{ $args{responders} }) {
+    for my $responder (grep { defined } @{ $args{responders} }) {
         if (my $code = $responder->can($args{method})) {
             my $response = $responder->$code($args{msg});
             next unless defined $response;
