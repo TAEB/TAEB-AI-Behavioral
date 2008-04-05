@@ -16,7 +16,7 @@ sub respond_read_what { shift->item->slot }
 
 sub respond_difficult_spell { 
     shift->item->difficult(TAEB->level);
-    return '\e';
+    return 'n\n';
 }
 
 sub post_responses {
