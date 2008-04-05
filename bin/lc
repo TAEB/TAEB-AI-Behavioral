@@ -4,7 +4,7 @@ use warnings;
 use File::Next;
 
 my @files;
-my $iter = File::Next::files('lib/', 'bin/');
+my $iter = File::Next::files('lib/', 'bin/', 'doc/');
 
 while (defined (my $file = $iter->())) {
     next if $file =~ /~$/;
@@ -22,6 +22,7 @@ while (defined (my $file = $iter->())) {
         ++$with_doc;
         next if /^=head/ .. /^=cut/;
         next if /^\s*#/;
+        next if $file =~ /\bdoc\b/;
 
         ++$with_know;
         next if $file =~ /\bSpoilers\b/;
