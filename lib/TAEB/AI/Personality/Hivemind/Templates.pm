@@ -85,8 +85,22 @@ sub action_arguments {
 
     wrapper {
         h2 { $action_class };
-        for my $attr (@attrs) {
-            h3 { $attr->name }
+        form {
+            for my $attr (@attrs) {
+                label {
+                    attr {
+                        "for" => $attr->name
+                    };
+                    $attr->name
+                }
+                input {
+                    attr {
+                        id   => $attr->name,
+                        type => "text",
+                        name => $attr->name,
+                    }
+                }
+            }
         }
     }
 }
