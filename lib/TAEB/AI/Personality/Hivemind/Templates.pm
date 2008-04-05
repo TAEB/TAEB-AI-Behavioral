@@ -35,6 +35,26 @@ sub wrapper(&) {
     }
 }
 
+sub movement {
+    table {
+        row {
+            cell { a { attr { href => "/?action=Move&direction=y" } "y" } }
+            cell { a { attr { href => "/?action=Move&direction=k" } "k" } }
+            cell { a { attr { href => "/?action=Move&direction=u" } "u" } }
+        }
+        row {
+            cell { a { attr { href => "/?action=Move&direction=h" } "h" } }
+            cell { "." }
+            cell { a { attr { href => "/?action=Move&direction=l" } "l" } }
+        }
+        row {
+            cell { a { attr { href => "/?action=Move&direction=b" } "b" } }
+            cell { a { attr { href => "/?action=Move&direction=j" } "j" } }
+            cell { a { attr { href => "/?action=Move&direction=n" } "n" } }
+        }
+    }
+}
+
 sub next_action {
     wrapper {
         form {
