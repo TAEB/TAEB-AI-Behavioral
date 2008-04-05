@@ -6,6 +6,7 @@ extends 'TAEB::Action';
 has string => (
     isa      => 'Str',
     required => 1,
+    provided => 1,
 );
 
 sub command { shift->string }
