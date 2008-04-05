@@ -21,21 +21,33 @@ sub fill_action {
     my $name        = shift;
     my $pkg         = "TAEB::Action::$name";
     my $action_meta = $pkg->meta;
-    my @required    = grep { $_->provided }
-                      $action_meta->compute_all_applicable_attributes;
-    return $pkg->new if !@required;
+    my %args;
+
+    my @required;
+    for my $attr ($action_meta->compute_all_applicable_attributes) {
+
+        # attribute isn't part of initialization
+        next if !$attr->provided;
+
+        # specified the argument early
+        my $name = $attr->name;
+        next if defined($args{$name} = $main::request->param($name));
+
+        # need it, start a new request
+        push @required, $attr;
+    }
+
+    return $pkg->new(%args) if !@required;
 
     my ($map, $out) = TAEB::AI::Personality::Hivemind::Templates->action_arguments(@required);
     $main::request->print($out);
     $main::request->next;
 
-    my %args;
-
     for my $attr (@required) {
         my $name  = $attr->name;
         my $value = $main::request->param($name);
         $value = $map->{$name}->($value) if $map->{$name};
-        $args{$name} = $value;
+        $args{$name} = $value || $args{$name};
     }
 
     $pkg->new(%args);
