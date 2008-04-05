@@ -167,6 +167,10 @@ our %msg_string = (
         ['pit' => 0],
     "You crawl to the edge of the pit." =>
         ['pit' => 0],
+    "There's some graffiti on the floor here." =>
+        ['engraving_type' => 'graffiti'],
+    "You see a message scrawled in blood here." =>
+        ['engraving_type' => 'scrawl'],
 );
 
 our @msg_regex = (
@@ -367,6 +371,14 @@ our @msg_regex = (
     [
         qr/.* (?:releases you!|grip relaxes\.)/ =>
             ['grabbed' => 0],
+    ],
+    [
+        qr/^Some text has been (burned|melted) into the (?:.*) here./ =>
+            ['engraving_type' => sub { $1 } ],
+    ],
+    [
+        qr/^Something is (written|engraved) here (?:in|on) the (?:.*)./ =>
+            ['engraving_type' => sub { $1 } ],
     ],
 );
 
