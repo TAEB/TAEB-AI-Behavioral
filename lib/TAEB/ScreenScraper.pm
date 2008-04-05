@@ -157,6 +157,16 @@ our %msg_string = (
         ['dungeon_level' => 'rogue'],
     "You are being crushed." =>
         ['grabbed' => 1],
+    "You dig a pit in the floor." =>
+        ['pit' => 1],
+    "There's not enough room to kick down here." =>
+        ['pit' => 1],
+    "You can't reach over the edge of the pit." =>
+        ['pit' => 1],
+    "You float up, out of the pit!" =>
+        ['pit' => 0],
+    "You crawl to the edge of the pit." =>
+        ['pit' => 0],
 );
 
 our @msg_regex = (
@@ -179,6 +189,10 @@ our @msg_regex = (
     [
         qr/^(?:A|Your) bear trap closes on your/,
             ['beartrap'],
+    ],
+    [
+        qr/^You fall into (?:a|your) pit!/,
+            ['pit' => 1]
     ],
     [
         qr/^You (?:see|feel) here (.*?)\./,
