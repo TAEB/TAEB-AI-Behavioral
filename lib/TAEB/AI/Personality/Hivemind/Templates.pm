@@ -103,6 +103,10 @@ sub action_arguments {
                 }
             }
         }
+
+        messages;
+        level;
+        botl;
     }
 }
 
