@@ -684,6 +684,9 @@ sub handle_menus {
     elsif (TAEB->topline =~ /Pick a skill to advance/) {
         $selector = TAEB->menu_select('enhance');
     }
+    elsif (TAEB->topline =~ /What would you like to identify first\?/) {
+        $selector = TAEB->menu_select('identify');
+    }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
         my $which_spell = TAEB->is_checking('spells') ? "\e"
                         : TAEB->single_select('cast') || "\e";
