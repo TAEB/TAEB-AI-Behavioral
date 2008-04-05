@@ -82,10 +82,9 @@ sub action_arguments {
     my $self  = shift;
     my @attrs = @_;
     my $action_class = $attrs[0]->associated_class->name;
-    my $name = $action_class->name;
 
     wrapper {
-        h2 { $action };
+        h2 { $action_class->name };
         form {
             for my $attr (@attrs) {
                 label {

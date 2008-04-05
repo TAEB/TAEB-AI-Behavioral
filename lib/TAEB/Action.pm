@@ -88,7 +88,7 @@ sub name {
     # because Moose may rebless our instance, we need to look at the
     # inheritance hierarchy for something that resembles TAEB::Action::Foo
     for my $class ($self->meta->linearized_isa) {
-        return 1 if $class =~ m{^TAEB::Action::(\w+)$};
+        return $1 if $class =~ m{^TAEB::Action::(\w+)$};
     }
 
     TAEB->warning("Unable to get the action name of $self: " . join(', ', $self->meta->linearized_isa));
