@@ -22,6 +22,14 @@ $ perl Makefile.PL
 Answer the defaults to any dependencies it asks about. You may have to set up
 CPAN. The defaults are usually fine. Be sure to set a mirror though.
 
+
+NOTE:
+    Data::Dump::Streamer 2.08-40 has a test failure, so CPAN will refuse to
+    install it. Because a lot of our dependencies depend on DDS, CPAN will try
+    to install it a number of times. To fix this, force install DDS with:
+        sudo cpan -fi Data::Dump::Streamer
+
+
 $ sudo make installdeps
 
 This will install the modules from CPAN. TAEB's dependencies themselves usually
