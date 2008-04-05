@@ -14,9 +14,9 @@ has '+item' => (
 
 sub respond_read_what { shift->item->slot }
 
-sub respond_difficult_spell { 
+sub respond_difficult_spell {
     shift->item->difficult(TAEB->level);
-    return 'n\n';
+    return 'n';
 }
 
 sub post_responses {
