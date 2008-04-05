@@ -1,17 +1,18 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality::Hivemind;
 use TAEB::OO;
+use TAEB::AI::Personality::Hivemind::Templates;
 extends 'TAEB::AI::Personality';
 
 sub next_action {
-    $main::request->print(q{<body onload="document.getElementById('c').focus()"><form><input size=1 maxlength=1 name=c></form><pre style="color:#fff;background:#000;">}.TAEB->all_messages("\n")."\n".TAEB->vt->as_string("\n",1).q{</pre></body>});
+    $main::request->print(TAEB::AI::Personality::Hivemind::Templates->next_action);
     $main::request->next;
     my $cmd = $main::request->param('c');
     TAEB::Action::Custom->new(string => substr($cmd, 0, 1));
 }
 
 sub respond {
-    $main::request->print(q{<body onload="document.getElementById('c').focus()"><pre>}.TAEB->all_messages("\n").q{</pre><form><input name=c></form><pre style="color:#fff;background:#000;">}.TAEB->vt->as_string("\n",1).q{</pre></body>});
+    $main::request->print(TAEB::AI::Personality::Hivemind::Templates->respond);
     $main::request->next;
     $main::request->param('c');
 }
