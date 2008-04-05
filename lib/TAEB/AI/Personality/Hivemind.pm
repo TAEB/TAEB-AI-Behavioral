@@ -4,14 +4,14 @@ use TAEB::OO;
 extends 'TAEB::AI::Personality';
 
 sub next_action {
-    $main::request->print(q{<form><input size=1 maxlength=1 name=c></form><pre>}.TAEB->vt->as_string("\n").q{</pre>});
+    $main::request->print(q{<body onload="document.getElementById('c').focus()"><form><input size=1 maxlength=1 name=c></form><pre>}.TAEB->vt->as_string("\n").q{</pre></body>});
     $main::request->next;
     my $cmd = $main::request->param('c');
     TAEB::Action::Custom->new(string => substr($cmd, 0, 1));
 }
 
 sub respond {
-    $main::request->print(q{<form><input name=c></form><pre>}.TAEB->vt->as_string("\n").q{</pre>});
+    $main::request->print(q{<body onload="document.getElementById('c').focus()"><form><input name=c></form><pre>}.TAEB->vt->as_string("\n").q{</pre></body>});
     $main::request->next;
     $main::request->param('c');
 }
