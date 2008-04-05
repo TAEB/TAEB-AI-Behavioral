@@ -52,3 +52,17 @@ Q
 ^R
     Redraws the screen (and tries to unscroll the terminal and other stuff)
 
+d
+    This command will toggle the draw_debug option which will color things in
+    different colors.
+        path          => magenta
+        interesting   => red
+        searched      => cyan
+        stepped on    => brown
+        explored      => green
+        branch stair  => yellow (bold brown)
+        shop items    => black (taeb currently ignores shop items)
+        Doors:
+            shop      => red
+            locked    => yellow (bold brown)
+            unlocked  => green
