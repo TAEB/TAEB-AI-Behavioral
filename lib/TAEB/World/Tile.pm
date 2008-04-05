@@ -516,6 +516,8 @@ sub draw_debug {
              ? Curses::COLOR_PAIR(COLOR_BRIGHT_GREEN)
              : $self->might_have_new_item
              ? Curses::COLOR_PAIR(COLOR_RED)
+             : $self->type eq 'trap'
+             ? Curses::COLOR_PAIR(COLOR_BRIGHT_BLUE)
              : $self->searched > 5
              ? Curses::COLOR_PAIR(COLOR_CYAN)
              : $self->stepped_on
