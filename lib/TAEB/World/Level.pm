@@ -16,15 +16,17 @@ use overload
     };
 
 has tiles => (
-    isa     => 'ArrayRef[ArrayRef[TAEB::World::Tile]]',
+    isa     => 'ArrayRef[Maybe[ArrayRef[TAEB::World::Tile]]]',
     default => sub {
         my $self = shift;
         # ugly, but ok
-        [ map { my $y = $_;
+        [ undef,
+
+          map { my $y = $_;
             [ map {
                 TAEB::World::Tile->new(level => $self, x => $_, y => $y)
             } 0 .. 79 ]
-        } 0 .. 21 ]
+        } 1 .. 21 ]
     },
 );
 
