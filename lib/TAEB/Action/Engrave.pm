@@ -25,7 +25,6 @@ has add_engraving => (
 has got_identifying_message => (
     isa     => 'Bool',
     default => 0,
-    provided => 1,
 );
 
 sub engrave_slot {
