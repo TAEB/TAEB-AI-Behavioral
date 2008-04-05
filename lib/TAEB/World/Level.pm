@@ -384,6 +384,13 @@ sub _detect_dungeons {
 
     # dungeon features (fountain, sink, altar, door, etc)
     # watch out for minetown
+    return 1 if ($self->z != 5 && $self-> z != 6)
+             && ($self->has_type('closeddoor')
+             ||  $self->has_type('opendoor')
+             ||  $self->has_type('altar')
+             ||  $self->has_type('sink')
+             ||  $self->has_type('fountain'));
+
 
     return 0;
 }
