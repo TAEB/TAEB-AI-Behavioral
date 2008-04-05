@@ -5,9 +5,15 @@ use warnings;
 use Template::Declare::Tags;
 use Template::Declare::Anon;
 
-sub vt {
+sub messages {
     pre {
-        TAEB->vt->as_string("\n")
+        TAEB->all_messages("\n")
+    }
+}
+
+sub level {
+    pre {
+        TAEB->vt->as_string("\n", 1, 21)
     }
 }
 
@@ -36,7 +42,8 @@ sub next_action {
             }
         }
 
-        vt;
+        messages;
+        level;
     }
 }
 
@@ -51,7 +58,8 @@ sub respond {
             }
         }
 
-        vt;
+        messages;
+        level;
     }
 }
 
