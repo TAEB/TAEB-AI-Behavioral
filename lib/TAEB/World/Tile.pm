@@ -75,6 +75,12 @@ has engraving => (
     },
 );
 
+has engraving_type => (
+    isa     => 'Str',
+    default => '',
+    documentation => "Store the writing type",
+);
+
 has interesting_at => (
     isa     => 'Int',
     default => 0,

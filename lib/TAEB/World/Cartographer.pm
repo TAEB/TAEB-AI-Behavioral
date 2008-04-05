@@ -237,6 +237,13 @@ sub msg_floor_message {
     }
 }
 
+sub msg_engraving_type {
+    my $self = shift;
+    my $engraving_type = shift;
+
+    TAEB->current_tile->engraving_type($engraving_type);
+}
+
 sub msg_pickaxe {
     TAEB->current_level->pickaxe(TAEB->turn);
 }
