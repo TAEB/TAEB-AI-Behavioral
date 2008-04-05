@@ -769,9 +769,12 @@ sub all_messages {
     local $_ = $self->messages;
     s/\s+ /  /g;
 
-    return grep { length }
-           map { s/^\s+//; s/\s+$//; $_ }
-           split /  /, $_;
+    my @messages = grep { length }
+                   map { s/^\s+//; s/\s+$//; $_ }
+                   split /  /, $_;
+    return join $_[0], @messages
+        if @_;
+    return @messages;
 }
 
 =head2 farlook Int, Int -> (Str | Str, Str, Str, Str)
