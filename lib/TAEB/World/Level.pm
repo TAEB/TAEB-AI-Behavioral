@@ -492,7 +492,8 @@ around is_oracle => sub {
              && $self->branch ne 'dungeons';
     return 0 unless $self->z >= 5 && $self->z <= 9;
 
-    return 0 unless grep { $_->is_oracle } $self->monsters;
+    my $oracleTile = $self->at(39,12);
+    return 0 unless $oracleTile->monster && $oracleTile->monster->is_oracle;
 
     TAEB->info("This is the Oracle level!");
     $self->branch('dungeons');
