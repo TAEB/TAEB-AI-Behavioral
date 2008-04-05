@@ -36,6 +36,8 @@ sub wrapper(&) {
 }
 
 sub movement {
+    my $include_misc = shift;
+
     table {
         row {
             cell { a { attr { href => "/?action=Move&direction=y" } "y" } }
@@ -43,14 +45,23 @@ sub movement {
             cell { a { attr { href => "/?action=Move&direction=u" } "u" } }
         }
         row {
-            cell { a { attr { href => "/?action=Move&direction=h" } "h" } }
-            cell { "." }
+            cell { a { attr { href => "/?action=Move&direction=h" } "h" } };
+            if ($include_misc) {
+                cell { a { attr { href => "/?action=Move&direction=." } "." } }
+            }
+            else {
+                cell { "." }
+            }
             cell { a { attr { href => "/?action=Move&direction=l" } "l" } }
         }
         row {
             cell { a { attr { href => "/?action=Move&direction=b" } "b" } }
             cell { a { attr { href => "/?action=Move&direction=j" } "j" } }
             cell { a { attr { href => "/?action=Move&direction=n" } "n" } }
+        };
+        if ($include_misc) {
+            cell { a { attr { href => "/?action=Move&direction=<" } "<" } }
+            cell { a { attr { href => "/?action=Move&direction=>" } ">" } }
         }
     }
 }
