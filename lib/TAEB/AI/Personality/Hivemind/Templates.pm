@@ -38,12 +38,18 @@ sub wrapper(&) {
 sub next_action {
     wrapper {
         form {
-            input {
+            select {
                 attr {
-                    type      => "text",
-                    name      => "c",
-                    size      => 1,
-                    maxlength => 1,
+                    name => "action",
+                };
+
+                for my $name (@TAEB::Action::actions) {
+                    option {
+                        attr {
+                            value => $name,
+                        };
+                        $name
+                    }
                 }
             }
         }

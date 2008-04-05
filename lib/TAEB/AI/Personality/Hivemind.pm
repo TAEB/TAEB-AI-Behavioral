@@ -7,8 +7,7 @@ extends 'TAEB::AI::Personality';
 sub next_action {
     $main::request->print(TAEB::AI::Personality::Hivemind::Templates->next_action);
     $main::request->next;
-    my $cmd = $main::request->param('c');
-    TAEB::Action::Custom->new(string => substr($cmd, 0, 1));
+    shift->fill_action($main::request->param('action'));
 }
 
 sub respond {
