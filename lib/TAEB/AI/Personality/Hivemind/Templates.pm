@@ -178,9 +178,10 @@ sub action_arguments {
                 elsif ($attr->type_constraint->name =~ qr/Str|Int/) {
                     input {
                         attr {
-                            id   => $name,
-                            type => "text",
-                            name => $name,
+                            id    => $name,
+                            type  => "text",
+                            name  => $name,
+                            value => $attr->default,
                         }
                     }
                 }
