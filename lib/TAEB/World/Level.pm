@@ -391,13 +391,6 @@ sub _detect_dungeons {
              ||  $self->has_type('sink')
              ||  $self->has_type('fountain'));
 
-    # if we go down from a level and arrive in a dungeons level,
-    # it must be a dungeons level itself
-    # (since the level isn't Sokoban, that is.)
-    return 1 if $self->adjacent_levels
-             && grep {$_->z > $self->z &&
-                      $_->branch &&
-                      $_->branch eq 'dungeons'} $self->adjacent_levels;
 
     return 0;
 }
