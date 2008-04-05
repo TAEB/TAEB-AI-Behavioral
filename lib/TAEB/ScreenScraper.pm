@@ -683,8 +683,8 @@ sub handle_menus {
         $selector = TAEB->menu_select('enhance');
     }
     elsif (TAEB->topline =~ /Choose which spell to cast/) {
-        my $which_spell = TAEB->single_select('cast') || "\e";
-        $which_spell = "\e" if TAEB->is_checking('spells');
+        my $which_spell = TAEB->is_checking('spells') ? "\e"
+                        : TAEB->single_select('cast') || "\e";
         $committer = sub { $which_spell };
 
         $selector = sub {
