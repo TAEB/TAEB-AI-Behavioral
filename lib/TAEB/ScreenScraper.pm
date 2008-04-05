@@ -380,6 +380,10 @@ our @msg_regex = (
         qr/^Something is (written|engraved) here (?:in|on) the (?:.*)./ =>
             ['engraving_type' => sub { $1 } ],
     ],
+    [
+        qr/^(?:(?:The )?(.*|Your)) medallion begins to glow!/ =>
+            ['life_saving' => sub { $1 } ],
+    ],
 );
 
 our @god_anger = (
