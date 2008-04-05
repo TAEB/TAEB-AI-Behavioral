@@ -10,7 +10,7 @@ use TAEB::Util 'vi2delta';
 use constant command => 't';
 
 has '+item' => (
-    isa      => 'TAEB::Type::Item',
+    isa      => 'TAEB::World::Item',
     required => 1,
 );
 

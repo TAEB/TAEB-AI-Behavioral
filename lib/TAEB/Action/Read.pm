@@ -8,7 +8,7 @@ use List::MoreUtils 'any';
 use constant command => "r";
 
 has '+item' => (
-    isa      => 'TAEB::Type::Item',
+    isa      => 'TAEB::World::Item',
     required => 1,
 );
 

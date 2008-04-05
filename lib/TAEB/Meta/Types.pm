@@ -25,13 +25,5 @@ enum DoorState => qw(locked unlocked);
 
 enum 'TAEB::Type::Branch' => qw(dungeons mines sokoban quest ludios gehennom vlad planes);
 
-require TAEB::World::Item;
-subtype 'TAEB::Type::ItemOrStr'
-     => as 'TAEB::World::Item | Str';
-
-subtype 'TAEB::Type::Item'
-     => as 'TAEB::Type::ItemOrStr'
-     => where { blessed $_ };
-
 1;
 

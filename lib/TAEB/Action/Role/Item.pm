@@ -4,7 +4,7 @@ use Moose::Role;
 
 has item => (
     is       => 'rw',
-    isa      => 'TAEB::Type::ItemOrStr',
+    isa      => 'TAEB::World::Item | Str',
     provided => 1,
 );
 

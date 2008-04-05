@@ -7,7 +7,7 @@ with 'TAEB::Action::Role::Item';
 use constant command => "#dip\n";
 
 has '+item' => (
-    isa      => 'TAEB::Type::Item',
+    isa      => 'TAEB::World::Item',
     required => 1,
 );
 
