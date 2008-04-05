@@ -56,6 +56,8 @@ sub next_action {
 
 sub respond {
     wrapper {
+        messages;
+
         form {
             input {
                 attr {
@@ -65,7 +67,6 @@ sub respond {
             }
         }
 
-        messages;
         level;
         botl;
     }
