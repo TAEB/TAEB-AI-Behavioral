@@ -745,7 +745,7 @@ sub redraw {
     my $self   = shift;
     my $level  = TAEB->current_level;
     my $draw   = 'draw_'.(TAEB->config->draw || 'normal');
-    my $method = TAEB->config->display_method || 'display_glyph';
+    my $method = 'display_'.(TAEB->config->display_method || 'glyph');
 
     for my $y (1 .. 21) {
         Curses::move($y, 0);
