@@ -82,22 +82,44 @@ sub action_arguments {
     my $self  = shift;
     my @attrs = @_;
     my $action_class = $attrs[0]->associated_class->name;
+    my %map;
 
-    wrapper {
+    my $print = wrapper {
         h2 { $action_class->name };
         form {
             for my $attr (@attrs) {
+                my $name = $attr->name;
                 label {
                     attr {
-                        "for" => $attr->name
+                        "for" => $name,
                     };
-                    $attr->name
+                    $name
+                };
+
+                if ($attr->type_constraint->name eq 'Str') {
+                    input {
+                        attr {
+                            id   => $name,
+                            type => "text",
+                            name => $name,
+                        }
+                    }
                 }
-                input {
-                    attr {
-                        id   => $attr->name,
-                        type => "text",
-                        name => $attr->name,
+                elsif ($attr->type_constraint->name eq 'TAEB::World::Item') {
+                    $map{$name} = sub { TAEB->inventory->get(shift) };
+
+                    select {
+                        attr {
+                            id   => $name,
+                            name => $name,
+                        };
+
+                        for my $slot (TAEB->inventory->slots) {
+                            option {
+                                attr { value => $slot };
+                                TAEB->inventory->get($slot)
+                            }
+                        }
                     }
                 }
             }
@@ -106,7 +128,9 @@ sub action_arguments {
         messages;
         level;
         botl;
-    }
+    };
+
+    return ($print, %map);
 }
 
 1;
