@@ -513,11 +513,11 @@ sub draw_debug {
     }
 
     $color ||= $self->in_shop
-             ? Curses::COLOR_PAIR(COLOR_BRIGHT_GREEN)
+             ? Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD
              : $self->might_have_new_item
              ? Curses::COLOR_PAIR(COLOR_RED)
              : $self->type eq 'trap'
-             ? Curses::COLOR_PAIR(COLOR_BRIGHT_BLUE)
+             ? Curses::COLOR_PAIR(COLOR_BLUE) | Curses::A_BOLD
              : $self->searched > 5
              ? Curses::COLOR_PAIR(COLOR_CYAN)
              : $self->stepped_on
