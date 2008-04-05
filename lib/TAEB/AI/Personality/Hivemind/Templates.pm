@@ -57,19 +57,28 @@ sub movement {
 
 sub next_action {
     wrapper {
-        form {
-            select {
-                attr {
-                    name => "action",
-                };
+        table {
+            row {
+                cell {
+                    form {
+                        select {
+                            attr {
+                                name => "action",
+                            };
 
-                for my $name (@TAEB::Action::actions) {
-                    option {
-                        attr {
-                            value => $name,
-                        };
-                        $name
+                            for my $name (@TAEB::Action::actions) {
+                                option {
+                                    attr {
+                                        value => $name,
+                                    };
+                                    $name
+                                }
+                            }
+                        }
                     }
+                }
+                cell {
+                    movement;
                 }
             }
         }
