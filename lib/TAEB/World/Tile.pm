@@ -532,6 +532,11 @@ sub display_glyph {
     $self->glyph eq ' ' ? $self->floor_glyph : $self->glyph;
 }
 
+sub display_floor {
+    my $self = shift;
+    $self->floor_glyph;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
