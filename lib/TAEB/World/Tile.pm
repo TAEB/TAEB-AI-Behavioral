@@ -483,7 +483,7 @@ sub searchability {
     return $searchability;
 }
 
-sub draw {
+sub draw_normal {
     my $self           = shift;
     my $display_method = shift;
 
