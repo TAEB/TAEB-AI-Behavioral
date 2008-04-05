@@ -81,7 +81,7 @@ sub get_generic_response {
         for my $responder (@{ $args{responders} }) {
             next unless $responder;
 
-            if (my $code = $responder->can("$args{method}_$name") || $responder->can($args{method})) {
+            if (my $code = $responder->can("$args{method}_$name")) {
                 if ($matched ||= @captures = $args{msg} =~ $re) {
 
                     my $response = $responder->$code(
@@ -94,6 +94,16 @@ sub get_generic_response {
                     return $response;
                 }
             }
+        }
+    }
+
+    for my $responder (@{ $args{responders} }) {
+        if (my $code = $responder->can($args{method})) {
+            my $response = $responder->$code($args{msg});
+            next unless defined $response;
+
+            TAEB->debug(blessed($responder) . " is generically responding to $args{msg}.");
+            return $response;
         }
     }
 
