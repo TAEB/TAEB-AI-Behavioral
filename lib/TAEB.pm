@@ -440,11 +440,11 @@ sub keypress {
     }
 
     if ($c eq 'd') {
-        if ($self->config->draw eq 'draw_debug') {
-            $self->config->draw('draw')
+        if ($self->config->draw eq 'debug') {
+            $self->config->draw('normal')
         }
         else {
-            $self->config->draw('draw_debug')
+            $self->config->draw('debug')
         }
         return undef;
     }
@@ -744,7 +744,7 @@ sub try_key {
 sub redraw {
     my $self   = shift;
     my $level  = TAEB->current_level;
-    my $draw   = TAEB->config->draw || 'draw';
+    my $draw   = 'draw_'.(TAEB->config->draw || 'normal');
     my $method = TAEB->config->display_method || 'display_glyph';
 
     for my $y (1 .. 21) {
