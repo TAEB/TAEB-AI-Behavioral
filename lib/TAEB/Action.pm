@@ -4,7 +4,7 @@ use TAEB::OO;
 
 our @actions = qw(
     Apply Ascend Cast Custom Descend Dip Drop Eat Engrave Kick Melee Move Open
-    Pay Pickup Pray Quaff Read Search Throw Unlock Wear Wield Zap
+    Pay Pickup Puton Pray Quaff Read Search Throw Unlock Wear Wield Zap
 );
 
 for (@actions) {
