@@ -30,6 +30,7 @@ sub BUILD {
 
     chomp(my $pwd = `pwd`);
     local $ENV{NETHACKOPTIONS} = '@' . join '/', $pwd, 'etc', 'TAEB.nethackrc';
+    local $ENV{TERM} = 'xterm-color';
 
     # this has to be done in BUILD because it needs name
     my $pty = IO::Pty::Easy->new;
