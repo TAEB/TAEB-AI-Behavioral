@@ -10,14 +10,14 @@ my @tests = (
     ["potion of sickness", {
         class      => "potion",
         quantity   => 1,
-        buc        => "unknown",
+        buc        => undef,
         identity   => "potion of sickness",
         appearance => "effervescent potion",
     }],
     ["2 scrolls of enchant weapon", {
         class      => "scroll",
         quantity   => 2,
-        buc        => "unknown",
+        buc        => undef,
         identity   => "scroll of enchant weapon",
         appearance => "scroll labeled KIRJE",
     }],
