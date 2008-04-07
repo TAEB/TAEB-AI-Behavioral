@@ -173,8 +173,6 @@ our %msg_string = (
         ['engraving_type' => 'graffiti'],
     "You see a message scrawled in blood here." =>
         ['engraving_type' => 'scrawl'],
-    "You hear a nearby zap." =>
-        [check => 'discoveries'],
 );
 
 our @msg_regex = (
