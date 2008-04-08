@@ -7,7 +7,8 @@ use List::MoreUtils 'any';
 sub prepare {
     my $self = shift;
     my $current = TAEB->current_tile;
-
+    return if !defined(TAEB->current_level->branch) &&
+                        TAEB->current_level->turns_spent_on < 100;
     my @exits = grep { !defined($_->other_side) } TAEB->current_level->exits;
     if (any { $current == $_ } @exits) {
         $self->currently("Seeing what's on the other side of this exit");
