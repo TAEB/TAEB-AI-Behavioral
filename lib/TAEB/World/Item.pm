@@ -387,6 +387,8 @@ sub match {
     return 1;
 }
 
+sub can_drop { 1 };
+
 install_spoilers(qw/weight base edible artifact material sdam ldam/);
 
 __PACKAGE__->meta->make_immutable;
