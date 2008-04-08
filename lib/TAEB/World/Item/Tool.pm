@@ -6,6 +6,7 @@ with 'TAEB::World::Item::Role::Chargeable';
 with 'TAEB::World::Item::Role::Enchantable';
 with 'TAEB::World::Item::Role::Erodable';
 with 'TAEB::World::Item::Role::Lightable';
+with 'TAEB::World::Item::Role::Wearable';
 
 has '+class' => (
     default => 'tool',
