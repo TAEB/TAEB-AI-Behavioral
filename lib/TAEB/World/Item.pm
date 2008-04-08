@@ -371,7 +371,7 @@ sub match {
     # immediately if a false condition is found.
     for my $matcher (keys %args) {
         my ($invert, $name) = $matcher =~ /^(not_)?(.*)$/;
-        my $value = $self->$name;
+        my $value = $self->can($name) ? $self->$name : undef;
         my $seek = $args{$matcher};
 
         my $matched = $self->_match($value => $seek) ? 1 : 0;

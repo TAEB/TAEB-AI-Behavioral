@@ -12,7 +12,12 @@ sub prepare {
     my $level = TAEB->nearest_level(sub { shift->has_type('altar') })
         or return 0;
 
-    my @drop = grep { $_->match(buc => undef, not_appearance => 'gold piece') } TAEB->inventory->items;
+    #note the not_is_wearing is required in order to return 1:0 if
+    #the item does not have the is_wearing method
+    my @drop = grep { $_->match(buc => undef, 
+                                not_appearance => 'gold piece',
+                                not_is_wearing => 1) }
+                           TAEB->inventory->items;
 
     # No point in cursechecking no items
     return 0 unless @drop;
