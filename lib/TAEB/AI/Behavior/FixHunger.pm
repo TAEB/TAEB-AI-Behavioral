@@ -7,7 +7,7 @@ sub prepare {
     my $self = shift;
 
     if (TAEB->can_pray      &&
-        TAEB->nutrition < 0 &&
+        TAEB->nutrition < 2 &&
         TAEB->current_tile->type ne 'altar') { # XXX: Should check if altar is coaligned.
         $self->do("pray");
         $self->currently("Praying for food.");
