@@ -41,6 +41,16 @@ sub is_vault_guard {
     return 0;
 }
 
+sub will_screw_up_quest {
+    my $self = shift;
+
+    # Attacking @s in quest level 1 will screw up your quest. So...don't.
+    return 1 if TAEB->current_level->branch eq 'quest'
+             && TAEB->z == 1
+             && $self->glyph eq '@';
+    return 0;
+}
+
 sub is_enemy {
     my $self = shift;
     return 0 if $self->is_shk;
@@ -48,6 +58,7 @@ sub is_enemy {
     return 0 if $self->is_coaligned_unicorn;
     return 0 if $self->is_vault_guard;
     return 0 if $self->is_watchman;
+    return 0 if $self->will_screw_up_quest;
     return 1;
 }
 
