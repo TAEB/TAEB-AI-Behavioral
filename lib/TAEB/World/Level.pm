@@ -98,6 +98,18 @@ has is_bigroom => (
     default => 0,
 );
 
+has is_quest => (
+    isa     => 'Bool',
+    default => sub {
+        if (TAEB->vt->row_plaintext(23) =~ /^Home/)
+        {
+            shift->branch('quest');
+            return 1;
+        }
+        return 0;
+    },
+);
+
 sub at {
     my $self = shift;
     my $x = @_ ? shift : TAEB->x;
