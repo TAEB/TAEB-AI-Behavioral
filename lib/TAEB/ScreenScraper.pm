@@ -569,15 +569,6 @@ sub handle_more {
     # while there's a --More-- on the screen..
     while (TAEB->vt->as_string =~ /^(.*?)--More--/) {
         # add the text to the buffer
-        # XXX: hack here: replacing all spaces in an engraving with underscores
-        # so that our message parsing (which just splits on double spaces)
-        # doesn't explode
-        my $new_messages = $1;
-        $new_messages =~ s{You read: +"(.*)"\.}{
-            (my $copy = $1) =~ tr/ /_/;
-            q{You read: "} . $copy . q{".}
-        }e;
-
         $self->messages($self->messages . '  ' . $new_messages);
 
         # try to get rid of the --More--
@@ -778,6 +769,13 @@ sub handle_fallback {
 sub all_messages {
     my $self = shift;
     local $_ = $self->messages;
+    # XXX: hack here: replacing all spaces in an engraving with underscores
+    # so that our message parsing (which just splits on double spaces)
+    # doesn't explode
+    s{You read: +"(.*)"\.}{
+        (my $copy = $1) =~ tr/ /_/;
+        q{You read: "} . $copy . q{".}
+    }e;
     s/\s+ /  /g;
 
     my @messages = grep { length }
