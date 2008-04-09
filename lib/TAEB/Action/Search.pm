@@ -20,7 +20,7 @@ sub done {
     my $self = shift;
     my $diff = TAEB->turn - $self->started;
 
-    TAEB->each_adjacent(sub {
+    TAEB->each_adjacent_inclusive(sub {
         my $self = shift;
         $self->searched($self->searched + $diff);
     });
