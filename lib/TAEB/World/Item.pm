@@ -170,6 +170,10 @@ sub new_item {
     # for now
     my $stats = "TAEB::Spoilers::Item::$class_name"->$class($item);
 
+    if (defined($stats) && defined($stats->{artifact}) && $stats->{artifact}) {
+        TAEB::Spoilers::Item::Artifact->seen($item => 1);
+    }
+
     if (defined TAEB->knowledge->appearance_of->{$item}) {
         $new_item->appearance(TAEB->knowledge->appearance_of->{$item});
     }
