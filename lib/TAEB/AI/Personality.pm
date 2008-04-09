@@ -117,7 +117,7 @@ sub enhance {
     my $self  = shift;
     my $skill = shift;
     my $level = shift;
-    
+
     TAEB->debug("Enhancing $skill up from $level");
 
     return 1;
