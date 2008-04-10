@@ -779,27 +779,27 @@ sub send_messages {
     my $self = shift;
 
     for my $line ($self->all_messages) {
-        my @send;
+        my $matched = 0;
 
-        push @send, $msg_string{$line}
-            if exists $msg_string{$line};
-
-        for (@msg_regex) {
-            my ($re, @messages) = @$_;
-            push @send, @messages
-                if $line =~ $re;
-        }
-
-        for (@send) {
-            my @message = ref($_) eq 'CODE' ? $_->() : @$_;
-
+        if (exists $msg_string{$line}) {
+            $matched = 1;
             TAEB->enqueue_message(
                 map { ref($_) eq 'CODE' ? $_->() : $_ }
-                @message,
+                @{ $msg_string{$line} }
             );
         }
 
-        push @{ $self->parsed_messages }, [$line => (@send ? 1 : 0)];
+        for my $something (@msg_regex) {
+            if ($line =~ $something->[0]) {
+                $matched = 1;
+                TAEB->enqueue_message(
+                    map { ref($_) eq 'CODE' ? $_->() : $_ }
+                    @{ $something->[1] }
+                );
+            }
+        }
+
+        push @{ $self->parsed_messages }, [$line => $matched];
     }
 }
 
