@@ -129,6 +129,20 @@ sub is_watchman {
     return $self->color eq COLOR_GRAY || $self->color eq COLOR_GREEN;
 }
 
+sub can_move {
+    my $self = shift;
+    # spotted jelly, blue jelly
+    return 0 if $self->glyph eq 'j' && ($self->color eq COLOR_GREEN  ||
+                                        $self->color eq COLOR_BLUE);
+    # brown yellow green red mold
+    return 0 if $self->glyph eq 'F' && ($self->color eq COLOR_BROWN  ||
+                                        $self->color eq COLOR_YELLOW ||
+                                        $self->color eq COLOR_GREEN  ||
+                                        $self->color eq COLOR_RED);
+    return 0 if $self->is_oracle;
+    return 1;
+}
+
 sub debug_line {
     my $self = shift;
     my @bits;
