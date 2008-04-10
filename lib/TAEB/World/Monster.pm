@@ -41,7 +41,7 @@ sub is_vault_guard {
     return 0;
 }
 
-sub will_screw_up_quest {
+sub is_quest_friendly {
     my $self = shift;
 
     # Attacking @s in quest level 1 will screw up your quest. So...don't.
@@ -58,7 +58,7 @@ sub is_enemy {
     return 0 if $self->is_coaligned_unicorn;
     return 0 if $self->is_vault_guard;
     return 0 if $self->is_watchman;
-    return 0 if $self->will_screw_up_quest;
+    return 0 if $self->is_quest_friendly;
     return 1;
 }
 
