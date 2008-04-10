@@ -795,7 +795,7 @@ sub send_messages {
 
             TAEB->enqueue_message(
                 map { ref($_) eq 'CODE' ? $_->() : $_ }
-                @message;
+                @message,
             );
         }
 
