@@ -112,11 +112,9 @@ sub check_dlvl {
                     $newlevel->is_bigroom(1);
                 }
             }
-            if ($botl =~ /(\$|\*):\d+/) {
-                if ($1 eq '*') {
-                    $newlevel->branch('dungeons');
-                    $newlevel->is_rogue(1);
-                }
+            if ($botl =~ /\*:\d+/) {
+                $newlevel->branch('dungeons');
+                $newlevel->is_rogue(1);
             }
             if ($quest) {
                 $newlevel->branch('quest');
