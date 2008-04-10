@@ -110,6 +110,12 @@ sub check_dlvl {
                     $newlevel->is_bigroom(1);
                 }
             }
+            if (TAEB->vt->row_plaintext(23) =~ /(\$|\*):\d+/) {
+                if ($1 eq '*') {
+                    $newlevel->branch('dungeons');
+                    $newlevel->is_rogue(1);
+                }
+            }
         }
 
         $self->dungeon->current_level($newlevel);

@@ -513,31 +513,6 @@ around is_oracle => sub {
     return 1;
 };
 
-around is_rogue => sub {
-    my $orig = shift;
-    my $self = shift;
-
-    return $self->$orig(@_) if @_;
-
-    my $is_rogue = $self->$orig;
-    return $is_rogue if $is_rogue;
-
-    my $botl = TAEB->vt->row_plaintext(23);
-    if ($botl =~ /(\$|\*):\d+/ ) {
-        $is_rogue = ($1 eq '*');
-        $self->is_rogue($is_rogue);
-        $self->branch('dungeons') if $is_rogue;
-        return $is_rogue;
-    }
-    else
-    {
-        TAEB->error("Unable to parse the botl line '$botl'");
-    }
-
-    # We shouldn't get down here, but just in case:
-    return 0;
-};
-
 sub detect_bigroom_vt {
     my $self = shift;
 
