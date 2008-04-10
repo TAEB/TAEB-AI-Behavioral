@@ -61,7 +61,8 @@ d
         stepped on    => brown
         explored      => green
         branch stair  => yellow (bold brown)
-        shop items    => black (taeb currently ignores shop items)
+        shop          => light green (taeb currently ignores shop items)
+        traps         => light blue
         Doors:
             shop      => red
             locked    => yellow (bold brown)
