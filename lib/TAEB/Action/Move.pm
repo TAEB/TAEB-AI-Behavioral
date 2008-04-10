@@ -19,6 +19,7 @@ has starting_tile => (
 );
 
 # if the first movement is < or >, then just use the Ascend or Descend actions
+# if the first movement would move us into a monster, rest instead
 around new => sub {
     my $orig  = shift;
     my $class = shift;
@@ -36,8 +37,16 @@ around new => sub {
     $start = substr($args{path}->path, 0, 1) if $args{path};
     $start = substr($args{direction},  0, 1) if $args{direction};
 
-    $action = 'Ascend'  if $start eq '<';
-    $action = 'Descend' if $start eq '>';
+    if ($start eq '<') {
+        $action = 'Ascend';
+    }
+    elsif ($start eq '>') {
+        $action = 'Descend';
+    }
+    elsif (defined TAEB->current_level->at_direction($start)->monster) {
+        $action = 'Search';
+        $args{iterations} = 1;
+    }
 
     if ($action) {
         return "TAEB::Action::$action"->new(%args);
