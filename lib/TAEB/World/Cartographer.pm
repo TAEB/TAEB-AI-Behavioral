@@ -75,9 +75,10 @@ Updates the current_level if Dlvl appears to have changed.
 sub check_dlvl {
     my $self = shift;
 
-    TAEB->vt->row_plaintext(23) =~ /^(?:Dlvl:(\d+)|Home (\d+)|Fort Ludios|End Game|Astral Plane)/
+    my $botl = TAEB->vt->row_plaintext(23);
+    $botl =~ /^(?:Dlvl:(\d+)|Home (\d+)|Fort Ludios|End Game|Astral Plane)/
         or do {
-            TAEB->error("Unable to parse the botl for dlvl: ".TAEB->vt->row_plaintext(23));
+            TAEB->error("Unable to parse the botl for dlvl: $botl");
             return;
     };
 
@@ -111,7 +112,7 @@ sub check_dlvl {
                     $newlevel->is_bigroom(1);
                 }
             }
-            if (TAEB->vt->row_plaintext(23) =~ /(\$|\*):\d+/) {
+            if ($botl =~ /(\$|\*):\d+/) {
                 if ($1 eq '*') {
                     $newlevel->branch('dungeons');
                     $newlevel->is_rogue(1);
