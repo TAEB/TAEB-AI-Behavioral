@@ -140,6 +140,7 @@ sub basic_cost {
     my $self = shift;
     my $cost = 100;
 
+    $cost *= 20 if defined $self->monster;
     $cost *= 10 if $self->type eq 'trap';
     $cost *= 4  if $self->type eq 'ice';
 
@@ -251,8 +252,6 @@ sub is_walkable {
 
     # XXX: yes. I know. shut up.
     return 0 if $self->glyph eq '0';
-
-    return 0 if $self->monster;
 
     # obscured is walkable, the Move action will catch it and mark it
     # as rock otherwise
