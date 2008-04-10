@@ -524,9 +524,10 @@ around is_rogue => sub {
 
     my $botl = TAEB->vt->row_plaintext(23);
     if ($botl =~ /(\$|\*):\d+/ ) {
-        $self->is_rogue($1 eq '*');
-        $self->branch('dungeons') if $self->is_rogue;
-        return ($self->is_rogue);
+        $is_rogue = ($1 eq '*');
+        $self->is_rogue($is_rogue);
+        $self->branch('dungeons') if $is_rogue;
+        return $is_rogue;
     }
     else
     {
