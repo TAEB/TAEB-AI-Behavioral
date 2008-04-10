@@ -361,7 +361,7 @@ our @msg_regex = (
             ['check' => 'discoveries'],
     ],
     [   # Avoid matching shopkeeper name by checking for capital lettering.
-        qr/Welcome (?:again )? to(?> [A-Z]\S+)+ ([a-z ]+)!/ =>
+        qr/Welcome(?: again)? to(?> [A-Z]\S+)+ ([a-z ]+)!/ =>
             ['enter_shop' => sub { TAEB::Spoilers::Room->shop_type($1) } ],
     ],
     [
