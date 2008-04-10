@@ -43,6 +43,7 @@ Then, in vim (and only vim, I'll know if you used emacs), edit the
 account's name and password. The format is:
 
 ---
+interface: Telnet
 interface_options:
     Telnet:
         account: (name)
