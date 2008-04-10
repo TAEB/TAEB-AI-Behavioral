@@ -82,6 +82,7 @@ sub check_dlvl {
     };
 
     my $dlvl = $1;
+    my $quest = $2;
     my $level = $self->dungeon->current_level;
 
     if ($level->z != $dlvl) {
@@ -115,6 +116,9 @@ sub check_dlvl {
                     $newlevel->branch('dungeons');
                     $newlevel->is_rogue(1);
                 }
+            }
+            if ($quest) {
+                $newlevel->branch('quest');
             }
         }
 
