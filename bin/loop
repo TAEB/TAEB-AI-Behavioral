@@ -8,8 +8,8 @@ while (1) {
     system("./bin/taeb");
     sleep 2;
     system("clear");
-    for (1..59) {
-        print 60-$_,"\n";
+    for (reverse 1..59) {
+        print $_,"\n";
         sleep 1;
     }
 }
