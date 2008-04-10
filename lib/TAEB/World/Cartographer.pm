@@ -257,8 +257,10 @@ sub msg_pickaxe {
     TAEB->current_level->pickaxe(TAEB->turn);
 }
 
-sub msg_debt {
-    TAEB->current_tile->floodfill(
+sub floodfill_shop {
+    my $self = shift;
+    my $tile = shift || TAEB->current_tile;
+    $tile->floodfill(
         sub {
             my $t = shift;
             $t->type eq 'floor' || $t->type eq 'obscured'
@@ -270,6 +272,19 @@ sub msg_debt {
             $t->in_shop(1);
         },
     );
+}
+
+sub msg_debt {
+    shift->floodfill_shop;
+}
+
+sub msg_enter_shop {
+    # Okay, so we want to floodfill shop when we enter it.
+    # Because we get the message in the doorway, we can't floodfill from that
+    # tile, so therefore we will use the target tile which (presumably?) is
+    # inside the shop.
+    return unless TAEB->action->path && TAEB->action->path->to;
+    shift->floodfill_shop(TAEB->action->path->to);
 }
 
 sub msg_vault_guard {
