@@ -43,9 +43,17 @@ around new => sub {
     elsif ($start eq '>') {
         $action = 'Descend';
     }
-    elsif (defined TAEB->current_level->at_direction($start)->monster) {
-        $action = 'Search';
-        $args{iterations} = 1;
+    else {
+        my $monster = TAEB->current_level->at_direction($start)->monster;
+        if (defined $monster && $monster->can_move) {
+            if ($monster->respects_elbereth && TAEB->elbereth_count == 0) {
+                $action = 'Engrave';
+            }
+            else {
+                $action = 'Search';
+                $args{iterations} = 1;
+            }
+        }
     }
 
     if ($action) {
