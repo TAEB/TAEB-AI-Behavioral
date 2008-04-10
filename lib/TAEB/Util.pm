@@ -129,7 +129,10 @@ Returns whether the given glyph is that of a monster.
 
 =cut
 
-sub glyph_is_monster { shift =~ /[a-zA-Z&';:1-5@]/ }
+sub glyph_is_monster {
+    return shift =~ /[a-zA-Z&';1-5@]/ if TAEB->current_level->is_rogue;
+    return shift =~ /[a-zA-Z&';:1-5@]/;
+}
 
 =head2 glyph_is_item str -> bool
 
@@ -137,7 +140,10 @@ Returns whether the given glyph is that of an item.
 
 =cut
 
-sub glyph_is_item    { shift =~ /[`!%*()+=\["\$]/ }
+sub glyph_is_item {
+    return shift =~ /[`!:*()+=\],]/ if TAEB->current_level->is_rogue;
+    return shift =~ /[`!%*()+=\["\$]/;
+}
 
 our @directions = (
     [qw/y k u/],
