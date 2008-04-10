@@ -504,8 +504,8 @@ around is_oracle => sub {
              && $self->branch ne 'dungeons';
     return 0 unless $self->z >= 5 && $self->z <= 9;
 
-    my $oracleTile = $self->at(39,12);
-    return 0 unless $oracleTile->monster && $oracleTile->monster->is_oracle;
+    my $oracle_tile = $self->at(39,12);
+    return 0 unless $oracle_tile->monster && $oracle_tile->monster->is_oracle;
 
     TAEB->info("This is the Oracle level!");
     $self->branch('dungeons');
