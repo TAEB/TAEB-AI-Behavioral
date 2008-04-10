@@ -498,29 +498,9 @@ sub scrape {
         # handle other text
         $self->handle_fallback;
 
-        # iterate over the messages, invoke TAEB->enqueue_message for each one
-        # we know about
-        for my $line ($self->all_messages) {
-            my $matched = 0;
+        # publish messages for all_messages
+        $self->send_messages;
 
-            if (exists $msg_string{$line}) {
-                $matched = 1;
-                TAEB->enqueue_message(
-                    map { ref($_) eq 'CODE' ? $_->() : $_ }
-                    @{ $msg_string{$line} }
-                );
-            }
-            for my $something (@msg_regex) {
-                if ($line =~ $something->[0]) {
-                    $matched = 1;
-                    TAEB->enqueue_message(
-                        map { ref($_) eq 'CODE' ? $_->() : $_ }
-                        @{ $something->[1] }
-                    );
-                }
-            }
-            push @{ $self->parsed_messages }, [$line => $matched];
-        }
     };
 
     if (($@ || '') =~ /^Recursing screenscraper/) {
@@ -786,6 +766,41 @@ sub all_messages {
     return join $_[0], @messages
         if @_;
     return @messages;
+}
+
+=head2 send_messages
+
+Iterate over all_messages, invoking TAEB->enqueue_message for each one we know
+about.
+
+=cut
+
+sub send_messages {
+    my $self = shift;
+
+    for my $line ($self->all_messages) {
+        my @send;
+
+        push @send, $msg_string{$line}
+            if exists $msg_string{$line};
+
+        for (@msg_regex) {
+            my ($re, @messages) = @$_;
+            push @send, @messages
+                if $line =~ $re;
+        }
+
+        for (@send) {
+            my @message = ref($_) eq 'CODE' ? $_->() : @$_;
+
+            TAEB->enqueue_message(
+                map { ref($_) eq 'CODE' ? $_->() : $_ }
+                @message;
+            );
+        }
+
+        push @{ $self->parsed_messages }, [$line => (@send ? 1 : 0)];
+    }
 }
 
 =head2 farlook Int, Int -> (Str | Str, Str, Str, Str)
