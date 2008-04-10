@@ -569,7 +569,7 @@ sub handle_more {
     # while there's a --More-- on the screen..
     while (TAEB->vt->as_string =~ /^(.*?)--More--/) {
         # add the text to the buffer
-        $self->messages($self->messages . '  ' . $new_messages);
+        $self->messages($self->messages . '  ' . $1);
 
         # try to get rid of the --More--
         TAEB->write(' ');
