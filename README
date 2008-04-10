@@ -50,6 +50,6 @@ interface_options:
 
 Be sure to include the three dashes.
 
-Then you should be ready to run him! Type ./bin/taeb and cross your fingers.
+Then you should be ready to run him! Type perl bin/taeb and cross your fingers.
 
 If you're interested in developing TAEB, see the NEWTASKS file.
