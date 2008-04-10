@@ -58,7 +58,7 @@ our %msg_string = (
     "There appears to be no shopkeeper here to receive your payment." =>
         ['debt', 0],
     "Your stomach feels content." =>
-        ['nutrition' => 800],
+        ['nutrition' => 900],
     "You hear crashing rock." =>
         ['pickaxe'],
     "Nothing happens." =>
