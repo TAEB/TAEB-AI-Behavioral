@@ -440,14 +440,25 @@ sub try_monster {
 
     $self->_clear_monster if $self->monster;
 
-    return unless glyph_is_monster($glyph);
     return if TAEB->x == $self->x && TAEB->y == $self->y;
+    if (TAEB->current_level->is_rogue && $glyph eq ' ') {
+        if ($self->all_adjacent(sub { shift->glyph ne ' ' })) {
+            $self->monster(TAEB::World::Monster->new(
+                glyph => 'X',
+                color => COLOR_GRAY,
+                tile  => $self,
+            ));
+        }
+    }
+    else {
+        return unless glyph_is_monster($glyph);
 
-    $self->monster(TAEB::World::Monster->new(
-        glyph => $glyph,
-        color => $color,
-        tile  => $self,
-    ));
+        $self->monster(TAEB::World::Monster->new(
+            glyph => $glyph,
+            color => $color,
+            tile  => $self,
+        ));
+    }
 
     $self->level->add_monster($self->monster);
 }
