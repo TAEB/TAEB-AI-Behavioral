@@ -14,7 +14,7 @@ enum PlayState => qw(logging_in playing saving);
 enum Role   => qw(Arc Bar Cav Hea Kni Mon Pri Ran Rog Sam Tou Val Wiz);
 enum Race   => qw(Hum Elf Dwa Gno Orc);
 enum Align  => qw(Law Neu Cha);
-enum Gender => qw(Mal Fem);
+enum Gender => qw(Mal Fem Neu);
 
 enum BUC    => qw(blessed uncursed cursed);
 enum ItemClass => qw(gold weapon armor food scroll spellbook potion amulet ring wand tool gem other);
