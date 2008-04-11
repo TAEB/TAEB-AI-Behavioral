@@ -4,8 +4,9 @@ use Curses ();
 
 use TAEB::Util ':colors';
 
-use MooseX::Singleton;
+use Moose;
 use MooseX::AttributeHelpers;
+use MooseX::ClassAttribute;
 
 use Log::Dispatch;
 use Log::Dispatch::File;
@@ -38,13 +39,13 @@ our $VERSION = '0.01';
 # during REPL or testing
 our $ToScreen = 0;
 
-has interface => (
+class_has interface => (
     is       => 'rw',
     isa      => 'TAEB::Interface',
     handles  => [qw/read write/],
 );
 
-has personality => (
+class_has personality => (
     is       => 'rw',
     isa      => 'TAEB::AI::Personality',
     lazy     => 1,
@@ -60,7 +61,7 @@ has personality => (
     },
 );
 
-has scraper => (
+class_has scraper => (
     is       => 'rw',
     isa      => 'TAEB::ScreenScraper',
     required => 1,
@@ -69,14 +70,14 @@ has scraper => (
     handles  => [qw(parsed_messages all_messages messages farlook)],
 );
 
-has config => (
+class_has config => (
     is       => 'rw',
     isa      => 'TAEB::Config',
     lazy     => 1,
     default  => sub { TAEB::Config->new },
 );
 
-has vt => (
+class_has vt => (
     is       => 'rw',
     isa      => 'TAEB::VT',
     lazy     => 1,
@@ -90,13 +91,13 @@ has vt => (
     handles  => [qw(topline)],
 );
 
-has state => (
+class_has state => (
     is      => 'rw',
     isa     => 'PlayState',
     default => 'logging_in',
 );
 
-has log => (
+class_has log => (
     is      => 'ro',
     isa     => 'Log::Dispatch',
     lazy    => 1,
@@ -130,7 +131,7 @@ for my $tiletype (qw/orthogonal diagonal adjacent adjacent_inclusive/) {
     }
 }
 
-has dungeon => (
+class_has dungeon => (
     is      => 'ro',
     isa     => 'TAEB::World::Dungeon',
     lazy    => 1,
@@ -151,19 +152,19 @@ has dungeon => (
     },
 );
 
-has single_step => (
+class_has single_step => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
-has info_to_screen => (
+class_has info_to_screen => (
     is      => 'rw',
     isa     => 'Bool',
     default => 0,
 );
 
-has senses => (
+class_has senses => (
     is      => 'rw',
     isa     => 'TAEB::Senses',
     default => sub {
@@ -175,7 +176,7 @@ has senses => (
     handles => qr/^(?!_check_|msg_|update)/,
 );
 
-has inventory => (
+class_has inventory => (
     is      => 'rw',
     isa     => 'TAEB::World::Inventory',
     lazy    => 1,
@@ -189,7 +190,7 @@ has inventory => (
     },
 );
 
-has spells => (
+class_has spells => (
     is      => 'rw',
     isa     => 'TAEB::World::Spells',
     lazy    => 1,
@@ -205,7 +206,7 @@ has spells => (
     },
 );
 
-has publisher => (
+class_has publisher => (
     is      => 'rw',
     isa     => 'TAEB::Publisher',
     lazy    => 1,
@@ -213,12 +214,12 @@ has publisher => (
     handles => [qw/enqueue_message get_exceptional_response get_response send_at_turn send_in_turns remove_messages menu_select single_select/],
 );
 
-has action => (
+class_has action => (
     is  => 'rw',
     isa => 'Maybe[TAEB::Action]',
 );
 
-has knowledge => (
+class_has knowledge => (
     is      => 'rw',
     isa     => 'TAEB::Knowledge',
     lazy    => 1,
@@ -229,13 +230,13 @@ has knowledge => (
     },
 );
 
-has new_game => (
+class_has new_game => (
     is      => 'rw',
     isa     => 'Maybe[Bool]',
     default => undef,
 );
 
-has persistent_dump => (
+class_has persistent_dump => (
     is   => 'rw',
     lazy => 1,
     default => sub {
@@ -257,7 +258,7 @@ has persistent_dump => (
     },
 );
 
-has pathfinds => (
+class_has pathfinds => (
     is  => 'rw',
     isa => 'Int',
     default => 0,
@@ -869,7 +870,12 @@ sub display_topline {
     $self->place_cursor;
 }
 
+__PACKAGE__->meta()->make_immutable();
+# XXX: docs say this is required, but MX::ClassAttribute has no function
+# 'containing_class'...
+#MooseX::ClassAttribute::containing_class()->meta()->make_immutable();
 no Moose;
+no MooseX::ClassAttribute;
 
 1;
 

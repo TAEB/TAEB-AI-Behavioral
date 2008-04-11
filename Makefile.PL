@@ -12,6 +12,7 @@ requires 'IO::Socket::Telnet' => 0.02;
 requires 'Moose';
 requires 'MooseX::Singleton' => 0.03;
 requires 'MooseX::AttributeHelpers';
+requires 'MooseX::ClassAttribute';
 
 # getop for bin/taeb
 requires 'Getopt::Whatever';
