@@ -33,6 +33,7 @@ sub shop_type {
     }
 
     TAEB->error("Failed to find shop matching description $name");
+    return 0;
 }
 
 no Moose;
