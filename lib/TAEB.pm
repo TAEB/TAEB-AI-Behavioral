@@ -137,7 +137,7 @@ class_has dungeon => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        return TAEB::World::Dungeon->new if $self->new_game || !$self->has_dump;
+        return TAEB::World::Dungeon->new if $self->new_game || !TAEB->has_dump;
         return delete $self->persistent_dump->{dungeon};
     },
     handles => {
@@ -169,7 +169,7 @@ class_has senses => (
     isa     => 'TAEB::Senses',
     default => sub {
         my $self = shift;
-        return TAEB::Senses->new if $self->new_game || !$self->has_dump;
+        return TAEB::Senses->new if $self->new_game || !TAEB->has_dump;
         return delete $self->persistent_dump->{senses};
     },
     lazy    => 1,
@@ -182,7 +182,7 @@ class_has inventory => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        return TAEB::World::Inventory->new if $self->new_game || !$self->has_dump;
+        return TAEB::World::Inventory->new if $self->new_game || !TAEB->has_dump;
         return delete $self->persistent_dump->{inventory};
     },
     handles => {
@@ -196,7 +196,7 @@ class_has spells => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        return TAEB::World::Spells->new if $self->new_game || !$self->has_dump;
+        return TAEB::World::Spells->new if $self->new_game || !TAEB->has_dump;
         return delete $self->persistent_dump->{spells};
     },
     handles => {
@@ -225,7 +225,7 @@ class_has knowledge => (
     lazy    => 1,
     default => sub {
         my $self = shift;
-        return TAEB::Knowledge->new if $self->new_game || !$self->has_dump;
+        return TAEB::Knowledge->new if $self->new_game || !TAEB->has_dump;
         return delete $self->persistent_dump->{knowledge};
     },
 );
