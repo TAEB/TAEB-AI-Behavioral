@@ -563,16 +563,22 @@ sub handle_more {
 
 sub handle_attributes {
     my $self = shift;
-
+    my ($method, $attribute);
     if (TAEB->topline =~ /^(\s+)Base Attributes/) {
-        my $skip = length($1) + 17;
+        my $start = length($1);
+        my $skip = $start + 17;
 
         (my $name = substr(TAEB->vt->row_plaintext(3), $skip)) =~ s/ //g;
         TAEB->name($name);
 
-        for ([4, 'race'], [11, 'role'], [12, 'gender'], [13, 'align']) {
-            my ($row, $method) = @$_;
-            my $attribute = substr(TAEB->vt->row_plaintext($row), $skip, 3);
+        # Alignment may end up on line 13 or 14 depending on if we are
+        # polymorphed into something with a different gender
+        # 4: race  5: role 12: gender 13-14: align
+        for (4, 5, 12, 13, 14) {
+            next unless my ($method, $attribute) =
+                substr(TAEB->vt->row_plaintext($_), $start) =~
+                    m/(race|role|gender|align)(?:ment)?\s+: (.*)\b/;
+            $attribute = substr($attribute, 0, 3);
             $attribute = ucfirst lc $attribute;
             TAEB->$method($attribute);
         }
