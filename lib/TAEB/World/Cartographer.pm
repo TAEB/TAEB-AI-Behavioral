@@ -286,7 +286,7 @@ sub msg_enter_shop {
     # tile, so therefore we will use the target tile which (presumably?) is
     # inside the shop.
     return unless TAEB->action->path && TAEB->action->path->to;
-    shift->floodfill_shop(TAEB->action->path->to);
+    $self->floodfill_shop(TAEB->action->path->to);
 }
 
 sub msg_vault_guard {
