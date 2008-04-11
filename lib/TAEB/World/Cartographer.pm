@@ -279,6 +279,8 @@ sub msg_debt {
 }
 
 sub msg_enter_shop {
+    my $self     = shift;
+    my $shoptype = shift || return;
     # Okay, so we want to floodfill shop when we enter it.
     # Because we get the message in the doorway, we can't floodfill from that
     # tile, so therefore we will use the target tile which (presumably?) is
