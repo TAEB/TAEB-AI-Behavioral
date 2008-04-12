@@ -146,8 +146,8 @@ sub respond_wish {
     # Healing sounds good, too.
     return "2 blessed potions of full healing\n" if TAEB->knowledge->appearance_of->{"potion of full healing"};
 
-    # When in doubt, ask for more food.
-    return "2 blessed fixed greased lembas wafers";
+    # When in doubt, ask for more shit to throw at people.
+    return "3 blessed fixed +3 silver daggers";
 }
 
 sub select_enhance {
