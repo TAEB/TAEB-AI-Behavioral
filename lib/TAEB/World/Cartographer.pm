@@ -82,7 +82,7 @@ sub check_dlvl {
             return;
     };
 
-    my $dlvl = $1;
+    my $dlvl = $1 || $2;
     my $quest = $2;
     my $level = $self->dungeon->current_level;
 
