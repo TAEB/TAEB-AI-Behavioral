@@ -271,7 +271,7 @@ our @msg_regex = (
             [check => 'floor'],
     ],
     [
-        qr/^The .*? stole (.*)\./,
+        qr/^(?:(?:The .*?)|She|It) stole (.*)\./,
             [lost_item => sub { TAEB->new_item($1) }],
     ],
     [
