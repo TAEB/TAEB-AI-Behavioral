@@ -792,6 +792,8 @@ sub draw_botl {
     push @pieces, 'D:' . $self->current_level->z;
     $pieces[-1] .= uc substr($self->current_level->branch, 0, 1)
         if $self->current_level->branch;
+    $pieces[-1] .= ' ('. ucfirst($self->current_level->special_level) .')'
+        if $self->current_level->special_level;
 
     push @pieces, 'H:' . $self->hp;
     $pieces[-1] .= '/' . $self->maxhp
