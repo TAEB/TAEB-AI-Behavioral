@@ -87,21 +87,37 @@ has tiles_by_type => (
 has is_minetown => (
     isa     => 'Bool',
     default => 0,
+    trigger => sub {
+        my ($self,$minetown) = @_;
+        $self->special_level("minetown") if $minetown;
+    },
 );
 
 has is_oracle => (
     isa     => 'Bool',
     default => 0,
+    trigger => sub {
+        my ($self,$oracle) = @_;
+        $self->special_level("oracle") if $oracle;
+    },
 );
 
 has is_rogue => (
     isa     => 'Bool',
     default => 0,
+    trigger => sub {
+        my ($self,$rogue) = @_;
+        $self->special_level("rogue") if $rogue;
+    },
 );
 
 has is_bigroom => (
     isa     => 'Bool',
     default => 0,
+    trigger => sub {
+        my ($self,$bigroom) = @_;
+        $self->special_level("bigroom") if $bigroom;
+    },
 );
 
 sub at {
