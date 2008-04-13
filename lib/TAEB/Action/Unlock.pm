@@ -35,7 +35,7 @@ sub msg_door {
 
     my $tile = $self->target_tile('closeddoor');
 
-    if ($type eq 'just_unlocked') {
+    if ($type eq 'just_unlocked' && $tile->type eq 'closeddoor') {
         $tile->state('unlocked');
     }
 }
