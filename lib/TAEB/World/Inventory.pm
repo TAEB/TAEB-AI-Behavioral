@@ -182,7 +182,12 @@ sub msg_lost_item {
     my $item = shift;
 
     my $inv_item = $self->find(appearance => $item->appearance);
-    $self->decrease_quantity($inv_item->slot, $item->quantity);
+    if (defined $inv_item) {
+        $self->decrease_quantity($inv_item->slot, $item->quantity);
+    }
+    else {
+        TAEB->error("Which item did we lose? I can't find any item with appearance '".$item->appearance."' in my inventory...");
+    }
 }
 
 after set => sub {
