@@ -35,6 +35,12 @@ has dungeon => (
     weak_ref => 1,
 );
 
+has special_level => (
+    isa      => 'Str',
+    is       => 'rw',
+    default  => "",
+);
+
 has branch => (
     isa     => 'TAEB::Type::Branch',
     trigger => sub {
