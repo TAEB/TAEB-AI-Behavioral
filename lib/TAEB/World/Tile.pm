@@ -123,6 +123,12 @@ has in_shop => (
     documentation => "Is this tile inside a shop?",
 );
 
+has in_temple => (
+    isa           => 'Bool',
+    default       => 0,
+    documentation => "Is this tile inside a temple?",
+);
+
 has in_vault => (
     isa           => 'Bool',
     default       => 0,
