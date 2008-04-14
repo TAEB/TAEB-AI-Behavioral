@@ -257,8 +257,9 @@ sub msg_pickaxe {
     TAEB->current_level->pickaxe(TAEB->turn);
 }
 
-sub floodfill_shop {
+sub floodfill_room {
     my $self = shift;
+    my $type = shift;
     my $tile = shift || TAEB->current_tile;
     $tile->floodfill(
         sub {
@@ -266,10 +267,11 @@ sub floodfill_shop {
             $t->type eq 'floor' || $t->type eq 'obscured'
         },
         sub {
-            my $t = shift;
-            return if $t->in_shop;
-            TAEB->debug("(" . $t->x . ", " . $t->y . ") is in a shop!");
-            $t->in_shop(1);
+            my $t   = shift;
+            my $var = "in_$type";
+            return if $t->$var;
+            TAEB->debug("(" . $t->x . ", " . $t->y . ") is in a $type!");
+            $t->$var(1);
         },
     );
 }
