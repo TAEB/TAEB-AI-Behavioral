@@ -528,7 +528,7 @@ sub draw_debug {
             if $path->to eq $self;
     }
 
-    $color ||= $self->in_shop
+    $color ||= $self->in_shop || $self->in_temple
              ? Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD
              : $self->might_have_new_item
              ? Curses::COLOR_PAIR(COLOR_RED)

@@ -62,6 +62,7 @@ d
         explored      => green
         branch stair  => yellow (bold brown)
         shop          => light green (taeb currently ignores shop items)
+        temple        => light green
         traps         => light blue
         Doors:
             shop      => red
