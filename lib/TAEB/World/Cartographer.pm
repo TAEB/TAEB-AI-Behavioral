@@ -277,7 +277,7 @@ sub floodfill_room {
 }
 
 sub msg_debt {
-    shift->floodfill_shop;
+    shift->floodfill_room('shop');
 }
 
 sub msg_enter_shop {
