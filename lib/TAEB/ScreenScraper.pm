@@ -175,6 +175,8 @@ our %msg_string = (
         ['engraving_type' => 'graffiti'],
     "You see a message scrawled in blood here." =>
         ['engraving_type' => 'scrawl'],
+    "You experience a strange sense of peace." =>
+        ['enter_room','temple','coaligned'],
 );
 
 our @msg_regex = (
@@ -364,9 +366,16 @@ our @msg_regex = (
     ],
     [   # Avoid matching shopkeeper name by checking for capital lettering.
         qr/Welcome(?: again)? to(?> [A-Z]\S+)+ ([a-z ]+)!/ =>
-            ['enter_shop' => sub {
-                TAEB::Spoilers::Room->shop_type($1) unless $1 eq 'treasure zoo'
-            } ],
+            ['enter_room',
+             'shop',
+             sub {
+                TAEB::Spoilers::Room->shop_type($1) unless $1 eq 'treasure zoo',
+             },
+            ],
+    ],
+    [
+        qr/You have a(?: strange) forbidding feeling\./ =>
+            ['enter_room','temple','crossaligned'],
     ],
     [
         qr/.* (?:grabs|swings itself around) you!/ =>
