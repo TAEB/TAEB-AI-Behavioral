@@ -280,15 +280,16 @@ sub msg_debt {
     shift->floodfill_room('shop');
 }
 
-sub msg_enter_shop {
+sub msg_enter_room {
     my $self     = shift;
-    my $shoptype = shift || return;
-    # Okay, so we want to floodfill shop when we enter it.
+    my $type     = shift || return;
+    my $subtype  = shift || return;
+    # Okay, so we want to floodfill the room when we enter it.
     # Because we get the message in the doorway, we can't floodfill from that
     # tile, so therefore we will use the target tile which (presumably?) is
-    # inside the shop.
+    # inside the room.
     return unless TAEB->action->path && TAEB->action->path->to;
-    $self->floodfill_shop(TAEB->action->path->to);
+    $self->floodfill_room($type,TAEB->action->path->to);
 }
 
 sub msg_vault_guard {
