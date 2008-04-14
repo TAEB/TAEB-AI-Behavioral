@@ -177,6 +177,8 @@ our %msg_string = (
         ['engraving_type' => 'scrawl'],
     "You experience a strange sense of peace." =>
         ['enter_room','temple','coaligned'],
+    "You see no objects here." =>
+        ['clear_floor'],
 );
 
 our @msg_regex = (
