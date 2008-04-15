@@ -135,6 +135,12 @@ has in_vault => (
     documentation => "Is this tile inside a vault?",
 );
 
+has in_zoo => (
+    isa           => 'Bool',
+    default       => 0,
+    documentation => "Is this tile inside a zoo?",
+);
+
 =head2 basic_cost -> Int
 
 This returns the basic cost of entering a tile. It's not very smart, but it
