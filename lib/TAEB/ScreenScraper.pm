@@ -370,10 +370,10 @@ our @msg_regex = (
         qr/Welcome(?: again)? to(?> [A-Z]\S+)+ ([a-z ]+)!/ =>
             ['enter_room',
              sub {
-                [
+                (
                     $1 eq 'treasure zoo' ? 'zoo' : 'shop',
                     TAEB::Spoilers::Room->shop_type($1)
-                ]
+                )
              },
             ],
     ],
