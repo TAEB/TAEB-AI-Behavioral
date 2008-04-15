@@ -283,7 +283,7 @@ sub msg_debt {
 sub msg_enter_room {
     my $self     = shift;
     my $type     = shift || return;
-    my $subtype  = shift || return;
+    my $subtype  = shift;
     # Okay, so we want to floodfill the room when we enter it.
     # Because we get the message in the doorway, we can't floodfill from that
     # tile, so therefore we will use the target tile which (presumably?) is
