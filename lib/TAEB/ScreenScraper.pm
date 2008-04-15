@@ -489,7 +489,9 @@ sub scrape {
     $self->check_cycling;
 
     # very big special case
-    if (TAEB->vt->row_plaintext(23) =~ /^--More--\s+$/) {
+    if (TAEB->vt->row_plaintext(23) =~ /^--More--\s+$/
+    &&  TAEB->vt->row_plaintext( 1) !~
+                      TAEB::Spoilers::Messages->quest_messages->{TAEB->role}) {
         TAEB->write('        ');
         die "Game over, man!\n";
     }
