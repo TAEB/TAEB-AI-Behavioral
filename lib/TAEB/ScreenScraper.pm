@@ -208,9 +208,9 @@ our @msg_regex = (
     ],
     [
         qr/^You (?:see|feel) here (.*?)\./,
-            ['clear_floor', sub {
-                TAEB->enqueue_message(floor_item => TAEB->new_item($1))
-            }],
+            ['floor_item', sub { 
+                TAEB->enqueue_message('clear_floor');
+                TAEB->new_item($1); }],
     ],
     [
         qr/^(. - .*?|\d+ gold pieces?)\.$/,
