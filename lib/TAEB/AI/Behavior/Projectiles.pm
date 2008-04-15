@@ -7,7 +7,6 @@ my @projectiles = (
     qr/\bdagger\b/,
     qr/\bspear\b/,
     qr/\bshuriken\b/,
-    qr/\bboomerang\b/,
     qr/\bdart\b/,
 );
 
@@ -47,7 +46,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    $item->match(identity => qr/\b(?:dagger|dart|shuriken|boomerang|spear)\b/,
+    $item->match(identity => qr/\b(?:dagger|dart|shuriken|spear)\b/,
                  not_buc => 'cursed');
 }
 
