@@ -526,13 +526,18 @@ around is_oracle => sub {
 sub detect_bigroom_vt {
     my $self = shift;
 
-    # Bigroom 1 + 2
-    # Technically also 3, but it'll take a lot of exploration,
-    # so we'll need something better for that one.
+    # Bigroom 1
+    # Technically also 2 + 3, but it'll take a lot of exploration,
+    # so we'll need something better for those.
     return 1 if TAEB->vt->row_plaintext(4) =~ /-{75}/;
 
-    # XXX : Find out good ways to detect 3,4,5. 
-    #       Maps: http://nethack.wikia.com/wiki/Bigr:oom
+    # Bigroom 4
+    my $regex = qr/-|[^-|]{29}|-{7}|[^-|]{29}|-/;
+    return 1 if TAEB->vt->row_plaintext( 8) =~ $regex
+             || TAEB->vt->row_plaintext(17) =~ $regex;
+
+    # XXX : Find out good ways to detect 2,3,5. 
+    #       Maps: http://nethack.wikia.com/wiki/Bigroom
 
     return 0;
 }
