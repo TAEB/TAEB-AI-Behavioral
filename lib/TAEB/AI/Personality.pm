@@ -146,6 +146,9 @@ sub respond_wish {
     # Healing sounds good, too.
     return "2 blessed potions of full healing\n" if TAEB->knowledge->appearance_of->{"potion of full healing"};
 
+    # Curing status effects sounds good, too.
+    return "blessed fixed greased +3 unicorn horn" unless TAEB->find_item('unicorn horn');
+
     # When in doubt, ask for more shit to throw at people.
     return "3 blessed fixed +3 silver daggers";
 }
