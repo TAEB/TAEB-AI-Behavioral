@@ -13,7 +13,7 @@ sub prepare {
     my $pt = $item->possibility_tracker;
 
     if ($pt->can('engrave_useful') && $pt->engrave_useful &&
-        $item->match(price => 0) && !TAEB->is_blind) {
+        $item->match(price => 0) && TAEB->can_engrave) {
         if (TAEB->current_tile->engraving eq '') {
             $self->do(engrave => item => '-');
             $self->currently("Prepping for engrave-id by dusting");
