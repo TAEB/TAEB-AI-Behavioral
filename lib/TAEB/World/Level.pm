@@ -532,7 +532,7 @@ sub detect_bigroom_vt {
     return 1 if TAEB->vt->row_plaintext(4) =~ /-{75}/;
 
     # Bigroom 4
-    my $regex = qr/-|[^-|]{29}|-{7}|[^-|]{29}|-/;
+    my $regex = qr/-\|[^-|]{29}\|-{7}\|[^-|]{29}\|-/;
     return 1 if TAEB->vt->row_plaintext( 8) =~ $regex
              || TAEB->vt->row_plaintext(17) =~ $regex;
 
