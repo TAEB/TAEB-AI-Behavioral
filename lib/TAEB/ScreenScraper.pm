@@ -410,7 +410,7 @@ our @msg_regex = (
             ['dungeon_feature' => sub {
                 ($1 eq TAEB->align ? 'coaligned ' : 'crossaligned ').'altar'
             } ],
-    ].
+    ],
 );
 
 our @god_anger = (
