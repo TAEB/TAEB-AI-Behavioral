@@ -183,6 +183,12 @@ sub msg_dungeon_feature {
         $floor = '\\';
         $type = 'grave';
     }
+    elsif ($feature eq 'altar'           ||
+           $feature eq 'coaligned altar' ||
+           $feature eq 'crossaligned altar') {
+        $floor = '_';
+        $type = 'altar';
+       }
     else {
         # we don't know how to handle it :/
         return;
