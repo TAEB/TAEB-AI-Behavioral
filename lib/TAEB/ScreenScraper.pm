@@ -405,6 +405,12 @@ our @msg_regex = (
         qr/^(?:(?:The )?(.*|Your)) medallion begins to glow!/ =>
             ['life_saving' => sub { $1 } ],
     ],
+    [
+        qr/^There is an altar to [\w- ]+ \((Law|Neu|Cha)\w+\) here\./ =>
+            ['dungeon_feature' => sub {
+                ($1 eq TAEB->align ? 'coaligned ' : 'crossaligned ').'altar'
+            } ],
+    ].
 );
 
 our @god_anger = (
