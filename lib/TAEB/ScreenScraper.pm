@@ -406,9 +406,12 @@ our @msg_regex = (
             ['life_saving' => sub { $1 } ],
     ],
     [
-        qr/^There is an altar to [\w\- ]+ \((Law|Neu|Cha)\w+\) here\./ =>
+        qr/^There is an altar to [\w\- ]+ \((law|neu|cha)\w+\) here\./ =>
             ['dungeon_feature' => sub {
-                ($1 eq TAEB->align ? 'coaligned ' : 'crossaligned ').'altar'
+                (ucfirst($1) eq TAEB->align
+                    ? 'coaligned '
+                    : 'crossaligned ')
+                .'altar'
             } ],
     ],
 );
