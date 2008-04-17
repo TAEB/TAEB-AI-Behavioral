@@ -220,6 +220,19 @@ after set => sub {
     $self->weight(sum map { $_->weight * $_->quantity } $self->items);
 };
 
+around wielded => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    return $self->$orig unless @_;
+
+    $self->wielded->is_wielded(0);
+    my $ret = $self->$orig(@_);
+    $self->wielded->is_wielded(1);
+
+    return $ret;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
