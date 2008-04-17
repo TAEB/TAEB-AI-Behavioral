@@ -226,9 +226,11 @@ around wielded => sub {
 
     return $self->$orig unless @_;
 
-    $self->wielded->is_wielded(0);
+    my $wielded = $self->wielded;
+    $wielded->is_wielded(0) if $wielded;
     my $ret = $self->$orig(@_);
-    $self->wielded->is_wielded(1);
+    $wielded = $self->wielded;
+    $wielded->is_wielded(1) if $wielded;
 
     return $ret;
 };
