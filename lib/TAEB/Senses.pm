@@ -396,6 +396,7 @@ sub msg_nutrition {
 # this is nethack's internal representation of strength, to make other
 # calculations easier (see include/attrib.h)
 sub _nethack_strength {
+    my $self = shift;
     my $str = $self->str;
 
     if ($str =~ /^(\d+)(?:\/(\*\*|\d+))?$/) {
