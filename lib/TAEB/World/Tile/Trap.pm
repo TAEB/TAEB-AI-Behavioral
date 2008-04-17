@@ -11,8 +11,9 @@ has trap_type => (
 sub traverse_command { shift->floor_glyph }
 
 around draw_debug => sub {
-    my $orig = shift;
-    my $self = shift;
+    my $orig           = shift;
+    my $self           = shift;
+    my $display_method = shift;
 
     return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BLUE) | ord $self->$display_method);
 };
