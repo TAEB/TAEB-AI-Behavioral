@@ -13,8 +13,7 @@ sub prepare {
         or return 0;
 
     my @drop = grep { $_->can_drop &&
-                      $_->match(buc => undef,
-                      not_appearance => 'gold piece')
+                      $_->match(buc => undef)
                     } TAEB->inventory->items;
 
     # No point in cursechecking no items
