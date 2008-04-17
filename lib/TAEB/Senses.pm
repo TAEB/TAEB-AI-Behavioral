@@ -438,6 +438,11 @@ sub strength_damage_bonus {
     else                     { return 6  }
 }
 
+sub item_damage_bonus {
+    # XXX: include rings of increase damage, etc here
+    return 0;
+}
+
 sub msg_debt {
     my $self = shift;
     my $gold = shift;
