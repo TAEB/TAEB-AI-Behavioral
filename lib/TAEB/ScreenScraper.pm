@@ -406,7 +406,7 @@ our @msg_regex = (
             ['life_saving' => sub { $1 } ],
     ],
     [
-        qr/^There is an altar to [\w\- ]+ \((law|neu|cha)\w+\) here\./ =>
+        qr/^There is an altar to [\w\- ]+ \((law|neu|cha|unaligned)\w*\) here\./ =>
             ['dungeon_feature' => sub {
                 (ucfirst($1) eq TAEB->align
                     ? 'coaligned '
