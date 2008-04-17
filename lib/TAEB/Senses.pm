@@ -393,24 +393,34 @@ sub msg_nutrition {
     $self->nutrition($nutrition);
 }
 
-# this is what NetHack uses to convert 18/whackiness to an integer
-# or so I think. crosscheck src/attrib.c and src/botl.c..
-sub numeric_strength {
-    my $self = shift;
+# this is nethack's internal representation of strength, to make other
+# calculations easier (see include/attrib.h)
+sub _nethack_strength {
     my $str = $self->str;
 
     if ($str =~ /^(\d+)(?:\/(\*\*|\d+))?$/) {
         my $base = $1;
         my $ext  = $2 || 0;
-        $ext = 100 if $ext eq '**' || $base <= 21;
+        $ext = 100 if $ext eq '**';
 
-        return $base if $base <= 18;
-        return $base + int($ext / 2) if $base <= 21;
-        return $base;
+        return $base if $base < 18;
+        return 18 + $ext if $base == 18;
+        return 100 + $base;
     }
     else {
         TAEB->error("Unable to parse strength $str.");
     }
+}
+
+# this is what NetHack uses to convert 18/whackiness to an integer
+# or so I think. crosscheck src/attrib.c and src/botl.c..
+sub numeric_strength {
+    my $self = shift;
+    my $str = $self->_nethack_strength;
+
+    return $str if $str <= 18;
+    return 19 + int($str / 50) if ($str <= 100 + 21);
+    return $str - 100;
 }
 
 sub msg_debt {
