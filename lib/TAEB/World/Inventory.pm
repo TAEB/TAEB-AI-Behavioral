@@ -231,7 +231,7 @@ around wielded => sub {
     $self->wielded->is_wielded(1);
 
     return $ret;
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
