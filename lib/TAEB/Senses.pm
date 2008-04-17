@@ -423,6 +423,20 @@ sub numeric_strength {
     return $str - 100;
 }
 
+sub strength_damage_bonus {
+    my $self = shift;
+    my $str = $self->_nethack_strength;
+
+       if ($str <  6)        { return -1 }
+    elsif ($str <  16)       { return 0  }
+    elsif ($str <  18)       { return 1  }
+    elsif ($str == 18)       { return 2  }
+    elsif ($str <= 18 + 75)  { return 3  }
+    elsif ($str <= 18 + 90)  { return 4  }
+    elsif ($str <  18 + 100) { return 5  }
+    else                     { return 6  }
+}
+
 sub msg_debt {
     my $self = shift;
     my $gold = shift;
