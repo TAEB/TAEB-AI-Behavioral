@@ -200,6 +200,7 @@ sub new_item {
          $stats{weaptool})) {
         $new_item->buc('uncursed') if defined $spe || defined $charges;
     }
+    $new_item->buc('uncursed') if $new_item->appearance eq 'gold piece';
 
     $new_item->slot($slot)                 if defined $slot;
     $new_item->quantity($num)              if defined $num;
