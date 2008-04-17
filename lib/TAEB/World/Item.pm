@@ -197,7 +197,7 @@ sub new_item {
     if (!defined $buc &&
         ($class eq 'weapon' ||
          $class eq 'wand' ||
-         $stats{weaptool})) {
+         $stats->{weaptool})) {
         $new_item->buc('uncursed') if defined $spe || defined $charges;
     }
     $new_item->buc('uncursed') if $new_item->appearance eq 'gold piece';
