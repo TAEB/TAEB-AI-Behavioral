@@ -194,10 +194,10 @@ sub new_item {
         $new_item->buc($buc);
     }
 
-    # XXX: this should go into Spoilers::Item::Tool at some point
-    my $is_weaptool = $class eq 'tool' && $item =~ /pick-axe|hook|unicorn/;
     if (!defined $buc &&
-        ($class eq 'weapon' || $class eq 'wand' || $is_weaptool)) {
+        ($class eq 'weapon' ||
+         $class eq 'wand' ||
+         $stats{weaptool})) {
         $new_item->buc('uncursed') if defined $spe || defined $charges;
     }
 

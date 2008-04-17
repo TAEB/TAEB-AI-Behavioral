@@ -271,12 +271,14 @@ has list => (
                 base => 50,
                 weight => 100,
                 charge => '',
+                weaptool => 1,
                 plural => 'pick-axes',
             },
             'grappling hook' => {
                 base => 50,
                 weight => 30,
                 charge => '',
+                weaptool => 1,
                 appearance => 'iron hook',
                 plural => 'grappling hooks',
             },
@@ -284,6 +286,7 @@ has list => (
                 base => 100,
                 weight => 20,
                 charge => '',
+                weaptool => 1,
                 plural => 'unicorn horns',
             },
             'expensive camera' => {
