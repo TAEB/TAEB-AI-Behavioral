@@ -557,6 +557,17 @@ around is_bigroom => sub {
     return $self->is_bigroom;
 };
 
+sub each_tile {
+    my $self = shift;
+    my $code = shift;
+
+    for my $y (1..21) {
+        for my $x (0..79) {
+            $code->($self->at($x, $y));
+        }
+    }
+}
+
 sub msg_dungeon_level {
     my $self = shift;
     my $level = shift;
