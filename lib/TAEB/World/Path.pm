@@ -277,6 +277,12 @@ sub _dijkstra {
     my $include_endpoints = $args{include_endpoints};
     my $sokoban           = $from->branch
                          && $from->branch eq 'sokoban';
+    my $debug = TAEB->config->draw eq 'pathfind';
+    if ($debug) {
+        $args{from}->level->each_tile(sub {
+            shift->pathfind(0);
+        });
+    }
 
     my $max_score;
     my $max_tile;
@@ -290,10 +296,15 @@ sub _dijkstra {
     while ($pq->count) {
         my $priority = $pq->top_key;
         my ($tile, $path) = @{ $pq->extract_top };
+        $tile->pathfind($tile->pathfind + 1) if $debug;
 
         my $score = $scorer->($tile, $path);
         if (defined $score) {
             if ($score eq 'q') {
+                if ($debug) {
+                    TAEB->redraw;
+                    sleep 2;
+                }
                 return ($tile, $path);
             }
 
@@ -355,6 +366,10 @@ sub _dijkstra {
         }
     }
 
+    if ($debug) {
+        TAEB->redraw;
+        sleep 2;
+    }
     return ($max_tile, $max_path);
 }
 
@@ -376,6 +391,12 @@ sub _astar {
     my $through_unknown   = $args{through_unknown};
     my $sokoban           = $from->branch
                          && $from->branch eq 'sokoban';
+    my $debug = TAEB->config->draw eq 'pathfind';
+    if ($debug) {
+        $args{from}->level->each_tile(sub {
+            shift->pathfind(0);
+        });
+    }
 
     my @closed;
 
@@ -385,8 +406,16 @@ sub _astar {
     while ($pq->count) {
         my $priority = $pq->top_key;
         my ($tile, $path) = @{ $pq->extract_top };
+        $tile->pathfind($tile->pathfind + 1) if $debug;
 
-        return $path if $tile == $to;
+        if ($tile == $to) {
+            if ($debug) {
+                TAEB->redraw;
+                sleep 2;
+            }
+
+            return $path;
+        }
 
         next unless $tile->is_walkable($through_unknown);
 
@@ -433,6 +462,11 @@ sub _astar {
 
             $pq->key_insert($cost + $priority, [$next, $path . $dir]);
         }
+    }
+
+    if ($debug) {
+        TAEB->redraw;
+        sleep 2;
     }
 
     return undef;
