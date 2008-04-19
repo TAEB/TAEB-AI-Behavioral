@@ -3,7 +3,7 @@ package TAEB::World::Path;
 use TAEB::OO;
 use Heap::Simple;
 use TAEB::Util 'delta2vi', 'deltas';
-use List::Util 'sum', 'min';
+use List::Util 'sum', 'max';
 use Scalar::Util 'refaddr';
 use Time::HiRes 'time';
 
@@ -394,7 +394,7 @@ sub _astar {
 
     my ($tx, $ty) = ($to->x, $to->y);
     my $heur = $args{heuristic} || sub {
-        return min(abs($tx - $_[0]->x), abs($ty - $_[0]->y));
+        return max(abs($tx - $_[0]->x), abs($ty - $_[0]->y));
     };
 
     my $from = $args{from} || TAEB->current_tile;
