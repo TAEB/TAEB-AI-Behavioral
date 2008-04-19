@@ -53,8 +53,12 @@ Q
     Redraws the screen (and tries to unscroll the terminal and other stuff)
 
 d
-    This command will toggle the draw_debug option which will color things in
-    different colors.
+    This command will cycle between the screen drawing options.
+    The options in the cycle are:
+
+    draw_normal => Draws the screen normally
+
+    draw_debug  => Draws the screen with general debug coloring
         path          => magenta
         interesting   => red
         searched      => cyan
@@ -68,3 +72,11 @@ d
             shop      => red
             locked    => yellow (bold brown)
             unlocked  => green
+
+    draw_pathfind => Give detailed information about the pathfinding done each
+                     step, as well as coloring of tiles according to number of
+                     pathfinds through them.
+        1  pathfind    => red
+        2  pathfinds   => brown
+        3  pathfinds   => green
+        4+ pathfinds   => magenta
