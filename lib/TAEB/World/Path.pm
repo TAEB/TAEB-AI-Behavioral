@@ -303,7 +303,7 @@ sub _dijkstra {
             if ($score eq 'q') {
                 if ($debug) {
                     TAEB->redraw;
-                    sleep 2;
+                    TAEB->notify("dijkstra (q: $path)");
                 }
                 return ($tile, $path);
             }
@@ -368,7 +368,7 @@ sub _dijkstra {
 
     if ($debug) {
         TAEB->redraw;
-        sleep 2;
+        TAEB->notify("dijkstra ($max_score: $max_path)");
     }
     return ($max_tile, $max_path);
 }
@@ -411,7 +411,7 @@ sub _astar {
         if ($tile == $to) {
             if ($debug) {
                 TAEB->redraw;
-                sleep 2;
+                TAEB->notify("A* {$from -> $to} ($path)");
             }
 
             return $path;
@@ -466,7 +466,7 @@ sub _astar {
 
     if ($debug) {
         TAEB->redraw;
-        sleep 2;
+        TAEB->notify("A* {$from -> $to} (no path)");
     }
 
     return undef;
