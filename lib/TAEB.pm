@@ -767,6 +767,7 @@ sub redraw {
 
     $self->draw_botl;
     $self->place_cursor;
+    Curses::refresh;
 }
 
 sub draw_botl {
