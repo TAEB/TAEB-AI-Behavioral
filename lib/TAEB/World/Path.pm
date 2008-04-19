@@ -417,8 +417,6 @@ sub _astar {
             return $path;
         }
 
-        next unless $tile->is_walkable($through_unknown);
-
         my ($x, $y) = ($tile->x, $tile->y);
 
         for (deltas) {
@@ -446,6 +444,8 @@ sub _astar {
 
             my $next = $tile->level->at($xdx, $ydy)
                 or next;
+
+            next unless $tile->is_walkable($through_unknown);
 
             # can't move diagonally onto doors
             next if $next->type eq 'opendoor'
