@@ -360,6 +360,24 @@ sub _dijkstra {
     return ($max_tile, $max_path);
 }
 
+=head2 _astar Tile, ARGS -> Str
+
+=cut
+
+sub _astar {
+    my $class  = shift;
+    my $to     = shift;
+    my %args   = @_;
+
+    #my $heur = $args{heuristic} || sub {
+    #    my $tile = shift;
+    #    return abs($to->x - $tile->x) + abs($to->y - $tile->y);
+    #};
+
+    my $from = $args{from} || TAEB->current_tile;
+    $class->_calculate_intralevel_path($from, $to);
+}
+
 sub contains_tile {
     my $self = shift;
     my $tile = shift;
