@@ -30,7 +30,9 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(
         sub {
             my $tile = shift;
-            $tile->has_enemy && $tile->monster->is_meleeable
+            $tile->has_enemy &&
+            $tile->monster->is_meleeable &&
+           !$tile->monster->is_seen_through_warning
         },
         through_unknown => 1,
         include_endpoints => 1,
