@@ -57,6 +57,7 @@ sub _weapon_damage {
     $avgdam += TAEB->item_damage_bonus;
 
     # XXX: need to take into account things like enchantment, etc
+    # XXX: important: need to get launcher *melee* damage, not ranged
 
     return $avgdam;
 }
