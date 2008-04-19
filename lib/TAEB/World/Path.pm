@@ -392,12 +392,12 @@ sub _astar {
     my $to     = shift;
     my %args   = @_;
 
-    my $from = $args{from} || TAEB->current_tile;
+    my ($tx, $ty) = ($to->x, $to->y);
     my $heur = $args{heuristic} || sub {
-        my $tile = shift;
-        return min(abs($to->x - $tile->x), abs($to->y - $tile->y));
+        return min(abs($tx - $_[0]->x), abs($ty - $_[0]->y));
     };
 
+    my $from = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
     my $sokoban           = $from->branch
                          && $from->branch eq 'sokoban';
