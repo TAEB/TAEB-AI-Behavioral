@@ -441,12 +441,15 @@ sub keypress {
     }
 
     if ($c eq 'd') {
-        if ($self->config->draw eq 'debug') {
-            $self->config->draw('normal')
+        my @drawmodes = qw/normal debug pathfind/;
+        for (0 .. $#drawmodes) {
+            if ($self->config->draw eq $drawmodes[$_]) {
+                $self->config->draw($drawmodes[($_+1) % @drawmodes]);
+                return undef;
+            }
         }
-        else {
-            $self->config->draw('debug')
-        }
+
+        $self->config->draw('normal');
         return undef;
     }
 
