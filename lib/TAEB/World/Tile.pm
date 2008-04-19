@@ -555,6 +555,22 @@ sub draw_debug {
     Curses::addch($color | ord $self->$display_method);
 }
 
+sub draw_pathfind {
+    my $self           = shift;
+    my $display_method = shift;
+
+    my $pathfind = $self->pathfind;
+
+    my $color = $pathfind == 0 ? 0
+              : $pathfind == 1 ? Curses::COLOR_PAIR(COLOR_RED)
+              : $pathfind == 2 ? Curses::COLOR_PAIR(COLOR_BROWN)
+              : $pathfind == 3 ? Curses::COLOR_PAIR(COLOR_GREEN)
+                               : Curses::COLOR_PAIR(COLOR_MAGENTA);
+
+    Curses::addch($color | ord $self->$display_method);
+}
+
+
 sub display_glyph {
     my $self = shift;
     $self->glyph eq ' ' ? $self->floor_glyph : $self->glyph;
