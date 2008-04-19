@@ -217,10 +217,7 @@ sub _calculate_intralevel_path {
     my $to_x = $to->x;
     my $to_y = $to->y;
 
-    my ($tile, $path) = $class->_dijkstra(sub {
-        my $tile = shift;
-        $tile->x == $to_x && $tile->y == $to_y ? 'q' : undef
-    }, @_, from => $from);
+    my ($tile, $path) = $class->_astar($to, %args, from => $from);
 
     return ($path, defined($path) && length($path) ? 1 : 0);
 }
