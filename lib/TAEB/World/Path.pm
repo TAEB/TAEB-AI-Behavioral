@@ -361,7 +361,7 @@ sub _dijkstra {
     return ($max_tile, $max_path);
 }
 
-=head2 _astar Tile, ARGS -> Str
+=head2 _astar Tile, ARGS -> Maybe[Str]
 
 =cut
 
@@ -370,13 +370,75 @@ sub _astar {
     my $to     = shift;
     my %args   = @_;
 
-    #my $heur = $args{heuristic} || sub {
-    #    my $tile = shift;
-    #    return abs($to->x - $tile->x) + abs($to->y - $tile->y);
-    #};
-
     my $from = $args{from} || TAEB->current_tile;
-    $class->_calculate_intralevel_path($from, $to);
+    my $heur = $args{heuristic} || sub {
+        my $tile = shift;
+        return abs($to->x - $tile->x) + abs($to->y - $tile->y);
+    };
+
+    my $through_unknown   = $args{through_unknown};
+    my $sokoban           = $args{from}->branch
+                         && $args{from}->branch eq 'sokoban';
+
+    my @closed;
+
+    my $pq = Heap::Simple->new(elements => "Any");
+    $pq->key_insert(0, [$from, '']);
+
+    while ($pq->count) {
+        my $priority = $pq->top_key;
+        my ($tile, $path) = @{ $pq->extract_top };
+
+        return $path if $tile == $to;
+
+        next unless $tile->is_walkable($through_unknown);
+
+        my ($x, $y) = ($tile->x, $tile->y);
+
+        for (deltas) {
+            my ($dy, $dx) = @$_;
+            my $xdx = $x + $dx;
+            my $ydy = $y + $dy;
+
+            next if $xdx < 0 || $xdx > 79;
+            next if $ydy < 1 || $ydy > 21;
+
+            next if $closed[$xdx][$ydy];
+
+            # can't move diagonally if we have lots in our inventory
+            # XXX: this should be 600, but we aren't going to be able to get
+            # the weight exact
+            if ((TAEB->inventory->weight > 500 || $sokoban) && $dx && $dy) {
+                next unless $tile->level->at($xdx, $y)->is_walkable
+                         || $tile->level->at($x, $ydy)->is_walkable;
+            }
+
+            # can't move diagonally off of doors
+            next if $tile->type eq 'opendoor'
+                    && $dx
+                    && $dy;
+
+            my $next = $tile->level->at($xdx, $ydy)
+                or next;
+
+            # can't move diagonally onto doors
+            next if $next->type eq 'opendoor'
+                    && $dx
+                    && $dy;
+
+            $closed[$xdx][$ydy] = 1;
+
+            my $dir = delta2vi($dx, $dy);
+            my $cost = $next->basic_cost + $heur->($next);
+
+            # ahh the things I do for aesthetics.
+            $cost-- unless $dy && $dx;
+
+            $pq->key_insert($cost + $priority, [$next, $path . $dir]);
+        }
+    }
+
+    return undef;
 }
 
 sub contains_tile {
