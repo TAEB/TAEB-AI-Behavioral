@@ -458,7 +458,7 @@ sub _astar {
             my $next = $tile->level->at($xdx, $ydy)
                 or next;
 
-            next unless $tile->is_walkable($through_unknown);
+            next unless $next->is_walkable($through_unknown);
 
             # can't move diagonally onto doors
             next if $next->type eq 'opendoor'
