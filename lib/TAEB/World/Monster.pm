@@ -83,6 +83,13 @@ sub is_meleeable {
     return 1;
 }
 
+# Yes, I know the name is long, but I couldn't think of anything better.
+#  -Sebbe.
+sub is_seen_through_warning {
+    my $self = shift;
+    return $self->glyph =~ /[1-5]/;
+}
+
 sub is_sleepable {
     my $self = shift;
     return $self->is_meleeable;
