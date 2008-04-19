@@ -275,8 +275,8 @@ sub _dijkstra {
     my $from              = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
     my $include_endpoints = $args{include_endpoints};
-    my $sokoban           = $args{from}->branch
-                         && $args{from}->branch eq 'sokoban';
+    my $sokoban           = $from->branch
+                         && $from->branch eq 'sokoban';
 
     my $max_score;
     my $max_tile;
@@ -374,8 +374,8 @@ sub _astar {
     };
 
     my $through_unknown   = $args{through_unknown};
-    my $sokoban           = $args{from}->branch
-                         && $args{from}->branch eq 'sokoban';
+    my $sokoban           = $from->branch
+                         && $from->branch eq 'sokoban';
 
     my @closed;
 
