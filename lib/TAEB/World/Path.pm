@@ -331,16 +331,16 @@ sub _dijkstra {
 
             # can't move diagonally off of doors
             next if $tile->type eq 'opendoor'
-                    && $dx
-                    && $dy;
+                 && $dx
+                 && $dy;
 
             my $next = $tile->level->at($xdx, $ydy)
                 or next;
 
             # can't move diagonally onto doors
             next if $next->type eq 'opendoor'
-                    && $dx
-                    && $dy;
+                 && $dx
+                 && $dy;
 
             $closed[$xdx][$ydy] = 1;
 
@@ -415,16 +415,16 @@ sub _astar {
 
             # can't move diagonally off of doors
             next if $tile->type eq 'opendoor'
-                    && $dx
-                    && $dy;
+                 && $dx
+                 && $dy;
 
             my $next = $tile->level->at($xdx, $ydy)
                 or next;
 
             # can't move diagonally onto doors
             next if $next->type eq 'opendoor'
-                    && $dx
-                    && $dy;
+                 && $dx
+                 && $dy;
 
             $closed[$xdx][$ydy] = 1;
 
