@@ -141,6 +141,12 @@ has in_zoo => (
     documentation => "Is this tile inside a zoo?",
 );
 
+has pathfind => (
+    isa           => 'Int',
+    default       => 0,
+    documentation => "How many times this tile has been expanded in a pathfind this step",
+);
+
 =head2 basic_cost -> Int
 
 This returns the basic cost of entering a tile. It's not very smart, but it
