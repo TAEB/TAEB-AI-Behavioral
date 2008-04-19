@@ -293,7 +293,6 @@ sub _dijkstra {
     while ($pq->count) {
         my $priority = $pq->top_key;
         my ($tile, $path) = @{ $pq->extract_top };
-        my ($x, $y) = ($tile->x, $tile->y);
 
         my $score = $scorer->($tile, $path);
         if (defined $score) {
@@ -309,6 +308,8 @@ sub _dijkstra {
         if ($include_endpoints) {
             next unless $tile->is_walkable($through_unknown);
         }
+
+        my ($x, $y) = ($tile->x, $tile->y);
 
         for (deltas) {
             my ($dy, $dx) = @$_;
