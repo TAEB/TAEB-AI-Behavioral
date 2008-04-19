@@ -3,7 +3,7 @@ package TAEB::World::Path;
 use TAEB::OO;
 use Heap::Simple;
 use TAEB::Util 'delta2vi', 'deltas';
-use List::Util 'sum';
+use List::Util 'sum', 'min';
 use Scalar::Util 'refaddr';
 
 has from => (
@@ -385,7 +385,7 @@ sub _astar {
     my $from = $args{from} || TAEB->current_tile;
     my $heur = $args{heuristic} || sub {
         my $tile = shift;
-        return abs($to->x - $tile->x) + abs($to->y - $tile->y);
+        return min(abs($to->x - $tile->x), abs($to->y - $tile->y));
     };
 
     my $through_unknown   = $args{through_unknown};
