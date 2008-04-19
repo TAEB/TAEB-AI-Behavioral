@@ -5,6 +5,7 @@ use Heap::Simple;
 use TAEB::Util 'delta2vi', 'deltas';
 use List::Util 'sum', 'min';
 use Scalar::Util 'refaddr';
+use Time::HiRes 'time';
 
 has from => (
     is       => 'ro',
@@ -278,10 +279,12 @@ sub _dijkstra {
     my $sokoban           = $from->branch
                          && $from->branch eq 'sokoban';
     my $debug = TAEB->config->draw eq 'pathfind';
+    my $start;
     if ($debug) {
         $args{from}->level->each_tile(sub {
             shift->pathfind(0);
         });
+        $start = time;
     }
 
     my $max_score;
@@ -302,8 +305,9 @@ sub _dijkstra {
         if (defined $score) {
             if ($score eq 'q') {
                 if ($debug) {
+                    my $took = sprintf '%.4f', time - $start;
                     TAEB->redraw;
-                    TAEB->notify("dijkstra (q: $path)");
+                    TAEB->notify("dijkstra ${took}s (q: $path)");
                 }
                 return ($tile, $path);
             }
@@ -367,8 +371,14 @@ sub _dijkstra {
     }
 
     if ($debug) {
+        my $took = sprintf '%.4f', time - $start;
         TAEB->redraw;
-        TAEB->notify("dijkstra ($max_score: $max_path)");
+        if (defined($max_score)) {
+            TAEB->notify("dijkstra ${took}s ($max_score: $max_path)");
+        }
+        else {
+            TAEB->notify("dijkstra ${took}s (no path)");
+        }
     }
     return ($max_tile, $max_path);
 }
@@ -392,10 +402,12 @@ sub _astar {
     my $sokoban           = $from->branch
                          && $from->branch eq 'sokoban';
     my $debug = TAEB->config->draw eq 'pathfind';
+    my $start;
     if ($debug) {
         $args{from}->level->each_tile(sub {
             shift->pathfind(0);
         });
+        $start = time;
     }
 
     my @closed;
@@ -410,8 +422,9 @@ sub _astar {
 
         if ($tile == $to) {
             if ($debug) {
+                my $took = sprintf '%.4f', time - $start;
                 TAEB->redraw;
-                TAEB->notify("A* {$from -> $to} ($path)");
+                TAEB->notify("A* ${took}s ($path)");
             }
 
             return $path;
@@ -465,8 +478,9 @@ sub _astar {
     }
 
     if ($debug) {
+        my $took = sprintf '%.4f', time - $start;
         TAEB->redraw;
-        TAEB->notify("A* {$from -> $to} (no path)");
+        TAEB->notify("A* ${took}s (no path)");
     }
 
     return undef;
