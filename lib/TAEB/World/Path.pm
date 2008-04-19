@@ -164,7 +164,7 @@ sub max_match {
     );
 }
 
-=head2 _calculate_path Tile, Tile -> Str, Bool
+=head2 _calculate_path Tile, Tile[, ARGS] -> Str, Bool
 
 Used internally by calculate_path -- returns just (path, complete).
 
@@ -178,7 +178,7 @@ sub _calculate_path {
 
     while ($from->level != $to->level) {
         my $exit = $from->level->exit_towards($to->level);
-        my ($p, $c) = $class->_calculate_intralevel_path($from, $exit);
+        my ($p, $c) = $class->_calculate_intralevel_path($from, $exit, @_);
 
         $path .= $p;
         $path .= $exit->traverse_command;
@@ -188,14 +188,14 @@ sub _calculate_path {
         return ($path, 0) if !$c;
     }
 
-    my ($p, $c) = $class->_calculate_intralevel_path($from, $to);
+    my ($p, $c) = $class->_calculate_intralevel_path($from, $to, @_);
 
     $path .= $p if defined $p;
 
     return ($path, $c);
 }
 
-=head2 _calculate_intralevel_path Tile, Tile -> Str, Bool
+=head2 _calculate_intralevel_path Tile, Tile[, ARGS] -> Str, Bool
 
 Same as _calculate_path, except the Tiles are supposed to be on the same level.
 This is to simplify some internals. The results are undefined if the tiles
@@ -220,7 +220,7 @@ sub _calculate_intralevel_path {
     my ($tile, $path) = $class->_dijkstra(sub {
         my $tile = shift;
         $tile->x == $to_x && $tile->y == $to_y ? 'q' : undef
-    }, from => $from);
+    }, @_, from => $from);
 
     return ($path, defined($path) && length($path) ? 1 : 0);
 }
