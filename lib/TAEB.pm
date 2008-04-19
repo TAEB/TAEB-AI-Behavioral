@@ -478,6 +478,8 @@ sub keypress {
     # refresh NetHack's screen
     if ($c eq "\cr") {
         # back to normal
+        Curses::clear;
+        Curses::refresh;
         TAEB->redraw;
         return undef;
     }
