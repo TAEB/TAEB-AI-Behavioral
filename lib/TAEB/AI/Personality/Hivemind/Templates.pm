@@ -18,12 +18,33 @@ sub messages {
 sub level {
     my $level = TAEB->current_level;
 
-    tt {
+    div {
         for my $y (1 .. 21) {
             for my $x (0 .. 79) {
-                tile($level->at($x, $y));
+                my $tile = $level->at($x, $y);
+
+                outs_raw '<span class="tile-display">';
+
+                my $glyph = $tile->glyph;
+
+                if ($glyph eq ' ') {
+                    outs_raw "&nbsp;";
+                }
+                else {
+                    outs $tile->glyph;
+                }
+
+                outs_raw '</span>';
             }
             br {};
+        }
+    }
+    div {
+        for my $y (1 .. 21) {
+            for my $x (0 .. 79) {
+                my $tile = $level->at($x, $y);
+                tile($tile);
+            }
         }
     }
 }
@@ -46,6 +67,26 @@ sub wrapper(&) {
                         type => "text/javascript",
                         src => "http://sartak.org/jquery-1.2.3.js",
                     }
+                }
+                style {
+                    attr {
+                        type => "text/css",
+                    }
+                    outs "
+                        .tile-info {
+                            display: none;
+                            position: absolute;
+                            right: 10px;
+                            top: 10px;
+                            background: #CCCCCC;
+                            border: 1px solid #000000;
+                        }
+                        .tile-display {
+                            font-family: monospace;
+                            padding: 0 0 0 0;
+                            margin: 0 0 0 0;
+                        }
+                    "
                 }
             }
             body {
@@ -226,13 +267,11 @@ sub action_arguments {
 
 sub tile {
     my $tile = shift;
-    my $glyph = $tile->glyph;
-
-    if ($glyph eq ' ') {
-        outs_raw "&nbsp;";
-    }
-    else {
-        outs $tile->glyph;
+    div {
+        attr {
+            id => "tile-" . $tile->x . "-" . $tile->y,
+            class => "tile-info",
+        }
     }
 }
 
