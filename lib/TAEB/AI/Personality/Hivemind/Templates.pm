@@ -186,6 +186,13 @@ sub action_arguments {
                     }
                 }
             }
+
+            input {
+                attr {
+                    type => "submit",
+                    value => $action_class->name . "!",
+                }
+            }
         }
 
         messages;
