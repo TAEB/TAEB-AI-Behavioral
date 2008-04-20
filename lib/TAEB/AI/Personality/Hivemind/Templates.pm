@@ -16,8 +16,15 @@ sub messages {
 }
 
 sub level {
+    my $level = TAEB->current_level;
+
     pre {
-        TAEB->vt->as_string("\n", 1, 21)
+        for my $y (1 .. 21) {
+            for my $x (0 .. 79) {
+                tile($level->at($x, $y));
+            }
+            outs "\n";
+        }
     }
 }
 
@@ -215,6 +222,11 @@ sub action_arguments {
     };
 
     return (\%map, scalar($print));
+}
+
+sub tile {
+    my $tile = shift;
+    outs $tile->glyph;
 }
 
 1;
