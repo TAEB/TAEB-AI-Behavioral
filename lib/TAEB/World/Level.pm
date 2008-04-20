@@ -97,7 +97,7 @@ has is_minetown => (
         my ($self,$minetown) = @_;
         $self->special_level("minetown") if $minetown;
         TAEB->info(sprintf('This level is most definitely%s Minetown.',
-                           $minetown ? '', ' not'));
+                           $minetown ? '' : ' not'));
     },
 );
 
@@ -107,7 +107,7 @@ has is_oracle => (
         my ($self,$oracle) = @_;
         $self->special_level("oracle") if $oracle;
         TAEB->info(sprintf('This level is most definitely%s the Oracle level.',
-                           $oracle ? '', ' not'));
+                           $oracle ? '' : ' not'));
     },
 );
 
@@ -117,7 +117,7 @@ has is_rogue => (
         my ($self,$rogue) = @_;
         $self->special_level("rogue") if $rogue;
         TAEB->info(sprintf('This level is most definitely%s the Rogue level.',
-                           $rogue ? '', ' not'));
+                           $rogue ? '' : ' not'));
     },
 );
 
@@ -127,7 +127,7 @@ has is_bigroom => (
         my ($self,$bigroom) = @_;
         $self->special_level("bigroom") if $bigroom;
         TAEB->info(sprintf('This level is most definitely%s the Bigroom.',
-                           $rogue ? '', ' not'));
+                           $bigroom ? '' : ' not'));
     },
 );
 
