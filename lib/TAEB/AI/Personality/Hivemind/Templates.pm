@@ -134,6 +134,8 @@ sub action_arguments {
         form {
             for my $attr (@attrs) {
                 my $name = $attr->name;
+                my $type = $attr->type_constraint->name;
+
                 label {
                     attr {
                         "for" => $name,
@@ -157,7 +159,7 @@ sub action_arguments {
                         }
                     }
                 }
-                elsif ($attr->type_constraint->name =~ /TAEB::World::Item/) {
+                elsif ($type =~ /TAEB::World::Item/) {
                     $map{$name} = sub { TAEB->inventory->get(shift) };
 
                     select {
@@ -168,14 +170,17 @@ sub action_arguments {
                         };
 
                         for my $slot (TAEB->inventory->slots) {
+                            my $item = TAEB->inventory->get($slot);
+                            next unless $item->isa($type);
+
                             option {
                                 attr { value => $slot };
-                                TAEB->inventory->get($slot)->debug_line
+                                $item->debug_line
                             }
                         }
                     }
                 }
-                elsif ($attr->type_constraint->name =~ qr/Str|Int/) {
+                elsif ($type =~ /Str|Int/) {
                     input {
                         attr {
                             id    => $name,
