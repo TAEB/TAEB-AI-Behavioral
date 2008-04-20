@@ -32,6 +32,15 @@ sub wrapper(&) {
 
     anon_template {
         html {
+            head {
+                title { "NetHack via HTTP" }
+                script {
+                    attr {
+                        type => "text/javascript",
+                        src => "http://sartak.org/jquery-1.2.3.js",
+                    }
+                }
+            }
             body {
                 $code->();
             }
