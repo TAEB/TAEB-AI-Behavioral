@@ -29,7 +29,6 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    return unless TAEB->current_tile->in_shop;
     return if $item->match(price => 0);
 
     TAEB->debug("Yes, I want to drop $item because it costs money.");
