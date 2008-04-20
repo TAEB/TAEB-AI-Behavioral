@@ -23,7 +23,7 @@ sub level {
             for my $x (0 .. 79) {
                 my $tile = $level->at($x, $y);
 
-                outs_raw '<span class="tile-display">';
+                outs_raw qq{<span class="tile-display" id="tile-$x-$y">};
 
                 my $glyph = $tile->glyph;
 
@@ -269,7 +269,7 @@ sub tile {
     my $tile = shift;
     div {
         attr {
-            id => "tile-" . $tile->x . "-" . $tile->y,
+            id => "tile-" . $tile->x . "-" . $tile->y . "-info",
             class => "tile-info",
         }
 
