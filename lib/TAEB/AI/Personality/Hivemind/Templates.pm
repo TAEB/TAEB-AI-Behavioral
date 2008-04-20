@@ -272,6 +272,12 @@ sub tile {
             id => "tile-" . $tile->x . "-" . $tile->y,
             class => "tile-info",
         }
+
+        pre {
+            outs sprintf 'Coordinates: (%d, %d)', $tile->x, $tile->y;
+            outs sprintf 'Glyph: %s', $tile->glyph;
+            outs sprintf 'Floor: %s', $tile->floor_glyph;
+        }
     }
 }
 
