@@ -84,9 +84,15 @@ has tiles_by_type => (
     },
 );
 
+#
+# So, for these is_<speciallevel>,
+#    true  => definitely that level
+#    false => definitely not that level
+#    undef => maybe that level?
+#
+
 has is_minetown => (
-    isa     => 'Bool',
-    default => 0,
+    isa     => 'Maybe[Bool]',
     trigger => sub {
         my ($self,$minetown) = @_;
         $self->special_level("minetown") if $minetown;
@@ -94,8 +100,7 @@ has is_minetown => (
 );
 
 has is_oracle => (
-    isa     => 'Bool',
-    default => 0,
+    isa     => 'Maybe[Bool]',
     trigger => sub {
         my ($self,$oracle) = @_;
         $self->special_level("oracle") if $oracle;
@@ -103,8 +108,7 @@ has is_oracle => (
 );
 
 has is_rogue => (
-    isa     => 'Bool',
-    default => 0,
+    isa     => 'Maybe[Bool]',
     trigger => sub {
         my ($self,$rogue) = @_;
         $self->special_level("rogue") if $rogue;
@@ -112,8 +116,7 @@ has is_rogue => (
 );
 
 has is_bigroom => (
-    isa     => 'Bool',
-    default => 0,
+    isa     => 'Maybe[Bool]',
     trigger => sub {
         my ($self,$bigroom) = @_;
         $self->special_level("bigroom") if $bigroom;
@@ -483,18 +486,20 @@ around is_minetown => sub {
     return $self->$orig(@_) if @_;
 
     my $is_minetown = $self->$orig;
-    return $is_minetown if $is_minetown;
+    return $is_minetown if defined $is_minetown;
 
-    return 0 unless defined($self->branch);
-    return 0 unless $self->branch eq 'mines';
-    return 0 unless $self->z >= 5 && $self->z <= 8;
+    return unless defined($self->branch);
+    unless ($self->branch eq 'mines' && $self->z >= 5 && $self->z <= 8) {
+        $self->is_minetown(0);
+        return 0;
+    }
 
-    return 0 unless $self->has_type('closeddoor')
-                 || $self->has_type('opendoor')
-                 || $self->has_type('altar')
-                 || $self->has_type('sink')
-                 || $self->has_type('fountain')
-                 || $self->has_type('tree');
+    return unless $self->has_type('closeddoor')
+               || $self->has_type('opendoor')
+               || $self->has_type('altar')
+               || $self->has_type('sink')
+               || $self->has_type('fountain')
+               || $self->has_type('tree');
 
     TAEB->info("$self is Minetown!");
     $self->is_minetown(1);
@@ -508,14 +513,25 @@ around is_oracle => sub {
     return $self->$orig(@_) if @_;
 
     my $is_oracle = $self->$orig;
-    return $is_oracle if $is_oracle;
+    return $is_oracle if defined $is_oracle;
 
-    return 0 if defined($self->branch)
-             && $self->branch ne 'dungeons';
-    return 0 unless $self->z >= 5 && $self->z <= 9;
+    if (defined($self->branch) && $self->branch ne 'dungeons')
+    {
+        $self->is_oracle(0);
+        return 0;
+    }
+    unless ($self->z >= 5 && $self->z <= 9)
+    {
+        $self->is_oracle(0);
+        return 0;
+    }
 
     my $oracle_tile = $self->at(39,12);
-    return 0 unless $oracle_tile->monster && $oracle_tile->monster->is_oracle;
+    if ($oracle_tile->monster && !$oracle_tile->monster->is_oracle)
+    {
+        $self->is_oracle(0);
+        return 0;
+    }
 
     TAEB->info("This is the Oracle level!");
     $self->branch('dungeons');
@@ -539,7 +555,8 @@ sub detect_bigroom_vt {
     # XXX : Find out good ways to detect 2,3,5. 
     #       Maps: http://nethack.wikia.com/wiki/Bigroom
 
-    return 0;
+    # Undef means unsure.
+    return;
 }
 
 around is_bigroom => sub {
@@ -549,9 +566,12 @@ around is_bigroom => sub {
     return $self->$orig(@_) if @_;
 
     my $is_bigroom = $self->$orig;
-    return $is_bigroom if $is_bigroom;
+    return $is_bigroom if defined $is_bigroom;
 
-    return 0 unless $self->z >= 10 && $self->z <= 12;
+    unless ($self->z >= 10 && $self->z <= 12) {
+        $self->is_bigroom(0);
+        return 0;
+    }
 
     $self->branch('dungeons') if $self->is_bigroom($self->detect_bigroom_vt);
     return $self->is_bigroom;
