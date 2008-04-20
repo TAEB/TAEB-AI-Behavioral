@@ -18,12 +18,12 @@ sub messages {
 sub level {
     my $level = TAEB->current_level;
 
-    pre {
+    tt {
         for my $y (1 .. 21) {
             for my $x (0 .. 79) {
                 tile($level->at($x, $y));
             }
-            outs "\n";
+            br {};
         }
     }
 }
