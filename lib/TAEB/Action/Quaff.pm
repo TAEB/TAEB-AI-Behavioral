@@ -6,7 +6,7 @@ extends 'TAEB::Action';
 use constant command => "q";
 
 has from => (
-    isa      => 'TAEB::World::Item | Str',
+    isa      => 'TAEB::World::Item::Potion | Str',
     required => 1,
     provided => 1,
 );

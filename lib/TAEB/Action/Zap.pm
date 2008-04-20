@@ -8,7 +8,7 @@ with 'TAEB::Action::Role::Item';
 use constant command => 'z';
 
 has '+item' => (
-    isa => 'TAEB::World::Item::Wand',
+    isa      => 'TAEB::World::Item::Wand',
     required => 1,
 );
 
