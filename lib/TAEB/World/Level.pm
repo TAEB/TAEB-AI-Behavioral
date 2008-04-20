@@ -96,6 +96,8 @@ has is_minetown => (
     trigger => sub {
         my ($self,$minetown) = @_;
         $self->special_level("minetown") if $minetown;
+        TAEB->info(sprintf('This level is most definitely%s Minetown.',
+                           $minetown ? '', ' not'));
     },
 );
 
@@ -104,6 +106,8 @@ has is_oracle => (
     trigger => sub {
         my ($self,$oracle) = @_;
         $self->special_level("oracle") if $oracle;
+        TAEB->info(sprintf('This level is most definitely%s the Oracle level.',
+                           $oracle ? '', ' not'));
     },
 );
 
@@ -112,6 +116,8 @@ has is_rogue => (
     trigger => sub {
         my ($self,$rogue) = @_;
         $self->special_level("rogue") if $rogue;
+        TAEB->info(sprintf('This level is most definitely%s the Rogue level.',
+                           $rogue ? '', ' not'));
     },
 );
 
@@ -120,6 +126,8 @@ has is_bigroom => (
     trigger => sub {
         my ($self,$bigroom) = @_;
         $self->special_level("bigroom") if $bigroom;
+        TAEB->info(sprintf('This level is most definitely%s the Bigroom.',
+                           $rogue ? '', ' not'));
     },
 );
 
