@@ -116,6 +116,7 @@ sub check_dlvl {
                 $newlevel->branch('dungeons');
                 $newlevel->is_rogue(1);
             }
+            else { $newlevel->is_rogue(0) }
             if ($quest) {
                 $newlevel->branch('quest');
             }
