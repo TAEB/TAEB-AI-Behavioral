@@ -226,7 +226,14 @@ sub action_arguments {
 
 sub tile {
     my $tile = shift;
-    outs $tile->glyph;
+    my $glyph = $tile->glyph;
+
+    if ($glyph eq ' ') {
+        outs_raw "&nbsp;";
+    }
+    else {
+        outs $tile->glyph;
+    }
 }
 
 1;
