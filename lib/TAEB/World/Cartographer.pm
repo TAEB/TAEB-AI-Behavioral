@@ -165,6 +165,10 @@ sub msg_dungeon_feature {
         $floor = '<';
         $type  = 'stairsup';
     }
+    elsif ($feature eq 'bad staircase') {
+	$floor = ' ';
+	$type = 'obscured';
+    }
     elsif ($feature eq 'fountain' || $feature eq 'sink') {
         $floor = '{';
         $type  = $feature;

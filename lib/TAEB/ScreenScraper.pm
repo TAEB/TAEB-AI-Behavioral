@@ -183,6 +183,10 @@ our %msg_string = (
 
 our @msg_regex = (
     [
+	qr/^You can't go (?:up|down) here.$/,
+	['dungeon_feature', 'bad staircase'],
+    ],
+    [
         qr/^There is a (staircase (?:up|down)|fountain|sink|grave) here\.$/,
             ['dungeon_feature', sub { $1 }],
     ],
