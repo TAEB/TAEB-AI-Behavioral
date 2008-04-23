@@ -23,7 +23,14 @@ has tile => (
 
 sub is_shk {
     my $self = shift;
-    $self->glyph eq '@' && $self->color eq COLOR_WHITE;
+    return 0 if !($self->glyph eq '@' && $self->color eq COLOR_WHITE);
+    return ($self->tile->in_shop ? 1 : undef);
+}
+
+sub is_priest {
+    my $self = shift;
+    return 0 if !($self->glyph eq '@' && $self->color eq COLOR_WHITE);
+    return ($self->tile->in_temple ? 1 : undef);
 }
 
 sub is_oracle {
@@ -53,12 +60,14 @@ sub is_quest_friendly {
 
 sub is_enemy {
     my $self = shift;
-    return 0 if $self->is_shk;
     return 0 if $self->is_oracle;
     return 0 if $self->is_coaligned_unicorn;
     return 0 if $self->is_vault_guard;
     return 0 if $self->is_watchman;
     return 0 if $self->is_quest_friendly;
+    return undef unless (defined $self->is_shk || defined $self->is_priest);
+    return 0 if $self->is_shk;
+    return 0 if $self->is_priest;
     return 1;
 }
 
