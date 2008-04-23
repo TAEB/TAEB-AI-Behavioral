@@ -60,6 +60,7 @@ d
 
     draw_debug  => Draws the screen with general debug coloring
         path          => magenta
+        enemy         => orange (bold red)
         interesting   => red
         searched      => cyan
         stepped on    => brown
