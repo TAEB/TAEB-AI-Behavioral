@@ -118,7 +118,7 @@ sub first_match {
         $code->(@_) ? 'q' : undef
     }, %args);
 
-    ($to && !$to->type == 'trap') or return;
+    $to or return;
 
     Moose::Object::new($class,
         from     => $args{from},
