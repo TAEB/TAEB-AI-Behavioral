@@ -345,6 +345,7 @@ sub msg_status_change {
 sub msg_pit {
     my $self = shift;
     $self->msg_status_change(pit => @_);
+    TAEB->enqueue_message('dungeon_feature' => 'trap' => 'pit');
 }
 
 sub msg_life_saving {
