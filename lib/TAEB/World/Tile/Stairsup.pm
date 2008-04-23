@@ -4,11 +4,11 @@ use TAEB::OO;
 extends 'TAEB::World::Tile::Stairs';
 
 has '+type' => (
-    default => 'stairsdown',
+    default => 'stairsup',
 );
 
 has '+glyph' => (
-    default => '>',
+    default => '<',
 );
 
 __PACKAGE__->meta->make_immutable;
