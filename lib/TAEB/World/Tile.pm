@@ -548,6 +548,8 @@ sub draw_debug {
 
     $color ||= $self->in_shop || $self->in_temple
              ? Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD
+             : $self->monster && $self->monster->is_enemy
+             ? Curses::COLOR_PAIR(COLOR_RED) | Curses::A_BOLD
              : $self->might_have_new_item
              ? Curses::COLOR_PAIR(COLOR_RED)
              : $self->searched > 5
