@@ -819,6 +819,15 @@ sub draw_botl {
         if $self->score;
     push @pieces, 'P:' . $self->pathfinds;
 
+    my $status;
+    for my $effect (grep { /^is_/ } $self->senses->meta->get_attribute_list) {
+        if ($self->senses->$effect && $effect =~ /^is_(\w\w)/) {
+            $status .= ucfirst $1;
+        }
+    }
+    push @pieces, '[' . $status . ']'
+        if $status;
+
     Curses::addstr(join ' ', @pieces);
     Curses::clrtoeol;
 }
