@@ -48,7 +48,7 @@ has list => (
                 base   => 150,
                 edible => 1,
             },
-            'cheap plastic imitation Amulet of Yendor' => {
+            'cheap plastic imitation of the Amulet of Yendor' => {
                 base   => 0,
                 appearance => 'Amulet of Yendor',
             },
