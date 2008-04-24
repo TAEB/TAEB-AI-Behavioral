@@ -9,8 +9,6 @@ has other_side => (
     weak_ref => 1,
 );
 
-sub traverse_command { shift->floor_glyph }
-
 around draw_debug => sub {
     my $orig           = shift;
     my $self           = shift;
