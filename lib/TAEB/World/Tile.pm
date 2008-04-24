@@ -263,6 +263,7 @@ sub downgrade {
     bless $self => 'TAEB::World::Tile';
 }
 
+my %is_walkable = map { $_ => 1 } qw/stairsdown stairsup trap altar opendoor floor ice grave throne sink fountain corridor/;
 sub is_walkable {
     my $self = shift;
     my $through_unknown = shift;
@@ -276,19 +277,12 @@ sub is_walkable {
     # XXX: yes. I know. shut up.
     return 0 if $self->glyph eq '0';
 
-    # obscured is walkable, the Move action will catch it and mark it
-    # as rock otherwise
-    return 1 if $self->type eq 'obscured';
-
-    # doors use the same glyphs as walls
-    return 1 if $self->type eq 'opendoor';
-
     # we can path through unlit areas that we haven't seen as rock for sure yet
     return 1 if $through_unknown &&
                 $self->type eq 'rock' &&
                 $self->all_adjacent(sub { shift->stepped_on == 0 });
 
-    $self->floor_glyph =~ /[.<>^\\_{#]/;
+    return $is_walkable{ $self->type };
 }
 
 sub step_on {
