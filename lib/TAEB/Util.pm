@@ -155,8 +155,8 @@ Returns whether the given glyph is that of an item.
 =cut
 
 sub glyph_is_item {
-    return shift =~ /[`!:*()+=\],]/ if TAEB->current_level->is_rogue;
-    return shift =~ /[`!%*()+=\["\$]/;
+    return shift =~ /[`?!:*()+=\],]/ if TAEB->current_level->is_rogue;
+    return shift =~ /[`?!%*()+=\["\$]/;
 }
 
 our @directions = (
