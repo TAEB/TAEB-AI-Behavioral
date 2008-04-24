@@ -263,7 +263,7 @@ sub downgrade {
     bless $self => 'TAEB::World::Tile';
 }
 
-my %is_walkable = map { $_ => 1 } qw/obscured stairsdown stairsup trap altar opendoor floor ice grave throne sink fountain corridor/;
+my %is_walkable = map { $_ => 1 } qw/stairsdown stairsup trap altar opendoor floor ice grave throne sink fountain corridor/;
 sub is_walkable {
     my $self = shift;
     my $through_unknown = shift;
