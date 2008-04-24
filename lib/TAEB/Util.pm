@@ -57,10 +57,18 @@ our %glyphs = (
 
     '#'  => 'corridor',
     #'#'  => 'air', # who cares, no difference
+);
 
-    # Rogue level glyphs
-    '%'  => 'stairsdown',
+our %rogue_glyphs = (
+    ' '  => 'rock',
     '+'  => 'opendoor',
+    '%'  => 'stairsdown',
+    '^'  => 'trap',
+    '"'  => 'trap',
+    '|'  => 'wall',
+    '-'  => 'wall',
+    '.'  => 'floor',
+    '#'  => 'corridor',
 );
 
 # except for traps
@@ -105,14 +113,14 @@ for it. Note that monsters and items (and any other miss) will return
 sub glyph_to_type {
     my $glyph = shift;
 
+    return ($rogue_glyphs{$glyph} || 'obscured')
+        if TAEB->current_level->is_rogue;
     return $glyphs{$glyph} || 'obscured' unless @_;
 
     # use color in an effort to differentiate tiles
     my $color = shift;
 
     return 'obscured' unless $glyphs{$glyph} && $feature_colors{$color};
-    return 'obscured' if (($glyphs{$glyph} eq '%' || $glyphs{$glyph} eq '+') &&
-        !TAEB->current_level->is_rogue);
 
     my @a = map { ref $_ ? @$_ : $_ } $glyphs{$glyph};
     my @b = map { ref $_ ? @$_ : $_ } $feature_colors{$color};
