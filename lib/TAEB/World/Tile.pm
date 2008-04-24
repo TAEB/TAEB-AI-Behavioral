@@ -461,11 +461,13 @@ sub try_monster {
          TAEB->current_level->is_rogue &&
          $glyph eq ' ') {
         return unless ($self->all_adjacent(sub { shift->floor_glyph ne ' ' })
+                       || (defined $self->floor_glyph
+                           && $self->floor_glyph ne ' '))
                    &&  $self->any_adjacent(sub {
                            my $self = shift;
                            return $self->x eq TAEB->x
                                && $self->y eq TAEB->y
-                       }));
+                       });
         $self->monster(TAEB::World::Monster->new(
             glyph => 'X',
             color => COLOR_GRAY,
