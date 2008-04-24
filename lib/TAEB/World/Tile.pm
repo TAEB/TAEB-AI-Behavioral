@@ -196,6 +196,11 @@ sub update {
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
 
+        # ghosts in rogue level look like rocks. if there's a ghost over an
+        # item, don't update.
+        return if (TAEB->current_level->is_rogue && ($oldtype eq 'rock' &&
+            $newtype ne 'rock'));
+
         $self->interesting_at(TAEB->step)
             unless $self->monster;
 
