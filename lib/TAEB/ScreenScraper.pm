@@ -422,6 +422,10 @@ our @msg_regex = (
                 .'altar'
             } ],
     ],
+    [
+        qr/^There's a (.*?) hiding under a (.*)!/ =>
+            ['hidden_monster' => sub { ($1, $2) } ],
+    ],
 );
 
 our @god_anger = (

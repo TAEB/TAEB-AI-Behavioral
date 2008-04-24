@@ -18,6 +18,11 @@ has starting_tile => (
     default => sub { TAEB->current_tile },
 );
 
+has hit_obscured_monster => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 # if the first movement is < or >, then just use the Ascend or Descend actions
 # if the first movement would move us into a monster, rest instead
 around new => sub {
@@ -95,6 +100,8 @@ sub done {
         return;
     }
 
+    return if $self->hit_obscured_monster;
+
     my $dir = substr($self->directions, 0, 1);
     my ($dx, $dy) = vi2delta($dir);
 
@@ -152,6 +159,8 @@ sub msg_got_item {
     my $self = shift;
     TAEB->enqueue_message(remove_floor_item => @_);
 }
+
+sub msg_hidden_monster { shift->hit_obscured_monster(1) }
 
 no Moose;
 
