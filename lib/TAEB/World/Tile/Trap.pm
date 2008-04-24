@@ -8,8 +8,6 @@ has trap_type => (
     isa => 'Str', # this should become an enum
 );
 
-sub traverse_command { shift->floor_glyph }
-
 around draw_debug => sub {
     my $orig           = shift;
     my $self           = shift;
