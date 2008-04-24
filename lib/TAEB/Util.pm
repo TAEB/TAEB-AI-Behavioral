@@ -111,6 +111,8 @@ sub glyph_to_type {
     my $color = shift;
 
     return 'obscured' unless $glyphs{$glyph} && $feature_colors{$color};
+    return 'obscured' if (($glyphs{$glyph} eq '%' || $glyphs{$glyph} eq '+') &&
+        !TAEB->current_level->is_rogue);
 
     my @a = map { ref $_ ? @$_ : $_ } $glyphs{$glyph};
     my @b = map { ref $_ ? @$_ : $_ } $feature_colors{$color};
