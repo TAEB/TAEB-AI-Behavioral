@@ -4,7 +4,7 @@ use TAEB::OO;
 extends 'TAEB::AI::Behavior::GotoTile';
 
 sub match_tile {
-    $_[1]->floor_glyph eq '<' ? (['ascend'], 'Ascending') : undef
+    $_[1]->type eq 'stairsup' ? (['ascend'], 'Ascending') : undef
 }
 
 sub first_pass { TAEB->current_level->has_type('stairsup') }

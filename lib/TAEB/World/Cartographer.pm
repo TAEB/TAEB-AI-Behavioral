@@ -167,8 +167,17 @@ sub msg_dungeon_feature {
         $type  = 'stairsup';
     }
     elsif ($feature eq 'bad staircase') {
-	$floor = ' ';
-	$type = 'obscured';
+	# Per Eidolos' idea: all stairs in rogue are marked as stairsdown, and
+	# we only change them to stairs up if we get a bad staircase message.
+	# This code was originally to fix mimics being stairs inside a shop,
+	# but we don't have to worry about mimics in Rogue.
+	if (!TAEB->current_level->is_rogue) {
+	    $floor = ' ';
+	    $type = 'obscured';
+	} else {
+	    $floor = '<';
+	    $type = 'stairsup';
+	}
     }
     elsif ($feature eq 'fountain' || $feature eq 'sink') {
         $floor = '{';

@@ -14,7 +14,7 @@ sub correct_stairs {
     my $tile = shift;
 
     # not stairs down!
-    return 0 unless $tile->floor_glyph eq '>';
+    return 0 unless $tile->type eq 'stairsdown';
 
     # we only have one choice
     return 1 if @{ $self->stairsdown } == 1;

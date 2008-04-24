@@ -57,6 +57,10 @@ our %glyphs = (
 
     '#'  => 'corridor',
     #'#'  => 'air', # who cares, no difference
+
+    # Rogue level glyphs
+    '%'  => 'stairsdown',
+    '+'  => 'opendoor',
 );
 
 # except for traps
@@ -66,7 +70,7 @@ our %feature_colors = (
     COLOR_BLUE,    [qw/fountain trap water underwater/],
     COLOR_BROWN,   [qw/opendoor closeddoor drawbridge stairsup stairsdown trap/],
     COLOR_CYAN,    [qw/bars ice trap/],
-    COLOR_GRAY,    [qw/rock altar corridor floor grave sink stairsup stairsdown trap wall/],
+    COLOR_GRAY,    [qw/rock altar corridor floor grave sink stairsup stairsdown trap wall opendoor/],
     COLOR_GREEN,   'tree',
     COLOR_MAGENTA, 'trap',
     COLOR_ORANGE,  'trap',
