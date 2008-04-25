@@ -858,17 +858,20 @@ sub display_topline {
         for (@msgs) {
             my ($line, $matched) = @$_;
 
-            my @spice = (
-                'rope golem',                'rape golem',                 0.2,
-                'oil lamp',                  'Garin',                      0.5,
-                '\bhit',                     'roundhouse-kick',            0.02,
-                'snoring snakes',            'Eidolos taking a nap',       1,
-                'hear a strange wind',       'smell Eidolos passing wind', 1,
-                qr/(?:jackal|wolf) howling/, 'Eidolos howling',            1,
-            );
+            if (TAEB->config->spicy
+            &&  TAEB->config->spicy ne 'hold back on the chili, please') {
+                my @spice = (
+                    'rope golem',                'rape golem',             0.2,
+                    'oil lamp',                  'Garin',                  0.5,
+                    '\bhit',                     'roundhouse-kick',        0.02,
+                    'snoring snakes',            'Eidolos taking a nap',   1,
+                    'hear a strange wind',   'smell Eidolos passing wind', 1,
+                    qr/(?:jackal|wolf) howling/, 'Eidolos howling',        1,
+                );
 
-            while (my ($orig, $sub, $prob) = splice @spice, 0, 3) {
-                $line =~ s/$orig/$sub/ if rand() < $prob;
+                while (my ($orig, $sub, $prob) = splice @spice, 0, 3) {
+                    $line =~ s/$orig/$sub/ if rand() < $prob;
+                }
             }
 
             my $chopped = length($line) > 75;
