@@ -216,7 +216,7 @@ our @msg_regex = (
     ],
     [
         qr/^You (?:see|feel) here (.*?)\./,
-            ['floor_item', sub { 
+            ['floor_item', sub {
                 TAEB->enqueue_message('clear_floor');
                 TAEB->new_item($1); }],
     ],
