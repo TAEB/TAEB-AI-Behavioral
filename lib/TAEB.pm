@@ -895,8 +895,8 @@ sub display_topline {
         if (@msgs > 1) {
             $self->place_cursor;
             Curses::refresh;
-            sleep 1;
-            sleep 2 if @msgs > 5;
+            #sleep 1;
+            #sleep 2 if @msgs > 5;
             TAEB->redraw if @messages;
         }
     }

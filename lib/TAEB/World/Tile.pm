@@ -556,6 +556,10 @@ sub draw_debug {
              ? Curses::COLOR_PAIR(COLOR_GREEN)
              : 0;
 
+    $color |= Curses::A_REVERSE
+        if $self->type eq 'rock' &&
+           $self->any_adjacent(sub { shift->explored });
+
     Curses::addch($color | ord $self->$display_method);
 }
 
