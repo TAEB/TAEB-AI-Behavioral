@@ -555,12 +555,7 @@ sub detect_bigroom_vt {
     # so we'll need something better for those.
     return 1 if TAEB->vt->row_plaintext(4) =~ /-{75}/;
 
-    # Bigroom 4
-    my $regex = qr/-\|[^-|]{29}\|-{7}\|[^-|]{29}\|-/;
-    return 1 if TAEB->vt->row_plaintext( 8) =~ $regex
-             || TAEB->vt->row_plaintext(17) =~ $regex;
-
-    # XXX : Find out good ways to detect 2,3,5. 
+    # XXX : Find out good ways to detect 2,3,4,5. 
     #       Maps: http://nethack.wikia.com/wiki/Bigroom
 
     # Undef means unsure.
