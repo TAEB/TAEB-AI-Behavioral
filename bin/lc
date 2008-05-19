@@ -4,7 +4,7 @@ use warnings;
 use File::Next;
 
 my @files;
-my $iter = File::Next::files('lib/', 'bin/', 'doc/');
+my $iter = File::Next::files('lib/', 'bin/', 'doc/', 't/');
 
 while (defined (my $file = $iter->())) {
     next if $file =~ /~$/;
