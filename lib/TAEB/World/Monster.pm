@@ -18,19 +18,19 @@ has color => (
 has tile => (
     isa      => 'TAEB::World::Tile',
     weak_ref => 1,
-    handles  => [qw/x y z/],
+    handles  => [qw/x y z level in_shop in_temple/],
 );
 
 sub is_shk {
     my $self = shift;
     return 0 if !($self->glyph eq '@' && $self->color eq COLOR_WHITE);
-    return ($self->tile->in_shop ? 1 : undef);
+    return ($self->in_shop ? 1 : undef);
 }
 
 sub is_priest {
     my $self = shift;
     return 0 if !($self->glyph eq '@' && $self->color eq COLOR_WHITE);
-    return ($self->tile->in_temple ? 1 : undef);
+    return ($self->in_temple ? 1 : undef);
 }
 
 sub is_oracle {
@@ -140,7 +140,7 @@ sub is_coaligned_unicorn {
 
 sub is_watchman {
     my $self = shift;
-    return 0 unless $self->tile->level->is_minetown;
+    return 0 unless $self->level->is_minetown;
     return 0 unless $self->glyph eq '@';
     return $self->color eq COLOR_GRAY || $self->color eq COLOR_GREEN;
 }

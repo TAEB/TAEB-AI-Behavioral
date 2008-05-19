@@ -415,7 +415,6 @@ This accepts a key (such as one typed by the meatbag at the terminal) and does
 something with it.
 
 =cut
-
 sub keypress {
     my $self = shift;
     my $c = shift;
