@@ -57,7 +57,7 @@ sub msg_discovery {
     my $identity   = shift;
     my $appearance = shift;
 
-    my ($class) = $identity =~ /^(.*?) of /
+    my ($class) = $identity =~ /^(.*?) (?:of|versus) /
         or return;
 
     if (lc($class) eq 'scroll') {
