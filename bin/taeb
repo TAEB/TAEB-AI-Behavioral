@@ -5,7 +5,16 @@ use lib 'lib';
 use Getopt::Whatever;
 
 use Curses;
-use TAEB;
+
+BEGIN {
+    eval { require TAEB; 1 };
+    if ($@) {
+        if ($@ =~ /Can't locate TAEB\.pm/) {
+            die "You must run TAEB from the top-level directory. (run `cd ..`)";
+        }
+        die $@;
+    }
+}
 
 # load_from_argv {{{
 sub load_from_argv {
