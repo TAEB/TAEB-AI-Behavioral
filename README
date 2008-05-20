@@ -39,6 +39,8 @@ $ sudo make installdeps
 This will install the modules from CPAN. TAEB's dependencies themselves usually
 have a few dependencies. All in all you're probably looking at about 50 modules.
 
+-- CONFIGURING
+
 Now it's time to set up TAEB for running on nethack.alt.org. First, create a
 new account. Use etc/TAEB.nethackrc for its nethack config.
 
