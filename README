@@ -15,6 +15,9 @@ one is run next.
 
 -- INSTALLING
 
+If you're on Ubuntu, you'll first need to install the "build-essential" package.
+
+
 Warning: TAEB makes heavy use of CPAN.
 
 $ perl Makefile.PL
