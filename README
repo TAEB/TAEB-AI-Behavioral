@@ -15,7 +15,8 @@ one is run next.
 
 -- INSTALLING
 
-If you're on Ubuntu, you'll first need to install the "build-essential" package.
+If you're on Ubuntu, you'll first need to install the "build-essential" and
+"libncurses5-dev" packages.
 
 
 Warning: TAEB makes heavy use of CPAN.
