@@ -29,7 +29,6 @@ requires 'Log::Dispatch';
 # config
 requires 'YAML';
 requires 'Hash::Merge';
-requires 'Hash::Inflator';
 
 # TAEB::Util
 requires 'Sub::Exporter';

@@ -3,7 +3,6 @@ package TAEB::Util;
 use strict;
 use warnings;
 
-use Hash::Inflator;
 use List::Util 'first';
 use List::MoreUtils 'uniq';
 

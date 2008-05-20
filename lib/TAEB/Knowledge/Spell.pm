@@ -27,16 +27,21 @@ has slot => (
 
 has spoiler => (
     is      => 'ro',
-    isa     => 'Hash::Inflator',
+    isa     => 'HashRef',
     lazy    => 1,
-    handles => [qw/level read marker role emergency/],
     default => sub {
         my $self = shift;
         my $name = "spellbook of " . $self->name;
-
-        Hash::Inflator->new(TAEB::Spoilers::Item::Spellbook->spellbook($name));
+        TAEB::Spoilers::Item::Spellbook->spellbook($name);
     },
 );
+
+for my $attribute (qw/level read marker role emergency/) {
+    __PACKAGE__->meta->add_method($attribute => sub {
+        my $self = shift;
+        $self->spoiler->{$attribute};
+    });
+}
 
 =head2 castable
 
