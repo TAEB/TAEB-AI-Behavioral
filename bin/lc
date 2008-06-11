@@ -9,7 +9,10 @@ my $iter = File::Next::files('lib/', 'bin/', 'doc/', 't/');
 while (defined (my $file = $iter->())) {
     next if $file =~ /~$/;
     open my $handle, '<', $file
-        or die "Unable to open $file for reading: $!";
+        or do {
+            warn "Unable to open $file for reading: $!";
+            next;
+        };
 
     my $lines      = 0;
     my $with_know  = 0;
