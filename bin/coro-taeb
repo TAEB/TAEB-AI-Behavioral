@@ -24,7 +24,7 @@ init_pair($_, $_, 0) for 0 .. 8;
 
 addstr "Loading TAEB...";
 
-Continuity->new->loop;
+Continuity->new(port => 8011)->loop;
 
 our $request;
 sub main {
