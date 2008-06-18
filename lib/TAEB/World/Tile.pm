@@ -224,7 +224,7 @@ sub rebless {
     $self->unblessed($old_pkg => $new_pkg);
 
     # if the new_pkg doesn't exist, then just go with the regular Tile
-    return $self->downgrade unless eval { local $SIG{__DIE__}; $new_pkg->meta };
+    return $self->downgrade unless $new_pkg->can('meta');
 
     # no work to be done, yay
     return if blessed($self) eq $new_pkg;
