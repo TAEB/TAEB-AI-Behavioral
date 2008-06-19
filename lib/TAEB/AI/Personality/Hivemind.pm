@@ -97,7 +97,9 @@ sub travel {
         my $action    = TAEB::Action::Move->new(direction => $direction);
 
         $self->clear_action_calculator
-            if @directions == 0;
+            if @directions == 0                 # got to the target
+            || TAEB->current_level->has_enemies # enemies in sight, stop!
+            || TAEB->messages =~ /\S/;          # got a message
 
         return $action;
     });
