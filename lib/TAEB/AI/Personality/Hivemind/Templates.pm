@@ -76,7 +76,7 @@ sub wrapper(&) {
                                 var id = tileid + '-info-wrap';
                                 var tile = document.getElementById(id);
 
-                                if (!tile) {
+                                if (tile == null) {
                                     var all = 'tile-info';
                                     var info = document.getElementById(all);
 
@@ -96,7 +96,7 @@ sub wrapper(&) {
                                 jQuery(tile).show();
                             },
                             function () {
-                                var selector = '#' + tileid + '-info';
+                                var selector = '#' + this.id + '-info-wrap';
                                 jQuery(selector).hide();
                             })
                         });
