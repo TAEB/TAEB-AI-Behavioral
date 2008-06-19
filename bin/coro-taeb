@@ -33,7 +33,7 @@ sub main {
     my $path = $new_request->uri->path;
     TAEB->info("New request at $path.");
 
-    if ($path =~ m{/^ajax-info}) {
+    if ($path =~ m{/^ajax-tile}) {
         my $id = $new_request->param('id');
         TAEB->info("arg: $id.");
         $new_request->print($id);
