@@ -40,11 +40,8 @@ sub level {
         }
     }
     div {
-        for my $y (1 .. 21) {
-            for my $x (0 .. 79) {
-                my $tile = $level->at($x, $y);
-                tile($tile);
-            }
+        attr {
+            id => "tile-info",
         }
     }
 }
