@@ -19,6 +19,10 @@ sub level {
     my $level = TAEB->current_level;
 
     div {
+        attr {
+            id => "map",
+        };
+
         for my $y (1 .. 21) {
             for my $x (0 .. 79) {
                 my $tile = $level->at($x, $y);
@@ -123,6 +127,10 @@ sub wrapper(&) {
                         }
                         .tile-display:hover {
                             color: #FF0000;
+                        }
+                        #map {
+                            color: #FFFFFF;
+                            background: #000000;
                         }
                     "
                 }
