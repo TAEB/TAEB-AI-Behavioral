@@ -38,7 +38,6 @@ sub main {
         my ($x, $y) = $id =~ /^tile-(\d+)-(\d+)$/;
         my $tile = TAEB->current_level->at($x, $y);
         my $info = TAEB::AI::Personality::Hivemind::Templates::tile($tile);
-        TAEB->info($info);
         $new_request->print($info);
         return;
     }
