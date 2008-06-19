@@ -219,22 +219,28 @@ sub action_arguments {
                 elsif ($type =~ /TAEB::World::Item/) {
                     $map{$name} = sub { TAEB->inventory->get(shift) };
 
-                    select {
-                        attr {
-                            id   => $name,
-                            name => $name,
-                            @attrs == 1 ? onchange() : (),
-                        };
+                    my @items = grep { $_->isa($type) }
+                                map  { TAEB->inventory->get($_) }
+                                TAEB->inventory->slots;
 
-                        for my $slot (TAEB->inventory->slots) {
-                            my $item = TAEB->inventory->get($slot);
-                            next unless $item->isa($type);
+                    if (@items) {
+                        select {
+                            attr {
+                                id   => $name,
+                                name => $name,
+                                @attrs == 1 ? onchange() : (),
+                            };
 
-                            option {
-                                attr { value => $slot };
-                                $item->debug_line
+                            for my $item (@items) {
+                                option {
+                                    attr { value => $item->slot };
+                                    $item->debug_line
+                                }
                             }
                         }
+                    }
+                    else {
+                        span { "(No items to " . $action_class->name . ")" }
                     }
                 }
                 elsif ($type =~ /Str|Int/) {
