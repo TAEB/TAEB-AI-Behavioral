@@ -121,6 +121,9 @@ sub wrapper(&) {
                             padding: 0 0 0 0;
                             margin: 0 0 0 0;
                         }
+                        .tile-display:hover {
+                            color: #FF0000;
+                        }
                     "
                 }
             }
