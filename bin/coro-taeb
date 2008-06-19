@@ -28,8 +28,20 @@ Continuity->new(port => 8011, path_session => 1)->loop;
 
 our $request;
 sub main {
+    my $new_request = shift;
+
+    my $path = $new_request->uri->path;
+    TAEB->info("New request at $path.");
+
+    if ($path =~ m{/^ajax-info}) {
+        my $id = $new_request->param('id');
+        TAEB->info("arg: $id.");
+        $new_request->print($id);
+        return;
+    }
+
     return if $request;
-    $request = shift;
+    $request = $new_request;
 
     # XXX: otherwise Coro or Continuity spews out tons of shit
     close STDERR;
