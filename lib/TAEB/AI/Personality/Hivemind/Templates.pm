@@ -68,6 +68,24 @@ sub wrapper(&) {
                         src => "http://sartak.org/jquery-1.2.3.js",
                     }
                 }
+                script {
+                    attr {
+                        type => "text/javascript",
+                    }
+                    outs_raw << "                    JS";
+                        jQuery(function () {
+                            jQuery('span.tile-display').hover(function () {
+                                var selector = '#' + this.id + '-info';
+                                jQuery(selector).show();
+                            },
+                            function () {
+                                var selector = '#' + this.id + '-info';
+                                jQuery(selector).hide();
+                            });
+                        });
+                    JS
+                }
+
                 style {
                     attr {
                         type => "text/css",
