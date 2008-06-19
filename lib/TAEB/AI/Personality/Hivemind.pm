@@ -104,7 +104,7 @@ sub travel {
 
         # if we travel when there's a message on screen, don't stop
         $stop = 1 if TAEB->messages =~ /\S/
-                  && $action_number == 1;
+                  && $action_number > 1;
 
         if ($stop) {
             $self->clear_action_calculator;
