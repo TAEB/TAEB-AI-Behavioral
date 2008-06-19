@@ -271,6 +271,31 @@ sub action_arguments {
                         }
                     }
                 }
+                elsif ($type->name =~ /TAEB::Knowledge::Spell/) {
+                    $map{$name} = sub { TAEB->spells->get(shift) };
+
+                    my @spells = TAEB->spells->spells;
+                    if (@spells) {
+                        select {
+                            attr {
+                                id   => $name,
+                                name => $name,
+                                @attrs == 1 ? onchange() : (),
+                            };
+
+                            for my $spell (@spells) {
+                                option {
+                                    attr { value => $spell->slot };
+                                    $spell->debug_line
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        span { "(No spells to cast)" }
+                    }
+
+                }
             }
 
             input {
