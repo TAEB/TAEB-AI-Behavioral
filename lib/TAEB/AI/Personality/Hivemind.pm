@@ -88,20 +88,28 @@ sub travel {
 
     return if !$path->complete;
 
+    my $action_number = 0;
     my @directions = split '', $path->path;
 
     $self->action_calculator(sub {
         my $self = shift;
 
+        ++$action_number;
+
         my $direction = shift @directions;
         my $action    = TAEB::Action::Move->new(direction => $direction);
 
-        do {
+        my $stop = @directions == 0                  # got to the target
+                || TAEB->current_level->has_enemies; # enemies in sight, stop!
+
+        # if we travel when there's a message on screen, don't stop
+        $stop = 1 if TAEB->messages =~ /\S/
+                  && $action_number == 1;
+
+        if ($stop) {
             $self->clear_action_calculator;
             return;
-        } if @directions == 0                 # got to the target
-          || TAEB->current_level->has_enemies # enemies in sight, stop!
-          || TAEB->messages =~ /\S/;          # got a message
+        }
 
         return $action;
     });
