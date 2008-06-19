@@ -23,11 +23,19 @@ sub level {
             id => "map",
         };
 
+        my $taeb_x = TAEB->x;
+        my $taeb_y = TAEB->y;
+
         for my $y (1 .. 21) {
             for my $x (0 .. 79) {
                 my $tile = $level->at($x, $y);
+                my $tag = $taeb_x == $x && $taeb_y == $y
+                        ? 'span'
+                        : 'a';
 
-                outs_raw qq{<a class="tile-display" id="tile-$x-$y" href="/?action=_Travel&x=$x&y=$y">};
+                outs_raw qq{<$tag class="tile-display" id="tile-$x-$y"};
+                outs_raw qq{ href="/?action=_Travel&x=$x&y=$y"} if $tag eq 'a';
+                outs_raw qq{>};
 
                 my $glyph = $tile->glyph;
 
@@ -38,7 +46,7 @@ sub level {
                     outs $tile->glyph;
                 }
 
-                outs_raw '</a>';
+                outs_raw "</$tag>";
             }
             br {};
         }
