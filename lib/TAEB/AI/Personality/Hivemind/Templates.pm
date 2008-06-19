@@ -27,7 +27,7 @@ sub level {
             for my $x (0 .. 79) {
                 my $tile = $level->at($x, $y);
 
-                outs_raw qq{<span class="tile-display" id="tile-$x-$y">};
+                outs_raw qq{<a class="tile-display" id="tile-$x-$y" href="/?action=_Travel&x=$x&y=$y">};
 
                 my $glyph = $tile->glyph;
 
@@ -38,7 +38,7 @@ sub level {
                     outs $tile->glyph;
                 }
 
-                outs_raw '</span>';
+                outs_raw '</a>';
             }
             br {};
         }
@@ -75,7 +75,7 @@ sub wrapper(&) {
                     }
                     outs_raw << "                    JS";
                         jQuery(function () {
-                            jQuery('span.tile-display').hover(function () {
+                            jQuery('.tile-display').hover(function () {
                                 var tileid = this.id;
                                 var id = tileid + '-info-wrap';
                                 var tile = document.getElementById(id);
