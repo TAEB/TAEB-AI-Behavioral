@@ -153,9 +153,6 @@ sub next_action {
                 cell {
                     movement;
                 }
-                cell {
-                    a { attr { href => "/?_return_to_command=1" } "(back)" }
-                }
             }
         }
 
@@ -263,6 +260,10 @@ sub action_arguments {
                     type => "submit",
                     value => $action_class->name . "!",
                 }
+            }
+
+            span {
+                a { attr { href => "/?_return_to_command=1" } "(back)" }
             }
         }
 
