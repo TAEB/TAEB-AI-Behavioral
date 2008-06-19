@@ -37,13 +37,14 @@ sub respond {
 sub fill_action {
     my $self        = shift;
     my $name        = shift;
-    my $pkg         = "TAEB::Action::$name";
-    my $action_meta = $pkg->meta;
-    my %args;
 
     if ($name eq '_Travel') {
         return $self->travel(@_);
     }
+
+    my $pkg         = "TAEB::Action::$name";
+    my $action_meta = $pkg->meta;
+    my %args;
 
     my @required;
     for my $attr ($action_meta->compute_all_applicable_attributes) {
@@ -82,7 +83,26 @@ sub travel {
     my $x = $main::request->param('x');
     my $y = $main::request->param('y');
 
+    my $target = TAEB->current_level->at($x, $y);
+    my $path   = TAEB::World::Path->calculate_path($target);
 
+    return if !$path->complete;
+
+    my @directions = split '', $path->path;
+
+    $self->action_calculator(sub {
+        my $self = shift;
+
+        my $direction = shift @directions;
+        my $action    = TAEB::Action::Move->new(direction => $direction);
+
+        $self->clear_action_calculator
+            if @directions == 0;
+
+        return $action;
+    });
+
+    $self->action_calculator->($self);
 }
 
 __PACKAGE__->meta->make_immutable;
