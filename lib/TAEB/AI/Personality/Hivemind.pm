@@ -99,12 +99,23 @@ sub travel {
         my $direction = shift @directions;
         my $action    = TAEB::Action::Move->new(direction => $direction);
 
-        my $stop = @directions == 0                  # got to the target
-                || TAEB->current_level->has_enemies; # enemies in sight, stop!
+        my $stop = 0;
+
+        if (@directions == 0) {
+            $stop = 1;
+            TAEB->debug("Stopping travel because we ran out of directions.");
+        }
+
+        if (TAEB->current_level->has_enemies) {
+            $stop = 1;
+            TAEB->debug("Stopping travel because we have enemies on this level.");
+        }
 
         # if we travel when there's a message on screen, don't stop
-        $stop = 1 if TAEB->messages =~ /\S/
-                  && $action_number > 1;
+        if (TAEB->messages =~ /\S/ && $action_number > 1) {
+            $stop = 1;
+            TAEB->debug("Stopping travel because we got a message (" . TAEB->messages . ")");
+        }
 
         if ($stop) {
             $self->clear_action_calculator;
