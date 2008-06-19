@@ -58,9 +58,9 @@ sub new {
 
 =head2 calculate_path [Tile,] Tile -> Path
 
-Calculates the best path from Tile 1 to Tile 2. Returns the path as vi keys and
-whether the path was complete. If the path is incomplete, it probably leads to
-some unexplored area between the two tiles.
+Calculates the best path from Tile 1 to Tile 2. Returns the path object. If the
+path is incomplete, it probably leads to some unexplored area between the two
+tiles.
 
 The path may not necessarily be the shortest one. It may relax the path a bit
 to avoid a dangerous trap, for example.
