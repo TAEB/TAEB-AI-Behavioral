@@ -302,9 +302,13 @@ sub tile {
         }
 
         pre {
-            outs sprintf 'Coordinates: (%d, %d)', $tile->x, $tile->y;
-            outs sprintf 'Glyph: %s', $tile->glyph;
-            outs sprintf 'Floor: %s', $tile->floor_glyph;
+            my @attr = sort
+                       map { $_->name }
+                       $tile->meta->compute_all_applicable_attributes;
+
+            for (@attr) {
+                outs sprintf "%s: %s\n", $_, $tile->$_;
+            }
         }
     }
 }
