@@ -191,7 +191,7 @@ sub action_arguments {
         form {
             for my $attr (@attrs) {
                 my $name = $attr->name;
-                my $type = $attr->type_constraint->name;
+                my $type = $attr->type_constraint;
 
                 label {
                     attr {
@@ -216,10 +216,10 @@ sub action_arguments {
                         }
                     }
                 }
-                elsif ($type =~ /TAEB::World::Item/) {
+                elsif ($type->name =~ /TAEB::World::Item/) {
                     $map{$name} = sub { TAEB->inventory->get(shift) };
 
-                    my @items = grep { $_->isa($type) }
+                    my @items = grep { $type->check($_) }
                                 map  { TAEB->inventory->get($_) }
                                 TAEB->inventory->slots;
 
@@ -243,7 +243,7 @@ sub action_arguments {
                         span { "(No items to " . $action_class->name . ")" }
                     }
                 }
-                elsif ($type =~ /Str|Int/) {
+                elsif ($type->name =~ /Str|Int/) {
                     input {
                         attr {
                             id    => $name,
