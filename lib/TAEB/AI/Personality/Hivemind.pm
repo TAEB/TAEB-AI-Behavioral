@@ -4,8 +4,19 @@ use TAEB::OO;
 use TAEB::AI::Personality::Hivemind::Templates;
 extends 'TAEB::AI::Personality';
 
+has action_calculator => (
+    is      => 'rw',
+    isa     => 'CodeRef',
+    clearer => 'clear_action_calculator',
+);
+
 sub next_action {
     my $self = shift;
+
+    my $calc = $self->action_calculator;
+    if ($calc) {
+        return $calc->($self);
+    }
 
     {
         $main::request->print(TAEB::AI::Personality::Hivemind::Templates->next_action);
