@@ -5,9 +5,16 @@ use TAEB::AI::Personality::Hivemind::Templates;
 extends 'TAEB::AI::Personality';
 
 sub next_action {
-    $main::request->print(TAEB::AI::Personality::Hivemind::Templates->next_action);
-    $main::request->next;
-    shift->fill_action($main::request->param('action'));
+    my $self = shift;
+
+    {
+        $main::request->print(TAEB::AI::Personality::Hivemind::Templates->next_action);
+        $main::request->next;
+        my $action = $self->fill_action($main::request->param('action'));
+        redo if !$action;
+
+        return $action;
+    }
 }
 
 sub respond {
@@ -42,6 +49,8 @@ sub fill_action {
     my ($map, $out) = TAEB::AI::Personality::Hivemind::Templates->action_arguments(@required);
     $main::request->print($out);
     $main::request->next;
+
+    return if $main::request->param('_return_to_command');
 
     for my $attr (@required) {
         my $name  = $attr->name;
