@@ -33,10 +33,13 @@ sub main {
     my $path = $new_request->uri->path;
     TAEB->info("New request at $path.");
 
-    if ($path =~ m{/^ajax-tile}) {
+    if ($path =~ m{^/ajax-tile}) {
         my $id = $new_request->param('id');
-        TAEB->info("arg: $id.");
-        $new_request->print($id);
+        my ($x, $y) = $id =~ /^tile-(\d+)-(\d+)$/;
+        my $tile = TAEB->current_level->at($x, $y);
+        my $info = TAEB::AI::Personality::Hivemind::Templates::tile($tile);
+        TAEB->info($info);
+        $new_request->print($info);
         return;
     }
 
