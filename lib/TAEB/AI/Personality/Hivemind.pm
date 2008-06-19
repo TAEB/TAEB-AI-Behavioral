@@ -30,6 +30,10 @@ sub fill_action {
     my $action_meta = $pkg->meta;
     my %args;
 
+    if ($name eq '_Travel') {
+        return $self->travel(@_);
+    }
+
     my @required;
     for my $attr ($action_meta->compute_all_applicable_attributes) {
 
@@ -60,6 +64,14 @@ sub fill_action {
     }
 
     $pkg->new(%args);
+}
+
+sub travel {
+    my $self = shift;
+    my $x = $main::request->param('x');
+    my $y = $main::request->param('y');
+
+
 }
 
 __PACKAGE__->meta->make_immutable;
