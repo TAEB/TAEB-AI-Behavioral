@@ -65,7 +65,7 @@ sub wrapper(&) {
                 script {
                     attr {
                         type => "text/javascript",
-                        src => "http://sartak.org/jquery-1.2.3.js",
+                        src  => "http://sartak.org/jquery-1.2.3.js",
                     }
                 }
                 script {
