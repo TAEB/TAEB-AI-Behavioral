@@ -72,13 +72,33 @@ sub wrapper(&) {
                     outs_raw << "                    JS";
                         jQuery(function () {
                             jQuery('span.tile-display').hover(function () {
-                                var selector = '#' + this.id + '-info';
-                                jQuery(selector).show();
+                                var tileid = this.id;
+                                var id = tileid + '-info-wrap';
+                                var tile = document.getElementById(id);
+
+                                if (!tile) {
+                                    var all = 'tile-info';
+                                    var info = document.getElementById(all);
+
+                                    tile = document.createElement('div');
+                                    tile.setAttribute('id', id);
+                                    tile.setAttribute('class', 'tile-info');
+
+                                    info.appendChild(tile);
+
+                                    jQuery.get('/ajax-tile', {
+                                        id: tileid
+                                    }, function (data, textStatus) {
+                                        tile.innerHTML = data;
+                                    });
+                                }
+
+                                jQuery(tile).show();
                             },
                             function () {
-                                var selector = '#' + this.id + '-info';
+                                var selector = '#' + tileid + '-info';
                                 jQuery(selector).hide();
-                            });
+                            })
                         });
                     JS
                 }
@@ -318,11 +338,6 @@ sub action_arguments {
 sub tile {
     my $tile = shift;
     div {
-        attr {
-            id => "tile-" . $tile->x . "-" . $tile->y . "-info",
-            class => "tile-info",
-        }
-
         pre {
             my @attr = sort
                        map { $_->name }
