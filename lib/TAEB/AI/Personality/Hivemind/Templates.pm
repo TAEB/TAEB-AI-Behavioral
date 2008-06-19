@@ -134,6 +134,7 @@ sub wrapper(&) {
                             margin: 0 0 0 0;
                             color: #FFFFFF;
                             background: #000000;
+                            text-decoration: none;
                         }
                         .tile-display:hover {
                             color: #FF0000;
