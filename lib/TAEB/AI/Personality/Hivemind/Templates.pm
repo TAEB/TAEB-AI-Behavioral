@@ -132,13 +132,11 @@ sub wrapper(&) {
                             font-family: monospace;
                             padding: 0 0 0 0;
                             margin: 0 0 0 0;
+                            color: #FFFFFF;
+                            background: #000000;
                         }
                         .tile-display:hover {
                             color: #FF0000;
-                        }
-                        #map {
-                            color: #FFFFFF;
-                            background: #000000;
                         }
                     "
                 }
