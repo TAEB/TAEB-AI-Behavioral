@@ -1,9 +1,11 @@
 #!/usr/bin/env perl
 package TAEB::OO;
 use Moose;
-use TAEB::Meta::Class;
 use Sub::Exporter;
 use Sub::Name;
+
+use TAEB::Meta::Class;
+use TAEB::Meta::Trait::Provided;
 
 {
     my $CALLER;
