@@ -145,7 +145,30 @@ sub wrapper(&) {
                         .tile-display:hover {
                             color: #FF0000;
                         }
-                    "
+                    ";
+
+                    my %color_codes = (
+                        black          => '#000000',
+                        red            => '#AA0000',
+                        green          => '#00AA00',
+                        brown          => '#AA5500',
+                        blue           => '#0000AA',
+                        magenta        => '#AA00AA',
+                        cyan           => '#00AAAA',
+                        gray           => '#AAAAAA',
+                        none           => '#555555',
+                        orange         => '#FF5555',
+                        bright_green   => '#55FF55',
+                        yellow         => '#FFFF55',
+                        bright_blue    => '#5555FF',
+                        bright_magenta => '#FF55FF',
+                        bright_cyan    => '#55FFFF',
+                        white          => '#FFFFFF',
+                    );
+
+                    for my $color (keys %color_codes) {
+                        outs ".$color { color: $color_codes{$color} }\n";
+                    }
                 }
             }
             body {
