@@ -15,7 +15,8 @@ sub next_action {
 
     my $calc = $self->action_calculator;
     if ($calc) {
-        return $calc->($self);
+        my $action = $calc->($self);
+        return $action if $action;
     }
 
     {
