@@ -37,6 +37,7 @@ sub level {
                 my $tag = $taeb_x == $x && $taeb_y == $y
                         ? 'span'
                         : 'a';
+                $tag = 'span' if TAEB->current_level->has_enemies;
 
                 my $color = $color_class{$tile->color};
                 outs_raw qq{<$tag class="tile-display $color" id="tile-$x-$y"};
