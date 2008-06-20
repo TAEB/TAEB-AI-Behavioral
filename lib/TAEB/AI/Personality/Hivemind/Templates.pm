@@ -254,14 +254,34 @@ sub next_action {
 }
 
 sub respond {
+    my $yn = shift;
+    my $quit = shift;
+
     wrapper {
         messages;
 
         form {
-            input {
-                attr {
-                    type => "text",
-                    name => "c",
+            if ($yn || $quit) {
+                my @options;
+                push @options, "y", "n" if $yn;
+                push @options, "q" if $quit;
+
+                for (@options) {
+                    input {
+                        attr {
+                            type  => "submit",
+                            name  => "c",
+                            value => $_,
+                        }
+                    }
+                }
+            }
+            else {
+                input {
+                    attr {
+                        type => "text",
+                        name => "c",
+                    }
                 }
             }
         }
