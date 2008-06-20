@@ -102,7 +102,6 @@ sub travel {
         ++$action_number;
 
         my $direction = shift @directions;
-        my $action    = TAEB::Action::Move->new(direction => $direction);
 
         my $stop = 0;
 
@@ -127,7 +126,7 @@ sub travel {
             return;
         }
 
-        return $action;
+        return TAEB::Action::Move->new(direction => $direction);
     });
 
     $self->action_calculator->($self);
