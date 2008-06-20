@@ -15,6 +15,11 @@ sub messages {
     }
 }
 
+require TAEB::Util;
+my %color_class = map { s/^color_//; $_ }
+                  map { lc }
+                  reverse %TAEB::Util::colors;
+
 sub level {
     my $level = TAEB->current_level;
 
@@ -33,7 +38,8 @@ sub level {
                         ? 'span'
                         : 'a';
 
-                outs_raw qq{<$tag class="tile-display" id="tile-$x-$y"};
+                my $color = $color_class{$tile->color};
+                outs_raw qq{<$tag class="tile-display $color" id="tile-$x-$y"};
                 outs_raw qq{ href="/?action=_Travel&x=$x&y=$y"} if $tag eq 'a';
                 outs_raw qq{>};
 
