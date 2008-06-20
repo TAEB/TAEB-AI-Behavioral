@@ -15,14 +15,6 @@ has currently => (
 
 TAEB::AI::Personality - how TAEB tactically extracts its amulets
 
-=head1 VERSION
-
-Version 0.01 released ???
-
-=cut
-
-our $VERSION = '0.01';
-
 =head2 next_action -> Action
 
 This is the method called by the main TAEB code to get individual commands. It

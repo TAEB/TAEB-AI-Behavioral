@@ -27,13 +27,7 @@ use TAEB::Publisher;
 
 TAEB - Tactical Amulet Extraction Bot
 
-=head1 VERSION
-
-Version 0.01 released ???
-
 =cut
-
-our $VERSION = '0.01';
 
 # report errors to the screen? should only be done while playing NetHack, not
 # during REPL or testing

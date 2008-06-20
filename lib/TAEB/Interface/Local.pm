@@ -8,10 +8,6 @@ use Time::HiRes 'sleep';
 
 TAEB::Interface::Telnet - how TAEB talks to a local nethack
 
-=head1 VERSION
-
-Version 0.01 released ???
-
 =cut
 
 extends 'TAEB::Interface';

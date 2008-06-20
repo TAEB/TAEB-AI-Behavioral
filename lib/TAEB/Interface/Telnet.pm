@@ -8,13 +8,7 @@ use Errno;
 
 TAEB::Interface::Telnet - how TAEB talks to nethack.alt.org
 
-=head1 VERSION
-
-Version 0.01 released ???
-
 =cut
-
-our $VERSION = '0.01';
 
 extends 'TAEB::Interface';
 

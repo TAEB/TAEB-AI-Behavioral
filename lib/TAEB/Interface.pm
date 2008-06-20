@@ -6,14 +6,6 @@ use TAEB::OO;
 
 TAEB::Interface - how TAEB talks to NetHack
 
-=head1 VERSION
-
-Version 0.01 released ???
-
-=cut
-
-our $VERSION = '0.01';
-
 =head2 read -> STRING
 
 This will read from the interface. It's quite OK to block and throw errors
