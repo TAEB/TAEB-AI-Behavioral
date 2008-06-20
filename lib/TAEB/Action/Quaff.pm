@@ -6,9 +6,9 @@ extends 'TAEB::Action';
 use constant command => "q";
 
 has from => (
+    traits   => [qw/Provided/],
     isa      => 'TAEB::World::Item::Potion | Str',
     required => 1,
-    provided => 1,
 );
 
 sub respond_drink_from {

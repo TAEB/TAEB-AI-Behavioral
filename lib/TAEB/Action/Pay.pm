@@ -6,9 +6,9 @@ extends 'TAEB::Action';
 use constant command => "p";
 
 has item => (
+    traits   => [qw/Provided/],
     isa      => 'TAEB::World::Item | Str',
     required => 1,
-    provided => 1,
 );
 
 sub respond_buy_item {

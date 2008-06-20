@@ -7,9 +7,9 @@ with 'TAEB::Action::Role::Direction';
 use constant command => 'a';
 
 has implement => (
+    traits   => [qw/Provided/],
     isa      => 'TAEB::World::Item',
     required => 1,
-    provided => 1,
 );
 
 has '+direction' => (

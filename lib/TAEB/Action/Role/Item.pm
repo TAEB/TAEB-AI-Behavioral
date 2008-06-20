@@ -3,9 +3,9 @@ package TAEB::Action::Role::Item;
 use Moose::Role;
 
 has item => (
+    traits   => [qw/Provided/],
     is       => 'rw',
     isa      => 'TAEB::World::Item | Str',
-    provided => 1,
 );
 
 sub exception_missing_item {

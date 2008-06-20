@@ -7,16 +7,16 @@ extends 'TAEB::Action';
 use constant command => "#name\n";
 
 has item => (
+    traits   => [qw/Provided/],
     isa      => 'TAEB::World::Item',
     required => 1,
-    provided => 1,
 );
 
 has name => (
+    traits   => [qw/Provided/],
     isa      => 'Str',
     required => 1,
     lazy     => 1,
-    provided => 1,
     default  => sub {
         my $self = shift;
         my $k = String::Koremutake->new;
@@ -25,10 +25,10 @@ has name => (
 );
 
 has specific => (
+    traits   => [qw/Provided/],
     isa      => 'Bool',
     required => 1,
     default  => 0,
-    provided => 1,
 );
 
 sub respond_name_specific {

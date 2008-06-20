@@ -7,6 +7,7 @@ use constant command => '<';
 use constant complement_type => 'stairsdown' => '>';
 
 has '+direction' => (
+    traits   => [qw/Provided/],
     provided => 0,
     default  => sub { shift->command },
 );

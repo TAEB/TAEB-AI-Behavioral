@@ -7,9 +7,9 @@ with 'TAEB::Action::Role::Direction';
 use constant command => 'Z';
 
 has spell => (
+    traits   => [qw/Provided/],
     isa      => 'TAEB::Knowledge::Spell',
     required => 1,
-    provided => 1,
 );
 
 sub single_cast { shift->spell->slot }

@@ -12,9 +12,9 @@ has '+item' => (
 );
 
 has into => (
+    traits  => [qw/Provided/],
     isa     => 'TAEB::World::Item | Str',
     default => 'fountain',
-    provided => 1,
 );
 
 sub respond_dip_what { shift->item->slot }

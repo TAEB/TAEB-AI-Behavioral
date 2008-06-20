@@ -4,9 +4,9 @@ use TAEB::OO;
 extends 'TAEB::Action';
 
 has string => (
+    traits   => [qw/Provided/],
     isa      => 'Str',
     required => 1,
-    provided => 1,
 );
 
 sub command { shift->string }

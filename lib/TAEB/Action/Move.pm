@@ -9,8 +9,8 @@ has path => (
 );
 
 has direction => (
+    traits   => [qw/Provided/],
     isa      => 'Str',
-    provided => 1,
 );
 
 has starting_tile => (

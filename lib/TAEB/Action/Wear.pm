@@ -7,9 +7,9 @@ with 'TAEB::Action::Role::Item';
 use constant command => "W";
 
 has item => (
+    traits   => [qw/Provided/],
     isa      => 'TAEB::World::Item',
     required => 1,
-    provided => 1,
 );
 
 sub respond_wear_what { shift->item->slot }

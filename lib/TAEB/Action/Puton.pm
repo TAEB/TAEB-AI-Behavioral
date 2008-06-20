@@ -7,9 +7,9 @@ with 'TAEB::Action::Role::Item';
 use constant command => "P";
 
 has item => (
+    traits   => [qw/Provided/],
     isa      => 'TAEB::World::Item',
     required => 1,
-    provided => 1,
 );
 
 sub respond_put_on_what { shift->item->slot }

@@ -11,15 +11,15 @@ has '+item' => (
 );
 
 has text => (
+    traits  => [qw/Provided/],
     isa     => 'Str',
     default => 'Elbereth',
-    provided => 1,
 );
 
 has add_engraving => (
+    traits  => [qw/Provided/],
     isa     => 'Bool',
     default => 1,
-    provided => 1,
 );
 
 has got_identifying_message => (

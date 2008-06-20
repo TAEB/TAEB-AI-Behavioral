@@ -53,7 +53,7 @@ sub fill_action {
     for my $attr ($action_meta->compute_all_applicable_attributes) {
 
         # attribute isn't part of initialization
-        next if !$attr->provided;
+        next if $attr->does('Provided') && !$attr->provided;
 
         # specified the argument early
         my $name = $attr->name;
