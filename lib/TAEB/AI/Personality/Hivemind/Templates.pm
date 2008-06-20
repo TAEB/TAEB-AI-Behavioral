@@ -261,6 +261,10 @@ sub respond {
         messages;
 
         form {
+            my $messages = TAEB->all_messages("\n");
+            my $yn   = $messages =~ /\[\w*yn.*\].*\Z/;
+            my $quit = $messages =~ /\[\w*q.*\].*\Z/;
+
             if ($yn || $quit) {
                 my @options;
                 push @options, "y", "n" if $yn;

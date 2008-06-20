@@ -31,12 +31,8 @@ sub next_action {
 
 sub respond {
     my $messages = TAEB->all_messages("\n");
-    my ($yn, $quit) = (0, 0);
 
-    $yn = 1 if $messages =~ /\[\w*yn.*\].*\z/;
-    $quit = 1 if $messages =~ /\[\w*q.*\].*\z/;
-
-    $main::request->print(TAEB::AI::Personality::Hivemind::Templates->respond($yn, $quit));
+    $main::request->print(TAEB::AI::Personality::Hivemind::Templates->respond);
     $main::request->next;
     $main::request->param('c');
 }
