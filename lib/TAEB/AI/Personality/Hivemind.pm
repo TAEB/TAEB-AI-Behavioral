@@ -106,7 +106,7 @@ sub travel {
 
         my $stop = 0;
 
-        if (@directions == 0) {
+        if (!$direction) {
             $stop = 1;
             TAEB->debug("Stopping travel because we ran out of directions.");
         }
