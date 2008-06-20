@@ -88,13 +88,20 @@ sub wrapper(&) {
                         type => "text/javascript",
                     }
                     outs_raw << "                    JS";
+                        var stop_ajax = 0;
+
                         jQuery(function () {
+                            jQuery('a').click(function () {
+                                stop_ajax = 1;
+                            });
+
                             jQuery('.tile-display').hover(function () {
                                 var tileid = this.id;
                                 var id = tileid + '-info-wrap';
                                 var tile = document.getElementById(id);
 
                                 if (tile == null) {
+                                    if (stop_ajax) return;
                                     var all = 'tile-info';
                                     var info = document.getElementById(all);
 
