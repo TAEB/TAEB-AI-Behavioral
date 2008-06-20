@@ -92,6 +92,10 @@ sub travel {
     my $action_number = 0;
     my @directions = split '', $path->path;
 
+    TAEB->debug("Got a travel click. Travelling from "
+            . "(" . TAEB->x . ", " . TAEB->y . ") "
+            . "to ($x, $y) via @directions");
+
     $self->action_calculator(sub {
         my $self = shift;
 
