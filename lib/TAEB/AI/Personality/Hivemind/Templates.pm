@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Template::Declare::Tags;
 use Template::Declare::Anon;
+use TAEB::Util 'colors';
 
 sub onchange {
     onchange => "this.form.submit(); return 0;",
@@ -18,7 +19,7 @@ sub messages {
 require TAEB::Util;
 my %color_class = map { s/^color_//; $_ }
                   map { lc }
-                  reverse %TAEB::Util::colors;
+                  reverse colors;
 
 sub level {
     my $level = TAEB->current_level;
