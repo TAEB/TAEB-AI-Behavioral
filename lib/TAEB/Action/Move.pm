@@ -49,6 +49,20 @@ around new => sub {
     elsif ($start eq '>') {
         $action = 'Descend';
     }
+    else {
+        # XXX: this code is temporary. if the AI says to move, we move. since
+        # our framework can't always cope with that, we have these workarounds
+        my $monster = TAEB->current_level->at_direction($start)->monster;
+        if (defined $monster && $monster->can_move) {
+            if ($monster->respects_elbereth && TAEB->elbereth_count == 0) {
+                $action = 'Engrave';
+            }
+            else {
+                $action = 'Search';
+                $args{iterations} = 1;
+            }
+        }
+    }
 
     if ($action) {
         return "TAEB::Action::$action"->new(%args);
