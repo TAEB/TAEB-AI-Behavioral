@@ -195,20 +195,17 @@ sub row_color {
     } $attrs =~ m{..}g;
 }
 
-around x => sub
-{
+around x => sub {
     my $orig = shift;
     $orig->(@_) - 1;
 };
 
-around y => sub
-{
+around y => sub {
     my $orig = shift;
     $orig->(@_) - 1;
 };
 
-around status => sub
-{
+around status => sub {
     my $orig = shift;
     my ($x, $y, @others) = $orig->(@_);
     --$x;
@@ -216,8 +213,7 @@ around status => sub
     return ($x, $y, @others);
 };
 
-around row_attr => sub
-{
+around row_attr => sub {
     my $orig  = shift;
     my $self  = shift;
     my $row   = @_ ? 1 + shift : undef;
@@ -227,8 +223,7 @@ around row_attr => sub
     $orig->($self, $row, $start, $end, @_);
 };
 
-around row_text => sub
-{
+around row_text => sub {
     my $orig  = shift;
     my $self  = shift;
     my $row   = @_ ? 1 + shift : undef;
@@ -238,8 +233,7 @@ around row_text => sub
     $orig->($self, $row, $start, $end, @_);
 };
 
-around row_plaintext => sub
-{
+around row_plaintext => sub {
     my $orig  = shift;
     my $self  = shift;
     my $row   = @_ ? 1 + shift : undef;
