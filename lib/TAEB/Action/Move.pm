@@ -4,13 +4,14 @@ use TAEB::OO;
 extends 'TAEB::Action';
 use TAEB::Util 'vi2delta';
 
+with 'TAEB::Action::Role::Direction';
+
 has path => (
     isa => 'TAEB::World::Path',
 );
 
-has direction => (
-    traits   => [qw/Provided/],
-    isa      => 'Str',
+has '+direction' => (
+    required => 0,
 );
 
 has starting_tile => (
