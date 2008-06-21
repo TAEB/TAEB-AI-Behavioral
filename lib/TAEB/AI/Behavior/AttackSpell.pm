@@ -20,7 +20,7 @@ sub prepare {
     for ($self->use_spells) {
         $spell = TAEB->find_castable($_);
         next unless $spell;
-        $urgency = $self->try_to_cast($spell, undef);
+        $urgency = $self->try_to_cast(spell => $spell);
         TAEB->debug("Considering spell $spell, urgency $urgency");
         return $urgency if $urgency > 0;
     }
@@ -32,7 +32,7 @@ sub prepare {
                              charges  => sub { shift > 0 });
             });
             next unless $wand;
-            $urgency = $self->try_to_cast(undef, $wand);
+            $urgency = $self->try_to_cast(wand => $wand);
             return $urgency if $urgency > 0;
         }
     }
@@ -41,8 +41,9 @@ sub prepare {
 
 sub try_to_cast {
     my $self = shift;
-    my $spell = shift;
-    my $wand = shift;
+    my %args = @_;
+    my $spell = $args{spell};
+    my $wand = $args{wand};
 
     my $direction = TAEB->current_level->radiate(
         sub { 
