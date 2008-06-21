@@ -97,6 +97,10 @@ sub wrapper(&) {
                                 stop_ajax = 1;
                             });
 
+                            jQuery('form').submit(function () {
+                                stop_ajax = 1;
+                            });
+
                             jQuery('.tile-display').hover(function () {
                                 var tileid = this.id;
                                 var id = tileid + '-info-wrap';
