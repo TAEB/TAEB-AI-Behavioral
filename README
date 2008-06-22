@@ -48,9 +48,10 @@ have a few dependencies. All in all you're probably looking at about 50 modules.
 -- CONFIGURING
 
 Now it's time to set up TAEB for running on nethack.alt.org. First, create a
-new account. Use etc/TAEB.nethackrc for its nethack config.
+new account. Paste the contents of etc/TAEB.nethackrc into the account's
+rcfile.
 
-Then, in vim (and only vim, I'll know if you used emacs), edit the
+Then, in vim (and only vim; I'll know if you used emacs), edit the
 (nonexistent) etc/site_config.yml config file. Here's where you set your
 account's name and password. The format is:
 
@@ -58,15 +59,15 @@ account's name and password. The format is:
 interface: Telnet
 interface_options:
     Telnet:
-        account: (name)
-        password: (password)
+        account: MyTAEB
+        password: secretsauce
 
 Be sure to include the three dashes.
 
 Then you should be ready to run him! Type perl bin/taeb and cross your fingers.
 
 If you want to run TAEB on your machine, you need to have nethack installed.
-No patches are required.
+No patches to nethack are required.
 
 If you're interested in developing TAEB, see the NEWTASKS file.
 
