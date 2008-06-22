@@ -8,10 +8,16 @@ The idea of TAEB is to abstract away the machinations of playing NetHack so
 that the AI can do things declaratively. For a good example, look at:
     lib/TAEB/AI/Behavior/DipForExcalibur.pm
 
-AI is currently broken into two parts, Behaviors and Personalities. Behaviors
-are small objects that are slightly higher level individual actions, such as
-"FixHunger". Personalities make use of Behaviors and ultimately decide which
-one is run next.
+AI is currently broken into two parts, Behaviors and Personalities. Behaviors,
+such as "FixHunger", are slightly higher level than individual actions, such as
+"eat this particular item". Personalities make use of Behaviors and ultimately
+decide which one is run next. The "ScoreWhore" personality lingers on each
+level to maximize its score. The "Descender" personality takes the opposite
+approach, and descends any stairs it sees.
+
+The framework is ultimately in control of everything. Each turn it just asks
+the AI for an action to run. Any prompts or menus are handled through the use
+of callbacks. This divide made it easy to add a web interface in a day's work.
 
 -- INSTALLING
 
