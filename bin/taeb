@@ -96,9 +96,7 @@ $SIG{CONT} = sub {
     $SIG{TSTP} = $tstp;
 
     # force a redraw of the screen
-    clear();
-    TAEB->redraw;
-    refresh();
+    TAEB->redraw(1);
 };
 
 $TAEB::ToScreen = 1;
