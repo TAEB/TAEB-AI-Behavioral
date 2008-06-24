@@ -6,6 +6,7 @@ use Sub::Name;
 
 use TAEB::Meta::Class;
 use TAEB::Meta::Trait::Provided;
+use TAEB::Meta::Trait::Persistent;
 
 {
     my $CALLER;
