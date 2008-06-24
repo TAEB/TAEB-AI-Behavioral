@@ -382,7 +382,7 @@ sub human_input {
     my $self = shift;
 
     my $c = $self->single_step ? $self->get_key : $self->try_key
-        unless Scalar::Util::blessed($self->personality) =~ /\bHuman\b/;
+        unless $self->personality->meta->name =~ /\bHuman\b/;
 
     if (defined $c) {
         my $out = $self->keypress($c);
@@ -887,9 +887,7 @@ sub display_topline {
 }
 
 __PACKAGE__->meta()->make_immutable();
-# XXX: docs say this is required, but MX::ClassAttribute has no function
-# 'containing_class'...
-#MooseX::ClassAttribute::containing_class()->meta()->make_immutable();
+MooseX::ClassAttribute::container_class()->meta()->make_immutable();
 no Moose;
 no MooseX::ClassAttribute;
 
