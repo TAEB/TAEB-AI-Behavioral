@@ -463,9 +463,7 @@ sub keypress {
     # refresh NetHack's screen
     if ($c eq "\cr") {
         # back to normal
-        Curses::clear;
-        Curses::refresh;
-        TAEB->redraw;
+        TAEB->redraw(1);
         return undef;
     }
 
@@ -597,7 +595,6 @@ sub _notify {
 
     return if $sleep == 0;
 
-    Curses::refresh;
     sleep $sleep;
     $self->redraw;
 }
@@ -689,9 +686,7 @@ sub console {
         Devel::REPL::Script->new->run;
     };
 
-    Curses::clear();
-    $self->redraw;
-    Curses::refresh();
+    $self->redraw(1);
 }
 
 sub dump {
@@ -741,6 +736,13 @@ sub try_key {
 
 sub redraw {
     my $self   = shift;
+    my $clear  = shift;
+
+    if ($clear) {
+        Curses::clear;
+        Curses::refresh;
+    }
+
     my $level  = TAEB->current_level;
     my $draw   = 'draw_'.(TAEB->config->draw || 'normal');
     my $method = 'display_'.(TAEB->config->display_method || 'glyph');
@@ -754,7 +756,6 @@ sub redraw {
 
     $self->draw_botl;
     $self->place_cursor;
-    Curses::refresh;
 }
 
 sub draw_botl {
@@ -820,6 +821,7 @@ sub place_cursor {
     my $y    = shift || TAEB->y;
 
     Curses::move($y, $x);
+    Curses::refresh;
 }
 
 sub display_topline {
@@ -876,7 +878,6 @@ sub display_topline {
 
         if (@msgs > 1) {
             $self->place_cursor;
-            Curses::refresh;
             #sleep 1;
             #sleep 2 if @msgs > 5;
             TAEB->redraw if @messages;
