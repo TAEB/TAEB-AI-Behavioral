@@ -18,25 +18,25 @@ has name => (
 );
 
 has pty => (
-    isa => 'IO::Pty::Easy',
+    isa     => 'IO::Pty::Easy',
+    lazy    => 1,
+    default => sub {
+        chomp(my $pwd = `pwd`);
+
+        local $ENV{NETHACKOPTIONS} = '@'
+                                   . join('/', $pwd, 'etc', 'TAEB.nethackrc');
+        local $ENV{TERM} = 'xterm-color';
+
+        # We set these here, because nethack will behave differently on bigger
+        # term size and confuse TAEB.
+        local $ENV{LINES} = 24;
+        local $ENV{COLUMNS} = 80;
+
+        my $pty = IO::Pty::Easy->new;
+        $pty->spawn($self->name);
+        return $pty;
+    },
 );
-
-sub BUILD {
-    my $self = shift;
-
-    chomp(my $pwd = `pwd`);
-    local $ENV{NETHACKOPTIONS} = '@' . join '/', $pwd, 'etc', 'TAEB.nethackrc';
-    local $ENV{TERM} = 'xterm-color';
-    # We set these here, because nethack will behave differently on bigger term
-    # size and confuse TAEB.
-    local $ENV{LINES} = 24;
-    local $ENV{COLUMNS} = 80;
-
-    # this has to be done in BUILD because it needs name
-    my $pty = IO::Pty::Easy->new;
-    $pty->spawn($self->name);
-    $self->pty($pty);
-}
 
 =head2 read -> STRING
 
