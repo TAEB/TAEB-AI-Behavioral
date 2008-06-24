@@ -1,14 +1,14 @@
 #!/usr/bin/env perl
 package TAEB::Action;
 use TAEB::OO;
+use Module::Pluggable
+    search_path => 'TAEB::Action',
+    require     => 1,
+    sub_name    => 'actions';
 
-our @actions = qw(
-    Apply Ascend Cast Custom Descend Dip Drop Eat Engrave Kick Melee Move Open
-    Pay Pickup Puton Pray Quaff Read Search Throw Unlock Wear Wield Zap
-);
-
-for (@actions) {
-    require "TAEB/Action/$_.pm";
+# force loading of all the actions for compile errors etc
+BEGIN {
+    my @discard = __PACKAGE__->actions;
 }
 
 has aborted => (
