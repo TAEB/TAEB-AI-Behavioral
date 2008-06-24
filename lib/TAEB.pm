@@ -37,6 +37,11 @@ class_has interface => (
     is       => 'rw',
     isa      => 'TAEB::Interface',
     handles  => [qw/read write/],
+    lazy     => 1,
+    default  => sub {
+        use TAEB::Interface::Local;
+        TAEB::Interface::Local->new;
+    },
 );
 
 class_has personality => (
