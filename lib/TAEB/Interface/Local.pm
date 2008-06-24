@@ -18,12 +18,8 @@ has name => (
 );
 
 has pty => (
-    isa     => 'IO::Pty::Easy',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-
-        chomp(my $pwd = `pwd`);
+    isa => 'IO::Pty::Easy',
+);
 
         local $ENV{NETHACKOPTIONS} = '@'
                                    . join('/', $pwd, 'etc', 'TAEB.nethackrc');
@@ -55,7 +51,7 @@ sub read {
     # in Telnet we have a complicated ping/pong that scales with network latency
     sleep(0.2);
 
-    die "Pty inactive." unless $self->pty->is_active;
+    die "Pty inactive." unless $self->is_active;
     my $out = $self->pty->read(1);
     return '' if !defined($out);
     die "Pty closed." if $out eq '';
@@ -82,7 +78,7 @@ sub write {
 
     TAEB->error("Called TAEB->write with no text.") if length($text) == 0;
 
-    die "Pty inactive." unless $self->pty->is_active;
+    die "Pty inactive." unless $self->is_active;
     my $chars = $self->pty->write($text, 1);
     return if !defined($chars);
 
