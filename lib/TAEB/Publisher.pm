@@ -211,14 +211,14 @@ sub menu_select {
         my $item = $_;
 
         if ($num++ == 0) {
-            for my $responder (grep { defined } TAEB->personality, TAEB->action) {
+            for my $responder ($self->responders) {
                 if (my $method = $responder->can("begin_select_$name")) {
                     $method->($responder);
                 }
             }
         }
 
-        for my $responder (grep { defined } TAEB->personality, TAEB->action) {
+        for my $responder ($self->responders) {
             if (my $method = $responder->can("select_$name")) {
                 return $method->($responder, $slot, $item);
             }
@@ -232,7 +232,7 @@ sub single_select {
     my $self = shift;
     my $name = shift;
 
-    for my $responder (grep { defined } TAEB->personality, TAEB->action) {
+    for my $responder ($self->responders) {
         if (my $method = $responder->can("single_$name")) {
             return $method->($responder, $name);
         }
@@ -240,6 +240,8 @@ sub single_select {
 
     return;
 }
+
+sub responders { grep { defined } TAEB->personality, TAEB->action }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
