@@ -308,7 +308,11 @@ sub msg_enter_room {
     # Because we get the message in the doorway, we can't floodfill from that
     # tile, so therefore we will use the target tile which (presumably?) is
     # inside the room.
-    return unless TAEB->action->path && TAEB->action->path->to;
+    return unless TAEB->has_action
+               && TAEB->action->can('path')
+               && TAEB->action->path
+               && TAEB->action->path->to;
+
     $self->floodfill_room($type,TAEB->action->path->to);
 }
 
