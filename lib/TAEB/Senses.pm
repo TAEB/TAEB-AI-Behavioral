@@ -225,6 +225,17 @@ sub find_statuses {
     $self->is_hallucinating($botl =~ /\bHal/ ? 1 : 0);
 }
 
+sub statuses {
+    my $self = shift;
+    my @statuses;
+    for my $effect (grep { /^is_/ } $self->meta->get_attribute_list) {
+        next unless $self->$effect;
+        my ($status) = $effect =~ /^is_(\w+)$/;
+        push @statuses, $status;
+    }
+    return @statuses;
+}
+
 sub update {
     my $self = shift;
     my $main = shift;

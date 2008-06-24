@@ -802,12 +802,7 @@ sub draw_botl {
         if $self->has_score;
     push @pieces, 'P:' . $self->pathfinds;
 
-    my $status;
-    for my $effect (grep { /^is_/ } $self->senses->meta->get_attribute_list) {
-        if ($self->senses->$effect && $effect =~ /^is_(\w\w)/) {
-            $status .= ucfirst $1;
-        }
-    }
+    my $status = join '', map { ucfirst substr $_, 0, 2 } $self->statuses;
     push @pieces, '[' . $status . ']'
         if $status;
 
