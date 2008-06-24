@@ -21,6 +21,8 @@ has pty => (
     isa     => 'IO::Pty::Easy',
     lazy    => 1,
     default => sub {
+        my $self = shift;
+
         chomp(my $pwd = `pwd`);
 
         local $ENV{NETHACKOPTIONS} = '@'
