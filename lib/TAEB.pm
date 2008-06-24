@@ -122,13 +122,6 @@ class_has log => (
     },
 );
 
-my %dungeon_handles;
-for my $tiletype (qw/orthogonal diagonal adjacent adjacent_inclusive/) {
-    for my $controllertype (qw/each any all grep/) {
-        $dungeon_handles{"${controllertype}_${tiletype}"} =
-            "${controllertype}_${tiletype}";
-    }
-}
 
 class_has dungeon => (
     is      => 'ro',
@@ -139,15 +132,25 @@ class_has dungeon => (
         return TAEB::World::Dungeon->new if $self->new_game || !TAEB->has_dump;
         return delete $self->persistent_dump->{dungeon};
     },
-    handles => {
-        current_level => 'current_level',
-        current_tile  => 'current_tile',
-        nearest_level => 'nearest_level',
-        map_like      => 'map_like',
-        x             => 'x',
-        y             => 'y',
-        z             => 'z',
-        %dungeon_handles,
+    handles => sub {
+        my ($attr, $dungeon) = @_;
+
+        my %delegate = map { $_ => $_ }
+                       qw{current_level current_tile nearest_level
+                          map_like x y z};
+
+        for (map { $_->{name} } $dungeon->compute_all_applicable_methods) {
+            $delegate{$_} = $_
+                if m{
+                    ^
+                    (?: each | any | all | grep ) _
+                    (?: orthogonal | diagonal | adjacent )
+                    (?: _inclusive )?
+                    $
+                }x;
+        }
+
+        return %delegate;
     },
 );
 
