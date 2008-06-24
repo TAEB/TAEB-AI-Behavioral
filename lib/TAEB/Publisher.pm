@@ -69,7 +69,7 @@ Don't use this.
 sub get_generic_response {
     my $self = shift;
     my %args = (
-        responders => [ TAEB->personality, TAEB->action ],
+        responders => [ $self->responders ],
         @_,
     );
 
@@ -79,8 +79,6 @@ sub get_generic_response {
         my ($re, $name) = @{ $args{sets} }[$i, $i + 1];
 
         for my $responder (@{ $args{responders} }) {
-            next unless $responder;
-
             if (my $code = $responder->can("$args{method}_$name")) {
                 if ($matched ||= @captures = $args{msg} =~ $re) {
 
