@@ -270,7 +270,7 @@ sub iterate {
 sub handle_playing {
     my $self = shift;
 
-    if ($self->action && !$self->action->aborted) {
+    if ($self->has_action && !$self->action->aborted) {
         $self->action->done;
         $self->publisher->send_messages;
     }
@@ -342,7 +342,7 @@ sub full_input {
 
     unless ($self->state eq 'logging_in') {
         $self->action->post_responses
-            if $main_call && $self->action && !$self->action->aborted;
+            if $main_call && $self->has_action && !$self->action->aborted;
 
         $self->dungeon->update($main_call);
         $self->senses->update($main_call);
@@ -763,7 +763,7 @@ sub draw_botl {
 
     Curses::move(22, 0);
 
-    my $command = $self->action ? $self->action->command : '?';
+    my $command = $self->has_action ? $self->action->command : '?';
     $command =~ s/\n/\\n/g;
     $command =~ s/\e/\\e/g;
     $command =~ s/\cd/^D/g;
