@@ -98,8 +98,8 @@ has [qw/dex con int wis cha/] => (
 );
 
 has score => (
-    isa     => 'Int',
-    default => 0,
+    isa       => 'Int',
+    predicate => 'has_score',
 );
 
 has gold => (

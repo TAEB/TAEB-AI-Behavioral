@@ -799,7 +799,7 @@ sub draw_botl {
     push @pieces, 'N:' . $self->nutrition;
     push @pieces, 'T:' . $self->turn;
     push @pieces, 'S:' . $self->score
-        if $self->score;
+        if $self->has_score;
     push @pieces, 'P:' . $self->pathfinds;
 
     my $status;
