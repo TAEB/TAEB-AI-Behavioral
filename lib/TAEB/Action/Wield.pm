@@ -6,7 +6,7 @@ extends 'TAEB::Action';
 use constant command => "w";
 
 has weapon => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     isa      => 'TAEB::World::Item | Str',
     required => 1,
 );

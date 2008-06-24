@@ -11,13 +11,13 @@ has '+item' => (
 );
 
 has text => (
-    traits  => [qw/Provided/],
+    traits  => [qw/TAEB::Provided/],
     isa     => 'Str',
     default => 'Elbereth',
 );
 
 has add_engraving => (
-    traits  => [qw/Provided/],
+    traits  => [qw/TAEB::Provided/],
     isa     => 'Bool',
     default => 1,
 );

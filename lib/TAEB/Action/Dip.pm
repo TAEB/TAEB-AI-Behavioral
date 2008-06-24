@@ -12,7 +12,7 @@ has '+item' => (
 );
 
 has into => (
-    traits  => [qw/Provided/],
+    traits  => [qw/TAEB::Provided/],
     isa     => 'TAEB::World::Item | Str',
     default => 'fountain',
 );

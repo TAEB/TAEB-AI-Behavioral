@@ -7,7 +7,7 @@ with 'TAEB::Action::Role::Direction';
 use constant command => 'Z';
 
 has spell => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     isa      => 'TAEB::Knowledge::Spell',
     required => 1,
 );

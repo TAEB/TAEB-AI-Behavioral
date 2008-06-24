@@ -7,7 +7,7 @@ with 'TAEB::Action::Role::Item';
 use constant command => "P";
 
 has item => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     isa      => 'TAEB::World::Item',
     required => 1,
 );

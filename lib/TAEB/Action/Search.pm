@@ -9,7 +9,7 @@ has started => (
 );
 
 has iterations => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     isa      => 'Int',
     default  => 20,
 );

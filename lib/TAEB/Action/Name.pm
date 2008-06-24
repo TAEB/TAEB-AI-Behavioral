@@ -7,13 +7,13 @@ extends 'TAEB::Action';
 use constant command => "#name\n";
 
 has item => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     isa      => 'TAEB::World::Item',
     required => 1,
 );
 
 has name => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     isa      => 'Str',
     required => 1,
     lazy     => 1,
@@ -25,7 +25,7 @@ has name => (
 );
 
 has specific => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     isa      => 'Bool',
     required => 1,
     default  => 0,

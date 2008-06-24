@@ -3,7 +3,7 @@ package TAEB::Action::Role::Item;
 use Moose::Role;
 
 has item => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     is       => 'rw',
     isa      => 'TAEB::World::Item | Str',
 );

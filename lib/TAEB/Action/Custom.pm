@@ -4,7 +4,7 @@ use TAEB::OO;
 extends 'TAEB::Action';
 
 has string => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     isa      => 'Str',
     required => 1,
 );

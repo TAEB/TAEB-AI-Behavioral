@@ -10,7 +10,7 @@ has provided => (
 
 no Moose::Role;
 
-package Moose::Meta::Attribute::Custom::Trait::Provided;
+package Moose::Meta::Attribute::Custom::Trait::TAEB::Provided;
 sub register_implementation { 'TAEB::Meta::Trait::Provided' }
 
 1;

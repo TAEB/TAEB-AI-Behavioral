@@ -4,7 +4,7 @@ use Moose::Role;
 use List::MoreUtils 'none';
 
 has direction => (
-    traits   => [qw/Provided/],
+    traits   => [qw/TAEB::Provided/],
     is       => 'rw',
     isa      => 'Str',
 );
