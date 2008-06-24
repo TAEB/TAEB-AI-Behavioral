@@ -532,7 +532,10 @@ sub draw_debug {
     my $self           = shift;
     my $display_method = shift;
 
-    my $path  = TAEB->action && TAEB->action->can('path') && TAEB->action->path;
+    my $path = TAEB->has_action
+            && TAEB->action->can('path')
+            && TAEB->action->path;
+
     my $color;
 
     if ($path) {

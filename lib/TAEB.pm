@@ -218,7 +218,7 @@ class_has publisher => (
 
 class_has action => (
     is  => 'rw',
-    isa => 'TAEB::Action',
+    isa => 'Maybe[TAEB::Action]',
 );
 
 class_has knowledge => (
