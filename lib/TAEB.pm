@@ -124,14 +124,10 @@ class_has log => (
 
 
 class_has dungeon => (
+    traits  => [qw/TAEB::Persistent/],
     is      => 'ro',
     isa     => 'TAEB::World::Dungeon',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        return TAEB::World::Dungeon->new if $self->new_game || !TAEB->has_dump;
-        return delete $self->persistent_dump->{dungeon};
-    },
+    default => sub { TAEB::World::Dungeon->new },
     handles => sub {
         my ($attr, $dungeon) = @_;
 
@@ -167,40 +163,28 @@ class_has info_to_screen => (
 );
 
 class_has senses => (
+    traits  => [qw/TAEB::Persistent/],
     is      => 'rw',
     isa     => 'TAEB::Senses',
-    default => sub {
-        my $self = shift;
-        return TAEB::Senses->new if $self->new_game || !TAEB->has_dump;
-        return delete $self->persistent_dump->{senses};
-    },
-    lazy    => 1,
+    default => sub { TAEB::Senses->new },
     handles => qr/^(?!_check_|msg_|update)/,
 );
 
 class_has inventory => (
+    traits  => [qw/TAEB::Persistent/],
     is      => 'rw',
     isa     => 'TAEB::World::Inventory',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        return TAEB::World::Inventory->new if $self->new_game || !TAEB->has_dump;
-        return delete $self->persistent_dump->{inventory};
-    },
+    default => sub { TAEB::World::Inventory->new },
     handles => {
         find_item => 'find',
     },
 );
 
 class_has spells => (
+    traits  => [qw/TAEB::Persistent/],
     is      => 'rw',
     isa     => 'TAEB::World::Spells',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        return TAEB::World::Spells->new if $self->new_game || !TAEB->has_dump;
-        return delete $self->persistent_dump->{spells};
-    },
+    default => sub { TAEB::World::Spells->new },
     handles => {
         find_spell    => 'find',
         find_castable => 'find_castable',
@@ -223,14 +207,10 @@ class_has action => (
 );
 
 class_has knowledge => (
+    traits  => [qw/TAEB::Persistent/],
     is      => 'rw',
     isa     => 'TAEB::Knowledge',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        return TAEB::Knowledge->new if $self->new_game || !TAEB->has_dump;
-        return delete $self->persistent_dump->{knowledge};
-    },
+    default => sub { TAEB::Knowledge->new },
 );
 
 class_has new_game => (
