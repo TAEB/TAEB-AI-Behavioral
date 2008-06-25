@@ -23,7 +23,16 @@ sub prepare {
     return 0 unless defined $projectile;
 
     my ($direction, $distance, $tile) = TAEB->current_level->radiate(
-        sub { shift->has_enemy },
+        sub {
+            my $tile = shift;
+
+            # if the enemy is seen through warning, then we *probably* can't
+            # reach him with a projectile
+            # warning is not a stopper because it's simpler here AND because if
+            # there's a monster in the light beyond the warning monster
+            # then we can hit the intervening warning monster
+            $tile->has_enemy && !$tile->monster->is_seen_through_warning
+        },
         max     => $projectile->throw_range,
         stopper => sub { shift->has_friendly },
     );
