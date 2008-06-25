@@ -18,8 +18,8 @@ sub rebless {
     return if $old_pkg eq $new_pkg;
 
     # are we a superclass of the new package? if not, we need to revert
-    # to a regular Tile so we can be reblessed into a subclass of Tile
-    # in other words, Moose doesn't let you rebless into a sibling class
+    # to the base class so we can be reblessed into a subclass of the base
+    # class. in other words, Moose doesn't let you rebless into a sibling class
     unless ($new_pkg->isa($old_pkg)) {
         $self->downgrade("Reblessing a $old_pkg into $base (temporarily) because Moose doesn't let us rebless into sibling classes.");
     }
