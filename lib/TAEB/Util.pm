@@ -3,7 +3,6 @@ package TAEB::Util;
 use strict;
 use warnings;
 
-use List::Util 'first';
 use List::MoreUtils 'uniq';
 
 our %colors;
@@ -32,7 +31,7 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types glyph_to_type delta2vi vi2delta deltas glyph_is_monster glyph_is_item dice colors), keys %colors],
+    exports => [qw(tile_types delta2vi vi2delta deltas glyph_is_monster glyph_is_item dice colors), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -100,42 +99,6 @@ Returns the list of all the tile types TAEB uses.
 
 sub tile_types {
     return @types;
-}
-
-=head2 glyph_to_type str[, str] -> str
-
-This will look up the given glyph (and if given color) and return a tile type
-for it. Note that monsters and items (and any other miss) will return
-"obscured".
-
-=cut
-
-# XXX: should we memoize this?
-sub glyph_to_type {
-    my $glyph = shift;
-
-    return ($rogue_glyphs{$glyph} || 'obscured')
-        if TAEB->current_level->is_rogue;
-    return $glyphs{$glyph} || 'obscured' unless @_;
-
-    # use color in an effort to differentiate tiles
-    my $color = shift;
-
-    return 'obscured' unless $glyphs{$glyph} && $feature_colors{$color};
-
-    my @a = map { ref $_ ? @$_ : $_ } $glyphs{$glyph};
-    my @b = map { ref $_ ? @$_ : $_ } $feature_colors{$color};
-
-    # calculate intersection of the two lists
-    # because of the config chosen, given a valid glyph+color combo
-    # we are guaranteed to only have one result
-    # an invalid combination should not return any
-    my %intersect;
-    $intersect{$_} |= 1 for @a;
-    $intersect{$_} |= 2 for @b;
-
-   my $type = first { $intersect{$_} == 3 } keys %intersect;
-   return $type || 'obscured';
 }
 
 =head2 glyph_is_monster str -> bool

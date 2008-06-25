@@ -3,6 +3,7 @@ package TAEB::World::Level;
 use TAEB::OO;
 use TAEB::Util qw/deltas delta2vi vi2delta tile_types/;
 use List::MoreUtils 'any';
+use List::Util 'first';
 
 use overload
     %TAEB::Meta::Overload::default,
@@ -609,6 +610,43 @@ sub msg_dungeon_level {
 sub msg_turn {
     my $self = shift;
     $self->turns_spent_on($self->turns_spent_on + 1);
+}
+
+=head2 glyph_to_type str[, str] -> str
+
+This will look up the given glyph (and if given color) and return a tile type
+for it. Note that monsters and items (and any other miss) will return
+"obscured".
+
+=cut
+
+sub glyph_to_type {
+    my $self  = shift;
+    my $glyph = shift;
+
+    return ($TAEB::Util::rogue_glyphs{$glyph} || 'obscured')
+        if $self->is_rogue;
+    return $TAEB::Util::glyphs{$glyph} || 'obscured' unless @_;
+
+    # use color in an effort to differentiate tiles
+    my $color = shift;
+
+    return 'obscured' unless $TAEB::Util::glyphs{$glyph}
+                          && $TAEB::Util::feature_colors{$color};
+
+    my @a = map { ref $_ ? @$_ : $_ } $TAEB::Util::glyphs{$glyph};
+    my @b = map { ref $_ ? @$_ : $_ } $TAEB::Util::feature_colors{$color};
+
+    # calculate intersection of the two lists
+    # because of the config chosen, given a valid glyph+color combo
+    # we are guaranteed to only have one result
+    # an invalid combination should not return any
+    my %intersect;
+    $intersect{$_} |= 1 for @a;
+    $intersect{$_} |= 2 for @b;
+
+   my $type = first { $intersect{$_} == 3 } keys %intersect;
+   return $type || 'obscured';
 }
 
 __PACKAGE__->meta->make_immutable;

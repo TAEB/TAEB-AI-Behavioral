@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile;
 use TAEB::OO;
-use TAEB::Util qw/glyph_to_type delta2vi glyph_is_monster :colors/;
+use TAEB::Util qw/delta2vi glyph_is_monster :colors/;
 use List::MoreUtils qw/any all apply/;
 
 use overload %TAEB::Meta::Overload::default;
@@ -10,7 +10,7 @@ has level => (
     isa      => 'TAEB::World::Level',
     weak_ref => 1,
     required => 1,
-    handles  => [qw/z branch/],
+    handles  => [qw/z branch glyph_to_type/],
 );
 
 #has room => (
@@ -184,7 +184,7 @@ sub update {
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
 
-    my $newtype = glyph_to_type($newglyph, $color);
+    my $newtype = $self->glyph_to_type($newglyph, $color);
 
     # if we unveil a square and it was previously rock, then it's obscured
     # perhaps we entered a room and a tile changed from ' ' to '!'
