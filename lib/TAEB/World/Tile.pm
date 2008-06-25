@@ -4,6 +4,8 @@ use TAEB::OO;
 use TAEB::Util qw/delta2vi glyph_is_monster :colors/;
 use List::MoreUtils qw/any all apply/;
 
+with 'TAEB::Meta::Role::Reblessing';
+
 use overload %TAEB::Meta::Overload::default;
 
 has level => (
@@ -209,55 +211,6 @@ sub update {
     $self->change_type($newtype => $newglyph);
 }
 
-# automatically upgrade the tile if upgrading would make it more specific
-# (e.g. TAEB::World::Tile -> TAEB::World::Tile::Stairs)
-# we also downgrade (and possibly upgrade) tiles if they change type
-# since this is run whenever we change type, this should keep the tile's
-# class completely up to date
-sub rebless {
-    my $self    = shift;
-    my $newtype = shift;
-
-    my $old_pkg = blessed $self;
-    my $new_pkg = "TAEB::World::Tile::\L\u$newtype";
-
-    $self->unblessed($old_pkg => $new_pkg);
-
-    # if the new_pkg doesn't exist, then just go with the regular Tile
-    return $self->downgrade unless $new_pkg->can('meta');
-
-    # no work to be done, yay
-    return if blessed($self) eq $new_pkg;
-
-    # are we a superclass of the new package? if not, we need to revert
-    # to a regular Tile so we can be reblessed into a subclass of Tile
-    # in other words, Moose doesn't let you rebless into a sibling class
-    unless (eval { local $SIG{__DIE__}; $new_pkg->isa(blessed($self)) }) {
-        $self->downgrade("Reblessing a " . blessed($self) . " into TAEB::World::Tile (temporarily) because Moose doesn't let us rebless into sibling classes.");
-    }
-
-    TAEB->debug("Reblessing a " . blessed($self) . " into $new_pkg.");
-
-    # and do the rebless, which does all the typechecking and whatnot
-    $new_pkg->meta->rebless_instance($self);
-    $self->reblessed($old_pkg => $new_pkg);
-}
-
-sub unblessed { }
-sub reblessed { }
-
-sub downgrade {
-    my $self = shift;
-
-    return $self if blessed($self) eq 'TAEB::World::Tile';
-
-    my $msg  = shift
-            || "Reblessing " . blessed($self) . " into TAEB::World::Tile.";
-
-    TAEB->debug($msg);
-    bless $self => 'TAEB::World::Tile';
-}
-
 my %is_walkable = map { $_ => 1 } qw/obscured stairsdown stairsup trap altar opendoor floor ice grave throne sink fountain corridor/;
 sub is_walkable {
     my $self = shift;
@@ -390,6 +343,8 @@ sub floodfill {
     }
 }
 
+sub base_class { __PACKAGE__ }
+
 sub change_type {
     my $self     = shift;
     my $newtype  = shift;
@@ -406,7 +361,7 @@ sub change_type {
 
     $self->level->register_tile($self);
 
-    $self->rebless($newtype);
+    $self->rebless("TAEB::World::Tile::\L\u$newtype");
 }
 
 sub debug_line {
