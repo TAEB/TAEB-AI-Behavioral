@@ -40,7 +40,13 @@ sub prepare {
 
     return 0 if $walkable > 1;
 
-    $self->do('search');
+    if (TAEB->blind) {
+        $self->do('search', iterations => 1);
+    }
+    else {
+        $self->do('search');
+    }
+
     return 100;
 }
 
