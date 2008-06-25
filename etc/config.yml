@@ -1,4 +1,8 @@
 ---
+
+# PUT YOUR CONFIG IN etc/site_config.yml
+# This file is versioned, site_config isn't.
+
 interface: Local
 personality: ScoreWhore
 
