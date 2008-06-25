@@ -89,8 +89,9 @@ has interesting_at => (
 );
 
 has monster => (
-    isa     => 'TAEB::World::Monster',
-    clearer => '_clear_monster',
+    isa       => 'TAEB::World::Monster',
+    clearer   => '_clear_monster',
+    predicate => 'has_monster',
 );
 
 has items => (
@@ -160,7 +161,7 @@ sub basic_cost {
     my $self = shift;
     my $cost = 100;
 
-    $cost *= 20 if defined $self->monster;
+    $cost *= 20 if $self->has_monster;
     $cost *= 10 if $self->type eq 'trap';
     $cost *= 4  if $self->type eq 'ice';
 
@@ -199,7 +200,7 @@ sub update {
         return if $newglyph eq 'X';
 
         $self->interesting_at(TAEB->step)
-            unless $self->monster;
+            unless $self->has_monster;
 
         $self->type('obscured')
             if $oldtype eq 'rock'
@@ -392,7 +393,7 @@ sub debug_line {
     if ($self->has_enemy) {
         push @bits, 'enemy';
     }
-    elsif ($self->monster) {
+    elsif ($self->has_monster) {
         push @bits, 'monster';
     }
 
@@ -404,7 +405,7 @@ sub try_monster {
     my $glyph = shift;
     my $color = shift;
 
-    $self->_clear_monster if $self->monster;
+    $self->_clear_monster if $self->has_monster;
     my ($Tx, $Ty) = (TAEB->x, TAEB->y);
 
     return if $Tx == $self->x && $Ty == $self->y;
@@ -508,7 +509,7 @@ sub draw_debug {
 
     $color ||= $self->in_shop || $self->in_temple
              ? Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD
-             : $self->monster && $self->monster->is_enemy
+             : $self->has_enemy
              ? Curses::COLOR_PAIR(COLOR_RED) | Curses::A_BOLD
              : $self->might_have_new_item
              ? Curses::COLOR_PAIR(COLOR_RED)
