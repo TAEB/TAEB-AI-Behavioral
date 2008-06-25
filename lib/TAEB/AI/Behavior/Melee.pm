@@ -19,7 +19,12 @@ sub prepare {
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
         if ($tile->has_enemy && $tile->monster->is_meleeable) {
-            $self->do(melee => direction => $dir);
+            my $action = 'melee';
+            if ($tile->monster->is_ghost && TAEB->level < 10) {
+                $action = 'kick';
+            }
+
+            $self->do($action => direction => $dir);
             $self->currently("Attacking a " . $tile->glyph);
             $found_monster = 1;
         }
