@@ -11,7 +11,7 @@ requires 'IO::Socket::Telnet' => 0.02;
 # the object system
 requires 'Moose';
 requires 'MooseX::Singleton' => 0.03;
-requires 'MooseX::AttributeHelpers';
+requires 'MooseX::AttributeHelpers' => 0.09;
 requires 'MooseX::ClassAttribute';
 requires 'Module::Pluggable';
 
