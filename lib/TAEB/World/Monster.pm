@@ -145,6 +145,13 @@ sub is_watchman {
     return $self->color eq COLOR_GRAY || $self->color eq COLOR_GREEN;
 }
 
+sub is_ghost {
+    my $self = shift;
+
+    return $self->glyph eq ' ' if $self->level->is_rogue;
+    return $self->glyph eq 'X';
+}
+
 sub can_move {
     my $self = shift;
     # spotted jelly, blue jelly
