@@ -17,23 +17,21 @@ has is_shop => (
     default => 0,
 );
 
-around draw_debug => sub {
-    my $orig           = shift;
-    my $self           = shift;
-    my $display_method = shift;
+sub debug_color {
+    my $self = shift;
 
     if ($self->is_shop) {
-        return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_RED) | ord $self->$display_method);
+        return Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_RED);
     }
     elsif ($self->locked) {
-        return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BROWN) | ord $self->$display_method);
+        return Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BROWN);
     }
     elsif ($self->unlocked) {
-        return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_GREEN) | ord $self->$display_method);
+        return Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_GREEN);
     }
 
-    $self->$orig($display_method, @_);
-};
+    return;
+}
 
 sub locked {
     my $self = shift;

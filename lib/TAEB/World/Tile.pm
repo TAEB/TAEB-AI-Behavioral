@@ -507,7 +507,8 @@ sub draw_debug {
             if $path->to eq $self;
     }
 
-    $color ||= $self->in_shop || $self->in_temple
+    $color ||= $self->debug_color ||
+               ($self->in_shop || $self->in_temple
              ? Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD
              : $self->has_enemy
              ? Curses::COLOR_PAIR(COLOR_RED) | Curses::A_BOLD
@@ -519,7 +520,7 @@ sub draw_debug {
              ? Curses::COLOR_PAIR(COLOR_BROWN)
              : $self->explored
              ? Curses::COLOR_PAIR(COLOR_GREEN)
-             : 0;
+             : 0);
 
     $color |= Curses::A_REVERSE
         if $self->type eq 'rock' &&
@@ -527,6 +528,8 @@ sub draw_debug {
 
     Curses::addch($color | ord $self->$display_method);
 }
+
+sub debug_color { undef }
 
 sub draw_pathfind {
     my $self           = shift;
