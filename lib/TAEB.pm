@@ -214,9 +214,8 @@ class_has knowledge => (
 );
 
 class_has new_game => (
-    is      => 'rw',
-    isa     => 'Maybe[Bool]',
-    default => undef,
+    is  => 'rw',
+    isa => 'Bool',
 );
 
 class_has persistent_dump => (
