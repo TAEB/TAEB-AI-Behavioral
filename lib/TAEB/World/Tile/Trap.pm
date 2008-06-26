@@ -8,13 +8,7 @@ has trap_type => (
     isa => 'Str', # this should become an enum
 );
 
-around draw_debug => sub {
-    my $orig           = shift;
-    my $self           = shift;
-    my $display_method = shift;
-
-    return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BLUE) | ord $self->$display_method);
-};
+sub debug_color { Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BLUE) }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

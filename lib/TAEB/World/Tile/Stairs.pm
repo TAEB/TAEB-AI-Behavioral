@@ -9,22 +9,18 @@ has other_side => (
     weak_ref => 1,
 );
 
-around draw_debug => sub {
-    my $orig           = shift;
-    my $self           = shift;
-    my $display_method = shift;
+sub debug_color {
+    my $self = shift;
 
     my $different_branch = $self->other_side
                         && $self->other_side->branch
                         && $self->branch
                         && $self->branch ne $self->other_side->branch;
 
-    if ($different_branch) {
-        return Curses::addch(Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BROWN) | ord $self->$display_method);
-    }
-
-    $self->$orig($display_method, @_);
-};
+    return $different_branch
+         ? Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BROWN)
+         : undef;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
