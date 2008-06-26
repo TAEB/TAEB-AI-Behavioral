@@ -45,7 +45,7 @@ has special_level => (
     trigger  => sub {
         my $self = shift;
         my $level = ucfirst(shift);
-        my $new_pkg = "TAEB::World::Level::$new_pkg";
+        my $new_pkg = "TAEB::World::Level::$level";
 
         if ($new_pkg->can('meta')) {
             $self->rebless($new_pkg);
