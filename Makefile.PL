@@ -5,8 +5,8 @@ use inc::Module::Install;
 name           'TAEB';
 all_from       'lib/TAEB.pm';
 
-# for the telnet interface
-requires 'IO::Socket::Telnet' => 0.02;
+# for the local interface
+requires 'IO::Pty::Easy';
 
 # the object system
 requires 'Moose';
@@ -52,9 +52,9 @@ features(
         -default => 1,
         recommends('Carp::REPL'),
     ],
-    'TAEB for local NetHack' => [
+    'TAEB for server NetHack' => [
         -default => 0,
-        recommends('IO::Pty::Easy'),
+        recommends('IO::Socket::Telnet'),
     ],
     'Various NetHack source bits' => [
         -default => 0,
