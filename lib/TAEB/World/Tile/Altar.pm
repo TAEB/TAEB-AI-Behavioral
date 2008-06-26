@@ -11,11 +11,11 @@ has alignment => (
 sub debug_color {
     my $self = shift;
 
-    return unless $self->has_alignment;
+    return Curses::COLOR_PAIR(Curses::COLOR_RED)   if $self->alignment eq 'Cha';
+    return Curses::COLOR_PAIR(Curses::COLOR_GREEN) if $self->alignment eq 'Neu';
+    return Curses::COLOR_PAIR(Curses::COLOR_CYAN)  if $self->alignment eq 'Law';
 
-    return Curses::COLOR_PAIR(COLOR_RED)   if $self->alignment eq 'Cha';
-    return Curses::COLOR_PAIR(COLOR_GREEN) if $self->alignment eq 'Neu';
-    return Curses::COLOR_PAIR(COLOR_CYAN)  if $self->alignment eq 'Law';
+    return Curses::COLOR_PAIR(Curses::COLOR_MAGENTA);
 }
 
 __PACKAGE__->meta->make_immutable;
