@@ -121,6 +121,9 @@ has is_rogue => (
         $self->special_level("rogue") if $rogue;
         TAEB->info(sprintf('This level is most definitely%s the Rogue level.',
                            $rogue ? '' : ' not'));
+        if ($rogue) {
+            $self->rebless('TAEB::World::Level::Rogue');
+        }
     },
 );
 
@@ -628,8 +631,6 @@ sub glyph_to_type {
     my $self  = shift;
     my $glyph = shift;
 
-    return ($TAEB::Util::rogue_glyphs{$glyph} || 'obscured')
-        if $self->is_rogue;
     return $TAEB::Util::glyphs{$glyph} || 'obscured' unless @_;
 
     # use color in an effort to differentiate tiles

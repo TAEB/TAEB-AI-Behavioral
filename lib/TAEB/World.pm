@@ -21,6 +21,7 @@ use TAEB::World::Item::Tool;
 use TAEB::World::Item::Wand;
 use TAEB::World::Item::Weapon;
 use TAEB::World::Level;
+use TAEB::World::Level::Rogue;
 use TAEB::World::Monster;
 use TAEB::World::Path;
 use TAEB::World::Room;
