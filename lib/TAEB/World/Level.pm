@@ -42,6 +42,15 @@ has special_level => (
     isa      => 'Str',
     is       => 'rw',
     default  => "",
+    trigger  => sub {
+        my $self = shift;
+        my $level = ucfirst(shift);
+        my $new_pkg = "TAEB::World::Level::$new_pkg";
+
+        if ($new_pkg->can('meta')) {
+            $self->rebless($new_pkg);
+        }
+    },
 );
 
 has branch => (
@@ -121,9 +130,6 @@ has is_rogue => (
         $self->special_level("rogue") if $rogue;
         TAEB->info(sprintf('This level is most definitely%s the Rogue level.',
                            $rogue ? '' : ' not'));
-        if ($rogue) {
-            $self->rebless('TAEB::World::Level::Rogue');
-        }
     },
 );
 
