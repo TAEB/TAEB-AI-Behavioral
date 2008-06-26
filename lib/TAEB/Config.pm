@@ -96,15 +96,15 @@ sub get_gender {
     return '*';
 }
 
-=head2 get_alignment
+=head2 get_align
 
 Retrieves the alignment from the config, or picks randomly.
 
 =cut
 
-sub get_alignment {
+sub get_align {
     my $self = shift;
-    my $role = $self->contents->{alignment}
+    my $role = $self->contents->{align} || $self->contents->{alignment}
         or return '*';
     return $1
         if lc($role) =~ /^([lnc])/;

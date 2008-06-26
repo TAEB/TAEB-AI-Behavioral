@@ -157,7 +157,7 @@ sub parse_botl {
         $self->int($5);
         $self->wis($6);
         $self->cha($7);
-        # $8 alignment
+        # $8 align
 
         # we can't assume that TAEB will always have showscore. for example,
         # slackwell.com (where he's playing as of this writing) doesn't have

@@ -298,7 +298,7 @@ sub handle_logging_in {
         $self->write($self->config->get_gender);
     }
     elsif ($self->topline =~ qr/Choosing Alignment/) {
-        $self->write($self->config->get_alignment);
+        $self->write($self->config->get_align);
     }
     elsif ($self->topline =~ qr/Restoring save file\.\./) {
         $self->info("We are now in NetHack, restoring a save file.");
