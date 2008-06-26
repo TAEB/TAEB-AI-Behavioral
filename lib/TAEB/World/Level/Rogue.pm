@@ -3,6 +3,9 @@ package TAEB::World::Level::Rogue;
 use Moose;
 extends 'TAEB::World::Level';
 
+__PACKAGE__->meta->add_method("is_$_" => sub { 0 })
+    for (grep { $_ ne 'rogue' } @TAEB::World::Level::special_levels);
+
 sub is_rogue { 1 }
 
 =head2 glyph_to_type str[, str] -> str
