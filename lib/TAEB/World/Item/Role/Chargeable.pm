@@ -9,21 +9,29 @@ has recharges => (
 );
 
 has charges => (
-    is      => 'rw',
-    isa     => 'Maybe[Int]',
-    default => undef,
+    is        => 'rw',
+    isa       => 'Int',
+    predicate => 'known_charges',
+    clearer   => 'set_charges_unknown',
 );
 
 sub spend_charge {
     my $self = shift;
     my $count = shift || 1;
 
-    return if !defined($self->charges);
+    return unless $self->known_charges;
     $self->charges($self->charges - $count);
     if ($self->charges < 0) {
         $self->charges(0);
         TAEB->debug("$self had less than 0 charges!");
     }
+}
+
+sub recharge {
+    my $self = shift;
+
+    $self->set_charges_unknown;
+    $self->recharges($self->recharges + 1);
 }
 
 sub chance_to_recharge {
