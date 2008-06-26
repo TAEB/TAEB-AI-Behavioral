@@ -5,6 +5,8 @@ use TAEB::Util qw/deltas delta2vi vi2delta tile_types/;
 use List::MoreUtils 'any';
 use List::Util 'first';
 
+with 'TAEB::Meta::Role::Reblessing';
+
 use overload
     %TAEB::Meta::Overload::default,
     q{""} => sub {
@@ -131,6 +133,8 @@ has is_bigroom => (
                            $bigroom ? '' : ' not'));
     },
 );
+
+sub base_class { __PACKAGE__ }
 
 sub at {
     my $self = shift;
