@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Level::Rogue;
-use Moose;
+use TAEB::OO;
 extends 'TAEB::World::Level';
 
 __PACKAGE__->meta->add_method("is_$_" => sub { 0 })
