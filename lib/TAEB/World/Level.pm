@@ -54,8 +54,9 @@ has special_level => (
 );
 
 has branch => (
-    isa     => 'TAEB::Type::Branch',
-    trigger => sub {
+    isa       => 'TAEB::Type::Branch',
+    predicate => 'known_branch',
+    trigger   => sub {
         my ($self, $name) = @_;
         TAEB->info("$self is in branch $name!");
     },
