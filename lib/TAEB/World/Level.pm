@@ -96,52 +96,29 @@ has tiles_by_type => (
     },
 );
 
-#
 # So, for these is_<speciallevel>,
 #    true  => definitely that level
 #    false => definitely not that level
 #    undef => maybe that level?
 #
 
-has is_minetown => (
-    isa     => 'Maybe[Bool]',
-    trigger => sub {
-        my ($self,$minetown) = @_;
-        $self->special_level("minetown") if $minetown;
-        TAEB->info(sprintf('This level is most definitely%s Minetown.',
-                           $minetown ? '' : ' not'));
-    },
-);
+our @special_levels = qw/minetown rogue oracle bigroom/;
 
-has is_oracle => (
-    isa     => 'Maybe[Bool]',
-    trigger => sub {
-        my ($self,$oracle) = @_;
-        $self->special_level("oracle") if $oracle;
-        TAEB->info(sprintf('This level is most definitely%s the Oracle level.',
-                           $oracle ? '' : ' not'));
-    },
-);
-
-has is_rogue => (
-    isa     => 'Maybe[Bool]',
-    trigger => sub {
-        my ($self,$rogue) = @_;
-        $self->special_level("rogue") if $rogue;
-        TAEB->info(sprintf('This level is most definitely%s the Rogue level.',
-                           $rogue ? '' : ' not'));
-    },
-);
-
-has is_bigroom => (
-    isa     => 'Maybe[Bool]',
-    trigger => sub {
-        my ($self,$bigroom) = @_;
-        $self->special_level("bigroom") if $bigroom;
-        TAEB->info(sprintf('This level is most definitely%s the Bigroom.',
-                           $bigroom ? '' : ' not'));
-    },
-);
+for my $level (@special_levels) {
+    has "is_$level" => (
+        isa     => 'Maybe[Bool]',
+        trigger => sub {
+            my ($self, $is_level) = @_;
+            $self->special_level($level) if $is_level;
+            TAEB->info(
+                sprintf('This level is most definitely%s %s.',
+                        $is_level ? '' : ' not',
+                        ucfirst($level)
+                ),
+            );
+        },
+    );
+}
 
 sub base_class { __PACKAGE__ }
 
