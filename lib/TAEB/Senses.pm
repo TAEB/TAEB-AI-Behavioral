@@ -502,7 +502,7 @@ sub msg_check {
         $self->_check_autopickup;
     }
     elsif (my $method = $self->can("_check_$thing")) {
-        $self->$method;
+        $self->$method(@_);
     }
     else {
         $self->warning("I don't know how to check $thing.");
