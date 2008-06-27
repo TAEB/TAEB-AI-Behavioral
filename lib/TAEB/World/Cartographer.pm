@@ -290,7 +290,7 @@ sub floodfill_room {
             my $t   = shift;
             my $var = "in_$type";
             return if $t->$var;
-            TAEB->debug("(" . $t->x . ", " . $t->y . ") is in a $type!");
+            TAEB->debug("$t is in a $type!");
             $t->$var(1);
         },
     );
