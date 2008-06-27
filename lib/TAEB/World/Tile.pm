@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile;
 use TAEB::OO;
-use TAEB::Util qw/delta2vi glyph_is_monster :colors/;
+use TAEB::Util qw/delta2vi :colors/;
 use List::MoreUtils qw/any all apply/;
 
 with 'TAEB::Meta::Role::Reblessing';
@@ -432,7 +432,7 @@ sub try_monster {
         ));
     }
     else {
-        return unless glyph_is_monster($glyph);
+        return unless $self->level->glyph_is_monster($glyph);
 
         $self->monster(TAEB::World::Monster->new(
             glyph => $glyph,

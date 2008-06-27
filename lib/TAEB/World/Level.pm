@@ -638,6 +638,29 @@ sub glyph_to_type {
    return $type || 'obscured';
 }
 
+=head2 glyph_is_monster str -> bool
+
+Returns whether the given glyph is that of a monster.
+
+=cut
+
+sub glyph_is_monster {
+    my $self = shift;
+    return shift =~ /[a-zA-Z&';:1-5@]/;
+}
+
+=head2 glyph_is_item str -> bool
+
+Returns whether the given glyph is that of an item.
+
+=cut
+
+sub glyph_is_item {
+    my $self = shift;
+    return shift =~ /[`?!%*()+=\["\$\/]/;
+}
+
+
 sub msg_farlooked {
     my $self = shift;
     my $x    = shift;

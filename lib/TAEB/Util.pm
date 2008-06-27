@@ -31,7 +31,7 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types delta2vi vi2delta deltas glyph_is_monster glyph_is_item dice colors), keys %colors],
+    exports => [qw(tile_types delta2vi vi2delta deltas dice colors), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -101,27 +101,6 @@ sub tile_types {
     return @types;
 }
 
-=head2 glyph_is_monster str -> bool
-
-Returns whether the given glyph is that of a monster.
-
-=cut
-
-sub glyph_is_monster {
-    return shift =~ /[a-zA-Z&';1-5@]/ if TAEB->current_level->is_rogue;
-    return shift =~ /[a-zA-Z&';:1-5@]/;
-}
-
-=head2 glyph_is_item str -> bool
-
-Returns whether the given glyph is that of an item.
-
-=cut
-
-sub glyph_is_item {
-    return shift =~ /[`?!:*()+=\],\/]/ if TAEB->current_level->is_rogue;
-    return shift =~ /[`?!%*()+=\["\$\/]/;
-}
 
 our @directions = (
     [qw/y k u/],
