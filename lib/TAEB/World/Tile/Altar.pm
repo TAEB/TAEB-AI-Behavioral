@@ -21,7 +21,7 @@ sub debug_color {
 sub reblessed {
     my $self = shift;
 
-    TAEB->enqueue_message(check_tile => $self->x, $self->y);
+    TAEB->enqueue_message(check => tile => $self->x, $self->y);
 }
 
 sub farlooked {
