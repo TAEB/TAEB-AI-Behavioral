@@ -541,6 +541,15 @@ for my $check (keys %check_command) {
     });
 }
 
+sub check_tile {
+    my $self = shift;
+    my $x = shift;
+    my $y = shift;
+
+    my $msg = TAEB->farlook($x, $y);
+    TAEB->enqueue_message('farlooked' => $x, $y, $msg);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
