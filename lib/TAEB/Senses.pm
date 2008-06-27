@@ -505,7 +505,7 @@ sub msg_check {
         $self->$method(@_);
     }
     else {
-        $self->warning("I don't know how to check $thing.");
+        TAEB->warning("I don't know how to check $thing.");
     }
     $self->clear_checking;
 }
