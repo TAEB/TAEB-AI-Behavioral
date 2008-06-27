@@ -63,7 +63,7 @@ sub is_enemy {
     return 0 if $self->is_oracle;
     return 0 if $self->is_coaligned_unicorn;
     return 0 if $self->is_vault_guard;
-    return 0 if $self->is_watchman;
+    return 0 if $self->is_peaceful_watchman;
     return 0 if $self->is_quest_friendly;
     return undef unless (defined $self->is_shk || defined $self->is_priest);
     return 0 if $self->is_shk;
@@ -138,10 +138,12 @@ sub is_coaligned_unicorn {
     return TAEB->align eq 'Cha';
 }
 
-sub is_watchman {
+sub is_peaceful_watchman {
     my $self = shift;
     return 0 unless $self->level->is_minetown;
+    return 0 if $self->level->angry_watch;
     return 0 unless $self->glyph eq '@';
+
     return $self->color eq COLOR_GRAY || $self->color eq COLOR_GREEN;
 }
 

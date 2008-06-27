@@ -8,7 +8,7 @@ sub unlock_action {
     my $self = shift;
 
     if (TAEB->current_level->is_minetown) {
-        return if any { $_->is_watchman } TAEB->current_level->monsters;
+        return if any { $_->is_peaceful_watchman } TAEB->current_level->monsters;
     }
 
     # can we unlock? if so, try it
