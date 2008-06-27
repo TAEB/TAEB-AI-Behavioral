@@ -541,7 +541,7 @@ for my $check (keys %check_command) {
     });
 }
 
-sub check_tile {
+sub _check_tile {
     my $self = shift;
     my $x = shift;
     my $y = shift;
