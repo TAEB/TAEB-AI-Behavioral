@@ -18,6 +18,21 @@ sub debug_color {
     return Curses::COLOR_PAIR(Curses::COLOR_MAGENTA);
 }
 
+sub reblessed {
+    my $self = shift;
+
+    TAEB->enqueue_message(check_tile => $self->x, $self->y);
+}
+
+sub farlooked {
+    my $self = shift;
+    my $msg  = shift;
+
+    if ($msg =~ /altar.*(chaotic|neutral|lawful)/) {
+        $self->align(ucfirst(substr($1, 0, 3)));
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
