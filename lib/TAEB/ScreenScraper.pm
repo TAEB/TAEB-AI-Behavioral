@@ -183,6 +183,8 @@ our %msg_string = (
         ['enter_room','temple','coaligned'],
     "You see no objects here." =>
         ['clear_floor'],
+    "You hear the shrill sound of a guard's whistle." =>
+        ['guard_whistle'],
 );
 
 our @msg_regex = (
