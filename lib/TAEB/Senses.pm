@@ -321,6 +321,7 @@ sub msg_walked {
     my $self = shift;
     $self->in_beartrap(0);
     $self->in_pit(0);
+    $self->is_grabbed(0);
     if (!$self->autopickup xor TAEB->current_tile->in_shop) {
         TAEB->info("Toggling autopickup because we entered/exited a shop");
         TAEB->write("@");
