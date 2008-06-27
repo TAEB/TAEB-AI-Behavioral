@@ -557,6 +557,8 @@ sub display_floor {
     $self->floor_glyph;
 }
 
+sub farlooked {}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

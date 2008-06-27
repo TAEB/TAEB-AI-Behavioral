@@ -638,6 +638,16 @@ sub glyph_to_type {
    return $type || 'obscured';
 }
 
+sub msg_farlooked {
+    my $self = shift;
+    my $x    = shift;
+    my $y    = shift;
+    my $msg  = shift;
+
+    my $tile = $self->at($x, $y);
+    $tile->farlooked($msg);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
