@@ -10,7 +10,7 @@ sub prepare {
     my @exits = grep { !defined($_->other_side) } TAEB->current_level->exits;
 
     # we don't want to leave the level so quickly if the branch is ambiguous
-    @exits = () if !TAEB->current_level->has_branch
+    @exits = () if !TAEB->current_level->known_branch
                 && TAEB->current_level->turns_spent_on < 100;
 
     my $current = TAEB->current_tile;
