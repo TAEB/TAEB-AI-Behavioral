@@ -153,7 +153,7 @@ sub msg_trapdoor {
     my $self = shift;
 
     TAEB->current_level->branch($self->starting_tile->branch)
-        if defined($self->starting_tile->branch);
+        if $self->starting_tile->known_branch
 }
 
 sub msg_got_item {

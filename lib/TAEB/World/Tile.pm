@@ -12,7 +12,7 @@ has level => (
     isa      => 'TAEB::World::Level',
     weak_ref => 1,
     required => 1,
-    handles  => [qw/z branch glyph_to_type/],
+    handles  => [qw/z known_branch branch glyph_to_type/],
 );
 
 #has room => (

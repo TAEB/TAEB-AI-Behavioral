@@ -779,7 +779,7 @@ sub draw_botl {
     my @pieces;
     push @pieces, 'D:' . $self->current_level->z;
     $pieces[-1] .= uc substr($self->current_level->branch, 0, 1)
-        if $self->current_level->branch;
+        if $self->current_level->known_branch;
     $pieces[-1] .= ' ('. ucfirst($self->current_level->special_level) .')'
         if $self->current_level->special_level;
 

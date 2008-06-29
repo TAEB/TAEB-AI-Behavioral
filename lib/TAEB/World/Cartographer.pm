@@ -366,7 +366,7 @@ sub msg_branch {
     my $level  = $self->dungeon->current_level;
 
     $level->branch($branch)
-        if !defined($level->branch);
+        unless $level->known_branch;
 
     return if $level->branch eq $branch;
 

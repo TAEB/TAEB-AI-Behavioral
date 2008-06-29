@@ -276,7 +276,7 @@ sub _dijkstra {
     my $from              = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
     my $include_endpoints = $args{include_endpoints};
-    my $sokoban           = $from->branch
+    my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
     my $debug = TAEB->config->draw eq 'pathfind';
     my $start;
@@ -399,7 +399,7 @@ sub _astar {
 
     my $from = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
-    my $sokoban           = $from->branch
+    my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
     my $debug = TAEB->config->draw eq 'pathfind';
     my $start;

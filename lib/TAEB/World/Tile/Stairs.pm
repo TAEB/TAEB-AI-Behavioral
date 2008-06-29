@@ -12,9 +12,9 @@ has other_side => (
 sub debug_color {
     my $self = shift;
 
-    my $different_branch = $self->other_side
-                        && $self->other_side->branch
-                        && $self->branch
+    my $different_branch = $self->known_branch
+                        && $self->other_side
+                        && $self->other_side->known_branch
                         && $self->branch ne $self->other_side->branch;
 
     return $different_branch

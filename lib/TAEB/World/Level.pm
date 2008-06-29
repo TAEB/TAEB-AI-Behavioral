@@ -294,7 +294,7 @@ sub exit_towards {
     my $self = shift;
     my $other = shift;
 
-    if (!defined($other->branch) || $self->branch eq $other->branch) {
+    if (!$other->known_branch || $self->branch eq $other->branch) {
         my @exits;
 
         # we're too high, we need to go down
@@ -386,7 +386,7 @@ my %branch = (
 
 sub detect_branch {
     my $self = shift;
-    return if defined $self->branch;
+    return if $self->known_branch;
 
     for my $name (keys %branch) {
         if ($branch{$name}->($self)) {
@@ -406,7 +406,7 @@ sub _detect_dungeons {
     return 1 if $self->z < 3 || $self->z > 13;
 
     # is there a parallel mines level?
-    return 1 if any { $_->branch && $_->branch eq 'mines' }
+    return 1 if any { $_->known_branch && $_->branch eq 'mines' }
                 $self->dungeon->get_levels($self->z);
 
     # dungeon features (fountain, sink, altar, door, etc)
@@ -426,7 +426,7 @@ sub _detect_mines {
     my $self = shift;
 
     # is there a parallel dungeons level?
-    return 1 if any { $_->branch && $_->branch eq 'dungeons' }
+    return 1 if any { $_->known_branch && $_->branch eq 'dungeons' }
                 $self->dungeon->get_levels($self->z);
 
     # convex walls
@@ -488,7 +488,7 @@ around is_minetown => sub {
     my $is_minetown = $self->$orig;
     return $is_minetown if defined $is_minetown;
 
-    return unless defined($self->branch);
+    return unless $self->known_branch;
     unless ($self->branch eq 'mines' && $self->z >= 5 && $self->z <= 8) {
         $self->is_minetown(0);
         return 0;
@@ -515,7 +515,7 @@ around is_oracle => sub {
     my $is_oracle = $self->$orig;
     return $is_oracle if defined $is_oracle;
 
-    if (defined($self->branch) && $self->branch ne 'dungeons')
+    if ($self->known_branch && $self->branch ne 'dungeons')
     {
         $self->is_oracle(0);
         return 0;

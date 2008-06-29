@@ -52,7 +52,8 @@ sub is_quest_friendly {
     my $self = shift;
 
     # Attacking @s in quest level 1 will screw up your quest. So...don't.
-    return 1 if TAEB->current_level->branch eq 'quest'
+    return 1 if TAEB->current_level->known_branch
+             && TAEB->current_level->branch eq 'quest'
              && TAEB->z == 1
              && $self->glyph eq '@';
     return 0;

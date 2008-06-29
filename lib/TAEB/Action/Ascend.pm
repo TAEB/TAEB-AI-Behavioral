@@ -47,7 +47,7 @@ after done => sub {
 
         # dungeons branch propagates upwards except for sokoban, which is
         # immediately identified
-        if ($branch eq 'dungeons' && !defined($current->level->branch)) {
+        if ($branch eq 'dungeons' && !$current->level->known_branch) {
             $current->level->branch($branch);
         }
     }
