@@ -6,9 +6,12 @@ use List::MoreUtils 'any';
 
 sub prepare {
     my $self = shift;
+
+    # spend some time on the level to figure out what branch it is
+    return if !TAEB->current_level->has_branch
+           && TAEB->current_level->turns_spent_on < 100;
+
     my $current = TAEB->current_tile;
-    return if !defined(TAEB->current_level->branch) &&
-                        TAEB->current_level->turns_spent_on < 100;
     my @exits = grep { !defined($_->other_side) } TAEB->current_level->exits;
     if (any { $current == $_ } @exits) {
         $self->currently("Seeing what's on the other side of this exit");
