@@ -40,15 +40,15 @@ after done => sub {
 
     return unless $self->command eq '<';
 
-    if (my $branch = $start->level->branch) {
+    if (my $branch = $start->branch) {
         if ($branch eq 'sokoban' || $branch eq 'vlad') {
-            $current->level->branch($branch);
+            $current->branch($branch);
         }
 
         # dungeons branch propagates upwards except for sokoban, which is
         # immediately identified
-        if ($branch eq 'dungeons' && !$current->level->known_branch) {
-            $current->level->branch($branch);
+        if ($branch eq 'dungeons' && !$current->known_branch) {
+            $current->branch($branch);
         }
     }
 };
