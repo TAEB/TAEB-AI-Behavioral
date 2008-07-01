@@ -439,7 +439,7 @@ sub keypress {
     # refresh NetHack's screen
     if ($c eq "\cr") {
         # back to normal
-        TAEB->redraw(1);
+        TAEB->redraw(force_clear => 1);
         return undef;
     }
 
@@ -622,7 +622,7 @@ sub console {
         Devel::REPL::Script->new->run;
     };
 
-    $self->redraw(1);
+    $self->redraw(force_clear => 1);
 }
 
 sub debug_map {
@@ -696,7 +696,7 @@ sub debug_map {
     }
 
     # back to normal
-    $self->redraw;
+    $self->redraw(force_clear => 1);
     return;
 }
 
@@ -715,10 +715,10 @@ sub try_key {
 }
 
 sub redraw {
-    my $self   = shift;
-    my $clear  = shift;
+    my $self = shift;
+    my %args = @_;
 
-    if ($clear) {
+    if ($args{force_clear}) {
         Curses::clear;
         Curses::refresh;
     }
