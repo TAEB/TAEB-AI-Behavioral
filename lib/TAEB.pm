@@ -630,6 +630,7 @@ sub debug_map {
 
     my ($x, $y) = ($self->x, $self->y);
     my $level = $self->current_level;
+    my $z_index = 0;
 
     COMMAND: while (1) {
         my $tile = $level->at($x, $y);
@@ -693,6 +694,22 @@ sub debug_map {
                 return $levels[0];
             }->();
 
+            $z_index = 0;
+
+            $self->redraw(level => $level, force_clear => 1);
+
+            if (@levels > 1) {
+                Curses::move(1, 0);
+                Curses::addstr("Note: there are " . @levels . " levels at this depth. Use v to see the next.");
+                Curses::clrtoeol;
+            }
+        }
+        elsif ($c eq 'v') {
+            my @levels = grep { $_->turns_spent_on > 0 }
+                         $self->dungeon->get_levels($level->z);
+            next COMMAND if @levels < 2;
+
+            $level = $levels[++$z_index % @levels];
             $self->redraw(level => $level, force_clear => 1);
         }
 
