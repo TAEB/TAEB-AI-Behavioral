@@ -582,6 +582,9 @@ sub _notify {
 
     return if !defined($msg) || !length($msg);
 
+    # strip off extra lines, it's too distracting
+    $msg =~ s/\n.*//s;
+
     Curses::move(1, 0);
     Curses::attron($attr);
     Curses::addstr($msg);
