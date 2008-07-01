@@ -665,7 +665,12 @@ sub debug_map {
         }
         elsif ($c eq '<' || $c eq '>') {
             my $dz = $c eq '<' ? -1 : 1;
-            my @levels = $self->dungeon->get_levels($level->z + $dz);
+
+            # if we don't filter out these levels, then levels consisting of
+            # just rock will make it through, because we initialize those
+            # (apparently!)
+            my @levels = grep { $_->turns_spent_on > 0 }
+                         $self->dungeon->get_levels($level->z + $dz);
             next COMMAND if @levels == 0;
 
             $level = sub {
