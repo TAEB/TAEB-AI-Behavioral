@@ -218,28 +218,6 @@ class_has new_game => (
     isa => 'Bool',
 );
 
-class_has persistent_dump => (
-    is   => 'rw',
-    lazy => 1,
-    default => sub {
-        return unless -r TAEB->config->state_file;
-
-        my $self = shift;
-        $self->notify("Loading state file...", 0);
-
-        local $SIG{__DIE__};
-
-        my $dump = eval {
-            use YAML::Syck;
-            YAML::Syck::LoadFile(TAEB->config->state_file)
-        } || undef;
-
-        $self->redraw;
-        TAEB->warning("Unable to load state file.") if !defined($dump);
-        return $dump;
-    },
-);
-
 class_has pathfinds => (
     is  => 'rw',
     isa => 'Int',
@@ -321,7 +299,6 @@ sub handle_logging_in {
 sub handle_saving {
     my $self = shift;
 
-    $self->dump;
     $self->write("\e\eS");
 }
 
@@ -689,38 +666,6 @@ sub console {
     };
 
     $self->redraw(1);
-}
-
-sub dump {
-    return 0 unless TAEB->config->state_file;
-
-    my $self = shift->instance;
-    my %temp;
-    my @stash = qw/interface config vt scraper personality action publisher state log single_step new_game persistent_dump/;
-
-    my $state_file = TAEB->config->state_file;
-
-    $self->notify("Creating state file...", 0);
-
-    @temp{@stash} = delete @$self{@stash};
-
-    eval {
-        use YAML::Syck;
-        YAML::Syck::DumpFile($state_file => $self)
-    };
-
-    warn $@ if $@;
-    @$self{@stash} = @temp{@stash};
-
-    $self->redraw;
-
-    return $@ ? 0 : 1;
-}
-
-sub has_dump {
-    return 0 unless TAEB->config->state_file;
-    return 0 unless TAEB->persistent_dump;
-    return 1;
 }
 
 sub get_key { Curses::getch }

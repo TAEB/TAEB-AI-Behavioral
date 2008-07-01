@@ -6,9 +6,6 @@
 interface: Local
 personality: ScoreWhore
 
-# uncomment this if you want TAEB to remember data between games. experimental!
-#state_file: .TAEB.yml
-
 fight_behavior: Melee
 
 other_config:
