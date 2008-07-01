@@ -33,6 +33,15 @@ sub farlooked {
     }
 }
 
+around debug_line => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $line = $self->$orig(@_);
+
+    my $align = substr($self->align, 0, 1) || '?';
+    return join ' ', $line, 'a<' . $align . '>';
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
