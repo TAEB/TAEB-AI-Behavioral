@@ -632,6 +632,8 @@ sub debug_map {
     my $level = $self->current_level;
     my $z_index = 0;
 
+    $self->redraw(botl => "Displaying $level");
+
     COMMAND: while (1) {
         my $tile = $level->at($x, $y);
 
@@ -696,7 +698,7 @@ sub debug_map {
 
             $z_index = 0;
 
-            $self->redraw(level => $level, force_clear => 1);
+            $self->redraw(level => $level, force_clear => 1, botl => "Displaying $level");
 
             if (@levels > 1) {
                 Curses::move(1, 0);
@@ -710,7 +712,7 @@ sub debug_map {
             next COMMAND if @levels < 2;
 
             $level = $levels[++$z_index % @levels];
-            $self->redraw(level => $level, force_clear => 1);
+            $self->redraw(level => $level, force_clear => 1, botl => "Displaying $level");
         }
 
         $x %= 80;
