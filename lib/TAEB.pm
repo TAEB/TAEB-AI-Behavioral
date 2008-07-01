@@ -105,7 +105,11 @@ class_has log => (
         my $format = sub {
             my %args = @_;
             chomp $args{message};
-            return "[\U$args{level}\E] ".localtime().": $args{message}\n";
+            return sprintf "[%s] <T%d> %s: %s\n",
+                           uc($args{level}),
+                           TAEB->turn,
+                           scalar(localtime),
+                           $args{message};
         };
 
         my $dispatcher = Log::Dispatch->new(callbacks => $format);
