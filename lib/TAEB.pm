@@ -628,9 +628,11 @@ sub console {
 sub debug_map {
     my $self = shift;
 
-    my ($z, $y, $x) = ($self->z, $self->y, $self->x);
-    while (1) {
-        my $tile = TAEB->current_level->at($x, $y);
+    my ($x, $y) = ($self->x, $self->y);
+    my $level = $self->current_level;
+
+    COMMAND: while (1) {
+        my $tile = $level->at($x, $y);
 
         Curses::move(0, 0);
         # draw some info about the tile at the top
@@ -641,7 +643,7 @@ sub debug_map {
         # where to next?
         my $c = $self->get_key;
 
-            if ($c eq 'h') { --$x }
+           if ($c eq 'h') { --$x }
         elsif ($c eq 'j') { ++$y }
         elsif ($c eq 'k') { --$y }
         elsif ($c eq 'l') { ++$x }
@@ -657,13 +659,37 @@ sub debug_map {
         elsif ($c eq 'U') { $x += 8; $y -= 8 }
         elsif ($c eq 'B') { $x -= 8; $y += 8 }
         elsif ($c eq 'N') { $x += 8; $y += 8 }
-        elsif ($c eq '<' || $c eq '>') {
-            $c eq '<' ? --$z : ++$z;
-            # XXX: redraw screen, change current_level, etc
-        }
         elsif ($c eq ';' || $c eq '.' || $c eq "\e"
             || $c eq "\n" || $c eq ' ' || $c eq 'q' || $c eq 'Q') {
             last;
+        }
+        elsif ($c eq '<' || $c eq '>') {
+            my $dz = $c eq '<' ? -1 : 1;
+            my @levels = $self->dungeon->get_levels($level->z + $dz);
+            next COMMAND if @levels == 0;
+
+            if (@levels == 1) {
+                $level = $levels[0];
+                next COMMAND;
+            }
+
+            # try to stay in the same branch
+            for (@levels) {
+                next if $_->branch ne $level->branch;
+                $level = $_;
+                next COMMAND;
+            }
+
+            # or go to a level with an unknown branch
+            for (@levels) {
+                next if $_->has_branch;
+                $level = $_;
+                next COMMAND;
+            }
+
+            # finally, just pick an arbitrary level
+            $level = $levels[0];
+            next COMMAND;
         }
 
         $x %= 80;
