@@ -86,6 +86,11 @@ sub get_levels {
         return undef;
     }
 
+    # XXX: reserved for the elemental planes
+    if ($index < 0) {
+        return ()
+    }
+
     return @{ $self->levels->[$index] ||= [] };
 }
 
