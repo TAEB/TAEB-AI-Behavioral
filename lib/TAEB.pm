@@ -688,7 +688,7 @@ sub debug_map {
                 return $levels[0];
             }->();
 
-            $self->redraw;
+            $self->redraw(level => $level, force_clear => 1);
         }
 
         $x %= 80;
@@ -723,7 +723,7 @@ sub redraw {
         Curses::refresh;
     }
 
-    my $level  = TAEB->current_level;
+    my $level  = $args{level} || TAEB->current_level;
     my $draw   = 'draw_'.(TAEB->config->draw || 'normal');
     my $method = 'display_'.(TAEB->config->display_method || 'glyph');
 
