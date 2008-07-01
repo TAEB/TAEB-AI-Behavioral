@@ -461,50 +461,7 @@ sub keypress {
     }
 
     if ($c eq ';') {
-        my ($z, $y, $x) = (TAEB->z, TAEB->y, TAEB->x);
-        while (1) {
-            my $tile = TAEB->current_level->at($x, $y);
-
-            Curses::move(0, 0);
-            # draw some info about the tile at the top
-            Curses::addstr($tile->debug_line);
-            Curses::clrtoeol;
-            $self->place_cursor($x, $y);
-
-            # where to next?
-            my $c = $self->get_key;
-
-               if ($c eq 'h') { --$x }
-            elsif ($c eq 'j') { ++$y }
-            elsif ($c eq 'k') { --$y }
-            elsif ($c eq 'l') { ++$x }
-            elsif ($c eq 'y') { --$x; --$y }
-            elsif ($c eq 'u') { ++$x; --$y }
-            elsif ($c eq 'b') { --$x; ++$y }
-            elsif ($c eq 'n') { ++$x; ++$y }
-            elsif ($c eq 'H') { $x -= 8 }
-            elsif ($c eq 'J') { $y += 8 }
-            elsif ($c eq 'K') { $y -= 8 }
-            elsif ($c eq 'L') { $x += 8 }
-            elsif ($c eq 'Y') { $x -= 8; $y -= 8 }
-            elsif ($c eq 'U') { $x += 8; $y -= 8 }
-            elsif ($c eq 'B') { $x -= 8; $y += 8 }
-            elsif ($c eq 'N') { $x += 8; $y += 8 }
-            elsif ($c eq '<' || $c eq '>') {
-                $c eq '<' ? --$z : ++$z;
-                # XXX: redraw screen, change current_level, etc
-            }
-            elsif ($c eq ';' || $c eq '.' || $c eq "\e"
-                || $c eq "\n" || $c eq ' ' || $c eq 'q' || $c eq 'Q') {
-                last;
-            }
-
-            $x %= 80;
-            $y = ($y-1)%21+1;
-        }
-
-        # back to normal
-        TAEB->redraw;
+        $self->debug_map;
         return;
     }
 
@@ -667,6 +624,57 @@ sub console {
 
     $self->redraw(1);
 }
+
+sub debug_map {
+    my $self = shift;
+
+    my ($z, $y, $x) = ($self->z, $self->y, $self->x);
+    while (1) {
+        my $tile = TAEB->current_level->at($x, $y);
+
+        Curses::move(0, 0);
+        # draw some info about the tile at the top
+        Curses::addstr($tile->debug_line);
+        Curses::clrtoeol;
+        $self->place_cursor($x, $y);
+
+        # where to next?
+        my $c = $self->get_key;
+
+            if ($c eq 'h') { --$x }
+        elsif ($c eq 'j') { ++$y }
+        elsif ($c eq 'k') { --$y }
+        elsif ($c eq 'l') { ++$x }
+        elsif ($c eq 'y') { --$x; --$y }
+        elsif ($c eq 'u') { ++$x; --$y }
+        elsif ($c eq 'b') { --$x; ++$y }
+        elsif ($c eq 'n') { ++$x; ++$y }
+        elsif ($c eq 'H') { $x -= 8 }
+        elsif ($c eq 'J') { $y += 8 }
+        elsif ($c eq 'K') { $y -= 8 }
+        elsif ($c eq 'L') { $x += 8 }
+        elsif ($c eq 'Y') { $x -= 8; $y -= 8 }
+        elsif ($c eq 'U') { $x += 8; $y -= 8 }
+        elsif ($c eq 'B') { $x -= 8; $y += 8 }
+        elsif ($c eq 'N') { $x += 8; $y += 8 }
+        elsif ($c eq '<' || $c eq '>') {
+            $c eq '<' ? --$z : ++$z;
+            # XXX: redraw screen, change current_level, etc
+        }
+        elsif ($c eq ';' || $c eq '.' || $c eq "\e"
+            || $c eq "\n" || $c eq ' ' || $c eq 'q' || $c eq 'Q') {
+            last;
+        }
+
+        $x %= 80;
+        $y = ($y-1)%21+1;
+    }
+
+    # back to normal
+    $self->redraw;
+    return;
+}
+
 
 sub get_key { Curses::getch }
 
