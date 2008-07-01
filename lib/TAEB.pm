@@ -756,7 +756,7 @@ sub redraw {
         }
     }
 
-    $self->draw_botl;
+    $self->draw_botl($args{botl}, $args{status});
     $self->place_cursor;
 }
 
