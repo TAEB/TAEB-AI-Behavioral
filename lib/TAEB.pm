@@ -622,7 +622,9 @@ sub console {
         Devel::REPL::Script->new->run;
     };
 
-    $self->redraw(force_clear => 1);
+    # we really do need to do this twice. my amateur opinion is that curses
+    # isn't fully re-initialized when we call it the first time. oh well.
+    $self->redraw(force_clear => 1) for 1..2;
 }
 
 sub debug_map {
