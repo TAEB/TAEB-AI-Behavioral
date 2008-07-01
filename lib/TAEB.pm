@@ -698,7 +698,7 @@ sub debug_map {
 
             $z_index = 0;
 
-            $self->redraw(level => $level, force_clear => 1, botl => "Displaying $level");
+            $self->redraw(level => $level, botl => "Displaying $level");
 
             if (@levels > 1) {
                 Curses::move(1, 0);
@@ -712,7 +712,7 @@ sub debug_map {
             next COMMAND if @levels < 2;
 
             $level = $levels[++$z_index % @levels];
-            $self->redraw(level => $level, force_clear => 1, botl => "Displaying $level");
+            $self->redraw(level => $level, botl => "Displaying $level");
         }
 
         $x %= 80;
@@ -720,7 +720,7 @@ sub debug_map {
     }
 
     # back to normal
-    $self->redraw(force_clear => 1);
+    $self->redraw;
     return;
 }
 
