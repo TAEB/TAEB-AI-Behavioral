@@ -761,54 +761,64 @@ sub redraw {
 }
 
 sub draw_botl {
-    my $self = shift;
+    my $self   = shift;
+    my $botl   = shift;
+    my $status = shift;
+
     return unless $self->state eq 'playing';
 
     Curses::move(22, 0);
 
-    my $command = $self->has_action ? $self->action->command : '?';
-    $command =~ s/\n/\\n/g;
-    $command =~ s/\e/\\e/g;
-    $command =~ s/\cd/^D/g;
+    if (!$botl) {
+        my $command = $self->has_action ? $self->action->command : '?';
+        $command =~ s/\n/\\n/g;
+        $command =~ s/\e/\\e/g;
+        $command =~ s/\cd/^D/g;
 
-    my $currently = $self->checking
-                  ? "Checking " . $self->checking
-                  : $self->currently . " ($command)";
-    Curses::addstr($currently);
+        $botl = $self->checking
+              ? "Checking " . $self->checking
+              : $self->currently . " ($command)";
+    }
+
+    Curses::addstr($botl);
 
     Curses::clrtoeol;
     Curses::move(23, 0);
 
-    my @pieces;
-    push @pieces, 'D:' . $self->current_level->z;
-    $pieces[-1] .= uc substr($self->current_level->branch, 0, 1)
-        if $self->current_level->known_branch;
-    $pieces[-1] .= ' ('. ucfirst($self->current_level->special_level) .')'
-        if $self->current_level->special_level;
+    if (!$status) {
+        my @pieces;
+        push @pieces, 'D:' . $self->current_level->z;
+        $pieces[-1] .= uc substr($self->current_level->branch, 0, 1)
+            if $self->current_level->known_branch;
+        $pieces[-1] .= ' ('. ucfirst($self->current_level->special_level) .')'
+            if $self->current_level->special_level;
 
-    push @pieces, 'H:' . $self->hp;
-    $pieces[-1] .= '/' . $self->maxhp
-        if $self->hp != $self->maxhp;
+        push @pieces, 'H:' . $self->hp;
+        $pieces[-1] .= '/' . $self->maxhp
+            if $self->hp != $self->maxhp;
 
-    if ($self->spells->has_spells) {
-        push @pieces, 'P:' . $self->power;
-        $pieces[-1] .= '/' . $self->maxpower
-            if $self->power != $self->maxpower;
+        if ($self->spells->has_spells) {
+            push @pieces, 'P:' . $self->power;
+            $pieces[-1] .= '/' . $self->maxpower
+                if $self->power != $self->maxpower;
+        }
+
+        push @pieces, 'A:' . $self->ac;
+        push @pieces, 'X:' . $self->level;
+        push @pieces, 'N:' . $self->nutrition;
+        push @pieces, 'T:' . $self->turn;
+        push @pieces, 'S:' . $self->score
+            if $self->has_score;
+        push @pieces, 'P:' . $self->pathfinds;
+
+        my $statuses = join '', map { ucfirst substr $_, 0, 2 } $self->statuses;
+        push @pieces, '[' . $statuses . ']'
+            if $statuses;
+
+        $status = join ' ', @pieces;
     }
 
-    push @pieces, 'A:' . $self->ac;
-    push @pieces, 'X:' . $self->level;
-    push @pieces, 'N:' . $self->nutrition;
-    push @pieces, 'T:' . $self->turn;
-    push @pieces, 'S:' . $self->score
-        if $self->has_score;
-    push @pieces, 'P:' . $self->pathfinds;
-
-    my $status = join '', map { ucfirst substr $_, 0, 2 } $self->statuses;
-    push @pieces, '[' . $status . ']'
-        if $status;
-
-    Curses::addstr(join ' ', @pieces);
+    Curses::addstr($status);
     Curses::clrtoeol;
 }
 
