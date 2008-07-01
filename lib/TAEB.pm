@@ -668,28 +668,27 @@ sub debug_map {
             my @levels = $self->dungeon->get_levels($level->z + $dz);
             next COMMAND if @levels == 0;
 
-            if (@levels == 1) {
-                $level = $levels[0];
-                next COMMAND;
-            }
+            $level = sub {
+                # only one level, easy choice
+                if (@levels == 1) {
+                    return $levels[0];
+                }
 
-            # try to stay in the same branch
-            for (@levels) {
-                next if $_->branch ne $level->branch;
-                $level = $_;
-                next COMMAND;
-            }
+                # try to stay in the same branch
+                for (@levels) {
+                    return $_ if $_->branch eq $level->branch;
+                }
 
-            # or go to a level with an unknown branch
-            for (@levels) {
-                next if $_->has_branch;
-                $level = $_;
-                next COMMAND;
-            }
+                # or go to a level with an unknown branch
+                for (@levels) {
+                    return $_ if !$_->has_branch;
+                }
 
-            # finally, just pick an arbitrary level
-            $level = $levels[0];
-            next COMMAND;
+                # finally, pick a level arbitrarily
+                return $levels[0];
+            }->();
+
+            $self->redraw;
         }
 
         $x %= 80;
