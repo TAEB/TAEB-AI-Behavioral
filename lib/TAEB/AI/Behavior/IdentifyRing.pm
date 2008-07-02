@@ -25,6 +25,7 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(
         sub { shift->type eq 'sink' },
         on_level => $level,
+        why => "IdentifyRing",
     );
 
     $self->if_path($path => "Heading towards a sink");

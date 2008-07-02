@@ -75,7 +75,7 @@ sub calculate_path {
     my $to    = shift;
     my %args  = @_;
 
-    my ($path, $complete) = $class->_calculate_path($from, $to);
+    my ($path, $complete) = $class->_calculate_path($from, $to, %args);
 
     if ($complete && $args{traverse_destination} && $to->can('traverse_command')) {
         $path .= $to->traverse_command;
@@ -264,6 +264,10 @@ Whether to assume unknown tiles are walkable
 Whether to include nonwalkable endpoints in the scorer checks (in essence, do
 you want to include monsters, walls, etc as targets?)
 
+=item why (default: "unknown")
+
+String used to identify caller in debugging output
+
 =cut
 
 sub _dijkstra {
@@ -275,6 +279,7 @@ sub _dijkstra {
 
     my $from              = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
+    my $why               = $args{why} || "unknown";
     my $include_endpoints = $args{include_endpoints};
     my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
@@ -307,7 +312,7 @@ sub _dijkstra {
                 if ($debug) {
                     my $took = sprintf '%.4f', time - $start;
                     TAEB->redraw;
-                    TAEB->notify("dijkstra ${took}s (q: $path)");
+                    TAEB->notify("dijkstra $why ${took}s (q: $path)");
                 }
                 return ($tile, $path);
             }
@@ -374,10 +379,10 @@ sub _dijkstra {
         my $took = sprintf '%.4f', time - $start;
         TAEB->redraw;
         if (defined($max_score)) {
-            TAEB->notify("dijkstra ${took}s ($max_score: $max_path)");
+            TAEB->notify("dijkstra $why ${took}s ($max_score: $max_path)");
         }
         else {
-            TAEB->notify("dijkstra ${took}s (no path)");
+            TAEB->notify("dijkstra $why ${took}s (no path)");
         }
     }
     return ($max_tile, $max_path);
@@ -399,6 +404,7 @@ sub _astar {
 
     my $from = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
+    my $why               = $args{why} || "unknown";
     my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
     my $debug = TAEB->config->draw eq 'pathfind';
@@ -424,7 +430,7 @@ sub _astar {
             if ($debug) {
                 my $took = sprintf '%.4f', time - $start;
                 TAEB->redraw;
-                TAEB->notify("A* ${took}s ($path)");
+                TAEB->notify("A* $why ${took}s ($path)");
             }
 
             return $path;
@@ -480,7 +486,7 @@ sub _astar {
     if ($debug) {
         my $took = sprintf '%.4f', time - $start;
         TAEB->redraw;
-        TAEB->notify("A* ${took}s (no path)");
+        TAEB->notify("A* $why ${took}s (no path)");
     }
 
     return undef;

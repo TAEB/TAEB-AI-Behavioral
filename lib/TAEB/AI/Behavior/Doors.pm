@@ -73,7 +73,7 @@ sub prepare {
         return 0 if $tile->is_shop && ($action||'') eq 'kick';
         return 0 if $tile->locked && !$action;
         return 1;
-    }, include_endpoints => 1);
+    }, include_endpoints => 1, why => "Doors");
 
     $self->if_path($path => "Heading towards a door");
 }

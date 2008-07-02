@@ -27,7 +27,7 @@ sub prepare {
 
         return 1 if $tile->might_have_new_item;
         return any { TAEB->want_item($_) } $tile->items;
-    });
+    }, why => "GetItems");
 
     $self->if_path($path => "Heading towards an item");
 }

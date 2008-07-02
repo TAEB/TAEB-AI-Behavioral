@@ -11,6 +11,7 @@ sub prepare {
             my ($tile, $path) = @_;
             $tile->searchability / (length($path) || 1);
         },
+        why => "Search",
     );
 
     if ($path && $path->path eq '') {

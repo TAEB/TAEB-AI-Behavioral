@@ -44,6 +44,7 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(
         sub { shift->type eq 'fountain' },
         on_level => $level,
+        why => "DipForExcalibur",
     );
 
     $self->if_path($path => "Heading towards a fountain");

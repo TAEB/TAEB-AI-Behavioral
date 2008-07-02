@@ -29,6 +29,7 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(
         sub { shift->type eq 'altar' },
         on_level => $level,
+        why => "Curse-check",
     );
 
     $self->if_path($path => "Heading towards an altar");

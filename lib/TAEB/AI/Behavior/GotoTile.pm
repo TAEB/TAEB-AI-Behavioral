@@ -28,6 +28,7 @@ sub prepare {
     # find our tile
     my $path = TAEB::World::Path->first_match(
         sub { ($self->match_tile(@_))[0] },
+        why => ((blessed $self) =~ /.*::(.*)/, $1),
     );
 
     $self->if_path($path => $self->currently_heading);

@@ -41,6 +41,7 @@ sub prepare {
         },
         through_unknown => 1,
         include_endpoints => 1,
+        why => "Melee/Close",
     );
 
     $self->if_path($path =>

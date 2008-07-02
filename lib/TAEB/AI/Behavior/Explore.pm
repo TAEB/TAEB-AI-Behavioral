@@ -29,13 +29,13 @@ sub prepare {
     }
 
     for (@exits) {
-        if (my $path = TAEB::World::Path->calculate_path($_)) {
+        if (my $path = TAEB::World::Path->calculate_path($_, why => "Explore/Exit")) {
             my $p = $self->if_path($path => "Heading to an unexplored exit", 100);
             return $p if $p;
         }
     }
 
-    my $path = TAEB::World::Path->first_match(sub { not shift->explored });
+    my $path = TAEB::World::Path->first_match(sub { not shift->explored }, why => "Explore");
     $self->if_path($path, "Exploring", 100);
 }
 

@@ -27,7 +27,7 @@ sub prepare {
         return 100;
     }
 
-    my $path = TAEB::World::Path->first_match($check);
+    my $path = TAEB::World::Path->first_match($check, why => "GetPudding");
     $self->if_path($path => "Heading towards a sink");
 }
 
