@@ -83,7 +83,7 @@ for (`darcs changes | grep '^[MTWFS]'`) {
 
 print "  commits     committer\n";
 printf "%s\n", '-' x $length;
-for my $author (sort {$commits_by{$b} <=> $commits_by{$a}} keys %commits_by) {
+for my $author (sort {$commits_by{$b} <=> $commits_by{$a} || $a cmp $b} keys %commits_by) {
     printf " %10d   %s\n", $commits_by{$author}, $author;
 }
 
