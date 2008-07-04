@@ -28,7 +28,7 @@ while (defined (my $file = $iter->())) {
         next if $file =~ /\bdoc\b/;
 
         ++$with_know;
-        next if $file =~ /\bSpoilers\b/;
+        next if $file =~ /\bSpoilers?\b/;
 
         ++$lines;
     }
