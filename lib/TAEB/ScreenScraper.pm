@@ -189,7 +189,9 @@ our %msg_string = (
         ['status_change', 'stoning', 1],
     "Your limbs are stiffening." =>
         ['status_change', 'stoning', 1],
-    "You feel more limber." =>
+    "You feel more limber." =>  # praying
+        ['status_change', 'stoning', 0],
+    "You feel limber!" =>  # consuming acid
         ['status_change', 'stoning', 0],
 );
 
@@ -433,6 +435,10 @@ our @msg_regex = (
     [
         qr/^There's a (.*?) hiding under a (.*)!/ =>
             ['hidden_monster' => sub { ($1, $2) } ],
+    ],
+    [
+        qr/^What a pity - you just ruined a future piece of (?:fine )?art!/ =>
+            ['status_change', 'stoning', 0],
     ],
 );
 
