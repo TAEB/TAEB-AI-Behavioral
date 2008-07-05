@@ -47,7 +47,7 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed/] => (
+has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying/] => (
     isa     => 'Bool',
     default => 0,
 );
@@ -343,6 +343,7 @@ my %method_of = (
     engulfed      => 'is_engulfed',
     grabbed       => 'is_grabbed',
     pit           => 'in_pit',
+    stoning       => 'is_petrifying',
 );
 
 sub msg_status_change {

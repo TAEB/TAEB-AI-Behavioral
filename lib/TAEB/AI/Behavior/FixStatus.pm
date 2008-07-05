@@ -34,6 +34,18 @@ my @can_fix = (
 sub prepare {
     my $self = shift;
 
+    if (TAEB->is_petrifying) {
+        if (my $lizard = TAEB->find_item('lizard corpse')) {
+            $self->do(eat => item => $lizard);
+            $self->currently("Eating lizard to fix petrification");
+        }
+        elsif (TAEB->can_pray) {
+            $self->do('pray');
+            $self->currently("Praying to fix petrification");
+        }
+        return 100;
+    }
+
     my %c;
     $c{blind}       = TAEB->is_blind;
     $c{stun}        = TAEB->is_stunned;
