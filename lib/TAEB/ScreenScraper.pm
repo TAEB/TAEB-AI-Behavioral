@@ -185,6 +185,12 @@ our %msg_string = (
         ['clear_floor'],
     "You hear the shrill sound of a guard's whistle." =>
         ['guard_whistle'],
+    "You are slowing down." =>
+        ['status_change', 'stoning', 1],
+    "Your limbs are stiffening." =>
+        ['status_change', 'stoning', 1],
+    "You feel more limber." =>
+        ['status_change', 'stoning', 0],
 );
 
 our @msg_regex = (
