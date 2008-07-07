@@ -5,6 +5,7 @@ extends 'TAEB::AI::Behavior';
 
 my @can_fix = (
     "unicorn horn" => {
+        refine    => sub { shift->buc ne 'cursed' },
         statuses  => [qw/blind stun conf hallu/],
         priority  => 100,
         action    => 'apply',
@@ -60,8 +61,8 @@ sub prepare {
         my @have = grep { $c{$_} } @statuses
             or next;
 
-        my $item = TAEB->find_item($item_name)
-            or next;
+        my $item = TAEB->find_item(identity => $item_name, refine => $fix->{refine});
+        next unless $item;
 
         my $currently;
 
