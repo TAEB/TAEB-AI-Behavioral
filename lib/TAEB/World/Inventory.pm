@@ -76,7 +76,7 @@ sub find {
             # they passed in only one argument. assume they are checking identity
             ($matcher, $value) = ('identity', $matcher);
         }
-        @matches = { $_->match($matcher => $value) } $self->items;
+        @matches = grep { $_->match($matcher => $value) } $self->items;
     }
 
     return wantarray ? @matches : $matches[0];
