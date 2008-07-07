@@ -60,24 +60,26 @@ sub each {
 sub find {
     my $self = shift;
     my $matcher = shift;
+    my @matches;
 
     # pass in a coderef? return the first for which the coderef is true
     if (ref($matcher) eq 'CODE') {
-        return first { $matcher->($_) } $self->items;
+        @matches = grep { $matcher->($_) } $self->items;
     }
-
     # pass in a regex? return the first item for which the regex matches ID
-    if (ref($matcher) eq 'Regexp') {
-        return first { $_->match(identity => $matcher) } $self->items;
+    elsif (ref($matcher) eq 'Regexp') {
+        @matches = grep { $_->match(identity => $matcher) } $self->items;
+    }
+    else {
+        my $value = shift;
+        if (!defined($value)) {
+            # they passed in only one argument. assume they are checking identity
+            ($matcher, $value) = ('identity', $matcher);
+        }
+        @matches = { $_->match($matcher => $value) } $self->items;
     }
 
-    my $value = shift;
-    if (!defined($value)) {
-        # they passed in only one argument. assume they are checking identity
-        ($matcher, $value) = ('identity', $matcher);
-    }
-
-    return first { $_->match($matcher => $value) } $self->items;
+    return wantarray ? @matches : $matches[0];
 }
 
 =head2 update Char, Item
