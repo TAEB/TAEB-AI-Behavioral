@@ -25,6 +25,21 @@ sub msg_nothing_happens {
     }
 }
 
+sub msg_status_change {
+    my $self = shift;
+    my $status = shift;
+    my $have = shift;
+
+    # we lost the effect, so we don't care
+    return if !$have;
+
+    my $item = $self->item;
+    if ($item->identity eq 'unicorn horn') {
+        TAEB->info("We seem to have gained the '$status' effect and we rubbed $item this turn. Marking it as cursed.");
+        $item->buc("cursed");
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
