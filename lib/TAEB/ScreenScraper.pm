@@ -197,8 +197,8 @@ our %msg_string = (
 
 our @msg_regex = (
     [
-	qr/^You can't go (?:up|down) here.$/,
-	['dungeon_feature', 'bad staircase'],
+	    qr/^You can't go (?:up|down) here\.$/,
+	        ['dungeon_feature', 'bad staircase'],
     ],
     [
         qr/^There is a (staircase (?:up|down)|fountain|sink|grave) here\.$/,
@@ -412,11 +412,11 @@ our @msg_regex = (
             ['grabbed' => 0],
     ],
     [
-        qr/^Some text has been (burned|melted) into the (?:.*) here./ =>
+        qr/^Some text has been (burned|melted) into the (?:.*) here\./ =>
             ['engraving_type' => sub { $1 } ],
     ],
     [
-        qr/^Something is (written|engraved) here (?:in|on) the (?:.*)./ =>
+        qr/^Something is (written|engraved) here (?:in|on) the (?:.*)\./ =>
             ['engraving_type' => sub { $1 } ],
     ],
     [
