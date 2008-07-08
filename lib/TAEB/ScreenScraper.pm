@@ -180,7 +180,7 @@ our %msg_string = (
     "You see a message scrawled in blood here." =>
         ['engraving_type' => 'scrawl'],
     "You experience a strange sense of peace." =>
-        ['enter_room','temple','coaligned'],
+        ['enter_room','temple'],
     "You see no objects here." =>
         ['clear_floor'],
     "You hear the shrill sound of a guard's whistle." =>
@@ -397,7 +397,7 @@ our @msg_regex = (
     ],
     [
         qr/You have a(?: strange) forbidding feeling\./ =>
-            ['enter_room','temple','crossaligned'],
+            ['enter_room','temple'],
     ],
     [
         qr/.* (?:grabs|swings itself around) you!/ =>
