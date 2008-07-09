@@ -525,14 +525,6 @@ sub scrape {
 
     $self->check_cycling;
 
-    # very big special case
-    if (TAEB->vt->row_plaintext(23) =~ /^--More--\s+$/
-    &&  TAEB->vt->row_plaintext( 1) !~
-                      TAEB::Spoilers::Messages->quest_messages->{TAEB->role}) {
-        TAEB->write('        ');
-        die "Game over, man!\n";
-    }
-
     eval {
         local $SIG{__DIE__};
 
@@ -642,6 +634,12 @@ sub handle_attributes {
         TAEB->write(' ');
         die "Recursing screenscraper.\n";
     }
+    if (TAEB->topline =~ /^(\s+|Really quit\? \[yn\] \(n\) y\s+)Final Attributes:/) {
+        TAEB->debug("I see Final Attributes!");
+        TAEB->write('        ');
+        die("Game Over, man!\n");
+    }
+
 }
 
 sub handle_more_menus {
