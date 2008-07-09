@@ -475,6 +475,19 @@ sub searchability {
     return $searchability;
 }
 
+sub blocked_door {
+    my $self = shift;
+    my $blocked_door = 0;
+
+    $self->each_orthogonal( sub {
+        my $tile = shift;
+        return unless $tile->glyph eq '0' || $tile->glyph eq '^';
+        $blocked_door = 1;
+    });
+
+    return $blocked_door;
+}
+
 sub draw_normal {
     my $self           = shift;
     my $display_method = shift;
