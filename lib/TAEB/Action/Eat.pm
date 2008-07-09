@@ -72,6 +72,7 @@ sub post_responses {
     }
     else {
         TAEB->enqueue_message('remove_floor_item' => $item);
+        if ($item->quantity > 1) { TAEB->enqueue_message('check' => 'floor') }
     }
 
     my $old_nutrition = TAEB->nutrition;
