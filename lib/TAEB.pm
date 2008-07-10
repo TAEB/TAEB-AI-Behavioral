@@ -817,6 +817,7 @@ sub draw_botl {
         push @pieces, 'T:' . $self->turn;
         push @pieces, 'S:' . $self->score
             if $self->has_score;
+        push @pieces, '$:' . $self->gold;
         push @pieces, 'P:' . $self->pathfinds;
 
         my $statuses = join '', map { ucfirst substr $_, 0, 2 } $self->statuses;
