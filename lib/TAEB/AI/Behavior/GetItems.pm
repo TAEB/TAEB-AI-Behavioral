@@ -11,7 +11,6 @@ sub prepare {
     # e.g. "j - a wand"
     return 0 if TAEB->is_blind;
 
-    unless (TAEB->current_tile->in_shop) {
         my @want = grep { TAEB->want_item($_) } TAEB->current_tile->items;
         if (@want) {
             TAEB->debug("TAEB wants items! @want");
@@ -19,12 +18,14 @@ sub prepare {
             $self->do("pickup");
             return 100;
         }
-    }
 
     my $path = TAEB::World::Path->first_match(sub {
         my $tile = shift;
-        return if $tile->in_shop || $tile->in_vault;
-
+        return if $tile->in_vault;
+        if ($tile->in_shop) {
+            #this lets taeb go shopping once and keeps from oscillating due to shk leaving LOS on items
+            return 0 if $tile->stepped_on || $tile->glyph eq '@';
+        }
         return 1 if $tile->might_have_new_item;
         return any { TAEB->want_item($_) } $tile->items;
     }, why => "GetItems");
