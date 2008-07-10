@@ -3,13 +3,17 @@ package TAEB::Action::Pay;
 use TAEB::OO;
 extends 'TAEB::Action';
 
-use constant command => "p";
-
 has item => (
     traits   => [qw/TAEB::Provided/],
     isa      => 'TAEB::World::Item | Str',
     required => 1,
 );
+
+sub command {
+    return TAEB->is_blind ? '.' : 'p';
+}
+
+sub respond_itemized_billing { return 'y'; }
 
 sub respond_buy_item {
     my $self = shift;
