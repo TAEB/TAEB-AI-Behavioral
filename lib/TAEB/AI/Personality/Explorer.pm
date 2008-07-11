@@ -27,6 +27,7 @@ sub weight_behaviors {
         Identify           => 24_750,
         DipForExcalibur    => 24_000,
         Wish               => 23_000,
+        BuyProtection      => 21_000,
         Doors              => 10_000,
         DeadEnd            => 5_000,
         Explore            => 2_500,
