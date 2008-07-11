@@ -23,8 +23,10 @@ sub prepare {
         my $tile = shift;
         return if $tile->in_vault;
         if ($tile->in_shop) {
-            #this lets taeb go shopping once and keeps from oscillating due to shk leaving LOS on items
+            #this lets taeb go shopping once and keeps from
+            #oscillating due to shk leaving LOS on items
             return 0 if $tile->stepped_on || $tile->glyph eq '@';
+            return 0 if TAEB->debt > 0 || !$tile->in_shop;
         }
         return 1 if $tile->might_have_new_item;
         return any { TAEB->want_item($_) } $tile->items;
