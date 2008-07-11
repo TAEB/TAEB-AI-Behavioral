@@ -479,6 +479,8 @@ sub blocked_door {
     my $self = shift;
     my $blocked_door = 0;
 
+    return 0 unless $self->type eq 'opendoor' || $self->type eq 'closeddoor';
+
     $self->each_orthogonal( sub {
         my $tile = shift;
         return unless $tile->glyph eq '0' || $tile->type eq 'trap';
