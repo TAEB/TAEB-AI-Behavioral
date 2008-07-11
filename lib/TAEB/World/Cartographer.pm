@@ -284,7 +284,8 @@ sub floodfill_room {
     $tile->floodfill(
         sub {
             my $t = shift;
-            $t->type eq 'floor' || $t->type eq 'obscured'
+            $t->type eq 'floor' || $t->type eq 'obscured' ||
+                $t->type eq 'altar'
         },
         sub {
             my $t   = shift;
