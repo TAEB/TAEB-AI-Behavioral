@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::Shop;
 use TAEB::OO;
+use List::MoreUtils 'any';
 extends 'TAEB::AI::Behavior';
 
 # for now, we just drop unpaid items
@@ -10,7 +11,8 @@ sub prepare {
 
     if (TAEB->debt > 0) {
 
-        if (TAEB->debt <= TAEB->gold) {
+        if (any { $_->price &&
+                  $_->price <= TAEB->gold } TAEB->inventory->items) {
             $self->currently("Paying off our " . TAEB->debt . " debt");
             $self->do(pay => item => 'any');
             return 90;
