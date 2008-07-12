@@ -35,6 +35,10 @@ sub respond_buy_item {
     return 'n';
 }
 
+sub done {
+    TAEB->enqueue_message('check', 'inventory');
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
