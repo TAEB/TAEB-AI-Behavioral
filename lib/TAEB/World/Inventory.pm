@@ -107,6 +107,12 @@ sub update {
             TAEB->debug("Increasing the quantity of $slot_item by ".$item->quantity);
             $slot_item->quantity($item->quantity + $slot_item->quantity);
         }
+        #always update item to be sure we have proper item flags
+        else {
+            $item->slot($slot);
+            $self->set($slot => $item);
+        }
+
     }
     else {
         $item->slot($slot);
