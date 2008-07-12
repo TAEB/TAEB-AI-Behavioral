@@ -212,8 +212,11 @@ sub pickup {
         if ($behavior->pickup(@_)) {
             my $name = $behavior->name;
             TAEB->info("$name wants to pick up @_");
-            return 1 unless TAEB->current_tile->in_shop &&
-                                TAEB->gold < $_->price;
+            my $item = shift;
+            if (defined $item->price) {
+                return 0 unless TAEB->gold >= $item->price;
+            }
+            return 1;
         }
     }
 
