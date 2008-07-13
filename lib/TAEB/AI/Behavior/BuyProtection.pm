@@ -24,7 +24,7 @@ sub prepare {
         my $found_monster;
         TAEB->each_adjacent(sub {
             my ($tile, $dir) = @_;
-            if ($tile->glyph eq '@' && $tile->color eq COLOR_WHITE) {
+            if ($tile->has_monster && $tile->monster->is_priest) {
                 my $amount = TAEB->level * 400;
                 $self->do('Chat' => direction => $dir, 'amount' => $amount);
                 $self->currently("Chatting to a priest");
