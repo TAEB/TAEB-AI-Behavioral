@@ -10,16 +10,15 @@ sub prepare {
     my $self = shift;
 
     if (TAEB->debt > 0) {
+        my @cart = grep { $_->price } TAEB->inventory->items;
 
-        if (any { $_->price &&
-                  $_->price <= TAEB->gold } TAEB->inventory->items) {
+        if (any { $_->price <= TAEB->gold } @cart) {
             $self->currently("Paying off our " . TAEB->debt . " debt");
             $self->do(pay => item => 'any');
             return 90;
         }
 
-        my @cart = grep { $_->price } TAEB->inventory->items;
-
+        # every item in our cart is greater than our current gold :(
         if (@cart) {
             $self->currently("Dropping items since I can't afford them");
             $self->do(drop => items => \@cart);
@@ -34,8 +33,8 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    #return 0;
     return if $item->match(price => 0);
+
     if ($item->price > TAEB->gold) {
         TAEB->debug("Yes, I want to drop $item because I can't pay for it");
         return 1;
@@ -52,7 +51,9 @@ sub urgencies {
 sub pickup {
     my $self = shift;
     my $item = shift;
+
     return if TAEB->current_tile->in_vault || !TAEB->current_tile->in_shop;
+
     if ($item->price > TAEB->gold) {
         TAEB->debug("Item " . $item . "costs too much to pickup");
         return 0;
