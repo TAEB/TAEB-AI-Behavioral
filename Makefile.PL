@@ -80,6 +80,8 @@ features(
     'Web-based interface for controlling TAEB' => [
         -default => 0,
         recommends('Continuity'),
+        recommends('Template::Declare'),
+        recommends('Template::Declare::Anon'),
     ],
 );
 
