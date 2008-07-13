@@ -76,15 +76,15 @@ sub check_dlvl {
     my $self = shift;
 
     my $botl = TAEB->vt->row_plaintext(23);
-    $botl =~ /^(?:Dlvl:(\d+)|Home (\d+)|Fort Ludios|End Game|Astral Plane)/
+    $botl =~ /^(Dlvl|Home|Fort Ludios|End Game|Astral Plane)(?:\:|\s)(\d*) /
         or do {
             TAEB->error("Unable to parse the botl for dlvl: $botl");
             return;
     };
 
-    my $dlvl = $1 || $2;
-    my $quest = $2;
     my $level = $self->dungeon->current_level;
+    my $descriptor = $1;
+    my $dlvl = $2 || $level->z;
 
     if ($level->z != $dlvl) {
         TAEB->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
@@ -117,8 +117,11 @@ sub check_dlvl {
                 $newlevel->is_rogue(1);
             }
             else { $newlevel->is_rogue(0) }
-            if ($quest) {
+            if ($descriptor eq 'Home') {
                 $newlevel->branch('quest');
+            }
+            elsif ($descriptor eq 'Fort Ludios') {
+                $newlevel->branch('ludios');
             }
         }
 
