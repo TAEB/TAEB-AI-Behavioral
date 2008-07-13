@@ -10,16 +10,13 @@ has '+direction' => (
     required => 1,
 );
 
-has 'amount' => (
+has amount => (
     traits   => [qw/TAEB::Provided/],
     isa      => 'Int',
     default  => 1,
 );
 
-sub respond_donate {
-    return shift->amount . "\n";
-    
-}
+sub respond_donate { shift->amount . "\n" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
