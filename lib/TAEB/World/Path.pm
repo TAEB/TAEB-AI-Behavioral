@@ -226,8 +226,9 @@ sub _calculate_intralevel_path {
 =head2 _dijkstra Code, ARGS -> Tile, Str
 
 This performs a search for some tile. The code reference is evaluated for each
-tile along the way. It receives the current tile and the path to it as its
-arguments. It's expected to return one of the following:
+tile along the way. It receives the current tile, the path to it, and the
+path's cost thus far as its arguments. It's expected to return one of the
+following:
 
 =over 4
 
@@ -306,7 +307,7 @@ sub _dijkstra {
         my ($tile, $path) = @{ $pq->extract_top };
         $tile->pathfind($tile->pathfind + 1) if $debug;
 
-        my $score = $scorer->($tile, $path);
+        my $score = $scorer->($tile, $path, $priority);
         if (defined $score) {
             if ($score eq 'q') {
                 if ($debug) {
