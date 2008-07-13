@@ -77,6 +77,10 @@ features(
         -default => 1,
         recommends('YAML::Syck'),
     ],
+    'Web-based interface for controlling TAEB' => [
+        -default => 0,
+        recommends('Continuity'),
+    ],
 );
 
 build_requires 'Test::More';
