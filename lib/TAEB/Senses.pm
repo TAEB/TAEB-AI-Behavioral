@@ -294,6 +294,9 @@ sub can_engrave {
     my $self = shift;
     return not $self->in_wereform
             || $self->is_blind
+            || $self->is_confused
+            || $self->is_stunned
+            || $self->is_hallucinating
             || $self->is_engulfed
             || TAEB->current_tile->type eq 'fountain'
             || TAEB->current_tile->type eq 'altar'
