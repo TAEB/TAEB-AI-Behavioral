@@ -37,6 +37,7 @@ sub respond_buy_item {
 
 sub done {
     TAEB->enqueue_message('check', 'inventory');
+    TAEB->enqueue_message('check', 'debt');
 }
 
 __PACKAGE__->meta->make_immutable;
