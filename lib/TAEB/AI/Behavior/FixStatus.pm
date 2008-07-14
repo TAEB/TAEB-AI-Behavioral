@@ -11,6 +11,7 @@ my @can_fix = (
         action    => 'apply',
         args      => sub { item => shift },
         currently => sub { "Rubbing " . shift },
+        reuseable => 1,
     },
     "carrot" => {
         status    => 'blind',
@@ -93,8 +94,14 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    for (@can_fix) {
-        return 1 if $item->match(identity => $_);
+    for (my $i = 0; $i < @can_fix; $i += 2) {
+        my ($item_name, $fix) = @can_fix[$i, $i+1];
+        if ($fix->{reusable}) {
+            my %match = (identity => $item->identity);
+            %match = (%match, %{ $fix->{refine} }) if $fix->{refine};
+            next if TAEB->find_item(%match);
+        }
+        return 1 if $item->match(identity => $item_name);
     }
 
     return;
