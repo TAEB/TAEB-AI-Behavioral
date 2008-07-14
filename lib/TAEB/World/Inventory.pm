@@ -71,12 +71,12 @@ sub find {
         @matches = grep { $_->match(identity => $matcher) } $self->items;
     }
     else {
-        my $value = shift;
-        if (!defined($value)) {
+        unshift @_, $matcher;
+        if (@_ == 1) {
             # they passed in only one argument. assume they are checking identity
-            ($matcher, $value) = ('identity', $matcher);
+            unshift @_, 'identity';
         }
-        @matches = grep { $_->match($matcher => $value) } $self->items;
+        @matches = grep { $_->match(@_) } $self->items;
     }
 
     return wantarray ? @matches : $matches[0];
