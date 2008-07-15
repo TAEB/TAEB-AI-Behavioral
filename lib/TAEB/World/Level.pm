@@ -97,10 +97,6 @@ has tiles_by_type => (
     },
 );
 
-has interesting_at => (
-    isa => 'Int',
-);
-
 # So, for these is_<speciallevel>,
 #    true  => definitely that level
 #    false => definitely not that level
@@ -673,12 +669,6 @@ sub msg_farlooked {
 
     my $tile = $self->at($x, $y);
     $tile->farlooked($msg);
-}
-
-sub might_have_new_item {
-    my $self = shift;
-    return if !defined($self->interesting_at);
-    return $self->interesting_at > $self->last_step + 1;
 }
 
 __PACKAGE__->meta->make_immutable;
