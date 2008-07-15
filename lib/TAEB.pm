@@ -902,8 +902,8 @@ sub display_topline {
     $self->place_cursor;
 }
 
-__PACKAGE__->meta()->make_immutable();
-MooseX::ClassAttribute::container_class()->meta()->make_immutable();
+__PACKAGE__->meta->make_immutable;
+MooseX::ClassAttribute::container_class->meta->make_immutable;
 no Moose;
 no MooseX::ClassAttribute;
 
