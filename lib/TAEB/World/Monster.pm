@@ -23,8 +23,13 @@ has tile => (
 
 sub is_shk {
     my $self = shift;
-    return 0 if !($self->glyph eq '@' && $self->color eq COLOR_WHITE);
-    return ($self->in_shop ? 1 : undef);
+
+    # if we've seen a nurse recently, then this monster is probably that nurse
+    # we really need proper monster tracking! :)
+    return 0 if TAEB->turn < (TAEB->last_seen_nurse || -100) + 3;
+
+    return 0 unless $self->glyph eq '@' && $self->color eq COLOR_WHITE;
+    return $self->in_shop ? 1 : undef;
 }
 
 sub is_priest {
