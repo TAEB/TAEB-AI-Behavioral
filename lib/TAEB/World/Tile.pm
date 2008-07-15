@@ -318,8 +318,7 @@ for my $tiletype (keys %tiletypes) {
 
 sub might_have_new_item {
     my $self = shift;
-    return $self->interesting_at > $self->last_step + 1
-        || $self->type eq 'obscured' && $self->last_step == 0;
+    return $self->interesting_at > $self->last_step + 1;
 }
 
 sub elbereths {
