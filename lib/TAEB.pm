@@ -920,9 +920,11 @@ sub display_topline {
 }
 
 sub quit {
-    my $self = shift;
-    $self->destroy_saved_state;
-    $self->write("   \e   \e     #quit\ny         ");
+    shift->write("   \e   \e     #quit\ny         ");
+}
+
+sub died {
+    shift->destroy_saved_data;
 }
 
 sub destroy_saved_state {

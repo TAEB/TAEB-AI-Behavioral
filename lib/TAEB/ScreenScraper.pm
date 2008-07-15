@@ -638,6 +638,7 @@ sub handle_attributes {
         die "Recursing screenscraper.\n";
     }
     if (TAEB->topline =~ /^(\s+|Really quit\? \[yn\] \(n\) y\s+)Final Attributes:/) {
+        TAEB->died;
         TAEB->debug("I see Final Attributes!");
         TAEB->write('        ');
         die("Game Over, man!\n");
