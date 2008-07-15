@@ -316,12 +316,7 @@ sub handle_logging_in {
     }
 }
 
-sub handle_saving {
-    my $self = shift;
-
-    $self->save_state;
-    $self->write("\e\eS");
-}
+sub handle_saving { shift->save }
 
 =head2 full_input
 
@@ -919,9 +914,8 @@ sub display_topline {
     $self->place_cursor;
 }
 
-sub quit {
-    shift->write("   \e   \e     #quit\ny         ");
-}
+sub quit { shift->write("   \e   \e     #quit\ny         ") }
+sub save { shift->write("   \e   \e     Sy") }
 
 sub died {
     shift->destroy_saved_data;
