@@ -932,12 +932,6 @@ sub died {
     $self->config->state_file(undef);
 }
 
-sub destroy_saved_state {
-    my $self = shift;
-    my $file = $self->config->state_file;
-    unlink $file if defined $file;
-}
-
 __PACKAGE__->meta->make_immutable;
 MooseX::ClassAttribute::container_class->meta->make_immutable;
 no Moose;

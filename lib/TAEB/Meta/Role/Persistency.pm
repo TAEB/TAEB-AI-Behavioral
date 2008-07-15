@@ -37,6 +37,12 @@ sub save_state {
     Storable::nstore($state, $file);
 }
 
+sub destroy_saved_state {
+    my $self = shift;
+    my $file = $self->persistent_file;
+    unlink $file if defined $file;
+}
+
 no Moose::Role;
 
 1;
