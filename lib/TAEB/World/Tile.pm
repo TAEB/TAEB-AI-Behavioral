@@ -87,10 +87,14 @@ has is_interesting => (
     isa     => 'Int',
     trigger => sub {
         my $self = shift;
-        my $step = shift;
+        my $interesting = shift;
 
-        $self->level->interesting_at($step)
-            if $step > ($self->level->interesting_at||-1);
+        if ($interesting) {
+            $self->level->register_tile($self, 'interesting');
+        }
+        else {
+            $self->level->unregister_tile($self, 'interesting');
+        }
     },
 );
 
