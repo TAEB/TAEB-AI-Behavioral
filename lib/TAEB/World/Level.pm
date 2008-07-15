@@ -676,6 +676,11 @@ sub msg_farlooked {
     $tile->farlooked($msg);
 }
 
+sub might_have_new_item {
+    my $self = shift;
+    return $self->interesting_at > $self->last_step + 1;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
