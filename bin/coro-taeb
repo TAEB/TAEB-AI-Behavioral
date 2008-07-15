@@ -52,7 +52,7 @@ sub main {
 
         unless ("@_" =~ /Game over, man/) {
             TAEB->error("@_");
-            TAEB->dump;
+            TAEB->save;
         }
 
         die @_;
