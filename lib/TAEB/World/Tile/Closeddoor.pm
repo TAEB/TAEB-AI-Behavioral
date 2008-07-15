@@ -4,10 +4,6 @@ use TAEB::OO;
 extends 'TAEB::World::Tile::Door';
 use TAEB::Util ':colors';
 
-has state => (
-    isa => 'DoorState',
-);
-
 has '+type' => (
     default => 'closeddoor',
 );
@@ -31,16 +27,6 @@ sub debug_color {
     }
 
     return;
-}
-
-sub locked {
-    my $self = shift;
-    $self->state && $self->state eq 'locked';
-}
-
-sub unlocked {
-    my $self = shift;
-    $self->state && $self->state eq 'unlocked';
 }
 
 __PACKAGE__->meta->make_immutable;

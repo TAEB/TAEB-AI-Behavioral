@@ -3,6 +3,20 @@ package TAEB::World::Tile::Door;
 use TAEB::OO;
 extends 'TAEB::World::Tile';
 
+has state => (
+    isa => 'DoorState',
+);
+
+sub locked {
+    my $self = shift;
+    $self->state && $self->state eq 'locked';
+}
+
+sub unlocked {
+    my $self = shift;
+    $self->state && $self->state eq 'unlocked';
+}
+
 sub blocked_door {
     my $self = shift;
     my $blocked_door = 0;
