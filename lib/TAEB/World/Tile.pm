@@ -85,13 +85,12 @@ has engraving_type => (
 
 has interesting_at => (
     isa     => 'Int',
-    default => 0,
     trigger => sub {
         my $self = shift;
         my $step = shift;
 
         $self->level->interesting_at($step)
-            if $step > $self->level->interesting_at;
+            if $step > ($self->level->interesting_at||-1);
     },
 );
 
@@ -318,6 +317,7 @@ for my $tiletype (keys %tiletypes) {
 
 sub might_have_new_item {
     my $self = shift;
+    return if !defined($self->interesting_at);
     return $self->interesting_at > $self->last_step + 1;
 }
 

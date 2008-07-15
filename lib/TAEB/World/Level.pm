@@ -98,8 +98,7 @@ has tiles_by_type => (
 );
 
 has interesting_at => (
-    isa     => 'Int',
-    default => -1,
+    isa => 'Int',
 );
 
 # So, for these is_<speciallevel>,
@@ -678,6 +677,7 @@ sub msg_farlooked {
 
 sub might_have_new_item {
     my $self = shift;
+    return if !defined($self->interesting_at);
     return $self->interesting_at > $self->last_step + 1;
 }
 
