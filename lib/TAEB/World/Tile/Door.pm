@@ -23,7 +23,7 @@ sub blocked_door {
 
     $self->each_orthogonal( sub {
         my $tile = shift;
-        return unless $tile->glyph eq '0' || $tile->type eq 'trap';
+        return unless $tile->has_boulder || $tile->type eq 'trap';
         $blocked_door = 1;
     });
 

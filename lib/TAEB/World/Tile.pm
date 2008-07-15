@@ -224,7 +224,7 @@ sub is_walkable {
     return 0 if $self->y < 1 || $self->y > 21;
 
     # XXX: yes. I know. shut up.
-    return 0 if $self->glyph eq '0';
+    return 0 if $self->has_boulder;
 
     # we can path through unlit areas that we haven't seen as rock for sure yet
     return 1 if $through_unknown &&
