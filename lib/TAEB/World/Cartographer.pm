@@ -49,7 +49,7 @@ sub update {
         return 1;
     });
 
-    $old_level->step_off($self->x, $self->y);
+    $old_level->step_off($old_x, $old_y);
     $level->step_on($self->x, $self->y);
 
     if ($tile_changed) {
