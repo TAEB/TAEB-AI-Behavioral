@@ -8,6 +8,8 @@ personality: ScoreWhore
 
 fight_behavior: Melee
 
+state_file: .TAEB.state
+
 other_config:
     - etc/site_config.yml
 
