@@ -36,7 +36,7 @@ sub update {
 
         $tile->_clear_monster if $tile->has_monster;
         $tile->try_monster($glyph, $color)
-            unless if $Tx == $x && $Ty == $y;
+            unless $Tx == $x && $Ty == $y;
 
         if ($glyph ne $tile->glyph || $color != $tile->color) {
             $tile_changed = 1;
