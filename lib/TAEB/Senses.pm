@@ -124,6 +124,10 @@ has following_vault_guard => (
     default => 0,
 );
 
+has last_seen_nurse => (
+    isa => 'Int',
+);
+
 has checking => (
     isa     => 'Str',
     clearer => 'clear_checking',
@@ -488,6 +492,15 @@ sub msg_vault_guard {
     my $following = shift;
 
     $self->following_vault_guard($following);
+}
+
+sub msg_attacked {
+    my $self = shift;
+    my $attacker = shift;
+
+    if ($attacker =~ /\bnurse\b/) {
+        $self->last_seen_nurse($self->turn);
+    }
 }
 
 sub msg_check {
