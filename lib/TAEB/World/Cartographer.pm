@@ -18,8 +18,11 @@ has y => (
 
 sub update {
     my $self  = shift;
-    $self->x(TAEB->vt->x);
-    $self->y(TAEB->vt->y);
+
+    my ($Tx, $Ty) = (TAEB->vt->x, TAEB->vt->y);
+
+    $self->x($Tx);
+    $self->y($Ty);
 
     return if $self->is_engulfed;
 
@@ -28,8 +31,6 @@ sub update {
     my $level = $self->dungeon->current_level;
 
     my $tile_changed = 0;
-
-    my ($Tx, $Ty) = (TAEB->x, TAEB->y);
 
     $level->iterate_tile_vt(sub {
         my ($tile, $glyph, $color, $x, $y) = @_;
