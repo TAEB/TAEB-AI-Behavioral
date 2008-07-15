@@ -12,7 +12,7 @@ has persistent_data => (
     default => sub {
         my $self = shift;
         my $file = $self->persistent_file;
-        return {} unless defined $file;
+        return {} unless defined $file && -r $file;
 
         TAEB->info("Loading persistency data.");
         return eval { Storable::retrieve($file) } || {};
