@@ -86,6 +86,13 @@ has engraving_type => (
 has interesting_at => (
     isa     => 'Int',
     default => 0,
+    trigger => sub {
+        my $self = shift;
+        my $step = shift;
+
+        $self->level->interesting_at($step)
+            if $step > $self->level->interesting_at;
+    },
 );
 
 has monster => (

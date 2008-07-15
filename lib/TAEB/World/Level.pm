@@ -97,6 +97,11 @@ has tiles_by_type => (
     },
 );
 
+has interesting_at => (
+    isa     => 'Int',
+    default => -1,
+);
+
 # So, for these is_<speciallevel>,
 #    true  => definitely that level
 #    false => definitely not that level
