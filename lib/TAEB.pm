@@ -474,7 +474,6 @@ sub keypress {
 
     if ($c eq 'Q') {
         $self->quit;
-        return "Until we meet again, then.";
     }
 
     if ($c eq ';') {
@@ -915,11 +914,22 @@ sub display_topline {
     $self->place_cursor;
 }
 
-sub quit { shift->write("   \e   \e     #quit\ny         ") }
-sub save { shift->write("   \e   \e     Sy") }
+sub quit {
+    shift->write("   \e   \e     #quit\ny         ");
+    die "Until we meet again, then!";
+}
+
+sub save {
+    shift->write("   \e   \e     Sy");
+    die "See you soon!";
+}
 
 sub died {
-    shift->destroy_saved_data;
+    my $self = shift;
+    $self->destroy_saved_data;
+
+    # this REALLY prevents us from saving the state file
+    $self->config->state_file(undef);
 }
 
 sub destroy_saved_state {
