@@ -44,6 +44,22 @@ class_has interface => (
     },
 );
 
+# set up TAEB::Persistency {{{
+# this must be done after the first "class_has" so that container_class is
+# defined for TAEB.
+do {
+    my $container_class = MooseX::ClassAttribute::container_class;
+    my $container_meta = $container_class->meta;
+
+    # add the persistent_file method required by the role
+    $container_meta->add_method(persistent_file => sub {
+        return TAEB->config->state_file;
+    });
+
+    Moose::Util::apply_all_roles($container_meta, 'TAEB::Meta::Role::Persistency');
+};
+# }}}
+
 class_has personality => (
     is       => 'rw',
     isa      => 'TAEB::AI::Personality',
