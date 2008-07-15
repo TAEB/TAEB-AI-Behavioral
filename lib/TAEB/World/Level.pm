@@ -290,9 +290,7 @@ sub unregister_tile {
 
 sub has_type {
     my $self = shift;
-    my $type = shift;
-
-    return @{ $self->tiles_by_type->{$type} || [] }
+    map { @{ $self->tiles_by_type->{$_} || [] } } @_
 }
 
 *tiles_of = \&has_type;
