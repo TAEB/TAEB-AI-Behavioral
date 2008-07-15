@@ -153,13 +153,13 @@ sub new_item {
 
     my $class = TAEB::Spoilers::Item->type_to_class($item);
     unless (defined $class) {
-        TAEB->error("Unable to find '$item' in TAEB::Spoilers::Item.");
+        TAEB->warning("Unable to find '$item' in TAEB::Spoilers::Item.");
         return;
     }
 
     my $class_name = ucfirst $class;
     unless (grep { $class_name eq $_ } TAEB::Spoilers::Item->types) {
-        TAEB->error("Items (such as $raw) of class $class are not yet supported.");
+        TAEB->warning("Items (such as $raw) of class $class are not yet supported.");
         return;
     }
 
