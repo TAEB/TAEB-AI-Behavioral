@@ -19,8 +19,10 @@ has y => (
 sub update {
     my $self  = shift;
 
-    my ($Tx, $Ty) = (TAEB->vt->x, TAEB->vt->y);
+    my ($old_x, $old_y) = ($self->x, $self->y);
+    my $old_level = $self->dungeon->current_level;
 
+    my ($Tx, $Ty) = (TAEB->vt->x, TAEB->vt->y);
     $self->x($Tx);
     $self->y($Ty);
 
