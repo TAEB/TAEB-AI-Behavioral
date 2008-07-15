@@ -318,6 +318,14 @@ sub can_kick {
     return not $self->in_beartrap;
 }
 
+sub can_move {
+    my $self = shift;
+    return not $self->in_beartrap
+            || $self->in_pit
+            || $self->is_grabbed
+            || $self->is_engulfed;
+}
+
 sub msg_beartrap {
     my $self = shift;
     $self->in_beartrap(1);
