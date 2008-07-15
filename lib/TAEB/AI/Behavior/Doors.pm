@@ -51,8 +51,7 @@ sub prepare {
         my ($door, $dir) = @$_;
 
         if ($door->blocked_door) {
-            if ($door->type eq 'opendoor' &&
-                    ($door->glyph eq '-' || $door->glyph eq '|')) {
+            if ($door->type eq 'opendoor') {
                 $self->do(close => direction => $dir);
                 $self->currently("Closing door");
                 return 100;
