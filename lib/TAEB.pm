@@ -311,7 +311,7 @@ sub handle_logging_in {
     }
     elsif ($self->topline =~ /^\s*It is written in the Book of /) {
         TAEB->error("Using etc/TAEB.nethackrc is MANDATORY");
-        $self->write("     \e     #quit\ny         ");
+        $self->quit;
         die "Using etc/TAEB.nethackrc is MANDATORY";
     }
 }
@@ -476,7 +476,7 @@ sub keypress {
     }
 
     if ($c eq 'Q') {
-        $self->write("\e\e#quit\ny");
+        $self->quit;
         return "Until we meet again, then.";
     }
 
@@ -916,6 +916,11 @@ sub display_topline {
         }
     }
     $self->place_cursor;
+}
+
+sub quit {
+    my $self = shift;
+    $self->write("   \e   \e     #quit\ny         ");
 }
 
 __PACKAGE__->meta->make_immutable;
