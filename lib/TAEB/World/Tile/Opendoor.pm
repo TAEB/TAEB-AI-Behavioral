@@ -7,6 +7,8 @@ has '+type' => (
     default => 'opendoor',
 );
 
+use constant locked => 0;
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
