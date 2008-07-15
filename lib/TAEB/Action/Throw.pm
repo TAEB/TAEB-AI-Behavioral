@@ -56,7 +56,7 @@ sub done {
         # . tiles would show the projectile we threw
         next if $tile->glyph eq '.';
 
-        $tile->is_interesting(1);
+        $tile->set_interesting(1);
 
         # if we're throwing at a monster, then the projectile will always stop
         # at the monster's tile (unless we threw multiple and it killed the
