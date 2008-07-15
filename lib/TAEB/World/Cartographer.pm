@@ -233,7 +233,7 @@ sub msg_floor_item {
     my $self = shift;
     my $item = shift;
 
-    TAEB->current_tile->add_item($item);
+    TAEB->current_tile->add_item($item) if $item;
 }
 
 sub msg_remove_floor_item {
