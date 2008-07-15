@@ -31,63 +31,87 @@ sub unlock_action {
     return;
 }
 
-sub prepare {
+sub door_handler {
     my $self = shift;
-
-    return 0 unless TAEB->can_open;
-
     my ($action, %action_args) = $self->unlock_action;
     my $currently = delete $action_args{currently};
 
-    my @doors;
-    TAEB->any_adjacent(sub {
-        my ($tile, $dir) = @_;
-        push @doors, [$tile, $dir]
-            if $tile->type eq 'closeddoor' ||
-                    ($tile->type eq 'opendoor' && $tile->blocked_door);
-    });
+    return sub {
+        my $door = shift;
 
-    for (@doors) {
-        my ($door, $dir) = @$_;
+        return unless $door->isa('TAEB::World::Tile::Door');
 
         if ($door->blocked_door) {
             if ($door->type eq 'opendoor') {
-                $self->do(close => direction => $dir);
-                $self->currently("Closing door");
-                return 100;
+                return sub {
+                    my ($self, $door, $dir) = @_;
+                    $self->do(close => direction => $dir);
+                    $self->currently("Closing door");
+                    return 100;
+                };
             }
             elsif (TAEB->can_kick) {
-                $self->do(kick => direction => $dir);
-                $self->currently("Kicking down blocked door");
-                return 100;
+                return sub {
+                    my ($self, $door, $dir) = @_;
+                    $self->do(kick => direction => $dir);
+                    $self->currently("Kicking down blocked door");
+                    return 100;
+                };
             }
         }
         elsif ($door->locked) {
             if ($action) {
                 unless ($action eq 'kick' && $door->is_shop) {
-                    $self->do($action => %action_args, direction => $dir);
-                    $self->currently($currently);
-                    return 100;
+                    return sub {
+                        my ($self, $door, $dir) = @_;
+                        $self->do($action => %action_args, direction => $dir);
+                        $self->currently($currently);
+                        return 100;
+                    };
                 }
             }
         }
-        else {
+        elsif ($door->type eq 'closeddoor') {
             # it's not locked, so open it
-            $self->do(open => direction => $dir);
-            $self->currently("Trying to open a door");
-            return 100;
+            return sub {
+                my ($self, $door, $dir) = @_;
+                $self->do(open => direction => $dir);
+                $self->currently("Trying to open a door");
+                return 100;
+            };
+        }
+
+        return;
+    }
+}
+
+sub prepare {
+    my $self = shift;
+
+    return 0 unless TAEB->can_open;
+
+    my $door_handler = $self->door_handler;
+
+    my @doors;
+    TAEB->any_adjacent(sub {
+        my ($tile, $dir) = @_;
+        push @doors, [$tile, $dir]
+            if $tile->type eq 'closeddoor'
+            || ($tile->type eq 'opendoor' && $tile->blocked_door);
+    });
+
+    for (@doors) {
+        my ($door, $dir) = @$_;
+        if (my $act_sub = $door_handler->($door)) {
+            return $act_sub->($self, $door, $dir);
         }
     }
 
+    return unless any { $door_handler->($_) }
+                  TAEB->current_level->tiles_of('opendoor', 'closeddoor');
+
     my $path = TAEB::World::Path->first_match(sub {
-        my $tile = shift;
-        return 0 unless ($tile->type eq 'closeddoor' || $tile->type eq 'opendoor');
-        return 0 if $tile->type eq 'opendoor' && !$tile->blocked_door;
-        if ($tile->type eq 'closeddoor') {
-            return 0 if $tile->is_shop && ($action||'') eq 'kick';
-            return 0 if $tile->locked && !$action;
-        }
-        return 1;
+        $door_handler->(shift) ? 1 : 0
     }, include_endpoints => 1, why => "Doors");
 
     $self->if_path($path => "Heading towards a door");
