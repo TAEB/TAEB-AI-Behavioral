@@ -17,7 +17,8 @@ sub begin_select_pickup {
 }
 
 sub select_pickup {
-    my $item = TAEB->new_item($_);
+    my $item = TAEB->new_item($_)
+        or return;
     TAEB->enqueue_message('floor_item' => $item);
     TAEB->want_item($item);
 }

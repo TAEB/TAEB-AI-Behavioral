@@ -760,6 +760,9 @@ sub handle_menus {
             my $new_item    = TAEB->new_item($_);
             my $item        = TAEB->inventory->get($slot) || $new_item;
 
+            # we were unable to parse this item. drop it!
+            return 1 if !defined($item);
+
             # if we can drop the item, drop it!
             if (!(TAEB->is_checking('inventory'))
             && TAEB->personality->drop($item)) {
