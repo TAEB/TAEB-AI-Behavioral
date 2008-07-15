@@ -319,6 +319,7 @@ sub handle_logging_in {
 sub handle_saving {
     my $self = shift;
 
+    $self->save_state;
     $self->write("\e\eS");
 }
 
@@ -920,6 +921,7 @@ sub display_topline {
 
 sub quit {
     my $self = shift;
+    $self->destroy_saved_state;
     $self->write("   \e   \e     #quit\ny         ");
 }
 
