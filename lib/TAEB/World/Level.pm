@@ -99,7 +99,7 @@ has tiles_by_type => (
 
 has items => (
     metaclass  => 'Collection::Array',
-    is         => 'rw',
+    is         => 'ro',
     isa        => 'ArrayRef[TAEB::World::Item]',
     default    => sub { [] },
     auto_deref => 1,
