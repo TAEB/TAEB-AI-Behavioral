@@ -252,6 +252,12 @@ sub step_on {
     $self->is_interesting(0);
 }
 
+sub step_off {
+    my $self = shift;
+
+    $self->is_interesting(0);
+}
+
 sub iterate_tiles {
     my $self       = shift;
     my $controller = shift;

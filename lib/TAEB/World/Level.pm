@@ -174,6 +174,14 @@ sub step_on {
     $self->tiles->[$y][$x]->step_on;
 }
 
+sub step_off {
+    my $self = shift;
+    my $x = shift;
+    my $y = shift;
+
+    $self->tiles->[$y][$x]->step_off;
+}
+
 =head2 radiate CODE[, ARGS] -> (Str | (Str, Int))
 
 This method will radiate in the eight NetHack directions. It will call the
