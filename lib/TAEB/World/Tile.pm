@@ -570,10 +570,10 @@ sub display_floor {
 
 sub farlooked {}
 
-# keep track of our items on the level object
+# keep track of our items on the level object {{{
 after add_item => sub {
     my $self = shift;
-    $self->level->add_item(@_);
+    push @{ $self->level->items }, @_;
 };
 
 before clear_items => sub {
@@ -596,11 +596,12 @@ sub _remove_level_item {
     for my $i (0 .. $level->item_count - 1) {
         my $level_item = $level->items->[$i];
         if ($item->maybe_is($tile_item)) {
-            $level->remove_item($i);
+            splice @{ $level->items }, $i, 1;
             return;
         }
     }
 }
+# }}}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
