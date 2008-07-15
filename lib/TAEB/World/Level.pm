@@ -300,7 +300,7 @@ sub has_enemies { grep { $_->is_enemy } shift->monsters }
 sub exits {
     my $self = shift;
 
-    my @exits = map { $self->tiles_of($_) } qw/stairsup stairsdown/;
+    my @exits = map { @{ $self->tiles_by_type->{$_} } } qw/stairsup stairsdown/;
 
     @exits = grep { $_->type ne 'stairsup' } @exits
         if $self->z == 1; # XXX check for Amulet
