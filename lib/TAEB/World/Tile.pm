@@ -116,7 +116,6 @@ has items => (
 
 has last_step => (
     isa           => 'Int',
-    default       => 0,
     documentation => "The last step that we were on this tile",
 );
 
@@ -317,7 +316,8 @@ for my $tiletype (keys %tiletypes) {
 
 sub might_have_new_item {
     my $self = shift;
-    return if !defined($self->interesting_at);
+    return 0 if !defined($self->interesting_at);
+    return 1 if !defined($self->last_step);
     return $self->interesting_at > $self->last_step + 1;
 }
 
