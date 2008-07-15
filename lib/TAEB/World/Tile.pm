@@ -83,7 +83,7 @@ has engraving_type => (
     documentation => "Store the writing type",
 );
 
-has interesting_at => (
+has is_interesting => (
     isa     => 'Int',
     trigger => sub {
         my $self = shift;
@@ -204,7 +204,7 @@ sub update {
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
 
-        $self->interesting_at(TAEB->step)
+        $self->is_interesting(1)
             unless $self->has_monster;
 
         $self->type('obscured')
@@ -312,13 +312,6 @@ for my $tiletype (keys %tiletypes) {
                                  $tiletypes{$tiletype})
         })
     }
-}
-
-sub might_have_new_item {
-    my $self = shift;
-    return 0 if !defined($self->interesting_at);
-    return 1 if !defined($self->last_step);
-    return $self->interesting_at > $self->last_step + 1;
 }
 
 sub elbereths {
