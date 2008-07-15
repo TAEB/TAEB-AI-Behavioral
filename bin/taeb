@@ -111,7 +111,7 @@ use_default_colors;
 init_pair($_, $_, 0) for 0 .. 7;
 
 $SIG{INT} = sub {
-    TAEB->dump;
+    TAEB->save;
     die "In the future, use 'q' to save gracefully you dingbat.";
 };
 
