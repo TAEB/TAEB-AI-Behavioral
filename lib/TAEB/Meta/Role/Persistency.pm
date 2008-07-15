@@ -10,7 +10,12 @@ has persistent_data => (
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
-        return eval { Storable::retrieve(shift->persistent_file) } || {};
+        my $self = shift;
+        my $file = $self->persistent_file;
+        return {} unless defined $file;
+
+        TAEB->info("Loading persistency data.");
+        return eval { Storable::retrieve($file) } || {};
     },
 );
 
