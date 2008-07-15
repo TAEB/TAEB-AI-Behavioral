@@ -29,6 +29,11 @@ sub is_shk {
     return 0 if TAEB->turn < (TAEB->last_seen_nurse || -100) + 3;
 
     return 0 unless $self->glyph eq '@' && $self->color eq COLOR_WHITE;
+
+    # a shk isn't a shk if it's outside of its shop!
+    # this also catches angry shks, but that's not too big of a deal
+    return 0 unless $self->tile->type eq 'obscured'
+                 || $self->tile->type eq 'floor';
     return $self->in_shop ? 1 : undef;
 }
 
