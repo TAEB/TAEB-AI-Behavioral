@@ -595,7 +595,7 @@ sub _remove_level_item {
 
     for my $i (0 .. $level->item_count - 1) {
         my $level_item = $level->items->[$i];
-        if ($item->maybe_is($tile_item)) {
+        if ($item->maybe_is($level_item)) {
             splice @{ $level->items }, $i, 1;
             return;
         }
