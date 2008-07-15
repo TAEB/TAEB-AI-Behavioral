@@ -247,7 +247,7 @@ sub is_unregisterable { $is_unregisterable{$_[1]} }
 sub register_tile {
     my $self = shift;
     my $tile = shift;
-    my $type = $tile->type;
+    my $type = shift || $tile->type;
 
     push @{ $self->tiles_by_type->{$type} }, $tile
         unless $self->is_unregisterable($type);
@@ -256,7 +256,7 @@ sub register_tile {
 sub unregister_tile {
     my $self = shift;
     my $tile = shift;
-    my $type = $tile->type;
+    my $type = shift || $tile->type;
 
     return if $self->is_unregisterable($type);
 
