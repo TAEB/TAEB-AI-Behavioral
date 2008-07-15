@@ -92,9 +92,7 @@ has pickaxe => (
 
 has tiles_by_type => (
     isa     => 'HashRef[ArrayRef[TAEB::World::Tile]]',
-    default => sub {
-        +{ map { $_ => [] } tile_types }
-    },
+    default => sub { {} },
 );
 
 has items => (
@@ -269,7 +267,7 @@ sub register_tile {
     my $tile = shift;
     my $type = shift || $tile->type;
 
-    push @{ $self->tiles_by_type->{$type} }, $tile
+    push @{ $self->tiles_by_type->{$type} ||= [] }, $tile
         unless $self->is_unregisterable($type);
 }
 
@@ -294,7 +292,7 @@ sub has_type {
     my $self = shift;
     my $type = shift;
 
-    return @{ $self->tiles_by_type->{$type} }
+    return @{ $self->tiles_by_type->{$type} || [] }
 }
 
 sub has_enemies { grep { $_->is_enemy } shift->monsters }
