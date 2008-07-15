@@ -36,7 +36,7 @@ sub prepare {
         # zoos tend to have sleeping peacefuls
         return 0 if $tile->has_monster && $tile->in_zoo;
 
-        return 1 if $tile->might_have_new_item;
+        return 1 if $tile->is_interesting;
         return any { TAEB->want_item($_) } $tile->items;
     }, why => "GetItems");
 

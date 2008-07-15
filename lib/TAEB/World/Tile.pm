@@ -383,7 +383,7 @@ sub debug_line {
 
     push @bits, sprintf 'i=%d%s',
                     $self->item_count,
-                    $self->might_have_new_item ? '*' : '';
+                    $self->is_interesting ? '*' : '';
 
     if ($self->engraving) {
         push @bits, sprintf 'E=%d/%d',
@@ -523,7 +523,7 @@ sub draw_debug {
              ? Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD
              : $self->has_enemy
              ? Curses::COLOR_PAIR(COLOR_RED) | Curses::A_BOLD
-             : $self->might_have_new_item
+             : $self->is_interesting
              ? Curses::COLOR_PAIR(COLOR_RED)
              : $self->searched > 5
              ? Curses::COLOR_PAIR(COLOR_CYAN)
