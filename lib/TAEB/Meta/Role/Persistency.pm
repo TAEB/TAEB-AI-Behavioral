@@ -21,6 +21,9 @@ has persistent_data => (
 
 sub save_state {
     my $self = shift;
+    my $file = $self->persistent_file;
+    return unless defined $file;
+
     my $state = {};
 
     for my $attr ($self->meta->compute_all_applicable_attributes) {
@@ -31,7 +34,7 @@ sub save_state {
         $state->{$name} = $reader->($self);
     }
 
-    Storable::nstore($state, $self->persistent_file);
+    Storable::nstore($state, $file);
 }
 
 no Moose::Role;
