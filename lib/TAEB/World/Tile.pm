@@ -590,7 +590,8 @@ before clear_items => sub {
 
 before remove_item => sub {
     my $self = shift;
-    $self->_remove_level_item($self->items->[$_]);
+    my $idx = shift;
+    $self->_remove_level_item($self->items->[$idx]);
 };
 
 sub _remove_level_item {
