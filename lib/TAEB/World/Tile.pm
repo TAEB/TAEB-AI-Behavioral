@@ -246,6 +246,7 @@ sub step_on {
     $self->explored(1);
     $self->last_turn(TAEB->turn);
     $self->last_step(TAEB->step);
+    $self->is_interesting(0);
 }
 
 sub iterate_tiles {
