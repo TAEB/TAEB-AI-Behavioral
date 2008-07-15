@@ -73,10 +73,6 @@ features(
         -default => 0,
         recommends("File::Next"),
     ],
-    'Fast persistence' => [
-        -default => 1,
-        recommends('YAML::Syck'),
-    ],
     'Web-based interface for controlling TAEB' => [
         -default => 0,
         recommends('Continuity'),
