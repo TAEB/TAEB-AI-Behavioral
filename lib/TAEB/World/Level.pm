@@ -278,7 +278,7 @@ sub unregister_tile {
 
     return if $self->is_unregisterable($type);
 
-    for (my $i = 0; $i < @{ $self->tiles_by_type->{$type} }; ++$i) {
+    for (my $i = 0; $i < @{ $self->tiles_by_type->{$type} || [] }; ++$i) {
         if ($self->tiles_by_type->{$type}->[$i] == $tile) {
             splice @{ $self->tiles_by_type->{$type} }, $i, 1;
             return 1;
@@ -295,12 +295,14 @@ sub has_type {
     return @{ $self->tiles_by_type->{$type} || [] }
 }
 
+*tiles_of = \&has_type;
+
 sub has_enemies { grep { $_->is_enemy } shift->monsters }
 
 sub exits {
     my $self = shift;
 
-    my @exits = map { @{ $self->tiles_by_type->{$_} } } qw/stairsup stairsdown/;
+    my @exits = map { $self->tiles_of($_) } qw/stairsup stairsdown/;
 
     @exits = grep { $_->type ne 'stairsup' } @exits
         if $self->z == 1; # XXX check for Amulet
