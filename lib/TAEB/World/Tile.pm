@@ -603,7 +603,7 @@ sub _remove_level_item {
 # keep track of which tiles are interesting on the level object
 before set_interesting => sub {
     my $self = shift;
-    my $set = shift ? 1 : 0;
+    my $set = shift(@_) ? 1 : 0;
 
     my $is_interesting = $self->is_interesting ? 1 : 0;
 
