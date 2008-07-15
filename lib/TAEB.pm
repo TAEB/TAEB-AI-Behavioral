@@ -637,7 +637,11 @@ sub console {
         no warnings 'redefine';
         require Devel::REPL::Script;
         local $TAEB::ToScreen;
-        Devel::REPL::Script->new->run;
+
+        eval {
+            local $SIG{INT} = sub { die "Interrupted." };
+            Devel::REPL::Script->new->run;
+        };
     };
 
     # we really do need to do this twice. my amateur opinion is that curses
