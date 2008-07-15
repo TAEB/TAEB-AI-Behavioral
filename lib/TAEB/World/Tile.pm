@@ -405,11 +405,6 @@ sub try_monster {
     my $glyph = shift;
     my $color = shift;
 
-    $self->_clear_monster if $self->has_monster;
-    my ($Tx, $Ty) = (TAEB->x, TAEB->y);
-
-    return if $Tx == $self->x && $Ty == $self->y;
-
     # attempt to handle ghosts on the rogue level, which are always the
     # same glyphs as rocks. rogue level ignores your glyph settings.
     if (!TAEB->is_blind && TAEB->current_level->is_rogue && $glyph eq ' ') {
@@ -419,27 +414,25 @@ sub try_monster {
 
         return if $is_rock;
 
+        my ($Tx, $Ty) = (TAEB->x, TAEB->y);
         my $adjacent_to_taeb = $self->any_adjacent(sub {
             $_[0]->x eq $Tx && $_[0]->y eq $Ty
         });
 
         return unless $adjacent_to_taeb;
 
-        $self->monster(TAEB::World::Monster->new(
-            glyph => 'X',
-            color => COLOR_GRAY,
-            tile  => $self,
-        ));
+        $glyph = 'X';
+        $color = COLOR_GRAY;
     }
     else {
         return unless $self->level->glyph_is_monster($glyph);
-
-        $self->monster(TAEB::World::Monster->new(
-            glyph => $glyph,
-            color => $color,
-            tile  => $self,
-        ));
     }
+
+    $self->monster(TAEB::World::Monster->new(
+        glyph => $glyph,
+        color => $color,
+        tile  => $self,
+    ));
 
     $self->level->add_monster($self->monster);
 }

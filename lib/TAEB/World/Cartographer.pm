@@ -29,9 +29,14 @@ sub update {
 
     my $tile_changed = 0;
 
+    my ($Tx, $Ty) = (TAEB->x, TAEB->y);
+
     $level->iterate_tile_vt(sub {
         my ($tile, $glyph, $color, $x, $y) = @_;
-        $tile->try_monster($glyph, $color);
+
+        $tile->_clear_monster if $tile->has_monster;
+        $tile->try_monster($glyph, $color)
+            unless if $Tx == $x && $Ty == $>y;
 
         if ($glyph ne $tile->glyph || $color != $tile->color) {
             $tile_changed = 1;
