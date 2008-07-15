@@ -244,12 +244,13 @@ sub msg_floor_item {
 sub msg_remove_floor_item {
     my $self = shift;
     my $item = shift;
+    my $tile = TAEB->current_tile;
 
-    for my $i (0 .. TAEB->current_tile->item_count - 1) {
-        my $tile_item = TAEB->current_tile->items->[$i];
+    for my $i (0 .. $tile->item_count - 1) {
+        my $tile_item = $tile->items->[$i];
 
         if ($item->maybe_is($tile_item)) {
-            TAEB->current_tile->remove_item($i);
+            $tile->remove_item($i);
             return;
         }
     }
