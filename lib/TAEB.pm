@@ -469,7 +469,7 @@ sub keypress {
 
     if ($c eq 'q') {
         $self->state('saving');
-        return "Bye bye then.";
+        return;
     }
 
     if ($c eq 'Q') {
