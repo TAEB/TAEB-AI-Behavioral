@@ -442,6 +442,10 @@ our @msg_regex = (
         qr/^What a pity - you just ruined a future piece of (?:fine )?art!/ =>
             ['status_change', 'stoning', 0],
     ],
+    [
+        qr/^(.*?) (hits|misses)[.!]$/ =>
+            ['attacked' => sub { $1, $2 eq 'hits' } ],
+    ],
 );
 
 our @god_anger = (
