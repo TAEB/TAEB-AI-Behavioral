@@ -53,7 +53,9 @@ do {
 
     # add the persistent_file method required by the role
     $container_meta->add_method(persistent_file => sub {
-        return TAEB->config->state_file;
+        my $state_file = TAEB->config->state_file;
+        return unless defined $state_file;
+        return join('-', $state_file, TAEB->config->interface);
     });
 
     Moose::Util::apply_all_roles($container_meta, 'TAEB::Meta::Role::Persistency');
