@@ -121,9 +121,9 @@ class_has log => (
         my $format = sub {
             my %args = @_;
             chomp $args{message};
-            return sprintf "[%s] <T%d> %s: %s\n",
+            return sprintf "[%s] <T%s> %s: %s\n",
                            uc($args{level}),
-                           TAEB->turn,
+                           TAEB->has_senses ? TAEB->turn : '-',
                            scalar(localtime),
                            $args{message};
         };
@@ -183,11 +183,12 @@ class_has info_to_screen => (
 );
 
 class_has senses => (
-    traits  => [qw/TAEB::Persistent/],
-    is      => 'rw',
-    isa     => 'TAEB::Senses',
-    default => sub { TAEB::Senses->new },
-    handles => qr/^(?!_check_|msg_|update)/,
+    traits    => [qw/TAEB::Persistent/],
+    is        => 'rw',
+    isa       => 'TAEB::Senses',
+    default   => sub { TAEB::Senses->new },
+    handles   => qr/^(?!_check_|msg_|update)/,
+    predicate => 'has_senses',
 );
 
 class_has inventory => (
