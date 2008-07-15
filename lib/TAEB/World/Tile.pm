@@ -570,6 +570,38 @@ sub display_floor {
 
 sub farlooked {}
 
+# keep track of our items on the level object
+after add_item => sub {
+    my $self = shift;
+    $self->level->add_item(@_);
+};
+
+before clear_items => sub {
+    my $self = shift;
+    for ($self->items) {
+        $self->_remove_level_item($_);
+    }
+};
+
+before remove_item => sub {
+    my $self = shift;
+    $self->_remove_level_item($self->items->[$_]);
+};
+
+sub _remove_level_item {
+    my $self = shift;
+    my $item = shift;
+    my $level = $self->level;
+
+    for my $i (0 .. $level->item_count - 1) {
+        my $level_item = $level->items->[$i];
+        if ($item->maybe_is($tile_item)) {
+            $level->remove_item($i);
+            return;
+        }
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
