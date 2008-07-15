@@ -136,8 +136,11 @@ sub handle_obscured_doors {
     my $dx   = shift;
     my $dy   = shift;
 
-    return unless ($dx && $dy) || TAEB->senses->in_pit
-                               || TAEB->senses->in_beartrap;
+    # can't move? then don't bother
+    return unless TAEB->can_move;
+
+    # obscured doors only affect us when we move diagonally
+    return unless $dx && $dy;
 
     # we only care if the tile was obscured
     for ([TAEB->x, TAEB->y], [TAEB->x + $dx, TAEB->y + $dy]) {
