@@ -928,7 +928,7 @@ sub save {
 
 sub died {
     my $self = shift;
-    $self->destroy_saved_data;
+    $self->destroy_saved_state;
 
     # this REALLY prevents us from saving the state file
     $self->config->state_file(undef);
