@@ -9,6 +9,25 @@ before _process_options => sub {
 
     $options->{default}
         || confess "Persistent attribute ($name) must have a default value.";
+
+    my $old_default = $options->{default};
+    $options->{default} = sub {
+        my $self = shift;
+
+        # do we have the value from persistency?
+        my $value = delete $self->persistent_data->{$name};
+        return $value if defined $value;
+
+        # otherwise, use the old default
+        ref($old_default) eq 'CODE' ? $old_default->($self, @_) : $old_default;
+    };
+};
+
+before attach_to_class => sub {
+    my ($self, $class) = @_;
+
+    $class->does_role('TAEB::Meta::Role::Persistency')
+        || confess "Persistent attributes must be applied to a class that does TAEB::Meta::Role::Persistency";
 };
 
 package Moose::Meta::Attribute::Custom::Trait::TAEB::Persistent;
