@@ -84,18 +84,9 @@ has engraving_type => (
 );
 
 has is_interesting => (
-    isa     => 'Int',
-    trigger => sub {
-        my $self = shift;
-        my $interesting = shift;
-
-        if ($interesting) {
-            $self->level->register_tile($self, 'interesting');
-        }
-        else {
-            $self->level->unregister_tile($self, 'interesting');
-        }
-    },
+    isa     => 'Bool',
+    default => 0,
+    writer  => 'set_interesting',
 );
 
 has monster => (
@@ -207,7 +198,7 @@ sub update {
         # ghosts and xorns should not update the map
         return if $newglyph eq 'X';
 
-        $self->is_interesting(1)
+        $self->set_interesting(1)
             unless $self->has_monster;
 
         $self->type('obscured')
@@ -249,13 +240,13 @@ sub step_on {
     $self->explored(1);
     $self->last_turn(TAEB->turn);
     $self->last_step(TAEB->step);
-    $self->is_interesting(0);
+    $self->set_interesting(0);
 }
 
 sub step_off {
     my $self = shift;
 
-    $self->is_interesting(0);
+    $self->set_interesting(0);
 }
 
 sub iterate_tiles {
@@ -608,6 +599,24 @@ sub _remove_level_item {
     }
 }
 # }}}
+
+# keep track of which tiles are interesting on the level object
+before set_interesting => sub {
+    my $self = shift;
+    my $set = shift ? 1 : 0;
+
+    my $is_interesting = $self->is_interesting ? 1 : 0;
+
+    # no change? don't care
+    return if $set == $is_interesting;
+
+    if ($set) {
+        $self->level->register_tile($self => 'interesting');
+    }
+    else {
+        $self->level->unregister_tile($self => 'interesting');
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
