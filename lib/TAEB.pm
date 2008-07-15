@@ -921,7 +921,9 @@ sub display_topline {
 }
 
 sub quit {
-    shift->write("   \e   \e     #quit\ny         ");
+    my $self = shift;
+    $self->died;
+    $self->write("   \e   \e     #quit\ny         ");
     die "Until we meet again, then!";
 }
 
