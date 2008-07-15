@@ -199,7 +199,8 @@ sub update {
         return if $newglyph eq 'X';
 
         $self->set_interesting(1)
-            unless $self->has_monster;
+            unless $self->has_monster
+                || $self->has_boulder;
 
         $self->type('obscured')
             if $oldtype eq 'rock'
@@ -452,6 +453,8 @@ sub has_friendly {
         or return 0;
     return $monster->is_enemy ? undef : $monster;
 }
+
+sub has_boulder { shift->glyph eq '0' }
 
 sub searchability {
     my $self = shift;
