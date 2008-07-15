@@ -71,7 +71,7 @@ $SIG{__DIE__} = sub {
 my $old_sigdie = $SIG{__DIE__};
 $SIG{__DIE__} = sub {
 
-    unless ("@_" =~ /Game over, man/) {
+    unless ("@_" =~ /Game over, man|See you soon|Until we meet again/) {
         TAEB->save_state;
         TAEB->error("@_");
         TAEB->save;
