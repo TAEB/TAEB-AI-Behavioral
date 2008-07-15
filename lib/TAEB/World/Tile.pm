@@ -401,9 +401,7 @@ sub debug_line {
 }
 
 sub try_monster {
-    my $self  = shift;
-    my $glyph = shift;
-    my $color = shift;
+    my ($self, $glyph, $color) = @_;
 
     # attempt to handle ghosts on the rogue level, which are always the
     # same glyphs as rocks. rogue level ignores your glyph settings.
@@ -428,13 +426,14 @@ sub try_monster {
         return unless $self->level->glyph_is_monster($glyph);
     }
 
-    $self->monster(TAEB::World::Monster->new(
+    my $monster = TAEB::World::Monster->new(
         glyph => $glyph,
         color => $color,
         tile  => $self,
-    ));
+    );
 
-    $self->level->add_monster($self->monster);
+    $self->monster($monster);
+    $self->level->add_monster($monster);
 }
 
 before _clear_monster => sub {
