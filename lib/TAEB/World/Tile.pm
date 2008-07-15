@@ -184,7 +184,6 @@ sub update {
     my $self     = shift;
     my $newglyph = shift;
     my $color    = shift;
-    my $oldglyph = $self->glyph;
     my $oldtype  = $self->type;
 
     # gas spore explosions should not update the map
