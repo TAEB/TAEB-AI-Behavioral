@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile::Closeddoor;
 use TAEB::OO;
-extends 'TAEB::World::Tile';
+extends 'TAEB::World::Tile::Door';
 use TAEB::Util ':colors';
 
 has state => (
@@ -44,7 +44,7 @@ sub unlocked {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
+no TAEB::OO;
 
 1;
 
