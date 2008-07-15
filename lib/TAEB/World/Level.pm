@@ -97,6 +97,21 @@ has tiles_by_type => (
     },
 );
 
+has items => (
+    metaclass  => 'Collection::Array',
+    is         => 'rw',
+    isa        => 'ArrayRef[TAEB::World::Item]',
+    default    => sub { [] },
+    auto_deref => 1,
+    provides   => {
+        push   => 'add_item',
+        clear  => 'clear_items',
+        delete => 'remove_item',
+        count  => 'item_count',
+    },
+);
+
+
 # So, for these is_<speciallevel>,
 #    true  => definitely that level
 #    false => definitely not that level
