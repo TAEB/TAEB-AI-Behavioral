@@ -136,7 +136,8 @@ sub handle_obscured_doors {
     my $dx   = shift;
     my $dy   = shift;
 
-    return unless ($dx && $dy) || TAEB->senses->in_pit;
+    return unless ($dx && $dy) || TAEB->senses->in_pit
+                               || TAEB->senses->in_beartrap;
 
     # we only care if the tile was obscured
     for ([TAEB->x, TAEB->y], [TAEB->x + $dx, TAEB->y + $dy]) {
