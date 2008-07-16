@@ -125,7 +125,7 @@ sub handle_items_in_rock {
     # the third clause here is because we assume floors that go to ' ' are dark
     # room tiles
     return unless $dest->type eq 'obscured'
-               || ($dest->type eq 'opendoor' && $dest->glyph eq '-')
+               || ($dest->type eq 'opendoor' && $dest->floor_glyph eq '-')
                || ($dest->type eq 'floor' && $dest->glyph eq ' ');
 
     $dest->change_type('rock' => ' ');
