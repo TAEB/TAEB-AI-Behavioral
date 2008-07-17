@@ -642,6 +642,8 @@ sub handle_attributes {
         }
 
         TAEB->info(sprintf 'It seems we are a %s %s %s %s named %s.', TAEB->role, TAEB->race, TAEB->gender, TAEB->align, TAEB->name);
+        TAEB->enqueue_message('character', TAEB->name, TAEB->role, TAEB->race,
+                                           TAEB->gender, TAEB->align);
 
         TAEB->write(' ');
         die "Recursing screenscraper.\n";
