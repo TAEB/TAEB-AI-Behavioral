@@ -41,6 +41,7 @@ guaranteed to be called before any calls to next_action.
 =cut
 
 sub institute {
+    TAEB->publisher->subscribe(shift);
 }
 
 =head2 deinstitute
@@ -53,6 +54,7 @@ replaced by a different one.
 =cut
 
 sub deinstitute {
+    TAEB->publisher->unsubscribe(shift);
 }
 
 =head2 want_item Item -> Bool

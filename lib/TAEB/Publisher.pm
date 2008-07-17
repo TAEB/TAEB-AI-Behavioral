@@ -1,6 +1,16 @@
 #!/usr/bin/env perl
 package TAEB::Publisher;
 use TAEB::OO;
+use MooseX::AttributeHelper::Set::Object;
+
+has _subscribers => (
+    metaclass => 'Set::Object',
+    provides  => {
+        insert   => 'subscribe',
+        remove   => 'unsubscribe',
+        elements => 'subscribers',
+    },
+);
 
 has queued_messages => (
     isa     => 'ArrayRef',
@@ -44,9 +54,7 @@ sub send_messages {
                 TAEB->debug("Sending message $msgname with no arguments.");
             }
 
-            # this list should not be hardcoded. instead, we should let anything
-            # subscribe to messages
-            for my $recipient (TAEB->senses, TAEB->personality, TAEB->inventory, TAEB->spells, TAEB->dungeon->cartographer, TAEB->current_level, TAEB->action, TAEB->knowledge, TAEB->scraper, "TAEB::Spoilers::Item::Artifact") {
+            for my $recipient (@{ $self->subscribers }) {
                 next unless $recipient;
 
                 if ($recipient->can('send_message')) {

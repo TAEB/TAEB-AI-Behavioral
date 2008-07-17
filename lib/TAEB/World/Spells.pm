@@ -21,6 +21,8 @@ has _spells => (
     },
 );
 
+sub BUILD { TAEB->publisher->subscribe(shift) }
+
 sub find {
     my $self = shift;
     my $name = shift;

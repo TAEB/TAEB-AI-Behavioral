@@ -16,6 +16,8 @@ has y => (
     isa => 'Int',
 );
 
+sub BUILD { TAEB->publisher->subscribe(shift) }
+
 sub update {
     my $self  = shift;
 

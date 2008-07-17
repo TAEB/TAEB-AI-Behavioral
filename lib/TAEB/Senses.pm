@@ -148,6 +148,8 @@ has ac => (
     default => 10,
 );
 
+sub BUILD { TAEB->publisher->subscribe(shift) }
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);

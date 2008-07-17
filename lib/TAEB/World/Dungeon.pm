@@ -22,6 +22,16 @@ has cartographer => (
     handles => [qw/update x y map_like/],
 );
 
+around current_level => sub {
+    my $orig = shift;
+    my $self = shift;
+    return $orig->($self) unless @_;
+    TAEB->publisher->unsubscribe($self->current_level);
+    my $ret = $orig->($self, @_);
+    TAEB->publisher->subscribe($self->current_level);
+    return $ret;
+};
+
 # we start off in dungeon 1. this helps keeps things tidy (we only have to
 # worry about level generation on level change)
 sub BUILD {

@@ -52,6 +52,8 @@ has appearance_of => (
     default => sub { {} },
 );
 
+sub BUILD { TAEB->publisher->subscribe(shift) }
+
 sub msg_discovery {
     my $self       = shift;
     my $identity   = shift;

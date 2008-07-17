@@ -47,6 +47,8 @@ sub seen {
     return $artifact->{seen};
 }
 
+sub BUILD { TAEB->publisher->subscribe(shift); }
+
 sub msg_excalibur {
     my $self = shift;
 

@@ -527,6 +527,8 @@ has calls_this_turn => (
     default => 0,
 );
 
+sub BUILD { TAEB->publisher->subscribe(shift) }
+
 sub scrape {
     my $self = shift;
 

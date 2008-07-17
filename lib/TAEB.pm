@@ -247,6 +247,16 @@ class_has pathfinds => (
     default => 0,
 );
 
+around action => sub {
+    my $orig = shift;
+    my $self = shift;
+    return $orig->($self) unless @_;
+    TAEB->publisher->unsubscribe($self->action);
+    my $ret = $orig->($self, @_);
+    TAEB->publisher->subscribe($self->action);
+    return $ret;
+};
+
 =head2 iterate
 
 This will perform one input/output iteration of TAEB.
