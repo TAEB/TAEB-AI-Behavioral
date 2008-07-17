@@ -2,7 +2,6 @@
 package TAEB::Knowledge::Item::Artifact;
 use TAEB::OO;
 use MooseX::AttributeHelper::Set::Object;
-extends 'TAEB::Knowledge::Item';
 
 has _seen_artifacts => (
     metaclass => 'Set::Object',
