@@ -6,10 +6,10 @@ use MooseX::AttributeHelper::Set::Object;
 has _seen_artifacts => (
     metaclass => 'Set::Object',
     provides => {
-        insert => 'seen',
+        insert   => 'seen',
         contains => 'was_seen',
         elements => 'all_seen',
-        size   => 'num_seen',
+        size     => 'num_seen',
     },
 );
 
