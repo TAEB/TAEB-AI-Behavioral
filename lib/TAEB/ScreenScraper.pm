@@ -842,6 +842,9 @@ sub handle_death {
         }));
 
         if ($top10) {
+            my ($rank, $score, $end_reason, $death) = $top10 =~ /^(?:\s+|(\d+))\s*(\d+)\s+\w+-\w+-\w+-\w+-\w+\s+(\w+).*?\.\s+(.*?)\.\s+(?:\d+|-)\s+\[\d+\]\s*$/;
+            TAEB->enqueue_message('death', $rank, $score, $end_reason, $death);
+            TAEB->publisher->send_messages;
             die("Game Over, man!\n");
         }
     }
