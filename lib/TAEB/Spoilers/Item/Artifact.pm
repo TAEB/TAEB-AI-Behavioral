@@ -10,7 +10,7 @@ has list => (
     default => sub {
         my $artifacts = { };
 
-        for (qw/Amulet Armor Gem Tool Weapon /) {
+        for (qw/Amulet Armor Gem Tool Weapon/) {
             my $list = "TAEB::Spoilers::Item::$_"->list;
             for my $name (keys %$list) {
                 my $stats = $list->{$name};
