@@ -1,8 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Spoilers::Item::Artifact;
 use MooseX::Singleton;
-use TAEB::Spoilers::Item::Weapon;
-use TAEB::Spoilers::Item::Tool;
+extends 'TAEB::Spoilers::Item';
 
 has list => (
     is      => 'ro',
@@ -31,28 +30,6 @@ sub artifact {
     $item = $item->identity if ref($item);
     return unless $item;
     return $self->list->{$item};
-}
-
-sub seen {
-    my $self = shift;
-    my $name = shift;
-    my $artifact = $self->artifact($name) or do {
-        warn "No artifact found for '$name'.";
-        return 0;
-    };
-
-    if (@_) {
-        return $artifact->{seen} = shift;
-    }
-    return $artifact->{seen};
-}
-
-sub BUILD { TAEB->publisher->subscribe(shift); }
-
-sub msg_excalibur {
-    my $self = shift;
-
-    $self->seen(Excalibur => 1);
 }
 
 no Moose;
