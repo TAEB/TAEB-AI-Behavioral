@@ -944,6 +944,7 @@ sub save {
 
 sub died {
     my $self = shift;
+    $self->dead(1);
     $self->destroy_saved_state;
 
     # this REALLY prevents us from saving the state file

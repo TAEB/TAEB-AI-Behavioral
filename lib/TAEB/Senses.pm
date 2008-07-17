@@ -148,6 +148,11 @@ has ac => (
     default => 10,
 );
 
+has dead => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 sub BUILD { TAEB->publisher->subscribe(shift) }
 
 sub parse_botl {

@@ -555,6 +555,9 @@ sub scrape {
         # handle other text
         $self->handle_fallback;
 
+        # handle death messages
+        $self->handle_death;
+
         # publish messages for all_messages
         $self->send_messages;
 
@@ -643,13 +646,6 @@ sub handle_attributes {
         TAEB->write(' ');
         die "Recursing screenscraper.\n";
     }
-    if (TAEB->topline =~ /^(\s+|Really quit\? \[yn\] \(n\) y\s+)Final Attributes:/) {
-        TAEB->died;
-        TAEB->debug("I see Final Attributes!");
-        TAEB->write('        ');
-        die("Game Over, man!\n");
-    }
-
 }
 
 sub handle_more_menus {
@@ -818,6 +814,40 @@ sub handle_fallback {
             TAEB->warning("Escaped out of unhandled prompt: " . TAEB->topline);
             die "Recursing screenscraper.\n";
         }
+    }
+}
+
+sub handle_death {
+    my $name = TAEB->name;
+    if (TAEB->topline =~ /^(\s+|Really quit\? \[yn\] \(n\) y\s+)Final Attributes:/) {
+        TAEB->debug("I see Final Attributes!");
+        TAEB->died;
+    }
+    elsif (TAEB->dead && TAEB->topline =~ /^Vanquished creatures:/) {
+    }
+    elsif (TAEB->dead && TAEB->topline =~ /Voluntary challenges:/) {
+    }
+    elsif (TAEB->dead && TAEB->topline =~ /^(?:Goodbye|Farvel|Aloha) $name/) {
+    }
+    elsif (TAEB->dead) {
+        my $top10 = '';
+        TAEB->vt->find_row(sub {
+            my ($row, $index) = @_;
+            if (TAEB->vt->attr_unpack(TAEB->vt->row_attr($index, 0, 0))[7]) {
+                $top10 .= $row;
+            }
+            elsif ($top10 =~ /]$/) {
+                return 1;
+            }
+        }));
+
+        if ($top10) {
+            die("Game Over, man!\n");
+        }
+    }
+    if (TAEB->dead) {
+        TAEB->write(' ');
+        die "Recursing screenscraper.\n";
     }
 }
 
