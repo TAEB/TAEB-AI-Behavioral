@@ -36,7 +36,7 @@ sub _normalize_artifact_modifier {
         return 0;
     };
 
-    return $orig->($self, $artifact);
+    return $self->$orig($artifact);
 }
 
 around seen => \&_normalize_artifact_modifier;
