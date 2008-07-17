@@ -54,7 +54,7 @@ sub send_messages {
                 TAEB->debug("Sending message $msgname with no arguments.");
             }
 
-            for my $recipient (@{ $self->subscribers }) {
+            for my $recipient ($self->subscribers) {
                 next unless $recipient;
 
                 if ($recipient->can('send_message')) {

@@ -5,6 +5,7 @@ use TAEB::OO;
 use TAEB::Knowledge::Item;
 use TAEB::Knowledge::Item::Amulet;
 use TAEB::Knowledge::Item::Armor;
+use TAEB::Knowledge::Item::Artifact;
 use TAEB::Knowledge::Item::Food;
 use TAEB::Knowledge::Item::Gem;
 use TAEB::Knowledge::Item::Other;

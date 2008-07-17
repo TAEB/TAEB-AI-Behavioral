@@ -7,7 +7,7 @@ sub can_make_excalibur {
     return unless TAEB->align eq 'Law';
 
     # only one Excalibur. Alas.
-    return if TAEB::Spoilers::Item::Artifact->seen("Excalibur");
+    return if TAEB::Knowledge::Item::Artifact->was_seen("Excalibur");
 
     return 1;
 }

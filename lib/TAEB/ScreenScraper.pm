@@ -835,13 +835,14 @@ sub handle_death {
         my $top10 = '';
         TAEB->vt->find_row(sub {
             my ($row, $index) = @_;
-            if (TAEB->vt->attr_unpack(TAEB->vt->row_attr($index, 0, 0))[7]) {
+            my @attrs = TAEB->vt->attr_unpack(TAEB->vt->row_attr($index, 0, 0));
+            if ($attrs[7]) {
                 $top10 .= $row;
             }
             elsif ($top10 =~ /]$/) {
                 return 1;
             }
-        }));
+        });
 
         if ($top10) {
             my ($rank, $score, $end_reason, $death) = $top10 =~ /^(?:\s+|(\d+))\s*(\d+)\s+\w+-\w+-\w+-\w+-\w+\s+(\w+).*?\.\s+(.*?)\.\s+(?:\d+|-)\s+\[\d+\]\s*$/;
