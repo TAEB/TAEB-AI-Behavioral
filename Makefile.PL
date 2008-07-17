@@ -12,6 +12,7 @@ requires 'IO::Pty::Easy';
 requires 'Moose';
 requires 'MooseX::Singleton' => 0.03;
 requires 'MooseX::AttributeHelpers' => 0.09;
+requires 'MooseX::AttributeHelper::Set::Object';
 requires 'MooseX::ClassAttribute';
 requires 'Module::Pluggable';
 
