@@ -26,7 +26,8 @@ around current_level => sub {
     my $orig = shift;
     my $self = shift;
     return $orig->($self) unless @_;
-    TAEB->publisher->unsubscribe($self->current_level);
+    TAEB->publisher->unsubscribe($self->current_level)
+        if $self->current_level;
     my $ret = $orig->($self, @_);
     TAEB->publisher->subscribe($self->current_level);
     return $ret;

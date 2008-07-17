@@ -251,7 +251,7 @@ around action => sub {
     my $orig = shift;
     my $self = shift;
     return $orig->($self) unless @_;
-    TAEB->publisher->unsubscribe($self->action);
+    TAEB->publisher->unsubscribe($self->action) if $self->action;
     my $ret = $orig->($self, @_);
     TAEB->publisher->subscribe($self->action);
     return $ret;
