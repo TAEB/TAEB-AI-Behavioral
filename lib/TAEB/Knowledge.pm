@@ -53,6 +53,12 @@ has appearance_of => (
     default => sub { {} },
 );
 
+has artifacts => (
+    isa     => 'TAEB::Knowledge::Item::Artifact',
+    lazy    => 1,
+    default => sub { TAEB::Knowledge::Item::Artifact->new },
+);
+
 sub BUILD { TAEB->publisher->subscribe(shift) }
 
 sub msg_discovery {
