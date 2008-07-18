@@ -833,27 +833,27 @@ sub handle_death {
     }
     elsif (TAEB->dead && TAEB->topline =~ /^(?:Goodbye|Farvel|Aloha) $name/) {
         TAEB->debug("I see Goodbye!");
-    }
-    elsif (TAEB->dead) {
-        my $top10 = '';
-        TAEB->vt->find_row(sub {
-            my ($row, $index) = @_;
-            my @attrs = TAEB->vt->attr_unpack(TAEB->vt->row_attr($index, 0, 0));
-            if ($attrs[7]) {
-                $top10 .= $row;
-            }
-            elsif ($top10 =~ /]$/) {
-                return 1;
-            }
-        });
 
-        if ($top10) {
-            my ($rank, $score, $end_reason, $death) = $top10 =~ /^(?:\s+|(\d+))\s*(\d+)\s+\w+-\w+-\w+-\w+-\w+\s+(\w+).*?\.\s+(.*?)\.\s+(?:\d+|-)\s+\[\d+\]\s*$/;
-            TAEB->enqueue_message('death', $rank, $score, $end_reason, $death);
-            TAEB->publisher->send_messages;
-            die("Game Over, man!\n");
+        # there is no pause between displaying the high score table and going
+        # back to the dgl menu. this means that if we just wait for the next
+        # time screenscraper is called, the only thing we will see is the dgl
+        # menu... the high score list will have been overwritten. thus, we have
+        # to read/parse it ourselves.
+        TAEB->write(' ');
+        my $response = TAEB->read;
+        my $death_message = '';
+        while (1) {
+            last unless $response =~ s/^.*?\e\[7m//;
+            $response =~ s/^(.*?)\e\[0m//;
+            $death_message .= $1;
         }
+        $death_message = join ' ', split ' ', $death_message;
+        my ($rank, $score, $end_reason, $death) = $death_message =~ /^(?:(\d+) )?(\d+) [-\w]+ (\w+) .*?\. (.*?\.)/;
+        TAEB->enqueue_message('death', $rank, $score, $end_reason, $death);
+        TAEB->publisher->send_messages;
+        die("Game Over, man!\n");
     }
+
     if (TAEB->dead) {
         TAEB->debug("I'm dead! Spacing through the endgame messages...");
         TAEB->write(' ');
