@@ -34,7 +34,7 @@ sub drop {
     my $item = shift;
 
     if (!TAEB->current_tile->in_shop &&
-        $item->match(qr/pick-axe|dwarvish mattock/) &&
+        $item->match(identity => qr/pick-axe|dwarvish mattock/) &&
         TAEB->any_adjacent(sub {
             my $tile = shift;
             return 1 if $tile->has_monster && $tile->monster->is_shk;
