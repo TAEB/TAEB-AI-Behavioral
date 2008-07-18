@@ -843,12 +843,13 @@ sub handle_death {
         my $response = TAEB->read;
         my $death_message = '';
         while (1) {
-            last unless $response =~ s/^.*?\e\[7m//;
-            $response =~ s/^(.*?)\e\[0m//;
+            last unless $response =~ s/^.*?\e\[7m//s;
+            $response =~ s/^(.*?)\e\[m//s;
             $death_message .= $1;
         }
         $death_message = join ' ', split ' ', $death_message;
-        my ($rank, $score, $end_reason, $death) = $death_message =~ /^(?:(\d+) )?(\d+) [-\w]+ (\w+) .*?\. (.*?\.)/;
+        TAEB->debug("Death message: $death_message");
+        my ($rank, $score, $end_reason, $death) = $death_message =~ /^(?:(\d+) )?(\d+) [-\w]+ (\w+) .*?\. (.*?\.)?/;
         TAEB->enqueue_message('death', $rank, $score, $end_reason, $death);
         TAEB->publisher->send_messages;
         die("Game Over, man!\n");
