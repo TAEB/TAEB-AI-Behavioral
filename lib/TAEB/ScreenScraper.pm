@@ -543,6 +543,9 @@ sub scrape {
         # handle ^X
         $self->handle_attributes;
 
+        # handle death messages
+        $self->handle_death;
+
         # handle --More-- menus
         $self->handle_more_menus;
 
@@ -554,9 +557,6 @@ sub scrape {
 
         # handle other text
         $self->handle_fallback;
-
-        # handle death messages
-        $self->handle_death;
 
         # publish messages for all_messages
         $self->send_messages;
