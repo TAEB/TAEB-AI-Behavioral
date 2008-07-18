@@ -272,9 +272,7 @@ sub iterate_tiles {
                                  } @$directions;
 
     $controller->(sub {
-        my ($dx, $dy) = ($_->x - $x, $_->y - $y);
-        my $dir = delta2vi($dx, $dy);
-        $usercode->($_, $dir);
+        $usercode->($_, delta2vi($_->x - $x, $_->y - $y));
     }, @tiles);
 }
 
