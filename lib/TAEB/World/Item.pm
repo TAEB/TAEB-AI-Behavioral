@@ -171,7 +171,7 @@ sub new_item {
     my $stats = "TAEB::Spoilers::Item::$class_name"->$class($item);
 
     if (defined($stats) && defined($stats->{artifact}) && $stats->{artifact}) {
-        TAEB::Spoilers::Item::Artifact->seen($item => 1);
+        TAEB->knowledge->artifacts->seen($item);
     }
 
     if (defined TAEB->knowledge->appearance_of->{$item}) {
