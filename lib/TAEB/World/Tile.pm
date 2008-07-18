@@ -256,22 +256,25 @@ sub iterate_tiles {
     my $usercode   = shift;
     my $directions = shift;
 
-    if ($self->y <= 0) {
+    my ($x, $y) = ($self->x, $self->y);
+
+    if ($y <= 0) {
         TAEB->error("" . (caller 1)[3] . " called with a y argument of ".$self->y.". This usually indicates an unhandled prompt.");
     }
 
+    my $level = $self->level;
+
     my @tiles = grep { defined } map {
-                                     $self->level->at(
-                                         $self->x + $_->[0],
-                                         $self->y + $_->[1]
+                                     $level->at(
+                                         $x + $_->[0],
+                                         $y + $_->[1]
                                      )
                                  } @$directions;
 
     $controller->(sub {
-        my $tile = $_;
-        my ($dx, $dy) = ($tile->x - $self->x, $tile->y - $self->y);
+        my ($dx, $dy) = ($_->x - $x, $_->y - $y);
         my $dir = delta2vi($dx, $dy);
-        $usercode->($tile, $dir);
+        $usercode->($_, $dir);
     }, @tiles);
 }
 
