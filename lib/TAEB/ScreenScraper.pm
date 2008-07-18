@@ -826,10 +826,13 @@ sub handle_death {
         TAEB->died;
     }
     elsif (TAEB->dead && TAEB->topline =~ /^Vanquished creatures:/) {
+        TAEB->debug("I see Vanquished creatures!");
     }
     elsif (TAEB->dead && TAEB->topline =~ /Voluntary challenges:/) {
+        TAEB->debug("I see Voluntary challenges!");
     }
     elsif (TAEB->dead && TAEB->topline =~ /^(?:Goodbye|Farvel|Aloha) $name/) {
+        TAEB->debug("I see Goodbye!");
     }
     elsif (TAEB->dead) {
         my $top10 = '';
@@ -852,6 +855,7 @@ sub handle_death {
         }
     }
     if (TAEB->dead) {
+        TAEB->debug("I'm dead! Spacing through the endgame messages...");
         TAEB->write(' ');
         die "Recursing screenscraper.\n";
     }
