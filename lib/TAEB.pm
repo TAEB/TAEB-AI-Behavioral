@@ -486,6 +486,7 @@ sub keypress {
 
     if ($c eq 'Q') {
         $self->quit;
+        return;
     }
 
     if ($c eq ';') {
@@ -932,9 +933,7 @@ sub display_topline {
 
 sub quit {
     my $self = shift;
-    $self->died;
-    $self->write("   \e   \e     #quit\ny         ");
-    die "Until we meet again, then!";
+    $self->write("   \e   \e     #quit\ny");
 }
 
 sub save {
