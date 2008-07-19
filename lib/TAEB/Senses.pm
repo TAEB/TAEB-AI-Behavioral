@@ -87,6 +87,11 @@ has in_pit => (
     default => 0,
 );
 
+has in_web => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 has str => (
     isa     => 'Str',
     default => 0,
@@ -343,6 +348,7 @@ sub msg_walked {
     my $self = shift;
     $self->in_beartrap(0);
     $self->in_pit(0);
+    $self->in_web(0);
     $self->is_grabbed(0);
     if (!$self->autopickup xor TAEB->current_tile->in_shop) {
         TAEB->info("Toggling autopickup because we entered/exited a shop");
@@ -365,6 +371,7 @@ my %method_of = (
     engulfed      => 'is_engulfed',
     grabbed       => 'is_grabbed',
     pit           => 'in_pit',
+    web           => 'in_web',
     stoning       => 'is_petrifying',
 );
 
@@ -382,6 +389,12 @@ sub msg_pit {
     my $self = shift;
     $self->msg_status_change(pit => @_);
     TAEB->enqueue_message('dungeon_feature' => 'trap' => 'pit');
+}
+
+sub msg_web {
+    my $self = shift;
+    $self->msg_status_change(web => @_);
+    TAEB->enqueue_message('dungeon_feature' => 'trap' => 'web');
 }
 
 sub msg_life_saving {

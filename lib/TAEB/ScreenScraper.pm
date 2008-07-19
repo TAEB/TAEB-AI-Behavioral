@@ -79,6 +79,8 @@ our %msg_string = (
         ['beartrap'],
     "You can't move your leg!" =>
         ['beartrap'],
+    "You are stuck to the web." =>
+        ['web' => 1],
     "You can't write on the water!" =>
         [dungeon_feature => 'fountain'],
     "The dish washer returns!" =>
@@ -225,6 +227,10 @@ our @msg_regex = (
     [
         qr/^You fall into (?:a|your) pit!/,
             ['pit' => 1]
+    ],
+    [
+        qr/^You stumble into (?:a|your) spider web!/,
+            ['web' => 1]
     ],
     [
         qr/^You (?:see|feel) here (.*?)\./,
