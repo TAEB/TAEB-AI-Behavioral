@@ -59,7 +59,7 @@ has artifacts => (
     default => sub { TAEB::Knowledge::Item::Artifact->new },
 );
 
-sub BUILD { TAEB->publisher->subscribe(shift) }
+before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 sub msg_discovery {
     my $self       = shift;

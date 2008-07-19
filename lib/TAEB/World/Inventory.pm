@@ -32,7 +32,7 @@ has weight => (
     default  => 0,
 );
 
-sub BUILD { TAEB->publisher->subscribe(shift) }
+before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 # XXX: redo this like we did with iterate_tiles, sometime when it isn't 5am
 sub each {

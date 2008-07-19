@@ -38,7 +38,7 @@ around qw/seen was_seen/ => sub {
     return $self->$orig($artifact);
 };
 
-sub BUILD { TAEB->publisher->subscribe(shift); }
+before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 sub msg_excalibur { shift->seen('Excalibur') }
 

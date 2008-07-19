@@ -153,7 +153,7 @@ has dead => (
     default => 0,
 );
 
-sub BUILD { TAEB->publisher->subscribe(shift) }
+before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 sub parse_botl {
     my $self = shift;
