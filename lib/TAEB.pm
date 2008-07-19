@@ -243,17 +243,17 @@ class_has new_game => (
     trigger => sub {
         my $self = shift;
 
-        TAEB->debug("new_game set!");
+        # by the time we have called new_game, we know whether or not we want
+        # to load the class from a state file or from defaults. so, do
+        # initialization here.
         for my $attr ($self->meta->compute_all_applicable_attributes) {
-            # XXX: should this actually be all lazy attributes?
             next unless $attr->does('TAEB::Persistent');
 
-            TAEB->debug("initializing ".$attr->name);
-            # call the reader method to make sure that the lazy attribute is
-            # fully initialized (since we need attributes to be initialized for
-            # them to register themselves with the publisher)
             my $reader = $attr->get_read_method_ref;
-            $reader->($self);
+            my $class = $reader->($self);
+            # if it's a persistent class, we can't do any kind of
+            # initialization through BUILD, so we do it here
+            $class->init if $class->can('init');
         }
     },
 
