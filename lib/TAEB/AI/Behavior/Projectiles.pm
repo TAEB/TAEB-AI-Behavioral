@@ -18,7 +18,7 @@ sub prepare {
     # do we have a projectile to throw?
     my $projectile;
     for my $item (@projectiles) {
-        $projectile = TAEB->find_item(sub{shift->match(identity => $item, is_wielding => 0) }) and last;
+        $projectile = TAEB->find_item(sub{shift->match(identity => $item, is_wielding => 0, price => 0) }) and last;
     }
     return 0 unless defined $projectile;
 
