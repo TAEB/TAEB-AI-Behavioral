@@ -327,13 +327,16 @@ sub can_open {
 
 sub can_kick {
     my $self = shift;
-    return not $self->in_beartrap;
+    return not $self->in_beartrap
+            || $self->in_pit
+            || $self->in_web;
 }
 
 sub can_move {
     my $self = shift;
     return not $self->in_beartrap
             || $self->in_pit
+            || $self->in_web
             || $self->is_grabbed
             || $self->is_engulfed;
 }
