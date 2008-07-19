@@ -13,7 +13,7 @@ has _seen_artifacts => (
     },
 );
 
-sub _normalize_artifact_modifier {
+around qw/seen was_seen/ => sub {
     my $orig = shift;
     my $self = shift;
     my $artifact = shift;
@@ -36,10 +36,7 @@ sub _normalize_artifact_modifier {
     };
 
     return $self->$orig($artifact);
-}
-
-around seen => \&_normalize_artifact_modifier;
-around was_seen => \&_normalize_artifact_modifier;
+};
 
 sub BUILD { TAEB->publisher->subscribe(shift); }
 
