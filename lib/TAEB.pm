@@ -244,15 +244,20 @@ class_has new_game => (
 
         # by the time we have called new_game, we know whether or not we want
         # to load the class from a state file or from defaults. so, do
-        # initialization here.
+        # initialization here that should be done each time the app starts.
+        $self->debug("calling _app_init");
+        # XXX: why doesn't this work?
+        #$self->_app_init;
         for my $attr ($self->meta->compute_all_applicable_attributes) {
-            next unless $attr->does('TAEB::Persistent');
+            next if $attr->is_weak_ref;
 
             my $reader = $attr->get_read_method_ref;
             my $class = $reader->($self);
-            # if it's a persistent class, we can't do any kind of
-            # initialization through BUILD, so we do it here
-            $class->init if $class->can('init');
+            next unless blessed($class) && blessed($class) =~ /^TAEB/;
+
+            if ($class->can('_app_init')) {
+                $class->_app_init;
+            }
         }
     },
 
