@@ -20,7 +20,8 @@ sub prepare {
         my ($tile, $dir) = @_;
         if ($tile->has_enemy && $tile->monster->is_meleeable) {
             my $action = 'melee';
-            if ($tile->monster->is_ghost && TAEB->level < 10) {
+            if ($tile->monster->is_ghost && TAEB->level < 10
+                                         && !TAEB->find_item('Excalibur')) {
                 $action = 'kick';
             }
 
