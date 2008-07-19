@@ -260,7 +260,6 @@ class_has new_game => (
             }
         }
     },
-
 );
 
 class_has pathfinds => (
