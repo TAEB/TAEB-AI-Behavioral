@@ -2,7 +2,6 @@
 package TAEB::Knowledge::Item::Artifact;
 use TAEB::OO;
 use MooseX::AttributeHelper::Set::Object;
-with 'TAEB::Meta::Role::Subscription';
 
 has _seen_artifacts => (
     metaclass => 'Set::Object',

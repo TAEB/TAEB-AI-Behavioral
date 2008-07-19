@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge;
 use TAEB::OO;
-with 'TAEB::Meta::Role::Subscription';
 
 use TAEB::Knowledge::Item;
 use TAEB::Knowledge::Item::Amulet;

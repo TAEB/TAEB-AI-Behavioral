@@ -3,7 +3,6 @@ package TAEB::ScreenScraper;
 use List::Util qw/min max/;
 use TAEB::OO;
 use NetHack::Menu;
-with 'TAEB::Meta::Role::Subscription';
 
 our %msg_string = (
     "You are blinded by a blast of light!" =>

@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Senses;
 use TAEB::OO;
-with 'TAEB::Meta::Role::Subscription';
 
 has name => (
     isa => 'Str',

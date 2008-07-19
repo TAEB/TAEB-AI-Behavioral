@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Cartographer;
 use TAEB::OO;
-with 'TAEB::Meta::Role::Subscription';
 
 has dungeon => (
     isa      => 'TAEB::World::Dungeon',

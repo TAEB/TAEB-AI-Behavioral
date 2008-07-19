@@ -3,7 +3,6 @@ package TAEB::World::Inventory;
 use TAEB::OO;
 use List::Util 'first', 'sum';
 use List::MoreUtils 'apply';
-with 'TAEB::Meta::Role::Subscription';
 
 use overload %TAEB::Meta::Overload::default;
 
