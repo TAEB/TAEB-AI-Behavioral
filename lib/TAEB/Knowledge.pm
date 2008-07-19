@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge;
 use TAEB::OO;
+with 'TAEB::Meta::Role::Subscription';
 
 use TAEB::Knowledge::Item;
 use TAEB::Knowledge::Item::Amulet;
@@ -58,8 +59,6 @@ has artifacts => (
     lazy    => 1,
     default => sub { TAEB::Knowledge::Item::Artifact->new },
 );
-
-before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 sub msg_discovery {
     my $self       = shift;

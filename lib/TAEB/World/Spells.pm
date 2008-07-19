@@ -2,6 +2,7 @@
 package TAEB::World::Spells;
 use TAEB::OO;
 use List::Util 'first';
+with 'TAEB::Meta::Role::Subscription';
 
 use overload %TAEB::Meta::Overload::default;
 
@@ -20,8 +21,6 @@ has _spells => (
         empty  => 'has_spells',
     },
 );
-
-before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 sub find {
     my $self = shift;

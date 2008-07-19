@@ -3,6 +3,7 @@ package TAEB::ScreenScraper;
 use List::Util qw/min max/;
 use TAEB::OO;
 use NetHack::Menu;
+with 'TAEB::Meta::Role::Subscription';
 
 our %msg_string = (
     "You are blinded by a blast of light!" =>
@@ -532,8 +533,6 @@ has calls_this_turn => (
     isa     => 'Int',
     default => 0,
 );
-
-before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 sub scrape {
     my $self = shift;

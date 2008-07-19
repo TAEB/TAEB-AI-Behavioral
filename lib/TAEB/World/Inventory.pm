@@ -3,6 +3,7 @@ package TAEB::World::Inventory;
 use TAEB::OO;
 use List::Util 'first', 'sum';
 use List::MoreUtils 'apply';
+with 'TAEB::Meta::Role::Subscription';
 
 use overload %TAEB::Meta::Overload::default;
 
@@ -31,8 +32,6 @@ has weight => (
     required => 1,
     default  => 0,
 );
-
-before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 # XXX: redo this like we did with iterate_tiles, sometime when it isn't 5am
 sub each {

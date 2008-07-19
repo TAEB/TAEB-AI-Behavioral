@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Cartographer;
 use TAEB::OO;
+with 'TAEB::Meta::Role::Subscription';
 
 has dungeon => (
     isa      => 'TAEB::World::Dungeon',
@@ -15,8 +16,6 @@ has x => (
 has y => (
     isa => 'Int',
 );
-
-before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 sub update {
     my $self  = shift;

@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Senses;
 use TAEB::OO;
+with 'TAEB::Meta::Role::Subscription';
 
 has name => (
     isa => 'Str',
@@ -157,8 +158,6 @@ has dead => (
     isa     => 'Bool',
     default => 0,
 );
-
-before _app_init => sub { TAEB->publisher->subscribe(shift) };
 
 sub parse_botl {
     my $self = shift;
