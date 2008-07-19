@@ -40,7 +40,7 @@ sub prepare {
     # no monster found
     return 0 if !$direction;
 
-    return if $tile->in_shop;
+    return 0 if $tile->in_shop;
 
     $self->do(throw =>
         item        => $projectile,

@@ -107,7 +107,7 @@ sub prepare {
         }
     }
 
-    return unless any { $door_handler->($_) }
+    return 0 unless any { $door_handler->($_) }
                   TAEB->current_level->tiles_of('opendoor', 'closeddoor');
 
     my $path = TAEB::World::Path->first_match(sub {
