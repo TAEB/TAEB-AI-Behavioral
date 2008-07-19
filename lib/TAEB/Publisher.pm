@@ -22,6 +22,17 @@ has turn_messages => (
     default => sub { {} },
 );
 
+before subscribe => sub {
+    my $self = shift;
+    my $class = shift;
+    TAEB->debug("Subscribe: $class");
+};
+before unsubscribe => sub {
+    my $self = shift;
+    my $class = shift;
+    TAEB->debug("Unsubscribe: $class");
+};
+
 sub update {
     my $self = shift;
     $self->turn_messages;
