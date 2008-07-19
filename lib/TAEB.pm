@@ -216,7 +216,6 @@ class_has spells => (
 );
 
 class_has publisher => (
-    traits  => [qw/TAEB::Persistent/],
     is      => 'rw',
     isa     => 'TAEB::Publisher',
     lazy    => 1,
