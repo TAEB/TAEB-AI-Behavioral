@@ -4,6 +4,7 @@ use Moose;
 use Sub::Exporter;
 use Sub::Name;
 
+use TAEB::Object;
 use TAEB::Meta::Class;
 use TAEB::Meta::Trait::Provided;
 use TAEB::Meta::Trait::Persistent;
@@ -35,7 +36,7 @@ use TAEB::Meta::Trait::Persistent;
 
         return if $CALLER eq 'main';
 
-        Moose::init_meta($CALLER, 'Moose::Object', 'TAEB::Meta::Class');
+        Moose::init_meta($CALLER, 'TAEB::Object', 'TAEB::Meta::Class');
         Moose->import({into => $CALLER});
 
         goto $exporter;
