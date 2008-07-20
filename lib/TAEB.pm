@@ -949,9 +949,10 @@ sub quit {
 }
 
 sub save {
-    shift->write("   \e   \e     Sy");
-    TAEB->enqueue_message('save');
-    TAEB->publisher->send_messages;
+    my $self = shift;
+    $self->write("   \e   \e     Sy");
+    $self->enqueue_message('save');
+    $self->publisher->send_messages;
     die "See you soon!";
 }
 
