@@ -18,6 +18,7 @@ use TAEB::World;
 use TAEB::Senses;
 use TAEB::Action;
 use TAEB::Publisher;
+use TAEB::Debug;
 
 =head1 NAME
 
@@ -250,6 +251,11 @@ class_has new_game => (
 
 class_has pathfinds => (
     metaclass => 'Counter',
+);
+
+class_has irc => (
+    isa     => 'TAEB::Debug::IRC',
+    default => sub { TAEB::Debug::IRC->new },
 );
 
 around action => sub {
