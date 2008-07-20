@@ -243,9 +243,8 @@ around row_plaintext => sub {
     $orig->($self, $row, $start, $end, @_);
 };
 
-# __PACKAGE__->meta->make_immutable breaks here because we need to inherit the constructor from
-# Term::VT102
-
+# we need to use Term::VT102's constructor
+__PACKAGE__->meta->make_immutable(inline_constructor => 0);
 no Moose;
 
 1;
