@@ -55,6 +55,8 @@ do {
     });
 
     Moose::Util::apply_all_roles($container_meta, 'TAEB::Meta::Role::Persistency');
+    # also apply the Initialize role (for non-persistency-related things)
+    Moose::Util::apply_all_roles($container_meta, 'TAEB::Meta::Role::Initialize');
 };
 # }}}
 
