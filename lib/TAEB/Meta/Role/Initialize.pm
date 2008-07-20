@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
-package TAEB::Meta::Role::AppInit;
+package TAEB::Meta::Role::Initialize;
 use Moose::Role;
 
-sub _app_init {
+sub initialize {
     my $self = shift;
 
     for my $attr ($self->meta->compute_all_applicable_attributes) {
@@ -12,8 +12,8 @@ sub _app_init {
         my $class = $reader->($self);
         next unless blessed($class) && blessed($class) =~ /^TAEB/;
 
-        if ($class->can('_app_init')) {
-            $class->_app_init;
+        if ($class->can('initialize')) {
+            $class->initialize;
         }
     }
 }

@@ -2,8 +2,8 @@
 package TAEB::Meta::Role::Subscription;
 use Moose::Role;
 
-requires '_app_init';
-before _app_init => sub { TAEB->publisher->subscribe(shift) };
+requires 'initialize';
+before initialize => sub { TAEB->publisher->subscribe(shift) };
 
 no Moose::Role;
 

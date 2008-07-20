@@ -4,7 +4,7 @@ use Moose;
 extends 'Moose::Meta::Class';
 
 use TAEB::Meta::Attribute;
-use TAEB::Meta::Role::AppInit;
+use TAEB::Meta::Role::Initialize;
 use TAEB::Meta::Role::Subscription;
 
 around initialize => sub {
