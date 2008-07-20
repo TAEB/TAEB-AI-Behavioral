@@ -507,7 +507,8 @@ sub keypress {
     # space is always a noncommand
     return if $c eq ' ';
 
-    return "Unknown command '$c'";
+    $self->enqueue_message('key' => $c);
+    return;
 }
 
 after qw/info warning/ => sub {
