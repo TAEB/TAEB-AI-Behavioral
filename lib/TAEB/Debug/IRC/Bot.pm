@@ -16,6 +16,7 @@ sub init {
 sub step {
     while ($poe_kernel->get_next_event_time - time < 0) {
         TAEB->debug("IRC: running a timeslice");
+        local $SIG{__DIE__};
         $poe_kernel->run_one_timeslice;
     }
 }
