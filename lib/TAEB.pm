@@ -944,6 +944,7 @@ sub display_topline {
 sub quit {
     my $self = shift;
     $self->write("   \e   \e     #quit\ny");
+    # screenscraper handles the message sending and die call
 }
 
 sub save {
