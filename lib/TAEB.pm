@@ -244,19 +244,7 @@ class_has new_game => (
         # to load the class from a state file or from defaults. so, do
         # initialization here that should be done each time the app starts.
         $self->debug("calling initialize");
-        # XXX: why doesn't this work?
-        #$self->_app_init;
-        for my $attr ($self->meta->compute_all_applicable_attributes) {
-            next if $attr->is_weak_ref;
-
-            my $reader = $attr->get_read_method_ref;
-            my $class = $reader->($self);
-            next unless blessed($class) && blessed($class) =~ /^TAEB/;
-
-            if ($class->can('initialize')) {
-                $class->initialize;
-            }
-        }
+        $self->initialize;
     },
 );
 
