@@ -5,8 +5,6 @@ use List::MoreUtils qw/any/;
 extends 'Moose::Meta::Class';
 
 use TAEB::Meta::Attribute;
-use TAEB::Meta::Role::Initialize;
-use TAEB::Meta::Role::Subscription;
 
 around initialize => sub {
     my $orig = shift;
