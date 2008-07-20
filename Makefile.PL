@@ -80,6 +80,10 @@ features(
         recommends('Template::Declare'),
         recommends('Template::Declare::Anon'),
     ],
+    'IRC debug interface' => [
+        -default => 0,
+        recommends('Bot::BasicBot'),
+    ],
 );
 
 build_requires 'Test::More';
