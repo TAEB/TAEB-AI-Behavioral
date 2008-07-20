@@ -331,7 +331,6 @@ sub handle_logging_in {
     elsif ($self->topline =~ qr/Restoring save file\.\./) {
         $self->info("We are now in NetHack, restoring a save file.");
         $self->write(' ');
-        $self->new_game(0);
     }
     elsif ($self->topline =~ qr/, welcome( back)? to NetHack!/) {
         $self->new_game($1 ? 0 : 1);
