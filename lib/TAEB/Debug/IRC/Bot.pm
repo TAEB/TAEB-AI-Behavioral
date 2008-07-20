@@ -4,6 +4,7 @@ use warnings;
 package TAEB::Debug::IRC::Bot;
 use base 'Bot::BasicBot';
 use POE::Kernel;
+use Time::HiRes qw/time/;
 
 sub init {
     # does nothing (the irc component isn't initialized yet), but shuts up
