@@ -9,10 +9,10 @@ sub initialize {
         next if $attr->is_weak_ref;
 
         my $reader = $attr->get_read_method_ref;
-        my $class = $reader->($self);
-        next unless blessed($class) && blessed($class) =~ /^TAEB/;
+        my $class  = $reader->($self);
+        next unless blessed($class);
 
-        if ($class->can('initialize')) {
+        if ($class->can('does') && $class->does(__PACKAGE__)) {
             $class->initialize;
         }
     }
