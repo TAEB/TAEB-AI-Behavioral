@@ -948,6 +948,8 @@ sub quit {
 
 sub save {
     shift->write("   \e   \e     Sy");
+    TAEB->enqueue_message('save');
+    TAEB->publisher->send_messages;
     die "See you soon!";
 }
 
