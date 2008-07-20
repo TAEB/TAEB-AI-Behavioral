@@ -30,5 +30,8 @@ around pickup => sub {
     return $orig->($self, $item, @_);
 };
 
+__PACKAGE__->meta->make_immutable;
+no Moose;
+
 1;
 

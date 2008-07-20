@@ -167,6 +167,7 @@ sub msg_got_item {
 
 sub msg_hidden_monster { shift->hit_obscured_monster(1) }
 
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
