@@ -231,7 +231,7 @@ sub is_walkable {
 sub step_on {
     my $self = shift;
 
-    $self->stepped_on($self->stepped_on + 1);
+    $self->inc_stepped_on;
     $self->explored(1);
     $self->last_turn(TAEB->turn);
     $self->last_step(TAEB->step);

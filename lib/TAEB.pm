@@ -291,7 +291,7 @@ sub handle_playing {
     }
 
     $self->currently('?');
-    $self->pathfinds(0);
+    $self->reset_pathfinds;
     $self->action($self->next_action);
     TAEB->info("Current action: " . $self->action);
     $self->write($self->action->run);
