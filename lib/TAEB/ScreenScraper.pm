@@ -529,8 +529,7 @@ has parsed_messages => (
 );
 
 has calls_this_turn => (
-    isa     => 'Int',
-    default => 0,
+    metaclass => 'Counter',
 );
 
 sub scrape {
@@ -579,7 +578,7 @@ sub scrape {
 sub check_cycling {
     my $self = shift;
 
-    $self->calls_this_turn($self->calls_this_turn + 1);
+    $self->inc_calls_this_turn;
 
     if ($self->calls_this_turn > 500) {
         TAEB->critical("It seems I'm iterating endlessly and making no progress. I'm going to attempt to save and exit!");
@@ -591,7 +590,7 @@ sub check_cycling {
 sub msg_turn {
     my $self = shift;
 
-    $self->calls_this_turn(0);
+    $self->reset_calls_this_turn;
 }
 
 sub clear {

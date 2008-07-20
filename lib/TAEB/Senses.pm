@@ -68,8 +68,7 @@ has turn => (
 );
 
 has step => (
-    isa     => 'Int',
-    default => 0,
+    metaclass => 'Counter',
 );
 
 has max_god_anger => (
@@ -255,7 +254,7 @@ sub update {
     my $main = shift;
 
     if ($main) {
-        $self->step($self->step + 1);
+        $self->inc_step;
         TAEB->enqueue_message(step => $self->step);
     }
 
