@@ -582,8 +582,7 @@ sub check_cycling {
 
     if ($self->calls_this_turn > 500) {
         TAEB->critical("It seems I'm iterating endlessly and making no progress. I'm going to attempt to save and exit!");
-        TAEB->write("\e\e\e\eSy       ");
-        die "It seems I'm iterating endlessly and making no progress. I'm going to attempt to save and exit!";
+        TAEB->save;
     }
 }
 
