@@ -15,22 +15,9 @@ sub init {
 
 sub step {
     do {
-        TAEB->debug("IRC: running a timeslice");
-        eval {
-            local $SIG{__DIE__};
-            local $SIG{ALRM} = sub { die 'alarm' };
-            alarm 1;
-            $poe_kernel->run_one_timeslice;
-            alarm 0;
-        };
-        if ($@) {
-            if ($@ eq 'alarm') {
-                last;
-            }
-            else {
-                TAEB->warning("Error while running a timeslice: $@");
-            }
-        }
+        TAEB->debug("IRC: running a timeslice at ".time);
+        local $SIG{__DIE__};
+        $poe_kernel->run_one_timeslice;
     } while ($poe_kernel->get_next_event_time - time < 0);
 }
 
