@@ -1,6 +1,8 @@
 #!/usr/bin/env perl
 package TAEB::OO;
 use Moose;
+use MooseX::AttributeHelpers;
+
 use Sub::Exporter;
 use Sub::Name;
 
@@ -8,6 +10,8 @@ use TAEB::Object;
 use TAEB::Meta::Class;
 use TAEB::Meta::Trait::Provided;
 use TAEB::Meta::Trait::Persistent;
+use TAEB::Meta::Types;
+use TAEB::Meta::Overload;
 
 {
     my $CALLER;

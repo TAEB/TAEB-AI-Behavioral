@@ -4,15 +4,12 @@ use Curses ();
 
 use TAEB::Util ':colors';
 
-use Moose;
-use MooseX::AttributeHelpers;
+use TAEB::OO;
 use MooseX::ClassAttribute;
 
 use Log::Dispatch;
 use Log::Dispatch::File;
 
-use TAEB::Meta::Types;
-use TAEB::Meta::Overload;
 use TAEB::Config;
 use TAEB::VT;
 use TAEB::ScreenScraper;
