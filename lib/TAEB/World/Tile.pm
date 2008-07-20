@@ -41,8 +41,7 @@ has color => (
 );
 
 has stepped_on => (
-    isa     => 'Int',
-    default => 0,
+    metaclass => 'Counter',
 );
 
 has x => (
@@ -56,13 +55,11 @@ has y => (
 );
 
 has searched => (
-    isa     => 'Int',
-    default => 0,
+    metaclass => 'Counter',
 );
 
 has explored => (
-    isa     => 'Bool',
-    default => 0,
+    metaclass => 'Counter',
 );
 
 has engraving => (
@@ -145,8 +142,7 @@ has in_zoo => (
 );
 
 has pathfind => (
-    isa           => 'Int',
-    default       => 0,
+    metaclass => 'Counter',
     documentation => "How many times this tile has been expanded in a pathfind this step",
 );
 

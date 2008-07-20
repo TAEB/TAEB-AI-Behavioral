@@ -249,9 +249,7 @@ class_has new_game => (
 );
 
 class_has pathfinds => (
-    is  => 'rw',
-    isa => 'Int',
-    default => 0,
+    metaclass => 'Counter',
 );
 
 around action => sub {

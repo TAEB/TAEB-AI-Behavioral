@@ -276,7 +276,7 @@ sub _dijkstra {
     my $scorer = shift;
     my %args   = @_;
 
-    TAEB->pathfinds(TAEB->pathfinds + 1);
+    TAEB->inc_pathfinds;
 
     my $from              = $args{from} || TAEB->current_tile;
     my $through_unknown   = $args{through_unknown};
@@ -288,7 +288,7 @@ sub _dijkstra {
     my $start;
     if ($debug) {
         $args{from}->level->each_tile(sub {
-            shift->pathfind(0);
+            shift->reset_pathfind;
         });
         $start = time;
     }
@@ -305,7 +305,7 @@ sub _dijkstra {
     while ($pq->count) {
         my $priority = $pq->top_key;
         my ($tile, $path) = @{ $pq->extract_top };
-        $tile->pathfind($tile->pathfind + 1) if $debug;
+        $tile->inc_pathfind if $debug;
 
         my $score = $scorer->($tile, $path, $priority);
         if (defined $score) {

@@ -81,8 +81,7 @@ has monsters => (
 );
 
 has turns_spent_on => (
-    isa     => 'Int',
-    default => 0,
+    metaclass => 'Counter',
 );
 
 has pickaxe => (
@@ -618,7 +617,7 @@ sub msg_dungeon_level {
 
 sub msg_turn {
     my $self = shift;
-    $self->turns_spent_on($self->turns_spent_on + 1);
+    $self->inc_turns_spent_on;
 }
 
 =head2 glyph_to_type str[, str] -> str
