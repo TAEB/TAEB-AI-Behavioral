@@ -59,7 +59,8 @@ has searched => (
 );
 
 has explored => (
-    metaclass => 'Counter',
+    isa      => 'Bool',
+    default  => 0,
 );
 
 has engraving => (
