@@ -240,6 +240,12 @@ class_has new_game => (
     isa => 'Bool',
     trigger => sub {
         my $self = shift;
+        my $new = shift;
+
+        # just in case we missed doing this last time we died
+        # we might want some way to prevent all loading from the state file
+        # before new_game is called to make this a bit more correct
+        $self->destroy_saved_state if $new;
 
         # by the time we have called new_game, we know whether or not we want
         # to load the class from a state file or from defaults. so, do
