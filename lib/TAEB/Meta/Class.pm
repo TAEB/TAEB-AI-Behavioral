@@ -23,8 +23,8 @@ around initialize => sub {
 
 before make_immutable => sub {
     my $self = shift;
-    $self->add_role(TAEB::Meta::Role::AppInit->meta);
-    $self->add_role(TAEB::Meta::Role::Subscription->meta)
+    Moose::Util::apply_all_roles($self, 'TAEB::Meta::Role::Initialize');
+    Moose::Util::apply_all_roles($self, 'TAEB::Meta::Role::Subscription')
         if (any { /^(?:msg|exception|respond)_/ } $self->get_method_list);
 };
 
