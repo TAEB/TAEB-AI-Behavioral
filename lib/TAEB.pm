@@ -5,7 +5,6 @@ use Curses ();
 use TAEB::Util ':colors';
 
 use TAEB::OO;
-use MooseX::ClassAttribute;
 
 use Log::Dispatch;
 use Log::Dispatch::File;

@@ -2,6 +2,7 @@
 package TAEB::OO;
 use Moose;
 use MooseX::AttributeHelpers;
+use MooseX::ClassAttribute;
 
 use Sub::Exporter;
 use Sub::Name;
@@ -17,6 +18,9 @@ use TAEB::Meta::Overload;
     my $CALLER;
 
     my %exports = (
+        class_has => sub {
+            return \&class_has;
+        },
         install_spoilers => sub {
             return subname 'TAEB::OO::install_spoilers' => sub {
                 for my $field (@_) {
@@ -30,6 +34,7 @@ use TAEB::Meta::Overload;
 
     my $exporter = Sub::Exporter::build_exporter({
         exports => \%exports,
+        groups  => { default => ['class_has'] }
     });
 
     sub import {
