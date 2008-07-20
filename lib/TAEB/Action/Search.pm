@@ -22,7 +22,7 @@ sub done {
 
     TAEB->each_adjacent_inclusive(sub {
         my $self = shift;
-        $self->searched($self->searched + $diff);
+        $self->inc_searched($diff);
     });
 }
 
