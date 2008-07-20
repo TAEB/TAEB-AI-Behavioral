@@ -258,6 +258,11 @@ class_has irc => (
     default => sub { TAEB::Debug::IRC->new },
 );
 
+class_has console => (
+    isa     => 'TAEB::Debug::Console',
+    default => sub { TAEB::Debug::Console->new },
+);
+
 around action => sub {
     my $orig = shift;
     my $self = shift;
@@ -482,13 +487,6 @@ sub keypress {
         return undef;
     }
 
-    # console
-    if ($c eq '~') {
-        $self->console;
-
-        return;
-    }
-
     if ($c eq 'q') {
         $self->state('saving');
         return;
@@ -633,42 +631,6 @@ sub new_item {
 sub new_monster {
     my $self = shift;
     TAEB::World::Monster->new(@_);
-}
-
-sub console {
-    my $self = shift;
-
-    eval {
-        local $SIG{__DIE__};
-
-        $ENV{PERL_RL} ||= TAEB->config->readline;
-
-        Curses::def_prog_mode();
-        Curses::endwin();
-
-        print "\n"
-            . "\e[1;37m+"
-            . "\e[1;30m" . ('-' x 50)
-            . "\e[1;37m[ "
-            . "\e[1;36mT\e[0;36mAEB \e[1;36mC\e[0;36monsole"
-            . " \e[1;37m]"
-            . "\e[1;30m" . ('-' x 12)
-            . "\e[1;37m+"
-            . "\e[m\n";
-
-        no warnings 'redefine';
-        require Devel::REPL::Script;
-        local $TAEB::ToScreen;
-
-        eval {
-            local $SIG{INT} = sub { die "Interrupted." };
-            Devel::REPL::Script->new->run;
-        };
-    };
-
-    # we really do need to do this twice. my amateur opinion is that curses
-    # isn't fully re-initialized when we call it the first time. oh well.
-    $self->redraw(force_clear => 1) for 1..2;
 }
 
 sub debug_map {
