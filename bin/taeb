@@ -26,6 +26,7 @@ sub load_from_argv {
     my $third_level = $ARGV{$arg_name}
                    || TAEB->config->contents->{$arg_name}
                    || $default;
+    TAEB->config->contents->{$arg_name} = $third_level;
 
     my $type = "TAEB::${second_level}::$third_level";
 
