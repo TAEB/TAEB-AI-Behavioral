@@ -408,7 +408,7 @@ sub _astar {
     my $why               = $args{why} || "unknown";
     my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
-    my $debug = TAEB->config->draw eq 'pathfind';
+    my $debug = (TAEB->config->draw || '') eq 'pathfind';
     my $start;
     if ($debug) {
         $args{from}->level->each_tile(sub {
