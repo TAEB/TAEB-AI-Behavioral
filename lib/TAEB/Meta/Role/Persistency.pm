@@ -14,7 +14,7 @@ has persistent_data => (
         my $file = $self->persistent_file;
         return {} unless defined $file && -r $file;
 
-        TAEB->info("Loading persistency data.");
+        TAEB->info("Loading persistency data from $file.");
         return eval { Storable::retrieve($file) } || {};
     },
 );
