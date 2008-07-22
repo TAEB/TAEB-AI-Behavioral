@@ -152,6 +152,7 @@ sub said {
 
     TAEB->debug("Somebody is talking to us! ($args{who}, $args{body})");
     my ($command, $args) = $args{body} =~ /^(\w+)(?:\s+(.*))?/;
+    return unless $command;
     if (exists $responses{$command}) {
         return $responses{$command}->($self, $args);
     }
