@@ -31,16 +31,10 @@ has _watching_messages => (
     },
 );
 
-sub init {
-    my $self = shift;
-    # we aren't instantiated when the subscription role would run, so do it
-    # here
-    TAEB->publisher->subscribe($self);
+before initialize => sub {
     # does nothing (the irc component isn't initialized yet), but shuts up
     # warnings about run never being called
     $poe_kernel->run;
-    # have to return true
-    1;
 }
 
 sub send_messages {
