@@ -33,6 +33,24 @@ sub chanjoin {
                                   TAEB->gender, TAEB->align);
 }
 
+sub said {
+    my $self = shift;
+    my %args = %{ $_[0] };
+    return unless $args{address};
+
+    TAEB->debug("Somebody is talking to us! ($args{who}, $args{body})");
+    if ($args{body} =~ /^where/i) {
+        return sprintf "%s %s", TAEB->current_tile, TAEB->current_level;
+    }
+    elsif ($args{body} =~ /^score/i) {
+        return TAEB->score;
+    }
+    elsif ($args{body} =~ /^who/i) {
+        return sprintf "%s (%s %s %s %s)", TAEB->name, TAEB->role, TAEB->race,
+                                           TAEB->gender, TAEB->align;
+    }
+}
+
 sub log {
     my $self = shift;
     for (@_) {
