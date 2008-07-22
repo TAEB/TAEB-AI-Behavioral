@@ -6,6 +6,8 @@ use base 'Bot::BasicBot';
 use POE::Kernel;
 use Time::HiRes qw/time/;
 
+my $paused = 0;
+
 sub init {
     # does nothing (the irc component isn't initialized yet), but shuts up
     # warnings about run never being called
@@ -22,7 +24,7 @@ sub step {
         local $SIG{__DIE__};
         $self->schedule_tick(0.05);
         $poe_kernel->run_one_timeslice;
-    } while ($poe_kernel->get_next_event_time - time < 0);
+    } while ($poe_kernel->get_next_event_time - time < 0 || $paused);
 }
 
 sub chanjoin {
@@ -48,6 +50,15 @@ sub said {
     elsif ($args{body} =~ /^who/i) {
         return sprintf "%s (%s %s %s %s)", TAEB->name, TAEB->role, TAEB->race,
                                            TAEB->gender, TAEB->align;
+    }
+    elsif ($args{body} =~ /^pause/i) {
+        $paused = 1;
+        TAEB->notify('Paused (IRC)', 0);
+        return 'Paused';
+    }
+    elsif ($args{body} =~ /^unpause/i) {
+        $paused = 0;
+        return 'Unpaused';
     }
 }
 
