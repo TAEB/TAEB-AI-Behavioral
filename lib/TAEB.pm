@@ -259,19 +259,11 @@ class_has pathfinds => (
     metaclass => 'Counter',
 );
 
-class_has irc => (
-    isa     => 'TAEB::Debug::IRC',
-    default => sub { TAEB::Debug::IRC->new },
-);
-
-class_has console => (
-    isa     => 'TAEB::Debug::Console',
-    default => sub { TAEB::Debug::Console->new },
-);
-
-class_has debug_map => (
-    isa     => 'TAEB::Debug::DebugMap',
-    default => sub { TAEB::Debug::DebugMap->new },
+class_has debugger => (
+    is      => 'rw',
+    isa     => 'TAEB::Debug',
+    default => sub { TAEB::Debug->new },
+    handles => [qw/console irc debug_map/],
 );
 
 around action => sub {
