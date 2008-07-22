@@ -32,22 +32,6 @@ sub msg_character {
     $self->bot->run;
 }
 
-sub msg_death {
-    my $self = shift;
-    my ($rank, $score, $end_reason, $death) = @_;
-    return unless $self->bot;
-    $self->bot->quit_message(sprintf "%s (%s %s %s %s), %d points, %s",
-                                     TAEB->name, TAEB->role, TAEB->race,
-                                     TAEB->gender, TAEB->align, TAEB->score,
-                                     $death || $end_reason);
-}
-
-sub msg_save {
-    my $self = shift;
-    return unless $self->bot;
-    $self->bot->quit_message("Saving...");
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

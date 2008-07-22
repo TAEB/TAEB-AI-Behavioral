@@ -30,6 +30,20 @@ sub msg_step {
     } while ($poe_kernel->get_next_event_time - time < 0 || $self->paused);
 }
 
+sub msg_death {
+    my $self = shift;
+    my ($rank, $score, $end_reason, $death) = @_;
+    $self->quit_message(sprintf "%s (%s %s %s %s), %d points, %s",
+                                TAEB->name, TAEB->role, TAEB->race,
+                                TAEB->gender, TAEB->align, TAEB->score,
+                                $death || $end_reason);
+}
+
+sub msg_save {
+    my $self = shift;
+    $self->quit_message("Saving...");
+}
+
 sub said {
     my $self = shift;
     my %args = %{ $_[0] };
