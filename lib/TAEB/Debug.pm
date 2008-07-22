@@ -5,17 +5,17 @@ use TAEB::Debug::Console;
 use TAEB::Debug::DebugMap;
 use TAEB::Debug::IRC;
 
-class_has irc => (
+has irc => (
     isa     => 'TAEB::Debug::IRC',
     default => sub { TAEB::Debug::IRC->new },
 );
 
-class_has console => (
+has console => (
     isa     => 'TAEB::Debug::Console',
     default => sub { TAEB::Debug::Console->new },
 );
 
-class_has debug_map => (
+has debug_map => (
     isa     => 'TAEB::Debug::DebugMap',
     default => sub { TAEB::Debug::DebugMap->new },
 );
