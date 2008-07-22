@@ -89,58 +89,67 @@ sub msg_save {
     $self->quit_message("Saving...");
 }
 
+my %responses = (
+    who      => sub {
+        sprintf "%s (%s %s %s %s)", TAEB->name, TAEB->role, TAEB->race,
+                                    TAEB->gender, TAEB->align
+    },
+    where    => sub {
+        sprintf "%s %s", TAEB->current_tile, TAEB->current_level
+    },
+    score    => sub {
+        TAEB->score
+    },
+    pause    => sub {
+        shift->paused(1);
+        TAEB->notify('Paused (IRC)', 0);
+        'Paused'
+    },
+    unpause  => sub {
+        shift->paused(0);
+        'Unpaused'
+    },
+    step     => sub {
+        my $self = shift;
+        my $turns = shift || 1;
+        $self->inc_step($turns);
+        'Stepping ('.$self->step.')'
+    },
+    watch    => sub {
+        my $self = shift;
+        my $msg_name = shift;
+        return "Can't watch $msg_name" if $msg_name eq 'step'
+                                       || $msg_name eq 'death'
+                                       || $msg_name eq 'save';
+        $self->watch_message($msg_name);
+        "Watching message $msg_name"
+    },
+    unwatch  => sub {
+        my $self = shift;
+        my $msg_name = shift;
+        return "Can't watch $msg_name" if $msg_name eq 'step'
+                                       || $msg_name eq 'death'
+                                       || $msg_name eq 'save';
+        $self->unwatch_message($msg_name);
+        "No longer watching message $msg_name"
+    },
+    watching => sub {
+        join ', ', shift->watching_messages
+    },
+);
+
 sub said {
     my $self = shift;
     my %args = %{ $_[0] };
     return unless $args{address};
 
     TAEB->debug("Somebody is talking to us! ($args{who}, $args{body})");
-    if ($args{body} =~ /^where/i) {
-        return sprintf "%s %s", TAEB->current_tile, TAEB->current_level;
+    my ($command, $args) = $args{body} =~ /^(\w+)(?:\s+(.*))?/;
+    if (exists $responses{$command}) {
+        return $responses{$command}->($self, $args);
     }
-    elsif ($args{body} =~ /^score/i) {
-        return TAEB->score;
-    }
-    elsif ($args{body} =~ /^who/i) {
-        return sprintf "%s (%s %s %s %s)", TAEB->name, TAEB->role, TAEB->race,
-                                           TAEB->gender, TAEB->align;
-    }
-    elsif ($args{body} =~ /^pause/i) {
-        $self->paused(1);
-        TAEB->notify('Paused (IRC)', 0);
-        return 'Paused';
-    }
-    elsif ($args{body} =~ /^unpause/i) {
-        $self->paused(0);
-        return 'Unpaused';
-    }
-    elsif ($args{body} =~ /^step/i) {
-        my $turns = $args{body};
-        $turns =~ s/^step\s*//i;
-        $turns ||= 1;
-        $self->inc_step($turns);
-        return 'Stepping ('.$self->step.')';
-    }
-    elsif ($args{body} =~ /^watch/i) {
-        my $msg_name = $args{body};
-        $msg_name =~ s/^watch\s*//i;
-        return "Can't watch $msg_name" if $msg_name eq 'step'
-                                       || $msg_name eq 'death'
-                                       || $msg_name eq 'save';
-        $self->watch_message($msg_name);
-        return "Watching message $msg_name";
-    }
-    elsif ($args{body} =~ /^unwatch/i) {
-        my $msg_name = $args{body};
-        $msg_name =~ s/^watch\s*//i;
-        return "Can't watch $msg_name" if $msg_name eq 'step'
-                                       || $msg_name eq 'death'
-                                       || $msg_name eq 'save';
-        $self->unwatch_message($msg_name);
-        return "No longer watching message $msg_name";
-    }
-    elsif ($args{body} =~ /^watching/i) {
-        return join ', ', $self->watching_messages;
+    else {
+        return "Don't know command $command";
     }
 }
 
