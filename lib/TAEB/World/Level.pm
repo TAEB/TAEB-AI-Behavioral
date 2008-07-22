@@ -544,7 +544,8 @@ around is_oracle => sub {
     }
 
     my $oracle_tile = $self->at(39,12);
-    if ($oracle_tile->monster && !$oracle_tile->monster->is_oracle)
+    if (!$oracle_tile->has_monster ||
+        ($oracle_tile->monster && !$oracle_tile->monster->is_oracle))
     {
         $self->is_oracle(0);
         return 0;
