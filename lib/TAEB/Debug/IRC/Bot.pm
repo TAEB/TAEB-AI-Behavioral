@@ -23,9 +23,10 @@ before watch_message => sub {
     my $self = shift;
     my $msg = shift;
     $self->meta->add_method('msg_'.$msg => sub {
+        my $self = shift;
         $self->say(channel => $self->channels,
                    body    => "I received a $msg message");
-        shift->unwatch_message($msg);
+        $self->unwatch_message($msg);
     });
 };
 
