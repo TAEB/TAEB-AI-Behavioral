@@ -35,7 +35,7 @@ before initialize => sub {
     # does nothing (the irc component isn't initialized yet), but shuts up
     # warnings about run never being called
     $poe_kernel->run;
-}
+};
 
 sub send_messages {
     my $self = shift;
