@@ -27,26 +27,9 @@ has _watching_messages => (
         insert   => 'watch_message',
         remove   => 'unwatch_message',
         elements => 'watching_messages',
+        contains => 'watching_message',
     },
 );
-
-before watch_message => sub {
-    my $self = shift;
-    my $msg = shift;
-    $self->meta->add_method('msg_'.$msg => sub {
-        my $self = shift;
-        $self->say(channel => $self->channels,
-                   body    => "I received a $msg message with args " .
-                              join(', ', @_));
-        $self->unwatch_message($msg);
-    });
-};
-
-after unwatch_message => sub {
-    my $self = shift;
-    my $msg = shift;
-    $self->meta->remove_method('msg_'.$msg);
-};
 
 sub init {
     my $self = shift;
@@ -58,6 +41,18 @@ sub init {
     $poe_kernel->run;
     # have to return true
     1;
+}
+
+sub send_messages {
+    my $self = shift;
+    my $msg = shift;
+
+    if ($self->watching_message($msg)) {
+        $self->say(channel => $self->channels,
+                   body    => "I received a $msg message with args " .
+                              join(', ', @_));
+        $self->unwatch_message($msg);
+    }
 }
 
 sub msg_step {
