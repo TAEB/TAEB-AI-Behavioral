@@ -83,6 +83,7 @@ features(
     'IRC debug interface' => [
         -default => 0,
         recommends('Bot::BasicBot'),
+        recommends('App::Nopaste'),
     ],
 );
 
