@@ -100,6 +100,12 @@ my %responses = (
     score    => sub {
         TAEB->score
     },
+    inventory => sub {
+        TAEB->inventory
+    },
+    status    => sub {
+        join(', ', TAEB->statuses) || 'None'
+    },
     pause    => sub {
         shift->paused(1);
         TAEB->notify('Paused (IRC)', 0);
