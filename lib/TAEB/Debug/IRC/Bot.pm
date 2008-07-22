@@ -113,6 +113,11 @@ my %responses = (
         App::Nopaste::nopaste(text => TAEB->vt->as_string("\n"),
                               nick => TAEB->name);
     },
+    messages => sub {
+        require App::Nopaste;
+        App::Nopaste::nopaste(text => join("\n", TAEB->scraper->old_messages),
+                              nick => TAEB->name);
+    },
     pause    => sub {
         shift->paused(1);
         TAEB->notify('Paused (IRC)', 0);
