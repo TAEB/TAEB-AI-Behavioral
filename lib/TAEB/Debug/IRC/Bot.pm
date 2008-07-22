@@ -27,14 +27,6 @@ sub step {
     } while ($poe_kernel->get_next_event_time - time < 0 || $paused);
 }
 
-sub chanjoin {
-    my $self = shift;
-    $self->say(channel => $self->channels,
-               body    => sprintf "Hi! I'm a %s-%s-%s-%s",
-                                  TAEB->role,   TAEB->race,
-                                  TAEB->gender, TAEB->align);
-}
-
 sub said {
     my $self = shift;
     my %args = %{ $_[0] };
