@@ -131,18 +131,12 @@ my %responses = (
     watch    => sub {
         my $self = shift;
         my $msg_name = shift;
-        return "Can't watch $msg_name" if $msg_name eq 'step'
-                                       || $msg_name eq 'death'
-                                       || $msg_name eq 'save';
         $self->watch_message($msg_name);
         "Watching message $msg_name"
     },
     unwatch  => sub {
         my $self = shift;
         my $msg_name = shift;
-        return "Can't watch $msg_name" if $msg_name eq 'step'
-                                       || $msg_name eq 'death'
-                                       || $msg_name eq 'save';
         $self->unwatch_message($msg_name);
         "No longer watching message $msg_name"
     },
