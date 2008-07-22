@@ -4,32 +4,31 @@ use TAEB::OO;
 use TAEB::Debug::IRC::Bot;
 
 has bot => (
-    isa => 'TAEB::Debug::IRC::Bot',
+    isa => 'Maybe[TAEB::Debug::IRC::Bot]',
     is  => 'rw',
+    default => sub {
+        return unless exists TAEB->config->contents->{IRC};
+        my $irc_config = TAEB->config->IRC;
+        my $server  = $irc_config->{server}  || 'irc.freenode.net';
+        my $port    = $irc_config->{port}    || 6667;
+        my $channel = $irc_config->{channel} || '#interhack';
+        my $name    = $irc_config->{name}    || TAEB->name;
+
+        TAEB->debug("Connecting to $channel on $server:$port with nick $name");
+        TAEB::Debug::IRC::Bot->new(
+            # Bot::BasicBot settings
+            server   => $server,
+            port     => $port,
+            channels => [$channel],
+            nick     => $name,
+            no_run   => 1,
+        );
+    },
 );
 
 sub msg_character {
     my $self = shift;
-    my ($name, $role, $race, $gender, $align) = @_;
-
-    TAEB->debug("IRC: got a msg_character");
-    return unless exists TAEB->config->contents->{IRC};
-    my $irc_config = TAEB->config->IRC;
-    my $server  = $irc_config->{server}  || 'irc.freenode.net';
-    my $port    = $irc_config->{port}    || 6667;
-    my $channel = $irc_config->{channel} || '#interhack';
-
-    TAEB->debug("Connecting to $channel on $server:$port with nick $name");
-    $self->bot(TAEB::Debug::IRC::Bot->new(
-        # Bot::BasicBot settings
-        server   => $server,
-        port     => $port,
-        channels => [$channel],
-        nick     => $name,
-        no_run   => 1,
-    ));
-    $self->bot->init;
-    $self->bot->run;
+    $self->bot->run if $self->bot;
 }
 
 __PACKAGE__->meta->make_immutable;
