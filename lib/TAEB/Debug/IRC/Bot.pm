@@ -13,6 +13,31 @@ has paused => (
     default => 0,
 );
 
+has _watching_methods => (
+    metaclass => 'Set::Object',
+    provides => {
+        insert   => 'watch_message',
+        remove   => 'unwatch_message',
+        elements => 'watching_messages',
+    },
+);
+
+before watch_message => sub {
+    my $self = shift;
+    my $msg = shift;
+    $self->meta->add_method('msg_'.$msg => sub {
+        $self->say(channel => $self->channels,
+                   body    => "I received a $msg message");
+        shift->unwatch_message($msg);
+    });
+};
+
+after unwatch_message => sub {
+    my $self = shift;
+    my $msg = shift;
+    $self->meta->remove_method('msg_'.$msg);
+};
+
 sub init {
     # does nothing (the irc component isn't initialized yet), but shuts up
     # warnings about run never being called
@@ -71,6 +96,27 @@ sub said {
     elsif ($args{body} =~ /^unpause/i) {
         $self->paused(0);
         return 'Unpaused';
+    }
+    elsif ($args{body} =~ /^watch/i) {
+        my $msg_name = $args{body};
+        $msg_name =~ s/^watch\s*//i;
+        return "Can't watch $msg_name" if $msg_name eq 'step'
+                                       || $msg_name eq 'death'
+                                       || $msg_name eq 'save';
+        $self->watch_message($msg_name);
+        return "Watching message $msg_name";
+    }
+    elsif ($args{body} =~ /^unwatch/i) {
+        my $msg_name = $args{body};
+        $msg_name =~ s/^watch\s*//i;
+        return "Can't watch $msg_name" if $msg_name eq 'step'
+                                       || $msg_name eq 'death'
+                                       || $msg_name eq 'save';
+        $self->unwatch_message($msg_name);
+        return "No longer watching message $msg_name";
+    }
+    elsif ($args{body} =~ /^watching/i) {
+        return join ', ', $self->watching_messages;
     }
 }
 
