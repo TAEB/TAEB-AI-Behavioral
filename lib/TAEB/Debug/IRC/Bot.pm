@@ -134,7 +134,7 @@ my %responses = (
         "No longer watching message $msg_name"
     },
     watching => sub {
-        join ', ', shift->watching_messages
+        join(', ', shift->watching_messages) || 'None'
     },
 );
 
