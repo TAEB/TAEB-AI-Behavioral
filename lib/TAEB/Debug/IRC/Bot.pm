@@ -105,6 +105,9 @@ my %responses = (
     status    => sub {
         join(', ', TAEB->statuses) || 'None'
     },
+    currently => sub {
+        TAEB->currently
+    },
     map      => sub {
         require App::Nopaste;
         App::Nopaste::nopaste(text => TAEB->vt->as_string("\n"),
