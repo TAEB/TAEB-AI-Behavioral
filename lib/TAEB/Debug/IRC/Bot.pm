@@ -128,4 +128,6 @@ sub log {
     }
 }
 
+no Moose;
+
 1;
