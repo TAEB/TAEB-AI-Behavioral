@@ -4,7 +4,6 @@ use TAEB::OO;
 extends 'Bot::BasicBot';
 use POE::Kernel;
 use Time::HiRes qw/time/;
-use App::Nopaste 'nopaste';
 
 has paused => (
     isa     => 'Bool',
@@ -110,8 +109,9 @@ my %responses = (
         join(', ', TAEB->statuses) || 'None'
     },
     map      => sub {
-        nopaste(text => TAEB->vt->as_string("\n"),
-                nick => TAEB->name);
+        require App::Nopaste;
+        App::Nopaste::nopaste(text => TAEB->vt->as_string("\n"),
+                              nick => TAEB->name);
     },
     pause    => sub {
         shift->paused(1);
