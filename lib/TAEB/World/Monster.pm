@@ -100,6 +100,10 @@ sub is_meleeable {
     return 0 if $self->color eq COLOR_GREEN
              && $self->glyph eq 'j';
 
+    # gelatinous cube (paralysis)
+    return 0 if $self->color eq COLOR_CYAN
+             && $self->glyph eq 'b';
+
     return 1;
 }
 
