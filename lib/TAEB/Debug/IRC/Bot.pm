@@ -18,9 +18,10 @@ sub init {
     1;
 }
 
-sub step {
+sub msg_step {
     my $self = shift;
 
+    TAEB->debug("Iterating the IRC component");
     do {
         TAEB->debug("IRC: running a timeslice at ".time);
         local $SIG{__DIE__};

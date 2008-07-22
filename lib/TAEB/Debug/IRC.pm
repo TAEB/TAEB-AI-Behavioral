@@ -8,13 +8,6 @@ has bot => (
     is  => 'rw',
 );
 
-sub msg_step {
-    my $self = shift;
-    return unless $self->bot;
-    TAEB->debug("Iterating the IRC component");
-    $self->bot->step;
-}
-
 sub msg_character {
     my $self = shift;
     my ($name, $role, $race, $gender, $align) = @_;
