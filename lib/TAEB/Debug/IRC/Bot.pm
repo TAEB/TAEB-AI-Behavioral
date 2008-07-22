@@ -26,7 +26,8 @@ before watch_message => sub {
     $self->meta->add_method('msg_'.$msg => sub {
         my $self = shift;
         $self->say(channel => $self->channels,
-                   body    => "I received a $msg message");
+                   body    => "I received a $msg message with args " .
+                              join(', ', @_));
         $self->unwatch_message($msg);
     });
 };
