@@ -101,7 +101,9 @@ my %responses = (
         TAEB->score
     },
     inventory => sub {
-        TAEB->inventory
+        my $inv = sprintf "%s", TAEB->inventory;
+        $inv =~ s/\n/, /g;
+        $inv
     },
     status    => sub {
         join(', ', TAEB->statuses) || 'None'
