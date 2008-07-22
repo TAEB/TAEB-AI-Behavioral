@@ -10,6 +10,16 @@ has paused => (
     default => 0,
 );
 
+has step => (
+    metaclass => 'Counter',
+    default => -1,
+    trigger => sub {
+        my $self = shift;
+        my $val = shift;
+        $self->set_step(0) if $val < 0;
+    }
+);
+
 has _watching_messages => (
     metaclass => 'Set::Object',
     lazy => 1,
@@ -59,7 +69,10 @@ sub msg_step {
         local $SIG{__DIE__};
         $self->schedule_tick(0.05);
         $poe_kernel->run_one_timeslice;
-    } while ($poe_kernel->get_next_event_time - time < 0 || $self->paused);
+    } while ($poe_kernel->get_next_event_time - time < 0
+          || ($self->paused && $self->step == 0));
+
+    $self->dec_step;
 }
 
 sub msg_death {
@@ -100,6 +113,13 @@ sub said {
     elsif ($args{body} =~ /^unpause/i) {
         $self->paused(0);
         return 'Unpaused';
+    }
+    elsif ($args{body} =~ /^step/i) {
+        my $turns = $args{body};
+        $turns =~ s/^step\s*//i;
+        $turns ||= 1;
+        $self->inc_step($turns);
+        return 'Stepping ('.$self->step.')';
     }
     elsif ($args{body} =~ /^watch/i) {
         my $msg_name = $args{body};
