@@ -12,6 +12,7 @@ has paused => (
 
 has _watching_messages => (
     metaclass => 'Set::Object',
+    lazy => 1,
     provides => {
         insert   => 'watch_message',
         remove   => 'unwatch_message',
