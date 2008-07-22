@@ -1,8 +1,7 @@
 #!/usr/bin/perl
-use strict;
-use warnings;
 package TAEB::Debug::IRC::Bot;
-use base 'Bot::BasicBot';
+use TAEB::OO;
+extends 'Bot::BasicBot';
 use POE::Kernel;
 use Time::HiRes qw/time/;
 
@@ -61,5 +60,8 @@ sub log {
         TAEB->debug($_);
     }
 }
+
+__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+no Moose;
 
 1;
