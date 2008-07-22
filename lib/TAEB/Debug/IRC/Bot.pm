@@ -10,7 +10,7 @@ has paused => (
     default => 0,
 );
 
-has _watching_methods => (
+has _watching_messages => (
     metaclass => 'Set::Object',
     provides => {
         insert   => 'watch_message',
