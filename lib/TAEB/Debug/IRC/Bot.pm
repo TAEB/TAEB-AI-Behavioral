@@ -97,9 +97,6 @@ my %responses = (
     where    => sub {
         sprintf "%s %s", TAEB->current_tile, TAEB->current_level
     },
-    score    => sub {
-        TAEB->score
-    },
     inventory => sub {
         my $inv = sprintf "%s", TAEB->inventory;
         $inv =~ s/\n/, /g;
@@ -160,6 +157,12 @@ sub said {
     my ($command, $args) = $args{body} =~ /^(\w+)(?:\s+(.*))?/;
     if (exists $responses{$command}) {
         return $responses{$command}->($self, $args);
+    }
+    elsif (my $attr = TAEB->senses->meta->get_attribute($command)) {
+        my $reader = $attr->get_read_method_ref;
+        my $value = $reader->(TAEB->senses);
+        $value = '(undef)' if !defined($value);
+        return $value;
     }
     else {
         return "Don't know command $command";
