@@ -4,6 +4,9 @@ use TAEB::OO;
 extends 'Bot::BasicBot';
 use POE::Kernel;
 use Time::HiRes qw/time/;
+# we can't call make_immutable here because of the notify command
+with 'TAEB::Meta::Role::Initialize';
+with 'TAEB::Meta::Role::Subscription';
 
 has paused => (
     isa     => 'Bool',
@@ -78,8 +81,5 @@ sub log {
         TAEB->debug($_);
     }
 }
-
-__PACKAGE__->meta->make_immutable(inline_constructor => 0);
-no Moose;
 
 1;
