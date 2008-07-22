@@ -4,9 +4,6 @@ use TAEB::OO;
 extends 'Bot::BasicBot';
 use POE::Kernel;
 use Time::HiRes qw/time/;
-# we can't call make_immutable here because of the notify command
-with 'TAEB::Meta::Role::Initialize';
-with 'TAEB::Meta::Role::Subscription';
 
 has paused => (
     isa     => 'Bool',
@@ -39,6 +36,10 @@ after unwatch_message => sub {
 };
 
 sub init {
+    my $self = shift;
+    # we aren't instantiated when the subscription role would run, so do it
+    # here
+    TAEB->publisher->subscribe($self);
     # does nothing (the irc component isn't initialized yet), but shuts up
     # warnings about run never being called
     $poe_kernel->run;
