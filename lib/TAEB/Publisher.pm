@@ -71,7 +71,7 @@ sub send_messages {
                 if ($recipient->can('send_message')) {
                     $recipient->send_message($msgname, @$_);
                 }
-                elsif ($recipient->can($msgname)) {
+                if ($recipient->can($msgname)) {
                     $recipient->$msgname(@$_)
                 }
             }
