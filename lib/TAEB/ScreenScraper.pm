@@ -522,6 +522,12 @@ has messages => (
     isa => 'Str',
 );
 
+has old_messages => (
+    isa        => 'ArrayRef',
+    auto_deref => 1,
+    default    => sub { [] },
+);
+
 has parsed_messages => (
     isa        => 'ArrayRef',
     auto_deref => 1,
@@ -916,6 +922,8 @@ sub send_messages {
         }
 
         push @{ $self->parsed_messages }, [$line => $matched];
+        push @{ $self->old_messages }, $line;
+        shift @{ $self->old_messages } if @{ $self->old_messages } > 100;
     }
 }
 
