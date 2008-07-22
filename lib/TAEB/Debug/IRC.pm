@@ -6,6 +6,7 @@ use TAEB::Debug::IRC::Bot;
 has bot => (
     isa => 'Maybe[TAEB::Debug::IRC::Bot]',
     is  => 'rw',
+    lazy => 1,
     default => sub {
         return unless exists TAEB->config->contents->{IRC};
         my $irc_config = TAEB->config->IRC;
