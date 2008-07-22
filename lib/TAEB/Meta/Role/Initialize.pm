@@ -2,7 +2,8 @@
 package TAEB::Meta::Role::Initialize;
 use Moose::Role;
 
-sub initialize {
+sub initialize { }
+after initialize => sub {
     my $self = shift;
 
     for my $attr ($self->meta->compute_all_applicable_attributes) {
@@ -16,7 +17,7 @@ sub initialize {
             $class->initialize;
         }
     }
-}
+};
 
 no Moose::Role;
 
