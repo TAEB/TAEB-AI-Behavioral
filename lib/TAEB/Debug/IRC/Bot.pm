@@ -37,7 +37,7 @@ sub initialize {
     $poe_kernel->run;
 }
 
-sub send_messages {
+sub send_message {
     my $self = shift;
     my $msg = shift;
 
