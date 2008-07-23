@@ -40,6 +40,7 @@ sub initialize {
 sub send_message {
     my $self = shift;
     my $msg = shift;
+    $msg =~ s/msg_//;
 
     if ($self->watching_message($msg)) {
         $self->say(channel => $self->channels,
