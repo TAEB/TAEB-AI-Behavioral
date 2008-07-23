@@ -13,7 +13,7 @@ after initialize => sub {
         my $class  = $reader->($self);
         next unless blessed($class);
 
-        if ($class->can('does') && $class->does(__PACKAGE__)) {
+        if ($class->can('meta') && $class->meta->does_role(__PACKAGE__)) {
             $class->initialize;
         }
     }
