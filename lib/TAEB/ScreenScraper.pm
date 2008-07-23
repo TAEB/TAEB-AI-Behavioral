@@ -329,8 +329,8 @@ our @msg_regex = (
             ['autopickup' => sub { $1 eq 'ON' }],
     ],
     [
-        qr/^You (?:kill|destroy) .*/ =>
-            ['killed'],
+        qr/^You (?:kill|destroy) (?:the )?(.*)(?:\.|!)/ =>
+            ['killed' => sub { $1 } ],
     ],
     [
         qr/^Suddenly, .* vanishes from the sink!/ =>
