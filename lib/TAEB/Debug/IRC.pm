@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 package TAEB::Debug::IRC;
 use TAEB::OO;
-use TAEB::Debug::IRC::Bot;
 
 has bot => (
     isa => 'Maybe[TAEB::Debug::IRC::Bot]',
@@ -16,6 +15,7 @@ has bot => (
         my $name    = $irc_config->{name}    || TAEB->name;
 
         TAEB->debug("Connecting to $channel on $server:$port with nick $name");
+        require TAEB::Debug::IRC::Bot;
         TAEB::Debug::IRC::Bot->new(
             # Bot::BasicBot settings
             server   => $server,
