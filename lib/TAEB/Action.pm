@@ -95,6 +95,20 @@ sub name {
     return;
 }
 
+=head2 action_names
+
+Returns a list of action names (Search, Melee, Eat, etc)
+
+=cut
+
+sub action_names {
+    my $self = shift;
+
+    return map  { s/^TAEB::Action:://; $_ }
+           grep { $_->isa('TAEB::Action') }
+           sort $self->actions;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

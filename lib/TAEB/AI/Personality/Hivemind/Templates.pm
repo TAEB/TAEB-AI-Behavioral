@@ -234,7 +234,7 @@ sub next_action {
                                 onchange(),
                             };
 
-                            for my $name (@TAEB::Action::actions) {
+                            for my $name (TAEB::Action->action_names) {
                                 option {
                                     attr {
                                         value => $name,
