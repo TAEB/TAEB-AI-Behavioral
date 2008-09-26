@@ -10,24 +10,24 @@ sub prepare {
     return 0 unless TAEB->current_level->has_type('sink');
 
     my ($sink, $dir);
-    my $check = sub {
+    my $useful_sink = sub {
         my ($tile, $d) = @_;
         return ($sink, $dir) = ($tile, $d)
             if $tile->type eq 'sink'
-            && $tile->glyph eq '{' # no items or monsters on it
+            && $tile->is_empty
             && !$tile->got_pudding
-            && $tile->kicked < 50;
+            && $tile->kicked < 50; # don't want to kick an emptied bones sink forever
 
         return 0;
     };
 
-    if (TAEB->any_adjacent($check)) {
+    if (TAEB->any_adjacent($useful_sink)) {
         $self->do(kick => direction => $dir);
         $self->currently("Kicking a sink for a pudding");
         return 100;
     }
 
-    my $path = TAEB::World::Path->first_match($check, why => "GetPudding");
+    my $path = TAEB::World::Path->first_match($useful_sink, why => "GetPudding");
     $self->if_path($path => "Heading towards a sink");
 }
 
