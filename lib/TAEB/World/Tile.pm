@@ -602,6 +602,23 @@ before set_interesting => sub {
     }
 };
 
+=head2 is_empty -> Bool
+
+Returns true if the tile is free from items, monsters, boulders, and the player
+character.
+
+It *can* have a dungeon feature, such as a fountain.
+
+=cut
+
+sub is_empty {
+    my $self = shift;
+
+    # probably okay for now, we may want to check items monster etc explicitly
+    # though
+    return $self->glyph eq $self->floor_glyph;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
