@@ -20,6 +20,9 @@ use TAEB::Action;
 use TAEB::Publisher;
 use TAEB::Debug;
 
+with 'TAEB::Meta::Role::Persistency';
+with 'TAEB::Meta::Role::Initialize';
+
 =head1 NAME
 
 TAEB - Tactical Amulet Extraction Bot
@@ -40,26 +43,6 @@ class_has interface => (
         TAEB::Interface::Local->new;
     },
 );
-
-# set up TAEB::Persistency {{{
-# this must be done after the first "class_has" so that container_class is
-# defined for TAEB.
-do {
-    my $container_class = MooseX::ClassAttribute::container_class;
-    my $container_meta = $container_class->meta;
-
-    # add the persistent_file method required by the role
-    $container_meta->add_method(persistent_file => sub {
-        my $state_file = TAEB->config->state_file;
-        return unless defined $state_file;
-        return join('-', $state_file, TAEB->config->interface);
-    });
-
-    Moose::Util::apply_all_roles($container_meta, 'TAEB::Meta::Role::Persistency');
-    # also apply the Initialize role (for non-persistency-related things)
-    Moose::Util::apply_all_roles($container_meta, 'TAEB::Meta::Role::Initialize');
-};
-# }}}
 
 class_has personality => (
     is       => 'rw',
@@ -825,8 +808,14 @@ sub died {
     $self->config->state_file(undef);
 }
 
+sub persistent_file {
+    my $self = shift;
+    my $state_file = $self->config->state_file;
+    return unless defined $state_file;
+    return join('-', $state_file, $self->config->interface);
+}
+
 __PACKAGE__->meta->make_immutable;
-MooseX::ClassAttribute::container_class->meta->make_immutable;
 no Moose;
 no MooseX::ClassAttribute;
 
