@@ -33,6 +33,19 @@ TAEB - Tactical Amulet Extraction Bot
 # during REPL or testing
 our $ToScreen = 0;
 
+class_has persistent_data => (
+    is      => 'ro',
+    isa     => 'HashRef',
+    lazy    => 1,
+    default => sub {
+        my $file = TAEB->persistent_file;
+        return {} unless defined $file && -r $file;
+
+        TAEB->info("Loading persistency data from $file.");
+        return eval { Storable::retrieve($file) } || {};
+    },
+);
+
 class_has interface => (
     is       => 'rw',
     isa      => 'TAEB::Interface',
@@ -123,7 +136,6 @@ class_has log => (
         return $dispatcher;
     },
 );
-
 
 class_has dungeon => (
     traits  => [qw/TAEB::Persistent/],

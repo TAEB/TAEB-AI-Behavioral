@@ -5,20 +5,6 @@ use Storable;
 
 requires 'persistent_file';
 
-has persistent_data => (
-    is      => 'ro',
-    isa     => 'HashRef',
-    lazy    => 1,
-    default => sub {
-        my $self = shift;
-        my $file = $self->persistent_file;
-        return {} unless defined $file && -r $file;
-
-        TAEB->info("Loading persistency data from $file.");
-        return eval { Storable::retrieve($file) } || {};
-    },
-);
-
 sub save_state {
     my $self = shift;
     my $file = $self->persistent_file;

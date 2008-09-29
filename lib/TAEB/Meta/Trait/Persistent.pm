@@ -15,7 +15,7 @@ before _process_options => sub {
         my $self = shift;
 
         # do we have the value from persistency?
-        my $value = delete $self->persistent_data->{$name};
+        my $value = delete TAEB->persistent_data->{$name};
         return $value if defined $value;
 
         # otherwise, use the old default
