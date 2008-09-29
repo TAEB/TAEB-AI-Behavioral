@@ -1,10 +1,9 @@
 #!/usr/bin/env perl
 package TAEB::OO;
-use Moose;
-use MooseX::AttributeHelpers;
-use MooseX::ClassAttribute;
+use Moose ();
+use MooseX::ClassAttribute ();
+use Moose::Exporter;
 
-use Sub::Exporter;
 use Sub::Name;
 
 use TAEB::Meta::Class;
@@ -13,46 +12,25 @@ use TAEB::Meta::Trait::Persistent;
 use TAEB::Meta::Types;
 use TAEB::Meta::Overload;
 
-{
-    my $CALLER;
+Moose::Exporter->setup_import_methods(
+    with_caller => [ 'install_spoilers' ],
+    also        => ['Moose', 'MooseX::ClassAttribute'],
+);
 
-    my %exports = (
-        class_has => sub {
-            return \&class_has;
-        },
-        install_spoilers => sub {
-            return subname 'TAEB::OO::install_spoilers' => sub {
-                for my $field (@_) {
-                    $CALLER->meta->add_method($field => sub {
-                        shift->lookup_spoiler($field);
-                    });
-                }
-            };
-        },
-    );
+sub install_spoilers {
+    my $caller = shift;
 
-    my $exporter = Sub::Exporter::build_exporter({
-        exports => \%exports,
-        groups  => { default => ['class_has'] }
-    });
-
-    sub import {
-        $CALLER = caller;
-
-        strict->import;
-        warnings->import;
-
-        return if $CALLER eq 'main';
-
-        Moose::init_meta($CALLER, 'Moose::Object', 'TAEB::Meta::Class');
-        Moose->import({into => $CALLER});
-
-        goto $exporter;
-    };
+    for my $field (@_) {
+        $caller->meta->add_method($field => sub {
+            shift->lookup_spoiler($field);
+        });
+    }
 }
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
+sub init_meta {
+    shift;
+    return Moose->init_meta(@_, metaclass => 'TAEB::Meta::Class');
+}
 
 1;
 
