@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Tool;
-use TAEB::OO 'install_spoilers';
+use TAEB::OO;
 extends 'TAEB::World::Item';
 with 'TAEB::World::Item::Role::Chargeable';
 with 'TAEB::World::Item::Role::Enchantable';
@@ -22,7 +22,8 @@ has candles_attached => (
     default => 0,
 );
 
-install_spoilers(qw/charge/);
+__PACKAGE__->install_spoilers(qw/charge/);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

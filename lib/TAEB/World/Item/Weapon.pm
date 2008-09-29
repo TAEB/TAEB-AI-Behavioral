@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Weapon;
-use TAEB::OO 'install_spoilers';
+use TAEB::OO;
 extends 'TAEB::World::Item';
 with 'TAEB::World::Item::Role::Enchantable';
 with 'TAEB::World::Item::Role::Erodable';
@@ -24,7 +24,8 @@ around 'can_drop' => sub {
     return $self->$orig(@_);
 };
 
-install_spoilers(qw/sdam ldam tohit hands/);
+__PACKAGE__->install_spoilers(qw/sdam ldam tohit hands/);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

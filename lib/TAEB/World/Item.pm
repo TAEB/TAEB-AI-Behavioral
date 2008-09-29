@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item;
-use TAEB::OO 'install_spoilers';
+use TAEB::OO;
 use List::MoreUtils 'uniq';
 
 use overload %TAEB::Meta::Overload::default;
@@ -303,6 +303,18 @@ sub lookup_spoiler {
     }
 }
 
+sub install_spoilers {
+    my $self = shift;
+    my $meta = Moose::Meta::Class->initialize($self);
+
+    for my $field (@_) {
+        $meta->add_method($field => sub {
+            shift->lookup_spoiler($field);
+        });
+    }
+}
+
+
 sub is_autopickuped {
     my $self = shift;
     return 0 if !TAEB->autopickup;
@@ -402,7 +414,7 @@ sub match {
 
 sub can_drop { 1 };
 
-install_spoilers(qw/weight base edible artifact material sdam ldam/);
+__PACKAGE__->install_spoilers(qw/weight base edible artifact material sdam ldam/);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

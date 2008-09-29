@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::World::Item::Spellbook;
-use TAEB::OO 'install_spoilers';
+use TAEB::OO;
 extends 'TAEB::World::Item';
 with 'TAEB::World::Item::Role::Writable';
 
@@ -21,7 +21,7 @@ sub spell {
     return $1;
 }
 
-install_spoilers(qw/level read marker emergency role/);
+__PACKAGE__->install_spoilers(qw/level read marker emergency role/);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
