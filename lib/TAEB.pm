@@ -63,7 +63,6 @@ class_has personality => (
 class_has scraper => (
     is       => 'rw',
     isa      => 'TAEB::ScreenScraper',
-    required => 1,
     lazy     => 1,
     default  => sub { TAEB::ScreenScraper->new },
     handles  => [qw(parsed_messages all_messages messages farlook)],
@@ -80,7 +79,6 @@ class_has vt => (
     is       => 'rw',
     isa      => 'TAEB::VT',
     lazy     => 1,
-    required => 1,
     default  => sub {
         my $vt = TAEB::VT->new(cols => 80, rows => 24);
         $vt->option_set(LINEWRAP => 1);
