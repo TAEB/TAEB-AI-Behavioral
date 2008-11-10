@@ -536,6 +536,11 @@ has parsed_messages => (
 
 has calls_this_turn => (
     metaclass => 'Counter',
+    is        => 'ro',
+    provides  => {
+        inc   => 'inc_calls_this_turn',
+        reset => 'reset_calls_this_turn',
+    },
 );
 
 sub scrape {

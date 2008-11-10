@@ -250,6 +250,10 @@ class_has new_game => (
 
 class_has pathfinds => (
     metaclass => 'Counter',
+    provides  => {
+        inc   => 'inc_pathfinds',
+        reset => 'reset_pathfinds',
+    },
 );
 
 class_has debugger => (
