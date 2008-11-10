@@ -260,7 +260,6 @@ class_has debugger => (
     is      => 'rw',
     isa     => 'TAEB::Debug',
     default => sub { TAEB::Debug->new },
-    handles => [qw/console irc debug_map/],
 );
 
 around action => sub {
