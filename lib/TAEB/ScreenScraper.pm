@@ -574,7 +574,7 @@ sub scrape {
 
     if (($@ || '') =~ /^Recursing screenscraper/) {
         @_ = 'TAEB';
-        goto TAEB->can('process_input');;
+        goto TAEB->can('process_input');
     }
     elsif ($@) {
         die "$@\n";
