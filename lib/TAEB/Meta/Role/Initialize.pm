@@ -13,7 +13,8 @@ after initialize => sub {
         my $class  = $reader->($self);
         next unless blessed($class);
 
-        if ($class->can('meta') && $class->meta->does_role(__PACKAGE__)) {
+        my $meta = Class::MOP::Class->initialize($class);
+        if ($meta && $meta->does_role(__PACKAGE__)) {
             $class->initialize;
         }
     }
