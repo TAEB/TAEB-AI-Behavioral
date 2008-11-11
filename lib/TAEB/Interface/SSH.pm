@@ -12,7 +12,7 @@ extends 'TAEB::Interface::Local';
 
 has server => (
     isa     => 'Str',
-    default => 'nethack1.devnull.net',
+    default => 'devnull.kraln.com',
 );
 
 has account => (
