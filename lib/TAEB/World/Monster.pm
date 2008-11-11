@@ -197,6 +197,61 @@ sub debug_line {
 # all monsters are in LOS because we only keep track of monsters in LOS
 sub in_los { return 1 }
 
+=head2 spoiler :: hash
+
+Returns the monster spoiler (L<TAEB::Spoiler::Monster>) entry for this thing,
+or undef if the symbol does not uniquely determine the monster.
+
+=cut
+
+sub spoiler {
+    my $self = shift;
+
+    my @candidates = TAEB::Spoilers::Monster->search(glyph => $self->glyph,
+        color => $self->color);
+
+    return undef unless $#candidates == 1;
+    return $candidates[1];
+}
+
+=head2 can_outrun :: bool
+
+Return true if the player can definitely outrun the monster.
+
+=cut
+
+sub can_outrun {
+    my $self = shift;
+
+    my $spoiler = $self->spoiler || return 0;
+    my $spd = $spoiler->{speed};
+    my ($pmin, $pmax) = TAEB->senses->speed;
+
+    return $spd < $pmin || $spd == $pmin && $spd < $pmax;
+}
+
+=head2 melee_disposition :: Int
+
+Returns 1 if the monster is (probably) dangerous at range to the point
+where charging and smashing is preferable to E-spam and daggers.  Returns
+-1 if the monster is dangerous in melee to the point where even spending
+wand charges would be preferable.  Returns 0 otherwise.  Currently never
+returns 1.
+
+=cut
+
+sub melee_disposition {
+    my $self = shift;
+
+    return -1 if $self->glyph eq 'n';
+    return -1 if $self->is_minotaur;
+    # add other things as they become a problem / replace with better spoiler
+    # handling...
+
+    return 0;
+}
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
