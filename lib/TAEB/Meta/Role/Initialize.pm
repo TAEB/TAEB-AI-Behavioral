@@ -10,12 +10,12 @@ after initialize => sub {
         next if $attr->is_weak_ref;
 
         my $reader = $attr->get_read_method_ref;
-        my $class  = $reader->($self);
-        next unless blessed($class);
+        my $value  = $reader->($self);
+        next unless blessed($value);
 
-        my $meta = Class::MOP::Class->initialize($class);
+        my $meta = Class::MOP::Class->initialize(blessed $value);
         if ($meta && $meta->does_role(__PACKAGE__)) {
-            $class->initialize;
+            $value->initialize;
         }
     }
 };
