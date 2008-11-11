@@ -33,7 +33,7 @@ sub _build_pty {
 
     alarm 20;
     eval {
-        local $SIG{ALRM};
+        local $SIG{ALRM} = sub { die "timeout" };
 
         my $output = '';
         while (1) {
