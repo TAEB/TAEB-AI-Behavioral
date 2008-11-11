@@ -34,6 +34,9 @@ p
 s
     Turn on single-step mode which will automatically pause after each turn.
 
+f
+    Toggles between floor and glyph display modes.
+
 i
     Turn on "info-to-screen" mode. This is an obnoxious setting, but interesting
     I guess. Any TAEB->info calls will be logged to TAEB's screen. Normally
