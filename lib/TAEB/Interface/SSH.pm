@@ -56,6 +56,12 @@ sub _build_pty {
     return $pty;
 }
 
+around read => sub {
+    my $orig = shift;
+
+    return join '', map { $orig->(@_) } 1 .. 3;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
