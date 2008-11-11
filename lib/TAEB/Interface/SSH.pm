@@ -2,6 +2,8 @@
 package TAEB::Interface::SSH;
 use TAEB::OO;
 
+use constant ping_wait => 1;
+
 =head1 NAME
 
 TAEB::Interface::SSH - how TAEB talks to /dev/null
