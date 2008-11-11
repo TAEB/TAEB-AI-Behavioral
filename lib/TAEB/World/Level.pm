@@ -616,6 +616,19 @@ sub msg_dungeon_level {
     $self->$islevel(1);
 }
 
+sub msg_level_message {
+    my $self = shift;
+    my $type = shift;
+
+    TAEB->info("There's a $type on this level. Interesting.");
+
+    $self->branch('dungeons') if $type eq 'vault';
+
+    $self->is_minetown(1) if $type eq 'shop'
+                          && $self->known_branch
+                          && $self->branch eq 'mines';
+}
+
 sub msg_turn {
     my $self = shift;
     $self->inc_turns_spent_on;
