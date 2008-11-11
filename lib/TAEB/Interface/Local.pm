@@ -13,16 +13,18 @@ TAEB::Interface::Telnet - how TAEB talks to a local nethack
 extends 'TAEB::Interface';
 
 has name => (
-    isa => 'Str',
+    isa     => 'Str',
     default => 'nethack',
 );
 
 has pty => (
     isa     => 'IO::Pty::Easy',
+    lazy    => 1,
     handles => ['is_active'],
+    builder => '_build_pty',
 );
 
-sub BUILD {
+sub _build_pty {
     my $self = shift;
 
     chomp(my $pwd = `pwd`);
@@ -36,7 +38,7 @@ sub BUILD {
     # this has to be done in BUILD because it needs name
     my $pty = IO::Pty::Easy->new;
     $pty->spawn($self->name);
-    $self->pty($pty);
+    return $pty;
 }
 
 =head2 read -> STRING
