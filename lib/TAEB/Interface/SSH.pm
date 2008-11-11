@@ -30,7 +30,24 @@ sub _build_pty {
 
     my $pty = IO::Pty::Easy->new;
     $pty->spawn('ssh', $self->server, '-l', $self->account);
-    $pty->write($self->password . "\n\n");
+
+    alarm 20;
+    eval {
+        local $SIG{ALRM};
+
+        my $output = '';
+        while (1) {
+            $output .= $pty->read(0) || '';
+            if ($output =~ /password/) {
+                alarm 0;
+                last;
+            }
+        }
+    };
+
+    die "Died ($@) while waiting for password prompt.\n" if $@;
+
+    $pty->write($self->password . "\n\n", 0);
 
     TAEB->debug("Connected to " . $self->server . ".");
 
