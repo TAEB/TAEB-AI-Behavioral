@@ -9,6 +9,7 @@ has _subscribers => (
         insert   => 'subscribe',
         remove   => 'unsubscribe',
         elements => 'subscribers',
+        size     => 'subscriber_count',
     },
 );
 
