@@ -18,7 +18,7 @@ after initialize => sub {
         next unless blessed($value);
 
         my $meta = Class::MOP::Class->initialize(blessed $value);
-        if ($meta && $meta->does_role(__PACKAGE__)) {
+        if ($meta && $meta->can('does_role') && $meta->does_role(__PACKAGE__)) {
             $value->initialize;
         }
     }
