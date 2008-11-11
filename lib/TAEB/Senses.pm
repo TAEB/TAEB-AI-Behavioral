@@ -157,6 +157,11 @@ has dead => (
     default => 0,
 );
 
+has burden => (
+    isa     => 'Int',
+    default => 0,
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -230,6 +235,25 @@ sub find_statuses {
     else {
         $self->nutrition(999) if $self->nutrition > 999;
         $self->nutrition(150) if $self->nutrition < 150;
+    }
+
+    if ($botl =~ /\bOverl/) {
+        $self->burden(5);
+    }
+    elsif ($botl =~ /\bOvert/) {
+        $self->burden(4);
+    }
+    elsif ($botl =~ /\bStra/) {
+        $self->burden(3);
+    }
+    elsif ($botl =~ /\bStre/) {
+        $self->burden(2);
+    }
+    elsif ($botl =~ /\bBur/) {
+        $self->burden(1);
+    }
+    else {
+        $self->burden(0);
     }
 
     $self->is_blind($botl =~ /\bBli/ ? 1 : 0);
