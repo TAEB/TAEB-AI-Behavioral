@@ -197,6 +197,18 @@ our %msg_string = (
         ['status_change', 'stoning', 0],
     "You feel limber!" =>  # consuming acid
         ['status_change', 'stoning', 0],
+    "You hear somene cursing shoplifters." =>
+        ['level_message', 'shop'],
+    "You hear the chime of a cash register." =>
+        ['level_message', 'shop'],
+    "You hear Neiman and Marcus arguing!" => # hallu
+        ['level_message', 'shop'],
+    "You hear the footsteps of a guard on patrol." =>
+        ['level_message', 'vault'],
+    "You hear someone counting money." =>
+        ['level_message', 'vault'],
+    "You hear someone searching." =>
+        ['level_message', 'vault'],
 );
 
 our @msg_regex = (
