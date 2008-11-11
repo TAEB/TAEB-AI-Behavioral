@@ -4,6 +4,8 @@ use TAEB::OO;
 use IO::Pty::Easy;
 use Time::HiRes 'sleep';
 
+use constant ping_wait => 0.2;
+
 =head1 NAME
 
 TAEB::Interface::Telnet - how TAEB talks to a local nethack
@@ -54,7 +56,7 @@ sub read {
 
     # this is about the best we can do for consistency
     # in Telnet we have a complicated ping/pong that scales with network latency
-    sleep(0.2);
+    sleep($self->ping_wait);
 
     die "Pty inactive." unless $self->is_active;
     my $out = $self->pty->read(1);
