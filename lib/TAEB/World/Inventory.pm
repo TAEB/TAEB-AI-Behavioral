@@ -243,13 +243,13 @@ around wielded => sub {
     return $ret;
 };
 
-=head2 has_projectile
+=head2 has_projectiles
 
 Returns true (actually, the item) if TAEB has something useful to throw.
 
 =cut
 
-sub has_projectile {
+sub has_projectiles {
     my $self = shift;
 
     my @projectiles = (
