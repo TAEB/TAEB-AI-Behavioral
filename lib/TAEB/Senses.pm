@@ -47,7 +47,7 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying/] => (
+has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying is_intrinsic_fast is_hasted/] => (
     isa     => 'Bool',
     default => 0,
 );
@@ -397,6 +397,8 @@ my %method_of = (
     pit           => 'in_pit',
     web           => 'in_web',
     stoning       => 'is_petrifying',
+    fast          => 'is_intrinsic_fast',
+    hasted        => 'is_hasted',
 );
 
 sub msg_status_change {
@@ -517,6 +519,41 @@ sub item_damage_bonus {
     return 0;
 }
 
+=head2 speed_level :: Int
+
+Returns 0 if normal, 1 if Fast, or 2 if Very_fast.
+
+=cut
+
+sub speed_level {
+    my $self = shift;
+
+    return 2 if TAEB->find_item(is_wearing => 1, identity => "speed boots");
+    return 2 if $self->is_hasted;
+
+    return 1 if $self->is_intrinsic_fast;
+
+    return 0;
+}
+
+=head2 speed :: (Int,Int)
+
+Returns the minimum and maximum speed of the PC in its current condition.
+In scalar context, returns the minimum.
+
+=cut
+
+sub speed {
+    my $self = shift;
+    my $sl = $self->speed_level;
+
+    my $min = (12, 12, 18)[$sl];
+    my $max = (12, 18, 24)[$sl];
+    my $mod = (1, .75, .5, .25, .125, 0)[$self->burden];
+
+    return int($min * $mod), int($max * $mod);
+}
+
 sub msg_debt {
     my $self = shift;
     my $gold = shift;
@@ -537,6 +574,10 @@ sub msg_game_started {
     $self->poison_resistant(1) if $self->role eq 'Hea'
                                || $self->role eq 'Bar'
                                || $self->race eq 'Orc';
+
+    $self->intrinsic_fast(1) if $self->role eq 'Arc'
+                             || $self->role eq 'Mon'
+                             || $self->role eq 'Sam';
 }
 
 sub msg_vault_guard {

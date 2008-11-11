@@ -13,6 +13,44 @@ our %msg_string = (
         ['status_change', 'lycanthropy', 1],
     "You feel purified." =>
         ['status_change', 'lycanthropy', 0],
+    "You feel quick!" =>
+        [ status_change => fast => 1],
+    "You feel slow!" =>
+        [ status_change => fast => 0],
+    "You seem faster." =>
+        [ status_change => fast => 1],
+    "You seem slower." =>
+        [ status_change => fast => 0],
+    "You feel slower." =>
+        [ status_change => fast => 0],
+    "You speed up." =>
+        [ status_change => fast => 1],
+    "Your quickness feels more natural." =>
+        [ status_change => fast => 1],
+    "You are slowing down." =>
+        [ status_change => fast => 0],
+    "Your limbs are getting oozy." =>
+        [ status_change => fast => 0],
+    "You slow down." =>
+        [ status_change => fast => 0],
+    "Your quickness feels less natural." =>
+        [ status_change => fast => 0],
+    "\"and thus I grant thee the gift of Speed!\"" =>
+        [ status_change => fast => 1],
+    "You slow down." =>
+        [ status_change => hasted => 0],
+    "Your quickness feels less natural." =>
+        [ status_change => hasted => 0],
+    "You are suddenly moving faster." =>
+        [ status_change => hasted => 1],
+    "You are suddenly moving much faster." =>
+        [ status_change => hasted => 1],
+    "Your knees seem more flexible now." =>
+        [ status_change => hasted => 1],
+    "You feel yourself slowing down." =>
+        [ status_change => hasted => 0],
+    "You feel yourself slowing down a bit." =>
+        [ status_change => hasted => 0],
     "From the murky depths, a hand reaches up to bless the sword." =>
         ['excalibur'],
     "The fountain dries up!" =>
@@ -463,6 +501,20 @@ our @msg_regex = (
     [
         qr/^(.*?) (hits|misses)[.!]$/ =>
             ['attacked' => sub { $1, $2 eq 'hits' } ],
+    ],
+    [
+        qr/^Your .* get new energy\.$/ =>
+            [ status_change => hasted => 1],
+    ],
+    [
+        # This one is somewhat tricky.  There is no message for hasted ending
+        # if you are still Very_fast due to speed boots, so hasted will stay
+        # at 1.  This causes no harm (TAEB->senses->speed_level is 2 either
+        # way) until the boots are taken off or destroyed; fortunately at that
+        # time we receive the followeing message, which allows us to fix the
+        # mistaken haste.
+        qr/^You feel yourself slow down.*\.$/ =>
+            [ status_change => hasted => 0],
     ],
 );
 
