@@ -74,7 +74,7 @@ class_has personality => (
 );
 
 class_has scraper => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'TAEB::ScreenScraper',
     lazy     => 1,
     default  => sub { TAEB::ScreenScraper->new },
@@ -82,14 +82,14 @@ class_has scraper => (
 );
 
 class_has config => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'TAEB::Config',
     lazy     => 1,
     default  => sub { TAEB::Config->new },
 );
 
 class_has vt => (
-    is       => 'rw',
+    is       => 'ro',
     isa      => 'TAEB::VT',
     lazy     => 1,
     default  => sub {
@@ -178,7 +178,7 @@ class_has info_to_screen => (
 
 class_has senses => (
     traits    => [qw/TAEB::Persistent/],
-    is        => 'rw',
+    is        => 'ro',
     isa       => 'TAEB::Senses',
     default   => sub { TAEB::Senses->new },
     handles   => qr/^(?!_check_|msg_|update|initialize)/,
@@ -187,7 +187,7 @@ class_has senses => (
 
 class_has inventory => (
     traits  => [qw/TAEB::Persistent/],
-    is      => 'rw',
+    is      => 'ro',
     isa     => 'TAEB::World::Inventory',
     default => sub { TAEB::World::Inventory->new },
     handles => {
@@ -197,7 +197,7 @@ class_has inventory => (
 
 class_has spells => (
     traits  => [qw/TAEB::Persistent/],
-    is      => 'rw',
+    is      => 'ro',
     isa     => 'TAEB::World::Spells',
     default => sub { TAEB::World::Spells->new },
     handles => {
@@ -208,7 +208,7 @@ class_has spells => (
 );
 
 class_has publisher => (
-    is      => 'rw',
+    is      => 'ro',
     isa     => 'TAEB::Publisher',
     lazy    => 1,
     default => sub { TAEB::Publisher->new },
@@ -223,7 +223,7 @@ class_has action => (
 
 class_has knowledge => (
     traits  => [qw/TAEB::Persistent/],
-    is      => 'rw',
+    is      => 'ro',
     isa     => 'TAEB::Knowledge',
     default => sub { TAEB::Knowledge->new },
 );
@@ -257,7 +257,7 @@ class_has pathfinds => (
 );
 
 class_has debugger => (
-    is      => 'rw',
+    is      => 'ro',
     isa     => 'TAEB::Debug',
     default => sub { TAEB::Debug->new },
 );
