@@ -2,7 +2,7 @@
 package TAEB::Interface::SSH;
 use TAEB::OO;
 
-use constant ping_wait => 1;
+use constant ping_wait => .3;
 
 =head1 NAME
 
