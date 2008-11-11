@@ -3,23 +3,13 @@ package TAEB::AI::Behavior::Projectiles;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
-my @projectiles = (
-    qr/\bdagger\b/,
-    qr/\bspear\b/,
-    qr/\bshuriken\b/,
-    qr/\bdart\b/,
-);
-
 sub prepare {
     my $self = shift;
 
     return 0 unless TAEB->current_level->has_enemies;
 
     # do we have a projectile to throw?
-    my $projectile;
-    for my $item (@projectiles) {
-        $projectile = TAEB->find_item(sub{shift->match(identity => $item, is_wielding => 0, price => 0) }) and last;
-    }
+    my $projectile = TAEB->inventory->has_projectiles;
     return 0 unless defined $projectile;
 
     my ($direction, $distance, $tile) = TAEB->current_level->radiate(

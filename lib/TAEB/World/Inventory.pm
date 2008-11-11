@@ -243,6 +243,31 @@ around wielded => sub {
     return $ret;
 };
 
+=head2 has_projectile
+
+Returns true (actually, the item) if TAEB has something useful to throw.
+
+=cut
+
+sub has_projectile {
+    my $self = shift;
+
+    my @projectiles = (
+        qr/\bdagger\b/,
+        qr/\bspear\b/,
+        qr/\bshuriken\b/,
+        qr/\bdart\b/,
+    );
+
+    my $projectile;
+    for my $item (@projectiles) {
+        $projectile = $self->find(sub{shift->match(identity => $item,
+                    is_wielding => 0, price => 0) }) and last;
+    }
+
+    return $projectile;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
