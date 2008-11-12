@@ -232,8 +232,8 @@ sub can_outrun {
 
 =head2 should_attack_at_range :: Bool
 
-Returns true if the monster is (probably) dangerous at range to the point
-where charging and smashing is preferable to E-spam and daggers.
+Returns true if the monster is (probably) dangerous in melee to the point
+where wand charges and kiting are preferable.
 
 =cut
 
