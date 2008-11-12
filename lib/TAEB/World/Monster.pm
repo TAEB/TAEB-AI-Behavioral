@@ -230,27 +230,24 @@ sub can_outrun {
     return $spd < $pmin || $spd == $pmin && $spd < $pmax;
 }
 
-=head2 melee_disposition :: Int
+=head2 should_attack_at_range :: Bool
 
-Returns 1 if the monster is (probably) dangerous at range to the point
-where charging and smashing is preferable to E-spam and daggers.  Returns
--1 if the monster is dangerous in melee to the point where even spending
-wand charges would be preferable.  Returns 0 otherwise.  Currently never
-returns 1.
+Returns true if the monster is (probably) dangerous at range to the point
+where charging and smashing is preferable to E-spam and daggers.
 
 =cut
 
-sub melee_disposition {
+sub should_attack_at_range {
     my $self = shift;
 
-    return -1 if $self->glyph eq 'n';
-    return -1 if $self->is_minotaur;
+    return 1 if $self->glyph eq 'n';
+    return 1 if $self->is_minotaur;
+
     # add other things as they become a problem / replace with better spoiler
     # handling...
 
     return 0;
 }
-
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
