@@ -551,6 +551,8 @@ our @prompts = (
     qr/^What do you want to eat\?/          => 'eat_what',
     qr/^What do you want to zap\?/          => 'zap_what',
     qr/^What do you want to read\?/         => 'read_what',
+    qr/^What do you want to rub\?/          => 'rub_what',
+    qr/^What do you want to rub on .*?\?/   => 'rub_on_what',
     qr/^For what do you wish\?/             => 'wish',
     qr/^Really attack (.*?)\?/              => 'really_attack',
 
