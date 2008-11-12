@@ -254,6 +254,7 @@ my @projectiles = (
     qr/\bspear\b/,
     qr/\bshuriken\b/,
     qr/\bdart\b/,
+    qr/\brock\b/,
 );
 
 sub has_projectile {
