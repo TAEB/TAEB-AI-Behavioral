@@ -579,6 +579,14 @@ sub speed {
     return ($min, $max);
 }
 
+=head2 has_infravision :: Bool
+
+Return true if the PC has infravision.
+
+=cut
+
+sub has_infravision { return TAEB->race ne 'Hum' } # XXX handle polyself
+
 sub msg_debt {
     my $self = shift;
     my $gold = shift;

@@ -31,7 +31,12 @@ sub prepare {
     TAEB->debug("and he's next to us...");
     return 0 unless $enemy->can_be_outrun;
     TAEB->debug("and we can outrun him...");
-    #return 0 unless $enemy->melee_disposition == -1;
+    #return 0 unless $enemy->should_attack_at_range;
+
+    # Don't try to kite non-infravisible monsters in the dark.  TAEB
+    # is too stupid to remember the kiting attempt, and will just explore
+    # right back into said monster.
+    return 0 if !$enemy->tile->is_lit && !$enemy->could_infrasee;
 
     # do we have a projectile to throw?  No sense backing away otherwise (yet)
     return 0 unless defined (TAEB->inventory->has_projectile);
