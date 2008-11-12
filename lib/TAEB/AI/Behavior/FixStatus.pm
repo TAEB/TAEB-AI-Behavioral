@@ -33,6 +33,8 @@ my @can_fix = (
     },
 );
 
+my %restable = (blind => 1, stun => 1, conf => 1, hallu => 1);
+
 sub prepare {
     my $self = shift;
 
@@ -87,6 +89,11 @@ sub prepare {
         return $fix->{priority};
     }
 
+    if (grep { $restable{$_} && $c{$_} } keys %c) {
+        $self->do('search');
+        return 5;
+    }
+
     return 0;
 }
 
@@ -111,6 +118,7 @@ sub urgencies {
     return {
        100 => "using a unicorn horn to fix status effects",
         80 => "using items to fix status effects",
+         5 => "waiting off a status effect",
     },
 }
 
