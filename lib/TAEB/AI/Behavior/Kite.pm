@@ -39,7 +39,7 @@ sub prepare {
 
     my @opt;
     my $edir = delta2vi($enemy->x - TAEB->x, $enemy->y - TAEB->y);
-    my ($dirs) = "ykulnjbhykulnjb" =~ /(..$edir..)/; #priceless
+    my ($dirs) = "ykulnjbhykulnjb" =~ /$edir.(.....)/; #priceless
 
     TAEB->each_adjacent(sub {
         my ($tile, $dir) = @_;
@@ -55,7 +55,7 @@ sub prepare {
 
         TAEB->debug("It's walkable...");
 
-        my $dist = (substr $dirs, $dir) - 2;
+        my $dist = (index $dirs, $dir) - 2;
         return unless defined $dist && ($dir =~ /[yubn]/ || abs($dist) < 2);
 
         TAEB->debug("And useful...");
@@ -65,12 +65,13 @@ sub prepare {
 
     return 0 unless defined (my $back = $opt[0] || $opt[1] || $opt[2]);
 
-    TAEB->debug("We have a useful move!");
+    TAEB->debug("We have a useful move! (" . $back . ")");
 
     $self->do(move =>
         direction   => $back,
     );
     $self->currently("Kiting.");
+    TAEB->debug("and... " . $self->action);
     return 100;
 }
 
