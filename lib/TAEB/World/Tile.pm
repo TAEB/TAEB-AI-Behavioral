@@ -431,7 +431,7 @@ sub try_monster {
     # attempt to handle ghosts on the rogue level, which are always the
     # same glyphs as rocks. rogue level ignores your glyph settings.
     if (!TAEB->is_blind && TAEB->current_level->is_rogue && $glyph eq ' ') {
-        my $is_rock = $self->any_adjacent_inclusive(sub {
+        my $is_rock = $self->any_adjacent(sub {
             shift->floor_glyph eq ' '
         });
 
