@@ -214,13 +214,13 @@ sub spoiler {
     return $candidates[0];
 }
 
-=head2 can_outrun :: bool
+=head2 can_be_outrun :: bool
 
 Return true if the player can definitely outrun the monster.
 
 =cut
 
-sub can_outrun {
+sub can_be_outrun {
     my $self = shift;
 
     my $spoiler = $self->spoiler || return 0;

@@ -24,7 +24,7 @@ sub prepare {
     return 0 unless abs($enemy->x - TAEB->x) <= 1
                  && abs($enemy->y - TAEB->y) <= 1;
 
-    return 0 unless $enemy->can_outrun;
+    return 0 unless $enemy->can_be_outrun;
     #return 0 unless $enemy->melee_disposition == -1;
 
     # do we have a projectile to throw?  No sense backing away otherwise (yet)
