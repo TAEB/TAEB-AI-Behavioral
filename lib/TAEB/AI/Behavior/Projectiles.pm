@@ -54,7 +54,7 @@ sub pickup {
 
         TAEB->debug("Thinking of picking up rocks, we have $rocks and are looking at " . $item->quantity);
 
-        return 0 if $rocks >= 30 || $item->quantity > 20;
+        return 0 if $rocks + $item->quantity > 30;
     }
 
     $item->match(
