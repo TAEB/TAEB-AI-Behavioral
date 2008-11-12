@@ -536,6 +536,26 @@ sub speed_level {
     return 0;
 }
 
+=head2 burden_mod
+
+Returns the speed modification imposed by burden.
+
+=cut
+
+sub burden_mod {
+    my $self = shift;
+    my $burden = $self->burden;
+
+    return 1    if $burden eq 'Unencumbered';
+    return .75  if $burden eq 'Burdened';
+    return .5   if $burden eq 'Stressed';
+    return .25  if $burden eq 'Strained';
+    return .125 if $burden eq 'Overtaxed';
+    return 0    if $burden eq 'Overloaded';
+
+    die "Unknown burden level ($burden)";
+}
+
 =head2 speed :: (Int,Int)
 
 Returns the minimum and maximum speed of the PC in its current condition.
@@ -549,7 +569,7 @@ sub speed {
 
     my $min = (12, 12, 18)[$sl];
     my $max = (12, 18, 24)[$sl];
-    my $mod = (1, .75, .5, .25, .125, 0)[$self->burden];
+    my $mod = $self->burden_mod;
 
     return int($min * $mod), int($max * $mod);
 }
