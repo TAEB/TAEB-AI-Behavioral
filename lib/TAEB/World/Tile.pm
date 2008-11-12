@@ -142,6 +142,12 @@ has in_zoo => (
     documentation => "Is this tile inside a zoo?",
 );
 
+has is_lit => (
+    isa           => 'Bool',
+    default       => 1,
+    documentation => "Is this tile probably lit?  Will usually be wrong except on floor and corridors.",
+);
+
 has pathfind => (
     metaclass => 'Counter',
     documentation => "How many times this tile has been expanded in a pathfind this step",
@@ -179,6 +185,13 @@ sub update {
 
     $self->glyph($newglyph);
     $self->color($color);
+
+    $self->is_lit(1) if $self->glyph eq '.' && !$self->is_lit
+        (abs(TAEB->x - $self->x) > 1 || abs(TAEB->y - $self->y) > 1);
+        #FIXME when TAEB supports lamp usage
+    $self->is_lit(0) if $self->glyph eq ' ' && $self->floor_glyph eq '.';
+
+    $self->is_lit($self->color == 15) if $self->glyph eq '#';
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
@@ -243,6 +256,14 @@ sub step_off {
     my $self = shift;
 
     $self->set_interesting(0);
+
+    if ($self->level == TAEB->current_level) {
+        # When we step off a tile, anything that's nearby and still . is lit
+        $self->each_adjacent(sub {
+            my ($tile, $dir) = @_;
+            $tile->is_lit(1) if $tile->glyph eq '.';
+        });
+    }
 }
 
 sub iterate_tiles {
@@ -384,6 +405,7 @@ sub debug_line {
                         $self->elbereths;
     }
 
+    push @bits, 'lit'   if $self->is_lit;
     push @bits, 'shop'  if $self->in_shop;
     push @bits, 'vault' if $self->in_vault;
 
