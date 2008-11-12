@@ -46,10 +46,9 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    # Don't pick up rocks if we have at least 30, or if the pile is 20+, for
-    # burden reasons.
-    if ($item->match(identity => qr/\brock\b/)) {
-        my @rocks = TAEB->find_item(identity => qr/\brock\b/);
+    # Pick up rocks to not exceed 30.
+    if ($item->match(identity => qr/\brock(?! mole)\b/)) {
+        my @rocks = TAEB->find_item(identity => qr/\brock(?! mole)\b/);
 
         my $rocks = reduce { $a + $b } (map { $_->quantity } @rocks);
 
@@ -58,8 +57,10 @@ sub pickup {
         return 0 if $rocks >= 30 || $item->quantity > 20;
     }
 
-    $item->match(identity => qr/\b(?:dagger|dart|shuriken|spear|rock)\b/,
-                 not_buc => 'cursed');
+    $item->match(
+        identity => qr/\b(?:dagger|dart|shuriken|spear|rock(?! mole))\b/,
+        not_buc => 'cursed'
+    );
 }
 
 sub urgencies {
