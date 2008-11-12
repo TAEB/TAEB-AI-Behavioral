@@ -186,12 +186,7 @@ sub update {
     $self->glyph($newglyph);
     $self->color($color);
 
-    $self->is_lit(1) if $self->glyph eq '.' && !$self->is_lit
-        (abs(TAEB->x - $self->x) > 1 || abs(TAEB->y - $self->y) > 1);
-        #FIXME when TAEB supports lamp usage
-    $self->is_lit(0) if $self->glyph eq ' ' && $self->floor_glyph eq '.';
-
-    $self->is_lit($self->color == 15) if $self->glyph eq '#';
+    $self->update_lit;
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
@@ -240,6 +235,17 @@ sub is_walkable {
                 $self->all_adjacent(sub { shift->stepped_on == 0 });
 
     return $is_walkable{ $self->type };
+}
+
+sub update_lit {
+    my $self = shift;
+
+    $self->is_lit(1) if $self->glyph eq '.' && !$self->is_lit
+        (abs(TAEB->x - $self->x) > 1 || abs(TAEB->y - $self->y) > 1);
+        #FIXME when TAEB supports lamp usage
+    $self->is_lit(0) if $self->glyph eq ' ' && $self->floor_glyph eq '.';
+
+    $self->is_lit($self->color == 15) if $self->glyph eq '#';
 }
 
 sub step_on {

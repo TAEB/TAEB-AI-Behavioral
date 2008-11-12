@@ -258,8 +258,8 @@ Returns true if the player could see this monster using infravision.
 sub can_be_infraseen {
     my $self = shift;
 
-    return TAEB->senses->has_infravision && $self->glyph !~
-        /[abceijmpstvwyDEFLMNPSWXZ';:~]/; # evil evil should be in T:M:S XXX
+    return TAEB->senses->has_infravision
+        && $self->glyph !~ /[abceijmpstvwyDEFLMNPSWXZ';:~]/; # evil evil should be in T:M:S XXX
 }
 
 __PACKAGE__->meta->make_immutable;

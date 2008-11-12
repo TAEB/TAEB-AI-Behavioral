@@ -585,7 +585,10 @@ Return true if the PC has infravision.
 
 =cut
 
-sub has_infravision { return TAEB->race ne 'Hum' } # XXX handle polyself
+sub has_infravision {
+    my $self = shift;
+    return $self->race ne 'Hum'; # XXX handle polyself
+}
 
 sub msg_debt {
     my $self = shift;
