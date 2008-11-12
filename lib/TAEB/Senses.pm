@@ -270,9 +270,13 @@ sub find_statuses {
 sub statuses {
     my $self = shift;
     my @statuses;
-    for my $effect (grep { /^is_/ } $self->meta->get_attribute_list) {
-        next unless $self->$effect;
-        my ($status) = $effect =~ /^is_(\w+)$/;
+    my @attr = grep { $_->name =~ /^is_/ }
+               grep { !$_->does('TAEB::GoodStatus') }
+               $self->meta->compute_all_applicable_attributes;
+
+    for my $attr (@attr) {
+        next unless $attr->get_value($self);
+        my ($status) = $attr->name =~ /^is_(\w+)$/;
         push @statuses, $status;
     }
     return @statuses;
