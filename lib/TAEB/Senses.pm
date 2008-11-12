@@ -517,23 +517,6 @@ sub item_damage_bonus {
     return 0;
 }
 
-=head2 speed_level :: Int
-
-Returns 0 if normal, 1 if Fast, or 2 if Very_fast.
-
-=cut
-
-sub speed_level {
-    my $self = shift;
-
-    return 2 if TAEB->find_item(is_wearing => 1, identity => "speed boots");
-    return 2 if $self->is_hasted;
-
-    return 1 if $self->is_intrinsic_fast;
-
-    return 0;
-}
-
 =head2 burden_mod
 
 Returns the speed modification imposed by burden.
@@ -554,6 +537,20 @@ sub burden_mod {
     die "Unknown burden level ($burden)";
 }
 
+=head2 speed_range
+
+Returns the minimum and maximum speed level.
+
+=cut
+
+sub speed_range {
+    my $self = shift;
+    Carp::croak("Call speed_range in list context") if !wantarray;
+    return (18, 24) if $self->is_very_fast;
+    return (12, 18) if $self->is_fast;
+    return (12, 12);
+}
+
 =head2 speed :: (Int,Int)
 
 Returns the minimum and maximum speed of the PC in its current condition.
@@ -563,11 +560,11 @@ In scalar context, returns the average.
 
 sub speed {
     my $self = shift;
-    my $sl = $self->speed_level;
-    my $mod = $self->burden_mod;
+    my ($min, $max) = $self->speed_range;
+    my $burden_mod = $self->burden_mod;
 
-    my $min = int((12, 12, 18)[$sl] * $mod);
-    my $max = int((12, 18, 24)[$sl] * $mod);
+    $min *= $burden_mod;
+    $max *= $burden_mod;
 
     return ($min + $max) / 2 if !wantarray;
     return ($min, $max);
