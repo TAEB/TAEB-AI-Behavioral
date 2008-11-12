@@ -210,7 +210,7 @@ sub spoiler {
     my @candidates = TAEB::Spoilers::Monster->search(glyph => $self->glyph,
         color => $self->color);
 
-    return undef unless @candidates > 1;
+    return undef if @candidates > 1;
     return $candidates[0];
 }
 
