@@ -32,6 +32,11 @@ has weight => (
     default  => 0,
 );
 
+sub _recalculate_weight {
+    my $self = shift;
+    $self->weight(sum map { $_->weight * $_->quantity } $self->items);
+}
+
 # XXX: redo this like we did with iterate_tiles, sometime when it isn't 5am
 sub each {
     my $self = shift;
@@ -118,6 +123,7 @@ sub update {
         $item->slot($slot);
         $self->set($slot => $item);
     }
+    $self->_recalculate_weight;
 }
 
 =head2 decrease_quantity (Str|Item)[, Int]
@@ -156,10 +162,12 @@ sub decrease_quantity {
 
     if ($new_quantity == 0) {
         $self->remove($slot);
+        $self->_recalculate_weight;
         return 0;
     }
 
     $item->quantity($new_quantity);
+    $self->_recalculate_weight;
 
     return $new_quantity;
 }
@@ -225,7 +233,7 @@ after set => sub {
     #$self->shield($item)     if $item->match(subclass => 'shield',
     #                                         is_wearing => 1);
 
-    $self->weight(sum map { $_->weight * $_->quantity } $self->items);
+    $self->_recalculate_weight;
 };
 
 around wielded => sub {
