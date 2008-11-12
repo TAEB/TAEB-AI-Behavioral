@@ -34,3 +34,15 @@
 
   - How to implement this efficiently, without giving T:W:Tile too much
     knowledge of T:A:B:Search?
+
+
+- Armour swapping
+
+  - It's just a pathfinding problem.  Vertices are 53-bit strings representing
+    which items are worn... try to find the "best" reachable state.
+
+  - If you are at the best reachable state, drop unworn armour
+
+  - Pick up armour if you are at the best reachable state, but wouldn't be if
+    you had this in inventory (hence 53).  Works best if UpgradeArmour >
+    GetItems.
