@@ -43,7 +43,8 @@ sub door_handler {
 
         if ($door->blocked_door) {
             if ($door->type eq 'opendoor') {
-                if ($door->is_empty) { # can't close doors with stuff on it
+                if ($door->is_empty && # can't close with stuff on them
+                    !$door->level->is_rogue) { # can't close doors on roguelvl
                     return sub {
                         my ($self, $door, $dir) = @_;
                         $self->do(close => direction => $dir);
