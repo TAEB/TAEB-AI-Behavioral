@@ -195,7 +195,7 @@ sub msg_dungeon_feature {
         $floor = '{';
         $type  = $feature;
     }
-    elsif ($feature eq 'fountain dries up') {
+    elsif ($feature eq 'fountain dries up' || $feature eq 'brokendoor') {
         $floor = '.';
         $type  = 'floor';
     }
@@ -214,7 +214,7 @@ sub msg_dungeon_feature {
            $feature eq 'crossaligned altar') {
         $floor = '_';
         $type = 'altar';
-       }
+    }
     else {
         # we don't know how to handle it :/
         return;
