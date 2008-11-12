@@ -1,0 +1,36 @@
+- Explore optimization
+
+  - Track what squares need to be explored, only run Explore if there are any
+
+  - Should give -1 pathfind during boring ops (CurseCheck most notably)
+
+
+- Carrion
+
+  - When we get a message of "You kill the (.*)!" etc, generate a
+    msg_fresh_meat with $1
+
+  - The tile which had such a monster adds to ->kills with that monster
+    (as always, older kills take precedence)
+
+  - When a tile is examined or seen to be empty, ->kills is purged of
+    obsolete (no corpses!) kills, ->corpses is created from scratch with
+    TAEB::World::Item::Corpse objects (which know a max age)
+
+  - TAEB::AI::Behavior::Carrion looks for tiles with nice ->corpses to eat -
+    anything nutritious and unrotten if we are somewhat hungry, also look
+    for intrinsics
+
+  - This falls over if stuff dies out of LOS and we don't find (stray corpses
+    add as kills with -1000 time) the corpse before killing the same type of
+    monster on top.  As long as this is a corner case, Tyr can deal.  Else
+    consider not eating corpses on traps.
+
+
+- Smarter searching
+
+  - Divide screen into 5x10 blocks, if a tile is in a block which is next to
+    an empty block, increase its searchability 100x
+
+  - How to implement this efficiently, without giving T:W:Tile too much
+    knowledge of T:A:B:Search?
