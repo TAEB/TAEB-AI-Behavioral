@@ -210,8 +210,8 @@ sub spoiler {
     my @candidates = TAEB::Spoilers::Monster->search(glyph => $self->glyph,
         color => $self->color);
 
-    return undef unless $#candidates == 1;
-    return $candidates[1];
+    return undef unless @candidates > 1;
+    return $candidates[0];
 }
 
 =head2 can_outrun :: bool
