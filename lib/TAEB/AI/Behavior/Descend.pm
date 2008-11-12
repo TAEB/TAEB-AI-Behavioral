@@ -19,11 +19,12 @@ sub correct_stairs {
     # we only have one choice
     return 1 if @{ $self->stairsdown } == 1;
 
-    # here we have multiple choices and this one is the mines. no thank you
-    if (TAEB->config->avoid_mines) {
+    # here we have multiple choices and this one is the one we want to avoid.
+    # no thank you
+    if (my $branch = TAEB->config->avoid_branch) {
         return 0 if $tile->other_side
                  && $tile->other_side->known_branch
-                 && $tile->other_side->branch eq 'mines';
+                 && $tile->other_side->branch eq $branch;
     }
 
     return 1;
