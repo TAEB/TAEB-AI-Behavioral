@@ -121,6 +121,8 @@ our %msg_string = (
         ['web' => 1],
     "You can't write on the water!" =>
         [dungeon_feature => 'fountain'],
+    "There is a broken door here." =>
+        [dungeon_feature => 'brokendoor'],
     "The dish washer returns!" =>
         ['dishwasher'],
     "Muddy waste pops up from the drain." =>
