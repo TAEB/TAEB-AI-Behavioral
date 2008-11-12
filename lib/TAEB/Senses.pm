@@ -158,7 +158,7 @@ has dead => (
 );
 
 has burden => (
-    isa     => 'Int',
+    isa     => 'Burden',
     default => 0,
 );
 
@@ -238,22 +238,22 @@ sub find_statuses {
     }
 
     if ($botl =~ /\bOverl/) {
-        $self->burden(5);
+        $self->burden('Overloaded');
     }
     elsif ($botl =~ /\bOvert/) {
-        $self->burden(4);
+        $self->burden('Overtaxed');
     }
     elsif ($botl =~ /\bStra/) {
-        $self->burden(3);
+        $self->burden('Strained');
     }
     elsif ($botl =~ /\bStre/) {
-        $self->burden(2);
+        $self->burden('Stressed');
     }
     elsif ($botl =~ /\bBur/) {
-        $self->burden(1);
+        $self->burden('Burdened');
     }
     else {
-        $self->burden(0);
+        $self->burden('Unencumbered');
     }
 
     $self->is_blind($botl =~ /\bBli/ ? 1 : 0);

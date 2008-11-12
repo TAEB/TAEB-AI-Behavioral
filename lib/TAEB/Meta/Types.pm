@@ -23,6 +23,8 @@ enum TileType => tile_types;
 
 enum DoorState => qw(locked unlocked);
 
+enum Burden => qw(Unencumbered Burdened Stressed Strained Overtaxed Overloaded);
+
 enum 'TAEB::Type::Branch' => qw(dungeons mines sokoban quest ludios gehennom vlad planes);
 
 1;
