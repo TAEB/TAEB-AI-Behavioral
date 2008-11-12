@@ -392,13 +392,9 @@ my %method_of = (
     confusion     => 'is_confused',
     stunning      => 'is_stunned',
     hallucination => 'is_hallucinating',
-    engulfed      => 'is_engulfed',
-    grabbed       => 'is_grabbed',
     pit           => 'in_pit',
     web           => 'in_web',
     stoning       => 'is_petrifying',
-    fast          => 'is_intrinsic_fast',
-    hasted        => 'is_hasted',
 );
 
 sub msg_status_change {
@@ -406,7 +402,9 @@ sub msg_status_change {
     my $status   = shift;
     my $now_have = shift;
 
-    if (my $method = $method_of{$status}) {
+    my $method = $method_of{$status} || "is_$status";
+
+    if ($self->can($method)) {
         $self->$method($now_have);
     }
 }
