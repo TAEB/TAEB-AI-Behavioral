@@ -559,19 +559,20 @@ sub burden_mod {
 =head2 speed :: (Int,Int)
 
 Returns the minimum and maximum speed of the PC in its current condition.
-In scalar context, returns the minimum.
+In scalar context, returns the average.
 
 =cut
 
 sub speed {
     my $self = shift;
     my $sl = $self->speed_level;
-
-    my $min = (12, 12, 18)[$sl];
-    my $max = (12, 18, 24)[$sl];
     my $mod = $self->burden_mod;
 
-    return int($min * $mod), int($max * $mod);
+    my $min = int((12, 12, 18)[$sl] * $mod);
+    my $max = int((12, 18, 24)[$sl] * $mod);
+
+    return ($min + $max) / 2 if !wantarray;
+    return ($min, $max);
 }
 
 sub msg_debt {
