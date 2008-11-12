@@ -43,14 +43,12 @@ sub door_handler {
 
         if ($door->blocked_door) {
             if ($door->type eq 'opendoor') {
-                if ($door->is_empty) { # can't close doors with stuff on it
-                    return sub {
-                        my ($self, $door, $dir) = @_;
-                        $self->do(close => direction => $dir);
-                        $self->currently("Closing door");
-                        return 100;
-                    };
-                }
+                return sub {
+                    my ($self, $door, $dir) = @_;
+                    $self->do(close => direction => $dir);
+                    $self->currently("Closing door");
+                    return 100;
+                };
             }
             elsif (TAEB->can_kick) {
                 return sub {
