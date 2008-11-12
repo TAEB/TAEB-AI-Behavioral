@@ -398,6 +398,8 @@ sub _astar {
     my $to     = shift;
     my %args   = @_;
 
+    TAEB->inc_pathfinds;
+
     my ($tx, $ty) = ($to->x, $to->y);
     my $heur = $args{heuristic} || sub {
         return max(abs($tx - $_[0]->x), abs($ty - $_[0]->y));
@@ -412,7 +414,7 @@ sub _astar {
     my $start;
     if ($debug) {
         $args{from}->level->each_tile(sub {
-            shift->pathfind(0);
+            shift->reset_pathfind();
         });
         $start = time;
     }
@@ -425,7 +427,7 @@ sub _astar {
     while ($pq->count) {
         my $priority = $pq->top_key;
         my ($tile, $path) = @{ $pq->extract_top };
-        $tile->pathfind($tile->pathfind + 1) if $debug;
+        $tile->inc_pathfind(1) if $debug;
 
         if ($tile == $to) {
             if ($debug) {
