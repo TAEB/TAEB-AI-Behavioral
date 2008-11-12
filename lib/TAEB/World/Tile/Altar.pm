@@ -4,7 +4,7 @@ use TAEB::OO;
 extends 'TAEB::World::Tile';
 
 has align => (
-    isa       => 'Align',
+    isa       => 'TAEB::Type::Align',
     predicate => 'has_align',
 );
 

@@ -21,7 +21,7 @@ has level => (
 #);
 
 has type => (
-    isa     => 'TileType',
+    isa     => 'TAEB::Type::Tile',
     default => 'rock',
 );
 

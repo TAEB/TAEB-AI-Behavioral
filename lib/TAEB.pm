@@ -103,7 +103,7 @@ class_has vt => (
 
 class_has state => (
     is      => 'rw',
-    isa     => 'PlayState',
+    isa     => 'TAEB::Type::PlayState',
     default => 'logging_in',
 );
 

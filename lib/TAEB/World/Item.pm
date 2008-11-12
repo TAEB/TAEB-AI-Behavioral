@@ -15,7 +15,7 @@ has appearance => (
 );
 
 has class => (
-    isa           => 'ItemClass',
+    isa           => 'TAEB::Type::ItemClass',
     documentation => "Armor, weapon, scroll, etc.",
 );
 
@@ -29,7 +29,7 @@ has quantity => (
 );
 
 has buc => (
-    isa     => 'BUC',
+    isa     => 'TAEB::Type::BUC',
 );
 
 has is_greased => (

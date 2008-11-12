@@ -4,7 +4,7 @@ use TAEB::OO;
 extends 'TAEB::World::Tile';
 
 has state => (
-    isa => 'DoorState',
+    isa => 'TAEB::Type::DoorState',
 );
 
 sub locked {

@@ -7,19 +7,19 @@ has name => (
 );
 
 has role => (
-    isa => 'Role',
+    isa => 'TAEB::Type::Role',
 );
 
 has race => (
-    isa => 'Race',
+    isa => 'TAEB::Type::Race',
 );
 
 has align => (
-    isa => 'Align',
+    isa => 'TAEB::Type::Align',
 );
 
 has gender => (
-    isa => 'Gender',
+    isa => 'TAEB::Type::Gender',
 );
 
 has hp => (
@@ -158,7 +158,7 @@ has dead => (
 );
 
 has burden => (
-    isa => 'Burden',
+    isa => 'TAEB::Type::Burden',
 );
 
 sub parse_botl {
