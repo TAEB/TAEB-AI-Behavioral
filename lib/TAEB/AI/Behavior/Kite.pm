@@ -53,7 +53,8 @@ sub prepare {
 
         return unless $tile->is_walkable;
 
-        if (TAEB->current_tile->type eq 'opendoor' && $dir =~ /[yubn]/) {
+        if ((TAEB->current_tile->type eq 'opendoor' ||
+                $tile->type eq 'opendoor') && $dir =~ /[yubn]/) {
             TAEB->debug("but a door.");
             return;
         }
