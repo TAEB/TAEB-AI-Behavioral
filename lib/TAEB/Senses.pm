@@ -158,8 +158,7 @@ has dead => (
 );
 
 has burden => (
-    isa     => 'Burden',
-    default => 0,
+    isa => 'Burden',
 );
 
 sub parse_botl {
