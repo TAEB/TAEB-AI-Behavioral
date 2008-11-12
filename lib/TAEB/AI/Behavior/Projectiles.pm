@@ -52,8 +52,10 @@ sub pickup {
 
         my $rocks = 0;
         for my $rock (@rocks) {
-            $rocks += $_->quantity;
+            $rocks += $rock->quantity;
         }
+
+        TAEB->debug("Thinking of picking up rocks, we have $rocks and are looking at " . $item->quantity);
 
         return 0 if $rocks >= 30 || $item->quantity > 20;
     }
