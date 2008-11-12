@@ -53,6 +53,8 @@ around new => sub {
         # XXX: this code is temporary. if the AI says to move, we move. since
         # our framework can't always cope with that, we have these workarounds
         my $monster = TAEB->current_level->at_direction($start)->monster;
+        TAEB->info("Trying to move into an uncooperative " . $monster->glyph .
+            "; Elberething instead.");
         if (defined $monster && $monster->can_move) {
             if ($monster->respects_elbereth && TAEB->elbereth_count == 0) {
                 $action = 'Engrave';
