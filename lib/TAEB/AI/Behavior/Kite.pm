@@ -36,7 +36,7 @@ sub prepare {
     # Don't try to kite non-infravisible monsters in the dark.  TAEB
     # is too stupid to remember the kiting attempt, and will just explore
     # right back into said monster.
-    return 0 if !$enemy->tile->is_lit && !$enemy->could_infrasee;
+    return 0 if !$enemy->tile->is_lit && !$enemy->can_be_infraseen;
 
     # do we have a projectile to throw?  No sense backing away otherwise (yet)
     return 0 unless defined (TAEB->inventory->has_projectile);

@@ -249,13 +249,13 @@ sub should_attack_at_range {
     return 0;
 }
 
-=head2 could_infrasee :: Bool
+=head2 can_be_infraseen :: Bool
 
 Returns true if the player could see this monster using infravision.
 
 =cut
 
-sub could_infrasee {
+sub can_be_infraseen {
     my $self = shift;
 
     return TAEB->senses->has_infravision && $self->glyph !~
