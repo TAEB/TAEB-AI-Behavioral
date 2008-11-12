@@ -19,6 +19,7 @@ sub weight_behaviors {
         Defend             => 400_000,
         AttackSpell        => 175_000,
         BuffSelf           => 170_000,
+        Kite               => 100_000,
         $fight             => 80_000,
         Projectiles        => 49_000,
         Vault              => 48_000,
