@@ -42,34 +42,44 @@ sub prepare {
     return 0 unless defined (TAEB->inventory->has_projectile);
     TAEB->debug("and we have projectiles...");
 
-    my @opt;
-    my $edir = delta2vi($enemy->x - TAEB->x, $enemy->y - TAEB->y);
-    my ($dirs) = "ykulnjbhykulnjb" =~ /$edir.(.....)/; #priceless
+    # Until EkimFight is the default, all this does more harm than good,
+    # because TAEB will just walk up to the monster
+    #my @opt;
+    #my $edir = delta2vi($enemy->x - TAEB->x, $enemy->y - TAEB->y);
+    #my ($dirs) = "ykulnjbhykulnjb" =~ /$edir.(.....)/; #priceless
 
-    TAEB->each_adjacent(sub {
-        my ($tile, $dir) = @_;
+    #TAEB->each_adjacent(sub {
+    #    my ($tile, $dir) = @_;
 
-        TAEB->debug("Looking " . $dir . "...");
+    #    TAEB->debug("Looking " . $dir . "...");
 
-        return unless $tile->is_walkable;
+    #    return unless $tile->is_walkable;
 
-        if ((TAEB->current_tile->type eq 'opendoor' ||
-                $tile->type eq 'opendoor') && $dir =~ /[yubn]/) {
-            TAEB->debug("but a door.");
-            return;
-        }
+    #    if ((TAEB->current_tile->type eq 'opendoor' ||
+    #            $tile->type eq 'opendoor') && $dir =~ /[yubn]/) {
+    #        TAEB->debug("but a door.");
+    #        return;
+    #    }
 
-        TAEB->debug("It's walkable...");
+    #    TAEB->debug("It's walkable...");
 
-        my $dist = (index $dirs, $dir) - 2;
-        return unless defined $dist && ($dir =~ /[yubn]/ || abs($dist) < 2);
+    #    my $dist = (index $dirs, $dir) - 2;
+    #    return unless defined $dist && ($dir =~ /[yubn]/ || abs($dist) < 2);
 
-        TAEB->debug("And useful...");
+    #    TAEB->debug("And useful...");
 
-        $opt[abs($dist)] ||= $dir;
-    });
+    #    $opt[abs($dist)] ||= $dir;
+    #});
 
-    return 0 unless defined (my $back = $opt[0] || $opt[1] || $opt[2]);
+    #return 0 unless defined (my $back = $opt[0] || $opt[1] || $opt[2]);
+
+    my $back = delta2vi(TAEB->x - $enemy->x, TAEB->y - $enemy->y);
+    my $to = TAEB->current_level->at_direction($back);
+
+    return 0 unless $to->is_walkable;
+
+    return 0 if (TAEB->current_tile->type eq 'opendoor' ||
+        $to->type eq 'opendoor') && $back =~ /[yubn]/;
 
     TAEB->debug("We have a useful move! (" . $back . ")");
 
