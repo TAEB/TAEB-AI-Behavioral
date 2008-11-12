@@ -9,7 +9,7 @@ sub prepare {
     return 0 unless TAEB->current_level->has_enemies;
 
     # do we have a projectile to throw?
-    my $projectile = TAEB->inventory->has_projectiles;
+    my $projectile = TAEB->inventory->has_projectile;
     return 0 unless defined $projectile;
 
     my ($direction, $distance, $tile) = TAEB->current_level->radiate(
