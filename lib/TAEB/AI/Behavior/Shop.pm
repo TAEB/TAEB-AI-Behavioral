@@ -24,8 +24,12 @@ sub prepare {
             $self->do(drop => items => \@cart);
             return 100;
         }
-
-        #XXX:  Handle trying to get out of debt by selling stuff if we broke something and can't pay
+        #try to pay for used item/damages debt
+        if (!@cart && TAEB->debt > 0) {
+            $self->currently("Paying off our " . TAEB->debt . " debt");
+            $self->do(pay => item => 'any');
+            return 90;
+	}
     }
 }
 
