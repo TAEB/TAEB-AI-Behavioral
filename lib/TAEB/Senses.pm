@@ -47,7 +47,13 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying is_fast is_very_fast/] => (
+has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying/] => (
+    isa     => 'Bool',
+    default => 0,
+);
+
+has [qw/is_fast is_very_fast/] => (
+    traits  => ['TAEB::GoodStatus'],
     isa     => 'Bool',
     default => 0,
 );
