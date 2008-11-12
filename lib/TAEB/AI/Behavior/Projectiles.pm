@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::Projectiles;
 use TAEB::OO;
+use List::Util qw(reduce);
 extends 'TAEB::AI::Behavior';
 
 sub prepare {
@@ -50,10 +51,7 @@ sub pickup {
     if ($item->match(identity => qr/\brock\b/)) {
         my @rocks = TAEB->find_item(identity => qr/\brock\b/);
 
-        my $rocks = 0;
-        for my $rock (@rocks) {
-            $rocks += $rock->quantity;
-        }
+        my $rocks = reduce { $a + $b } (map { $_->quantity } @rocks);
 
         TAEB->debug("Thinking of picking up rocks, we have $rocks and are looking at " . $item->quantity);
 
