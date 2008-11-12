@@ -262,7 +262,7 @@ my @projectiles = (
     qr/\bspear\b/,
     qr/\bshuriken\b/,
     qr/\bdart\b/,
-    qr/\brock\b/,
+    "rock", # to not catch rock mole corpses
 );
 
 sub has_projectile {
