@@ -74,10 +74,6 @@ sub post_responses {
     if ($item->slot) {
         TAEB->inventory->decrease_quantity($item->slot)
     }
-    else {
-        TAEB->enqueue_message('remove_floor_item' => $item);
-        if ($item->quantity > 1) { TAEB->enqueue_message('check' => 'floor') }
-    }
 
     my $old_nutrition = TAEB->nutrition;
     my $new_nutrition = $old_nutrition + $item->nutrition;
