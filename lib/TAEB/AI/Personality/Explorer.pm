@@ -25,6 +25,7 @@ sub weight_behaviors {
         Vault              => 48_000,
         Shop               => 47_000,
         GetItems           => 41_000,
+        Carrion            => 30_000,
         Identify           => 24_750,
         DipForExcalibur    => 24_000,
         Wish               => 23_000,
