@@ -2,11 +2,7 @@
 package TAEB::World::Item::Carrion;
 use TAEB::OO;
 use TAEB::Spoilers::Monster;
-extends 'TAEB::World::Food';
-
-has '+class' => (
-    default => 'food',
-);
+extends 'TAEB::World::Item::Food';
 
 has is_forced_verboten => (
     isa     => 'Bool',
