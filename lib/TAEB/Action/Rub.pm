@@ -6,16 +6,16 @@ with 'TAEB::Action::Role::Item';
 
 use constant command => "#rub\n";
 
-has '+item' => {
+has '+item' => (
     isa      => 'TAEB::World::Item',
     required => 1,
-};
+);
 
-has against => {
+has against => (
     isa      => 'TAEB::World::Item',
     required => 0,
     traits   => [qw/TAEB::Provided/],
-};
+);
 
 sub respond_rub_what { shift->item->slot }
 
