@@ -21,7 +21,7 @@ sub respond_rub_what { shift->item->slot }
 
 sub respond_rub_on_what { shift->item->slot }
 
-__PACKAGE_->meta->make_immutable;
+__PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
