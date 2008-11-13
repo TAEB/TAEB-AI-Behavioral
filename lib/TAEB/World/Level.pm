@@ -586,8 +586,8 @@ around is_bigroom => sub {
         return 0;
     }
 
-    $self->branch('dungeons') if $self->is_bigroom($self->detect_bigroom_vt);
-    return $self->is_bigroom;
+    $self->branch('dungeons') if $self->$orig($self->detect_bigroom_vt);
+    return $self->$orig;
 };
 
 sub each_tile {
