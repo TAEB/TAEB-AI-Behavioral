@@ -175,10 +175,11 @@ sub basic_cost {
 }
 
 sub update {
-    my $self     = shift;
-    my $newglyph = shift;
-    my $color    = shift;
-    my $oldtype  = $self->type;
+    my $self        = shift;
+    my $newglyph    = shift;
+    my $color       = shift;
+    my $oldtype     = $self->type;
+    my $hadfriendly = $self->has_friendly;
 
     # gas spore explosions should not update the map
     return if $newglyph =~ m{^[\\/-]$} && $color == 1;
@@ -205,7 +206,9 @@ sub update {
 
         $self->set_interesting(1)
             unless $self->has_monster
-                || $self->has_boulder;
+                || $self->has_boulder
+                || $hadfriendly; # if a friendly stepped off it, we don't
+                                 # want it marked as interesting.
 
         $self->type('obscured')
             if $oldtype eq 'rock'
