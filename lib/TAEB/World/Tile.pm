@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile;
 use TAEB::OO;
-use TAEB::Util qw/delta2vi :colors/;
+use TAEB::Util qw/delta2vi vi2delta :colors/;
 use List::MoreUtils qw/any all apply/;
 
 with 'TAEB::Meta::Role::Reblessing';
@@ -422,6 +422,9 @@ sub debug_line {
         push @bits, 'monster';
     }
 
+    my ($px, $py) = $self->_panel;
+    push @bits, ("$px,$py" . ($self->_panel_empty($px,$py) ? "[empty]" : ""));
+
     return join ' ', @bits;
 }
 
@@ -480,15 +483,66 @@ sub has_friendly {
 
 sub has_boulder { shift->glyph eq '0' }
 
+sub _panel {
+    my $self = shift;
+
+    my $panelx = int($self->x / 5);
+    my $panely = int(($self->y - 1) / 5);
+
+    $panely = 3 if $panely == 4;
+
+    return ($panelx, $panely);
+}
+
+sub _panel_empty {
+    my ($self, $px, $py) = @_;
+
+    my $sx = ($px) * 5;
+    my $sy = ($py) * 5 + 1;
+    my $ex = ($px + 1) * 5 - 1;
+    my $ey = ($py + 1) * 5;
+
+    return 0 if ($px < 0 || $py < 0 || $px >= 20 || $py >= 4);
+        # No sense searching the edge of the universe
+
+    $ey = 21 if $ey == 20;
+
+    for my $y ($sy .. $ey) {
+        for my $x ($sx .. $ex) {
+            return 0 if !defined($self->level->at($x,$y))
+                     || $self->level->at($x,$y)->type ne 'rock';
+        }
+    }
+
+    return 1;
+}
+
 sub searchability {
     my $self = shift;
     my $searchability = 0;
 
+    # If the square is in an 5x5 panel, and is next to a 5x5 panel which
+    # is empty, it is considered much more searchable.  This should focus
+    # searching efforts on parts of the map that matter.
+
+    my (%n, $pdir);
+
+    # probably a bottleneck; we shall see
+
     $self->each_adjacent(sub {
-        my $tile = shift;
+        my ($tile, $dir) = @_;
         return unless $tile->type eq 'wall' || $tile->type eq 'rock';
         return unless $tile->searched < 30;
-        $searchability += 30 - $tile->searched;
+        my $factor = 1;
+
+        my ($px, $py) = $tile->_panel;
+        my ($dx, $dy) = vi2delta $dir;
+
+        if ($self->_panel_empty ($px+$dx, $py+$dy)) {
+            $factor = $tile->type eq 'wall' ? 2000 : 100;
+        }
+
+        $searchability += $factor * (30 - $tile->searched);
     });
 
     return $searchability;
