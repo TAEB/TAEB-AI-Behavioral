@@ -637,6 +637,24 @@ sub stepped_color {
     return Curses::COLOR_PAIR(COLOR_MAGENTA);
 }
 
+sub time_color {
+    my $self = shift;
+    my $last_turn = $self->last_turn;
+    my $dt = TAEB->turn - $last_turn;
+
+    return Curses::COLOR_PAIR(COLOR_WHITE) | Curses::A_BOLD   if $last_turn == 0;
+    return Curses::COLOR_PAIR(COLOR_RED)                      if $dt > 1000;
+    return Curses::COLOR_PAIR(COLOR_RED) | Curses::A_BOLD     if $dt > 500;
+    return Curses::COLOR_PAIR(COLOR_BROWN)                    if $dt > 100;
+    return Curses::COLOR_PAIR(COLOR_BROWN) | Curses::A_BOLD   if $dt > 50;
+    return Curses::COLOR_PAIR(COLOR_MAGENTA)                  if $dt > 25;
+    return Curses::COLOR_PAIR(COLOR_MAGENTA) | Curses::A_BOLD if $dt > 15;
+    return Curses::COLOR_PAIR(COLOR_GREEN)                    if $dt > 10;
+    return Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD   if $dt > 5;
+    return Curses::COLOR_PAIR(COLOR_CYAN)                     if $dt > 3;
+    return Curses::COLOR_PAIR(COLOR_CYAN) | Curses::A_BOLD;
+}
+
 sub normal_glyph {
     my $self = shift;
     $self->glyph eq ' ' ? $self->floor_glyph : $self->glyph;

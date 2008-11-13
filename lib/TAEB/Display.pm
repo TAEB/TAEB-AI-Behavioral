@@ -235,6 +235,10 @@ my %mode_changes = (
         summary => 'Sets stepped-on coloring',
         execute => sub { shift->color_method('stepped') },
     },
+    t => {
+        summary => 'Sets time-since-stepped coloring',
+        execute => sub { shift->color_method('time') },
+    },
     l => {
         summary => 'Displays lit tiles',
         execute => sub { shift->color_method('lit') },
