@@ -20,6 +20,27 @@ has estimated_date => (
 
 sub estimate_age { TAEB->turn - shift->estimated_date; }
 
+sub maybe_rotted {
+    my $self = shift;
+
+    my $rl = int($self->estimate_age / 29);
+    my $rh = int($self->estimate_age / 10);
+
+    if ($self->buc eq 'blessed') {
+        $rl -= 2; $rh -= 2;
+    } elsif ($self->buc eq 'uncursed') {
+    } elsif ($self->buc eq 'cursed') {
+        $rl += 2; $rh += 2;
+    } else {
+        $rl -= 2; $rh += 2;
+    }
+
+    $rh = 10 if $self->is_forced_verboten;
+
+    return 0 if $self->monster =~ /^(?:lizard|lichen|acid blob)$/;
+    return ($rh > 5) - ($rl > 5);
+}
+
 sub monster {
     (shift->identity) =~ /(.*)(?:'s?)? corpse/;
 
