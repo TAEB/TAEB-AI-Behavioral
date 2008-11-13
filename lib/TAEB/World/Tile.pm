@@ -154,11 +154,17 @@ has pathfind => (
 );
 
 has kill_times => (
-    isa => 'ArrayRef',
+    metaclass => 'Collection::Array',
+    is        => 'ro',
+    isa       => 'ArrayRef',
+    default   => sub { [] },
+    provides  => {
+        push  => '_add_kill_time',
+        clear => '_clear_kill_times',
+    },
     documentation => "Kills which have been committed on this tile.  " .
         "Each element is an arrayref with a monster name, a turn number, " .
         "and a force_verboten (used for unseen kills) flag.",
-    default => sub { [] },
 );
 
 =head2 basic_cost -> Int
@@ -286,7 +292,7 @@ sub step_off {
 sub witness_kill {
     my ($self, $critter) = @_;
 
-    push @{$self->kill_times}, [ $critter, TAEB->turn, 0 ];
+    $self->_add_kill_time([ $critter, TAEB->turn, 0 ]);
 }
 
 sub iterate_tiles {
