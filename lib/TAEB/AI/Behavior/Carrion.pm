@@ -13,7 +13,7 @@ sub want_to_eat {
 
     # Don't bother eating food that is clearly rotten, and don't risk it
     # without a known-uncursed unihorn
-    return 0 if ($rotted > ($unihorn ? -1 : 0));
+    return 0 if ($rotted > ($unihorn ? 0 : -1));
 
     # No food suicides
     for my $foot (qw/die lycanthropy petrify polymorph slime/) {
