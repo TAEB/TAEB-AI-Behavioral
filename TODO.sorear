@@ -4,6 +4,8 @@
 
   - Should give -1 pathfind during boring ops (CurseCheck most notably)
 
+  - Pathfind cache as described below removes the need for this
+
 
 - Carrion
 
@@ -45,3 +47,23 @@
   - Pick up armour if you are at the best reachable state, but wouldn't be if
     you had this in inventory (hence 53).  Works best if UpgradeArmour >
     GetItems.
+
+
+- Pathfind cache
+
+  - The path-finding methods take two extra arguments - an identifier (usually
+    a glob) and a cookie
+
+    - You agree that your predicate depends only on the map and the cookie
+
+  - The pathfind module keeps a hash of identifier -> path
+
+  - A path will be reused if it is less than 200 turns old, the cookie is the
+    same, and no part of the map has changed
+
+  - Usable by GetItems (cookie = interesting coord list), Explore, GotoTile;
+    these will very rarely pathfind (except Explore, which will make many
+    short pathfinds, but only while active)
+
+  - Not usable by Melee and Search
+
