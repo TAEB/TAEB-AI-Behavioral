@@ -7,15 +7,15 @@ use List::MoreUtils 'any';
 sub unlock_action {
     my $self = shift;
 
-    if (TAEB->current_level->is_minetown) {
-        return if any { $_->is_peaceful_watchman } TAEB->current_level->monsters;
-    }
-
     # can we unlock? if so, try it
     my $locktool = TAEB->find_item('Master Key of Thievery')
                 || TAEB->find_item('skeleton key')
                 || TAEB->find_item('lock pick')
                 || TAEB->find_item('credit card');
+
+    # No check for watch, that causes oscillations
+    return if TAEB->current_level->is_minetown &&
+        !$locktool->match(identity => qr/key/);
 
     return (unlock =>
         implement => $locktool,
