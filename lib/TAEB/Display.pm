@@ -245,6 +245,10 @@ my %mode_changes = (
         summary => 'Toggles pathfind display',
         execute => sub { shift->toggle_pathfinding },
     },
+    l => {
+        summary => 'Displays lit tiles',
+        execute => sub { shift->color_method('lit') },
+    },
     f => {
         summary => 'Draws floor glyphs',
         execute => sub { shift->glyph_method('floor') },

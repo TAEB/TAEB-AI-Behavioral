@@ -617,6 +617,13 @@ sub pathfind_color {
     return $color;
 }
 
+sub lit_color {
+    my $self = shift;
+
+    return $self->is_lit
+         ? Curses::COLOR_PAIR(COLOR_BROWN) | Curses::A_BOLD
+         : Curses::COLOR_PAIR(COLOR_WHITE) | Curses::A_BOLD;
+}
 
 sub normal_glyph {
     my $self = shift;
