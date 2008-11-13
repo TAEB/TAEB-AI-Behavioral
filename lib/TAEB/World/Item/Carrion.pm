@@ -28,7 +28,7 @@ sub maybe_rotted {
 
     if (!defined($self->buc)) {
         $rl -= 2; $rh += 2;
-    if ($self->buc eq 'blessed') {
+    } elsif ($self->buc eq 'blessed') {
         $rl -= 2; $rh -= 2;
     } elsif ($self->buc eq 'uncursed') {
     } elsif ($self->buc eq 'cursed') {
