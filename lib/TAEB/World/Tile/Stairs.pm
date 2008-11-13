@@ -9,7 +9,7 @@ has other_side => (
     weak_ref => 1,
 );
 
-sub debug_color {
+augment debug_color => sub {
     my $self = shift;
 
     my $different_branch = $self->known_branch
@@ -20,7 +20,7 @@ sub debug_color {
     return $different_branch
          ? Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BROWN)
          : undef;
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

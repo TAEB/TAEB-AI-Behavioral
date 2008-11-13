@@ -566,7 +566,7 @@ sub normal_color {
 }
 
 sub debug_color {
-    my $self           = shift;
+    my $self = shift;
 
     my $path = TAEB->has_action
             && TAEB->action->can('path')
@@ -581,7 +581,7 @@ sub debug_color {
             if $path->to eq $self;
     }
 
-    $color ||= $self->debug_color ||
+    $color ||= inner() ||
                ($self->in_shop || $self->in_temple
              ? Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD
              : $self->has_enemy

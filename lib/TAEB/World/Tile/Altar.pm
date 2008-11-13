@@ -8,7 +8,7 @@ has align => (
     predicate => 'has_align',
 );
 
-sub debug_color {
+augment debug_color => sub {
     my $self = shift;
 
     return Curses::COLOR_PAIR(Curses::COLOR_RED)   if $self->align eq 'Cha';
@@ -16,7 +16,7 @@ sub debug_color {
     return Curses::COLOR_PAIR(Curses::COLOR_CYAN)  if $self->align eq 'Law';
 
     return Curses::COLOR_PAIR(Curses::COLOR_MAGENTA);
-}
+};
 
 sub reblessed {
     my $self = shift;

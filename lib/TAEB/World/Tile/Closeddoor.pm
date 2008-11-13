@@ -13,7 +13,7 @@ has is_shop => (
     default => 0,
 );
 
-sub debug_color {
+augment debug_color => sub {
     my $self = shift;
 
     if ($self->is_shop) {
@@ -27,7 +27,7 @@ sub debug_color {
     }
 
     return;
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 no TAEB::OO;
