@@ -210,6 +210,13 @@ sub should_eat {
     my $item = shift;
     my $food = $self->food($item);
 
+    # Non-rotting corpses are considered good food (note that we've lost age
+    # information here, so any rotting corpse is off limits)
+
+    if (my $carrion = TAEB::Spoilers::Item::Carrion->carrion($item)) {
+        return $carrion->{permanent};
+    }
+
     return 0 if !$food;
     return 0 if $food->{unsafe};
     return 1;

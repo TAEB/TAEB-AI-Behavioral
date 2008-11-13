@@ -4027,6 +4027,7 @@ has list => (
                     'nutrition' => 200,
                     vegetarian  => 1,
                     vegan       => 1,
+                    'permanent' => 1,
                 }
             },
             'lieutenant' => {
@@ -4079,6 +4080,7 @@ has list => (
                     'cure_confusion' => '100%',
                     'cure_stoning' => '100%',
                     'reduce_stunning' => '100%',
+                    'permanent' => 1,
                 }
             },
             'long worm' => {
