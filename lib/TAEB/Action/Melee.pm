@@ -27,9 +27,9 @@ sub command {
 }
 
 sub msg_killed {
-    my ($self, $critter) = @_;
+    my ($self, $monster_name) = @_;
 
-    $self->target_tile->witness_kill($critter);
+    $self->target_tile->witness_kill($monster_name);
 }
 
 __PACKAGE__->meta->make_immutable;
