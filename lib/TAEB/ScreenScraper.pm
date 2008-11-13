@@ -257,6 +257,10 @@ our @msg_regex = (
 	        ['dungeon_feature', 'bad staircase'],
     ],
     [
+        qr/^There is a .* here.$/,
+            ['clear_floor'],
+    ],
+    [
         qr/^There is a (staircase (?:up|down)|fountain|sink|grave) here\.$/,
             ['dungeon_feature', sub { $1 }],
     ],
