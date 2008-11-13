@@ -205,6 +205,20 @@ sub display_topline {
     $self->place_cursor;
 }
 
+=head2 change_draw_mode
+
+This is a debug command. It's expected to read another character from the
+keyboard deciding how to change the draw mode.
+
+Eventually we may want a menu interface but this is fine for now.
+
+=cut
+
+sub change_draw_mode {
+    my $self = shift;
+
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
