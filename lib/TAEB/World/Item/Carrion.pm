@@ -10,11 +10,16 @@ has '+class' => (
 
 has is_forced_verboten => (
     isa     => 'Bool',
-    default => 0,
+    default => 1,
 );
 
 has estimated_date => (
     isa     => 'Int',
+    default => sub { TAEB->turn },
+);
+
+has failed_to_sacrifice => (
+    isa     => 'Bool',
     default => 0,
 );
 
@@ -47,6 +52,38 @@ sub maybe_rotted {
     return 0;
 }
 
+sub should_sac {
+    my ($self) = @_;
+
+    return 0 if $self->monster ne 'acid blob' && $self->estimate_age > 50;
+
+    return 0 if ($self->cannibal eq TAEB->race) && TAEB->align ne 'Cha';
+
+    return 0 if $self->unicorn eq TAEB->align;
+
+    return 0 if $self->failed_to_sacrifice;
+
+    # Don't even try.  Why?  Because, for simplicity, we drop corpses before
+    # sacrificing, and permacorpses are no good sitting on an altar.
+
+    return 0 if $self->permanent;
+
+    return 1;
+}
+
+sub unicorn {
+    my $self = shift;
+
+    return undef unless $self->monster =~ /(.*) unicorn/;
+
+    return 'Law' if $1 eq 'white';
+    return 'Neu' if $1 eq 'gray';
+    return 'Cha' if $1 eq 'black';
+
+    TAEB->error("Bizarrely colored unicorn corpse: " . $self->monster);
+    return undef;
+}
+
 sub monster {
     (shift->identity) =~ /(.*)(?:'s?)? corpse/;
 
@@ -59,7 +96,7 @@ __PACKAGE__->install_spoilers(qw/acidic aggravate cannibal cold_resistance
     lycanthropy mimic nutrition petrify poison_resistance poisonous polymorph
     reduce_stunning shock_resistance sleep_resistance slime speed_toggle
     strength stun telepathy teleport_control teleportitis vegan vegetarian
-    weight/);
+    weight permanent/);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
