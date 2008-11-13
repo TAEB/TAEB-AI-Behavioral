@@ -257,7 +257,7 @@ our @msg_regex = (
 	        ['dungeon_feature', 'bad staircase'],
     ],
     [
-        qr/^There is a .* here.$/,
+        qr/^There is a.* here.$/,
             ['clear_floor'],
     ],
     [
@@ -977,6 +977,7 @@ sub send_messages {
     my $self = shift;
 
     for my $line ($self->all_messages) {
+        TAEB->debug("Received message: $line");
         my $matched = 0;
 
         if (exists $msg_string{$line}) {
