@@ -29,7 +29,7 @@ sub prepare {
                  && abs($enemy->y - TAEB->y) <= 1;
 
     TAEB->debug("and he's next to us...");
-    return 0 unless $enemy->can_be_outrun;
+    return 0 unless $enemy->can_be_outrun && TAEB->senses->can_move;
     TAEB->debug("and we can outrun him...");
     #return 0 unless $enemy->should_attack_at_range;
 
@@ -76,7 +76,7 @@ sub prepare {
     my $back = delta2vi(TAEB->x - $enemy->x, TAEB->y - $enemy->y);
     my $to = TAEB->current_level->at_direction($back);
 
-    return 0 unless $to->is_walkable;
+    return 0 unless $to->is_walkable && !$to->has_monster;
 
     return 0 if (TAEB->current_tile->type eq 'opendoor' ||
         $to->type eq 'opendoor') && $back =~ /[yubn]/;
