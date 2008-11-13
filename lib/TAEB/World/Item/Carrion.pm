@@ -23,25 +23,25 @@ sub estimate_age { TAEB->turn - shift->estimated_date; }
 sub maybe_rotted {
     my $self = shift;
 
-    my $rl = int($self->estimate_age / 29);
-    my $rh = int($self->estimate_age / 10);
+    my $rotted_low = int($self->estimate_age / 29);
+    my $rotted_high = int($self->estimate_age / 10);
 
     if (!defined($self->buc)) {
-        $rl -= 2; $rh += 2;
+        $rotted_low -= 2; $rotted_high += 2;
     } elsif ($self->buc eq 'blessed') {
-        $rl -= 2; $rh -= 2;
+        $rotted_low -= 2; $rotted_high -= 2;
     } elsif ($self->buc eq 'uncursed') {
     } elsif ($self->buc eq 'cursed') {
-        $rl += 2; $rh += 2;
+        $rotted_low += 2; $rotted_high += 2;
     }
 
-    $rh = 10 if $self->is_forced_verboten;
+    $rotted_high = 10 if $self->is_forced_verboten;
 
     return 0 if $self->monster =~ /^(?:lizard|lichen|acid blob)$/;
-    TAEB->debug ("in maybe_rotted; " . $rl . "-" . $rh . " for " .
-        $self->raw . "(" . $self->estimate_age . ")" .
+    TAEB->debug ("in maybe_rotted; " . $rotted_low . "-" . $rotted_high .
+        " for " . $self->raw . "(" . $self->estimate_age . ")" .
         $self->is_forced_verboten);
-    return (($rh > 5) - ($rl > 5));
+    return (($rotted_high > 5) - ($rotted_low > 5));
 }
 
 sub monster {
