@@ -229,6 +229,9 @@ sub update {
             || $oldtype eq 'closeddoor';
 
         return;
+    } else {
+        # If the tile is not obscured, there are no items on it.
+        $self->clear_items;
     }
 
     $self->change_type($newtype => $newglyph);
