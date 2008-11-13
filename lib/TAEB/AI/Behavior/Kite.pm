@@ -39,7 +39,8 @@ sub prepare {
     return 0 if !$enemy->tile->is_lit && !$enemy->can_be_infraseen;
 
     # do we have a projectile to throw?  No sense backing away otherwise (yet)
-    return 0 unless defined (TAEB->inventory->has_projectile);
+    return 0 unless defined (TAEB->inventory->has_projectile) &&
+        !$enemy->tile->in_shop;
     TAEB->debug("and we have projectiles...");
 
     # Until EkimFight is the default, all this does more harm than good,
