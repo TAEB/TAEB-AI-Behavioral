@@ -227,6 +227,10 @@ my %mode_changes = (
         summary => 'Sets debug coloring',
         execute => sub { shift->color_method('debug') },
     },
+    e => {
+        summary => 'Sets engraving coloring',
+        execute => sub { shift->color_method('engraving') },
+    },
     p => {
         summary => 'Sets pathfind display',
         execute => sub { shift->color_method('pathfind') },

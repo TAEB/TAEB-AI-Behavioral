@@ -655,6 +655,16 @@ sub time_color {
     return Curses::COLOR_PAIR(COLOR_CYAN) | Curses::A_BOLD;
 }
 
+sub engraving_color {
+    my $self = shift;
+    my $engraving = $self->engraving ne '';
+    my $bold = $self->elbereths == 0 ? Curses::A_NORMAL : Curses::A_BOLD;
+
+    return $engraving
+         ? Curses::COLOR_PAIR(COLOR_GREEN) | $bold
+         : Curses::COLOR_PAIR(COLOR_BROWN);
+}
+
 sub normal_glyph {
     my $self = shift;
     $self->glyph eq ' ' ? $self->floor_glyph : $self->glyph;
