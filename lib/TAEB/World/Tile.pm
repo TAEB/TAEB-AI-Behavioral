@@ -153,6 +153,14 @@ has pathfind => (
     documentation => "How many times this tile has been expanded in a pathfind this step",
 );
 
+has kill_times => (
+    isa => 'ArrayRef',
+    documentation => "Kills which have been committed on this tile.  " .
+        "Each element is an arrayref with a monster name, a turn number, " .
+        "and a force_verboten (used for unseen kills) flag.",
+    default => sub { [] },
+);
+
 =head2 basic_cost -> Int
 
 This returns the basic cost of entering a tile. It's not very smart, but it
@@ -273,6 +281,12 @@ sub step_off {
             $tile->is_lit(1) if $tile->glyph eq '.';
         });
     }
+}
+
+sub witness_kill {
+    my ($self, $critter) = @_;
+
+    push @{$self->kill_times}, [ $critter, TAEB->turn, 0 ];
 }
 
 sub iterate_tiles {

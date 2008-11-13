@@ -13,6 +13,13 @@ sub command {
     'F' . shift->direction
 }
 
+sub msg_killed {
+    my ($self, $critter) = @_;
+
+    TAEB->current_level->at_direction($self->direction)->
+        witness_kill($critter);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
