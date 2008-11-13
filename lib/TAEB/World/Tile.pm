@@ -551,9 +551,8 @@ sub searchability {
     return $searchability;
 }
 
-sub draw_normal {
+sub normal_color {
     my $self           = shift;
-    my $display_method = shift;
 
     my $color = $self->color;
     my $bold  = 0;
@@ -563,12 +562,11 @@ sub draw_normal {
         $bold  = Curses::A_BOLD;
     }
 
-    Curses::addch($bold | Curses::COLOR_PAIR($color) | ord $self->$display_method);
+    return $bold | Curses::COLOR_PAIR($color);
 }
 
-sub draw_debug {
+sub debug_color {
     my $self           = shift;
-    my $display_method = shift;
 
     my $path = TAEB->has_action
             && TAEB->action->can('path')
@@ -599,17 +597,14 @@ sub draw_debug {
              : 0);
 
     $color |= Curses::A_REVERSE
-        if $self->type eq 'rock' &&
-           $self->any_adjacent(sub { shift->explored });
+        if $self->type eq 'rock'
+        && $self->any_adjacent(sub { shift->explored });
 
-    Curses::addch($color | ord $self->$display_method);
+    return $color;
 }
 
-sub debug_color { undef }
-
-sub draw_pathfind {
+sub pathfind_color {
     my $self           = shift;
-    my $display_method = shift;
 
     my $pathfind = $self->pathfind;
 
@@ -619,18 +614,13 @@ sub draw_pathfind {
               : $pathfind == 3 ? Curses::COLOR_PAIR(COLOR_GREEN)
                                : Curses::COLOR_PAIR(COLOR_MAGENTA);
 
-    Curses::addch($color | ord $self->$display_method);
+    return $color;
 }
 
 
-sub display_glyph {
+sub normal_glyph {
     my $self = shift;
     $self->glyph eq ' ' ? $self->floor_glyph : $self->glyph;
-}
-
-sub display_floor {
-    my $self = shift;
-    $self->floor_glyph;
 }
 
 sub farlooked {}

@@ -1,8 +1,18 @@
 #!/usr/bin/env perl
 package TAEB::Display;
-use Moose;
+use TAEB::OO;
 use Curses ();
 use TAEB::Util ':colors';
+
+has color_method => (
+    isa     => 'Str',
+    default => 'normal',
+);
+
+has glyph_method => (
+    isa     => 'Str',
+    default => 'normal',
+);
 
 sub _notify {
     my $self  = shift;
@@ -41,13 +51,17 @@ sub redraw {
     }
 
     my $level  = $args{level} || TAEB->current_level;
-    my $draw   = 'draw_'.(TAEB->config->draw || 'normal');
-    my $method = 'display_'.(TAEB->config->display_method || 'glyph');
+    my $color_method = $self->color_method . '_color';
+    my $glyph_method = $self->glyph_method . '_glyph';
 
     for my $y (1 .. 21) {
         Curses::move($y, 0);
         for my $x (0 .. 79) {
-            $level->at($x, $y)->$draw($method);
+            my $tile = $level->at($x, $y);
+            my $color = $tile->$color_method;
+            my $glyph = $tile->$glyph_method;
+
+            Curses::addch($color | ord($glyph));
         }
     }
 
