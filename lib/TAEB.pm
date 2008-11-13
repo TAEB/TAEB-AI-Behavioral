@@ -452,19 +452,6 @@ sub keypress {
         return undef;
     }
 
-    if ($c eq 'f') {
-        if ($self->config->display_method eq 'floor')
-        {
-            $self->config->display_method('glyph');
-            return "Changing display method back to glyph.";
-        }
-        else {
-            $self->config->display_method('floor');
-            return "Changing display method to floor.";
-        }
-        return undef;
-    }
-
     # turn on/off info to screen
     if ($c eq 'i') {
         $self->info_to_screen(!$self->info_to_screen);
