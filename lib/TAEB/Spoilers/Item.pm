@@ -5,6 +5,7 @@ use MooseX::Singleton;
 use TAEB::Spoilers::Item::Armor;
 use TAEB::Spoilers::Item::Artifact;
 use TAEB::Spoilers::Item::Food;
+use TAEB::Spoilers::Item::Carrion;
 use TAEB::Spoilers::Item::Potion;
 use TAEB::Spoilers::Item::Scroll;
 use TAEB::Spoilers::Item::Spellbook;
@@ -21,7 +22,7 @@ has types => (
     is         => 'ro',
     isa        => 'ArrayRef[Str]',
     default    => sub { [qw/Weapon Armor Potion Scroll Spellbook Tool Food
-                            Amulet Ring Wand Gem Other/] },
+                            Carrion Amulet Ring Wand Gem Other/] },
     auto_deref => 1,
 );
 

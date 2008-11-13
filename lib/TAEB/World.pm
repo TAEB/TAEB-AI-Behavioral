@@ -11,6 +11,7 @@ use TAEB::World::Item::Amulet;
 use TAEB::World::Item::Armor;
 use TAEB::World::Item::Spellbook;
 use TAEB::World::Item::Food;
+use TAEB::World::Item::Carrion;
 use TAEB::World::Item::Gem;
 use TAEB::World::Item::Gold;
 use TAEB::World::Item::Other;

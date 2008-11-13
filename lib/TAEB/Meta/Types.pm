@@ -17,7 +17,7 @@ enum 'TAEB::Type::Align'  => qw(Law Neu Cha);
 enum 'TAEB::Type::Gender' => qw(Mal Fem Neu);
 
 enum 'TAEB::Type::BUC'       => qw(blessed uncursed cursed);
-enum 'TAEB::Type::ItemClass' => qw(gold weapon armor food scroll spellbook potion amulet ring wand tool gem other);
+enum 'TAEB::Type::ItemClass' => qw(gold weapon armor food carrion scroll spellbook potion amulet ring wand tool gem other);
 
 enum 'TAEB::Type::Tile' => tile_types;
 

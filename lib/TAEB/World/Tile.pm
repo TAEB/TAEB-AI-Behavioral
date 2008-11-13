@@ -696,6 +696,47 @@ sub farlooked {}
 after add_item => sub {
     my $self = shift;
     push @{ $self->level->items }, @_;
+
+    for my $item (@_) {
+        next unless $item->class eq 'carrion';
+
+        my @kl = @{ $self->kill_times };
+        my ($date, $v) = (undef, 0);
+
+        # I think this should be about 749, but the consequences of failure
+        # are enough to motivate paranoia
+        @kl = grep { $_->[1] >= TAEB->turn - 1000 } @kl;
+
+        for my $kill (@kl) {
+            my ($name, $age, $bad) = @$kill;
+
+            if (my $body = TAEB::Spoilers::Monster->monster($name)->
+                    {corpse}->{undead}) {
+                $name = $body;
+                $age -= 100;
+            }
+
+            next unless $name eq $item->monster;
+
+            if (!defined($date) || $date > $age) {
+                $date = $age;
+            }
+
+            $v ||= $bad;
+        }
+
+        if (!defined($date)) {
+            # This corpse has no kill record!  It must have died out of sight.
+            push @kl, [ $item->monster, TAEB->turn, 1 ];
+            $date = TAEB->turn;
+            $v = 1;
+        }
+
+        $item->estimated_date($date);
+        $item->is_forced_verboten($v);
+
+        @{ $self->kill_times } = @kl;
+    }
 };
 
 before clear_items => sub {

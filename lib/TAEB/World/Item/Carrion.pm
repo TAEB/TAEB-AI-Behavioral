@@ -4,32 +4,35 @@ use TAEB::OO;
 use TAEB::Spoilers::Monster;
 extends 'TAEB::World::Item::Food';
 
+has '+class' => (
+    default => 'carrion',
+);
+
 has is_forced_verboten => (
     isa     => 'Bool',
     default => 0,
 );
 
 has estimated_date => (
-    isa     => 'Bool',
+    isa     => 'Int',
     default => 0,
 );
 
 sub estimate_age { TAEB->turn - shift->estimated_date; }
 
-__PACKAGE__->install_spoilers('corpse');
+sub monster {
+    (shift->identity) =~ /(.*)(?:'s?)? corpse/;
 
-for my $attribute ('poisonous', 'weight', 'nutrition') {
-    __PACKAGE__->meta->add_method($attribute => sub {
-        shift->corpse->{$attribute}
-    });
+    return $1;
 }
 
-for my $resistance ('poison', 'fire') {
-    my $method = $resistance . '_resistance';
-    __PACKAGE__->meta->add_method($method => sub {
-        shift->corpse->{$resistance}
-    });
-}
+__PACKAGE__->install_spoilers(qw/acidic aggravate cannibal cold_resistance
+    cure_confusion cure_stoning die disintegration_resistance energy
+    fire_resistance gain_level hallucination heal intelligence invisibility
+    lycanthropy mimic nutrition petrify poison_resistance poisonous polymorph
+    reduce_stunning shock_resistance sleep_resistance slime speed_toggle
+    strength stun telepathy teleport_control teleportitis vegan vegetarian
+    weight/);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

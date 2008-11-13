@@ -140,13 +140,13 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1700,
-                    'cold'      => '17%',
-                    'disintegration' => '17%',
-                    'fire'      => '17%',
-                    'poison'    => '17%',
+                    'cold_resistance' => '17%',
+                    'disintegration_resistance' => '17%',
+                    'fire_resistance' => '17%',
+                    'poison_resistance' => '17%',
                     'poisonous' => '100%',
-                    'shock'     => '17%',
-                    'sleep'     => '17%',
+                    'shock_resistance' => '17%',
+                    'sleep_resistance' => '17%',
                 }
             },
             'Croesus' => {
@@ -267,7 +267,7 @@ has list => (
                     'cannibal'  => "Elf",
                     'weight'    => 800,
                     'nutrition' => 350,
-                    'sleep'     => '60%',
+                    'sleep_resistance' => '60%',
                 }
             },
             'Famine' => {
@@ -336,7 +336,7 @@ has list => (
                     'cannibal'  => "Elf",
                     'weight'    => 800,
                     'nutrition' => 350,
-                    'sleep'     => '33%',
+                    'sleep_resistance' => '33%',
                 }
             },
             'Grey-elf' => {
@@ -353,7 +353,7 @@ has list => (
                     'cannibal'  => "Elf",
                     'weight'    => 800,
                     'nutrition' => 350,
-                    'sleep'     => '40%',
+                    'sleep_resistance' => '40%',
                 }
             },
             'Hippocrates' => {
@@ -388,7 +388,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1600,
-                    'fire'      => '100%',
+                    'fire_resistance' => '100%',
                 }
             },
             'Juiblex' => {
@@ -538,7 +538,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2250,
                     'nutrition' => 850,
-                    'fire'      => '50%',
+                    'fire_resistance' => '50%',
                     'strength'  => '100%',
                 }
             },
@@ -574,7 +574,7 @@ has list => (
                     'cannibal'  => "Hum",
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'poison'    => '100%',
+                    'poison_resistance' => '100%',
                 }
             },
             'Master of Thieves' => {
@@ -610,7 +610,7 @@ has list => (
                     'weight'    => 1450,
                     'nutrition' => 400,
                     'petrify' => '100%',
-                    'poison'    => '100%',
+                    'poison_resistance' => '100%',
                     'poisonous' => '100%',
                 }
             },
@@ -831,7 +831,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 750,
                     'nutrition' => 350,
-                    'poison'    => '100%',
+                    'poison_resistance' => '100%',
                     'poisonous' => '100%',
                 }
             },
@@ -934,9 +934,9 @@ has list => (
                     'cannibal'  => "Hum",
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'fire'      => '25%',
-                    'poison'    => '25%',
-                    'teleport control' => '25%',
+                    'fire_resistance' => '25%',
+                    'poison_resistance' => '25%',
+                    'teleport_control' => '25%',
                     'teleportitis' => '25%',
                 }
             },
@@ -954,7 +954,7 @@ has list => (
                     'cannibal'  => "Elf",
                     'weight'    => 800,
                     'nutrition' => 350,
-                    'sleep'     => '27%',
+                    'sleep_resistance' => '27%',
                 }
             },
             'Yeenoghu' => {
@@ -1446,7 +1446,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1500,
-                    'disintegration' => '100%',
+                    'disintegration_resistance' => '100%',
                 }
             },
             'black light' => {
@@ -1483,7 +1483,7 @@ has list => (
                     'weight'    => 2600,
                     'nutrition' => 400,
                     'acidic'    => '100%',
-                    'poison'    => '53%',
+                    'poison_resistance' => '53%',
                 }
             },
             'black naga hatchling' => {
@@ -1501,7 +1501,7 @@ has list => (
                     'weight'    => 500,
                     'nutrition' => 100,
                     'acidic'    => '100%',
-                    'poison'    => '20%',
+                    'poison_resistance' => '20%',
                 }
             },
             'black pudding' => {
@@ -1519,9 +1519,9 @@ has list => (
                     'weight'    => 900,
                     'nutrition' => 250,
                     'acidic'    => '100%',
-                    'cold'      => '22%',
-                    'poison'    => '22%',
-                    'shock'     => '22%',
+                    'cold_resistance' => '22%',
+                    'poison_resistance' => '22%',
+                    'shock_resistance' => '22%',
                 }
             },
             'black unicorn' => {
@@ -1538,7 +1538,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1300,
                     'nutrition' => 300,
-                    'poison'    => '27%',
+                    'poison_resistance' => '27%',
                 }
             },
             'blue dragon' => {
@@ -1556,7 +1556,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1500,
-                    'shock'     => '100%',
+                    'shock_resistance' => '100%',
                 }
             },
             'blue jelly' => {
@@ -1573,8 +1573,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 20,
-                    'cold'      => '13%',
-                    'poison'    => '13%',
+                    'cold_resistance' => '13%',
+                    'poison_resistance' => '13%',
                     vegetarian  => 1,
                     vegan       => 1,
                 }
@@ -1609,8 +1609,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 30,
-                    'cold'      => '3%',
-                    'poison'    => '3%',
+                    'cold_resistance' => '3%',
+                    'poison_resistance' => '3%',
                     vegetarian  => 1,
                     vegan       => 1,
                 }
@@ -1630,9 +1630,9 @@ has list => (
                     'weight'    => 500,
                     'nutrition' => 250,
                     'acidic'    => '100%',
-                    'cold'      => '11%',
-                    'poison'    => '11%',
-                    'shock'     => '11%',
+                    'cold_resistance' => '11%',
+                    'poison_resistance' => '11%',
+                    'shock_resistance' => '11%',
                     vegetarian  => 1,
                 }
             },
@@ -1699,7 +1699,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 50,
-                    'poison'    => '7%',
+                    'poison_resistance' => '7%',
                 }
             },
             'caveman' => {
@@ -1749,7 +1749,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 50,
-                    'poison'    => '13%',
+                    'poison_resistance' => '13%',
                 }
             },
             'chameleon' => {
@@ -1784,7 +1784,7 @@ has list => (
                     'weight'    => 10,
                     'nutrition' => 10,
                     'petrify' => '100%',
-                    'poison'    => '27%',
+                    'poison_resistance' => '27%',
                 }
             },
             'chieftain' => {
@@ -1834,7 +1834,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 250,
                     'nutrition' => 100,
-                    'poison'    => '40%',
+                    'poison_resistance' => '40%',
                     'poisonous' => '100%',
                 }
             },
@@ -1854,7 +1854,7 @@ has list => (
                     'weight'    => 30,
                     'nutrition' => 30,
                     'petrify' => '100%',
-                    'poison'    => '33%',
+                    'poison_resistance' => '33%',
                 }
             },
             'couatl' => {
@@ -2084,6 +2084,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 900,
                     'nutrition' => 150,
+                    'undead'    => 'dwarf',
                 }
             },
             'dwarf zombie' => {
@@ -2100,6 +2101,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 900,
                     'nutrition' => 150,
+                    'undead'    => 'dwarf',
                 }
             },
             'earth elemental' => {
@@ -2135,7 +2137,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 200,
                     'nutrition' => 250,
-                    'shock'     => '47%',
+                    'shock_resistance' => '47%',
                 }
             },
             'elf' => {
@@ -2152,7 +2154,7 @@ has list => (
                     'cannibal'  => "Elf",
                     'weight'    => 800,
                     'nutrition' => 350,
-                    'sleep'     => '67%',
+                    'sleep_resistance' => '67%',
                 }
             },
             'elf mummy' => {
@@ -2169,6 +2171,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 800,
                     'nutrition' => 175,
+                    'undead'    => 'elf',
                 }
             },
             'elf zombie' => {
@@ -2185,6 +2188,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 800,
                     'nutrition' => 175,
+                    'undead'    => 'elf',
                 }
             },
             'elf-lord' => {
@@ -2201,7 +2205,7 @@ has list => (
                     'cannibal'  => "Elf",
                     'weight'    => 800,
                     'nutrition' => 350,
-                    'sleep'     => '53%',
+                    'sleep_resistance' => '53%',
                 }
             },
             'energy vortex' => {
@@ -2268,6 +2272,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1700,
                     'nutrition' => 250,
+                    'undead'    => 'ettin',
                 }
             },
             'ettin zombie' => {
@@ -2284,6 +2289,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1700,
                     'nutrition' => 250,
+                    'undead'    => 'ettin',
                 }
             },
             'fire ant' => {
@@ -2301,7 +2307,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 30,
                     'nutrition' => 10,
-                    'fire'      => '20%',
+                    'fire_resistance' => '20%',
                 }
             },
             'fire elemental' => {
@@ -2336,7 +2342,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2250,
                     'nutrition' => 750,
-                    'fire'      => '30%',
+                    'fire_resistance' => '30%',
                     'strength'  => '100%',
                 }
             },
@@ -2388,11 +2394,11 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1400,
                     'nutrition' => 600,
-                    'cold'      => '12%',
-                    'fire'      => '12%',
-                    'poison'    => '12%',
-                    'shock'     => '12%',
-                    'sleep'     => '12%',
+                    'cold_resistance' => '12%',
+                    'fire_resistance' => '12%',
+                    'poison_resistance' => '12%',
+                    'shock_resistance' => '12%',
+                    'sleep_resistance' => '12%',
                 }
             },
             'floating eye' => {
@@ -2492,7 +2498,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2250,
                     'nutrition' => 750,
-                    'cold'      => '33%',
+                    'cold_resistance' => '33%',
                     'strength'  => '100%',
                 }
             },
@@ -2577,10 +2583,10 @@ has list => (
                     'weight'    => 600,
                     'nutrition' => 150,
                     'acidic'    => '100%',
-                    'cold'      => '10%',
-                    'fire'      => '10%',
-                    'shock'     => '10%',
-                    'sleep'     => '10%',
+                    'cold_resistance' => '10%',
+                    'fire_resistance' => '10%',
+                    'shock_resistance' => '10%',
+                    'sleep_resistance' => '10%',
                     vegetarian  => 1,
                     vegan       => 1,
                 }
@@ -2684,7 +2690,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 10,
                     'nutrition' => 10,
-                    'poison'    => '33%',
+                    'poison_resistance' => '33%',
                     'poisonous' => '100%',
                 }
             },
@@ -2736,6 +2742,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2050,
                     'nutrition' => 375,
+                    'undead'    => 'giant',
                 }
             },
             'giant rat' => {
@@ -2769,7 +2776,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 100,
                     'nutrition' => 100,
-                    'poison'    => '33%',
+                    'poison_resistance' => '33%',
                     'poisonous' => '100%',
                 }
             },
@@ -2787,6 +2794,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2050,
                     'nutrition' => 375,
+                    'undead'    => 'giant',
                 }
             },
             'glass golem' => {
@@ -2885,6 +2893,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 650,
                     'nutrition' => 50,
+                    'undead'    => 'gnome',
                 }
             },
             'gnome zombie' => {
@@ -2901,6 +2910,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 650,
                     'nutrition' => 50,
+                    'undead'    => 'gnome',
                 }
             },
             'gnomish wizard' => {
@@ -2968,7 +2978,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2600,
                     'nutrition' => 400,
-                    'poison'    => '67%',
+                    'poison_resistance' => '67%',
                 }
             },
             'golden naga hatchling' => {
@@ -2985,7 +2995,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 500,
                     'nutrition' => 100,
-                    'poison'    => '20%',
+                    'poison_resistance' => '20%',
                 }
             },
             'gray dragon' => {
@@ -3020,9 +3030,9 @@ has list => (
                     'weight'    => 500,
                     'nutrition' => 250,
                     'acidic'    => '100%',
-                    'cold'      => '7%',
-                    'fire'      => '7%',
-                    'poison'    => '7%',
+                    'cold_resistance' => '7%',
+                    'fire_resistance' => '7%',
+                    'poison_resistance' => '7%',
                     vegetarian  => 1,
                 }
             },
@@ -3040,7 +3050,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1300,
                     'nutrition' => 300,
-                    'poison'    => '27%',
+                    'poison_resistance' => '27%',
                 }
             },
             'green dragon' => {
@@ -3058,7 +3068,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1500,
-                    'poison'    => '100%',
+                    'poison_resistance' => '100%',
                     'poisonous' => '100%',
                 }
             },
@@ -3115,7 +3125,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 100,
                     'nutrition' => 20,
-                    'poison'    => '33%',
+                    'poison_resistance' => '33%',
                     'poisonous' => '100%',
                 }
             },
@@ -3166,7 +3176,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2600,
                     'nutrition' => 400,
-                    'poison'    => '80%',
+                    'poison_resistance' => '80%',
                     'poisonous' => '100%',
                 }
             },
@@ -3184,7 +3194,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 500,
                     'nutrition' => 100,
-                    'poison'    => '20%',
+                    'poison_resistance' => '20%',
                 }
             },
             'guide' => {
@@ -3233,7 +3243,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 600,
                     'nutrition' => 300,
-                    'fire'      => '80%',
+                    'fire_resistance' => '80%',
                 }
             },
             'hell hound pup' => {
@@ -3250,7 +3260,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 200,
                     'nutrition' => 200,
-                    'fire'      => '47%',
+                    'fire_resistance' => '47%',
                 }
             },
             'hezrou' => {
@@ -3364,9 +3374,9 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 60,
                     'nutrition' => 100,
-                    'poison'    => '7%',
+                    'poison_resistance' => '7%',
                     'poisonous' => '100%',
-                    'sleep'     => '7%',
+                    'sleep_resistance' => '7%',
                 }
             },
             'horned devil' => {
@@ -3448,6 +3458,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 200,
+                    'undead'    => 'human',
                 }
             },
             'human zombie' => {
@@ -3464,6 +3475,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 200,
+                    'undead'    => 'human',
                 }
             },
             'hunter' => {
@@ -3512,7 +3524,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1000,
                     'nutrition' => 300,
-                    'cold'      => '60%',
+                    'cold_resistance' => '60%',
                 }
             },
             'ice vortex' => {
@@ -3677,7 +3689,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 80,
                     'nutrition' => 20,
-                    'poison'    => '20%',
+                    'poison_resistance' => '20%',
                     'poisonous' => '100%',
                 }
             },
@@ -3712,7 +3724,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1,
                     'nutrition' => 5,
-                    'poison'    => '30%',
+                    'poison_resistance' => '30%',
                     'poisonous' => '100%',
                 }
             },
@@ -3797,6 +3809,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 400,
                     'nutrition' => 50,
+                    'undead'    => 'kobold',
                 }
             },
             'kobold shaman' => {
@@ -3830,6 +3843,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 400,
                     'nutrition' => 50,
+                    'undead'    => 'kobold',
                 }
             },
             'kraken' => {
@@ -4062,9 +4076,9 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 10,
                     'nutrition' => 40,
-                    'confusion' => '100%',
-                    'cure stoning' => '100%',
-                    'reduce stunning' => '100%',
+                    'cure_confusion' => '100%',
+                    'cure_stoning' => '100%',
+                    'reduce_stunning' => '100%',
                 }
             },
             'long worm' => {
@@ -4178,7 +4192,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'int gain / telepathy' => '100%',
+                    'telepathy' => '50%',
                     'intelligence' => '50%',
                 }
             },
@@ -4212,7 +4226,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 400,
-                    'int gain / telepathy' => '100%',
+                    'telepathy' => '50%',
                     'intelligence' => '50%',
                 }
             },
@@ -4393,7 +4407,7 @@ has list => (
                     'weight'    => 1450,
                     'nutrition' => 400,
                     'heal' => '100%',
-                    'poison'    => '73%',
+                    'poison_resistance' => '73%',
                 }
             },
             'ochre jelly' => {
@@ -4478,7 +4492,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1500,
-                    'sleep'     => '100%',
+                    'sleep_resistance' => '100%',
                 }
             },
             'orc' => {
@@ -4511,6 +4525,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 850,
                     'nutrition' => 75,
+                    'undead'    => 'orc',
                 }
             },
             'orc shaman' => {
@@ -4543,6 +4558,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 850,
                     'nutrition' => 75,
+                    'undead'    => 'orc',
                 }
             },
             'orc-captain' => {
@@ -4673,7 +4689,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 100,
                     'nutrition' => 60,
-                    'poison'    => '40%',
+                    'poison_resistance' => '40%',
                     'poisonous' => '100%',
                 }
             },
@@ -4789,8 +4805,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 30,
                     'nutrition' => 30,
-                    'fire'      => '20%',
-                    'poison'    => '20%',
+                    'fire_resistance' => '20%',
+                    'poison_resistance' => '20%',
                 }
             },
             'python' => {
@@ -4825,7 +4841,7 @@ has list => (
                     'weight'    => 1450,
                     'nutrition' => 20,
                     'poisonous' => '100%',
-                    'speed toggle' => '100%',
+                    'speed_toggle' => '100%',
                 }
             },
             'quasit' => {
@@ -4842,7 +4858,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 200,
                     'nutrition' => 200,
-                    'poison'    => '20%',
+                    'poison_resistance' => '20%',
                 }
             },
             'queen bee' => {
@@ -4859,7 +4875,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1,
                     'nutrition' => 5,
-                    'poison'    => '60%',
+                    'poison_resistance' => '60%',
                     'poisonous' => '100%',
                 }
             },
@@ -4877,7 +4893,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 200,
                     'nutrition' => 100,
-                    'poison'    => '33%',
+                    'poison_resistance' => '33%',
                     vegetarian  => 1,
                     vegan       => 1,
                 }
@@ -4946,7 +4962,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1500,
-                    'fire'      => '100%',
+                    'fire_resistance' => '100%',
                 }
             },
             'red mold' => {
@@ -4963,8 +4979,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 30,
-                    'fire'      => '3%',
-                    'poison'    => '3%',
+                    'fire_resistance' => '3%',
+                    'poison_resistance' => '3%',
                     vegetarian  => 1,
                     vegan       => 1,
                 }
@@ -4984,8 +5000,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2600,
                     'nutrition' => 400,
-                    'fire'      => '20%',
-                    'poison'    => '20%',
+                    'fire_resistance' => '20%',
+                    'poison_resistance' => '20%',
                 }
             },
             'red naga hatchling' => {
@@ -5002,8 +5018,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 500,
                     'nutrition' => 100,
-                    'fire'      => '10%',
-                    'poison'    => '10%',
+                    'fire_resistance' => '10%',
+                    'poison_resistance' => '10%',
                 }
             },
             'rock mole' => {
@@ -5148,7 +5164,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1500,
                     'nutrition' => 400,
-                    'fire'      => '53%',
+                    'fire_resistance' => '53%',
                     'poisonous' => '100%',
                 }
             },
@@ -5215,7 +5231,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 50,
                     'nutrition' => 100,
-                    'poison'    => '50%',
+                    'poison_resistance' => '50%',
                     'poisonous' => '100%',
                 }
             },
@@ -5330,7 +5346,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 100,
                     'nutrition' => 100,
-                    'poison'    => '20%',
+                    'poison_resistance' => '20%',
                     vegetarian  => 1,
                     vegan       => 1,
                 }
@@ -5400,7 +5416,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 100,
                     'nutrition' => 80,
-                    'poison'    => '27%',
+                    'poison_resistance' => '27%',
                     'poisonous' => '100%',
                 }
             },
@@ -5435,7 +5451,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 20,
                     'nutrition' => 5,
-                    'poison'    => '20%',
+                    'poison_resistance' => '20%',
                     'poisonous' => '100%',
                 }
             },
@@ -5541,7 +5557,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 2250,
                     'nutrition' => 750,
-                    'shock'     => '50%',
+                    'shock_resistance' => '50%',
                     'strength'  => '100%',
                 }
             },
@@ -5607,8 +5623,8 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 300,
                     'nutrition' => 200,
-                    'poison'    => '13%',
-                    'teleport control' => '17%',
+                    'poison_resistance' => '13%',
+                    'teleport_control' => '17%',
                     'teleportitis' => '20%',
                 }
             },
@@ -5770,6 +5786,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 400,
+                    'undead'    => 'human',
                 }
             },
             'vampire bat' => {
@@ -5803,6 +5820,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1450,
                     'nutrition' => 400,
+                    'undead'    => 'human'
                 }
             },
             'violet fungus' => {
@@ -5820,7 +5838,7 @@ has list => (
                     'weight'    => 100,
                     'nutrition' => 100,
                     'hallucination' => '100%',
-                    'poison'    => '20%',
+                    'poison_resistance' => '20%',
                     vegetarian  => 1,
                     vegan       => 1,
                 }
@@ -5970,7 +5988,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 150,
                     'nutrition' => 80,
-                    'poison'    => '27%',
+                    'poison_resistance' => '27%',
                     'poisonous' => '100%',
                 }
             },
@@ -6076,7 +6094,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 4500,
                     'nutrition' => 1500,
-                    'cold'      => '100%',
+                    'cold_resistance' => '100%',
                 }
             },
             'white unicorn' => {
@@ -6093,7 +6111,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1300,
                     'nutrition' => 300,
-                    'poison'    => '27%',
+                    'poison_resistance' => '27%',
                 }
             },
             'winged gargoyle' => {
@@ -6126,7 +6144,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 700,
                     'nutrition' => 300,
-                    'cold'      => '47%',
+                    'cold_resistance' => '47%',
                 }
             },
             'winter wolf cub' => {
@@ -6143,7 +6161,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 250,
                     'nutrition' => 200,
-                    'cold'      => '33%',
+                    'cold_resistance' => '33%',
                 }
             },
             'wizard' => {
@@ -6241,7 +6259,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 0,
                     'nutrition' => 0,
-                    'gain level' => '100%',
+                    'gain_level' => '100%',
                 }
             },
             'wumpus' => {
@@ -6274,7 +6292,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 300,
                     'nutrition' => 300,
-                    'poison'    => '47%',
+                    'poison_resistance' => '47%',
                     'poisonous' => '100%',
                 }
             },
@@ -6345,7 +6363,7 @@ has list => (
                     'weight'    => 50,
                     'nutrition' => 30,
                     'hallucination' => '100%',
-                    'poison'    => '7%',
+                    'poison_resistance' => '7%',
                     'poisonous' => '100%',
                     vegetarian  => 1,
                     vegan       => 1,
@@ -6365,7 +6383,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1600,
                     'nutrition' => 700,
-                    'cold'      => '33%',
+                    'cold_resistance' => '33%',
                 }
             },
             'zruty' => {

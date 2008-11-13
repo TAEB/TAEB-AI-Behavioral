@@ -7,6 +7,7 @@ use TAEB::Knowledge::Item::Amulet;
 use TAEB::Knowledge::Item::Armor;
 use TAEB::Knowledge::Item::Artifact;
 use TAEB::Knowledge::Item::Food;
+use TAEB::Knowledge::Item::Carrion;
 use TAEB::Knowledge::Item::Gem;
 use TAEB::Knowledge::Item::Other;
 use TAEB::Knowledge::Item::Potion;
@@ -23,7 +24,7 @@ has types => (
     isa => 'ArrayRef[Str]',
     auto_deref => 1,
     default => sub { [qw/Amulet Armor Food Gem Other Potion Ring Scroll
-                         Spellbook Tool Wand Weapon/] },
+                         Carrion Spellbook Tool Wand Weapon/] },
 );
 
 has appearances => (

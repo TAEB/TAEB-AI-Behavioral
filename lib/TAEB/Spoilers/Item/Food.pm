@@ -130,9 +130,6 @@ has list => (
         my $monsterlist = TAEB::Spoilers::Monster->list;
         for my $name (keys %$monsterlist) {
             my $stats = $monsterlist->{$name};
-            $foods->{"$name corpse"}             = $stats->{corpse};
-            $foods->{"$name corpse"}{corpse}     = 1;
-            $foods->{"$name corpse"}{plural}     = "$name corpses";
 
             my $tin_name = $name;
             $tin_name .= " meat"
@@ -215,7 +212,6 @@ sub should_eat {
 
     return 0 if !$food;
     return 0 if $food->{unsafe};
-    return 0 if $food->{corpse} && $food->{name} !~ /lichen|lizard/; # :|
     return 1;
 }
 
