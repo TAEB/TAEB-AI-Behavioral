@@ -6,12 +6,14 @@ use TAEB::Util ':colors';
 
 has color_method => (
     isa     => 'Str',
-    default => 'normal',
+    lazy    => 1,
+    default => sub { TAEB->config->color_method || 'normal' },
 );
 
 has glyph_method => (
     isa     => 'Str',
-    default => 'normal',
+    lazy    => 1,
+    default => sub { TAEB->config->glyph_method || 'normal' },
 );
 
 sub _notify {
