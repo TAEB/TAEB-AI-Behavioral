@@ -231,6 +231,10 @@ my %mode_changes = (
         summary => 'Sets pathfind display',
         execute => sub { shift->color_method('pathfind') },
     },
+    s => {
+        summary => 'Sets stepped-on coloring',
+        execute => sub { shift->color_method('stepped') },
+    },
     l => {
         summary => 'Displays lit tiles',
         execute => sub { shift->color_method('lit') },

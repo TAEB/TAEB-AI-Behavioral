@@ -625,6 +625,18 @@ sub lit_color {
          : Curses::COLOR_PAIR(COLOR_WHITE) | Curses::A_BOLD;
 }
 
+sub stepped_color {
+    my $self = shift;
+    my $stepped = $self->stepped_on;
+
+    return Curses::COLOR_PAIR(COLOR_WHITE) | Curses::A_BOLD if $stepped == 0;
+    return Curses::COLOR_PAIR(COLOR_RED)                    if $stepped == 1;
+    return Curses::COLOR_PAIR(COLOR_RED) | Curses::A_BOLD   if $stepped == 2;
+    return Curses::COLOR_PAIR(COLOR_BROWN)                  if $stepped < 5;
+    return Curses::COLOR_PAIR(COLOR_BROWN) | Curses::A_BOLD if $stepped < 8;
+    return Curses::COLOR_PAIR(COLOR_MAGENTA);
+}
+
 sub normal_glyph {
     my $self = shift;
     $self->glyph eq ' ' ? $self->floor_glyph : $self->glyph;
