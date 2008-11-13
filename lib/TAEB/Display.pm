@@ -18,25 +18,7 @@ has glyph_method => (
     default => sub { TAEB->config->glyph_method || 'normal' },
 );
 
-has pathfinding => (
-    metaclass => 'Bool',
-    is        => 'rw',
-    isa       => 'Bool',
-    provides  => {
-        toggle => 'toggle_pathfinding',
-    },
-    trigger   => sub {
-        my $self = shift;
-        my $enabled = shift;
-
-        if ($enabled) {
-            $self->color_method('pathfind');
-        }
-        else {
-            $self->reset_color_method;
-        }
-    },
-);
+sub pathfinding { shift->color_method eq 'pathfind' }
 
 sub _notify {
     my $self  = shift;
@@ -246,8 +228,8 @@ my %mode_changes = (
         execute => sub { shift->color_method('debug') },
     },
     p => {
-        summary => 'Toggles pathfind display',
-        execute => sub { shift->toggle_pathfinding },
+        summary => 'Sets pathfind display',
+        execute => sub { shift->color_method('pathfind') },
     },
     l => {
         summary => 'Displays lit tiles',
