@@ -6,14 +6,36 @@ use TAEB::Util ':colors';
 
 has color_method => (
     isa     => 'Str',
+    clearer => 'reset_color_method',
     lazy    => 1,
     default => sub { TAEB->config->color_method || 'normal' },
 );
 
 has glyph_method => (
     isa     => 'Str',
+    clearer => 'reset_glyph_method',
     lazy    => 1,
     default => sub { TAEB->config->glyph_method || 'normal' },
+);
+
+has pathfinding => (
+    metaclass => 'Bool',
+    is        => 'rw',
+    isa       => 'Bool',
+    provides  => {
+        toggle => 'toggle_pathfinding',
+    },
+    trigger   => sub {
+        my $self = shift;
+        my $enabled = shift;
+
+        if ($enabled) {
+            $self->color_method('pathfind');
+        }
+        else {
+            $self->reset_color_method;
+        }
+    },
 );
 
 sub _notify {
@@ -214,9 +236,41 @@ Eventually we may want a menu interface but this is fine for now.
 
 =cut
 
+my %mode_changes = (
+    d => {
+        summary => 'Sets debug coloring',
+        execute => sub { shift->color_method('debug') },
+    },
+    p => {
+        summary => 'Toggles pathfind display',
+        execute => sub { shift->toggle_pathfinding },
+    },
+    f => {
+        summary => 'Draws floor glyphs',
+        execute => sub { shift->glyph_method('floor') },
+    },
+    n => {
+        summary => 'Resets color and floor draw modes',
+        execute => sub {
+            my $self = shift;
+            $self->reset_color_method;
+            $self->reset_glyph_method;
+        },
+    },
+);
+
 sub change_draw_mode {
     my $self = shift;
 
+    my $mode = TAEB->get_key;
+    return if $mode eq "\e";
+
+    if (exists $mode_changes{$mode}) {
+        $mode_changes{$mode}->{execute}->($self);
+    }
+    else {
+        TAEB->complain("Invalid draw mode '$mode'");
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

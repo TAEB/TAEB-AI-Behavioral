@@ -284,7 +284,7 @@ sub _dijkstra {
     my $include_endpoints = $args{include_endpoints};
     my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
-    my $debug = (TAEB->config->draw || '') eq 'pathfind';
+    my $debug = TAEB->display->pathfinding;
     my $start;
     if ($debug) {
         $args{from}->level->each_tile(sub {
@@ -410,7 +410,7 @@ sub _astar {
     my $why               = $args{why} || "unknown";
     my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
-    my $debug = (TAEB->config->draw || '') eq 'pathfind';
+    my $debug = TAEB->display->pathfinding;
     my $start;
     if ($debug) {
         $args{from}->level->each_tile(sub {
