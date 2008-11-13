@@ -24,6 +24,7 @@ sub respond_eat_ground {
             TAEB->debug("Floor-food $item is good enough for me.");
             # keep track of what we're eating for nutrition purposes later
             $self->item($item);
+            TAEB->enqueue_message('check', 'floor');
             return 'y';
         }
         else {
@@ -32,7 +33,10 @@ sub respond_eat_ground {
     }
 
     # we're specific about this. really
-    return 'y' if $item->match(identity => $self->item);
+    if ($item->match(identity => $self->item)) {
+        TAEB->enqueue_message('check', 'floor');
+        return 'y';
+    }
 
     # no thanks, I brought my own lunch
     return 'n';
