@@ -27,7 +27,7 @@ for my $attribute ('poisonous', 'weight', 'nutrition') {
 for my $resistance ('poison', 'fire') {
     my $method = $resistance . '_resistance';
     __PACKAGE__->meta->add_method($method => sub {
-        shift->corpse->{$attribute}
+        shift->corpse->{$resistance}
     });
 }
 
