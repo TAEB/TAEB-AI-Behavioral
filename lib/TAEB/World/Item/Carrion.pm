@@ -38,7 +38,10 @@ sub maybe_rotted {
     $rh = 10 if $self->is_forced_verboten;
 
     return 0 if $self->monster =~ /^(?:lizard|lichen|acid blob)$/;
-    return ($rh > 5) - ($rl > 5);
+    TAEB->debug ("in maybe_rotted; " . $rl . "-" . $rh . " for " .
+        $self->raw . "(" . $self->estimate_age . ")" .
+        $self->is_forced_verboten);
+    return (($rh > 5) - ($rl > 5));
 }
 
 sub monster {
