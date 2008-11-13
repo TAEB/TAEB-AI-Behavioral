@@ -60,6 +60,7 @@ sub respond_eat_what {
     }
 
     TAEB->enqueue_message(check => 'inventory');
+    TAEB->enqueue_message(check => 'floor');
     $self->aborted(1);
     return "\e\e\e";
 }
