@@ -77,7 +77,8 @@ sub prepare {
     my $back = delta2vi(TAEB->x - $enemy->x, TAEB->y - $enemy->y);
     my $to = TAEB->current_level->at_direction($back);
 
-    return 0 unless $to->is_walkable && !$to->has_monster;
+    return 0 unless $to->is_walkable && !$to->has_monster &&
+        $to->type ne 'trap';
 
     return 0 if (TAEB->current_tile->type eq 'opendoor' ||
         $to->type eq 'opendoor') && $back =~ /[yubn]/;
