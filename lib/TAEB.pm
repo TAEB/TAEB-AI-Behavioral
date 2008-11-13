@@ -1,7 +1,5 @@
 #!perl
 package TAEB;
-use Curses ();
-
 use TAEB::Util ':colors';
 
 use TAEB::OO;
@@ -10,6 +8,7 @@ use Log::Dispatch;
 use Log::Dispatch::File;
 
 use TAEB::Config;
+use TAEB::Display;
 use TAEB::VT;
 use TAEB::ScreenScraper;
 use TAEB::Spoilers;
@@ -260,6 +259,13 @@ class_has debugger => (
     is      => 'ro',
     isa     => 'TAEB::Debug',
     default => sub { TAEB::Debug->new },
+);
+
+class_has display => (
+    is      => 'ro',
+    isa     => 'TAEB::Display',
+    default => sub { TAEB::Display->new },
+    handles => ['_notify', 'redraw', 'display_topline', 'place_cursor'],
 );
 
 around action => sub {
@@ -540,44 +546,17 @@ after qw/error critical/ => sub {
     }
 };
 
-sub _notify {
-    my $self  = shift;
-    my $msg   = shift;
-    my $attr  = shift;
-    my $sleep = @_ ? shift : 3;
-
-    return if !defined($msg) || !length($msg);
-
-    # strip off extra lines, it's too distracting
-    $msg =~ s/\n.*//s;
-
-    Curses::move(1, 0);
-    Curses::attron($attr);
-    Curses::addstr($msg);
-    Curses::attroff($attr);
-    Curses::clrtoeol;
-
-    # using TAEB->x and TAEB->y here could screw up horrifically if the dungeon
-    # object isn't loaded yet, and loading it calls notify..
-    $self->place_cursor(TAEB->vt->x, TAEB->vt->y);
-
-    return if $sleep == 0;
-
-    sleep $sleep;
-    $self->redraw;
-}
-
 sub notify {
     my $self = shift;
     my $msg  = shift;
 
-    $self->_notify($msg, Curses::COLOR_PAIR(TAEB::Util::COLOR_CYAN), @_);
+    $self->_notify($msg, TAEB::Util::COLOR_CYAN, @_);
 }
 
 sub complain {
     my $self = shift;
     my $msg  = shift;
-    $self->_notify($msg, Curses::COLOR_PAIR(TAEB::Util::COLOR_RED), @_);
+    $self->_notify($msg, TAEB::Util::COLOR_RED, @_);
 }
 
 around write => sub {
@@ -638,164 +617,6 @@ sub try_key {
 
     return undef if $c eq -1;
     return $c;
-}
-
-sub redraw {
-    my $self = shift;
-    my %args = @_;
-
-    if ($args{force_clear}) {
-        Curses::clear;
-        Curses::refresh;
-    }
-
-    my $level  = $args{level} || TAEB->current_level;
-    my $draw   = 'draw_'.(TAEB->config->draw || 'normal');
-    my $method = 'display_'.(TAEB->config->display_method || 'glyph');
-
-    for my $y (1 .. 21) {
-        Curses::move($y, 0);
-        for my $x (0 .. 79) {
-            $level->at($x, $y)->$draw($method);
-        }
-    }
-
-    $self->draw_botl($args{botl}, $args{status});
-    $self->place_cursor;
-}
-
-sub draw_botl {
-    my $self   = shift;
-    my $botl   = shift;
-    my $status = shift;
-
-    return unless $self->state eq 'playing';
-
-    Curses::move(22, 0);
-
-    if (!$botl) {
-        my $command = $self->has_action ? $self->action->command : '?';
-        $command =~ s/\n/\\n/g;
-        $command =~ s/\e/\\e/g;
-        $command =~ s/\cd/^D/g;
-
-        $botl = $self->checking
-              ? "Checking " . $self->checking
-              : $self->currently . " ($command)";
-    }
-
-    Curses::addstr($botl);
-
-    Curses::clrtoeol;
-    Curses::move(23, 0);
-
-    if (!$status) {
-        my @pieces;
-        push @pieces, 'D:' . $self->current_level->z;
-        $pieces[-1] .= uc substr($self->current_level->branch, 0, 1)
-            if $self->current_level->known_branch;
-        $pieces[-1] .= ' ('. ucfirst($self->current_level->special_level) .')'
-            if $self->current_level->special_level;
-
-        push @pieces, 'H:' . $self->hp;
-        $pieces[-1] .= '/' . $self->maxhp
-            if $self->hp != $self->maxhp;
-
-        if ($self->spells->has_spells) {
-            push @pieces, 'P:' . $self->power;
-            $pieces[-1] .= '/' . $self->maxpower
-                if $self->power != $self->maxpower;
-        }
-
-        push @pieces, 'A:' . $self->ac;
-        push @pieces, 'X:' . $self->level;
-        push @pieces, 'N:' . $self->nutrition;
-        push @pieces, 'T:' . $self->turn;
-        push @pieces, 'S:' . $self->score
-            if $self->has_score;
-        push @pieces, '$' . $self->gold;
-        push @pieces, 'P:' . $self->pathfinds;
-
-        my $statuses = join '', map { ucfirst substr $_, 0, 2 } $self->statuses;
-        push @pieces, '[' . $statuses . ']'
-            if $statuses;
-
-        $status = join ' ', @pieces;
-    }
-
-    Curses::addstr($status);
-    Curses::clrtoeol;
-}
-
-sub place_cursor {
-    my $self = shift;
-    my $x    = shift || TAEB->x;
-    my $y    = shift || TAEB->y;
-
-    Curses::move($y, $x);
-    Curses::refresh;
-}
-
-sub display_topline {
-    my $self = shift;
-    my @messages = $self->parsed_messages;
-
-    if (@messages == 0) {
-        # we don't need to worry about the other rows, the map will
-        # overwrite them
-        Curses::move 0, 0;
-        Curses::clrtoeol;
-        $self->place_cursor;
-        return;
-    }
-
-    while (my @msgs = splice @messages, 0, 20) {
-        my $y = 0;
-        for (@msgs) {
-            my ($line, $matched) = @$_;
-
-            if (TAEB->config->spicy
-            &&  TAEB->config->spicy ne 'hold back on the chili, please') {
-                my @spice = (
-                    'rope golem',                'rape golem',             0.2,
-                    'oil lamp',                  'Garin',                  0.5,
-                    '\bhit',                     'roundhouse-kick',        0.02,
-                    'snoring snakes',            'Eidolos taking a nap',   1,
-                    'hear a strange wind',   'smell Eidolos passing wind', 1,
-                    qr/(?:jackal|wolf) howling/, 'Eidolos howling',        1,
-                );
-
-                while (my ($orig, $sub, $prob) = splice @spice, 0, 3) {
-                    $line =~ s/$orig/$sub/ if rand() < $prob;
-                }
-            }
-
-            my $chopped = length($line) > 75;
-            $line = substr($line, 0, 75);
-
-            Curses::move $y++, 0;
-
-            my $color = $matched
-                      ? Curses::COLOR_PAIR(COLOR_GREEN)
-                      : Curses::COLOR_PAIR(COLOR_BROWN);
-
-            Curses::attron($color);
-            Curses::addstr($line);
-            Curses::attroff($color);
-
-            Curses::addstr '...' if $chopped;
-
-            Curses::clrtoeol;
-        }
-
-        if (@msgs > 1) {
-            $self->place_cursor;
-            #sleep 1;
-            #sleep 2 if @msgs > 5;
-            TAEB->redraw if @messages;
-        }
-    }
-    $self->place_cursor;
 }
 
 sub quit {
