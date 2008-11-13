@@ -237,6 +237,10 @@ Eventually we may want a menu interface but this is fine for now.
 =cut
 
 my %mode_changes = (
+    0 => {
+        summary => 'Displays normal NetHack colors',
+        execute => sub { shift->color_method('normal') },
+    },
     d => {
         summary => 'Sets debug coloring',
         execute => sub { shift->color_method('debug') },
