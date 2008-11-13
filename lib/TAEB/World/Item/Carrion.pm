@@ -26,13 +26,13 @@ sub maybe_rotted {
     my $rl = int($self->estimate_age / 29);
     my $rh = int($self->estimate_age / 10);
 
+    if (!defined($self->buc)) {
+        $rl -= 2; $rh += 2;
     if ($self->buc eq 'blessed') {
         $rl -= 2; $rh -= 2;
     } elsif ($self->buc eq 'uncursed') {
     } elsif ($self->buc eq 'cursed') {
         $rl += 2; $rh += 2;
-    } else {
-        $rl -= 2; $rh += 2;
     }
 
     $rh = 10 if $self->is_forced_verboten;
