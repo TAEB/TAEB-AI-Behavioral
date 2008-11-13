@@ -48,8 +48,8 @@ sub pickup {
 
     # Don't pick up rocks if we have at least 30, or if the pile is 20+, for
     # burden reasons.
-    if ($item->match(identity => qr/\brock\b/)) {
-        my @rocks = TAEB->find_item(identity => qr/\brock\b/);
+    if ($item->match(identity => "rock")) {
+        my @rocks = TAEB->find_item(identity => "rock");
 
         my $rocks = reduce { $a + $b } (map { $_->quantity } @rocks);
 
@@ -58,8 +58,10 @@ sub pickup {
         return 0 if $rocks + $item->quantity > 30;
     }
 
-    $item->match(identity => qr/\b(?:dagger|dart|shuriken|spear|rock)\b/,
-                 not_buc => 'cursed');
+    $item->match(
+        identity => qr/\b(?:dagger|dart|shuriken|spear|rock(?! mole))\b/,
+        not_buc => 'cursed'
+    );
 }
 
 sub urgencies {
