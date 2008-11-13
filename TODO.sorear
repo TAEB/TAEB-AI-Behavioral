@@ -27,13 +27,12 @@
     consider not eating corpses on traps.
 
 
-- Smarter searching
+- Smarter searching (mostly done)
 
-  - Divide screen into 5x10 blocks, if a tile is in a block which is next to
-    an empty block, increase its searchability 100x
+  - Should move code into T:A:B:Search for performance/factoring
 
-  - How to implement this efficiently, without giving T:W:Tile too much
-    knowledge of T:A:B:Search?
+  - Don't search walls we can path around (requires getting the whole tree
+    from dijkstra)
 
 
 - Armour swapping
