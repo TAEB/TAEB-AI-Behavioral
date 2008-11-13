@@ -41,7 +41,10 @@ sub maybe_rotted {
     TAEB->debug ("in maybe_rotted; " . $rotted_low . "-" . $rotted_high .
         " for " . $self->raw . "(" . $self->estimate_age . ")" .
         $self->is_forced_verboten);
-    return (($rotted_high > 5) - ($rotted_low > 5));
+
+    return  1 if $rotted_low > 5;
+    return -1 if $rotted_high <= 5;
+    return 0;
 }
 
 sub monster {
