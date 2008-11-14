@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::Projectiles;
 use TAEB::OO;
-use List::Util qw(reduce);
 extends 'TAEB::AI::Behavior';
 
 sub prepare {
