@@ -34,7 +34,9 @@ has weight => (
 
 sub _recalculate_weight {
     my $self = shift;
-    $self->weight(sum map { $_->weight * $_->quantity } $self->items);
+    # we add a 0 here because sum returns undef when there are no arguments.
+    # fucking stupid if you ask me.
+    $self->weight(sum 0, map { $_->weight * $_->quantity } $self->items);
 }
 
 # XXX: redo this like we did with iterate_tiles, sometime when it isn't 5am
