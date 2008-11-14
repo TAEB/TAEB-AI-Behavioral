@@ -427,6 +427,10 @@ sub debug_line {
     push @bits, 'f<' . $self->floor_glyph . '>'
         if $self->glyph ne $self->floor_glyph;
 
+    my ($px, $py) = $self->_panel;
+    my $panel = "$px,$py" . ($self->_panel_empty($px,$py) ? "e" : "");
+    push @bits, "p<$panel>";
+
     push @bits, sprintf 'i=%d%s',
                     $self->item_count,
                     $self->is_interesting ? '*' : '';
@@ -447,9 +451,6 @@ sub debug_line {
     elsif ($self->has_monster) {
         push @bits, 'monster';
     }
-
-    my ($px, $py) = $self->_panel;
-    push @bits, ("$px,$py" . ($self->_panel_empty($px,$py) ? "[empty]" : ""));
 
     return join ' ', @bits;
 }
