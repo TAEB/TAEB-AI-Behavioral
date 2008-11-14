@@ -32,6 +32,19 @@ has killed => (
     default => 0,
 );
 
+has monster => (
+    isa       => 'TAEB::World::Monster',
+    predicate => 'has_monster',
+);
+
+sub BUILD {
+    my $self = shift;
+
+    if (my $monster = $self->target_tile->monster) {
+        $self->monster($monster);
+    }
+}
+
 sub respond_throw_what { shift->item->slot }
 
 # we don't get a message when we throw one dagger
@@ -79,9 +92,10 @@ sub msg_throw_count {
 }
 
 sub msg_killed {
-    my $self = shift;
+    my ($self, $monster_name) = @_;
 
     $self->killed(1);
+    $self->target_tile->witness_kill($monster_name);
 }
 
 __PACKAGE__->meta->make_immutable;
