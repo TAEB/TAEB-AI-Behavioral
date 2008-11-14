@@ -260,7 +260,7 @@ sub is_walkable {
 sub update_lit {
     my $self = shift;
 
-    $self->is_lit(1) if $self->glyph eq '.' && !$self->is_lit
+    $self->is_lit(1) if $self->glyph eq '.' && !$self->is_lit &&
         (abs(TAEB->x - $self->x) > 1 || abs(TAEB->y - $self->y) > 1);
         #FIXME when TAEB supports lamp usage
     $self->is_lit(0) if $self->glyph eq ' ' && $self->floor_glyph eq '.';
@@ -287,7 +287,7 @@ sub step_off {
         # When we step off a tile, anything that's nearby and still . is lit
         $self->each_adjacent(sub {
             my ($tile, $dir) = @_;
-            $tile->is_lit(1) if $tile->glyph eq '.';
+            $tile->update_lit;
         });
     }
 }
