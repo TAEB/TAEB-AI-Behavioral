@@ -250,9 +250,11 @@ sub is_walkable {
     return 0 if $self->has_boulder;
 
     # we can path through unlit areas that we haven't seen as rock for sure yet
-    return 1 if $through_unknown &&
-                $self->type eq 'rock' &&
-                $self->all_adjacent(sub { shift->stepped_on == 0 });
+    # if we're blind, then all bets are off
+    return 1 if $through_unknown
+             && !TAEB->is_blind
+             && $self->type eq 'rock'
+             && $self->all_adjacent(sub { shift->stepped_on == 0 });
 
     return $is_walkable{ $self->type };
 }
