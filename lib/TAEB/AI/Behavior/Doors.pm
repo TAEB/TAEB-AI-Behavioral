@@ -14,8 +14,9 @@ sub unlock_action {
                 || TAEB->find_item('credit card');
 
     # No check for watch, that causes oscillations
-    return if TAEB->current_level->is_minetown &&
-        !$locktool->match(identity => qr/key/);
+    return if TAEB->current_level->is_minetown
+           && $locktool
+           && !$locktool->match(identity => qr/key/);
 
     return (unlock =>
         implement => $locktool,
