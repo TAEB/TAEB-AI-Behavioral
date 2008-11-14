@@ -268,7 +268,7 @@ sub update_lit {
     my $self = shift;
 
     my $within_night_vision = abs(TAEB->x - $self->x) <= 1
-        && abs(TAEB->y - $self->y) <= 1;
+                           && abs(TAEB->y - $self->y) <= 1;
 
     # A square which is displayed as . must be lit from some source, unless
     # it is right next to us.
