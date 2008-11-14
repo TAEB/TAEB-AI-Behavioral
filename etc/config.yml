@@ -13,3 +13,41 @@ state_file: .TAEB.state
 other_config:
     - etc/site_config.yml
 
+
+# The following give the defaults for options in TAEB
+
+# CRGA
+role: '*'
+race: '*'
+gender: '*'
+align: '*'
+
+# Bbranch to avoid, if any.
+# Possibles values: mines, dungeon, etc
+avoid_branch: ""
+
+# Whether to output debug infomation for the running personality.
+debug_personality: 0
+
+# This will open a REPL window should TAEB crash
+carp_repl: 0
+
+# IRC debugging!
+# Uncomment the following line to enable.
+#IRC:
+#    - server: irc.freenode.net
+#    - port:   6667
+#    - channel: "#interhack"
+#    #- name: name of bot
+
+# What method to use for coloring of tiles in the display.
+# Can change these during runtime as well.
+# Current options: normal, debug, engraving, pathfind, stepped, time, lit
+color_method: normal
+
+# How to view the floor glyphs. Changeable during runtime.
+# Current options: normal, floor
+glyph_method: normal
+
+# enables "spicy" replacements for messages
+spicy: 0
