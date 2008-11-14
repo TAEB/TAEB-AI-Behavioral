@@ -69,11 +69,11 @@ sub post_responses {
     my $self = shift;
     my $item = $self->item;
 
-    # we had no match for "any", so we have nothing to do
-    return unless blessed $item;
-
-    if ($item->slot) {
+    if (blessed $item && $item->slot)  {
         TAEB->inventory->decrease_quantity($item->slot)
+    }
+    else {
+        $item = TAEB->new_item($item);
     }
 
     my $old_nutrition = TAEB->nutrition;
