@@ -50,6 +50,12 @@ after done => sub {
         if ($branch eq 'dungeons' && !$current->known_branch) {
             $current->branch($branch);
         }
+
+        # mines propagates if the new level is 5 or deeper. any higher and we
+        # could've left the mines and entered the dungeon
+        if ($branch eq 'mines' && $current->z >= 5) {
+            $current->branch($branch);
+        }
     }
 };
 
