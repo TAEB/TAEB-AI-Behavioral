@@ -257,15 +257,35 @@ sub is_walkable {
     return $is_walkable{ $self->type };
 }
 
+=head2 update_lit :: ()
+
+Looks at the current glyph and position to make inferences about lighting
+state.
+
+=cut
+
 sub update_lit {
     my $self = shift;
 
-    $self->is_lit(1) if $self->glyph eq '.' && !$self->is_lit &&
-        (abs(TAEB->x - $self->x) > 1 || abs(TAEB->y - $self->y) > 1);
-        #FIXME when TAEB supports lamp usage
+    my $within_night_vision = abs(TAEB->x - $self->x) <= 1
+        && abs(TAEB->y - $self->y) <= 1;
+
+    # A square which is displayed as . must be lit from some source, unless
+    # it is right next to us.
+
+    $self->is_lit(1) if $self->glyph eq '.' && !$within_night_vision;
+
+    # If it was displayed as ., but turned to a space, it must not have been
+    # lit after all, or it would have stayed ..
+
     $self->is_lit(0) if $self->glyph eq ' ' && $self->floor_glyph eq '.';
 
+    # Corridors are lit if and only if they are brightly colored.
+
     $self->is_lit($self->color == 15) if $self->glyph eq '#';
+
+    # Other types of tiles cannot have light status easily determined.
+    # Fortunately, they are rare and we usually do not fight on them.
 }
 
 sub step_on {
