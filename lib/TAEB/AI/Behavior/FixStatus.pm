@@ -6,7 +6,7 @@ extends 'TAEB::AI::Behavior';
 my @can_fix = (
     "unicorn horn" => {
         refine    => { not_buc => 'cursed' },
-        statuses  => [qw/blind stun conf hallu/],
+        statuses  => [qw/blind stun conf hallu sick/],
         priority  => 100,
         action    => 'apply',
         args      => sub { item => shift },
@@ -53,6 +53,7 @@ sub prepare {
     my %c;
     $c{blind}       = TAEB->is_blind;
     $c{stun}        = TAEB->is_stunned;
+    $c{sick}        = TAEB->is_sick;
     $c{conf}        = TAEB->is_confused;
     $c{hallu}       = TAEB->is_hallucinating;
     $c{lycanthropy} = TAEB->is_lycanthropic;
