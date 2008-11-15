@@ -14,7 +14,7 @@ sub prepare {
         return 100;
     }
 
-    if (TAEB->nutrition < 400 && TAEB::Action::Eat->any_food) {
+    if (TAEB->nutrition < 200 && TAEB::Action::Eat->any_food) {
         $self->do(eat => item => 'any');
         $self->currently("Eating food.");
         return 50;
