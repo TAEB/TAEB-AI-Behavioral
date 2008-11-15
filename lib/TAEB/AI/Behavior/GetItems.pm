@@ -27,7 +27,7 @@ sub prepare {
 
         return if $tile->in_vault;
 
-        if ($tile->in_shop) {
+        if ($tile->in_shop || $tile->in_temple) {
             #this lets taeb go shopping once and keeps from
             #oscillating due to shk leaving LOS on items
             return 0 if $tile->stepped_on || $tile->glyph eq '@';
