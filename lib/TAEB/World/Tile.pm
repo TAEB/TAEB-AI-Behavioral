@@ -462,8 +462,8 @@ sub debug_line {
                         $self->elbereths;
     }
 
-    push @bits, 'lit'   if $self->is_lit == 1;
-    push @bits, 'unlit' if $self->is_lit == 0;
+    push @bits, 'lit'   if defined $self->is_lit && $self->is_lit;
+    push @bits, 'unlit' if defined $self->is_lit && !$self->is_lit;
     push @bits, 'shop'  if $self->in_shop;
     push @bits, 'vault' if $self->in_vault;
 
