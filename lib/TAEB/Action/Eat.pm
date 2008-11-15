@@ -68,10 +68,9 @@ sub msg_stopped_eating {
     #when we stop eating, check inventory or the floor for the "partly"
     #eaten leftovers.  post_responses will take care of removing the original
     #item from inventory
-    my $what = blessed $item && $item->slot ? 'inventory' : 'floor';
+    my $what = (blessed $item && $item->slot) ? 'inventory' : 'floor';
     TAEB->debug("Stopped eating $item from $what");
-    TAEB->enqueue_message(check =>
-                blessed $item && $item->slot ? 'inventory' : 'floor');
+    TAEB->enqueue_message(check => $what);
 
     return;
 }
