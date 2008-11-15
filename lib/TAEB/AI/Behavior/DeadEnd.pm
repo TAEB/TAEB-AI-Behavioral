@@ -10,7 +10,8 @@ sub prepare {
     my $searched = 0;
     my $walkable = 0;
 
-    return 0 unless TAEB->current_level->branch eq 'dungeons'
+    return 0 unless !TAEB->current_level->known_branch
+                 || TAEB->current_level->branch eq 'dungeons'
                  || TAEB->current_level->is_minetown;
 
     # rearrange these tiles into a loop and double it
