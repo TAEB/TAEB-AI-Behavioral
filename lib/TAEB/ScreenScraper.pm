@@ -440,7 +440,7 @@ our @msg_regex = (
     ],
     [
         qr/^You stop eating the (.*)\./ =>
-            ['check' => 'inventory'],
+            ['stopped_eating' => sub { $1 } ],
     ],
     [
         qr/You add the .* spell to your repertoire/ =>
