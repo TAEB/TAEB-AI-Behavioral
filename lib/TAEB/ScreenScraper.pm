@@ -251,7 +251,7 @@ our %msg_string = (
         ['level_message', 'vault'],
     "Your health currently feels amplified!" =>
         ['resistance_change', 'shock', 1],
-    "You feel insluated!" =>
+    "You feel insulated!" =>
         ['resistance_change', 'shock', 1],
     "You feel grounded in reality." =>
         ['resistance_change', 'shock', 1],
