@@ -61,6 +61,21 @@ sub respond_eat_what {
     return "\e\e\e";
 }
 
+sub msg_stopped_eating {
+    my $self = shift;
+    my $item = shift;
+
+    #when we stop eating, check inventory or the floor for the "partly"
+    #eaten leftovers.  post_responses will take care of removing the original
+    #item from inventory
+    my $what = blessed $item && $item->slot ? 'inventory' : 'floor';
+    TAEB->debug("Stopped eating $item from $what");
+    TAEB->enqueue_message(check =>
+                blessed $item && $item->slot ? 'inventory' : 'floor');
+
+    return;
+}
+
 sub post_responses {
     my $self = shift;
     my $item = $self->item;
@@ -70,6 +85,9 @@ sub post_responses {
     }
     else {
         $item = TAEB->new_item($item);
+        #This doesn't work well with a stack of corpses on the floor
+        #because maybe_is used my remove_floor_item tries to match quantity
+        TAEB->enqueue_message(remove_floor_item => $item);
     }
 
     my $old_nutrition = TAEB->nutrition;
