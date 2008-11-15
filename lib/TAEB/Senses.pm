@@ -123,7 +123,7 @@ has debt => (
 );
 
 has [
-    qw/poison_resistant cold_resistant fire_resistant shock_resistant/
+    qw/poison_resistant cold_resistant fire_resistant shock_resistant sleep_resistant disintegration_resistant/
 ] => (
     isa     => 'Bool',
     default => 0,
@@ -281,6 +281,20 @@ sub statuses {
         push @statuses, $status;
     }
     return @statuses;
+}
+
+sub resistances {
+    my $self = shift;
+    my @resistances;
+    my @attr = grep { $_->name =~ /_resistant$/ }
+               $self->meta->compute_all_applicable_attributes;
+
+    for my $attr (@attr) {
+        next unless $attr->get_value($self);
+        my ($resistance) = $attr->name =~ /(\w+)_resistant$/;
+        push @resistances, $resistance;
+    }
+    return @resistances;
 }
 
 sub update {
