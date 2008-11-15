@@ -295,6 +295,10 @@ our @msg_regex = (
                 TAEB->new_item($1); }],
     ],
     [
+        qr/^You feel no objects here\./,
+            ['clear_floor']
+    ],
+    [
         qr/^(. - .*?|\d+ gold pieces?)\.$/,
             ['got_item', sub { TAEB->new_item($1) }],
     ],
