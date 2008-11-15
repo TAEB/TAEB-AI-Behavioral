@@ -249,6 +249,12 @@ our %msg_string = (
         ['level_message', 'vault'],
     "You hear someone searching." =>
         ['level_message', 'vault'],
+    "Your health currently feels amplified!" =>
+        ['resistance_change', 'shock', 1],
+    "You feel insluated!" =>
+        ['resistance_change', 'shock', 1],
+    "You feel grounded in reality." =>
+        ['resistance_change', 'shock', 1],
 );
 
 our @msg_regex = (
@@ -524,6 +530,26 @@ our @msg_regex = (
         # which allows us to fix the mistaken speed.
         qr/^You feel yourself slow down.*\.$/ =>
             [status_change => very_fast => 0],
+    ],
+    [
+        qr/^You (?:be chillin'|feel a momentary chill)\.$/ =>
+            ['resistance_change', 'fire', 1],
+    ],
+    [
+        qr/^You feel (?:warm\!|full of hot air\.)$/ =>
+            ['resistance_change', 'cold', 1],
+    ],
+    [
+        qr/^You feel (?:very firm|totally together, man)\.$/ =>
+            ['resistance_change', 'disintegration', 1],
+    ],
+    [
+        qr/^You feel(?: especially)? (?:healthy|hardy)(?:\.|\!)$/ =>
+            ['resistance_change', 'poison', 1],
+    ],
+    [
+        qr/^You feel(?: wide)? awake(?:\.|\!)$/ =>
+            ['resistance_change', 'sleep', 1],
     ],
 );
 
