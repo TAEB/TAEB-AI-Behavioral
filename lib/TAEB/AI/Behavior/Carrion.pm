@@ -43,7 +43,7 @@ sub want_to_eat {
         $intrinsic = 1 if $item->$nice();
     }
 
-    for my $resist (qw/shock poison fire cold/) {
+    for my $resist (qw/shock poison fire cold sleep disintegration/) {
         my $prop = "${resist}_resistance";
         my $res  = "${resist}_resistant";
         $intrinsic = 1 if $item->$prop() && !TAEB->$res();
