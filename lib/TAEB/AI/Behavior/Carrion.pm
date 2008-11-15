@@ -27,6 +27,7 @@ sub want_to_eat {
         return 0 if $item->poisonous && !TAEB->senses->poison_resistant;
     }
 
+    return 0 if $item->stun;
     return 0 if $item->acidic && TAEB->hp <= 15;
     return 0 if $item->poisonous && !TAEB->senses->poison_resistant &&
         TAEB->hp <= 29;  # worst case is Str-dependant and usuallly milder
