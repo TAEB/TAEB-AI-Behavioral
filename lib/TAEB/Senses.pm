@@ -433,6 +433,17 @@ sub msg_status_change {
     }
 }
 
+sub msg_resistance_change {
+    my $self     = shift;
+    my $status   = shift;
+    my $now_have = shift;
+
+    my $method = "${status}_resistant";
+    TAEB->debug("resistance_change $method");
+    if ($self->can($method)) {
+        $self->$method($now_have);
+    }
+}
 sub msg_pit {
     my $self = shift;
     $self->msg_status_change(pit => @_);
