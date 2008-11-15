@@ -143,8 +143,7 @@ has in_zoo => (
 );
 
 has is_lit => (
-    isa           => 'Bool',
-    default       => 1,
+    isa           => 'Maybe[Bool]',
     documentation => "Is this tile probably lit?  Will usually be wrong except on floor and corridors.",
 );
 
@@ -463,7 +462,8 @@ sub debug_line {
                         $self->elbereths;
     }
 
-    push @bits, 'lit'   if $self->is_lit;
+    push @bits, 'lit'   if $self->is_lit == 1;
+    push @bits, 'unlit' if $self->is_lit == 0;
     push @bits, 'shop'  if $self->in_shop;
     push @bits, 'vault' if $self->in_vault;
 
@@ -668,6 +668,8 @@ sub lit_color {
 
     return $self->is_lit
          ? Curses::COLOR_PAIR(COLOR_BROWN) | Curses::A_BOLD
+         : !defined $self->is_lit
+         ? Curses::COLOR_PAIR(COLOR_BROWN)
          : Curses::COLOR_PAIR(COLOR_WHITE) | Curses::A_BOLD;
 }
 
