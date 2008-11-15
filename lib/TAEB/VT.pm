@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::VT;
 use TAEB::OO;
-extends 'Term::VT102';
+extends 'Term::VT102::ZeroBased';
 
 has topline => (
     isa => 'Str',
@@ -194,54 +194,6 @@ sub row_color {
         $attr[0] + 8*$attr[2];
     } $attrs =~ m{..}g;
 }
-
-around x => sub {
-    my $orig = shift;
-    $orig->(@_) - 1;
-};
-
-around y => sub {
-    my $orig = shift;
-    $orig->(@_) - 1;
-};
-
-around status => sub {
-    my $orig = shift;
-    my ($x, $y, @others) = $orig->(@_);
-    --$x;
-    --$y;
-    return ($x, $y, @others);
-};
-
-around row_attr => sub {
-    my $orig  = shift;
-    my $self  = shift;
-    my $row   = @_ ? 1 + shift : undef;
-    my $start = @_ ? 1 + shift : undef;
-    my $end   = @_ ? 1 + shift : undef;
-
-    $orig->($self, $row, $start, $end, @_);
-};
-
-around row_text => sub {
-    my $orig  = shift;
-    my $self  = shift;
-    my $row   = @_ ? 1 + shift : undef;
-    my $start = @_ ? 1 + shift : undef;
-    my $end   = @_ ? 1 + shift : undef;
-
-    $orig->($self, $row, $start, $end, @_);
-};
-
-around row_plaintext => sub {
-    my $orig  = shift;
-    my $self  = shift;
-    my $row   = @_ ? 1 + shift : undef;
-    my $start = @_ ? 1 + shift : undef;
-    my $end   = @_ ? 1 + shift : undef;
-
-    $orig->($self, $row, $start, $end, @_);
-};
 
 # we need to use Term::VT102's constructor
 __PACKAGE__->meta->make_immutable(inline_constructor => 0);

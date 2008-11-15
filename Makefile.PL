@@ -20,7 +20,7 @@ requires 'Module::Pluggable';
 requires 'Getopt::Whatever';
 
 # parse escape codes into an addressable screen
-requires 'Term::VT102';
+requires 'Term::VT102::ZeroBased';
 
 # print on an addressable screen
 requires 'Curses';
