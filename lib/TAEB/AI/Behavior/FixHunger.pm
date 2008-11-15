@@ -26,7 +26,7 @@ sub prepare {
 sub urgencies {
     return {
         100 => "praying for food, while fainting",
-         50 => "eating food because nutrition is < 400",
+         50 => "eating food because nutrition is < 200",
     },
 }
 
