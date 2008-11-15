@@ -13,11 +13,6 @@ sub unlock_action {
                 || TAEB->find_item('lock pick')
                 || TAEB->find_item('credit card');
 
-    # No check for watch, that causes oscillations
-    return if TAEB->current_level->is_minetown
-           && $locktool
-           && !$locktool->match(identity => qr/key/);
-
     return (unlock =>
         implement => $locktool,
         currently => "Unlocking a door",
@@ -41,6 +36,13 @@ sub door_handler {
         my $door = shift;
 
         return unless $door->isa('TAEB::World::Tile::Door');
+
+        my $locktool = $action_args{implement};
+        # No check for watch, that causes oscillations
+        return if TAEB->current_level->is_minetown
+               && !$door->any_adjacent(sub { shift->type eq 'corridor' })
+               && $locktool
+               && !$locktool->match(identity => qr/key/);
 
         if ($door->blocked_door) {
             if ($door->type eq 'opendoor') {
