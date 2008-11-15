@@ -127,6 +127,10 @@ sub draw_botl {
         push @pieces, '$' . TAEB->gold;
         push @pieces, 'P:' . TAEB->pathfinds;
 
+        my $resistances = join '', map {  /^(c|f|p|d|sl|sh)\w+/ } TAEB->resistances;
+        push @pieces, 'R:' . $resistances
+            if $resistances;
+
         my $statuses = join '', map { ucfirst substr $_, 0, 2 } TAEB->statuses;
         push @pieces, '[' . $statuses . ']'
             if $statuses;
