@@ -626,9 +626,9 @@ sub msg_game_started {
                                || $self->role eq 'Bar'
                                || $self->race eq 'Orc';
 
-    $self->intrinsic_fast(1) if $self->role eq 'Arc'
-                             || $self->role eq 'Mon'
-                             || $self->role eq 'Sam';
+    $self->is_fast(1) if $self->role eq 'Arc'
+                      || $self->role eq 'Mon'
+                      || $self->role eq 'Sam';
 }
 
 sub msg_vault_guard {
