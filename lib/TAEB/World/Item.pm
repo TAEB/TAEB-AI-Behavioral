@@ -106,7 +106,7 @@ sub new_item {
         $wield, $wear, $price) = $raw =~
         m{^                                                # anchor the regex
           (?:([\w\#\$])\s[+-]\s)?\s*                       # inventory slot
-          ([Aa]n?|[Tt]he|\d+)?\s*                          # number
+          (\b(?:[Aa]n?|[Tt]he|\d+)\b)?\s*                  # number
           (blessed|(?:un)?cursed|(?:un)?holy)?\s*          # cursedness
           (greased)?\s*                                    # greasy
           (poisoned)?\s*                                   # poisoned

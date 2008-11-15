@@ -63,4 +63,6 @@ use TAEB::Test::Items (
      {appearance => "gray stone", identity => "Heart of Ahriman"}],
     ["v - a statue of a lichen",
      {appearance => "statue of a lichen", identity => "statue of a lichen"}],
+    ["ape corpse",
+     {appearance => "ape corpse", identity => "ape corpse"}],
 );
