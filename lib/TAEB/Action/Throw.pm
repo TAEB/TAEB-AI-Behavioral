@@ -66,8 +66,8 @@ sub done {
         $tile->is_walkable(1)
             or last;
 
-        # . tiles would show the projectile we threw
-        next if $tile->glyph eq '.';
+        # these tiles would show the projectile we threw
+        next if $tile->glyph =~ /[\.\^<>_\\{#]/;
 
         $tile->set_interesting(1);
 
