@@ -1044,8 +1044,8 @@ sub send_messages {
         }
 
         if (@messages) {
-            my @msg_names = map { $_->[0] } @messages;
-            TAEB->debug("Sending '@msg_names' in response to '$line'");
+            my $msg_names = join ', ', map { $_->[0] } @messages;
+            TAEB->debug("Sending '$msg_names' in response to '$line'");
             TAEB->enqueue_message(@$_) for @messages;
         }
         else {
