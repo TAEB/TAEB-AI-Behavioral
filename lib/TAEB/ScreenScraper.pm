@@ -228,7 +228,9 @@ our %msg_string = (
     "You see no objects here." =>
         ['clear_floor'],
     "You hear the shrill sound of a guard's whistle." =>
-        ['guard_whistle'],
+        ['angry_watch'],
+    "You see an angry guard approaching!" =>
+        ['angry_watch'],
     "You are slowing down." =>
         ['status_change', 'stoning', 1],
     "Your limbs are stiffening." =>

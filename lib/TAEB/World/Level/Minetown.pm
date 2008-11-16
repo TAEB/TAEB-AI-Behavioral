@@ -13,7 +13,7 @@ __PACKAGE__->meta->add_method("is_$_" => sub { 0 })
 
 sub is_minetown { 1 }
 
-sub msg_guard_whistle {
+sub msg_angry_watch {
     my $self = shift;
     $self->angry_watch(1);
 }
