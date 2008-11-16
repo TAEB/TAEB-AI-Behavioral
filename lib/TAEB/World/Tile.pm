@@ -839,7 +839,7 @@ sub shows_items {
     return 0 if !$self->is_lit;
 
     # XXX: use type so this works on Rogue
-    return $self->glyph =~ /[\.\^<>_\\{#]/);
+    return $self->glyph =~ /[\.\^<>_\\{#]/;
 }
 
 __PACKAGE__->meta->make_immutable;
