@@ -18,7 +18,7 @@ sub prepare {
     return 0 unless $self->can_make_excalibur;
 
     # are we eligible to dip for Excalibur now?
-    return 0 unless TAEB->level >= 7; # actual lower limit is 5, but fast helps
+    return 0 unless TAEB->level >= 5;
 
     my $longsword = TAEB->find_item("long sword")
         or return 0;
