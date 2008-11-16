@@ -26,6 +26,7 @@ while (defined (my $file = $iter->())) {
         next if /^=head/ .. /^=cut/;
         next if /^\s*#/;
         next if $file =~ /\bdoc\b/;
+        last if $file =~ /__END__/;
 
         ++$with_know;
         next if $file =~ /\bSpoilers?\b/;
