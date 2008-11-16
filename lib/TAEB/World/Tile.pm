@@ -830,6 +830,18 @@ sub is_empty {
     return $self->glyph eq $self->floor_glyph;
 }
 
+=head2 shows_items -> Bool
+
+=cut
+
+sub shows_items {
+    my $self = shift;
+    return 0 if !$self->is_lit;
+
+    # XXX: use type so this works on Rogue
+    return $self->glyph =~ /[\.\^<>_\\{#]/);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

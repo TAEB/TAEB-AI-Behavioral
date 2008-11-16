@@ -67,8 +67,7 @@ sub done {
             or last;
 
         # these tiles would show the projectile we threw
-        next if $tile->glyph eq '.'
-             || ($tile->is_lit && $tile->glyph =~ /[\.\^<>_\\{#]/);
+        next if $tile->shows_items;
 
         $tile->set_interesting(1);
 
