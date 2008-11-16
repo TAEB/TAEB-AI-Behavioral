@@ -16,11 +16,23 @@ for it. Note that monsters and items (and any other miss) will return
 
 =cut
 
+our %rogue_glyphs = (
+    ' '  => 'rock',
+    '+'  => 'opendoor',
+    '%'  => 'stairsdown',
+    '^'  => 'trap',
+    '"'  => 'trap',
+    '|'  => 'wall',
+    '-'  => 'wall',
+    '.'  => 'floor',
+    '#'  => 'corridor',
+);
+
 sub glyph_to_type {
     my $self  = shift;
     my $glyph = shift;
 
-    return $TAEB::Util::rogue_glyphs{$glyph} || 'obscured';
+    return $rogue_glyphs{$glyph} || 'obscured';
 }
 
 =head2 glyph_is_monster str -> bool

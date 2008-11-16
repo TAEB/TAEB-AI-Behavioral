@@ -59,18 +59,6 @@ our %glyphs = (
     #'#'  => 'air', # who cares, no difference
 );
 
-our %rogue_glyphs = (
-    ' '  => 'rock',
-    '+'  => 'opendoor',
-    '%'  => 'stairsdown',
-    '^'  => 'trap',
-    '"'  => 'trap',
-    '|'  => 'wall',
-    '-'  => 'wall',
-    '.'  => 'floor',
-    '#'  => 'corridor',
-);
-
 # except for traps
 # miss =>? deal with it
 # traps are a bit hairy. with some remapping magic could rectify..
