@@ -263,8 +263,14 @@ our @msg_regex = (
 	        ['dungeon_feature', 'bad staircase'],
     ],
     [
+        # NetHack will not send "There are no items here." if there is a
+        # terrain feature at the current location.  To work around this, we
+        # need to clear the floor on receiving notices of terrain... HOWEVER
+        # if there were a lot of items, we handle menus before messages.  To
+        # avoid a big mess, we skip the clear in that case.
         qr/^There is a.* here.$/,
-            ['clear_floor'],
+            [sub { TAEB->scraper->saw_floor_list_this_step ?
+                       'null' : 'clear_floor' }],  # is this the best way?
     ],
     [
         qr/^There is a (staircase (?:up|down)|fountain|sink|grave) here\.$/,
@@ -644,6 +650,11 @@ has calls_this_turn => (
     },
 );
 
+has saw_floor_list_this_step => (
+    isa       => 'Bool',
+    default   => 0,
+);
+
 sub scrape {
     my $self = shift;
 
@@ -702,6 +713,12 @@ sub msg_turn {
     my $self = shift;
 
     $self->reset_calls_this_turn;
+}
+
+sub msg_step {
+    my $self = shift;
+
+    $self->saw_floor_list_this_step(0);
 }
 
 sub clear {
@@ -782,6 +799,7 @@ sub handle_more_menus {
     ) {
         $self->messages($self->messages . '  ' . TAEB->topline) if $line_3;
         TAEB->enqueue_message('clear_floor');
+        $self->saw_floor_list_this_step(1);
         my $skip = 1;
         $each = sub {
             # skip the items until we get "Things that are here" which
