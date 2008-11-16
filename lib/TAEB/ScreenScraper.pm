@@ -270,7 +270,7 @@ our @msg_regex = (
         # avoid a big mess, we skip the clear in that case.
         qr/^There is a.* here.$/,
             [sub { TAEB->scraper->saw_floor_list_this_step ?
-                       'null' : 'clear_floor' }],  # is this the best way?
+                       '' : 'clear_floor' }],  # is this the best way?
     ],
     [
         qr/^There is a (staircase (?:up|down)|fountain|sink|grave) here\.$/,

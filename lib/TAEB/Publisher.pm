@@ -44,6 +44,8 @@ sub enqueue_message {
     my $self = shift;
     my $msgname = shift;
 
+    return unless $msgname;
+
     TAEB->debug("Queued message $msgname.");
 
     push @{ $self->queued_messages }, ["msg_$msgname", @_];
