@@ -1025,28 +1025,34 @@ sub send_messages {
     my $self = shift;
 
     for my $line ($self->all_messages) {
-        TAEB->debug("Received message: $line");
-        my $matched = 0;
+        my @messages;
 
         if (exists $msg_string{$line}) {
-            $matched = 1;
-            TAEB->enqueue_message(
+            push @messages, [
                 map { ref($_) eq 'CODE' ? $_->() : $_ }
                 @{ $msg_string{$line} }
-            );
+            ];
         }
 
         for my $something (@msg_regex) {
             if ($line =~ $something->[0]) {
-                $matched = 1;
-                TAEB->enqueue_message(
+                push @messages, [
                     map { ref($_) eq 'CODE' ? $_->() : $_ }
                     @{ $something->[1] }
-                );
+                ];
             }
         }
 
-        push @{ $self->parsed_messages }, [$line => $matched];
+        if (@messages) {
+            my @msg_names = map { $_->[0] } @messages;
+            TAEB->debug("Sending '@msg_names' in response to '$line'");
+            TAEB->enqueue_message(@$_) for @messages;
+        }
+        else {
+            TAEB->debug("I don't understand this message: $line");
+        }
+
+        push @{ $self->parsed_messages }, [$line => scalar @messages];
         push @{ $self->old_messages }, $line;
         shift @{ $self->old_messages } if @{ $self->old_messages } > 100;
     }
