@@ -45,6 +45,7 @@ sub numeric_urgency {
         normal      => 30,
         unimportant => 20,
         fallback    => 10,
+        none        => 0,
     );
 
     my $urg_val = $urgencies{$urgency};
@@ -66,10 +67,10 @@ sub find_urgency {
     my $behavior = $self->behaviors->{$name};
     $behavior->reset_urgency;
     $behavior->prepare;
-    my $urgency  = $behavior->urgency;
+    my $urgency  = $behavior->urgency || 'none';
     TAEB->debug("The $name behavior has urgency $urgency.");
     TAEB->warning("${behavior}'s urgencies method doesn't list $urgency")
-        unless exists $behavior->urgencies->{$urgency} || !defined $urgency;
+        unless exists $behavior->urgencies->{$urgency} || $urgency eq 'none';
 
     return $self->numeric_urgency($urgency);
 }
