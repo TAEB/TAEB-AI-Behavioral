@@ -73,7 +73,8 @@ Subclasses should override this to return a prioritized list of behaviors.
 =cut
 
 sub sort_behaviors {
-    TAEB->error("Personalities must override sort_behaviors");
+    my $class = blessed($_[0]) || $_[0];
+    TAEB->error("$class must override sort_behaviors");
 }
 
 =head2 next_behavior -> Behavior
