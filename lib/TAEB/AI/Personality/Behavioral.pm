@@ -131,54 +131,6 @@ sub behavior_action {
     return $action;
 }
 
-=head2 sort_behaviors -> HashRef[Int, Int, Int, Str]
-
-This will prepare a report that tells you exactly how this personality
-prioritizes all of its behaviors. This is used for answering the question, "Why
-did TAEB do X instead of Y?"
-
-The return value is a hashref of action names mapped to:
-
-=over 4
-
-=item Weighted urgency
-
-=item Unweighted urgency (from behavior)
-
-=item Weight multiplier (from personality)
-
-=item Behavior name
-
-=back
-
-=cut
-
-sub sort_behaviors {
-    my $self = shift;
-    my $weights = $self->weight_behaviors;
-    my %action_weight;
-
-    # apply weights to urgencies, find maximum
-    for my $behavior (keys %$weights) {
-        my $weight = $weights->{$behavior};
-        my $possibilities = $self->behaviors->{$behavior}->urgencies;
-        for my $urgency (keys %$possibilities) {
-            my $action = $possibilities->{$urgency};
-            my $weighted = $urgency * $weight;
-
-            if (ref($action) ne 'ARRAY') {
-                $action = [$action];
-            }
-
-            for (@$action) {
-                $action_weight{$_} = [$weighted, $urgency, $weight, $behavior];
-            }
-        }
-    }
-
-    return \%action_weight;
-}
-
 =head2 autoload_behaviors -> (Str)
 
 Returns a list of behaviors that should be autoloaded. Defaults to the keys
