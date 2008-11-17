@@ -64,6 +64,7 @@ sub find_urgency {
     my $name = shift;
 
     my $behavior = $self->behaviors->{$name};
+    $behavior->reset_urgency;
     $behavior->prepare;
     my $urgency  = $behavior->urgency;
     TAEB->debug("The $name behavior has urgency $urgency.");

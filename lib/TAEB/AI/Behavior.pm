@@ -11,7 +11,8 @@ has action => (
 );
 
 has urgency => (
-    isa => 'TAEB::Type::Urgency',
+    isa     => 'TAEB::Type::Urgency',
+    clearer => 'reset_urgency',
 );
 
 =head2 prepare -> None
