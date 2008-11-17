@@ -12,31 +12,32 @@ has buff_level => (
 
 sub prepare {
     my $self = shift;
-    my ($max_spell, $max_priority) = (undef, 0);
+    my ($max_spell, $max_urgency) = (undef, 0);
 
-    return URG_NONE unless TAEB->current_level->has_enemies;
+    return unless TAEB->current_level->has_enemies;
 
     for ($self->use_spells) {
         my $spell = TAEB->find_castable($_)
             or next;
-        my $priority = $self->buff_level->{$spell->name} ? URG_FALLBACK
-                                                         : URG_UNIMPORTANT;
+        my $urgency = $self->buff_level->{$spell->name} ? 'fallback'
+                                                        : 'unimportant';
 
-        ($max_spell, $max_priority) = ($spell, $priority)
-            if $priority > $max_priority;
+        ($max_spell, $max_urgency) = ($spell, $urgency)
+            if $self->numeric_urgency($urgency) >
+               $self->numeric_urgency($max_urgency);
     }
 
-    return URG_NONE if $max_priority == URG_NONE;
+    return if $max_urgency == 0;
 
     $self->do(cast => spell => $max_spell);
     $self->currently("Casting ".($max_spell->name).".");
-    return $max_priority;
+    $self->urgency($max_urgency);
 }
 
 sub urgencies {
     return {
-       URG_UNIMPORTANT, "casting the first hit of a buff spell",
-       URG_FALLBACK,    "casting a subsequent hit of a buff spell",
+       unimportant => "casting the first hit of a buff spell",
+       fallback    => "casting a subsequent hit of a buff spell",
     },
 }
 

@@ -11,22 +11,22 @@ sub prepare {
         TAEB->current_tile->type ne 'altar') { # XXX: Should check if altar is coaligned.
         $self->do("pray");
         $self->currently("Praying for food.");
-        return URG_CRITICAL;
+        $self->urgency('critical');
+        return;
     }
 
     if (TAEB->nutrition < 200 && TAEB::Action::Eat->any_food) {
         $self->do(eat => item => 'any');
         $self->currently("Eating food.");
-        return URG_IMPORTANT;
+        $self->urgency('important');
+        return;
     }
-
-    return URG_NONE;
 }
 
 sub urgencies {
     return {
-        URG_CRITICAL,  "praying for food, while fainting",
-        URG_IMPORTANT, "eating food because nutrition is < 200",
+        critical  => "praying for food, while fainting",
+        important => "eating food because nutrition is < 200",
     },
 }
 

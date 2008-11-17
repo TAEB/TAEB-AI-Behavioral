@@ -7,14 +7,13 @@ sub prepare {
     my $self = shift;
 
     my @items = grep { $self->pickup($_) } TAEB->inventory->items;
-    return URG_NONE unless @items;
+    return unless @items;
 
     my $item = shift @items;
 
     $self->currently("quaffing a beneficial potion");
     $self->do(quaff => from => $item);
-
-    return URG_UNIMPORTANT;
+    $self->urgency('unimportant');
 }
 
 sub pickup {
@@ -30,7 +29,7 @@ sub pickup {
 
 sub urgencies {
     return {
-       URG_UNIMPORTANT => "quaffing a benefical potion",
+       unimportant => "quaffing a benefical potion",
     },
 }
 

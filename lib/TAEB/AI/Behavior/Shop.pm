@@ -15,24 +15,25 @@ sub prepare {
         if (any { $_->price <= TAEB->gold } @cart) {
             $self->currently("Paying off our " . TAEB->debt . " debt");
             $self->do(pay => item => 'any');
-            return URG_UNIMPORTANT;
+            $self->urgency('unimportant');
+            return;
         }
 
         # every item in our cart is greater than our current gold :(
         if (@cart) {
             $self->currently("Dropping items since I can't afford them");
             $self->do(drop => items => \@cart);
-            return URG_UNIMPORTANT;
+            $self->urgency('unimportant');
+            return;
         }
         #try to pay for used item/damages debt
         if (!@cart && TAEB->debt > 0) {
             $self->currently("Paying off our " . TAEB->debt . " debt");
             $self->do(pay => item => 'any');
-            return URG_UNIMPORTANT;
+            $self->urgency('unimportant');
+            return;
 	}
     }
-
-    return URG_NONE;
 }
 
 sub drop {
@@ -59,7 +60,7 @@ sub drop {
 
 sub urgencies {
     return {
-        URG_UNIMPORTANT, "dropping/paying for an unpaid item",
+        unimportant => "dropping/paying for an unpaid item",
      }
 }
 

@@ -52,7 +52,8 @@ sub door_handler {
                         my ($self, $door, $dir) = @_;
                         $self->do(close => direction => $dir);
                         $self->currently("Closing door");
-                        return URG_UNIMPORTANT;
+                        $self->urgency('unimportant');
+                        return;
                     };
                 }
             }
@@ -61,7 +62,8 @@ sub door_handler {
                     my ($self, $door, $dir) = @_;
                     $self->do(kick => direction => $dir);
                     $self->currently("Kicking down blocked door");
-                    return URG_UNIMPORTANT;
+                    $self->urgency('unimportant');
+                    return;
                 };
             }
         }
@@ -72,7 +74,8 @@ sub door_handler {
                         my ($self, $door, $dir) = @_;
                         $self->do($action => %action_args, direction => $dir);
                         $self->currently($currently);
-                        return URG_UNIMPORTANT;
+                        $self->urgency('unimportant');
+                        return;
                     };
                 }
             }
@@ -83,18 +86,17 @@ sub door_handler {
                 my ($self, $door, $dir) = @_;
                 $self->do(open => direction => $dir);
                 $self->currently("Trying to open a door");
-                return URG_UNIMPORTANT;
+                $self->urgency('unimportant');
+                return;
             };
         }
-
-        return;
     }
 }
 
 sub prepare {
     my $self = shift;
 
-    return URG_NONE unless TAEB->can_open;
+    return unless TAEB->can_open;
 
     my $door_handler = $self->door_handler;
 
@@ -113,7 +115,7 @@ sub prepare {
         }
     }
 
-    return URG_NONE unless any { $door_handler->($_) }
+    return unless any { $door_handler->($_) }
                   TAEB->current_level->tiles_of('opendoor', 'closeddoor');
 
     my $path = TAEB::World::Path->first_match(sub {
@@ -125,8 +127,8 @@ sub prepare {
 
 sub urgencies {
     return {
-        URG_UNIMPORTANT, "opening an adjacent door",
-        URG_FALLBACK,    "path to a door",
+        unimportant => "opening an adjacent door",
+        fallback    => "path to a door",
     },
 }
 

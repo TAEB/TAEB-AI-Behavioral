@@ -13,16 +13,17 @@ sub use_wands {
 sub prepare {
     my $self = shift;
 
-    return URG_NONE unless TAEB->current_level->has_enemies;
+    return unless TAEB->current_level->has_enemies;
 
     my ($spell, $wand);
-    my $urgency = URG_NONE;
     for ($self->use_spells) {
         $spell = TAEB->find_castable($_);
         next unless $spell;
-        $urgency = $self->try_to_cast(spell => $spell);
-        TAEB->debug("Considering spell $spell, urgency $urgency");
-        return $urgency if $urgency > URG_NONE;
+        TAEB->debug("Considering spell $spell");
+        if ($self->try_to_cast(spell => $spell)) {
+            $self->urgency('normal');
+            return;
+        }
     }
 
     unless ($spell) {
@@ -32,11 +33,13 @@ sub prepare {
                              charges  => sub { shift > 0 });
             });
             next unless $wand;
-            $urgency = $self->try_to_cast(wand => $wand);
-            return $urgency if $urgency > URG_NONE;
+            TAEB->debug("Considering wand $wand");
+            if ($self->try_to_cast(wand => $wand)) {
+                $self->urgency('normal');
+                return;
+            }
         }
     }
-    return URG_NONE;
 }
 
 sub try_to_cast {
@@ -62,18 +65,18 @@ sub try_to_cast {
     );
 
     # no monster found
-    return URG_NONE if !$direction;
+    return 0 if !$direction;
 
     if ($spell) {
         $self->do(cast => spell => $spell, direction => $direction);
         $self->currently("Casting ".$spell->name." at a monster");
-        return URG_NORMAL;
+        return 1;
     }
 
     if ($wand) {
         $self->do(zap => item => $wand, direction => $direction);
         $self->currently("Zapping a ".$wand->identity." at a monster");
-        return URG_NORMAL;
+        return 1;
     }
 
     return 0;
@@ -81,7 +84,7 @@ sub try_to_cast {
 
 sub urgencies {
     return {
-        URG_NORMAL, "casting an attack spell or zapping an attack wand at a monster",
+        normal => "casting an attack spell or zapping an attack wand at a monster",
     };
 }
 

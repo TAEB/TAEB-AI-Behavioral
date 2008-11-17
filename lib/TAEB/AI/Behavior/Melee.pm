@@ -9,10 +9,11 @@ sub prepare {
     if (TAEB->is_engulfed) {
         $self->do(melee => direction => 'j');
         $self->currently("Attacking our engulfer.");
-        return URG_NORMAL;
+        $self->urgency('normal');
+        return;
     }
 
-    return URG_NONE unless TAEB->current_level->has_enemies;
+    return unless TAEB->current_level->has_enemies;
 
     # if there's an adjacent monster, attack it
     my $found_monster;
@@ -30,7 +31,7 @@ sub prepare {
             $found_monster = 1;
         }
     });
-    return URG_NORMAL if $found_monster;
+    return $self->urgency('normal') if $found_monster;
 
     # look for the nearest tile with a monster
     my $path = TAEB::World::Path->first_match(
@@ -51,8 +52,8 @@ sub prepare {
 
 sub urgencies {
     return {
-        URG_NORMAL,   "attacking an adjacent monster",
-        URG_FALLBACK, "path to the nearest monster",
+        normal   => "attacking an adjacent monster",
+        fallback => "path to the nearest monster",
     },
 }
 

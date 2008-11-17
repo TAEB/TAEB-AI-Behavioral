@@ -20,20 +20,20 @@ sub prepare {
     }, class => 'weapon');
     # XXX: need to handle switching from barehanded to weapon and back
     if (blessed $best_weapon) {
-        return URG_NONE if $best_weapon->match(slot => $current_weapon->slot);
+        return if $best_weapon->match(slot => $current_weapon->slot);
     }
     else {
-        return URG_NONE if $best_weapon eq $current_weapon;
+        return if $best_weapon eq $current_weapon;
     }
 
     $self->do(wield => weapon => $best_weapon);
     $self->currently("Equipping a better weapon");
-    return URG_UNIMPORTANT;
+    $self->urgency('unimportant');
 }
 
 sub urgencies {
     return {
-        URG_UNIMPORTANT, "equipping a better weapon",
+        unimportant => "equipping a better weapon",
     }
 }
 

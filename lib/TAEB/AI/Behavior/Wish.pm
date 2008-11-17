@@ -11,16 +11,16 @@ sub prepare {
                      charges  => [undef, sub { shift > 0 }]);
     });
 
-    return URG_NONE unless $wand;
+    return unless $wand;
 
     $self->do(zap => item => $wand);
     $self->currently("Zapping a wand of wishing");
-    return URG_UNIMPORTANT;
+    $self->urgency('unimportant');
 }
 
 sub urgencies {
     return {
-        URG_UNIMPORTANT, "zapping a wand of wishing for a wish",
+        unimportant => "zapping a wand of wishing for a wish",
     };
 }
 

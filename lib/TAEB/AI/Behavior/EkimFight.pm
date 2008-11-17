@@ -9,10 +9,11 @@ sub prepare {
     if (TAEB->is_engulfed) {
         $self->do(melee => direction => 'j');
         $self->currently("Attacking our engulfer.");
-        return URG_NORMAL;
+        $self->urgency('normal');
+        return;
     }
 
-    return URG_NONE unless TAEB->current_level->has_enemies;
+    return unless TAEB->current_level->has_enemies;
 
     # look for the nearest tile with a monster
     # XXX: this must be a walking distance, not teleport or something
@@ -23,16 +24,17 @@ sub prepare {
     );
 
     # there's a monster on the map, but we don't know how to reach it
-    return URG_NONE unless $path && $path->path;
+    return unless $path && $path->path;
 
     # monster is far enough away to be insignificant
-    return URG_NONE if length($path->path) > 8;
+    return if length($path->path) > 8;
 
     # if we have fewer than three Elbereths, write another
     if (TAEB->can_engrave && TAEB->elbereth_count < 3) {
         $self->write_elbereth;
         $self->currently("Writing Elbereth in preparation for combat.");
-        return URG_UNIMPORTANT;
+        $self->urgency('unimportant');
+        return;
     }
 
     # if there's an adjacent monster, attack it
@@ -45,20 +47,20 @@ sub prepare {
             $found_monster = 1;
         }
     });
-    return URG_NORMAL if $found_monster;
+    return $self->urgency('normal') if $found_monster;
 
-    return URG_NONE unless TAEB->can_engrave;
+    return unless TAEB->can_engrave;
 
     # not sure what happened, so just write Elbereth
     $self->write_elbereth;
     $self->currently("Writing extra Elbereths.");
-    return URG_UNIMPORTANT;
+    $self->urgency('unimportant');
 }
 
 sub urgencies {
     return {
-        URG_NORMAL,      "attacking a monster with Elbereth",
-        URG_UNIMPORTANT, "writing Elbereth in preparation for combat",
+        normal      => "attacking a monster with Elbereth",
+        unimportant => "writing Elbereth in preparation for combat",
     },
 }
 

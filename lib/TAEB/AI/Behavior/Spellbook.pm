@@ -7,14 +7,13 @@ sub prepare {
     my $self = shift;
 
     my @items = grep { $self->pickup($_) && $_->difficult < TAEB->level } TAEB->inventory->items;
-    return URG_NONE unless @items;
+    return unless @items;
 
     my $item = shift @items;
 
     $self->currently("Reading a spellbook");
     $self->do(read => item => $item);
-
-    return URG_UNIMPORTANT;
+    $self->urgency('unimportant');
 }
 
 sub pickup {
@@ -31,7 +30,7 @@ sub pickup {
 
 sub urgencies {
     return {
-       URG_UNIMPORTANT, "reading a spellbook",
+       unimportant => "reading a spellbook",
     },
 }
 

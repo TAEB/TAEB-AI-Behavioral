@@ -6,11 +6,11 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    return URG_NONE unless TAEB->current_level->has_enemies;
+    return unless TAEB->current_level->has_enemies;
 
     # do we have a projectile to throw?
     my $projectile = TAEB->inventory->has_projectile;
-    return URG_NONE unless defined $projectile;
+    return unless defined $projectile;
 
     my ($direction, $distance, $tile) = TAEB->current_level->radiate(
         sub {
@@ -28,9 +28,9 @@ sub prepare {
     );
 
     # no monster found
-    return URG_NONE if !$direction;
+    return if !$direction;
 
-    return URG_NONE if $tile->in_shop;
+    return if $tile->in_shop;
 
     $self->do(throw =>
         item        => $projectile,
@@ -38,7 +38,7 @@ sub prepare {
         target_tile => $tile,
     );
     $self->currently("Throwing a projectile at a monster.");
-    return URG_NORMAL;
+    $self->urgency('normal');
 }
 
 sub pickup {
@@ -53,7 +53,7 @@ sub pickup {
 
 sub urgencies {
     return {
-        URG_NORMAL => "throwing a projectile weapon at a monster",
+        normal => "throwing a projectile weapon at a monster",
     };
 }
 

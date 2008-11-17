@@ -25,13 +25,14 @@ sub prepare {
         else {
             die "I don't know how to handle traversing tile $current!";
         }
-        return URG_FALLBACK;
+        $self->urgency('fallback');
+        return;
     }
 
     for (@exits) {
         if (my $path = TAEB::World::Path->calculate_path($_, why => "Explore/Exit")) {
             my $p = $self->if_path($path => "Heading to an unexplored exit");
-            return $p if $p;
+            return if $self->urgency;
         }
     }
 
@@ -41,7 +42,7 @@ sub prepare {
 
 sub urgencies {
     return {
-        URG_FALLBACK, "path to an unexplored square",
+        fallback => "path to an unexplored square",
     },
 }
 
