@@ -17,7 +17,7 @@ sub prepare {
     if ($path && $path->path eq '') {
         $self->currently("Searching adjacent walls and rock");
         $self->do('search');
-        return 100;
+        return URG_FALLBACK;
     }
 
     $self->if_path($path => "Heading to a search hotspot");
@@ -25,8 +25,7 @@ sub prepare {
 
 sub urgencies {
     return {
-        100 => "searching adjacent walls and rock",
-         50 => "path to an unsearched wall",
+        URG_FALLBACK, "searching adjacent walls and rock, or pathing to them",
     }
 }
 

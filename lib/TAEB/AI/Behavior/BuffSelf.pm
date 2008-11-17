@@ -14,18 +14,19 @@ sub prepare {
     my $self = shift;
     my ($max_spell, $max_priority) = (undef, 0);
 
-    return 0 unless TAEB->current_level->has_enemies;
+    return URG_NONE unless TAEB->current_level->has_enemies;
 
     for ($self->use_spells) {
         my $spell = TAEB->find_castable($_)
             or next;
-        my $priority = $self->buff_level->{$spell->name} ? 50 : 100;
+        my $priority = $self->buff_level->{$spell->name} ? URG_FALLBACK
+                                                         : URG_UNIMPORTANT;
 
         ($max_spell, $max_priority) = ($spell, $priority)
             if $priority > $max_priority;
     }
 
-    return 0 if $max_priority == 0;
+    return URG_NONE if $max_priority == URG_NONE;
 
     $self->do(cast => spell => $max_spell);
     $self->currently("Casting ".($max_spell->name).".");
@@ -34,8 +35,8 @@ sub prepare {
 
 sub urgencies {
     return {
-       100 => "casting the first hit of a buff spell",
-        50 => "casting a subsequent hit of a buff spell",
+       URG_UNIMPORTANT, "casting the first hit of a buff spell",
+       URG_FALLBACK,    "casting a subsequent hit of a buff spell",
     },
 }
 

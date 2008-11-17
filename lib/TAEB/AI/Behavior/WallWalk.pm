@@ -5,7 +5,7 @@ extends 'TAEB::AI::Behavior';
 
 sub prepare {
     my $self = shift;
-    return 0 if (TAEB->current_tile->type ne 'floor');
+    return URG_NONE if (TAEB->current_tile->type ne 'floor');
 
     # This will currently end up taking steps into an empty doorway
     # Not really that big of an issue
@@ -32,12 +32,12 @@ sub prepare {
             }
         }
     });
-   return $target ? 100 : 0;
+   return $target ? URG_FALLBACK : URG_NONE;
 }
 
 sub urgencies {
     return {
-        100 => "wallwalking in a dark room",
+        URG_FALLBACK, "wallwalking in a dark room",
     },
 }
 

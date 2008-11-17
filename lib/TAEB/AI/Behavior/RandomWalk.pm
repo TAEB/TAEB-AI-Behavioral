@@ -12,17 +12,17 @@ sub prepare {
         push @possibilities, $dir if $tile->is_walkable;
     });
 
-    return 0 if !@possibilities;
+    return URG_NONE if !@possibilities;
 
     $self->do(move => direction => $possibilities[rand @possibilities]);
-    return 100;
+    return URG_FALLBACK;
 }
 
 sub currently { "Randomly walking" }
 
 sub urgencies {
     return {
-        100 => "random walk!",
+        URG_FALLBACK, "random walk!",
     },
 }
 

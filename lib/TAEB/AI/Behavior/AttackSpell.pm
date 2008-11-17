@@ -13,16 +13,16 @@ sub use_wands {
 sub prepare {
     my $self = shift;
 
-    return 0 unless TAEB->current_level->has_enemies;
+    return URG_NONE unless TAEB->current_level->has_enemies;
 
     my ($spell, $wand);
-    my $urgency = 0;
+    my $urgency = URG_NONE;
     for ($self->use_spells) {
         $spell = TAEB->find_castable($_);
         next unless $spell;
         $urgency = $self->try_to_cast(spell => $spell);
         TAEB->debug("Considering spell $spell, urgency $urgency");
-        return $urgency if $urgency > 0;
+        return $urgency if $urgency > URG_NONE;
     }
 
     unless ($spell) {
@@ -33,10 +33,10 @@ sub prepare {
             });
             next unless $wand;
             $urgency = $self->try_to_cast(wand => $wand);
-            return $urgency if $urgency > 0;
+            return $urgency if $urgency > URG_NONE;
         }
     }
-    return 0;
+    return URG_NONE;
 }
 
 sub try_to_cast {
@@ -62,18 +62,18 @@ sub try_to_cast {
     );
 
     # no monster found
-    return 0 if !$direction;
+    return URG_NONE if !$direction;
 
     if ($spell) {
         $self->do(cast => spell => $spell, direction => $direction);
         $self->currently("Casting ".$spell->name." at a monster");
-        return 100;
+        return URG_NORMAL;
     }
 
     if ($wand) {
         $self->do(zap => item => $wand, direction => $direction);
         $self->currently("Zapping a ".$wand->identity." at a monster");
-        return 50;
+        return URG_NORMAL;
     }
 
     return 0;
@@ -81,8 +81,7 @@ sub try_to_cast {
 
 sub urgencies {
     return {
-        100 => "casting an attack spell at a monster",
-         50 => "zapping a wand at a monster",
+        URG_NORMAL, "casting an attack spell or zapping an attack wand at a monster",
     };
 }
 

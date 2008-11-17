@@ -7,7 +7,7 @@ sub prepare {
     my $self = shift;
 
     my @items = grep { $self->pickup($_) && $_->price == 0 } TAEB->inventory->items;
-    return 0 unless @items;
+    return URG_NONE unless @items;
 
     my $item = shift @items;
     my $pt = $item->possibility_tracker;
@@ -17,16 +17,16 @@ sub prepare {
         if (TAEB->current_tile->engraving eq '') {
             $self->do(engrave => item => '-');
             $self->currently("Prepping for engrave-id by dusting");
-            return 100;
+            return URG_UNIMPORTANT;
         }
         else {
             $self->do(engrave => item => $item);
             $self->currently("Engrave identifying a wand");
-            return 90;
+            return URG_UNIMPORTANT;
         }
     }
 
-    return 0;
+    return URG_NONE;
 }
 
 sub pickup {
@@ -43,8 +43,7 @@ sub pickup {
 
 sub urgencies {
     return {
-        100 => "prepping for engrave-id by dusting",
-         90 => "engrave identifying a wand",
+        URG_UNIMPORTANT, "engrave identifying a wand",
     }
 }
 

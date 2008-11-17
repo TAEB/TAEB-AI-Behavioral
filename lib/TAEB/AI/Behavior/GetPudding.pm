@@ -6,8 +6,8 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    return 0 unless TAEB->can_kick;
-    return 0 unless TAEB->current_level->has_type('sink');
+    return URG_NONE unless TAEB->can_kick;
+    return URG_NONE unless TAEB->current_level->has_type('sink');
 
     my ($sink, $dir);
     my $useful_sink = sub {
@@ -24,7 +24,7 @@ sub prepare {
     if (TAEB->any_adjacent($useful_sink)) {
         $self->do(kick => direction => $dir);
         $self->currently("Kicking a sink for a pudding");
-        return 100;
+        return URG_UNIMPORTANT;
     }
 
     my $path = TAEB::World::Path->first_match($useful_sink, why => "GetPudding");
@@ -33,8 +33,8 @@ sub prepare {
 
 sub urgencies {
     return {
-        100 => "kicking an adjacent sink",
-         50 => "path to a sink",
+        URG_UNIMPORTANT, "kicking an adjacent sink",
+        URG_FALLBACK,    "path to a sink",
     },
 }
 

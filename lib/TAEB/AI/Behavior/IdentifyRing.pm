@@ -6,19 +6,19 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    return 0 if TAEB->is_blind;
+    return URG_NONE if TAEB->is_blind;
 
     my @items = grep { $self->pickup($_) } TAEB->inventory->items;
-    return 0 unless @items;
+    return URG_NONE unless @items;
 
     my $level = TAEB->nearest_level(sub { shift->has_type('sink') })
-        or return 0;
+        or return URG_NONE;
 
     # are we standing on a sink? if so, drop!
     if (TAEB->current_tile->type eq 'sink') {
         $self->currently("Dropping the ring in the sink");
         $self->do(drop => items => \@items);
-        return 100;
+        return URG_UNIMPORTANT;
     }
 
     # find a sink
@@ -57,8 +57,8 @@ sub drop {
 
 sub urgencies {
     return {
-        100 => "sink-identifying a ring",
-        50 => "path to sink",
+        URG_UNIMPORTANT, "sink-identifying a ring",
+        URG_FALLBACK,    "path to sink",
     }
 }
 

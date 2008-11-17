@@ -9,18 +9,19 @@ sub prepare {
 
     # picking up items while blind tends to work very badly
     # e.g. "j - a wand"
-    return 0 if TAEB->is_blind;
+    return URG_NONE if TAEB->is_blind;
 
     my @want = grep { TAEB->want_item($_) } TAEB->current_tile->items;
     if (@want) {
         TAEB->debug("TAEB wants items! @want");
         $self->currently("Picking up items");
         $self->do("pickup");
-        return 100;
+        return URG_UNIMPORTANT;
     }
 
-    return 0 unless TAEB->current_level->has_type('interesting')
-                 || any { TAEB->want_item($_) } TAEB->current_level->items;
+    return URG_NONE unless TAEB->current_level->has_type('interesting')
+                        || any { TAEB->want_item($_) }
+                               TAEB->current_level->items;
 
     my $path = TAEB::World::Path->first_match(sub {
         my $tile = shift;
@@ -48,8 +49,8 @@ sub prepare {
 
 sub urgencies {
     return {
-        100 => "picking up an item here",
-         50 => "path to a new item",
+        URG_UNIMPORTANT, "picking up an item here",
+        URG_FALLBACK,    "path to a new item",
     },
 }
 

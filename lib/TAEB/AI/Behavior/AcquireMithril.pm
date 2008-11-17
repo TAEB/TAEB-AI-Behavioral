@@ -8,18 +8,18 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    my $item = TAEB->find_item(qr/mithril/) or return 0;
+    my $item = TAEB->find_item(qr/mithril/) or return URG_NONE;
 
     # Yeah, so I'm lazy.
-    grep { TAEB->role eq $_ } qw/Hea Tou Val/ or return 0;
+    grep { TAEB->role eq $_ } qw/Hea Tou Val/ or return URG_NONE;
 
-    return 0 if $item->match(is_wearing => 1) ||
-                $item->match(buc => 'cursed') ||
-                $item->price;
+    return URG_NONE if $item->match(is_wearing => 1) ||
+                       $item->match(buc => 'cursed') ||
+                       $item->price;
 
     $self->currently("Putting on mithril.");
     $self->do(wear => item => $item);
-    return 100;
+    return URG_UNIMPORTANT;
 }
 
 sub drop {
@@ -49,7 +49,7 @@ sub pickup {
 
 sub urgencies {
     return {
-        100 => "putting on mithril",
+        URG_UNIMPORTANT, "putting on mithril",
     }
 }
 

@@ -10,10 +10,10 @@ sub prepare {
         $self->drop(TAEB->new_item('1 gold piece'))) {
         $self->do('drop');
         $self->currently("Dropping my gold");
-        return 100;
+        return URG_UNIMPORTANT;
     }
 
-    return 0 if TAEB->any_adjacent(sub {
+    return URG_NONE if TAEB->any_adjacent(sub {
         my $monster = shift->monster;
         return defined $monster && $monster->is_vault_guard;
     });
@@ -24,10 +24,10 @@ sub prepare {
             return defined $monster && $monster->is_vault_guard;
         }, include_endpoints => 1, why => "VaultGuard");
 
-        return $self->if_path($path, sub { "Following the vault guard" }, 90);
+        return $self->if_path($path, sub { "Following the vault guard" });
     }
 
-    return 0;
+    return URG_NONE;
 }
 
 sub drop {
@@ -42,8 +42,8 @@ sub drop {
 
 sub urgencies {
     return {
-        100 => "dropping gold",
-         90 => "following the vault guard",
+        URG_UNIMPORTANT, "dropping gold",
+        URG_FALLBACK,    "following the vault guard",
     }
 }
 

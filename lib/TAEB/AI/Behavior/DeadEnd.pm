@@ -10,9 +10,9 @@ sub prepare {
     my $searched = 0;
     my $walkable = 0;
 
-    return 0 unless !TAEB->current_level->known_branch
-                 || TAEB->current_level->branch eq 'dungeons'
-                 || TAEB->current_level->is_minetown;
+    return URG_NONE unless !TAEB->current_level->known_branch
+                        || TAEB->current_level->branch eq 'dungeons'
+                        || TAEB->current_level->is_minetown;
 
     # rearrange these tiles into a loop and double it
     TAEB->each_orthogonal(sub {
@@ -27,7 +27,7 @@ sub prepare {
     });
 
     # stop us from searching forever :)
-    return 0 if $searched >= $rocks * 10;
+    return URG_NONE if $searched >= $rocks * 10;
 
     # Handle dead ends as well as crooked halls
     # The wall tiles get converted to 8's when building the tile string
@@ -38,7 +38,7 @@ sub prepare {
 
     # Dead end
 
-    return 0 if $walkable > 1;
+    return URG_NONE if $walkable > 1;
 
     if (TAEB->is_blind) {
         $self->do('search', iterations => 1);
@@ -47,14 +47,14 @@ sub prepare {
         $self->do('search');
     }
 
-    return 100;
+    return URG_FALLBACK;
 }
 
 sub currently { "Searching at a dead end" }
 
 sub urgencies {
     return {
-        100 => "searching at a dead end",
+        URG_FALLBACK => "searching at a dead end",
     },
 }
 

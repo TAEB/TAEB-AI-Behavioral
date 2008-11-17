@@ -12,14 +12,15 @@ TAEB::AI::Behavior::GotoTile - generic go-to-a-tile-and-do-something behavior
 sub prepare {
     my $self = shift;
 
-    return 0 unless $self->first_pass;
+    return URG_NONE unless $self->first_pass;
 
     # are we on the tile? if so, go for it
     my ($action, $currently) = $self->match_tile(TAEB->current_tile);
     if (ref($action) eq 'ARRAY' && @$action) {
         $self->currently($currently);
         $self->do(@$action);
-        return 100;
+        # XXX: priority should be variable
+        return URG_UNIMPORTANT;
     }
     elsif (defined $action) {
         die blessed($self) . "->match_tile must return an array reference and a 'currently' string, or undef.";
@@ -40,8 +41,8 @@ sub urgencies {
     my $self = shift;
 
     return {
-        100 => $self->using_urgency,
-         50 => $self->heading_urgency,
+        URG_UNIMPORTANT, $self->using_urgency,
+        URG_FALLBACK,    $self->heading_urgency,
     };
 }
 

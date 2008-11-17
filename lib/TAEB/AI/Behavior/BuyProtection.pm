@@ -12,13 +12,13 @@ sub can_buy_protection {
 sub prepare {
     my $self = shift;
 
-    return 0 unless $self->can_buy_protection;
+    return URG_NONE unless $self->can_buy_protection;
 
     my $level = TAEB->nearest_level(sub {
         grep { $_->in_temple } shift->has_type('altar')
     });
 
-    return 0 unless $level;
+    return URG_NONE unless $level;
 
     if (TAEB->current_tile->type eq 'altar' && TAEB->current_tile->in_temple) {
         my $found_priest;
@@ -31,7 +31,7 @@ sub prepare {
                 $found_priest = 1;
             }
         });
-        return 100 if $found_priest;
+        return URG_UNIMPORTANT if $found_priest;
     }
 
     #find an altar to go to!
@@ -49,8 +49,8 @@ sub prepare {
 
 sub urgencies {
     return {
-        100 => "Donating for protection",
-         50 => "Heading to temple altar",
+        URG_UNIMPORTANT, "Donating for protection",
+        URG_FALLBACK,    "Heading to temple altar",
     };
 }
 

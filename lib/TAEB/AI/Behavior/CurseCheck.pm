@@ -7,22 +7,22 @@ sub prepare {
     my $self = shift;
 
     # Can't see altar flash when blind
-    return 0 if TAEB->is_blind;
+    return URG_NONE if TAEB->is_blind;
 
     my $level = TAEB->nearest_level(sub { shift->has_type('altar') })
-        or return 0;
+        or return URG_NONE;
 
     my @drop = grep { $_->can_drop &&
                       $_->match(buc => undef)
                     } TAEB->inventory->items;
 
     # No point in cursechecking no items
-    return 0 unless @drop;
+    return URG_NONE unless @drop;
 
     if (TAEB->current_tile->type eq 'altar') {
         $self->currently("Dropping items for cursechecking.");
         $self->do(drop => items => \@drop);
-        return 100;
+        return URG_UNIMPORTANT;
     }
 
     # find an altar to cursecheck on
@@ -51,8 +51,8 @@ sub drop {
 
 sub urgencies {
     return {
-        100 => "cursechecking at an altar",
-         50 => "locating altar",
+        URG_UNIMPORTANT, "cursechecking at an altar",
+        URG_FALLBACK,    "locating altar",
     }
 }
 

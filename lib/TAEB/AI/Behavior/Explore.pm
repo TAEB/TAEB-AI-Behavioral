@@ -25,23 +25,23 @@ sub prepare {
         else {
             die "I don't know how to handle traversing tile $current!";
         }
-        return 100;
+        return URG_FALLBACK;
     }
 
     for (@exits) {
         if (my $path = TAEB::World::Path->calculate_path($_, why => "Explore/Exit")) {
-            my $p = $self->if_path($path => "Heading to an unexplored exit", 100);
+            my $p = $self->if_path($path => "Heading to an unexplored exit");
             return $p if $p;
         }
     }
 
     my $path = TAEB::World::Path->first_match(sub { not shift->explored }, why => "Explore");
-    $self->if_path($path, "Exploring", 100);
+    $self->if_path($path, "Exploring");
 }
 
 sub urgencies {
     return {
-        100 => "path to an unexplored square",
+        URG_FALLBACK, "path to an unexplored square",
     },
 }
 

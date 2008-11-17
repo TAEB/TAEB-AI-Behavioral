@@ -9,13 +9,13 @@ sub prepare {
     my @items = grep { $self->pickup($_) && !$_->is_wearing(1); } 
                      TAEB->inventory->items;
 
-    return 0 unless @items;
+    return URG_NONE unless @items;
 
     my $item = shift @items;
 
     $self->do(puton => item => $item);
     $self->currently("Putting on a ring");
-    return 100;
+    return URG_UNIMPORTANT;
 }
 
 sub pickup {
@@ -27,7 +27,7 @@ sub pickup {
 
 sub urgencies {
     return {
-        100 => "Putting on a ring",
+        URG_UNIMPORTANT, "Putting on a ring",
     }
 }
 

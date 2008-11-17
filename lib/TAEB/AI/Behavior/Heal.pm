@@ -17,7 +17,7 @@ sub prepare {
         if ($spell) {
             $self->do(cast => spell => $spell, direction => ".");
             $self->currently("Casting heal at myself.");
-            return 100;
+            return URG_IMPORTANT;
         }
 
         # we've probably been writing Elbereth a bunch, so find a healing potion
@@ -28,7 +28,7 @@ sub prepare {
             if ($potion) {
                 $self->do(quaff => from => $potion);
                 $self->currently("Quaffing a $potion");
-                return 90;
+                return URG_IMPORTANT;
             }
         }
 
@@ -36,7 +36,7 @@ sub prepare {
             if (!TAEB->is_polymorphed && TAEB->can_pray) {
                 $self->do('pray');
                 $self->currently("Praying for healing");
-                return 80;
+                return URG_CRITICAL;
             }
         }
     }
@@ -47,12 +47,12 @@ sub prepare {
             if (my $spell = TAEB->find_castable("healing")) {
                 $self->do(cast => spell => $spell, direction => ".");
                 $self->currently("Casting heal at myself.");
-                return 100;
+                return URG_UNIMPORTANT;
             }
         }
     }
 
-    return 0;
+    return URG_NONE;
 }
 
 sub pickup {
@@ -64,9 +64,9 @@ sub pickup {
 
 sub urgencies {
     return {
-       100 => "casting a healing spell",
-        90 => "quaffing a potion of healing, extra healing, or full healing",
-        80 => "praying for health",
+       URG_CRITICAL,    "praying for health",
+       URG_IMPORTANT,   "healing because of low health",
+       URG_UNIMPORTANT, "casual healing",
     },
 }
 

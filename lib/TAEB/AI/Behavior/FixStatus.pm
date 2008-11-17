@@ -47,7 +47,7 @@ sub prepare {
             $self->do('pray');
             $self->currently("Praying to fix petrification");
         }
-        return 100;
+        return URG_CRITICAL;
     }
 
     my %c;
@@ -87,15 +87,15 @@ sub prepare {
         $self->do($fix->{action}, $fix->{args}->($item));
         $self->currently($currently);
 
-        return $fix->{priority};
+        return URG_IMPORTANT;
     }
 
     if (grep { $restable{$_} && $c{$_} } keys %c) {
         $self->do('search');
-        return 5;
+        return URG_IMPORTANT;
     }
 
-    return 0;
+    return URG_NONE;
 }
 
 sub pickup {
@@ -117,9 +117,8 @@ sub pickup {
 
 sub urgencies {
     return {
-       100 => "using a unicorn horn to fix status effects",
-        80 => "using items to fix status effects",
-         5 => "waiting off a status effect",
+        URG_CRITICAL,  "fixing near death status effects",
+        URG_IMPORTANT, "fixing other status effects",
     },
 }
 

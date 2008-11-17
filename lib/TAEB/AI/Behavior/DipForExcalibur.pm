@@ -15,13 +15,13 @@ sub can_make_excalibur {
 sub prepare {
     my $self = shift;
 
-    return 0 unless $self->can_make_excalibur;
+    return URG_NONE unless $self->can_make_excalibur;
 
     # are we eligible to dip for Excalibur now?
-    return 0 unless TAEB->level >= 5;
+    return URG_NONE unless TAEB->level >= 5;
 
     my $longsword = TAEB->find_item("long sword")
-        or return 0;
+        or return URG_NONE;
 
     my $level = TAEB->nearest_level(sub {
         my $lvl = shift;
@@ -29,14 +29,14 @@ sub prepare {
         return $lvl->has_type('fountain');
     });
 
-    return 0 if !$level;
+    return URG_NONE if !$level;
 
     unless (TAEB->current_level->is_minetown) {
         # are we standing on a fountain? if so, dip!
         if (TAEB->current_tile->type eq 'fountain') {
             $self->currently("Dipping for Excalibur!");
             $self->do(dip => item => $longsword, into => "fountain");
-            return 100;
+            return URG_UNIMPORTANT;
         }
     }
 
@@ -52,8 +52,8 @@ sub prepare {
 
 sub urgencies {
     return {
-        100 => "dipping for Excalibur",
-         50 => "path to fountain",
+        URG_UNIMPORTANT, "dipping for Excalibur",
+        URG_FALLBACK,    "path to fountain",
     };
 }
 

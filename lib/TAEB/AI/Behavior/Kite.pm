@@ -16,25 +16,25 @@ sub prepare {
     my @enemies = grep { $_->in_los } TAEB->current_level->has_enemies;
 
     # For now, only handle one-on-one fights
-    return 0 unless @enemies == 1;
+    return URG_NONE unless @enemies == 1;
 
     my $enemy = $enemies[0];
 
     # and unless the enemy is next to us and kitable, act normally
-    return 0 unless abs($enemy->x - TAEB->x) <= 1
-                 && abs($enemy->y - TAEB->y) <= 1;
+    return URG_NONE unless abs($enemy->x - TAEB->x) <= 1
+                        && abs($enemy->y - TAEB->y) <= 1;
 
-    return 0 unless $enemy->can_be_outrun && TAEB->senses->can_move;
-    #return 0 unless $enemy->should_attack_at_range;
+    return URG_NONE unless $enemy->can_be_outrun && TAEB->senses->can_move;
+    #return URG_NONE unless $enemy->should_attack_at_range;
 
     # Don't try to kite non-infravisible monsters in the dark.  TAEB
     # is too stupid to remember the kiting attempt, and will just explore
     # right back into said monster.
-    return 0 if !$enemy->tile->is_lit && !$enemy->can_be_infraseen;
+    return URG_NONE if !$enemy->tile->is_lit && !$enemy->can_be_infraseen;
 
     # do we have a projectile to throw?  No sense backing away otherwise (yet)
-    return 0 unless defined (TAEB->inventory->has_projectile) &&
-                    !$enemy->tile->in_shop;
+    return URG_NONE unless defined (TAEB->inventory->has_projectile)
+                        && !$enemy->tile->in_shop;
 
     # Until EkimFight is the default, all this does more harm than good,
     # because TAEB will just walk up to the monster
@@ -58,29 +58,29 @@ sub prepare {
     #    $opt[abs($dist)] ||= $dir;
     #});
 
-    #return 0 unless defined (my $back = $opt[0] || $opt[1] || $opt[2]);
+    #return URG_NONE unless defined (my $back = $opt[0] || $opt[1] || $opt[2]);
 
     my $back = delta2vi(TAEB->x - $enemy->x, TAEB->y - $enemy->y);
     my $to = TAEB->current_level->at_direction($back);
 
-    return 0 unless defined $to
-                 && $to->is_walkable
-                 && !$to->has_monster
-                 && $to->type ne 'trap';
+    return URG_NONE unless defined $to
+                        && $to->is_walkable
+                        && !$to->has_monster
+                        && $to->type ne 'trap';
 
-    return 0 if (TAEB->current_tile->type eq 'opendoor'
-              || $to->type eq 'opendoor')
-             && $back =~ /[yubn]/;
+    return URG_NONE if (TAEB->current_tile->type eq 'opendoor'
+                     || $to->type eq 'opendoor')
+                    && $back =~ /[yubn]/;
 
 
     $self->do(move => direction => $back);
     $self->currently("Kiting");
-    return 100;
+    return URG_NORMAL;
 }
 
 sub urgencies {
     return {
-        100 => "backing away from an outrunnable melee monster with intent to kite",
+        URG_NORMAL, "backing away from an outrunnable melee monster with intent to kite",
     };
 }
 
