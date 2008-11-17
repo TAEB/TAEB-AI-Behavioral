@@ -46,22 +46,15 @@ sub prepare {
     #TAEB->each_adjacent(sub {
     #    my ($tile, $dir) = @_;
 
-    #    TAEB->debug("Looking " . $dir . "...");
-
     #    return unless $tile->is_walkable;
 
     #    if ((TAEB->current_tile->type eq 'opendoor' ||
     #            $tile->type eq 'opendoor') && $dir =~ /[yubn]/) {
-    #        TAEB->debug("but a door.");
     #        return;
     #    }
 
-    #    TAEB->debug("It's walkable...");
-
     #    my $dist = (index $dirs, $dir) - 2;
     #    return unless defined $dist && ($dir =~ /[yubn]/ || abs($dist) < 2);
-
-    #    TAEB->debug("And useful...");
 
     #    $opt[abs($dist)] ||= $dir;
     #});
