@@ -613,7 +613,9 @@ Return true if the PC has infravision.
 
 sub has_infravision {
     my $self = shift;
-    return $self->race ne 'Hum'; # XXX handle polyself
+    return 0 if $self->race eq 'Hum';
+    return 0 if $self->in_wereform; # XXX handle polyself
+    return 1;
 }
 
 sub msg_debt {
