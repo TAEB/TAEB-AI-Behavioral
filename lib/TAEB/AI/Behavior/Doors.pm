@@ -37,12 +37,12 @@ sub door_handler {
 
         return unless $door->isa('TAEB::World::Tile::Door');
 
-        my $locktool = $action_args{implement};
         # No check for watch, that causes oscillations
         return if TAEB->current_level->is_minetown
                && !$door->any_adjacent(sub { shift->type eq 'corridor' })
-               && $locktool
-               && !$locktool->match(identity => qr/key/);
+               && (($action_args{implement}
+                 && !$action_args{implement}->match(identity => qr/key/))
+                || $action eq 'kick');
 
         if ($door->blocked_door) {
             if ($door->type eq 'opendoor') {
