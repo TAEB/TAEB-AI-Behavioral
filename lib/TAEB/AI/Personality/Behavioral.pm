@@ -33,6 +33,26 @@ has behaviors => (
     },
 );
 
+sub numeric_urgency {
+    my $self = shift;
+    my $urgency = shift;
+
+    return 0 unless defined $urgency;
+
+    my %urgencies = (
+        critical    => 50,
+        important   => 40,
+        normal      => 30,
+        unimportant => 20,
+        fallback    => 10,
+    );
+
+    my $urg_val = $urgencies{$urgency};
+    confess "$urgency is not an urgency" unless defined $urg_val;
+
+    return $urg_val;
+}
+
 =head2 find_urgency Str -> Int
 
 This will prepare the behavior and return its urgency.
