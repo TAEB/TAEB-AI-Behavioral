@@ -52,6 +52,20 @@ sub find_urgency {
     return $urgency;
 }
 
+=head2 max_urgency Str -> Int
+
+This returns the maximum urgency that the given behavior can return.
+
+=cut
+
+sub max_urgency {
+    my $self = shift;
+    my $name = shift;
+
+    my $behavior = $self->behaviors->{$name};
+    return (sort keys %{ $behavior->urgencies })[0];
+}
+
 =head2 sort_behaviors -> Array[Str]
 
 Subclasses should override this to return a prioritized list of behaviors.
@@ -79,9 +93,9 @@ sub next_behavior {
     # apply weights to urgencies, find maximum
     for my $behavior (@priority) {
         # if this behavior couldn't possibly beat the max, then stop early
-        last if $max_urgency > $weight * 100;
+        next if $max_urgency >= $self->max_urgency($behavior);
 
-        my $urgency = $self->find_urgency($behavior) * $weight;
+        my $urgency = $self->find_urgency($behavior);
         ($max_urgency, $max_behavior) = ($urgency, $behavior)
             if $urgency > $max_urgency;
     }
