@@ -9,7 +9,7 @@ TAEB::AI::Personality::Explore - descend only after exploring the level
 
 =cut
 
-sub weight_behaviors {
+sub sort_behaviors {
     my $fight = TAEB->config->fight_behavior || 'Melee';
 
     return (
