@@ -52,33 +52,14 @@ sub find_urgency {
     return $urgency;
 }
 
-=head2 weight_behaviors -> HashRef[Int]
+=head2 sort_behaviors -> Array[Str]
 
-This will look through the personality's behaviors and return a hashref of
-their relative weights. This calls C<weight_(behavior-name)> to discern this
-(or returns 100 if the method is unavailable). Subclasses should feel free to
-override this.
+Subclasses should override this to return a prioritized list of behaviors.
 
 =cut
 
-sub weight_behaviors {
-    my $self    = shift;
-    my $results = {};
-
-    for my $name (keys %{ $self->behaviors }) {
-        my $behavior = $self->behaviors->{$name};
-        my $method = "weight_$name";
-
-        if ($self->can($method)) {
-            $results->{$name} = $self->$method($behavior);
-            TAEB->debug("The $name behavior has weight $results->{$name}.");
-        }
-        else {
-            $results->{$name} = 100;
-        }
-    }
-
-    return $results;
+sub sort_behaviors {
+    TAEB->error("Personalities must override sort_behaviors");
 }
 
 =head2 next_behavior -> Behavior
@@ -91,14 +72,12 @@ maximum urgency.
 sub next_behavior {
     my $self = shift;
 
-    my $weights = $self->weight_behaviors;
+    my @priority = $self->sort_behaviors;
     my $max_urgency = 0;
     my $max_behavior;
 
     # apply weights to urgencies, find maximum
-    for my $behavior (sort {$weights->{$b} <=> $weights->{$a}} keys %$weights) {
-        my $weight = $weights->{$behavior};
-
+    for my $behavior (@priority) {
         # if this behavior couldn't possibly beat the max, then stop early
         last if $max_urgency > $weight * 100;
 
@@ -133,14 +112,12 @@ sub behavior_action {
 
 =head2 autoload_behaviors -> (Str)
 
-Returns a list of behaviors that should be autoloaded. Defaults to the keys
-of C<weight_behaviors>.
+Returns a list of behaviors that should be autoloaded. Defaults to the result of C<sort_behaviors>.
 
 =cut
 
 sub autoload_behaviors {
-    my $self = shift;
-    keys %{ $self->weight_behaviors }
+    shift->sort_behaviors
 }
 
 =head2 next_action -> Action
