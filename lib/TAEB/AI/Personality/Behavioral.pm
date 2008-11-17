@@ -64,12 +64,13 @@ sub find_urgency {
     my $name = shift;
 
     my $behavior = $self->behaviors->{$name};
-    my $urgency  = $behavior->prepare;
+    $behavior->prepare;
+    my $urgency  = $behavior->urgency;
     TAEB->debug("The $name behavior has urgency $urgency.");
     TAEB->warning("${behavior}'s urgencies method doesn't list $urgency")
-        unless exists $behavior->urgencies->{$urgency};
+        unless exists $behavior->urgencies->{$urgency} || !defined $urgency;
 
-    return $urgency;
+    return $self->numeric_urgency($urgency);
 }
 
 =head2 max_urgency Str -> Int
@@ -83,7 +84,8 @@ sub max_urgency {
     my $name = shift;
 
     my $behavior = $self->behaviors->{$name};
-    return (sort keys %{ $behavior->urgencies })[0];
+    return (sort map { $self->numeric_urgency($_) }
+                     keys %{ $behavior->urgencies })[0];
 }
 
 =head2 sort_behaviors -> Array[Str]
