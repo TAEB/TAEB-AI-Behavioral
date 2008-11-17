@@ -46,6 +46,8 @@ sub find_urgency {
     my $behavior = $self->behaviors->{$name};
     my $urgency  = $behavior->prepare;
     TAEB->debug("The $name behavior has urgency $urgency.");
+    TAEB->warning("${behavior}'s urgencies method doesn't list $urgency")
+        unless exists $behavior->urgencies->{$urgency};
 
     return $urgency;
 }
