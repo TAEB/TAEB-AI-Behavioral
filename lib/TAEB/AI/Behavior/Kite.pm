@@ -13,7 +13,6 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-
     my @enemies = grep { $_->in_los } TAEB->current_level->has_enemies;
 
     # For now, only handle one-on-one fights
@@ -35,7 +34,7 @@ sub prepare {
 
     # do we have a projectile to throw?  No sense backing away otherwise (yet)
     return 0 unless defined (TAEB->inventory->has_projectile) &&
-        !$enemy->tile->in_shop;
+                    !$enemy->tile->in_shop;
 
     # Until EkimFight is the default, all this does more harm than good,
     # because TAEB will just walk up to the monster
@@ -64,17 +63,18 @@ sub prepare {
     my $back = delta2vi(TAEB->x - $enemy->x, TAEB->y - $enemy->y);
     my $to = TAEB->current_level->at_direction($back);
 
-    return 0 unless defined $to && $to->is_walkable && !$to->has_monster &&
-        $to->type ne 'trap';
+    return 0 unless defined $to
+                 && $to->is_walkable
+                 && !$to->has_monster
+                 && $to->type ne 'trap';
 
-    return 0 if (TAEB->current_tile->type eq 'opendoor' ||
-        $to->type eq 'opendoor') && $back =~ /[yubn]/;
+    return 0 if (TAEB->current_tile->type eq 'opendoor'
+              || $to->type eq 'opendoor')
+             && $back =~ /[yubn]/;
 
 
-    $self->do(move =>
-        direction   => $back,
-    );
-    $self->currently("Kiting.");
+    $self->do(move => direction => $back);
+    $self->currently("Kiting");
     return 100;
 }
 
