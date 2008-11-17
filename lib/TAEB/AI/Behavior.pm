@@ -17,6 +17,10 @@ has action => (
     isa => 'TAEB::Action',
 );
 
+has urgency => (
+    isa => 'TAEB::Type::Urgency',
+);
+
 =head2 prepare -> Int
 
 This should do any preparation required for the action it's going to take.
