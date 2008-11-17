@@ -15,12 +15,11 @@ sub prepare {
     return unless $self->first_pass;
 
     # are we on the tile? if so, go for it
-    my ($action, $currently) = $self->match_tile(TAEB->current_tile);
+    my ($action, $currently, $urgency) = $self->match_tile(TAEB->current_tile);
     if (ref($action) eq 'ARRAY' && @$action) {
         $self->currently($currently);
         $self->do(@$action);
-        # XXX: urgency should be variable
-        $self->urgency('unimportant');
+        $self->urgency($urgency || 'unimportant');
         return;
     }
     elsif (defined $action) {
