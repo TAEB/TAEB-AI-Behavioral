@@ -2,6 +2,13 @@
 package TAEB::AI::Behavior;
 use TAEB::OO;
 
+use constant URG_CRITICAL    => 5
+use constant URG_IMPORTANT   => 4
+use constant URG_NORMAL      => 3
+use constant URG_UNIMPORTANT => 2
+use constant URG_FALLBACK    => 1
+use constant URG_NONE        => 0
+
 has currently => (
     isa => 'Str',
 );
