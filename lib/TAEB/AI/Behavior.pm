@@ -22,12 +22,11 @@ has action => (
 This should do any preparation required for the action it's going to take.
 This includes things like pathfinding for Explore.
 
-C<prepare> should return an integer from 0 to 100. The higher the integer, the
-higher the urgency of the action.
+C<prepare> should return a member of the URG_ enum.
 
 =cut
 
-sub prepare { 0 }
+sub prepare { URG_NONE }
 
 =head2 do Str, Args -> Action
 
