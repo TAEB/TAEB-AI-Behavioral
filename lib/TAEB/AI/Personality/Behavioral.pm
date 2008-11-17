@@ -86,8 +86,8 @@ sub max_urgency {
     my $name = shift;
 
     my $behavior = $self->behaviors->{$name};
-    return (sort map { $self->numeric_urgency($_) }
-                     keys %{ $behavior->urgencies })[0];
+    return (reverse sort map { $self->numeric_urgency($_) }
+                             keys %{ $behavior->urgencies })[0];
 }
 
 =head2 sort_behaviors -> Array[Str]
