@@ -124,8 +124,8 @@ If the first argument is undef or a path of length 0, then return 0 to indicate
 If the first argument is defined and is a path of length greater than zero,
 then use it as the current path. The behavior gets a "currently" of the second
 argument (which may be a coderef -- this is useful it depends on $path being
-valid), and return the third argument as the priority (or the default of 50).
-This replaces this code:
+valid), and return the third argument as the priority (or the default of
+URG_FALLBACK). This replaces this code:
 
     if ($path) {
         $self->currently($currently);
@@ -145,7 +145,7 @@ sub if_path {
     my $path      = shift;
     my $currently = shift;
 
-    return 0 if !defined($path) || length($path->path) == 0;
+    return URG_NONE if !defined($path) || length($path->path) == 0;
 
     $self->do(move => path => $path);
 
@@ -158,7 +158,7 @@ sub if_path {
         }
     }
 
-    return @_ ? shift : 50;
+    return @_ ? shift : URG_FALLBACK;
 }
 
 __PACKAGE__->meta->make_immutable;
