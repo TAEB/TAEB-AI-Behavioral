@@ -21,16 +21,14 @@ has urgency => (
     isa => 'TAEB::Type::Urgency',
 );
 
-=head2 prepare -> Int
+=head2 prepare -> None
 
 This should do any preparation required for the action it's going to take.
 This includes things like pathfinding for Explore.
 
-C<prepare> should return a member of the URG_ enum.
-
 =cut
 
-sub prepare { URG_NONE }
+sub prepare { }
 
 =head2 do Str, Args -> Action
 
