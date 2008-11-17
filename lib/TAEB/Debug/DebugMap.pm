@@ -68,7 +68,7 @@ sub msg_key {
 
                 # or go to a level with an unknown branch
                 for (@levels) {
-                    return $_ if !$_->has_branch;
+                    return $_ if !$_->known_branch;
                 }
 
                 # finally, pick a level arbitrarily
