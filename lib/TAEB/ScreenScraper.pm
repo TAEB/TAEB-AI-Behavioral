@@ -559,6 +559,10 @@ our @msg_regex = (
         qr/^You feel(?: wide)? awake(?:\.|\!)$/ =>
             ['resistance_change', 'sleep', 1],
     ],
+    [
+        qr/^Halt (?:thief|vandal)\!  You're under arrest\!$/ =>
+        ['angry_watch'],
+    ],
 );
 
 our @god_anger = (
