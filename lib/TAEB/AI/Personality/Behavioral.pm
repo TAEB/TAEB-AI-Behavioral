@@ -33,6 +33,11 @@ has behaviors => (
     },
 );
 
+has prioritized_behaviors => (
+    isa        => 'ArrayRef[Str]',
+    auto_deref => 1,
+);
+
 sub numeric_urgency {
     my $self = shift;
     my $urgency = shift;
@@ -90,9 +95,9 @@ sub max_urgency {
                              keys %{ $behavior->urgencies })[0];
 }
 
-=head2 sort_behaviors -> Array[Str]
+=head2 sort_behaviors -> None
 
-Subclasses should override this to return a prioritized list of behaviors.
+Subclasses should override this to set the prioritized_behaviors attribute.
 
 =cut
 
@@ -111,7 +116,8 @@ maximum urgency.
 sub next_behavior {
     my $self = shift;
 
-    my @priority = $self->sort_behaviors;
+    $self->sort_behaviors;
+    my @priority = $self->prioritized_behaviors;
     my $max_urgency = 0;
     my $max_behavior;
 
@@ -156,7 +162,9 @@ Returns a list of behaviors that should be autoloaded. Defaults to the result of
 =cut
 
 sub autoload_behaviors {
-    shift->sort_behaviors
+    my $self = shift;
+    $self->sort_behaviors;
+    return $self->prioritized_behaviors;
 }
 
 =head2 next_action -> Action
