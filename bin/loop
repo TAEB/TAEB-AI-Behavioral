@@ -25,18 +25,15 @@ sub logrotate {
     my $cfg = TAEB::Config->new->contents->{log_rotation} || {};
 
     return unless $cfg->{enabled};
-    my $max_logs = $cfg->{max_logs};
+    my $max_logs = $cfg->{max_logs} || 10e999;
 
     mkdir("logs");
-    opendir my $logdir, "logs" or die "cannot opendir logs: $!\n";
-    my @logs = map { /^(?:\w+)\.([0-9]+)\.log\.bz2$/ ? [$1, $_] : () }
-        readdir $logdir;
-    close $logdir;
+    my @logs = map { m#^logs/(?:\w+)\.([0-9]+)\.log\.bz2# ? [$1, $_] : () }
+        glob "logs/*";
 
-    my $head = max -1, map { $_->[0] } @logs;
+    my $head = max -1, map { $_->[0] } @logs;  #highest used log index
 
-    unlink map { "logs/" . $_->[1] }
-        grep { $_->[0] <= $head - $max_logs + 1 && $max_logs } @logs;
+    unlink map { $_->[1] } grep { $_->[0] <= $head - $max_logs + 1 } @logs;
 
     for (qw/debug info error critical warning/) {
         my $dest = sprintf "logs/$_.%05d.log.bz2", $head + 1;
