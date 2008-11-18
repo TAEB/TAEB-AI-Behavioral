@@ -45,7 +45,7 @@ sub is_priest {
 
 sub is_oracle {
     my $self = shift;
-    return 0 if TAEB->z < 5 || TAEB->z > 9;
+    return 0 if $self->z < 5 || $self->z > 9;
     return 0 unless $self->x == 39 && $self->y == 12;
     return 1 if TAEB->is_hallucinating
              || ($self->glyph eq '@' && $self->color eq COLOR_BRIGHT_BLUE);
@@ -63,9 +63,9 @@ sub is_quest_friendly {
     my $self = shift;
 
     # Attacking @s in quest level 1 will screw up your quest. So...don't.
-    return 1 if TAEB->current_level->known_branch
-             && TAEB->current_level->branch eq 'quest'
-             && TAEB->z == 1
+    return 1 if $self->known_branch
+             && $self->branch eq 'quest'
+             && $self->z == 1
              && $self->glyph eq '@';
     return 0;
 }
