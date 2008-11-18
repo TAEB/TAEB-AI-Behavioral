@@ -45,7 +45,16 @@ sub is_priest {
 
 sub is_oracle {
     my $self = shift;
-    return 0 if $self->z < 5 || $self->z > 9;
+
+    # we know the oracle level.. is it this one?
+    if (my $oracle_level = TAEB->dungeon->special_level->{oracle}) {
+        return 0 if $self->level != $oracle_level;
+    }
+    # if we don't know the oracle level, well, is this level in the right range?
+    else {
+        return 0 if $self->z < 5 || $self->z > 9;
+    }
+
     return 0 unless $self->x == 39 && $self->y == 12;
     return 1 if TAEB->is_hallucinating
              || ($self->glyph eq '@' && $self->color eq COLOR_BRIGHT_BLUE);
