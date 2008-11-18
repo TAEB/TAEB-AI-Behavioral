@@ -986,7 +986,7 @@ sub handle_death {
         my ($rank, $score, $end_reason, $death) = $death_message =~ /^(?:(\d+) )?(\d+) [-\w]+ (\w+) .*?\. (.*?\.)?/;
         TAEB->enqueue_message('death', $rank, $score, $end_reason, $death);
         TAEB->publisher->send_messages;
-        die("Game Over, man!\n");
+        die("Game over, man!\n");
     }
 
     if (TAEB->dead) {
