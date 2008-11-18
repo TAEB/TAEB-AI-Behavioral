@@ -765,6 +765,7 @@ after add_item => sub {
 
         $item->estimated_date($date);
         $item->is_forced_verboten($v);
+        $item->buc('uncursed') unless $v;
 
         @{ $self->kill_times } = @kl;
     }
