@@ -13,7 +13,7 @@ after sort_behaviors => sub {
     my $self = shift;
 
     $self->remove_behavior('Descend');
-    $self->add_behavior('Descend', after => 'Fight');
+    $self->add_behavior('Descend', before => 'Projectiles');
 };
 
 __PACKAGE__->meta->make_immutable;
