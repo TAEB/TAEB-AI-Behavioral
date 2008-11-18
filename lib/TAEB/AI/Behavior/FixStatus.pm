@@ -33,7 +33,7 @@ has needs_fixing => (
         [
             {
                 status => 'stoning',
-                check  => sub { 0 },
+                check  => sub { TAEB->senses->is_petrifying },
                 fixes  => [
                     eat(   'lizard corpse',        'critical'),
                     # acidic corpses
@@ -45,7 +45,7 @@ has needs_fixing => (
             },
             {
                 status => 'food poisoning',
-                check  => sub { 0 },
+                check  => sub { TAEB->is_food_poisoned },
                 fixes  => [
                     apply( 'unicorn horn',         'critical'),
                     cast(  'cure sickness',        'critical'),
@@ -77,7 +77,7 @@ has needs_fixing => (
             },
             {
                 status => 'illness',
-                check  => sub { 0 },
+                check  => sub { TAEB->is_ill },
                 fixes  => [
                     apply( 'unicorn horn',         'critical'),
                     cast(  'cure sickness',        'critical'),
