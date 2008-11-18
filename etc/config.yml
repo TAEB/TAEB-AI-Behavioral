@@ -51,3 +51,8 @@ glyph_method: normal
 
 # enables "spicy" replacements for messages
 spicy: 0
+
+# enable log rotation for TAEB; 0 logs is unlimited
+log_rotation:
+    enabled: 1
+    max_logs: 0

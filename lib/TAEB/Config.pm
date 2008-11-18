@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package TAEB::Config;
-use TAEB::OO;
+use Moose;
 use YAML;
 use Hash::Merge 'merge';
 Hash::Merge::set_behavior('RIGHT_PRECEDENT');

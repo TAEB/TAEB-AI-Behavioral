@@ -2,10 +2,17 @@
 use strict;
 use warnings;
 
+use lib 'lib';
+use TAEB::Config;
+use List::Util 'max';
+
 $| = 1;
 
 while (1) {
     system("perl bin/taeb");
+
+    logrotate();
+
     sleep 2;
     system("clear");
     for (reverse 1..59) {
@@ -14,3 +21,25 @@ while (1) {
     }
 }
 
+sub logrotate {
+    my $cfg = TAEB::Config->new->contents->{log_rotation} || {};
+
+    return unless $cfg->{enabled};
+    my $max_logs = $cfg->{max_logs};
+
+    mkdir("logs");
+    opendir my $logdir, "logs" or die "cannot opendir logs: $!\n";
+    my @logs = map { /^(?:\w+)\.([0-9]+)\.log\.bz2$/ ? [$1, $_] : () }
+        readdir $logdir;
+    close $logdir;
+
+    my $head = max -1, map { $_->[0] } @logs;
+
+    unlink map { "logs/" . $_->[1] }
+        grep { $_->[0] <= $head - $max_logs + 1 && $max_logs } @logs;
+
+    for (qw/debug info error critical warning/) {
+        my $dest = sprintf "logs/$_.%05d.log.bz2", $head + 1;
+        system(sprintf "bzip2 < log/$_.log > $dest");
+    }
+}
