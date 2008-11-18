@@ -702,6 +702,11 @@ sub msg_farlooked {
     $tile->farlooked($msg);
 }
 
+sub reblessed {
+    my $self = shift;
+    $self->dungeon->special_level->{ $self->special_level } = $self;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

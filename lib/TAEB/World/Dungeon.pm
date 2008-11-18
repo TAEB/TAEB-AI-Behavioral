@@ -13,6 +13,12 @@ has current_level => (
     handles => [qw/z/],
 );
 
+has special_level => (
+    isa     => 'HashRef[TAEB::World::Level]',
+    is      => 'ro',
+    default => sub { {} },
+);
+
 has cartographer => (
     isa     => 'TAEB::World::Cartographer',
     default => sub {
