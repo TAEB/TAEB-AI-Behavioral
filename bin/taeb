@@ -42,15 +42,22 @@ my $personality = load_from_argv('AI::Personality', 'RandomWalk');
 TAEB->personality($personality);
 
 if (TAEB->config->debug_personality) {
-    my $action_weight = TAEB->personality->sort_behaviors;
+    TAEB->personality->sort_behaviors;
+    my @behaviors = TAEB->personality->prioritized_behaviors;
 
-    die "Personality has no behaviors.\n"
-        unless keys %$action_weight;
+    die "Personality has no behaviors.\n" unless @behaviors;
 
     print "Personality " . Scalar::Util::blessed($personality) . ":\n";
-    for my $action (sort {$action_weight->{$b}[0] <=> $action_weight->{$a}[0]} keys %$action_weight) {
-        my ($urgency, $unweighted, $weight, $behavior) = @{ $action_weight->{$action} };
-        printf "%10d  %s (%s)\n", $urgency, $action, $behavior;
+    my @actions;
+    for my $behavior (@behaviors) {
+        my $urgencies = TAEB->personality->behaviors->{$behavior}->urgencies;
+        for my $urgency (keys %$urgencies) {
+            push @actions, [$urgency, $behavior, $urgencies->{$urgency}];
+        }
+    }
+    for my $action (sort { TAEB->personality->numeric_urgency($b->[0]) <=> TAEB->personality->numeric_urgency($a->[0]) } @actions) {
+        my ($urgency, $behavior, $action) = @$action;
+        printf "%12s  %s (%s)\n", $urgency, $action, $behavior;
     }
 
     exit 0;
