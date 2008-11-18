@@ -145,8 +145,8 @@ class_has log => (
                         password  => $error_config->{password},
                         callbacks => sub {
                             my %args = @_;
-                            chomp $args{message};
-                            return sprintf "[%s] <T%s>: %s\n",
+                            $args{message} =~ s/\n.*//s;
+                            return sprintf "[%s] <T%s>: %s",
                                         uc($args{level}),
                                         TAEB->has_senses ? TAEB->turn : '-',
                                         $args{message};
