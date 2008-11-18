@@ -122,13 +122,14 @@ class_has log => (
                            $args{message};
         };
 
-        my $dispatcher = Log::Dispatch->new(callbacks => $format);
+        my $dispatcher = Log::Dispatch->new;
         for (qw(debug info warning error critical)) {
             $dispatcher->add(
                 Log::Dispatch::File->new(
                     name      => $_,
                     min_level => $_,
                     filename  => "log/$_.log",
+                    callbacks => $format,
                 )
             );
         }
@@ -142,6 +143,14 @@ class_has log => (
                         min_level => 'error',
                         username  => $error_config->{username},
                         password  => $error_config->{password},
+                        callbacks => sub {
+                            my %args = @_;
+                            chomp $args{message};
+                            return sprintf "[%s] <T%s>: %s\n",
+                                        uc($args{level}),
+                                        TAEB->has_senses ? TAEB->turn : '-',
+                                        $args{message};
+                        },
                     )
                 );
             }
