@@ -47,13 +47,14 @@ sub prepare {
     );
 
     $self->if_path($path =>
-        sub { "Heading towards a " . $path->to->glyph . " monster" });
+        sub { "Heading towards a " . $path->to->glyph . " monster" },
+        'unimportant');
 }
 
 sub urgencies {
     return {
-        normal   => "attacking an adjacent monster",
-        fallback => "path to the nearest monster",
+        normal      => "attacking an adjacent monster",
+        unimportant => "path to the nearest monster",
     },
 }
 
