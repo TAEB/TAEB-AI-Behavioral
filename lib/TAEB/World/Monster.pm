@@ -99,7 +99,8 @@ sub is_meleeable {
 
     # floating eye (paralysis)
     return 0 if $self->color eq COLOR_BLUE
-             && $self->glyph eq 'e';
+             && $self->glyph eq 'e'
+             && !TAEB->is_blind;
 
     # blue jelly (cold)
     return 0 if $self->color eq COLOR_BLUE
