@@ -112,14 +112,12 @@ class_has log => (
     lazy    => 1,
     handles => [qw(debug info warning error critical)],
     default => sub {
-        my $self = shift;
-
         my $format = sub {
             my %args = @_;
             chomp $args{message};
             return sprintf "[%s] <T%s> %s: %s\n",
                            uc($args{level}),
-                           $self->has_senses ? $self->turn : '-',
+                           TAEB->has_senses ? TAEB->turn : '-',
                            scalar(localtime),
                            $args{message};
         };
@@ -135,9 +133,9 @@ class_has log => (
             );
         }
 
-        if ($self->config->twitter) {
+        if (TAEB->config->twitter) {
             require Log::Dispatch::Twitter;
-            if (my $error_config = $self->config->twitter->{errors}) {
+            if (my $error_config = TAEB->config->twitter->{errors}) {
                 $dispatcher->add(
                     Log::Dispatch::Twitter->new(
                         name      => 'twitter',
