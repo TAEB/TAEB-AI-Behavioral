@@ -44,9 +44,9 @@ sub add_behavior {
     my %args = @_;
 
     $self->prioritized_behaviors([
-        map { $_ eq $args{before}
+        map { exists $args{before} && $_ eq $args{before}
             ? ($add, $_)
-            : $_ eq $args{after}
+            : exists $args{after}  && $_ eq $args{after}
             ? ($_, $add)
             : $_ } $self->prioritized_behaviors
     ]);
