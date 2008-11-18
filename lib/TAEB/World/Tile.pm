@@ -561,8 +561,8 @@ sub _panel_empty {
 
     for my $y ($sy .. $ey) {
         for my $x ($sx .. $ex) {
-            return 0 if !defined($self->level->at($x,$y))
-                     || $self->level->at($x,$y)->type ne 'rock';
+            my $tile = $self->level->at($x, $y);
+            return 0 if !defined($tile) || $tile->type ne 'rock';
         }
     }
 
