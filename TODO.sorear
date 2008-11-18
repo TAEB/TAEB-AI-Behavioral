@@ -7,7 +7,7 @@
   - Pathfind cache as described below removes the need for this
 
 
-- Carrion
+- Carrion (done)
 
   - When we get a message of "You kill the (.*)!" etc, generate a
     msg_fresh_meat with $1
@@ -67,3 +67,39 @@
 
   - Not usable by Melee and Search
 
+
+- When we do a pathfind, tile costs are partly determined by personality
+  (behavior dispatch)  (not really useful without the second)
+
+  - This would of course be ludicrously expensive
+
+  - Solution: make travel_cost an _attribute_ of tiles, which invalidate
+    when certain big things happen (e.g. PickaxeFinder gets a pick axe)
+
+  - Logical granularities are one tile (after every update), one map
+    (this is a non-dig level), one dungeon (use sparingly, probably best
+    to defer it on a level-by-level basis)
+
+  - Helps with water, etc
+
+
+- Behaviors can override actions
+
+    - PickaxeFinder subs 'a'pplications for attempts to walk into rock
+
+    - LevitateOverWater
+
+    - DigAroundTraps
+
+    - Doors could go here, if it's not better to leave them all open
+
+    - doy suggests Melee will reject attempts to eat rations, replacing
+      them with combat for corpses
+
+  - Proposed implementation
+
+    - After a behavior does an action, go through the list of behaviors again
+      in reverse priority order and see if anybody wants a substitution?
+
+    - Or do normal priority order and only allow one hook (simpler, I
+      more or less understand the ramifications)
