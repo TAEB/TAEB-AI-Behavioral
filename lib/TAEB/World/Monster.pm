@@ -217,8 +217,10 @@ or undef if the symbol does not uniquely determine the monster.
 sub spoiler {
     my $self = shift;
 
-    my @candidates = TAEB::Spoilers::Monster->search(glyph => $self->glyph,
-        color => $self->color);
+    my @candidates = TAEB::Spoilers::Monster->search(
+        glyph => $self->glyph,
+        color => $self->color,
+    );
 
     return undef if @candidates > 2;
     return $candidates[1];
@@ -235,7 +237,7 @@ sub can_be_outrun {
 
     my $spoiler = $self->spoiler || return 0;
     my $spd = $spoiler->{speed};
-    my ($pmin, $pmax) = TAEB->senses->speed;
+    my ($pmin, $pmax) = TAEB->speed;
 
     return $spd < $pmin || $spd == $pmin && $spd < $pmax;
 }
@@ -268,7 +270,7 @@ Returns true if the player could see this monster using infravision.
 sub can_be_infraseen {
     my $self = shift;
 
-    return TAEB->senses->has_infravision
+    return TAEB->has_infravision
         && $self->glyph !~ /[abceijmpstvwyDEFLMNPSWXZ';:~]/; # evil evil should be in T:M:S XXX
 }
 
