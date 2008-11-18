@@ -231,6 +231,8 @@ our %msg_string = (
         ['angry_watch'],
     "You see an angry guard approaching!" =>
         ['angry_watch'],
+    "You're under arrest!" =>
+        ['angry_watch'],
     "You are slowing down." =>
         ['status_change', 'stoning', 1],
     "Your limbs are stiffening." =>
@@ -558,10 +560,6 @@ our @msg_regex = (
     [
         qr/^You feel(?: wide)? awake(?:\.|\!)$/ =>
             ['resistance_change', 'sleep', 1],
-    ],
-    [
-        qr/^Halt (?:thief|vandal)\!  You're under arrest\!$/ =>
-        ['angry_watch'],
     ],
 );
 
