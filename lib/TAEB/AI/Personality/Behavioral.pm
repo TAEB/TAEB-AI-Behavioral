@@ -57,7 +57,7 @@ sub remove_behavior {
     my $remove = shift;
 
     $self->prioritized_behaviors([
-        grep { ref $remove == 'CODE' ? !$remove->($_) : $_ ne $remove }
+        grep { ref($remove) eq 'CODE' ? !$remove->($_) : $_ ne $remove }
              $self->prioritized_behaviors
     ]);
 }
