@@ -145,6 +145,7 @@ class_has log => (
                         password  => $error_config->{password},
                         callbacks => sub {
                             my %args = @_;
+                            return if $args{message} =~ /^Game over/;
                             $args{message} =~ s/\n.*//s;
                             return sprintf "%s (T%s): %s",
                                         TAEB->has_senses ? TAEB->name : '?',
