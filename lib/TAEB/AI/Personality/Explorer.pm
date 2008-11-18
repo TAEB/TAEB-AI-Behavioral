@@ -10,9 +10,10 @@ TAEB::AI::Personality::Explore - descend only after exploring the level
 =cut
 
 sub sort_behaviors {
+    my $self = shift;
     my $fight = TAEB->config->fight_behavior || 'Melee';
 
-    return (
+    $self->prioritized_behaviors([
         "FixHunger",
         "Heal",
         "FixStatus",
@@ -37,7 +38,7 @@ sub sort_behaviors {
         "Descend",
         "Search",
         "RandomWalk",
-    );
+    ]);
 }
 
 __PACKAGE__->meta->make_immutable;
