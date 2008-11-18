@@ -16,7 +16,7 @@ sub prepare {
         TAEB->debug("TAEB wants items! @want");
         $self->currently("Picking up items");
         $self->do("pickup");
-        $self->urgency('unimportant');
+        $self->urgency('normal');
         return;
     }
 
@@ -49,7 +49,7 @@ sub prepare {
 
 sub urgencies {
     return {
-        unimportant => "picking up an item here",
+        normal      => "picking up an item here",
         fallback    => "path to a new item",
     },
 }
