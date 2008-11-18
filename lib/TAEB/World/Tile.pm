@@ -166,14 +166,15 @@ has kill_times => (
         "and a force_verboten (used for unseen kills) flag.",
 );
 
-=head2 basic_cost -> Int
+has basic_cost => (
+    is      => 'ro',
+    isa     => 'Int',
+    builder => '_build_basic_cost',
+    clearer => 'invalidate_basic_cost_cache',
+    lazy    => 1,
+);
 
-This returns the basic cost of entering a tile. It's not very smart, but it
-should do the trick for avoiding known traps and preferring the trodden path.
-
-=cut
-
-sub basic_cost {
+sub _build_basic_cost {
     my $self = shift;
     my $cost = 100;
 
@@ -201,6 +202,8 @@ sub update {
     $self->color($color);
 
     $self->update_lit;
+
+    $self->invalidate_basic_cost_cache;
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
