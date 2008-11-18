@@ -3,98 +3,185 @@ package TAEB::AI::Behavior::FixStatus;
 use TAEB::OO;
 extends 'TAEB::AI::Behavior';
 
-my @can_fix = (
-    "unicorn horn" => {
-        refine    => { not_buc => 'cursed' },
-        statuses  => [qw/blind stun conf hallu sick/],
-        priority  => 100,
-        action    => 'apply',
-        args      => sub { item => shift },
-        currently => sub { "Rubbing " . shift },
-        reuseable => 1,
-    },
-    "carrot" => {
-        status    => 'blind',
-        priority  => 80,
-        action    => 'eat',
-        args      => sub { item => shift },
-    },
-    "sprig of wolfsbane" => {
-        status    => 'lycanthropy',
-        priority  => 80,
-        action    => 'eat',
-        args      => sub { item => shift },
-    },
-    "holy water" => {
-        status    => 'lycanthropy',
-        priority  => 80,
-        action    => 'quaff',
-        args      => sub { item => shift },
+sub apply  { { action  => 'apply',  item  => $_[0],
+               urgency => $_[1],    check => sub { defined shift->{item} } } }
+sub cast   { { action  => 'cast',   spell => $_[0], direction => '.',
+               urgency => $_[1],    check => sub { defined shift->{spell} } } }
+sub eat    { { action  => 'eat',    item  => $_[0],
+               urgency => $_[1],    check => sub { defined shift->{item} &&
+                                                   TAEB->nutrition < 1000 } } }
+# XXX: handle invocation timeout too
+sub invoke { { action  => 'invoke', item  => $_[0],
+               urgency => $_[1],    check => sub { defined shift->{item} } } }
+sub pray   { { action  => 'pray',
+               urgency => $_[0],    check => sub { TAEB->senses->can_pray } } }
+sub quaff  { { action  => 'quaff',  item  => 'potion of ' . $_[0],
+               urgency => $_[1],    check => sub { defined shift->{item} } } }
+sub scroll { { action  => 'read',   item  => 'scroll of ' . $_[0],
+               urgency => $_[1],    check => sub { defined shift->{item} } } }
+sub rest   { { action  => 'search',
+               urgency => $_[0],    check => sub { 1 } } }
+sub zap    { { action  => 'zap',    item  => 'wand of ' . $_[0],
+               direction => '.',
+               urgency => $_[1],    check => sub { defined shift->{item} } } }
+
+has needs_fixing => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    auto_deref => 1,
+    default => sub {
+        [
+            {
+                status => 'stoning',
+                check  => sub { 0 },
+                fixes  => [
+                    eat(   'lizard corpse',        'critical'),
+                    # acidic corpses
+                    # acidic tins
+                    quaff( 'potion of acid',       'critical'),
+                    cast(  'stone to flesh',       'critical'),
+                    pray(                          'critical'),
+                ],
+            },
+            {
+                status => 'food poisoning',
+                check  => sub { 0 },
+                fixes  => [
+                    apply( 'unicorn horn',         'critical'),
+                    cast(  'cure sickness',        'critical'),
+                    eat(   'eucalyptus leaf',      'critical'),
+                    invoke('Staff of Aesculapius', 'critical'),
+                    quaff( 'extra healing',        'critical'),
+                    quaff( 'full healing',         'critical'),
+                    pray(                          'critical'),
+                ],
+            },
+            {
+                status => 'strangulation',
+                check  => sub { 0 },
+                fixes  => [
+                    pray(                          'critical'),
+                ],
+            },
+            {
+                status => 'sliming',
+                check  => sub { 0 },
+                fixes  => [
+                    cast(  'cure sickness',        'critical'),
+                    invoke('Staff of Aesculapius', 'critical'),
+                    scroll('fire',                 'critical'),
+                    zap(   'fire',                 'critical'),
+                    cast(  'fireball',             'critical'),
+                    pray(                          'critical'),
+                ],
+            },
+            {
+                status => 'illness',
+                check  => sub { 0 },
+                fixes  => [
+                    apply( 'unicorn horn',         'critical'),
+                    cast(  'cure sickness',        'critical'),
+                    invoke('Staff of Aesculapius', 'critical'),
+                    quaff( 'extra healing',        'critical'),
+                    quaff( 'full healing',         'critical'),
+                    pray(                          'critical'),
+                ],
+            },
+            {
+                status => 'blindness',
+                check  => sub { TAEB->senses->is_blind },
+                fixes  => [
+                    apply( 'unicorn horn',         'important'),
+                    cast(  'extra healing',        'important'),
+                    cast(  'cure blindness',       'important'),
+                    eat(   'carrot',               'important'),
+                    invoke('Staff of Aesculapius', 'important'),
+                    quaff( 'see invisible',        'important'),
+                    quaff( 'healing',              'important'),
+                    quaff( 'extra healing',        'important'),
+                    quaff( 'full healing',         'important'),
+                    rest(                          'unimportant'),
+                ],
+            },
+            {
+                status => 'stunning',
+                check  => sub { TAEB->senses->is_stunned },
+                fixes  => [
+                    apply( 'unicorn horn',         'important'),
+                    rest(                          'unimportant'),
+                ],
+            },
+            {
+                status => 'confusion',
+                check  => sub { TAEB->senses->is_confused },
+                fixes  => [
+                    apply( 'unicorn horn',         'important'),
+                    rest(                          'unimportant'),
+                ],
+            },
+            {
+                status => 'hallucination',
+                check  => sub { TAEB->senses->is_hallucinating },
+                fixes  => [
+                    apply( 'unicorn horn',         'important'),
+                    quaff( 'extra healing',        'important'),
+                    quaff( 'full healing',         'important'),
+                    # potion of sickness
+                    rest(                          'unimportant'),
+                ],
+            },
+            {
+                status => 'lycanthropy',
+                check  => sub { TAEB->senses->is_lycanthropic },
+                fixes  => [
+                    eat(   'sprig of wolfsbane',   'important'),
+                    quaff( 'holy water',           'important'),
+                    pray(                          'important'),
+                ],
+            },
+            {
+                status => 'stat loss',
+                check  => sub { 0 },
+                fixes  => [
+                    apply( 'unicorn horn',         'unimportant'),
+                    cast(  'restore ability',      'unimportant'),
+                    quaff( 'restore ability',      'unimportant'),
+                    eat(   'lump of royal jelly',  'unimportant'),
+                ],
+            },
+            {
+                status => 'wounded legs',
+                check  => sub { 0 },
+                fixes  => [
+                    eat(   'lump of royal jelly',  'unimportant'),
+                    quaff( 'speed',                'unimportant'),
+                    rest(                          'unimportant'),
+                ],
+            },
+        ]
     },
 );
-
-my %restable = (blind => 1, stun => 1, conf => 1, hallu => 1);
 
 sub prepare {
     my $self = shift;
 
-    if (TAEB->is_petrifying) {
-        if (my $lizard = TAEB->find_item('lizard corpse')) {
-            $self->do(eat => item => $lizard);
-            $self->currently("Eating lizard to fix petrification");
+    for my $status ($self->needs_fixing) {
+        next unless $status->{check}->();
+        TAEB->debug("Trying to fix $status->{status}");
+
+        for my $fix (@{$status->{fixes}}) {
+            my %args;
+
+            $args{item}  = TAEB->find_item($fix->{item})   if $fix->{item};
+            $args{spell} = TAEB->find_spell($fix->{spell}) if $fix->{spell};
+            $args{direction} = $fix->{direction}           if $fix->{direction};
+            next unless $fix->{check}->(\%args);
+
+            $self->do($fix->{action}, %args);
+            $self->currently("Fixing $status->{status}");
+            $self->urgency($fix->{urgency});
+            return;
         }
-        elsif (TAEB->can_pray) {
-            $self->do('pray');
-            $self->currently("Praying to fix petrification");
-        }
-        $self->urgency('critical');
-        return;
-    }
-
-    my %c;
-    $c{blind}       = TAEB->is_blind;
-    $c{stun}        = TAEB->is_stunned;
-    $c{sick}        = TAEB->is_sick;
-    $c{conf}        = TAEB->is_confused;
-    $c{hallu}       = TAEB->is_hallucinating;
-    $c{lycanthropy} = TAEB->is_lycanthropic;
-
-    for (my $i = 0; $i < @can_fix; $i += 2) {
-        my ($item_name, $fix) = @can_fix[$i, $i+1];
-
-        my @statuses = @{ $fix->{statuses} || [$fix->{status}] };
-        my @have = grep { $c{$_} } @statuses
-            or next;
-
-        my %match = (identity => $item_name);
-        %match = (%match, %{ $fix->{refine} }) if $fix->{refine};
-        my $item = TAEB->find_item(%match);
-        next unless $item;
-
-        my $currently;
-
-        if (ref($fix->{currently}) eq 'CODE') {
-            $currently = $fix->{currently}->($item);
-        }
-        elsif ($fix->{currently}) {
-            $currently = $fix->{currently};
-        }
-        else {
-            $currently = ucfirst($fix->{action}) . " a $item";
-        }
-
-        $currently .= " to fix: " . join ', ', @have;
-
-        $self->do($fix->{action}, $fix->{args}->($item));
-        $self->currently($currently);
-        $self->urgency('important');
-        return;
-    }
-
-    if (grep { $restable{$_} && $c{$_} } keys %c) {
-        $self->do('search');
-        $self->urgency('important');
-        return;
     }
 }
 
@@ -102,14 +189,10 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    for (my $i = 0; $i < @can_fix; $i += 2) {
-        my ($item_name, $fix) = @can_fix[$i, $i+1];
-        if ($fix->{reusable}) {
-            my %match = (identity => $item->identity);
-            %match = (%match, %{ $fix->{refine} }) if $fix->{refine};
-            next if TAEB->find_item(%match);
-        }
-        return 1 if $item->match(identity => $item_name);
+    for my $fix (map { @{ $_->{fixes} } } $self->needs_fixing) {
+        return 1 if defined $fix->{item} &&
+                    defined $item->identity &&
+                    $item->identity eq $fix->{item};
     }
 
     return;
@@ -117,8 +200,9 @@ sub pickup {
 
 sub urgencies {
     return {
-        critical  => "fixing near death status effects",
-        important => "fixing other status effects",
+        critical    => "fixing a life threatening status",
+        important   => "fixing a problematic status",
+        unimportant => "fixing an annoying status",
     },
 }
 
