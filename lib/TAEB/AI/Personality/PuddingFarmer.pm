@@ -9,13 +9,10 @@ TAEB::AI::Personality::PuddingFarmer - the high score is OURS!
 
 =cut
 
-around weight_behaviors => sub {
-    my $orig = shift;
-    my $weights = $orig->(@_);
+after sort_behaviors => sub {
+    my $self = shift;
 
-    $weights->{GetPudding} = 20_000;
-
-    return $weights;
+    $self->add_behavior('GetPudding', before => 'Doors');
 };
 
 around pickup => sub {

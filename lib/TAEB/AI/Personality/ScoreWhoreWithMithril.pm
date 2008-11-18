@@ -3,13 +3,10 @@ package TAEB::AI::Personality::ScoreWhoreWithMithril;
 use TAEB::OO;
 extends 'TAEB::AI::Personality::ScoreWhore';
 
-around weight_behaviors => sub {
-    my $orig = shift;
-    my $weights = $orig->(@_);
+after sort_behaviors => sub {
+    my $self = shift;
 
-    $weights->{AcquireMithril} = 24_600;
-
-    return $weights;
+    $self->add_behavior('AcquireMithril', before => 'DipForExcalibur');
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -16,21 +16,17 @@ This is an example of shifting the weight of a behavior around.
 
 =cut
 
-around weight_behaviors => sub {
-    my $orig = shift;
+after sort_behaviors => sub {
     my $self = shift;
 
-    my $behaviors = $self->$orig;
-
     # Descend at a very leisurely pace
+    $self->remove_behavior('Descend');
     if (TAEB->level > TAEB->z || TAEB->current_level->turns_spent_on >= 1000) {
-        $behaviors->{Descend} = 1000;
+        $self->add_behavior('Descend', before => 'Search');
     }
     else {
-        $behaviors->{Descend} = 2;
+        $self->add_behavior('Descend', before => 'RandomWalk');
     }
-
-    return $behaviors;
 };
 
 __PACKAGE__->meta->make_immutable;

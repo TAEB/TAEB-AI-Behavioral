@@ -9,18 +9,11 @@ TAEB::AI::Personality::Bathophobe - Never descend! It makes hard monsters spawn!
 
 =cut
 
-around weight_behaviors => sub {
-    my $orig = shift;
+after sort_behaviors => sub {
     my $self = shift;
 
-    my $explorer_weights = $self->$orig(@_);
-
-    delete $explorer_weights->{Descend};
-
-    # above opening doors but below dipping for Excalibur
-    $explorer_weights->{Ascend} = TAEB->z > 1 ? 20_000 : 0;
-
-    return $explorer_weights;
+    $self->remove_behavior('Descend');
+    $self->add_behavior('Ascend', after => 'DipForExcalibur') if TAEB->z > 1;
 };
 
 __PACKAGE__->meta->make_immutable;

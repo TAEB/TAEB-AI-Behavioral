@@ -9,14 +9,11 @@ TAEB::AI::Personality::Descender - descend as quickly as sanely possible
 
 =cut
 
-around weight_behaviors => sub {
-    my $orig = shift;
+after sort_behaviors => sub {
     my $self = shift;
 
-    my $behaviors = $self->$orig;
-    $behaviors->{Descend} = 80_000;
-
-    return $behaviors;
+    $self->remove_behavior('Descend');
+    $self->add_behavior('Descend', after => 'Fight');
 };
 
 __PACKAGE__->meta->make_immutable;
