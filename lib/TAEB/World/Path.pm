@@ -367,7 +367,7 @@ sub _dijkstra {
             }
 
             my $dir = delta2vi($dx, $dy);
-            my $cost = $next->basic_cost;
+            my $cost = $next->intrinsic_cost;
 
             # ahh the things I do for aesthetics.
             $cost-- unless $dy && $dx;
@@ -477,7 +477,7 @@ sub _astar {
             $closed[$xdx][$ydy] = 1;
 
             my $dir = delta2vi($dx, $dy);
-            my $cost = $next->basic_cost + $heur->($next);
+            my $cost = $next->intrinsic_cost + $heur->($next);
 
             # ahh the things I do for aesthetics.
             $cost-- unless $dy && $dx;

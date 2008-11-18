@@ -166,15 +166,15 @@ has kill_times => (
         "and a force_verboten (used for unseen kills) flag.",
 );
 
-has basic_cost => (
+has intrinsic_cost => (
     is      => 'ro',
     isa     => 'Int',
-    builder => '_build_basic_cost',
-    clearer => 'invalidate_basic_cost_cache',
+    builder => '_build_intrinsic_cost',
+    clearer => 'invalidate_intrinsic_cost_cache',
     lazy    => 1,
 );
 
-sub _build_basic_cost {
+sub _build_intrinsic_cost {
     my $self = shift;
     my $cost = 100;
 
@@ -203,7 +203,7 @@ sub update {
 
     $self->update_lit;
 
-    $self->invalidate_basic_cost_cache;
+    $self->invalidate_intrinsic_cost_cache;
 
     # dark rooms
     return if $self->glyph eq ' ' && $self->floor_glyph eq '.';
