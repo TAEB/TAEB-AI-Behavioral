@@ -85,6 +85,10 @@ features(
         recommends('Bot::BasicBot'),
         recommends('App::Nopaste'),
     ],
+    'Log errors (and eventually deaths) to Twitter' => [
+        -default => 0,
+        recommends('Log::Dispatch::Twitter'),
+    ],
 );
 
 build_requires 'Test::More';

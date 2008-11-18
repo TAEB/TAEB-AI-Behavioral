@@ -112,12 +112,14 @@ class_has log => (
     lazy    => 1,
     handles => [qw(debug info warning error critical)],
     default => sub {
+        my $self = shift;
+
         my $format = sub {
             my %args = @_;
             chomp $args{message};
             return sprintf "[%s] <T%s> %s: %s\n",
                            uc($args{level}),
-                           TAEB->has_senses ? TAEB->turn : '-',
+                           $self->has_senses ? $self->turn : '-',
                            scalar(localtime),
                            $args{message};
         };
@@ -126,12 +128,27 @@ class_has log => (
         for (qw(debug info warning error critical)) {
             $dispatcher->add(
                 Log::Dispatch::File->new(
-                    name => $_,
+                    name      => $_,
                     min_level => $_,
-                    filename => "log/$_.log",
+                    filename  => "log/$_.log",
                 )
             );
         }
+
+        if ($self->config->twitter) {
+            require Log::Dispatch::Twitter;
+            if (my $error_config = $self->config->twitter->{errors}) {
+                $dispatcher->add(
+                    Log::Dispatch::Twitter->new(
+                        name      => 'twitter',
+                        min_level => 'error',
+                        username  => $error_config->{username},
+                        password  => $error_config->{password},
+                    )
+                );
+            }
+        }
+
         return $dispatcher;
     },
 );
