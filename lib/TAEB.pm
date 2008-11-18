@@ -146,8 +146,8 @@ class_has log => (
                         callbacks => sub {
                             my %args = @_;
                             $args{message} =~ s/\n.*//s;
-                            return sprintf "[%s] <T%s>: %s",
-                                        uc($args{level}),
+                            return sprintf "%s (T%s): %s",
+                                        TAEB->has_senses ? TAEB->name : '?',
                                         TAEB->has_senses ? TAEB->turn : '-',
                                         $args{message};
                         },
