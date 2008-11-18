@@ -3,6 +3,7 @@ package TAEB::Display;
 use TAEB::OO;
 use Curses ();
 use TAEB::Util ':colors';
+use Time::HiRes 'gettimeofday';
 
 has color_method => (
     isa     => 'Str',
@@ -16,6 +17,11 @@ has glyph_method => (
     clearer => 'reset_glyph_method',
     lazy    => 1,
     default => sub { TAEB->config->glyph_method || 'normal' },
+);
+
+has time_buffer => (
+    isa     => 'ArrayRef[Num]',
+    default => sub { [] },
 );
 
 sub pathfinding { shift->color_method eq 'pathfind' }
@@ -134,6 +140,12 @@ sub draw_botl {
         my $statuses = join '', map { ucfirst substr $_, 0, 2 } TAEB->statuses;
         push @pieces, '[' . $statuses . ']'
             if $statuses;
+
+        my $timebuf = $self->time_buffer;
+        if (@$timebuf > 1) {
+            my $fps = (@$timebuf - 1) / ($$timebuf[0] - $$timebuf[-1]);
+            push @pieces, sprintf "F:%1.1f", $fps;
+        }
 
         $status = join ' ', @pieces;
     }
@@ -277,6 +289,15 @@ sub change_draw_mode {
     else {
         TAEB->complain("Invalid draw mode '$mode'");
     }
+}
+
+sub msg_turn {
+    my $self = shift;
+    my $time = gettimeofday;
+    my $list = $self->time_buffer;
+
+    unshift @$list, $time;
+    splice @$list, 5;
 }
 
 __PACKAGE__->meta->make_immutable;
