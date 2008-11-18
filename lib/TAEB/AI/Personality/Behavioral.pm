@@ -38,6 +38,30 @@ has prioritized_behaviors => (
     auto_deref => 1,
 );
 
+sub add_behavior {
+    my $self = shift;
+    my $add = shift;
+    my %args = @_;
+
+    $self->prioritized_behaviors([
+        map { $_ eq $args{before}
+            ? ($add, $_)
+            : $_ eq $args{after}
+            ? ($_, $add)
+            : $_ } $self->prioritized_behaviors
+    ]);
+}
+
+sub remove_behavior {
+    my $self = shift;
+    my $remove = shift;
+
+    $self->prioritized_behaviors([
+        grep { ref $remove == 'CODE' ? !$remove->($_) : $_ ne $remove }
+             $self->prioritized_behaviors
+    ]);
+}
+
 sub numeric_urgency {
     my $self = shift;
     my $urgency = shift;
