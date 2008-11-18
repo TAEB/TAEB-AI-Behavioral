@@ -452,11 +452,6 @@ sub keypress {
     my $self = shift;
     my $c = shift;
 
-    # refresh modules
-    if ($c eq 'r') {
-        return "Module::Refresh is broken. Sorry.";
-    }
-
     # pause for a key
     if ($c eq 'p') {
         TAEB->notify("Paused.", 0);
@@ -490,7 +485,7 @@ sub keypress {
     }
 
     # refresh NetHack's screen
-    if ($c eq "\cr") {
+    if ($c eq 'r' || $c eq "\cr") {
         # back to normal
         TAEB->redraw(force_clear => 1);
         return undef;
