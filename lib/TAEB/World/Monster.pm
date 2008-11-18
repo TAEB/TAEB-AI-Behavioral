@@ -239,7 +239,7 @@ sub can_be_outrun {
     my $spd = $spoiler->{speed};
     my ($pmin, $pmax) = TAEB->speed;
 
-    return $spd < $pmin || $spd == $pmin && $spd < $pmax;
+    return $spd < $pmin || ($spd == $pmin && $spd < $pmax);
 }
 
 =head2 should_attack_at_range :: Bool
