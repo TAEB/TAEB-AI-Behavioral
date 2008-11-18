@@ -47,7 +47,7 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying is_sick/] => (
+has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying is_food_poisoned is_ill/] => (
     isa     => 'Bool',
     default => 0,
 );
@@ -265,7 +265,8 @@ sub find_statuses {
     $self->is_stunned($botl =~ /\bStun/ ? 1 : 0);
     $self->is_confused($botl =~ /\bConf/ ? 1 : 0);
     $self->is_hallucinating($botl =~ /\bHal/ ? 1 : 0);
-    $self->is_sick($botl =~ /\b(?:Foo|Ill)/ ? 1 : 0);
+    $self->is_food_poisoned($botl =~ /\bFoo/ ? 1 : 0);
+    $self->is_ill($botl =~ /\bIll/ ? 1 : 0);
 }
 
 sub statuses {
