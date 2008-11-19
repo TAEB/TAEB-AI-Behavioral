@@ -169,7 +169,17 @@ sub msg_got_item {
 
 sub msg_hidden_monster { shift->hit_obscured_monster(1) }
 
-sub location_controlled_tele { shift->path->to }
+sub location_controlled_tele {
+    my $self = shift;
+    my $target = $self->path->to;
+    return $target if $target->is_walkable && !$target->has_monster;
+    my @adjacent = $target->grep_adjacent(sub {
+        my $t = shift;
+        return $t->is_walkable && !$t->has_monster;
+    });
+    return unless @adjacent;
+    return $adjacent[0];
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
