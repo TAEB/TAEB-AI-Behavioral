@@ -51,9 +51,7 @@ sub want_to_eat {
         $intrinsic = 1 if $item->$prop() && !TAEB->$res();
     }
 
-    # XXX when we can track nutrition gain
-    return 1 if $intrinsic && TAEB->nutrition >= 1000 &&
-        ($item->nutrition + TAEB->nutrition < 2000);
+    return 1 if $intrinsic && ($item->nutrition + TAEB->nutrition < 2000);
 
     return 1 if TAEB->nutrition < 995;
 
