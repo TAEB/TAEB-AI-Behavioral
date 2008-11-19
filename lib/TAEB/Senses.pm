@@ -602,7 +602,14 @@ sub speed {
     $min *= $burden_mod;
     $max *= $burden_mod;
 
-    return ($min + $max) / 2 if !wantarray;
+    if (!wantarray) {
+        if ($self->is_very_fast) {
+            return ($min * 2 + $max) / 3;
+        }
+        else {
+            return ($min + $max * 2) / 3;
+        }
+    }
     return ($min, $max);
 }
 
