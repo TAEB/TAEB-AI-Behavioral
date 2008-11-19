@@ -834,6 +834,19 @@ sub is_empty {
     return $self->glyph eq $self->floor_glyph;
 }
 
+=head2 is_transparent -> Bool
+
+Returns true if the player can see through the tile.
+
+=cut
+
+sub is_transparent {
+    my $self = shift;
+
+    return $self->type ne 'rock' && $self->type ne 'wall' &&
+        !$self->has_boulder;
+}
+
 =head2 shows_items -> Bool
 
 =cut
