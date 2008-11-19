@@ -27,6 +27,8 @@ sub vulnerability {
     # Always try to fight on stairs
     return -1 if $tile->type eq 'stairsup';
 
+    return 99 if !$tile->is_walkable;
+
     my $score = 0;
 
     my @enemies = grep { $_->in_los } TAEB->current_level->has_enemies;
