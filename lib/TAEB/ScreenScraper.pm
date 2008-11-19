@@ -966,7 +966,7 @@ sub handle_location_request {
     my $self = shift;
 
     return unless $self->messages =~
-        /(?:^\s*|  )(.*?)  \(For instructions type a \?\)/;
+        /(?:^\s*|  )(.*?)  \(For instructions type a \?\)\s*$/;
     my $type = $1;
 
     my $dest = TAEB->get_location_request($type);
