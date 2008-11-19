@@ -15,24 +15,59 @@ extends 'TAEB::AI::Behavior';
 # @..|  @.|  @
 #   .|    |
 
-# a quadrant is specified as the intersection of half-planes defined by linear
-# functions
+# Of course, it has to be a _good_ chokepoint.  We answer that by saying
+# it has less walkable neighbors than we do now.
+
+# A quadrant is specified as the intersection of half-planes defined by linear
+# functions.
+
+sub vulnerability {
+    my ($self, $dir, $tile) = @_;
+
+    # Always try to fight on stairs
+    return -1 if $tile->type eq 'stairsup' || $tile->type eq 'stairsdown';
+
+    my $score = 0;
+
+    # Or on an E-able square, if the monsters aren't E-ignorers
+    if (!grep { $_->ignores_elbereth && $_->in_los }
+            TAEB->current_level->has_enemies) {
+        $score += 5 if !$tile->is_inscribable;
+    }
+
+    $score += $tile->grep_adjacent(sub {
+        my ($tile2, $dir2) = @_;
+
+        # Ignore back directions to reduce the likelyhood of self-cornering.
+        $tile2->is_walkable || angle($dir2, $dir) <= 1;
+    });
+
+    $score;
+}
 
 sub useful_dir {
-    my ($self, $los, $dir) = @_;
-    my ($dx, $dy) = @$dir;
+    my ($self, $dir) = @_;
+    my ($dx, $dy) = delta2vi $dir;
     my $choke = 0;
 
-    for $tile (@$los) {
-        next unless $tile->x * ( $dx - $dy) + $tile->y * ( $dx + $dy) > 0;
-        next unless $tile->x * ( $dx + $dy) + $tile->y * (-$dx + $dy) > 0;
+    my $cut = $self->vulnerability($dir, TAEB->current_tile);
 
-        if () { # useful chokepoint
-            $choke = 1;
-        }
+    for $dy (-7 .. 7) {
+        for $dx (-7 .. 7) {
+            my $tile = TAEB->current_level->at(TAEB->x + $dx, TAEB->y + $dy);
 
-        if ($tile->has_enemy) {
-            return 0;
+            next unless $tile;
+            next unless $tile->in_los;
+            next unless $tile->x * ( $dx - $dy) + $tile->y * ( $dx + $dy) > 0;
+            next unless $tile->x * ( $dx + $dy) + $tile->y * (-$dx + $dy) > 0;
+
+            if ($self->vulnerability($dir, $tile) < $cut) {
+                $choke = 1;
+            }
+
+            if ($tile->has_enemy) {
+                return 0;
+            }
         }
     }
 
@@ -60,10 +95,7 @@ sub prepare {
     # Useless in one-on-one fights
     return if @enemies <= 1;
 
-    my $los = TAEB->los;
-
-    my @dirs = grep { $self->useful_dir($los, [delta2vi $_]) }
-        qw/h j k l y u b n/;
+    my @dirs = grep { $self->useful_dir($_) } qw/h j k l y u b n/;
 
     if (@dirs) {
         $self->do(move => direction => $dirs[0]);
