@@ -16,6 +16,14 @@ has y => (
     isa => 'Int',
 );
 
+has fov => (
+    isa       => 'ArrayRef',
+    is        => 'ro',
+    default   => sub { TAEB->current_level->calculate_fov },
+    clearer   => 'invalidate_fov',
+    lazy      => 1,
+);
+
 sub update {
     my $self  = shift;
 
@@ -56,6 +64,10 @@ sub update {
         $self->autoexplore;
         $self->dungeon->current_level->detect_branch;
         TAEB->enqueue_message('tile_changes');
+    }
+
+    if ($tile_changed || $self->x != $old_x || $self->y != $old_y) {
+        $self->invalidate_fov;
     }
 }
 

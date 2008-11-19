@@ -25,7 +25,7 @@ has cartographer => (
         my $self = shift;
         TAEB::World::Cartographer->new(dungeon => $self)
     },
-    handles => [qw/update x y map_like/],
+    handles => [qw/update x y map_like fov/],
 );
 
 around current_level => sub {

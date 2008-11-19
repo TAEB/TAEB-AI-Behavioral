@@ -171,7 +171,7 @@ class_has dungeon => (
 
         my %delegate = map { $_ => $_ }
                        qw{current_level current_tile nearest_level
-                          map_like x y z};
+                          map_like x y z fov};
 
         for (map { $_->{name} } $dungeon->compute_all_applicable_methods) {
             $delegate{$_} = $_
