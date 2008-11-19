@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::DeadEnd;
 use TAEB::OO;
+use TAEB::Util qw/delta2vi/;
 extends 'TAEB::AI::Behavior';
 
 sub prepare {
@@ -40,11 +41,17 @@ sub prepare {
 
     return if $walkable > 1;
 
-    if (TAEB->is_blind) {
+    my $stethoscope = TAEB->find_item('stethoscope');
+    if (TAEB->is_blind && TAEB->grep_adjacent(sub { shift->searched == 0 })) {
         $self->do('search', iterations => 1);
     }
     else {
-        $self->do('search');
+        if ($stethoscope) {
+            $self->do(apply => item => $stethoscope);
+        }
+        else {
+            $self->do('search');
+        }
     }
 
     $self->urgency('fallback');
@@ -56,6 +63,24 @@ sub urgencies {
     return {
         fallback => "searching at a dead end",
     },
+}
+
+sub pickup {
+    my $self = shift;
+    my $item = shift;
+    return $item->match(identity => 'stethoscope');
+}
+
+sub prompt_which_direction {
+    my $self = shift;
+    my @tiles = TAEB->grep_adjacent(sub {
+        my $t = shift;
+        return 0 unless $t->type eq 'wall' || $t->type eq 'rock';
+        return 0 if $t->searched > 30;
+        return 1;
+    });
+    $tiles[0]->inc_searched(30);
+    return delta2vi($tiles[0]->x - TAEB->x, $tiles[0]->y - TAEB->y);
 }
 
 __PACKAGE__->meta->make_immutable;

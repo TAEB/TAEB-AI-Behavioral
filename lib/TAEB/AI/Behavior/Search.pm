@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::Search;
 use TAEB::OO;
+use TAEB::Util qw/delta2vi/;
 extends 'TAEB::AI::Behavior';
 
 sub prepare {
@@ -16,7 +17,13 @@ sub prepare {
 
     if ($path && $path->path eq '') {
         $self->currently("Searching adjacent walls and rock");
-        $self->do('search');
+        my $stethoscope = TAEB->find_item('stethoscope');
+        if ($stethoscope) {
+            $self->do(apply => item => $stethoscope);
+        }
+        else {
+            $self->do('search');
+        }
         $self->urgency('fallback');
         return;
     }
@@ -28,6 +35,24 @@ sub urgencies {
     return {
         fallback => "searching adjacent walls and rock, or pathing to them",
     }
+}
+
+sub pickup {
+    my $self = shift;
+    my $item = shift;
+    return $item->match(identity => 'stethoscope');
+}
+
+sub prompt_which_direction {
+    my $self = shift;
+    my @tiles = TAEB->grep_adjacent(sub {
+        my $t = shift;
+        return 0 unless $t->type eq 'wall' || $t->type eq 'rock';
+        return 0 if $t->searched > 30;
+        return 1;
+    });
+    $tiles[0]->inc_searched(30);
+    return delta2vi($tiles[0]->x - TAEB->x, $tiles[0]->y - TAEB->y);
 }
 
 __PACKAGE__->meta->make_immutable;
