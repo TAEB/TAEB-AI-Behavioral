@@ -390,7 +390,7 @@ sub matches_vt {
                  && $tile->type ne 'floor';
 
         return 1;
-    });
+    }, $vt);
 }
 
 my %branch = (
