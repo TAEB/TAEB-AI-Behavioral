@@ -32,7 +32,8 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types delta2vi vi2delta deltas dice colors crow_flies), keys %colors],
+    exports => [qw(tile_types delta2vi vi2delta deltas dice colors crow_flies),
+        qw(angle), keys %colors],
     groups => {
         colors => [keys %colors],
     },
