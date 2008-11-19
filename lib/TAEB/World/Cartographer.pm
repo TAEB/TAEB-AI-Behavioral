@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Cartographer;
 use TAEB::OO;
+use FOV::NetHack 'calculate_fov';
 
 has dungeon => (
     isa      => 'TAEB::World::Dungeon',
@@ -19,7 +20,10 @@ has y => (
 has fov => (
     isa       => 'ArrayRef',
     is        => 'ro',
-    default   => sub { TAEB->current_level->calculate_fov },
+    default   => sub { calculate_fov(TAEB->x, TAEB->y, sub {
+            my $tile = TAEB->current_level->at(@_);
+            $tile && $tile->is_transparent;
+        }) },
     clearer   => 'invalidate_fov',
     lazy      => 1,
 );
