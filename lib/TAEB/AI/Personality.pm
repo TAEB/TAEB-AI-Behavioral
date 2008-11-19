@@ -127,12 +127,12 @@ sub respond_die { "n" }
 
 sub respond_wish {
     # We all know how much TAEB loves Elbereth. Let's give it Elbereth's best buddy.
-    return "blessed fixed +3 Magicbane\n" unless TAEB::Spoilers::Item::Artifact->seen("Magicbane");
+    return "blessed fixed +3 Magicbane\n" unless TAEB->knowledge->artifacts->was_seen("Magicbane");
 
     # Half physical damage? Don't mind if I do! (Now with added grease for Eidolos!)
     return "blessed fixed greased Master Key of Thievery\n"
         if TAEB->align eq 'Cha'
-        && !TAEB::Spoilers::Item::Artifact->seen('Master Key of Thievery');
+        && !TAEB->knowledge->artifacts->was_seen('Master Key of Thievery');
 
     # We can always use more AC.
     return "blessed fixed greased +3 dwarvish mithril-coat\n" unless TAEB->find_item(qr/mithril/);
