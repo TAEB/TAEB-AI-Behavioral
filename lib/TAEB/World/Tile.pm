@@ -859,6 +859,18 @@ sub shows_items {
     return $self->glyph =~ /[\.\^<>_\\{#]/;
 }
 
+=head2 in_los -> Bool
+
+=cut
+
+sub in_los {
+    my $self = shift;
+
+    return 0 if $self->level != TAEB->current_level;
+
+    return TAEB->fov->[$self->x][$self->y];
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
