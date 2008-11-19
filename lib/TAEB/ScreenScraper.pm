@@ -973,7 +973,8 @@ sub handle_location_request {
     if (defined $dest) {
         $self->messages($self->messages . sprintf "(%d, %d)",
                                                   $dest->x, $dest->y);
-        TAEB->write(crow_flies($dest->x, $dest->y) . ".");
+        TAEB->write(crow_flies(TAEB->vt->x, TAEB->vt->y,
+                               $dest->x, $dest->y) . ".");
         die "Recursing screenscraper.\n";
     }
     else {
