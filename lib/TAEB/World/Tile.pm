@@ -535,6 +535,13 @@ sub has_friendly {
 
 sub has_boulder { shift->glyph eq '0' }
 
+sub is_inscribable {
+    my $self = shift;
+
+    return $self->type ne 'fountain' && $self->type ne 'altar' &&
+        $self->type ne 'grave';
+}
+
 sub _panel {
     my $self = shift;
 
