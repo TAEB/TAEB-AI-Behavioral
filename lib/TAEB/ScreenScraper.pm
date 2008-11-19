@@ -692,6 +692,9 @@ sub scrape {
         # handle other text
         $self->handle_fallback;
 
+        # handle location requests
+        $self->handle_location_request;
+
         # publish messages for all_messages
         $self->send_messages;
 
@@ -956,6 +959,28 @@ sub handle_fallback {
             TAEB->warning("Escaped out of unhandled prompt: " . TAEB->topline);
             die "Recursing screenscraper.\n";
         }
+    }
+}
+
+sub handle_location_request {
+    my $self = shift;
+
+    return unless $self->messages =~
+        /(?:^\s*|  )(.*?)  \(For instructions type a \?\)/;
+    my $type = $1;
+
+    my $dest = TAEB->get_location_request($type);
+    if (defined $dest) {
+        $self->messages($self->messages . sprintf "(%d, %d)",
+                                                  $dest->x, $dest->y);
+        TAEB->write(crow_flies($dest->x, $dest->y) . ".");
+        die "Recursing screenscraper.\n";
+    }
+    else {
+        $self->messages($self->messages . "(escaped)");
+        TAEB->write("\e");
+        TAEB->warning("Escaped out of unhandled location request: " . $type);
+        die "Recursing screenscraper.\n";
     }
 }
 
