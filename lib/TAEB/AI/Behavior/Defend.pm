@@ -8,6 +8,12 @@ sub prepare {
     my $self = shift;
 
     if (TAEB->hp * 2 <= TAEB->maxhp) {
+        if (TAEB->current_tile->type eq 'stairsup' && TAEB->z > 1) {
+            $self->currently("Fleeing upstairs to rest.");
+            $self->do('ascend');
+            $self->urgency('important');
+        }
+
         my $can_engrave = TAEB->can_engrave;
         my $elbereths   = lazy { TAEB->elbereth_count };
 
@@ -58,6 +64,7 @@ sub prepare {
 
 sub urgencies {
     return {
+       important   => "leaving the area due to low HP",
        normal      => "writing Elbereth due to low HP",
        unimportant => "resting to regain hp before continuing",
     },

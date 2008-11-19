@@ -25,7 +25,7 @@ sub vulnerability {
     my ($self, $dir, $tile) = @_;
 
     # Always try to fight on stairs
-    return -1 if $tile->type eq 'stairsup' || $tile->type eq 'stairsdown';
+    return -1 if $tile->type eq 'stairsup';
 
     my $score = 0;
 
