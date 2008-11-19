@@ -676,6 +676,14 @@ sub lit_color {
          : Curses::COLOR_PAIR(COLOR_WHITE) | Curses::A_BOLD;
 }
 
+sub los_color {
+    my $self = shift;
+
+    return $self->in_los
+         ? $self->normal_color
+         : (Curses::COLOR_PAIR(COLOR_WHITE) | Curses::A_BOLD);
+}
+
 sub stepped_color {
     my $self = shift;
     my $stepped = $self->stepped_on;

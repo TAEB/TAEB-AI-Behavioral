@@ -263,6 +263,10 @@ my %mode_changes = (
         summary => 'Displays lit tiles',
         execute => sub { shift->color_method('lit') },
     },
+    L => {
+        summary => 'Displays tiles in LOS',
+        execute => sub { shift->color_method('los') },
+    },
     f => {
         summary => 'Draws floor glyphs',
         execute => sub { shift->glyph_method('floor') },
