@@ -856,11 +856,12 @@ Returns true if the player can see through the tile.
 
 =cut
 
+my %opaque = map { $_ => 1 } qw(rock wall tree closeddoor cloud water);
+
 sub is_transparent {
     my $self = shift;
 
-    return $self->type ne 'rock' && $self->type ne 'wall' &&
-        !$self->has_boulder;
+    return !$opaque{$self->type} && !$self->has_boulder;
 }
 
 =head2 shows_items -> Bool
