@@ -82,6 +82,11 @@ sub post_responses {
     if (blessed $item && $item->slot)  {
         TAEB->inventory->decrease_quantity($item->slot)
     }
+    elsif ($item eq 'any') {
+        #we had some issues, and none of the responses were called. bail out.
+        TAEB->warning("Tried to eat food but no responses were called");
+        return;
+    }
     else {
         $item = TAEB->new_item($item);
         #This doesn't work well with a stack of corpses on the floor
