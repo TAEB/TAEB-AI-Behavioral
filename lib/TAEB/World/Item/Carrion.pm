@@ -23,13 +23,18 @@ has failed_to_sacrifice => (
     default => 0,
 );
 
-sub estimate_age { TAEB->turn - shift->estimated_date; }
+sub estimate_age {
+    my $self = shift;
+    my $when = shift || TAEB->turn;
+    return $when - $self->estimated_date;
+}
 
 sub maybe_rotted {
     my $self = shift;
+    my $when = shift;
 
-    my $rotted_low = int($self->estimate_age / 29);
-    my $rotted_high = int($self->estimate_age / 10);
+    my $rotted_low = int($self->estimate_age($when) / 29);
+    my $rotted_high = int($self->estimate_age($when) / 10);
 
     if (!defined($self->buc)) {
         $rotted_low -= 2; $rotted_high += 2;
