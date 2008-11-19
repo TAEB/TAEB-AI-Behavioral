@@ -4,10 +4,11 @@ use TAEB::OO;
 extends 'TAEB::AI::Behavior::GotoTile';
 
 sub want_to_eat {
-    my ($self, $item) = @_;
+    my ($self, $item, $distance) = @_;
 
     return 0 unless $item->class eq 'carrion';
-    my $rotted = $item->maybe_rotted;
+    my $rotted = $item->maybe_rotted(TAEB->turn +
+                                     ($distance * TAEB->speed / 12));
     my $unihorn = TAEB->find_item(identity => "unicorn horn",
         buc => [qw/blessed uncursed/]);
 
@@ -64,9 +65,10 @@ sub first_pass {
 }
 
 sub match_tile {
-    my ($self, $tile) = @_;
+    my ($self, $tile, $path) = @_;
+    my $distance = length $path;
 
-    my @yummy = grep { $self->want_to_eat($_) } $tile->items;
+    my @yummy = grep { $self->want_to_eat($_, $distance) } $tile->items;
 
     if (@yummy) {
         return [eat => item => $yummy[0]->identity],
