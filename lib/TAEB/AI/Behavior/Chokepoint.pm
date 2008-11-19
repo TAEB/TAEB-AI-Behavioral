@@ -30,7 +30,7 @@ sub vulnerability {
     my $score = 0;
 
     # Or on an E-able square, if the monsters aren't E-ignorers
-    if (!grep { $_->ignores_elbereth && $_->in_los }
+    if (!grep { !$_->respects_elbereth && $_->in_los }
             TAEB->current_level->has_enemies) {
         $score += 5 if !$tile->is_inscribable;
     }
@@ -47,7 +47,7 @@ sub vulnerability {
 
 sub useful_dir {
     my ($self, $dir) = @_;
-    my ($dx, $dy) = delta2vi $dir;
+    my ($dx, $dy) = vi2delta $dir;
     my $choke = 0;
 
     my $cut = $self->vulnerability($dir, TAEB->current_tile);
