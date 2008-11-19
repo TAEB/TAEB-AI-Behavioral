@@ -61,7 +61,7 @@ sub want_to_eat {
 sub first_pass {
     my $self = shift;
 
-    grep { $self->want_to_eat($_) } TAEB->current_level->items;
+    grep { $self->want_to_eat($_, 0) } TAEB->current_level->items;
 }
 
 sub match_tile {
