@@ -48,7 +48,7 @@ our %glyphs = (
     '<'  => 'stairsup',
     '^'  => 'trap',
     '_'  => 'altar',
-    '~'  => 'water',
+    '~'  => 'pool',
 
     '|'  => [qw/opendoor wall/],
     '-'  => [qw/opendoor wall/],
@@ -65,7 +65,7 @@ our %glyphs = (
 # miss =>? deal with it
 # traps are a bit hairy. with some remapping magic could rectify..
 our %feature_colors = (
-    COLOR_BLUE,    [qw/fountain trap water underwater/],
+    COLOR_BLUE,    [qw/fountain trap pool underwater/],
     COLOR_BROWN,   [qw/opendoor closeddoor drawbridge stairsup stairsdown trap/],
     COLOR_CYAN,    [qw/bars ice trap/],
     COLOR_GRAY,    [qw/rock altar corridor floor grave sink stairsup stairsdown trap wall opendoor/],
