@@ -63,15 +63,15 @@ sub useful_dir {
 
             next unless $tile;
             next unless $tile->in_los;
-            next unless $tile->x * ( $dx - $dy) + $tile->y * ( $dx + $dy) > 0;
-            next unless $tile->x * ( $dx + $dy) + $tile->y * (-$dx + $dy) > 0;
+            next unless $tdx * ( $dx - $dy) + $tdy * ( $dx + $dy) > 0;
+            next unless $tdx * ( $dx + $dy) + $tdy * (-$dx + $dy) > 0;
 
             my $vul = $self->vulnerability($dir, $tile);
 
-            if ($self->vulnerability($dir, $tile) < $cut) {
-                TAEB->debug("Found a useful $cut -> $vul ($dir) move");
+            if ($self->vulnerability($dir, $tile) < $cut && !$choke) {
+                TAEB->debug("Found a useful $cut -> $vul ($dir) move (" .
+                    ($tile->x - TAEB->x) . "," . ($tile->y - TAEB->y) . ")");
                 $choke = 1;
-                last TILE;
             }
 
             if ($tile->has_enemy) {
