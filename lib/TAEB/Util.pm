@@ -197,7 +197,6 @@ sub which_dir {
 }
 
 sub crow_flies {
-    my $self = shift;
     my $x0 = @_ > 2 ? shift : TAEB->x;
     my $y0 = @_ > 2 ? shift : TAEB->y;
     my $x1 = shift;
