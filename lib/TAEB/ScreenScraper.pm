@@ -621,13 +621,16 @@ our @prompts = (
     qr/^Advance skills without practice\?/ => 'advance_without_practice',
     qr/^Dump core\?/ => 'dump_core',
     qr/^Die\?/ => 'die',
-    qr/^To what position do you want to be teleported\?/ => 'controlled_tele',
 );
 
 our @exceptions = (
     qr/^You don't have that object/             => 'missing_item',
     qr/^You don't have anything to (?:zap|eat)/ => 'missing_item',
     qr/^You are too hungry to cast that spell/  => 'hunger_cast',
+);
+
+our @location_requests = (
+    qr/^To what position do you want to be teleported\?/ => 'controlled_tele',
 );
 
 has messages => (
