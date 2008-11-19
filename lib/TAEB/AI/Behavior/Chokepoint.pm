@@ -104,6 +104,8 @@ sub prepare {
     # Useless in one-on-one fights
     return if @enemies <= 1;
 
+    return if !TAEB->can_move;
+
     my @dirs = grep { $self->useful_dir($_) } qw/h j k l y u b n/;
 
     if (@dirs) {
