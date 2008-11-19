@@ -73,7 +73,7 @@ sub useful_dir {
 
     return 0 unless $choke;
 
-    my $to = TAEB->current_level->at_direction($dest);
+    my $to = TAEB->current_level->at_direction($dir);
 
     return 0 unless defined $to
                && $to->is_walkable
@@ -82,7 +82,7 @@ sub useful_dir {
 
     return 0 if (TAEB->current_tile->type eq 'opendoor'
             || $to->type eq 'opendoor')
-           && $back =~ /[yubn]/;
+           && $dir =~ /[yubn]/;
 
     return 1;
 }
