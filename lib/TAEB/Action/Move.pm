@@ -2,7 +2,7 @@
 package TAEB::Action::Move;
 use TAEB::OO;
 extends 'TAEB::Action';
-use TAEB::Util qw/vi2delta crow_flies/;
+use TAEB::Util 'vi2delta';
 
 with 'TAEB::Action::Role::Direction';
 
@@ -169,11 +169,7 @@ sub msg_got_item {
 
 sub msg_hidden_monster { shift->hit_obscured_monster(1) }
 
-sub respond_controlled_tele {
-    my $self = shift;
-    my $target = $self->path->to;
-    crow_flies($target->x, $target->y) . ".";
-}
+sub location_controlled_tele { shift->path->to }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
