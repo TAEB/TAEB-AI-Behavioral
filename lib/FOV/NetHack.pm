@@ -7,6 +7,7 @@ use strict;
 use Exporter;
 
 our @EXPORT_OK = qw(calculate_fov);
+our @ISA = qw(Exporter);
 
 # not handled: swimming, phasing
 # possibly buggy: everything
