@@ -52,7 +52,7 @@ sub useful_dir {
 
     my $cut = $self->vulnerability($dir, TAEB->current_tile);
 
-    for my $tdy (-7 .. 7) {
+    TILE: for my $tdy (-7 .. 7) {
         for my $tdx (-7 .. 7) {
             my $tile = TAEB->current_level->at(TAEB->x + $tdx, TAEB->y + $tdy);
 
@@ -61,11 +61,16 @@ sub useful_dir {
             next unless $tile->x * ( $dx - $dy) + $tile->y * ( $dx + $dy) > 0;
             next unless $tile->x * ( $dx + $dy) + $tile->y * (-$dx + $dy) > 0;
 
+            my $vul = $self->vulnerability($dir, $tile);
+
             if ($self->vulnerability($dir, $tile) < $cut) {
+                TAEB->debug("Found a useful $cut -> $vul ($dir) move");
                 $choke = 1;
+                last TILE;
             }
 
             if ($tile->has_enemy) {
+                TAEB->debug("A monster blocks ($dir)");
                 return 0;
             }
         }
@@ -84,6 +89,7 @@ sub useful_dir {
             || $to->type eq 'opendoor')
            && $dir =~ /[yubn]/;
 
+    TAEB->debug("($dir) is useful!");
     return 1;
 }
 
