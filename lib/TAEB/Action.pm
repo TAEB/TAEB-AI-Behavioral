@@ -109,6 +109,8 @@ sub action_names {
            sort $self->actions;
 }
 
+sub respond_controlled_tele { "." }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
