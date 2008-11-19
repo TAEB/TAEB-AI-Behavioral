@@ -20,6 +20,7 @@ sub sort_behaviors {
         "Defend",
         "AttackSpell",
         "BuffSelf",
+        "Chokepoint",
         "Kite",
         "$fight",
         "Projectiles",
