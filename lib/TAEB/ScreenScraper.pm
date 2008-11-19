@@ -621,6 +621,7 @@ our @prompts = (
     qr/^Advance skills without practice\?/ => 'advance_without_practice',
     qr/^Dump core\?/ => 'dump_core',
     qr/^Die\?/ => 'die',
+    qr/^To what position do you want to be teleported\?/ => 'controlled_tele',
 );
 
 our @exceptions = (
