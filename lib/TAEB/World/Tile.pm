@@ -178,9 +178,10 @@ sub _build_intrinsic_cost {
     my $self = shift;
     my $cost = 100;
 
-    $cost *= 20 if $self->has_monster;
-    $cost *= 10 if $self->type eq 'trap';
-    $cost *= 4  if $self->type eq 'ice';
+    $cost *= 20  if $self->has_monster;
+    $cost *= 10  if $self->type eq 'trap';
+    $cost *= 4   if $self->type eq 'ice';
+    $cost *= 1.1 if $self->type eq 'fountain';
 
     # prefer tiles we've stepped on to avoid traps
     $cost = $cost * .9 if $self->stepped_on;
