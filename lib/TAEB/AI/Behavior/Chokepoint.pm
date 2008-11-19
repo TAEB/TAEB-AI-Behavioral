@@ -29,11 +29,7 @@ sub vulnerability {
 
     my $score = 0;
 
-    # Or on an E-able square, if the monsters aren't E-ignorers
-    if (!grep { !$_->respects_elbereth && $_->in_los }
-            TAEB->current_level->has_enemies) {
-        $score += 5 if !$tile->is_inscribable;
-    }
+    my @enemies = grep { $_->in_los } TAEB->current_level->has_enemies;
 
     $score += $tile->grep_adjacent(sub {
         my ($tile2, $dir2) = @_;
@@ -41,6 +37,13 @@ sub vulnerability {
         # Ignore back directions to reduce the likelyhood of self-cornering.
         $tile2->is_walkable || angle($dir2, $dir) <= 1;
     });
+
+    if ($score > @enemies) { $score = @enemies; }
+
+    # Or on an E-able square, if the monsters aren't E-ignorers
+    if (!grep { !$_->respects_elbereth } @enemies) {
+        $score += 5 if !$tile->is_inscribable;
+    }
 
     $score;
 }
