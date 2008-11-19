@@ -90,6 +90,8 @@ sub door_handler {
                 return;
             };
         }
+
+        return;
     }
 }
 
