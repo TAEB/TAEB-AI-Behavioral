@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::ScreenScraper;
-use List::Util qw/min max/;
 use TAEB::OO;
+use TAEB::Util qw/crow_flies/;
 use NetHack::Menu;
 
 our %msg_string = (
@@ -1099,95 +1099,6 @@ sub farlook {
         if wantarray;
     return $description;
 }
-
-=head2 crow_flies [Int, Int, ]Int, Int -> Str
-
-Returns the vi key directions required to go from where TAEB is to the given
-coordinates. If two sets of coordinates are passed in, they will be interpreted
-as the "from" coordinates, instead of TAEB's current position.
-
-=cut
-
-sub which_dir {
-    my ($dx, $dy) = @_;
-    my %dirs = (
-        -1 => { -1 => 'y', 0 => 'h', 1 => 'b' },
-        0  => { -1 => 'k',           1 => 'j' },
-        1  => { -1 => 'u', 0 => 'l', 1 => 'n' },
-    );
-
-    my ($sdx, $sdy) = (0, 0);
-    $sdx = $dx / abs($dx) if $dx != 0;
-    $sdy = $dy / abs($dy) if $dy != 0;
-    return ($dirs{$sdx}{$sdy},
-            abs($dx) > abs($dy) ? $dirs{$sdx}{0} : $dirs{0}{$sdy});
-}
-
-sub crow_flies {
-    my $self = shift;
-    my $x0 = @_ > 2 ? shift : TAEB->x;
-    my $y0 = @_ > 2 ? shift : TAEB->y;
-    my $x1 = shift;
-    my $y1 = shift;
-
-    my $directions = '';
-    my $sub = 0;
-
-    my $dx = $x1 - $x0;
-    my $dy = $y1 - $y0;
-    my ($diag_dir, $straight_dir) = which_dir($dx, $dy);
-
-    $dx = abs $dx; $dy = abs $dy;
-
-    use integer;
-    # Get the minimum number of divisible-by-eight segments
-    # to get the number of YUBN diagonal movements to get to the
-    # proper vertical or horizontal line
-    # This first part will get to within 7
-    $sub = min($dx/8, $dy/8);
-    $directions .= uc ($diag_dir x $sub);
-    $dx -= 8 * $sub;
-    $dy -= 8 * $sub;
-
-    # Now move the rest of the way (0..7)
-    $sub = min($dx, $dy);
-    $directions .= $diag_dir x $sub;
-    $dx -= $sub;
-    $dy -= $sub;
-
-    # Here we use max because one of the directionals is zero now
-    # Otherwise same concept as the first part
-    $sub = max($dx/8, $dy/8);
-    $directions .= uc ($straight_dir x $sub);
-    $dx -= 8 * $sub;
-    $dy -= 8 * $sub;
-
-    # Again max, same reason
-    $sub = max($dx, $dy);
-    $directions .= $straight_dir x $sub;
-    # reducing dx/dy isn't needed any more ;)
-
-    return $directions;
-}
-
-=for my_sanity
-    while ($x + 8 < $x1 && $y - 8 > $y1) { $dir .= 'Y'; $x += 8; $y -= 8 }
-    while ($x - 8 > $x1 && $y - 8 > $y1) { $dir .= 'U'; $x -= 8; $y -= 8 }
-    while ($x - 8 > $x1 && $y + 8 < $y1) { $dir .= 'B'; $x -= 8; $y += 8 }
-    while ($x + 8 < $x1 && $y + 8 < $y1) { $dir .= 'N'; $x += 8; $y += 8 }
-    while ($x     < $x1 && $y     > $y1) { $dir .= 'y'; $x++; $y-- }
-    while ($x     > $x1 && $y     > $y1) { $dir .= 'u'; $x--; $y-- }
-    while ($x     > $x1 && $y     < $y1) { $dir .= 'b'; $x--; $y++ }
-    while ($x     < $x1 && $y     < $y1) { $dir .= 'n'; $x++; $y++ }
-    while ($x - 8 > $x1) { $dir .= 'H'; $x -= 8 }
-    while ($y + 8 < $y1) { $dir .= 'J'; $y += 8 }
-    while ($y - 8 > $y1) { $dir .= 'K'; $y -= 8 }
-    while ($x + 8 < $x1) { $dir .= 'L'; $x += 8 }
-    while ($x     > $x1) { $dir .= 'h'; $x-- }
-    while ($y     < $y1) { $dir .= 'j'; $y++ }
-    while ($y     > $y1) { $dir .= 'k'; $y-- }
-    while ($x     < $x1) { $dir .= 'l'; $x++ }
-=cut
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
