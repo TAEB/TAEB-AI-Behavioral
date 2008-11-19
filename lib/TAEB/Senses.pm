@@ -360,9 +360,7 @@ sub can_engrave {
             || $self->is_stunned
             || $self->is_hallucinating
             || $self->is_engulfed
-            || TAEB->current_tile->type eq 'fountain'
-            || TAEB->current_tile->type eq 'altar'
-            || TAEB->current_tile->type eq 'grave';
+            || !TAEB->current_tile->is_inscribable;
 }
 
 sub can_open {
