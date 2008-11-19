@@ -1112,7 +1112,7 @@ sub farlook {
     my $ex   = shift;
     my $ey   = shift;
 
-    my $directions = $self->crow_flies($ex, $ey);
+    my $directions = crow_flies($ex, $ey);
 
     TAEB->write(';' . $directions . '.');
     TAEB->process_input;
