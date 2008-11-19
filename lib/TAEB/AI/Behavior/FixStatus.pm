@@ -15,8 +15,8 @@ sub invoke { { action  => 'invoke', item  => $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} } } }
 sub pray   { { action  => 'pray',
                urgency => $_[0],    check => sub { TAEB->senses->can_pray } } }
-sub quaff  { { action  => 'quaff',  item  => 'potion of ' . $_[0],
-               urgency => $_[1],    check => sub { defined shift->{item} } } }
+sub quaff  { { action  => 'quaff',  from  => 'potion of ' . $_[0],
+               urgency => $_[1],    check => sub { defined shift->{from} } } }
 sub scroll { { action  => 'read',   item  => 'scroll of ' . $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} } } }
 sub rest   { { action  => 'search',
@@ -173,6 +173,7 @@ sub prepare {
             my %args;
 
             $args{item}  = TAEB->find_item($fix->{item})   if $fix->{item};
+            $args{from}  = TAEB->find_item($fix->{from})   if $fix->{from};
             $args{spell} = TAEB->find_spell($fix->{spell}) if $fix->{spell};
             $args{direction} = $fix->{direction}           if $fix->{direction};
             next unless $fix->{check}->(\%args);
