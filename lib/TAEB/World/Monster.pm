@@ -18,7 +18,7 @@ has color => (
 has tile => (
     isa      => 'TAEB::World::Tile',
     weak_ref => 1,
-    handles  => [qw/x y z level in_shop in_temple/],
+    handles  => [qw/x y z level in_shop in_temple in_los/],
 );
 
 sub is_shk {
@@ -203,9 +203,6 @@ sub debug_line {
 
     return join ' ', @bits;
 }
-
-# all monsters are in LOS because we only keep track of monsters in LOS
-sub in_los { return 1 }
 
 =head2 spoiler :: hash
 
