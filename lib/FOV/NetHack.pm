@@ -72,3 +72,68 @@ sub calculate_fov {
 
 1;
 
+=head1 NAME
+
+FOV::NetHack - NetHack compatible field of view
+
+=head1 SYNOPSIS
+
+  use FOV::NetHack 'calculate_fov';
+
+  my $AoA = calculate_fov($x, $y, \&transparent);
+
+=head1 DESCRIPTION
+
+This package implements field of view (the determination, for every
+square on the map simultaneously, of whether it is visible to the
+avatar), in a NetHack compatible way.  It is expected to be primarily
+useful to bot writers.
+
+=head1 FUNCTION
+
+FOV::NetHack defines and allows import of a single function.
+
+=over 4
+
+=item B<calculate_fov STARTX, STARTY, INCALLBACK, [OUTCALLBACK]>
+
+STARTX and STARTY determine the location of the avatar on the integer
+plane used by FOV::NetHack.  INCALLBACK is used to determine the map's
+local structure; it is passed two arguments, X and Y coordinates, and
+must return true iff the specified point is transparent.  OUTCALLBACK
+is used to return the viewable map, one coordinate pair at a time as
+for INCALLBACK.  OUTCALLBACK is optional; if you omit it, calculate_fov
+will return an array of arrays such that $ret[$x][$y] will be true
+iff ($x,$y) is visible.
+
+Two obligations exist upon the user.  First, there must be no lines of
+sight of infinite length.  Second, if OUTCALLBACK is omitted, no tile
+with either coordinate negative may be visible.  This stems from the
+limitation of array indexes to positive values.  Of course one can also
+use $[ to allow negative indexes, but you wouldn't do something like
+that, would you?
+
+You may be wondering why the callbacks exist at all and calculate_fov
+doesn't just use arrays of arrays both ways.  The answer is asymptotic
+complexity.  The algorithm used by calculate_fov takes time proportional
+to the number of I<visible> tiles.  If an array of arrays had to be
+constructed for the transparency data, any user would suffer time costs
+proportional to the number of I<total> tiles.
+
+=back
+
+=head1 AUTHOR
+
+Stefan O'Rear <stefanor@cox.net>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2008 Stefan O'Rear.  All rights reserved.  This
+program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+The full text of the license can be found in the LICENSE file included
+with this module.
+
+=cut
+
