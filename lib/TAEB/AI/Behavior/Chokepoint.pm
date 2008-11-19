@@ -52,9 +52,9 @@ sub useful_dir {
 
     my $cut = $self->vulnerability($dir, TAEB->current_tile);
 
-    for $dy (-7 .. 7) {
-        for $dx (-7 .. 7) {
-            my $tile = TAEB->current_level->at(TAEB->x + $dx, TAEB->y + $dy);
+    for my $tdy (-7 .. 7) {
+        for my $tdx (-7 .. 7) {
+            my $tile = TAEB->current_level->at(TAEB->x + $tdx, TAEB->y + $tdy);
 
             next unless $tile;
             next unless $tile->in_los;
