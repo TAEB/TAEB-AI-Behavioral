@@ -131,6 +131,25 @@ sub vi2delta {
     return @{ $vi2delta{ lc $_[0] } || [] };
 }
 
+=head2 angle :: (Dir, Dir) -> Int
+
+Returns the absolute angle in octants between two directions.
+
+=cut
+
+sub angle {
+    my ($a, $b) = @_;
+
+    $a = index "ykulnjbh", $a;
+    $b = index "ykulnjbh", $b;
+
+    my $ang = ($a - $b) % 8;
+
+    $ang -= 8 if $ang > 4;
+
+    return abs($ang);
+}
+
 =head2 deltas -> [[dx, dy]]
 
 Returns a list of arrayreferences, each a pair of delta x and delta y. Suitable

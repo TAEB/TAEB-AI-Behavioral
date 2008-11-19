@@ -2,7 +2,7 @@
 
 package TAEB::AI::Behavior::Chokepoint;
 use TAEB::OO;
-use TAEB::Util 'vi2delta';
+use TAEB::Util 'vi2delta', 'angle';
 extends 'TAEB::AI::Behavior';
 
 #    .|  We look at a direction as being suitible for running to if it
