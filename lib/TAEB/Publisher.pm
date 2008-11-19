@@ -170,6 +170,25 @@ sub get_response {
     );
 }
 
+=head2 get_location_response Str -> Maybe Tile
+
+This is used to respond to requests to choose a tile (controlled teleport, targeting of ball spells, etc).
+
+If no response is given, C<undef> is returned.
+
+=cut
+
+sub get_location_request {
+    my $self = shift;
+    my $line = shift;
+
+    return $self->get_generic_response(
+        msg    => $line,
+        sets   => \@TAEB::ScreenScraper::location_requests,
+        method => "location",
+    );
+}
+
 =head2 send_at_turn turn message args
 
 Send the given message at the given turn.
