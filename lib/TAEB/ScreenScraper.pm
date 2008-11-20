@@ -278,6 +278,10 @@ our %msg_string = (
 
 our @msg_regex = (
     [
+            qr/^Your legs? feels? somewhat better\.$/,
+                [status => wounded_legs => 0],
+    ],
+    [
 	    qr/^You can't go (?:up|down) here\.$/,
 	        ['dungeon_feature', 'bad staircase'],
     ],
