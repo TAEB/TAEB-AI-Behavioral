@@ -18,7 +18,7 @@ has color => (
 has tile => (
     isa      => 'TAEB::World::Tile',
     weak_ref => 1,
-    handles  => [qw/x y z level in_shop in_temple in_los/],
+    handles  => [qw/x y z level in_shop in_temple in_los distance/],
 );
 
 sub is_shk {

@@ -12,7 +12,7 @@ sub prepare {
     my @enemies = grep { $_->in_los } TAEB->current_level->has_enemies;
 
     my @beckon = grep { $_->is_hostile && $_->would_chase &&
-        $_->probably_sleeping && $_->distance2 < 20 * TAEB->xl } @enemies;
+        $_->probably_sleeping && $_->distance < sqrt(20 * TAEB->xl) } @enemies;
 
     return if !@beckon;
 

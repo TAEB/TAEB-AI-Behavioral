@@ -888,6 +888,13 @@ sub in_los {
     return TAEB->fov->[$self->x][$self->y];
 }
 
+sub distance {
+    my $self  = shift;
+    my $other = shift || TAEB->current_tile;
+
+    return sqrt(($self->x - $other->x) ** 2 + ($self->y - $other->y) ** 2);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
