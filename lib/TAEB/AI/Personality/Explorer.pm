@@ -23,6 +23,7 @@ sub sort_behaviors {
         "Chokepoint",
         "Kite",
         "$fight",
+        "LetClose",
         "Projectiles",
         "Vault",
         "Shop",
