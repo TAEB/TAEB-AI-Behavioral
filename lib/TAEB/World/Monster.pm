@@ -128,6 +128,7 @@ sub is_hostile {
 sub probably_sleeping {
     my $self = shift;
 
+    return 0 if TAEB->noisy_turn && TAEB->noisy_turn + 40 > TAEB->turn;
     return $self->glyph =~ /[ln]/ || TAEB->senses->is_stealthy;
 }
 
