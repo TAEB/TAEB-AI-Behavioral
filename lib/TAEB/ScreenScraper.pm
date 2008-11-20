@@ -51,6 +51,13 @@ our %msg_string = (
         ['status_change' => very_fast => 0],
     "You feel yourself slowing down a bit." =>
         ['status_change' => very_fast => 0],
+    "\"and thus I grant thee the gift of Stealth!\"" =>
+        ['status_change' => stealthy => 1],
+#    "You feel clumsy." XXX this is also an attribute loss message
+    "You feel stealthy!" =>
+        ['status_change' => stealthy => 1],
+    "You feel less stealthy!" =>
+        ['status_change' => stealthy => 0],
     "From the murky depths, a hand reaches up to bless the sword." =>
         ['excalibur'],
     "The fountain dries up!" =>
