@@ -17,7 +17,7 @@ sub prepare {
 
     return if !@beckon;
 
-    TAEB->current_tile->apply_adjacent(sub {
+    TAEB->current_tile->each_adjacent(sub {
         my ($tile, $dir) = @_;
 
         return if $tile->item_count;
@@ -27,9 +27,9 @@ sub prepare {
             TAEB->hp < 50;
 
         $self->currently("Kicking a " . $tile->type . " to wake up a " .
-            ($beckon[0]->spoiler || { name => "monster" })->name . ".");
+            ($beckon[0]->spoiler || { name => "monster" })->{name} . ".");
         $self->urgency('normal');
-        $self->action(kick => direction => $dir);
+        $self->do(kick => direction => $dir);
     });
 }
 
