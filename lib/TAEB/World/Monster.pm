@@ -114,6 +114,7 @@ sub is_hostile {
     my $self = shift;
 
     # Otherwise, 1 if the monster is guaranteed hostile
+    return 0 if !$self->spoiler;
     return 1 if $self->spoiler->{hostile};
     return 0 if $self->spoiler->{peaceful};
     return 0 if $self->is_quest_friendly;
