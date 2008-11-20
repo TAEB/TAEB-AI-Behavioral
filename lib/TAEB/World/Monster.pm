@@ -206,7 +206,7 @@ sub is_minotaur {
     $self->glyph eq 'H' && $self->color eq COLOR_BROWN
 }
 
-sub is_coaligned_unicorn {
+sub is_unicorn {
     my $self = shift;
     return 0 if $self->glyph ne 'u';
     return 0 if $self->color eq COLOR_BROWN;
@@ -214,14 +214,21 @@ sub is_coaligned_unicorn {
     # this is coded somewhat strangely to deal with black unicorns being
     # blue or dark gray
     if ($self->color eq COLOR_WHITE) {
-        return TAEB->align eq 'Law';
+        return 'Law';
     }
 
     if ($self->color eq COLOR_GRAY) {
-        return TAEB->align eq 'Neu';
+        return 'Neu';
     }
 
-    return TAEB->align eq 'Cha';
+    return 'Cha';
+}
+
+sub is_coaligned_unicorn {
+    my $self = shift;
+    my $uni = $self->is_unicorn;
+
+    return $uni && $uni eq TAEB->align;
 }
 
 sub is_peaceful_watchman {
