@@ -37,21 +37,21 @@ sub want_to_eat {
     return 0 if $item->speed_toggle && TAEB->is_fast;
     #return 0 if $item->teleportitis && !$item->teleport_control;
 
-    my $intrinsic = 0;
+    my $good = 0;
 
     for my $nice (qw/disintegration_resistance energy gain_level heal
             intelligence invisibility reanimates sleep_resistance speed_toggle
             strength telepathy teleport_control teleportitis/) {
-        $intrinsic = 1 if $item->$nice();
+        $good = 1 if $item->$nice();
     }
 
     for my $resist (qw/shock poison fire cold sleep disintegration/) {
         my $prop = "${resist}_resistance";
         my $res  = "${resist}_resistant";
-        $intrinsic = 1 if $item->$prop() && !TAEB->$res();
+        $good = 1 if $item->$prop() && !TAEB->$res();
     }
 
-    return 1 if $intrinsic && ($item->nutrition + TAEB->nutrition < 2000);
+    return 1 if $good && ($item->nutrition + TAEB->nutrition < 2000);
 
     return 1 if TAEB->nutrition < 995;
 
