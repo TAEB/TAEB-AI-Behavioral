@@ -42,6 +42,7 @@ has list => (
                 }
             },
             'Arch Priest' => {
+                'peaceful'    => 1,
                 'ac'          => 7,
                 'attacks'     => 'W4d10 2d8 M2d8+ M2d8+',
                 'elbereth'    => 0,
@@ -75,6 +76,7 @@ has list => (
                 }
             },
             'Ashikaga Takauji' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W2d6 W2d6 2d6-',
                 'elbereth'    => 0,
@@ -92,6 +94,7 @@ has list => (
                 }
             },
             'Asmodeus' => {
+                'hostile'     => 1,
                 'ac'          => -7,
                 'attacks'     => '4d4 M6d6C',
                 'elbereth'    => 1,
@@ -109,6 +112,7 @@ has list => (
                 }
             },
             'Baalzebub' => {
+                'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '2d6P G2d6s',
                 'elbereth'    => 1,
@@ -126,6 +130,7 @@ has list => (
                 }
             },
             'Chromatic Dragon' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'B6d8z M0d0+ 2d8- 4d8 4d8 1d6',
                 'elbereth'    => 1,
@@ -150,6 +155,7 @@ has list => (
                 }
             },
             'Croesus' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W4d10',
                 'elbereth'    => 0,
@@ -167,6 +173,7 @@ has list => (
                 }
             },
             'Cyclops' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W4d8 W4d8 2d6-',
                 'elbereth'    => 1,
@@ -185,6 +192,7 @@ has list => (
                 }
             },
             'Dark One' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 W1d6 1d4- M0d0+',
                 'elbereth'    => 0,
@@ -202,6 +210,7 @@ has list => (
                 }
             },
             'Death' => {
+                'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '8d8z 8d8z',
                 'elbereth'    => 0,
@@ -220,6 +229,7 @@ has list => (
                 }
             },
             'Demogorgon' => {
+                'hostile'     => 1,
                 'ac'          => -8,
                 'attacks'     => 'M8d6+ 1d4V 1d6# 1d6#',
                 'elbereth'    => 1,
@@ -237,6 +247,7 @@ has list => (
                 }
             },
             'Dispater' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => 'W4d6 M6d6+',
                 'elbereth'    => 1,
@@ -271,6 +282,7 @@ has list => (
                 }
             },
             'Famine' => {
+                'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '8d8z 8d8z',
                 'elbereth'    => 0,
@@ -289,6 +301,7 @@ has list => (
                 }
             },
             'Geryon' => {
+                'hostile'     => 1,
                 'ac'          => -3,
                 'attacks'     => '3d6 3d6 2d4P',
                 'elbereth'    => 1,
@@ -306,6 +319,7 @@ has list => (
                 }
             },
             'Grand Master' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => '4d10 2d8 M2d8+ M2d8+',
                 'elbereth'    => 0,
@@ -357,6 +371,7 @@ has list => (
                 }
             },
             'Hippocrates' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -374,6 +389,7 @@ has list => (
                 }
             },
             'Ixoth' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B8d6F 4d8 M0d0+ 2d4 2d4-',
                 'elbereth'    => 1,
@@ -392,6 +408,7 @@ has list => (
                 }
             },
             'Juiblex' => {
+                'hostile'     => 1,
                 'ac'          => -7,
                 'attacks'     => 'E4d10# S3d6A',
                 'elbereth'    => 1,
@@ -409,6 +426,7 @@ has list => (
                 }
             },
             'Keystone Kop' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d4',
                 'elbereth'    => 1,
@@ -425,6 +443,7 @@ has list => (
                 }
             },
             'King Arthur' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -442,6 +461,7 @@ has list => (
                 }
             },
             'Kop Kaptain' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d6',
                 'elbereth'    => 1,
@@ -458,6 +478,7 @@ has list => (
                 }
             },
             'Kop Lieutenant' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
                 'elbereth'    => 1,
@@ -474,6 +495,7 @@ has list => (
                 }
             },
             'Kop Sergeant' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 1,
@@ -490,6 +512,7 @@ has list => (
                 }
             },
             'Lord Carnarvon' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -507,6 +530,7 @@ has list => (
                 }
             },
             'Lord Sato' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d8 W1d6',
                 'elbereth'    => 0,
@@ -524,6 +548,7 @@ has list => (
                 }
             },
             'Lord Surtur' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'W2d10 W2d10 2d6-',
                 'elbereth'    => 1,
@@ -543,6 +568,7 @@ has list => (
                 }
             },
             'Master Assassin' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W2d6P W2d8 2d6-',
                 'elbereth'    => 0,
@@ -560,6 +586,7 @@ has list => (
                 }
             },
             'Master Kaen' => {
+                'hostile'     => 1,
                 'ac'          => -10,
                 'attacks'     => '16d2 16d2 M0d0+ 1d4-',
                 'elbereth'    => 0,
@@ -578,6 +605,7 @@ has list => (
                 }
             },
             'Master of Thieves' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W2d6 W2d6 2d4-',
                 'elbereth'    => 0,
@@ -595,6 +623,7 @@ has list => (
                 }
             },
             'Medusa' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'W2d4 1d8 G0d0* 1d6P',
                 'elbereth'    => 0,
@@ -615,6 +644,7 @@ has list => (
                 }
             },
             'Minion of Huhetotl' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => 'W8d4 W4d6 M0d0+ 2d6-',
                 'elbereth'    => 1,
@@ -648,6 +678,7 @@ has list => (
                 }
             },
             'Nalzok' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => 'W8d4 W4d6 M0d0+ 2d6-',
                 'elbereth'    => 1,
@@ -665,6 +696,7 @@ has list => (
                 }
             },
             'Nazgul' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d4V B2d25S',
                 'elbereth'    => 1,
@@ -681,6 +713,7 @@ has list => (
                 }
             },
             'Neferet the Green' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 M2d8+',
                 'elbereth'    => 0,
@@ -698,6 +731,7 @@ has list => (
                 }
             },
             'Norn' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d8 W1d6',
                 'elbereth'    => 0,
@@ -715,6 +749,7 @@ has list => (
                 }
             },
             'Olog-hai' => {
+                'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => 'W3d6 2d8 2d6',
                 'elbereth'    => 1,
@@ -731,6 +766,7 @@ has list => (
                 }
             },
             'Oracle' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => '(0d4M)',
                 'elbereth'    => 0,
@@ -748,6 +784,7 @@ has list => (
                 }
             },
             'Orcus' => {
+                'hostile'     => 1,
                 'ac'          => -6,
                 'attacks'     => 'W3d6 3d4 3d4 M8d6+ 2d4P',
                 'elbereth'    => 1,
@@ -765,6 +802,7 @@ has list => (
                 }
             },
             'Orion' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -782,6 +820,7 @@ has list => (
                 }
             },
             'Pelias' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -799,6 +838,7 @@ has list => (
                 }
             },
             'Pestilence' => {
+                'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '8d8z 8d8z',
                 'elbereth'    => 0,
@@ -817,6 +857,7 @@ has list => (
                 }
             },
             'Scorpius' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '2d6 2d6- 1d4#',
                 'elbereth'    => 1,
@@ -836,6 +877,7 @@ has list => (
                 }
             },
             'Shaman Karnov' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -853,6 +895,7 @@ has list => (
                 }
             },
             'Thoth Amon' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 M0d0+ M0d0+ 1d4-',
                 'elbereth'    => 0,
@@ -870,6 +913,7 @@ has list => (
                 }
             },
             'Twoflower' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -903,6 +947,7 @@ has list => (
                 }
             },
             'Vlad the Impaler' => {
+                'hostile'     => 1,
                 'ac'          => -3,
                 'attacks'     => 'W1d10 1d10V',
                 'elbereth'    => 1,
@@ -920,6 +965,7 @@ has list => (
                 }
             },
             'Wizard of Yendor' => {
+                'hostile'     => 1,
                 'ac'          => -8,
                 'attacks'     => '2d12- M0d0+',
                 'elbereth'    => 0,
@@ -958,6 +1004,7 @@ has list => (
                 }
             },
             'Yeenoghu' => {
+                'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => 'W3d6 W2d8c W1d6. M2d6M',
                 'elbereth'    => 1,
@@ -975,6 +1022,7 @@ has list => (
                 }
             },
             'abbot' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => '8d2 3d2s M0d0+',
                 'elbereth'    => 0,
@@ -1011,6 +1059,7 @@ has list => (
                 }
             },
             'acolyte' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 M0d0+',
                 'elbereth'    => 0,
@@ -1045,6 +1094,7 @@ has list => (
                 }
             },
             'aligned priest' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W4d10 1d4 M0d0+',
                 'elbereth'    => 0,
@@ -1077,6 +1127,7 @@ has list => (
                 }
             },
             'apprentice' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 M0d0+',
                 'elbereth'    => 0,
@@ -1093,6 +1144,7 @@ has list => (
                 }
             },
             'arch-lich' => {
+                'hostile'     => 1,
                 'ac'          => -6,
                 'attacks'     => '5d6C M0d0+',
                 'elbereth'    => 1,
@@ -1125,6 +1177,7 @@ has list => (
                 }
             },
             'attendant' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -1141,6 +1194,7 @@ has list => (
                 }
             },
             'baby black dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1157,6 +1211,7 @@ has list => (
                 }
             },
             'baby blue dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1173,6 +1228,7 @@ has list => (
                 }
             },
             'baby crocodile' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -1189,6 +1245,7 @@ has list => (
                 }
             },
             'baby gray dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1205,6 +1262,7 @@ has list => (
                 }
             },
             'baby green dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1222,6 +1280,7 @@ has list => (
                 }
             },
             'baby long worm' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -1238,6 +1297,7 @@ has list => (
                 }
             },
             'baby orange dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1254,6 +1314,7 @@ has list => (
                 }
             },
             'baby purple worm' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -1270,6 +1331,7 @@ has list => (
                 }
             },
             'baby red dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1286,6 +1348,7 @@ has list => (
                 }
             },
             'baby silver dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1302,6 +1365,7 @@ has list => (
                 }
             },
             'baby white dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1318,6 +1382,7 @@ has list => (
                 }
             },
             'baby yellow dragon' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -1335,6 +1400,7 @@ has list => (
                 }
             },
             'balrog' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => 'W8d4 W4d6',
                 'elbereth'    => 1,
@@ -1351,6 +1417,7 @@ has list => (
                 }
             },
             'baluchitherium' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '5d4 5d4',
                 'elbereth'    => 1,
@@ -1383,6 +1450,7 @@ has list => (
                 }
             },
             'barbed devil' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '2d4 2d4 3d4',
                 'elbereth'    => 1,
@@ -1399,6 +1467,7 @@ has list => (
                 }
             },
             'barrow wight' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => 'W0d0V M0d0+ 1d4',
                 'elbereth'    => 1,
@@ -1432,6 +1501,7 @@ has list => (
                 }
             },
             'black dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d10D 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -1450,6 +1520,7 @@ has list => (
                 }
             },
             'black light' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'X10d12h',
                 'elbereth'    => 1,
@@ -1505,6 +1576,7 @@ has list => (
                 }
             },
             'black pudding' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '3d8R (0d0R)',
                 'elbereth'    => 1,
@@ -1542,6 +1614,7 @@ has list => (
                 }
             },
             'blue dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6E 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -1560,6 +1633,7 @@ has list => (
                 }
             },
             'blue jelly' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '(0d6C)',
                 'elbereth'    => 1,
@@ -1580,6 +1654,7 @@ has list => (
                 }
             },
             'bone devil' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'W3d4 2d4P',
                 'elbereth'    => 1,
@@ -1596,6 +1671,7 @@ has list => (
                 }
             },
             'brown mold' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d6C)',
                 'elbereth'    => 1,
@@ -1616,6 +1692,7 @@ has list => (
                 }
             },
             'brown pudding' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '0d0r',
                 'elbereth'    => 1,
@@ -1653,6 +1730,7 @@ has list => (
                 }
             },
             'captain' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W4d4 W4d4',
                 'elbereth'    => 0,
@@ -1669,6 +1747,7 @@ has list => (
                 }
             },
             'carnivorous ape' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4 1d4 H1d8',
                 'elbereth'    => 1,
@@ -1685,6 +1764,7 @@ has list => (
                 }
             },
             'cave spider' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d2',
                 'elbereth'    => 1,
@@ -1735,6 +1815,7 @@ has list => (
                 }
             },
             'centipede' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d3P',
                 'elbereth'    => 1,
@@ -1753,6 +1834,7 @@ has list => (
                 }
             },
             'chameleon' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '4d2',
                 'elbereth'    => 1,
@@ -1770,6 +1852,7 @@ has list => (
                 }
             },
             'chickatrice' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d2 0d0* (0d0*)',
                 'elbereth'    => 1,
@@ -1788,6 +1871,7 @@ has list => (
                 }
             },
             'chieftain' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -1804,6 +1888,7 @@ has list => (
                 }
             },
             'clay golem' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '3d10',
                 'elbereth'    => 1,
@@ -1820,6 +1905,7 @@ has list => (
                 }
             },
             'cobra' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d4P S0d0b',
                 'elbereth'    => 1,
@@ -1839,6 +1925,7 @@ has list => (
                 }
             },
             'cockatrice' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d3 0d0* (0d0*)',
                 'elbereth'    => 1,
@@ -1874,6 +1961,7 @@ has list => (
                 }
             },
             'coyote' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -1890,6 +1978,7 @@ has list => (
                 }
             },
             'crocodile' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '4d2 1d12',
                 'elbereth'    => 1,
@@ -1907,6 +1996,7 @@ has list => (
                 }
             },
             'demilich' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '3d4C M0d0+',
                 'elbereth'    => 1,
@@ -1923,6 +2013,7 @@ has list => (
                 }
             },
             'dingo' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -1939,6 +2030,7 @@ has list => (
                 }
             },
             'disenchanter' => {
+                'hostile'     => 1,
                 'ac'          => -10,
                 'attacks'     => '4d4" (0d0")',
                 'elbereth'    => 1,
@@ -1988,6 +2080,7 @@ has list => (
                 }
             },
             'doppelganger' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => 'W1d12',
                 'elbereth'    => 0,
@@ -2005,6 +2098,7 @@ has list => (
                 }
             },
             'dust vortex' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E2d8b',
                 'elbereth'    => 1,
@@ -2071,6 +2165,7 @@ has list => (
                 }
             },
             'dwarf mummy' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -2088,6 +2183,7 @@ has list => (
                 }
             },
             'dwarf zombie' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -2123,6 +2219,7 @@ has list => (
                 }
             },
             'electric eel' => {
+                'hostile'     => 1,
                 'ac'          => -3,
                 'attacks'     => '4d6E 0d0w',
                 'elbereth'    => 1,
@@ -2158,6 +2255,7 @@ has list => (
                 }
             },
             'elf mummy' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d4',
                 'elbereth'    => 1,
@@ -2175,6 +2273,7 @@ has list => (
                 }
             },
             'elf zombie' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '1d7',
                 'elbereth'    => 1,
@@ -2209,6 +2308,7 @@ has list => (
                 }
             },
             'energy vortex' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E1d6E E0d0e (0d4E)',
                 'elbereth'    => 1,
@@ -2227,6 +2327,7 @@ has list => (
                 }
             },
             'erinys' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'W2d4P',
                 'elbereth'    => 1,
@@ -2243,6 +2344,7 @@ has list => (
                 }
             },
             'ettin' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => 'W2d8 W3d6',
                 'elbereth'    => 1,
@@ -2259,6 +2361,7 @@ has list => (
                 }
             },
             'ettin mummy' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6 2d6',
                 'elbereth'    => 1,
@@ -2276,6 +2379,7 @@ has list => (
                 }
             },
             'ettin zombie' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d10 1d10',
                 'elbereth'    => 1,
@@ -2293,6 +2397,7 @@ has list => (
                 }
             },
             'fire ant' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '2d4 2d4F',
                 'elbereth'    => 1,
@@ -2347,6 +2452,7 @@ has list => (
                 }
             },
             'fire vortex' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E1d10F (0d4F)',
                 'elbereth'    => 1,
@@ -2365,6 +2471,7 @@ has list => (
                 }
             },
             'flaming sphere' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'X4d6F',
                 'elbereth'    => 1,
@@ -2381,6 +2488,7 @@ has list => (
                 }
             },
             'flesh golem' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '2d8 2d8',
                 'elbereth'    => 1,
@@ -2402,6 +2510,7 @@ has list => (
                 }
             },
             'floating eye' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d70.)',
                 'elbereth'    => 1,
@@ -2419,6 +2528,7 @@ has list => (
                 }
             },
             'fog cloud' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'E1d6',
                 'elbereth'    => 1,
@@ -2453,6 +2563,7 @@ has list => (
                 }
             },
             'fox' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3',
                 'elbereth'    => 1,
@@ -2469,6 +2580,7 @@ has list => (
                 }
             },
             'freezing sphere' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'X4d6C',
                 'elbereth'    => 1,
@@ -2503,6 +2615,7 @@ has list => (
                 }
             },
             'gargoyle' => {
+                'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '2d6 2d6 2d4',
                 'elbereth'    => 1,
@@ -2537,6 +2650,7 @@ has list => (
                 }
             },
             'gas spore' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '[X4d6]',
                 'elbereth'    => 1,
@@ -2553,6 +2667,7 @@ has list => (
                 }
             },
             'gecko' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d3',
                 'elbereth'    => 1,
@@ -2569,6 +2684,7 @@ has list => (
                 }
             },
             'gelatinous cube' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '2d4. (1d4.)',
                 'elbereth'    => 1,
@@ -2592,6 +2708,7 @@ has list => (
                 }
             },
             'ghost' => {
+                'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '1d1',
                 'elbereth'    => 1,
@@ -2610,6 +2727,7 @@ has list => (
                 }
             },
             'ghoul' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d2. 1d3',
                 'elbereth'    => 1,
@@ -2643,6 +2761,7 @@ has list => (
                 }
             },
             'giant ant' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -2660,6 +2779,7 @@ has list => (
                 }
             },
             'giant bat' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -2677,6 +2797,7 @@ has list => (
                 }
             },
             'giant beetle' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '3d6',
                 'elbereth'    => 1,
@@ -2695,6 +2816,7 @@ has list => (
                 }
             },
             'giant eel' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => '3d6 0d0w',
                 'elbereth'    => 1,
@@ -2712,6 +2834,7 @@ has list => (
                 }
             },
             'giant mimic' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '3d6m 3d6m',
                 'elbereth'    => 1,
@@ -2729,6 +2852,7 @@ has list => (
                 }
             },
             'giant mummy' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '3d4 3d4',
                 'elbereth'    => 1,
@@ -2746,6 +2870,7 @@ has list => (
                 }
             },
             'giant rat' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3',
                 'elbereth'    => 1,
@@ -2762,6 +2887,7 @@ has list => (
                 }
             },
             'giant spider' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d4P',
                 'elbereth'    => 1,
@@ -2781,6 +2907,7 @@ has list => (
                 }
             },
             'giant zombie' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d8 2d8',
                 'elbereth'    => 1,
@@ -2798,6 +2925,7 @@ has list => (
                 }
             },
             'glass golem' => {
+                'hostile'     => 1,
                 'ac'          => 1,
                 'attacks'     => '2d8 2d8',
                 'elbereth'    => 1,
@@ -2816,6 +2944,7 @@ has list => (
                 }
             },
             'glass piercer' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '4d6',
                 'elbereth'    => 1,
@@ -2880,6 +3009,7 @@ has list => (
                 }
             },
             'gnome mummy' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -2897,6 +3027,7 @@ has list => (
                 }
             },
             'gnome zombie' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d5',
                 'elbereth'    => 1,
@@ -2946,6 +3077,7 @@ has list => (
                 }
             },
             'gold golem' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d3 2d3',
                 'elbereth'    => 1,
@@ -2999,6 +3131,7 @@ has list => (
                 }
             },
             'gray dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6M 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -3016,6 +3149,7 @@ has list => (
                 }
             },
             'gray ooze' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '2d8R',
                 'elbereth'    => 1,
@@ -3054,6 +3188,7 @@ has list => (
                 }
             },
             'green dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6P 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -3073,6 +3208,7 @@ has list => (
                 }
             },
             'green mold' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d4A)',
                 'elbereth'    => 1,
@@ -3092,6 +3228,7 @@ has list => (
                 }
             },
             'green slime' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4@ (0d0@)',
                 'elbereth'    => 1,
@@ -3130,6 +3267,7 @@ has list => (
                 }
             },
             'grid bug' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '1d1E',
                 'elbereth'    => 1,
@@ -3146,6 +3284,7 @@ has list => (
                 }
             },
             'guard' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W4d10',
                 'elbereth'    => 0,
@@ -3198,6 +3337,7 @@ has list => (
                 }
             },
             'guide' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 M0d0+',
                 'elbereth'    => 0,
@@ -3230,6 +3370,7 @@ has list => (
                 }
             },
             'hell hound' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '3d6 B3d6F',
                 'elbereth'    => 1,
@@ -3247,6 +3388,7 @@ has list => (
                 }
             },
             'hell hound pup' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6 B2d6F',
                 'elbereth'    => 1,
@@ -3264,6 +3406,7 @@ has list => (
                 }
             },
             'hezrou' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '1d3 1d3 4d4',
                 'elbereth'    => 1,
@@ -3380,6 +3523,7 @@ has list => (
                 }
             },
             'horned devil' => {
+                'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => 'W1d4 1d4 2d3 1d3',
                 'elbereth'    => 1,
@@ -3445,6 +3589,7 @@ has list => (
                 }
             },
             'human mummy' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d4 2d4',
                 'elbereth'    => 1,
@@ -3462,6 +3607,7 @@ has list => (
                 }
             },
             'human zombie' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d8',
                 'elbereth'    => 1,
@@ -3479,6 +3625,7 @@ has list => (
                 }
             },
             'hunter' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d4',
                 'elbereth'    => 0,
@@ -3495,6 +3642,7 @@ has list => (
                 }
             },
             'ice devil' => {
+                'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '1d4 1d4 2d4 3d4C',
                 'elbereth'    => 1,
@@ -3511,6 +3659,7 @@ has list => (
                 }
             },
             'ice troll' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'W2d6 2d6C 2d6',
                 'elbereth'    => 1,
@@ -3529,6 +3678,7 @@ has list => (
                 }
             },
             'ice vortex' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E1d6C',
                 'elbereth'    => 1,
@@ -3547,6 +3697,7 @@ has list => (
                 }
             },
             'iguana' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -3579,6 +3730,7 @@ has list => (
                 }
             },
             'incubus' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '0d0&amp; 1d3 1d3',
                 'elbereth'    => 1,
@@ -3595,6 +3747,7 @@ has list => (
                 }
             },
             'iron golem' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => 'W4d10 B4d6P',
                 'elbereth'    => 1,
@@ -3613,6 +3766,7 @@ has list => (
                 }
             },
             'iron piercer' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '3d6',
                 'elbereth'    => 1,
@@ -3629,6 +3783,7 @@ has list => (
                 }
             },
             'jabberwock' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '2d10 2d10 2d10 2d10',
                 'elbereth'    => 1,
@@ -3645,6 +3800,7 @@ has list => (
                 }
             },
             'jackal' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d2',
                 'elbereth'    => 1,
@@ -3661,6 +3817,7 @@ has list => (
                 }
             },
             'jaguar' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4 1d4 1d8',
                 'elbereth'    => 1,
@@ -3677,6 +3834,7 @@ has list => (
                 }
             },
             'jellyfish' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '3d3P',
                 'elbereth'    => 1,
@@ -3711,6 +3869,7 @@ has list => (
                 }
             },
             'killer bee' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => '1d3P',
                 'elbereth'    => 1,
@@ -3763,6 +3922,7 @@ has list => (
                 }
             },
             'kobold' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d4',
                 'elbereth'    => 1,
@@ -3780,6 +3940,7 @@ has list => (
                 }
             },
             'kobold lord' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 1,
@@ -3797,6 +3958,7 @@ has list => (
                 }
             },
             'kobold mummy' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -3814,6 +3976,7 @@ has list => (
                 }
             },
             'kobold shaman' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => 'M0d0+',
                 'elbereth'    => 1,
@@ -3831,6 +3994,7 @@ has list => (
                 }
             },
             'kobold zombie' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -3848,6 +4012,7 @@ has list => (
                 }
             },
             'kraken' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d4 2d4 H2d6w 5d4',
                 'elbereth'    => 1,
@@ -3898,6 +4063,7 @@ has list => (
                 }
             },
             'large kobold' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 1,
@@ -3915,6 +4081,7 @@ has list => (
                 }
             },
             'large mimic' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '3d4m',
                 'elbereth'    => 1,
@@ -3932,6 +4099,7 @@ has list => (
                 }
             },
             'leather golem' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6',
                 'elbereth'    => 1,
@@ -3948,6 +4116,7 @@ has list => (
                 }
             },
             'lemure' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3',
                 'elbereth'    => 1,
@@ -3964,6 +4133,7 @@ has list => (
                 }
             },
             'leocrotta' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6 2d6 2d6',
                 'elbereth'    => 1,
@@ -3980,6 +4150,7 @@ has list => (
                 }
             },
             'leprechaun' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d2$',
                 'elbereth'    => 1,
@@ -3997,6 +4168,7 @@ has list => (
                 }
             },
             'lich' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d10C M0d0+',
                 'elbereth'    => 1,
@@ -4013,6 +4185,7 @@ has list => (
                 }
             },
             'lichen' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '0d0m',
                 'elbereth'    => 1,
@@ -4032,6 +4205,7 @@ has list => (
                 }
             },
             'lieutenant' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W3d4 W3d4',
                 'elbereth'    => 0,
@@ -4065,6 +4239,7 @@ has list => (
                 }
             },
             'lizard' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -4085,6 +4260,7 @@ has list => (
                 }
             },
             'long worm' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -4102,6 +4278,7 @@ has list => (
                 }
             },
             'lurker above' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => 'E1d8d',
                 'elbereth'    => 1,
@@ -4118,6 +4295,7 @@ has list => (
                 }
             },
             'lynx' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4 1d4 1d10',
                 'elbereth'    => 1,
@@ -4134,6 +4312,7 @@ has list => (
                 }
             },
             'manes' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3 1d3 1d4',
                 'elbereth'    => 1,
@@ -4150,6 +4329,7 @@ has list => (
                 }
             },
             'marilith' => {
+                'hostile'     => 1,
                 'ac'          => -6,
                 'attacks'     => 'W2d4 W2d4 2d4 2d4 2d4 2d4',
                 'elbereth'    => 1,
@@ -4166,6 +4346,7 @@ has list => (
                 }
             },
             'master lich' => {
+                'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '3d6C M0d0+',
                 'elbereth'    => 1,
@@ -4182,6 +4363,7 @@ has list => (
                 }
             },
             'master mind flayer' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d8 2!I 2!I 2!I 2!I 2!I',
                 'elbereth'    => 1,
@@ -4200,6 +4382,7 @@ has list => (
                 }
             },
             'mastodon' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '4d8 4d8',
                 'elbereth'    => 1,
@@ -4216,6 +4399,7 @@ has list => (
                 }
             },
             'mind flayer' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => 'W1d4 2!I 2!I 2!I',
                 'elbereth'    => 1,
@@ -4234,6 +4418,7 @@ has list => (
                 }
             },
             'minotaur' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '3d10 3d10 2d8',
                 'elbereth'    => 0,
@@ -4298,6 +4483,7 @@ has list => (
                 }
             },
             'mountain nymph' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '0d0- 0d0-',
                 'elbereth'    => 1,
@@ -4315,6 +4501,7 @@ has list => (
                 }
             },
             'mumak' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '4d12 2d6',
                 'elbereth'    => 1,
@@ -4331,6 +4518,7 @@ has list => (
                 }
             },
             'nalfeshnee' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => '1d4 1d4 2d4 M0d0+',
                 'elbereth'    => 1,
@@ -4347,6 +4535,7 @@ has list => (
                 }
             },
             'neanderthal' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -4363,6 +4552,7 @@ has list => (
                 }
             },
             'newt' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d2',
                 'elbereth'    => 1,
@@ -4380,6 +4570,7 @@ has list => (
                 }
             },
             'ninja' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8 W1d8',
                 'elbereth'    => 0,
@@ -4396,6 +4587,7 @@ has list => (
                 }
             },
             'nurse' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '2d6H',
                 'elbereth'    => 0,
@@ -4414,6 +4606,7 @@ has list => (
                 }
             },
             'ochre jelly' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => 'E3d6A (3d6A)',
                 'elbereth'    => 1,
@@ -4481,6 +4674,7 @@ has list => (
                 }
             },
             'orange dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d25S 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -4515,6 +4709,7 @@ has list => (
                 }
             },
             'orc mummy' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -4548,6 +4743,7 @@ has list => (
                 }
             },
             'orc zombie' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -4581,6 +4777,7 @@ has list => (
                 }
             },
             'owlbear' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6 1d6 H2d8',
                 'elbereth'    => 1,
@@ -4597,6 +4794,7 @@ has list => (
                 }
             },
             'page' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -4613,6 +4811,7 @@ has list => (
                 }
             },
             'panther' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6 1d10',
                 'elbereth'    => 1,
@@ -4629,6 +4828,7 @@ has list => (
                 }
             },
             'paper golem' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d3',
                 'elbereth'    => 1,
@@ -4645,6 +4845,7 @@ has list => (
                 }
             },
             'piranha' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -4662,6 +4863,7 @@ has list => (
                 }
             },
             'pit fiend' => {
+                'hostile'     => 1,
                 'ac'          => -3,
                 'attacks'     => 'W4d2 W4d2 H2d4',
                 'elbereth'    => 1,
@@ -4678,6 +4880,7 @@ has list => (
                 }
             },
             'pit viper' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '1d4P 1d4P',
                 'elbereth'    => 1,
@@ -4761,6 +4964,7 @@ has list => (
                 }
             },
             'prisoner' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -4777,6 +4981,7 @@ has list => (
                 }
             },
             'purple worm' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d8 E1d10d',
                 'elbereth'    => 1,
@@ -4794,6 +4999,7 @@ has list => (
                 }
             },
             'pyrolisk' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => 'G2d6F',
                 'elbereth'    => 1,
@@ -4813,6 +5019,7 @@ has list => (
                 }
             },
             'python' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d4 0d0 H1d4w H2d4',
                 'elbereth'    => 1,
@@ -4830,6 +5037,7 @@ has list => (
                 }
             },
             'quantum mechanic' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d4t',
                 'elbereth'    => 1,
@@ -4865,6 +5073,7 @@ has list => (
                 }
             },
             'queen bee' => {
+                'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '1d8P',
                 'elbereth'    => 1,
@@ -4883,6 +5092,7 @@ has list => (
                 }
             },
             'quivering blob' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d8',
                 'elbereth'    => 1,
@@ -4902,6 +5112,7 @@ has list => (
                 }
             },
             'rabid rat' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d4!C',
                 'elbereth'    => 1,
@@ -4935,6 +5146,7 @@ has list => (
                 }
             },
             'raven' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6b',
                 'elbereth'    => 1,
@@ -4951,6 +5163,7 @@ has list => (
                 }
             },
             'red dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B6d6F 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -4969,6 +5182,7 @@ has list => (
                 }
             },
             'red mold' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d4F)',
                 'elbereth'    => 1,
@@ -5026,6 +5240,7 @@ has list => (
                 }
             },
             'rock mole' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -5042,6 +5257,7 @@ has list => (
                 }
             },
             'rock piercer' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -5058,6 +5274,7 @@ has list => (
                 }
             },
             'rock troll' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W3d6 2d8 2d6',
                 'elbereth'    => 1,
@@ -5091,6 +5308,7 @@ has list => (
                 }
             },
             'rope golem' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d4 1d4 H6d1',
                 'elbereth'    => 1,
@@ -5107,6 +5325,7 @@ has list => (
                 }
             },
             'roshi' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8 W1d8',
                 'elbereth'    => 0,
@@ -5123,6 +5342,7 @@ has list => (
                 }
             },
             'rothe' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3 1d3 1d8',
                 'elbereth'    => 1,
@@ -5139,6 +5359,7 @@ has list => (
                 }
             },
             'rust monster' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '0d0R 0d0R (0d0R)',
                 'elbereth'    => 1,
@@ -5155,6 +5376,7 @@ has list => (
                 }
             },
             'salamander' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'W2d8 1d6F H2d6 H3d6F',
                 'elbereth'    => 1,
@@ -5221,6 +5443,7 @@ has list => (
                 }
             },
             'scorpion' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d2 1d2 1d4P',
                 'elbereth'    => 1,
@@ -5240,6 +5463,7 @@ has list => (
                 }
             },
             'sergeant' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d6',
                 'elbereth'    => 0,
@@ -5256,6 +5480,7 @@ has list => (
                 }
             },
             'sewer rat' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3',
                 'elbereth'    => 1,
@@ -5272,6 +5497,7 @@ has list => (
                 }
             },
             'shade' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '2d6. 1d6&lt;',
                 'elbereth'    => 1,
@@ -5288,6 +5514,7 @@ has list => (
                 }
             },
             'shark' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '5d6',
                 'elbereth'    => 1,
@@ -5305,6 +5532,7 @@ has list => (
                 }
             },
             'shocking sphere' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'X4d6E',
                 'elbereth'    => 1,
@@ -5321,6 +5549,7 @@ has list => (
                 }
             },
             'shopkeeper' => {
+                'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W4d4 W4d4',
                 'elbereth'    => 0,
@@ -5337,6 +5566,7 @@ has list => (
                 }
             },
             'shrieker' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '',
                 'elbereth'    => 1,
@@ -5356,6 +5586,7 @@ has list => (
                 }
             },
             'silver dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6C 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -5373,6 +5604,7 @@ has list => (
                 }
             },
             'skeleton' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'W2d6 1d6&lt;',
                 'elbereth'    => 1,
@@ -5389,6 +5621,7 @@ has list => (
                 }
             },
             'small mimic' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '3d4',
                 'elbereth'    => 1,
@@ -5406,6 +5639,7 @@ has list => (
                 }
             },
             'snake' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d6P',
                 'elbereth'    => 1,
@@ -5425,6 +5659,7 @@ has list => (
                 }
             },
             'soldier' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
                 'elbereth'    => 0,
@@ -5441,6 +5676,7 @@ has list => (
                 }
             },
             'soldier ant' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '2d4 3d4P',
                 'elbereth'    => 1,
@@ -5460,6 +5696,7 @@ has list => (
                 }
             },
             'spotted jelly' => {
+                'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '(0d6A)',
                 'elbereth'    => 1,
@@ -5479,6 +5716,7 @@ has list => (
                 }
             },
             'stalker' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '4d4',
                 'elbereth'    => 1,
@@ -5497,6 +5735,7 @@ has list => (
                 }
             },
             'steam vortex' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E1d8F',
                 'elbereth'    => 1,
@@ -5532,6 +5771,7 @@ has list => (
                 }
             },
             'stone golem' => {
+                'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '3d8',
                 'elbereth'    => 1,
@@ -5566,6 +5806,7 @@ has list => (
                 }
             },
             'straw golem' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d2 1d2',
                 'elbereth'    => 1,
@@ -5582,6 +5823,7 @@ has list => (
                 }
             },
             'student' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -5598,6 +5840,7 @@ has list => (
                 }
             },
             'succubus' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '0d0&amp; 1d3 1d3',
                 'elbereth'    => 1,
@@ -5633,6 +5876,7 @@ has list => (
                 }
             },
             'thug' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -5649,6 +5893,7 @@ has list => (
                 }
             },
             'tiger' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d4 2d4 1d10',
                 'elbereth'    => 1,
@@ -5681,6 +5926,7 @@ has list => (
                 }
             },
             'titanothere' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d8',
                 'elbereth'    => 1,
@@ -5713,6 +5959,7 @@ has list => (
                 }
             },
             'trapper' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => 'E1d10d',
                 'elbereth'    => 1,
@@ -5729,6 +5976,7 @@ has list => (
                 }
             },
             'troll' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'W4d2 4d2 2d6',
                 'elbereth'    => 1,
@@ -5778,6 +6026,7 @@ has list => (
                 }
             },
             'vampire' => {
+                'hostile'     => 1,
                 'ac'          => 1,
                 'attacks'     => '1d6 1d6V',
                 'elbereth'    => 1,
@@ -5795,6 +6044,7 @@ has list => (
                 }
             },
             'vampire bat' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 0d0P',
                 'elbereth'    => 1,
@@ -5812,6 +6062,7 @@ has list => (
                 }
             },
             'vampire lord' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d8 1d8V',
                 'elbereth'    => 1,
@@ -5829,6 +6080,7 @@ has list => (
                 }
             },
             'violet fungus' => {
+                'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d4 0d0m',
                 'elbereth'    => 1,
@@ -5849,6 +6101,7 @@ has list => (
                 }
             },
             'vrock' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d4 1d4 1d8 1d8 1d6',
                 'elbereth'    => 1,
@@ -5865,6 +6118,7 @@ has list => (
                 }
             },
             'warg' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6',
                 'elbereth'    => 1,
@@ -5897,6 +6151,7 @@ has list => (
                 }
             },
             'warrior' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8 W1d8',
                 'elbereth'    => 0,
@@ -5913,6 +6168,7 @@ has list => (
                 }
             },
             'watch captain' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W3d4 W3d4',
                 'elbereth'    => 0,
@@ -5929,6 +6185,7 @@ has list => (
                 }
             },
             'watchman' => {
+                'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
                 'elbereth'    => 0,
@@ -5945,6 +6202,7 @@ has list => (
                 }
             },
             'water demon' => {
+                'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => 'W1d3 1d3 1d3',
                 'elbereth'    => 1,
@@ -5979,6 +6237,7 @@ has list => (
                 }
             },
             'water moccasin' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d6P',
                 'elbereth'    => 1,
@@ -5998,6 +6257,7 @@ has list => (
                 }
             },
             'water nymph' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '0d0- 0d0-',
                 'elbereth'    => 1,
@@ -6015,6 +6275,7 @@ has list => (
                 }
             },
             'water troll' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2W2d8 2d8 2d6',
                 'elbereth'    => 1,
@@ -6032,6 +6293,7 @@ has list => (
                 }
             },
             'werejackal' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -6050,6 +6312,7 @@ has list => (
                 }
             },
             'wererat' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -6068,6 +6331,7 @@ has list => (
                 }
             },
             'werewolf' => {
+                'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -6086,6 +6350,7 @@ has list => (
                 }
             },
             'white dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6C 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -6121,6 +6386,7 @@ has list => (
                 }
             },
             'winged gargoyle' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '3d6 3d6 3d4',
                 'elbereth'    => 1,
@@ -6137,6 +6403,7 @@ has list => (
                 }
             },
             'winter wolf' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6 B2d6C',
                 'elbereth'    => 1,
@@ -6154,6 +6421,7 @@ has list => (
                 }
             },
             'winter wolf cub' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '1d8 B1d8C',
                 'elbereth'    => 1,
@@ -6187,6 +6455,7 @@ has list => (
                 }
             },
             'wolf' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d4',
                 'elbereth'    => 1,
@@ -6203,6 +6472,7 @@ has list => (
                 }
             },
             'wood golem' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '3d4',
                 'elbereth'    => 1,
@@ -6219,6 +6489,7 @@ has list => (
                 }
             },
             'wood nymph' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '0d0- 0d0-',
                 'elbereth'    => 1,
@@ -6236,6 +6507,7 @@ has list => (
                 }
             },
             'woodchuck' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -6252,6 +6524,7 @@ has list => (
                 }
             },
             'wraith' => {
+                'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '1d6V',
                 'elbereth'    => 1,
@@ -6269,6 +6542,7 @@ has list => (
                 }
             },
             'wumpus' => {
+                'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '3d6',
                 'elbereth'    => 1,
@@ -6285,6 +6559,7 @@ has list => (
                 }
             },
             'xan' => {
+                'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '1d4x',
                 'elbereth'    => 1,
@@ -6303,6 +6578,7 @@ has list => (
                 }
             },
             'xorn' => {
+                'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '1d3 1d3 1d3 4d6',
                 'elbereth'    => 1,
@@ -6319,6 +6595,7 @@ has list => (
                 }
             },
             'yellow dragon' => {
+                'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6A 3d8 1d4 1d4',
                 'elbereth'    => 1,
@@ -6337,6 +6614,7 @@ has list => (
                 }
             },
             'yellow light' => {
+                'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'X10d20b',
                 'elbereth'    => 1,
@@ -6355,6 +6633,7 @@ has list => (
                 }
             },
             'yellow mold' => {
+                'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d4s)',
                 'elbereth'    => 1,
@@ -6376,6 +6655,7 @@ has list => (
                 }
             },
             'yeti' => {
+                'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6 1d4',
                 'elbereth'    => 1,
@@ -6393,6 +6673,7 @@ has list => (
                 }
             },
             'zruty' => {
+                'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '3d4 3d4 3d6',
                 'elbereth'    => 1,
