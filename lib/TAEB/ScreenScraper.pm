@@ -266,6 +266,12 @@ our %msg_string = (
         ['resistance_change', 'shock', 1],
     "You feel grounded in reality." =>
         ['resistance_change', 'shock', 1],
+    "Dumb move!  You strain a muscle." =>
+        ['noise'],
+    "You kick at empty space." =>
+        ['noise'],
+    "Ouch!  That hurts!" =>
+        ['noise'],
 );
 
 our @msg_regex = (

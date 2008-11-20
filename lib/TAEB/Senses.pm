@@ -167,6 +167,10 @@ has burden => (
     isa => 'TAEB::Type::Burden',
 );
 
+has noisy_turn => (
+    isa => 'Int',
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -729,6 +733,12 @@ sub _check_tile {
 
     my $msg = TAEB->farlook($x, $y);
     TAEB->enqueue_message('farlooked' => $x, $y, $msg);
+}
+
+sub msg_noise {
+    my $self = shift;
+
+    $self->noisy_turn($self->turn);
 }
 
 __PACKAGE__->meta->make_immutable;
