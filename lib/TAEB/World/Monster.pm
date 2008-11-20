@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Monster;
 use TAEB::OO;
-use TAEB::Util qw/:colors/;
+use TAEB::Util qw/:colors align2str/;
 
 use overload %TAEB::Meta::Overload::default;
 
@@ -121,6 +121,8 @@ sub is_hostile {
     return 1 if $self->is_quest_nemesis;
 
     return 1 if $hate{TAEB->race}{$self->spoiler->{cannibal} || ''};
+
+    return 1 if align2str $self->spoiler->{alignment} ne TAEB->align;
 
     # do you have the amulet? is it a minion?  is it cross-aligned?
     return undef;

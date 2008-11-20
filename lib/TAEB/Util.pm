@@ -33,7 +33,7 @@ use constant \%colors;
 
 use Sub::Exporter -setup => {
     exports => [qw(tile_types delta2vi vi2delta deltas dice colors crow_flies),
-        qw(angle), keys %colors],
+        qw(angle align2str), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -166,6 +166,19 @@ sub deltas {
         [-1,  0], [ 1,  0], [ 0, -1], [ 0,  1],
     );
 
+}
+
+=head2 align2str :: Int -> Str
+
+Convert an alignment modifier like -5 into a Law/New/Cha.
+
+=cut
+
+sub align2str {
+    my $val = shift;
+
+    return 'Una' if !defined($val);
+    return ($val > 0) ? 'Law' : ($val < 0) ? 'Cha' : 'Neu';
 }
 
 =head2 dice spec -> avg | min avg max
