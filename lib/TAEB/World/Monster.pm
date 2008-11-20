@@ -79,6 +79,10 @@ sub is_quest_friendly {
     return 0;
 }
 
+sub is_quest_nemesis {
+    return 0; #XXX
+}
+
 sub is_enemy {
     my $self = shift;
     return 0 if $self->is_oracle;
@@ -90,6 +94,43 @@ sub is_enemy {
     return 0 if $self->is_shk;
     return 0 if $self->is_priest;
     return 1;
+}
+
+# Yes, this is different from is_enemy.  Enemies are monsters we should
+# attack, hostiles are monsters we expect to attack us.  Even if they
+# were perfect they'd be different, pick-wielding dwarves for instance.
+#
+# But they're not perfect, which makes the difference bigger.  If we
+# decide to ignore the wrong monster, it will kill us, so is_enemy
+# has to be liberal.  If we let a peaceful monster chase us, we'll
+# starve, so is_hostile has to be conservative.
+
+my %hate = ();
+
+for (qw/HumGno OrcHum OrcElf OrcDwa/)
+    { /(...)(...)/; $hate{$1}{$2} = $hate{$2}{$1} = 1; }
+
+sub is_hostile {
+    my $self = shift;
+
+    # Unicorns won't step next to us anyway
+    return 0 if $self->is_unicorn;
+
+    # Monsters that can't move won't take initiative
+    return 0 if !$self->can_move;
+
+    # Ignorant monsters can't be relied on to notice us
+    return 0 if $self->glyph =~ /[ln]/ || TAEB->senses->is_stealthy;
+
+    # Otherwise, 1 if the monster is guaranteed hostile
+    return 1 if $self->spoiler->{hostile};
+    return 0 if $self->spoiler->{peaceful};
+    return 0 if $self->is_quest_friendly;
+    return 1 if $self->is_quest_nemesis;
+
+    return 1 if $hate{TAEB->race}{$self->spoiler->{cannibal}};
+    # everything after this is non-guaranteed
+    return 0;
 }
 
 sub is_meleeable {
