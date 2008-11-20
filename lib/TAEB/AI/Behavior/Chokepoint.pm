@@ -101,9 +101,6 @@ sub useful_dir {
 sub prepare {
     my $self = shift;
 
-    # This won't work well until we have monster tracking
-    return if TAEB->current_level->branch eq 'mines';
-
     my @enemies = grep { $_->in_los } TAEB->current_level->has_enemies;
 
     # Useless in one-on-one fights
