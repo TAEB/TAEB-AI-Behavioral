@@ -151,7 +151,7 @@ has needs_fixing => (
             },
             {
                 status => 'wounded legs',
-                check  => sub { 0 },
+                check  => sub { TAEB->is_wounded_legs },
                 fixes  => [
                     eat(   'lump of royal jelly',  'unimportant'),
                     quaff( 'speed',                'unimportant'),

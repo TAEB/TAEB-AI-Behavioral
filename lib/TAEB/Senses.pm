@@ -47,7 +47,7 @@ has in_wereform => (
     isa => 'Bool',
 );
 
-has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying is_food_poisoned is_ill/] => (
+has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying is_food_poisoned is_ill is_wounded_legs/] => (
     isa     => 'Bool',
     default => 0,
 );
@@ -377,7 +377,8 @@ sub can_kick {
     my $self = shift;
     return not $self->in_beartrap
             || $self->in_pit
-            || $self->in_web;
+            || $self->in_web
+            || $self->is_wounded_legs;
 }
 
 sub can_move {
