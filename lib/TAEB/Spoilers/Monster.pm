@@ -3525,6 +3525,7 @@ has list => (
                     'weight'    => 1000,
                     'nutrition' => 300,
                     'cold_resistance' => '60%',
+                    'reanimates' => 1,
                 }
             },
             'ice vortex' => {
@@ -5070,6 +5071,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1200,
                     'nutrition' => 300,
+                    'reanimates' => 1,
                 }
             },
             'rogue' => {
@@ -5740,6 +5742,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 800,
                     'nutrition' => 350,
+                    'reanimates' => 1,
                 }
             },
             'umber hulk' => {
@@ -6025,6 +6028,7 @@ has list => (
                     'cannibal'  => 0,
                     'weight'    => 1200,
                     'nutrition' => 350,
+                    'reanimates' => 1,
                 }
             },
             'werejackal' => {
