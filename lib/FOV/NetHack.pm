@@ -16,7 +16,8 @@ sub calculate_fov {
 
     my @visible;
 
-    $cbo ||= sub { my ($x, $y) = @_; $visible[$x][$y] = 1; };
+    $cbo ||= sub { my ($x, $y) = @_;
+        $visible[$x][$y] = 1 unless $x < 0 || $y < 0; };
 
     $cbo->($startx, $starty);
 
@@ -106,12 +107,11 @@ for INCALLBACK.  OUTCALLBACK is optional; if you omit it, calculate_fov
 will return an array of arrays such that $ret[$x][$y] will be true
 iff ($x,$y) is visible.
 
-Two obligations exist upon the user.  First, there must be no lines of
-sight of infinite length.  Second, if OUTCALLBACK is omitted, no tile
-with either coordinate negative may be visible.  This stems from the
-limitation of array indexes to positive values.  Of course one can also
-use $[ to allow negative indexes, but you wouldn't do something like
-that, would you?
+Obviously, calculate_fov will hang if passed a map which has lines of
+sight with infinite length.  Also, if the visible part of the map
+extends beyond the doubly non-negative quadrant, and you are using
+the array of arrays return method, only the part which lies within
+said quadrant will be returned.
 
 You may be wondering why the callbacks exist at all and calculate_fov
 doesn't just use arrays of arrays both ways.  The answer is asymptotic
