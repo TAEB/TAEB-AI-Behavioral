@@ -101,7 +101,8 @@ sub useful_dir {
 sub prepare {
     my $self = shift;
 
-    my @enemies = grep { $_->in_los } TAEB->current_level->has_enemies;
+    my @enemies = grep { $_->in_los && $_->distance < 9 }
+        TAEB->current_level->has_enemies;
 
     # Useless in one-on-one fights
     return if @enemies <= 1;
