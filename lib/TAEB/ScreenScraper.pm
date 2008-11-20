@@ -561,6 +561,10 @@ our @msg_regex = (
         qr/^You feel(?: wide)? awake(?:\.|\!)$/ =>
             ['resistance_change', 'sleep', 1],
     ],
+    [
+        qr/^You're finally finished\./ =>
+            ['finally_finished'],
+    ],
 );
 
 our @god_anger = (
@@ -621,6 +625,7 @@ our @prompts = (
     qr/^Advance skills without practice\?/ => 'advance_without_practice',
     qr/^Dump core\?/ => 'dump_core',
     qr/^Die\?/ => 'die',
+    qr/^Stop eating\?/ => 'stop_eating',
 );
 
 our @exceptions = (
