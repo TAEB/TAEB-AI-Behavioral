@@ -310,26 +310,21 @@ sub exits {
 sub exit_towards {
     my $self = shift;
     my $other = shift;
+    my $back = shift;
 
-    if (!$other->known_branch || $self->branch eq $other->branch) {
-        my @exits;
+    for my $exit ($self->exits) {
+        next if !$exit->other_side;
 
-        # we're too high, we need to go down
-        if ($other->z > $self->z) {
-            @exits = $self->has_type('stairsdown')
-        }
-        else {
-            @exits = $self->has_type('stairsup');
-        }
+        next if $exit->other_side->level == $back;
 
-        return $exits[0];
-    }
-    elsif ($self->z ne 1) {
-        # just go up.
-        return ($self->has_type('stairsup'))[0];
+        return $exit if $exit->other_side->level == $other;
+
+        my $rec = $exit->other_side->level->exit_towards($other, $self);
+
+        return $exit if $rec;
     }
 
-    die "I don't know how to do $self->exit_towards($other) when the levels are in different branches.";
+    return undef;
 }
 
 sub adjacent_levels {
