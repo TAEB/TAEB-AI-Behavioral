@@ -43,7 +43,7 @@ sub pickup {
     return $item->match(identity => 'stethoscope');
 }
 
-sub prompt_what_direction {
+sub respond_what_direction {
     my $self = shift;
     my @tiles = TAEB->grep_adjacent(sub {
         my $t = shift;
