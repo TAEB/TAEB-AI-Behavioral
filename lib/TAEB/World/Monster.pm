@@ -113,15 +113,6 @@ for (qw/HumGno OrcHum OrcElf OrcDwa/)
 sub is_hostile {
     my $self = shift;
 
-    # Unicorns won't step next to us anyway
-    return 0 if $self->is_unicorn;
-
-    # Monsters that can't move won't take initiative
-    return 0 if !$self->can_move;
-
-    # Ignorant monsters can't be relied on to notice us
-    return 0 if $self->glyph =~ /[ln]/ || TAEB->senses->is_stealthy;
-
     # Otherwise, 1 if the monster is guaranteed hostile
     return 1 if $self->spoiler->{hostile};
     return 0 if $self->spoiler->{peaceful};
@@ -129,8 +120,28 @@ sub is_hostile {
     return 1 if $self->is_quest_nemesis;
 
     return 1 if $hate{TAEB->race}{$self->spoiler->{cannibal}};
-    # everything after this is non-guaranteed
-    return 0;
+
+    # do you have the amulet? is it a minion?  is it cross-aligned?
+    return undef;
+}
+
+sub probably_sleeping {
+    my $self = shift;
+
+    return $self->glyph =~ /[ln]/ || TAEB->senses->is_stealthy;
+}
+
+# Would this monster chase us if it wanted to and noticed us?
+sub would_chase {
+    my $self = shift;
+
+    # Unicorns won't step next to us anyway
+    return 0 if $self->is_unicorn;
+
+    # Monsters that can't move won't take initiative
+    return 0 if !$self->can_move;
+
+    return 1;
 }
 
 sub is_meleeable {
