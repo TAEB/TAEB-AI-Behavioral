@@ -645,6 +645,7 @@ our @prompts = (
     qr/^Dump core\?/ => 'dump_core',
     qr/^Die\?/ => 'die',
     qr/^Stop eating\?/ => 'stop_eating',
+    qr/^Really quit\?/ => 'quit',
 );
 
 our @exceptions = (
