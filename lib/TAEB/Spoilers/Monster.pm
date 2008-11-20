@@ -10,6 +10,7 @@ has list => (
     default => sub {
         my $monsters = {
             'Aleax' => {
+                'alignment'   => 7,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 W1d6 1d4',
                 'elbereth'    => 0,
@@ -26,6 +27,7 @@ has list => (
                 }
             },
             'Angel' => {
+                'alignment'   => 12,
                 'ac'          => -4,
                 'attacks'     => 'W1d6 W1d6 1d4 M2d6M',
                 'elbereth'    => 0,
@@ -42,6 +44,7 @@ has list => (
                 }
             },
             'Arch Priest' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 7,
                 'attacks'     => 'W4d10 2d8 M2d8+ M2d8+',
@@ -60,6 +63,7 @@ has list => (
                 }
             },
             'Archon' => {
+                'alignment'   => 15,
                 'ac'          => -6,
                 'attacks'     => 'W2d4 W2d4 G2d6b 1d8 M4d6+',
                 'elbereth'    => 0,
@@ -76,6 +80,7 @@ has list => (
                 }
             },
             'Ashikaga Takauji' => {
+                'alignment'   => -13,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W2d6 W2d6 2d6-',
@@ -94,6 +99,7 @@ has list => (
                 }
             },
             'Asmodeus' => {
+                'alignment'   => 20,
                 'hostile'     => 1,
                 'ac'          => -7,
                 'attacks'     => '4d4 M6d6C',
@@ -112,6 +118,7 @@ has list => (
                 }
             },
             'Baalzebub' => {
+                'alignment'   => 20,
                 'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '2d6P G2d6s',
@@ -130,6 +137,7 @@ has list => (
                 }
             },
             'Chromatic Dragon' => {
+                'alignment'   => -14,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'B6d8z M0d0+ 2d8- 4d8 4d8 1d6',
@@ -155,6 +163,7 @@ has list => (
                 }
             },
             'Croesus' => {
+                'alignment'   => 15,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W4d10',
@@ -173,6 +182,7 @@ has list => (
                 }
             },
             'Cyclops' => {
+                'alignment'   => -15,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W4d8 W4d8 2d6-',
@@ -192,6 +202,7 @@ has list => (
                 }
             },
             'Dark One' => {
+                'alignment'   => -10,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 W1d6 1d4- M0d0+',
@@ -210,6 +221,7 @@ has list => (
                 }
             },
             'Death' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '8d8z 8d8z',
@@ -229,6 +241,7 @@ has list => (
                 }
             },
             'Demogorgon' => {
+                'alignment'   => -20,
                 'hostile'     => 1,
                 'ac'          => -8,
                 'attacks'     => 'M8d6+ 1d4V 1d6# 1d6#',
@@ -247,6 +260,7 @@ has list => (
                 }
             },
             'Dispater' => {
+                'alignment'   => 15,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => 'W4d6 M6d6+',
@@ -265,6 +279,7 @@ has list => (
                 }
             },
             'Elvenking' => {
+                'alignment'   => -10,
                 'ac'          => 10,
                 'attacks'     => 'W2d4 W2d4',
                 'elbereth'    => 0,
@@ -282,6 +297,7 @@ has list => (
                 }
             },
             'Famine' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '8d8z 8d8z',
@@ -301,6 +317,7 @@ has list => (
                 }
             },
             'Geryon' => {
+                'alignment'   => 15,
                 'hostile'     => 1,
                 'ac'          => -3,
                 'attacks'     => '3d6 3d6 2d4P',
@@ -319,6 +336,7 @@ has list => (
                 }
             },
             'Grand Master' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => '4d10 2d8 M2d8+ M2d8+',
@@ -337,6 +355,7 @@ has list => (
                 }
             },
             'Green-elf' => {
+                'alignment'   => -6,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -354,6 +373,7 @@ has list => (
                 }
             },
             'Grey-elf' => {
+                'alignment'   => -7,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -371,6 +391,7 @@ has list => (
                 }
             },
             'Hippocrates' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6',
@@ -389,6 +410,7 @@ has list => (
                 }
             },
             'Ixoth' => {
+                'alignment'   => -14,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B8d6F 4d8 M0d0+ 2d4 2d4-',
@@ -408,6 +430,7 @@ has list => (
                 }
             },
             'Juiblex' => {
+                'alignment'   => -15,
                 'hostile'     => 1,
                 'ac'          => -7,
                 'attacks'     => 'E4d10# S3d6A',
@@ -426,6 +449,7 @@ has list => (
                 }
             },
             'Keystone Kop' => {
+                'alignment'   => 9,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d4',
@@ -443,6 +467,7 @@ has list => (
                 }
             },
             'King Arthur' => {
+                'alignment'   => 20,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 W1d6',
@@ -461,6 +486,7 @@ has list => (
                 }
             },
             'Kop Kaptain' => {
+                'alignment'   => 12,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d6',
@@ -478,6 +504,7 @@ has list => (
                 }
             },
             'Kop Lieutenant' => {
+                'alignment'   => 11,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
@@ -495,6 +522,7 @@ has list => (
                 }
             },
             'Kop Sergeant' => {
+                'alignment'   => 10,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
@@ -512,6 +540,7 @@ has list => (
                 }
             },
             'Lord Carnarvon' => {
+                'alignment'   => 20,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6',
@@ -530,6 +559,7 @@ has list => (
                 }
             },
             'Lord Sato' => {
+                'alignment'   => 20,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d8 W1d6',
@@ -548,6 +578,7 @@ has list => (
                 }
             },
             'Lord Surtur' => {
+                'alignment'   => 12,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'W2d10 W2d10 2d6-',
@@ -568,6 +599,7 @@ has list => (
                 }
             },
             'Master Assassin' => {
+                'alignment'   => 18,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W2d6P W2d8 2d6-',
@@ -586,6 +618,7 @@ has list => (
                 }
             },
             'Master Kaen' => {
+                'alignment'   => -20,
                 'hostile'     => 1,
                 'ac'          => -10,
                 'attacks'     => '16d2 16d2 M0d0+ 1d4-',
@@ -605,6 +638,7 @@ has list => (
                 }
             },
             'Master of Thieves' => {
+                'alignment'   => -20,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W2d6 W2d6 2d4-',
@@ -623,6 +657,7 @@ has list => (
                 }
             },
             'Medusa' => {
+                'alignment'   => -15,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'W2d4 1d8 G0d0* 1d6P',
@@ -644,6 +679,7 @@ has list => (
                 }
             },
             'Minion of Huhetotl' => {
+                'alignment'   => -14,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => 'W8d4 W4d6 M0d0+ 2d6-',
@@ -662,6 +698,7 @@ has list => (
                 }
             },
             'Mordor orc' => {
+                'alignment'   => -5,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 1,
@@ -678,6 +715,7 @@ has list => (
                 }
             },
             'Nalzok' => {
+                'alignment'   => -127,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => 'W8d4 W4d6 M0d0+ 2d6-',
@@ -696,6 +734,7 @@ has list => (
                 }
             },
             'Nazgul' => {
+                'alignment'   => -17,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d4V B2d25S',
@@ -713,6 +752,7 @@ has list => (
                 }
             },
             'Neferet the Green' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 M2d8+',
@@ -731,6 +771,7 @@ has list => (
                 }
             },
             'Norn' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d8 W1d6',
@@ -749,6 +790,7 @@ has list => (
                 }
             },
             'Olog-hai' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => 'W3d6 2d8 2d6',
@@ -766,6 +808,7 @@ has list => (
                 }
             },
             'Oracle' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => '(0d4M)',
@@ -784,6 +827,7 @@ has list => (
                 }
             },
             'Orcus' => {
+                'alignment'   => -20,
                 'hostile'     => 1,
                 'ac'          => -6,
                 'attacks'     => 'W3d6 3d4 3d4 M8d6+ 2d4P',
@@ -802,6 +846,7 @@ has list => (
                 }
             },
             'Orion' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6',
@@ -820,6 +865,7 @@ has list => (
                 }
             },
             'Pelias' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6',
@@ -838,6 +884,7 @@ has list => (
                 }
             },
             'Pestilence' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '8d8z 8d8z',
@@ -857,6 +904,7 @@ has list => (
                 }
             },
             'Scorpius' => {
+                'alignment'   => -15,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '2d6 2d6- 1d4#',
@@ -877,6 +925,7 @@ has list => (
                 }
             },
             'Shaman Karnov' => {
+                'alignment'   => 20,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W2d4',
@@ -895,6 +944,7 @@ has list => (
                 }
             },
             'Thoth Amon' => {
+                'alignment'   => -14,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d6 M0d0+ M0d0+ 1d4-',
@@ -913,6 +963,7 @@ has list => (
                 }
             },
             'Twoflower' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
@@ -931,6 +982,7 @@ has list => (
                 }
             },
             'Uruk-hai' => {
+                'alignment'   => -4,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
                 'elbereth'    => 1,
@@ -947,6 +999,7 @@ has list => (
                 }
             },
             'Vlad the Impaler' => {
+                'alignment'   => -10,
                 'hostile'     => 1,
                 'ac'          => -3,
                 'attacks'     => 'W1d10 1d10V',
@@ -987,6 +1040,7 @@ has list => (
                 }
             },
             'Woodland-elf' => {
+                'alignment'   => -5,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -1004,6 +1058,7 @@ has list => (
                 }
             },
             'Yeenoghu' => {
+                'alignment'   => -15,
                 'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => 'W3d6 W2d8c W1d6. M2d6M',
@@ -1022,6 +1077,7 @@ has list => (
                 }
             },
             'abbot' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => '8d2 3d2s M0d0+',
@@ -1040,6 +1096,7 @@ has list => (
                 }
             },
             'acid blob' => {
+                'alignment'   => 0,
                 'ac'          => 8,
                 'attacks'     => '(1d8A)',
                 'elbereth'    => 1,
@@ -1059,6 +1116,7 @@ has list => (
                 }
             },
             'acolyte' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 M0d0+',
@@ -1076,6 +1134,7 @@ has list => (
                 }
             },
             'air elemental' => {
+                'alignment'   => 0,
                 'ac'          => 2,
                 'attacks'     => 'E1d10',
                 'elbereth'    => 1,
@@ -1094,6 +1153,7 @@ has list => (
                 }
             },
             'aligned priest' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W4d10 1d4 M0d0+',
@@ -1111,6 +1171,7 @@ has list => (
                 }
             },
             'ape' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '1d3 1d3 1d6',
                 'elbereth'    => 1,
@@ -1127,6 +1188,7 @@ has list => (
                 }
             },
             'apprentice' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 M0d0+',
@@ -1144,6 +1206,7 @@ has list => (
                 }
             },
             'arch-lich' => {
+                'alignment'   => -15,
                 'hostile'     => 1,
                 'ac'          => -6,
                 'attacks'     => '5d6C M0d0+',
@@ -1161,6 +1224,7 @@ has list => (
                 }
             },
             'archeologist' => {
+                'alignment'   => 3,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -1177,6 +1241,7 @@ has list => (
                 }
             },
             'attendant' => {
+                'alignment'   => 3,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
@@ -1194,6 +1259,7 @@ has list => (
                 }
             },
             'baby black dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1211,6 +1277,7 @@ has list => (
                 }
             },
             'baby blue dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1228,6 +1295,7 @@ has list => (
                 }
             },
             'baby crocodile' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d4',
@@ -1245,6 +1313,7 @@ has list => (
                 }
             },
             'baby gray dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1262,6 +1331,7 @@ has list => (
                 }
             },
             'baby green dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1280,6 +1350,7 @@ has list => (
                 }
             },
             'baby long worm' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
@@ -1297,6 +1368,7 @@ has list => (
                 }
             },
             'baby orange dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1314,6 +1386,7 @@ has list => (
                 }
             },
             'baby purple worm' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
@@ -1331,6 +1404,7 @@ has list => (
                 }
             },
             'baby red dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1348,6 +1422,7 @@ has list => (
                 }
             },
             'baby silver dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1365,6 +1440,7 @@ has list => (
                 }
             },
             'baby white dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1382,6 +1458,7 @@ has list => (
                 }
             },
             'baby yellow dragon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d6',
@@ -1400,6 +1477,7 @@ has list => (
                 }
             },
             'balrog' => {
+                'alignment'   => -14,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => 'W8d4 W4d6',
@@ -1417,6 +1495,7 @@ has list => (
                 }
             },
             'baluchitherium' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '5d4 5d4',
@@ -1434,6 +1513,7 @@ has list => (
                 }
             },
             'barbarian' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -1450,6 +1530,7 @@ has list => (
                 }
             },
             'barbed devil' => {
+                'alignment'   => 8,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '2d4 2d4 3d4',
@@ -1467,6 +1548,7 @@ has list => (
                 }
             },
             'barrow wight' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => 'W0d0V M0d0+ 1d4',
@@ -1484,6 +1566,7 @@ has list => (
                 }
             },
             'bat' => {
+                'alignment'   => 0,
                 'ac'          => 8,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -1501,6 +1584,7 @@ has list => (
                 }
             },
             'black dragon' => {
+                'alignment'   => -6,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d10D 3d8 1d4 1d4',
@@ -1520,6 +1604,7 @@ has list => (
                 }
             },
             'black light' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'X10d12h',
@@ -1539,6 +1624,7 @@ has list => (
                 }
             },
             'black naga' => {
+                'alignment'   => 4,
                 'ac'          => 2,
                 'attacks'     => '2d6 S0d0A',
                 'elbereth'    => 1,
@@ -1558,6 +1644,7 @@ has list => (
                 }
             },
             'black naga hatchling' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -1576,6 +1663,7 @@ has list => (
                 }
             },
             'black pudding' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '3d8R (0d0R)',
@@ -1597,6 +1685,7 @@ has list => (
                 }
             },
             'black unicorn' => {
+                'alignment'   => -7,
                 'ac'          => 2,
                 'attacks'     => '1d12 1d6',
                 'elbereth'    => 1,
@@ -1614,6 +1703,7 @@ has list => (
                 }
             },
             'blue dragon' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6E 3d8 1d4 1d4',
@@ -1633,6 +1723,7 @@ has list => (
                 }
             },
             'blue jelly' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '(0d6C)',
@@ -1654,6 +1745,7 @@ has list => (
                 }
             },
             'bone devil' => {
+                'alignment'   => -9,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'W3d4 2d4P',
@@ -1671,6 +1763,7 @@ has list => (
                 }
             },
             'brown mold' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d6C)',
@@ -1692,6 +1785,7 @@ has list => (
                 }
             },
             'brown pudding' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '0d0r',
@@ -1714,6 +1808,7 @@ has list => (
                 }
             },
             'bugbear' => {
+                'alignment'   => -6,
                 'ac'          => 5,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 1,
@@ -1730,6 +1825,7 @@ has list => (
                 }
             },
             'captain' => {
+                'alignment'   => -5,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W4d4 W4d4',
@@ -1747,6 +1843,7 @@ has list => (
                 }
             },
             'carnivorous ape' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4 1d4 H1d8',
@@ -1764,6 +1861,7 @@ has list => (
                 }
             },
             'cave spider' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d2',
@@ -1783,6 +1881,7 @@ has list => (
                 }
             },
             'caveman' => {
+                'alignment'   => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -1799,6 +1898,7 @@ has list => (
                 }
             },
             'cavewoman' => {
+                'alignment'   => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
                 'elbereth'    => 0,
@@ -1815,6 +1915,7 @@ has list => (
                 }
             },
             'centipede' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d3P',
@@ -1834,6 +1935,7 @@ has list => (
                 }
             },
             'chameleon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '4d2',
@@ -1852,6 +1954,7 @@ has list => (
                 }
             },
             'chickatrice' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d2 0d0* (0d0*)',
@@ -1871,6 +1974,7 @@ has list => (
                 }
             },
             'chieftain' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
@@ -1888,6 +1992,7 @@ has list => (
                 }
             },
             'clay golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '3d10',
@@ -1905,6 +2010,7 @@ has list => (
                 }
             },
             'cobra' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '2d4P S0d0b',
@@ -1925,6 +2031,7 @@ has list => (
                 }
             },
             'cockatrice' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d3 0d0* (0d0*)',
@@ -1945,6 +2052,7 @@ has list => (
                 }
             },
             'couatl' => {
+                'alignment'   => 7,
                 'ac'          => 5,
                 'attacks'     => '2d4P 1d3 H2d4w',
                 'elbereth'    => 0,
@@ -1961,6 +2069,7 @@ has list => (
                 }
             },
             'coyote' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d4',
@@ -1978,6 +2087,7 @@ has list => (
                 }
             },
             'crocodile' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '4d2 1d12',
@@ -1996,6 +2106,7 @@ has list => (
                 }
             },
             'demilich' => {
+                'alignment'   => -12,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '3d4C M0d0+',
@@ -2013,6 +2124,7 @@ has list => (
                 }
             },
             'dingo' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
@@ -2030,6 +2142,7 @@ has list => (
                 }
             },
             'disenchanter' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => -10,
                 'attacks'     => '4d4" (0d0")',
@@ -2047,6 +2160,7 @@ has list => (
                 }
             },
             'djinni' => {
+                'alignment'   => 0,
                 'ac'          => 4,
                 'attacks'     => 'W2d8',
                 'elbereth'    => 1,
@@ -2063,6 +2177,7 @@ has list => (
                 }
             },
             'dog' => {
+                'alignment'   => 0,
                 'ac'          => 5,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -2080,6 +2195,7 @@ has list => (
                 }
             },
             'doppelganger' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => 'W1d12',
@@ -2098,6 +2214,7 @@ has list => (
                 }
             },
             'dust vortex' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E2d8b',
@@ -2117,6 +2234,7 @@ has list => (
                 }
             },
             'dwarf' => {
+                'alignment'   => 4,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
                 'elbereth'    => 1,
@@ -2133,6 +2251,7 @@ has list => (
                 }
             },
             'dwarf king' => {
+                'alignment'   => 6,
                 'ac'          => 10,
                 'attacks'     => 'W2d6 W2d6',
                 'elbereth'    => 1,
@@ -2149,6 +2268,7 @@ has list => (
                 }
             },
             'dwarf lord' => {
+                'alignment'   => 5,
                 'ac'          => 10,
                 'attacks'     => 'W2d4 W2d4',
                 'elbereth'    => 1,
@@ -2165,6 +2285,7 @@ has list => (
                 }
             },
             'dwarf mummy' => {
+                'alignment'   => -4,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
@@ -2183,6 +2304,7 @@ has list => (
                 }
             },
             'dwarf zombie' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '1d6',
@@ -2201,6 +2323,7 @@ has list => (
                 }
             },
             'earth elemental' => {
+                'alignment'   => 0,
                 'ac'          => 2,
                 'attacks'     => '4d6',
                 'elbereth'    => 1,
@@ -2219,6 +2342,7 @@ has list => (
                 }
             },
             'electric eel' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -3,
                 'attacks'     => '4d6E 0d0w',
@@ -2238,6 +2362,7 @@ has list => (
                 }
             },
             'elf' => {
+                'alignment'   => -3,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
                 'elbereth'    => 0,
@@ -2255,6 +2380,7 @@ has list => (
                 }
             },
             'elf mummy' => {
+                'alignment'   => -5,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d4',
@@ -2273,6 +2399,7 @@ has list => (
                 }
             },
             'elf zombie' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '1d7',
@@ -2291,6 +2418,7 @@ has list => (
                 }
             },
             'elf-lord' => {
+                'alignment'   => -9,
                 'ac'          => 10,
                 'attacks'     => 'W2d4 W2d4',
                 'elbereth'    => 0,
@@ -2308,6 +2436,7 @@ has list => (
                 }
             },
             'energy vortex' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E1d6E E0d0e (0d4E)',
@@ -2327,6 +2456,7 @@ has list => (
                 }
             },
             'erinys' => {
+                'alignment'   => 10,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'W2d4P',
@@ -2344,6 +2474,7 @@ has list => (
                 }
             },
             'ettin' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => 'W2d8 W3d6',
@@ -2361,6 +2492,7 @@ has list => (
                 }
             },
             'ettin mummy' => {
+                'alignment'   => -6,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6 2d6',
@@ -2379,6 +2511,7 @@ has list => (
                 }
             },
             'ettin zombie' => {
+                'alignment'   => -4,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d10 1d10',
@@ -2397,6 +2530,7 @@ has list => (
                 }
             },
             'fire ant' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '2d4 2d4F',
@@ -2416,6 +2550,7 @@ has list => (
                 }
             },
             'fire elemental' => {
+                'alignment'   => 0,
                 'ac'          => 2,
                 'attacks'     => '3d6F (0d4F)',
                 'elbereth'    => 1,
@@ -2434,6 +2569,7 @@ has list => (
                 }
             },
             'fire giant' => {
+                'alignment'   => 2,
                 'ac'          => 4,
                 'attacks'     => 'W2d10',
                 'elbereth'    => 1,
@@ -2452,6 +2588,7 @@ has list => (
                 }
             },
             'fire vortex' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E1d10F (0d4F)',
@@ -2471,6 +2608,7 @@ has list => (
                 }
             },
             'flaming sphere' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'X4d6F',
@@ -2488,6 +2626,7 @@ has list => (
                 }
             },
             'flesh golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '2d8 2d8',
@@ -2510,6 +2649,7 @@ has list => (
                 }
             },
             'floating eye' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d70.)',
@@ -2528,6 +2668,7 @@ has list => (
                 }
             },
             'fog cloud' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'E1d6',
@@ -2547,6 +2688,7 @@ has list => (
                 }
             },
             'forest centaur' => {
+                'alignment'   => -1,
                 'ac'          => 3,
                 'attacks'     => 'W1d8 1d6',
                 'elbereth'    => 1,
@@ -2563,6 +2705,7 @@ has list => (
                 }
             },
             'fox' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3',
@@ -2580,6 +2723,7 @@ has list => (
                 }
             },
             'freezing sphere' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'X4d6C',
@@ -2597,6 +2741,7 @@ has list => (
                 }
             },
             'frost giant' => {
+                'alignment'   => -3,
                 'ac'          => 3,
                 'attacks'     => 'W2d12',
                 'elbereth'    => 1,
@@ -2615,6 +2760,7 @@ has list => (
                 }
             },
             'gargoyle' => {
+                'alignment'   => -9,
                 'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '2d6 2d6 2d4',
@@ -2633,6 +2779,7 @@ has list => (
                 }
             },
             'garter snake' => {
+                'alignment'   => 0,
                 'ac'          => 8,
                 'attacks'     => '1d2',
                 'elbereth'    => 1,
@@ -2650,6 +2797,7 @@ has list => (
                 }
             },
             'gas spore' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '[X4d6]',
@@ -2667,6 +2815,7 @@ has list => (
                 }
             },
             'gecko' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d3',
@@ -2684,6 +2833,7 @@ has list => (
                 }
             },
             'gelatinous cube' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '2d4. (1d4.)',
@@ -2708,6 +2858,7 @@ has list => (
                 }
             },
             'ghost' => {
+                'alignment'   => -5,
                 'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => '1d1',
@@ -2727,6 +2878,7 @@ has list => (
                 }
             },
             'ghoul' => {
+                'alignment'   => -2,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d2. 1d3',
@@ -2744,6 +2896,7 @@ has list => (
                 }
             },
             'giant' => {
+                'alignment'   => 2,
                 'ac'          => 0,
                 'attacks'     => 'W2d10',
                 'elbereth'    => 1,
@@ -2761,6 +2914,7 @@ has list => (
                 }
             },
             'giant ant' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d4',
@@ -2779,6 +2933,7 @@ has list => (
                 }
             },
             'giant bat' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d6',
@@ -2797,6 +2952,7 @@ has list => (
                 }
             },
             'giant beetle' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '3d6',
@@ -2816,6 +2972,7 @@ has list => (
                 }
             },
             'giant eel' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => '3d6 0d0w',
@@ -2834,6 +2991,7 @@ has list => (
                 }
             },
             'giant mimic' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '3d6m 3d6m',
@@ -2852,6 +3010,7 @@ has list => (
                 }
             },
             'giant mummy' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '3d4 3d4',
@@ -2870,6 +3029,7 @@ has list => (
                 }
             },
             'giant rat' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3',
@@ -2887,6 +3047,7 @@ has list => (
                 }
             },
             'giant spider' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d4P',
@@ -2907,6 +3068,7 @@ has list => (
                 }
             },
             'giant zombie' => {
+                'alignment'   => -4,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d8 2d8',
@@ -2925,6 +3087,7 @@ has list => (
                 }
             },
             'glass golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 1,
                 'attacks'     => '2d8 2d8',
@@ -2944,6 +3107,7 @@ has list => (
                 }
             },
             'glass piercer' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '4d6',
@@ -2961,6 +3125,7 @@ has list => (
                 }
             },
             'gnome' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 1,
@@ -2977,6 +3142,7 @@ has list => (
                 }
             },
             'gnome king' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W2d6',
                 'elbereth'    => 1,
@@ -2993,6 +3159,7 @@ has list => (
                 }
             },
             'gnome lord' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
                 'elbereth'    => 1,
@@ -3009,6 +3176,7 @@ has list => (
                 }
             },
             'gnome mummy' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6',
@@ -3027,6 +3195,7 @@ has list => (
                 }
             },
             'gnome zombie' => {
+                'alignment'   => -2,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d5',
@@ -3045,6 +3214,7 @@ has list => (
                 }
             },
             'gnomish wizard' => {
+                'alignment'   => 0,
                 'ac'          => 4,
                 'attacks'     => 'M0d0+',
                 'elbereth'    => 1,
@@ -3061,6 +3231,7 @@ has list => (
                 }
             },
             'goblin' => {
+                'alignment'   => -3,
                 'ac'          => 10,
                 'attacks'     => 'W1d4',
                 'elbereth'    => 1,
@@ -3077,6 +3248,7 @@ has list => (
                 }
             },
             'gold golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d3 2d3',
@@ -3096,6 +3268,7 @@ has list => (
                 }
             },
             'golden naga' => {
+                'alignment'   => 5,
                 'ac'          => 2,
                 'attacks'     => '2d6 M4d6+',
                 'elbereth'    => 1,
@@ -3114,6 +3287,7 @@ has list => (
                 }
             },
             'golden naga hatchling' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -3131,6 +3305,7 @@ has list => (
                 }
             },
             'gray dragon' => {
+                'alignment'   => 4,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6M 3d8 1d4 1d4',
@@ -3149,6 +3324,7 @@ has list => (
                 }
             },
             'gray ooze' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '2d8R',
@@ -3171,6 +3347,7 @@ has list => (
                 }
             },
             'gray unicorn' => {
+                'alignment'   => 0,
                 'ac'          => 2,
                 'attacks'     => '1d12 1d6',
                 'elbereth'    => 1,
@@ -3188,6 +3365,7 @@ has list => (
                 }
             },
             'green dragon' => {
+                'alignment'   => 6,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6P 3d8 1d4 1d4',
@@ -3208,6 +3386,7 @@ has list => (
                 }
             },
             'green mold' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d4A)',
@@ -3228,6 +3407,7 @@ has list => (
                 }
             },
             'green slime' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4@ (0d0@)',
@@ -3249,6 +3429,7 @@ has list => (
                 }
             },
             'gremlin' => {
+                'alignment'   => -9,
                 'ac'          => 2,
                 'attacks'     => '1d6 1d6 1d4 0d0i',
                 'elbereth'    => 1,
@@ -3267,6 +3448,7 @@ has list => (
                 }
             },
             'grid bug' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '1d1E',
@@ -3284,6 +3466,7 @@ has list => (
                 }
             },
             'guard' => {
+                'alignment'   => 10,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W4d10',
@@ -3301,6 +3484,7 @@ has list => (
                 }
             },
             'guardian naga' => {
+                'alignment'   => 7,
                 'ac'          => 0,
                 'attacks'     => '1d6. S1d6P H2d4',
                 'elbereth'    => 0,
@@ -3320,6 +3504,7 @@ has list => (
                 }
             },
             'guardian naga hatchling' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '1d4',
                 'elbereth'    => 0,
@@ -3337,6 +3522,7 @@ has list => (
                 }
             },
             'guide' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 M0d0+',
@@ -3354,6 +3540,7 @@ has list => (
                 }
             },
             'healer' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -3370,6 +3557,7 @@ has list => (
                 }
             },
             'hell hound' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '3d6 B3d6F',
@@ -3388,6 +3576,7 @@ has list => (
                 }
             },
             'hell hound pup' => {
+                'alignment'   => -5,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6 B2d6F',
@@ -3406,6 +3595,7 @@ has list => (
                 }
             },
             'hezrou' => {
+                'alignment'   => -10,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '1d3 1d3 4d4',
@@ -3423,6 +3613,7 @@ has list => (
                 }
             },
             'high priest' => {
+                'alignment'   => 0,
                 'ac'          => 7,
                 'attacks'     => 'W4d10 2d8 M2d8+ M2d8+',
                 'elbereth'    => 0,
@@ -3439,6 +3630,7 @@ has list => (
                 }
             },
             'hill giant' => {
+                'alignment'   => -2,
                 'ac'          => 6,
                 'attacks'     => 'W2d8',
                 'elbereth'    => 1,
@@ -3456,6 +3648,7 @@ has list => (
                 }
             },
             'hill orc' => {
+                'alignment'   => -4,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 1,
@@ -3472,6 +3665,7 @@ has list => (
                 }
             },
             'hobbit' => {
+                'alignment'   => 6,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 1,
@@ -3488,6 +3682,7 @@ has list => (
                 }
             },
             'hobgoblin' => {
+                'alignment'   => -4,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 1,
@@ -3504,6 +3699,7 @@ has list => (
                 }
             },
             'homunculus' => {
+                'alignment'   => -7,
                 'ac'          => 6,
                 'attacks'     => '1d3S',
                 'elbereth'    => 1,
@@ -3523,6 +3719,7 @@ has list => (
                 }
             },
             'horned devil' => {
+                'alignment'   => 11,
                 'hostile'     => 1,
                 'ac'          => -5,
                 'attacks'     => 'W1d4 1d4 2d3 1d3',
@@ -3540,6 +3737,7 @@ has list => (
                 }
             },
             'horse' => {
+                'alignment'   => 0,
                 'ac'          => 5,
                 'attacks'     => '1d8 1d3',
                 'elbereth'    => 1,
@@ -3556,6 +3754,7 @@ has list => (
                 }
             },
             'housecat' => {
+                'alignment'   => 0,
                 'ac'          => 5,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -3573,6 +3772,7 @@ has list => (
                 }
             },
             'human' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -3589,6 +3789,7 @@ has list => (
                 }
             },
             'human mummy' => {
+                'alignment'   => -5,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d4 2d4',
@@ -3607,6 +3808,7 @@ has list => (
                 }
             },
             'human zombie' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d8',
@@ -3625,6 +3827,7 @@ has list => (
                 }
             },
             'hunter' => {
+                'alignment'   => -7,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d4',
@@ -3642,6 +3845,7 @@ has list => (
                 }
             },
             'ice devil' => {
+                'alignment'   => -12,
                 'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '1d4 1d4 2d4 3d4C',
@@ -3659,6 +3863,7 @@ has list => (
                 }
             },
             'ice troll' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'W2d6 2d6C 2d6',
@@ -3678,6 +3883,7 @@ has list => (
                 }
             },
             'ice vortex' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E1d6C',
@@ -3697,6 +3903,7 @@ has list => (
                 }
             },
             'iguana' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d4',
@@ -3714,6 +3921,7 @@ has list => (
                 }
             },
             'imp' => {
+                'alignment'   => -7,
                 'ac'          => 2,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -3730,6 +3938,7 @@ has list => (
                 }
             },
             'incubus' => {
+                'alignment'   => -9,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '0d0&amp; 1d3 1d3',
@@ -3747,6 +3956,7 @@ has list => (
                 }
             },
             'iron golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => 'W4d10 B4d6P',
@@ -3766,6 +3976,7 @@ has list => (
                 }
             },
             'iron piercer' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '3d6',
@@ -3783,6 +3994,7 @@ has list => (
                 }
             },
             'jabberwock' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '2d10 2d10 2d10 2d10',
@@ -3800,6 +4012,7 @@ has list => (
                 }
             },
             'jackal' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d2',
@@ -3817,6 +4030,7 @@ has list => (
                 }
             },
             'jaguar' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4 1d4 1d8',
@@ -3834,6 +4048,7 @@ has list => (
                 }
             },
             'jellyfish' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '3d3P',
@@ -3853,6 +4068,7 @@ has list => (
                 }
             },
             'ki-rin' => {
+                'alignment'   => 15,
                 'ac'          => -5,
                 'attacks'     => '2d4 2d4 3d6 M2d6+',
                 'elbereth'    => 0,
@@ -3869,6 +4085,7 @@ has list => (
                 }
             },
             'killer bee' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => '1d3P',
@@ -3889,6 +4106,7 @@ has list => (
                 }
             },
             'kitten' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -3906,6 +4124,7 @@ has list => (
                 }
             },
             'knight' => {
+                'alignment'   => 3,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -3922,6 +4141,7 @@ has list => (
                 }
             },
             'kobold' => {
+                'alignment'   => -2,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d4',
@@ -3940,6 +4160,7 @@ has list => (
                 }
             },
             'kobold lord' => {
+                'alignment'   => -4,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
@@ -3958,6 +4179,7 @@ has list => (
                 }
             },
             'kobold mummy' => {
+                'alignment'   => -2,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4',
@@ -3976,6 +4198,7 @@ has list => (
                 }
             },
             'kobold shaman' => {
+                'alignment'   => -4,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => 'M0d0+',
@@ -3994,6 +4217,7 @@ has list => (
                 }
             },
             'kobold zombie' => {
+                'alignment'   => -2,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d4',
@@ -4012,6 +4236,7 @@ has list => (
                 }
             },
             'kraken' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d4 2d4 H2d6w 5d4',
@@ -4029,6 +4254,7 @@ has list => (
                 }
             },
             'large cat' => {
+                'alignment'   => 0,
                 'ac'          => 4,
                 'attacks'     => '2d4',
                 'elbereth'    => 1,
@@ -4046,6 +4272,7 @@ has list => (
                 }
             },
             'large dog' => {
+                'alignment'   => 0,
                 'ac'          => 4,
                 'attacks'     => '2d4',
                 'elbereth'    => 1,
@@ -4063,6 +4290,7 @@ has list => (
                 }
             },
             'large kobold' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
@@ -4081,6 +4309,7 @@ has list => (
                 }
             },
             'large mimic' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '3d4m',
@@ -4099,6 +4328,7 @@ has list => (
                 }
             },
             'leather golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6',
@@ -4116,6 +4346,7 @@ has list => (
                 }
             },
             'lemure' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3',
@@ -4133,6 +4364,7 @@ has list => (
                 }
             },
             'leocrotta' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6 2d6 2d6',
@@ -4150,6 +4382,7 @@ has list => (
                 }
             },
             'leprechaun' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d2$',
@@ -4168,6 +4401,7 @@ has list => (
                 }
             },
             'lich' => {
+                'alignment'   => -9,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d10C M0d0+',
@@ -4185,6 +4419,7 @@ has list => (
                 }
             },
             'lichen' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '0d0m',
@@ -4205,6 +4440,7 @@ has list => (
                 }
             },
             'lieutenant' => {
+                'alignment'   => -4,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W3d4 W3d4',
@@ -4222,6 +4458,7 @@ has list => (
                 }
             },
             'little dog' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '1d6',
                 'elbereth'    => 1,
@@ -4239,6 +4476,7 @@ has list => (
                 }
             },
             'lizard' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6',
@@ -4260,6 +4498,7 @@ has list => (
                 }
             },
             'long worm' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d4',
@@ -4278,6 +4517,7 @@ has list => (
                 }
             },
             'lurker above' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => 'E1d8d',
@@ -4295,6 +4535,7 @@ has list => (
                 }
             },
             'lynx' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d4 1d4 1d10',
@@ -4312,6 +4553,7 @@ has list => (
                 }
             },
             'manes' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3 1d3 1d4',
@@ -4329,6 +4571,7 @@ has list => (
                 }
             },
             'marilith' => {
+                'alignment'   => -12,
                 'hostile'     => 1,
                 'ac'          => -6,
                 'attacks'     => 'W2d4 W2d4 2d4 2d4 2d4 2d4',
@@ -4346,6 +4589,7 @@ has list => (
                 }
             },
             'master lich' => {
+                'alignment'   => -15,
                 'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '3d6C M0d0+',
@@ -4363,6 +4607,7 @@ has list => (
                 }
             },
             'master mind flayer' => {
+                'alignment'   => -8,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W1d8 2!I 2!I 2!I 2!I 2!I',
@@ -4382,6 +4627,7 @@ has list => (
                 }
             },
             'mastodon' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '4d8 4d8',
@@ -4399,6 +4645,7 @@ has list => (
                 }
             },
             'mind flayer' => {
+                'alignment'   => -8,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => 'W1d4 2!I 2!I 2!I',
@@ -4418,6 +4665,7 @@ has list => (
                 }
             },
             'minotaur' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '3d10 3d10 2d8',
@@ -4435,6 +4683,7 @@ has list => (
                 }
             },
             'monk' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => '1d8 1d8',
                 'elbereth'    => 0,
@@ -4451,6 +4700,7 @@ has list => (
                 }
             },
             'monkey' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '0d0- 1d3',
                 'elbereth'    => 1,
@@ -4467,6 +4717,7 @@ has list => (
                 }
             },
             'mountain centaur' => {
+                'alignment'   => -3,
                 'ac'          => 2,
                 'attacks'     => 'W1d10 1d6 1d6',
                 'elbereth'    => 1,
@@ -4483,6 +4734,7 @@ has list => (
                 }
             },
             'mountain nymph' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '0d0- 0d0-',
@@ -4501,6 +4753,7 @@ has list => (
                 }
             },
             'mumak' => {
+                'alignment'   => -2,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '4d12 2d6',
@@ -4518,6 +4771,7 @@ has list => (
                 }
             },
             'nalfeshnee' => {
+                'alignment'   => -11,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => '1d4 1d4 2d4 M0d0+',
@@ -4535,6 +4789,7 @@ has list => (
                 }
             },
             'neanderthal' => {
+                'alignment'   => 1,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
@@ -4552,6 +4807,7 @@ has list => (
                 }
             },
             'newt' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d2',
@@ -4570,6 +4826,7 @@ has list => (
                 }
             },
             'ninja' => {
+                'alignment'   => 3,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8 W1d8',
@@ -4587,6 +4844,7 @@ has list => (
                 }
             },
             'nurse' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '2d6H',
@@ -4606,6 +4864,7 @@ has list => (
                 }
             },
             'ochre jelly' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => 'E3d6A (3d6A)',
@@ -4626,6 +4885,7 @@ has list => (
                 }
             },
             'ogre' => {
+                'alignment'   => -3,
                 'ac'          => 5,
                 'attacks'     => 'W2d5',
                 'elbereth'    => 1,
@@ -4642,6 +4902,7 @@ has list => (
                 }
             },
             'ogre king' => {
+                'alignment'   => -7,
                 'ac'          => 4,
                 'attacks'     => 'W3d5',
                 'elbereth'    => 1,
@@ -4658,6 +4919,7 @@ has list => (
                 }
             },
             'ogre lord' => {
+                'alignment'   => -5,
                 'ac'          => 3,
                 'attacks'     => 'W2d6',
                 'elbereth'    => 1,
@@ -4674,6 +4936,7 @@ has list => (
                 }
             },
             'orange dragon' => {
+                'alignment'   => 5,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d25S 3d8 1d4 1d4',
@@ -4693,6 +4956,7 @@ has list => (
                 }
             },
             'orc' => {
+                'alignment'   => -3,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
                 'elbereth'    => 1,
@@ -4709,6 +4973,7 @@ has list => (
                 }
             },
             'orc mummy' => {
+                'alignment'   => -4,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6',
@@ -4727,6 +4992,7 @@ has list => (
                 }
             },
             'orc shaman' => {
+                'alignment'   => -5,
                 'ac'          => 5,
                 'attacks'     => 'M0d0+',
                 'elbereth'    => 1,
@@ -4743,6 +5009,7 @@ has list => (
                 }
             },
             'orc zombie' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '1d6',
@@ -4761,6 +5028,7 @@ has list => (
                 }
             },
             'orc-captain' => {
+                'alignment'   => -5,
                 'ac'          => 10,
                 'attacks'     => 'W2d4 W2d4',
                 'elbereth'    => 1,
@@ -4777,6 +5045,7 @@ has list => (
                 }
             },
             'owlbear' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d6 1d6 H2d8',
@@ -4794,6 +5063,7 @@ has list => (
                 }
             },
             'page' => {
+                'alignment'   => 3,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
@@ -4811,6 +5081,7 @@ has list => (
                 }
             },
             'panther' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6 1d10',
@@ -4828,6 +5099,7 @@ has list => (
                 }
             },
             'paper golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d3',
@@ -4845,6 +5117,7 @@ has list => (
                 }
             },
             'piranha' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6',
@@ -4863,6 +5136,7 @@ has list => (
                 }
             },
             'pit fiend' => {
+                'alignment'   => -13,
                 'hostile'     => 1,
                 'ac'          => -3,
                 'attacks'     => 'W4d2 W4d2 H2d4',
@@ -4880,6 +5154,7 @@ has list => (
                 }
             },
             'pit viper' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '1d4P 1d4P',
@@ -4900,6 +5175,7 @@ has list => (
                 }
             },
             'plains centaur' => {
+                'alignment'   => 0,
                 'ac'          => 4,
                 'attacks'     => 'W1d6 1d6',
                 'elbereth'    => 1,
@@ -4916,6 +5192,7 @@ has list => (
                 }
             },
             'pony' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d2',
                 'elbereth'    => 1,
@@ -4932,6 +5209,7 @@ has list => (
                 }
             },
             'priest' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -4948,6 +5226,7 @@ has list => (
                 }
             },
             'priestess' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -4964,6 +5243,7 @@ has list => (
                 }
             },
             'prisoner' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
@@ -4981,6 +5261,7 @@ has list => (
                 }
             },
             'purple worm' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d8 E1d10d',
@@ -4999,6 +5280,7 @@ has list => (
                 }
             },
             'pyrolisk' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => 'G2d6F',
@@ -5019,6 +5301,7 @@ has list => (
                 }
             },
             'python' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '1d4 0d0 H1d4w H2d4',
@@ -5037,6 +5320,7 @@ has list => (
                 }
             },
             'quantum mechanic' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d4t',
@@ -5056,6 +5340,7 @@ has list => (
                 }
             },
             'quasit' => {
+                'alignment'   => -7,
                 'ac'          => 2,
                 'attacks'     => '1d2!D 1d2!D 1d4',
                 'elbereth'    => 1,
@@ -5073,6 +5358,7 @@ has list => (
                 }
             },
             'queen bee' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '1d8P',
@@ -5092,6 +5378,7 @@ has list => (
                 }
             },
             'quivering blob' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d8',
@@ -5112,6 +5399,7 @@ has list => (
                 }
             },
             'rabid rat' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d4!C',
@@ -5130,6 +5418,7 @@ has list => (
                 }
             },
             'ranger' => {
+                'alignment'   => -3,
                 'ac'          => 10,
                 'attacks'     => 'W1d4',
                 'elbereth'    => 0,
@@ -5146,6 +5435,7 @@ has list => (
                 }
             },
             'raven' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6b',
@@ -5163,6 +5453,7 @@ has list => (
                 }
             },
             'red dragon' => {
+                'alignment'   => -4,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B6d6F 3d8 1d4 1d4',
@@ -5182,6 +5473,7 @@ has list => (
                 }
             },
             'red mold' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d4F)',
@@ -5203,6 +5495,7 @@ has list => (
                 }
             },
             'red naga' => {
+                'alignment'   => -4,
                 'ac'          => 4,
                 'attacks'     => '2d4 B2d6F',
                 'elbereth'    => 1,
@@ -5222,6 +5515,7 @@ has list => (
                 }
             },
             'red naga hatchling' => {
+                'alignment'   => 0,
                 'ac'          => 6,
                 'attacks'     => '1d4',
                 'elbereth'    => 1,
@@ -5240,6 +5534,7 @@ has list => (
                 }
             },
             'rock mole' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d6',
@@ -5257,6 +5552,7 @@ has list => (
                 }
             },
             'rock piercer' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '2d6',
@@ -5274,6 +5570,7 @@ has list => (
                 }
             },
             'rock troll' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'W3d6 2d8 2d6',
@@ -5292,6 +5589,7 @@ has list => (
                 }
             },
             'rogue' => {
+                'alignment'   => -3,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -5308,6 +5606,7 @@ has list => (
                 }
             },
             'rope golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '1d4 1d4 H6d1',
@@ -5325,6 +5624,7 @@ has list => (
                 }
             },
             'roshi' => {
+                'alignment'   => 3,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8 W1d8',
@@ -5342,6 +5642,7 @@ has list => (
                 }
             },
             'rothe' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3 1d3 1d8',
@@ -5359,6 +5660,7 @@ has list => (
                 }
             },
             'rust monster' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '0d0R 0d0R (0d0R)',
@@ -5376,6 +5678,7 @@ has list => (
                 }
             },
             'salamander' => {
+                'alignment'   => -9,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'W2d8 1d6F H2d6 H3d6F',
@@ -5395,6 +5698,7 @@ has list => (
                 }
             },
             'samurai' => {
+                'alignment'   => 3,
                 'ac'          => 10,
                 'attacks'     => 'W1d8 W1d8',
                 'elbereth'    => 0,
@@ -5411,6 +5715,7 @@ has list => (
                 }
             },
             'sandestin' => {
+                'alignment'   => -5,
                 'ac'          => 4,
                 'attacks'     => 'W2d6 W2d6',
                 'elbereth'    => 1,
@@ -5427,6 +5732,7 @@ has list => (
                 }
             },
             'sasquatch' => {
+                'alignment'   => 2,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6 1d8',
                 'elbereth'    => 1,
@@ -5443,6 +5749,7 @@ has list => (
                 }
             },
             'scorpion' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d2 1d2 1d4P',
@@ -5463,6 +5770,7 @@ has list => (
                 }
             },
             'sergeant' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d6',
@@ -5480,6 +5788,7 @@ has list => (
                 }
             },
             'sewer rat' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d3',
@@ -5497,6 +5806,7 @@ has list => (
                 }
             },
             'shade' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '2d6. 1d6&lt;',
@@ -5514,6 +5824,7 @@ has list => (
                 }
             },
             'shark' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '5d6',
@@ -5532,6 +5843,7 @@ has list => (
                 }
             },
             'shocking sphere' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'X4d6E',
@@ -5549,6 +5861,7 @@ has list => (
                 }
             },
             'shopkeeper' => {
+                'alignment'   => 0,
                 'peaceful'    => 1,
                 'ac'          => 0,
                 'attacks'     => 'W4d4 W4d4',
@@ -5566,6 +5879,7 @@ has list => (
                 }
             },
             'shrieker' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '',
@@ -5586,6 +5900,7 @@ has list => (
                 }
             },
             'silver dragon' => {
+                'alignment'   => 4,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6C 3d8 1d4 1d4',
@@ -5604,6 +5919,7 @@ has list => (
                 }
             },
             'skeleton' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'W2d6 1d6&lt;',
@@ -5621,6 +5937,7 @@ has list => (
                 }
             },
             'small mimic' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '3d4',
@@ -5639,6 +5956,7 @@ has list => (
                 }
             },
             'snake' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d6P',
@@ -5659,6 +5977,7 @@ has list => (
                 }
             },
             'soldier' => {
+                'alignment'   => -2,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
@@ -5676,6 +5995,7 @@ has list => (
                 }
             },
             'soldier ant' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '2d4 3d4P',
@@ -5696,6 +6016,7 @@ has list => (
                 }
             },
             'spotted jelly' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 8,
                 'attacks'     => '(0d6A)',
@@ -5716,6 +6037,7 @@ has list => (
                 }
             },
             'stalker' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '4d4',
@@ -5735,6 +6057,7 @@ has list => (
                 }
             },
             'steam vortex' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => 'E1d8F',
@@ -5754,6 +6077,7 @@ has list => (
                 }
             },
             'stone giant' => {
+                'alignment'   => 2,
                 'ac'          => 0,
                 'attacks'     => 'W2d10',
                 'elbereth'    => 1,
@@ -5771,6 +6095,7 @@ has list => (
                 }
             },
             'stone golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 5,
                 'attacks'     => '3d8',
@@ -5788,6 +6113,7 @@ has list => (
                 }
             },
             'storm giant' => {
+                'alignment'   => -3,
                 'ac'          => 3,
                 'attacks'     => 'W2d12',
                 'elbereth'    => 1,
@@ -5806,6 +6132,7 @@ has list => (
                 }
             },
             'straw golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => '1d2 1d2',
@@ -5823,6 +6150,7 @@ has list => (
                 }
             },
             'student' => {
+                'alignment'   => 3,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
@@ -5840,6 +6168,7 @@ has list => (
                 }
             },
             'succubus' => {
+                'alignment'   => -9,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '0d0&amp; 1d3 1d3',
@@ -5857,6 +6186,7 @@ has list => (
                 }
             },
             'tengu' => {
+                'alignment'   => 7,
                 'ac'          => 5,
                 'attacks'     => '1d7',
                 'elbereth'    => 1,
@@ -5876,6 +6206,7 @@ has list => (
                 }
             },
             'thug' => {
+                'alignment'   => -3,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
@@ -5893,6 +6224,7 @@ has list => (
                 }
             },
             'tiger' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d4 2d4 1d10',
@@ -5910,6 +6242,7 @@ has list => (
                 }
             },
             'titan' => {
+                'alignment'   => 9,
                 'ac'          => -3,
                 'attacks'     => 'W2d8 M0d0+',
                 'elbereth'    => 1,
@@ -5926,6 +6259,7 @@ has list => (
                 }
             },
             'titanothere' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '2d8',
@@ -5943,6 +6277,7 @@ has list => (
                 }
             },
             'tourist' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d6 W1d6',
                 'elbereth'    => 0,
@@ -5959,6 +6294,7 @@ has list => (
                 }
             },
             'trapper' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => 'E1d10d',
@@ -5976,6 +6312,7 @@ has list => (
                 }
             },
             'troll' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => 'W4d2 4d2 2d6',
@@ -5994,6 +6331,7 @@ has list => (
                 }
             },
             'umber hulk' => {
+                'alignment'   => 0,
                 'ac'          => 2,
                 'attacks'     => '3d4 3d4 2d5 G0d0c',
                 'elbereth'    => 1,
@@ -6010,6 +6348,7 @@ has list => (
                 }
             },
             'valkyrie' => {
+                'alignment'   => -1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8 W1d8',
                 'elbereth'    => 0,
@@ -6026,6 +6365,7 @@ has list => (
                 }
             },
             'vampire' => {
+                'alignment'   => -8,
                 'hostile'     => 1,
                 'ac'          => 1,
                 'attacks'     => '1d6 1d6V',
@@ -6044,6 +6384,7 @@ has list => (
                 }
             },
             'vampire bat' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 0d0P',
@@ -6062,6 +6403,7 @@ has list => (
                 }
             },
             'vampire lord' => {
+                'alignment'   => -9,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d8 1d8V',
@@ -6080,6 +6422,7 @@ has list => (
                 }
             },
             'violet fungus' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 7,
                 'attacks'     => '1d4 0d0m',
@@ -6101,6 +6444,7 @@ has list => (
                 }
             },
             'vrock' => {
+                'alignment'   => -9,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d4 1d4 1d8 1d8 1d6',
@@ -6118,6 +6462,7 @@ has list => (
                 }
             },
             'warg' => {
+                'alignment'   => -5,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6',
@@ -6135,6 +6480,7 @@ has list => (
                 }
             },
             'warhorse' => {
+                'alignment'   => 0,
                 'ac'          => 4,
                 'attacks'     => '1d10 1d4',
                 'elbereth'    => 1,
@@ -6151,6 +6497,7 @@ has list => (
                 }
             },
             'warrior' => {
+                'alignment'   => -1,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8 W1d8',
@@ -6168,6 +6515,7 @@ has list => (
                 }
             },
             'watch captain' => {
+                'alignment'   => -4,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W3d4 W3d4',
@@ -6185,6 +6533,7 @@ has list => (
                 }
             },
             'watchman' => {
+                'alignment'   => -2,
                 'peaceful'    => 1,
                 'ac'          => 10,
                 'attacks'     => 'W1d8',
@@ -6202,6 +6551,7 @@ has list => (
                 }
             },
             'water demon' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => 'W1d3 1d3 1d3',
@@ -6219,6 +6569,7 @@ has list => (
                 }
             },
             'water elemental' => {
+                'alignment'   => 0,
                 'ac'          => 2,
                 'attacks'     => '5d6',
                 'elbereth'    => 1,
@@ -6237,6 +6588,7 @@ has list => (
                 }
             },
             'water moccasin' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '1d6P',
@@ -6257,6 +6609,7 @@ has list => (
                 }
             },
             'water nymph' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '0d0- 0d0-',
@@ -6275,6 +6628,7 @@ has list => (
                 }
             },
             'water troll' => {
+                'alignment'   => -3,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2W2d8 2d8 2d6',
@@ -6293,6 +6647,7 @@ has list => (
                 }
             },
             'werejackal' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
@@ -6312,6 +6667,7 @@ has list => (
                 }
             },
             'wererat' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
@@ -6331,6 +6687,7 @@ has list => (
                 }
             },
             'werewolf' => {
+                'alignment'   => -7,
                 'hostile'     => 1,
                 'ac'          => 10,
                 'attacks'     => 'W2d4',
@@ -6350,6 +6707,7 @@ has list => (
                 }
             },
             'white dragon' => {
+                'alignment'   => -5,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6C 3d8 1d4 1d4',
@@ -6369,6 +6727,7 @@ has list => (
                 }
             },
             'white unicorn' => {
+                'alignment'   => 7,
                 'ac'          => 2,
                 'attacks'     => '1d12 1d6',
                 'elbereth'    => 1,
@@ -6386,6 +6745,7 @@ has list => (
                 }
             },
             'winged gargoyle' => {
+                'alignment'   => -12,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '3d6 3d6 3d4',
@@ -6403,6 +6763,7 @@ has list => (
                 }
             },
             'winter wolf' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d6 B2d6C',
@@ -6421,6 +6782,7 @@ has list => (
                 }
             },
             'winter wolf cub' => {
+                'alignment'   => -5,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '1d8 B1d8C',
@@ -6439,6 +6801,7 @@ has list => (
                 }
             },
             'wizard' => {
+                'alignment'   => 0,
                 'ac'          => 10,
                 'attacks'     => 'W1d6',
                 'elbereth'    => 0,
@@ -6455,6 +6818,7 @@ has list => (
                 }
             },
             'wolf' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '2d4',
@@ -6472,6 +6836,7 @@ has list => (
                 }
             },
             'wood golem' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '3d4',
@@ -6489,6 +6854,7 @@ has list => (
                 }
             },
             'wood nymph' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '0d0- 0d0-',
@@ -6507,6 +6873,7 @@ has list => (
                 }
             },
             'woodchuck' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => '1d6',
@@ -6524,6 +6891,7 @@ has list => (
                 }
             },
             'wraith' => {
+                'alignment'   => -6,
                 'hostile'     => 1,
                 'ac'          => 4,
                 'attacks'     => '1d6V',
@@ -6542,6 +6910,7 @@ has list => (
                 }
             },
             'wumpus' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 2,
                 'attacks'     => '3d6',
@@ -6559,6 +6928,7 @@ has list => (
                 }
             },
             'xan' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -4,
                 'attacks'     => '1d4x',
@@ -6578,6 +6948,7 @@ has list => (
                 }
             },
             'xorn' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => -2,
                 'attacks'     => '1d3 1d3 1d3 4d6',
@@ -6595,6 +6966,7 @@ has list => (
                 }
             },
             'yellow dragon' => {
+                'alignment'   => 7,
                 'hostile'     => 1,
                 'ac'          => -1,
                 'attacks'     => 'B4d6A 3d8 1d4 1d4',
@@ -6614,6 +6986,7 @@ has list => (
                 }
             },
             'yellow light' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 0,
                 'attacks'     => 'X10d20b',
@@ -6633,6 +7006,7 @@ has list => (
                 }
             },
             'yellow mold' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 9,
                 'attacks'     => '(0d4s)',
@@ -6655,6 +7029,7 @@ has list => (
                 }
             },
             'yeti' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 6,
                 'attacks'     => '1d6 1d6 1d4',
@@ -6673,6 +7048,7 @@ has list => (
                 }
             },
             'zruty' => {
+                'alignment'   => 0,
                 'hostile'     => 1,
                 'ac'          => 3,
                 'attacks'     => '3d4 3d4 3d6',
