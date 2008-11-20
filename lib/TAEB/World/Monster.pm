@@ -120,7 +120,7 @@ sub is_hostile {
     return 0 if $self->is_quest_friendly;
     return 1 if $self->is_quest_nemesis;
 
-    return 1 if $hate{TAEB->race}{$self->spoiler->{cannibal}};
+    return 1 if $hate{TAEB->race}{$self->spoiler->{cannibal} || ''};
 
     # do you have the amulet? is it a minion?  is it cross-aligned?
     return undef;
