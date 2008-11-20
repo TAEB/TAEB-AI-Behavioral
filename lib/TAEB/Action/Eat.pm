@@ -128,6 +128,15 @@ before exception_missing_item => sub {
     }
 };
 
+sub overfull {
+    # make sure we don't eat anything until we stop being satiated
+    TAEB->nutrition(5000);
+}
+
+sub respond_stop_eating { shift->overfull; "y" }
+
+sub msg_finally_finished { shift->overfull }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
