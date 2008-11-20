@@ -653,6 +653,8 @@ sub msg_game_started {
     $self->is_fast(1) if $self->role eq 'Arc'
                       || $self->role eq 'Mon'
                       || $self->role eq 'Sam';
+
+    $self->is_stealthy(1) if $self->role =~ /Arc|Rog|Val/;
 }
 
 sub msg_vault_guard {
