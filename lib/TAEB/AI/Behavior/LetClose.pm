@@ -13,7 +13,12 @@ sub prepare {
         && $_->is_meleeable && $_->distance < 4} @enemies;
 
     if (@beckon) {
-        $self->write_elbereth;  # this gem taken from EkimFight.  Why not?
+        #$self->write_elbereth;  # this gem taken from EkimFight.  Why not?
+        # well, it makes monsters FLEE, and we patiently wait for them to
+        # get away due to statelessness...
+
+        $self->do('search', iterations => 1);
+        $self->currently('Waiting');
         $self->urgency('normal');
     }
 }
