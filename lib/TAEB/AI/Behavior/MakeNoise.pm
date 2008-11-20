@@ -15,7 +15,7 @@ sub prepare {
         $_->probably_sleeping && $_->distance < sqrt(20 * TAEB->level) }
         @enemies;
 
-    return if !@beckon;
+    return if @beckon < 10;
 
     TAEB->current_tile->each_adjacent(sub {
         my ($tile, $dir) = @_;
