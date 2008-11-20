@@ -40,7 +40,7 @@ sub want_to_eat {
     my $intrinsic = 0;
 
     for my $nice (qw/disintegration_resistance energy gain_level heal
-            intelligence invisibility sleep_resistance speed_toggle
+            intelligence invisibility reanimates sleep_resistance speed_toggle
             strength telepathy teleport_control teleportitis/) {
         $intrinsic = 1 if $item->$nice();
     }

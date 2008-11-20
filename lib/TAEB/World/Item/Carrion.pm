@@ -99,9 +99,9 @@ __PACKAGE__->install_spoilers(qw/acidic aggravate cannibal cold_resistance
     cure_confusion cure_stoning die disintegration_resistance energy
     fire_resistance gain_level hallucination heal intelligence invisibility
     lycanthropy mimic nutrition petrify poison_resistance poisonous polymorph
-    reduce_stunning shock_resistance sleep_resistance slime speed_toggle
-    strength stun telepathy teleport_control teleportitis vegan vegetarian
-    weight permanent/);
+    reanimates reduce_stunning shock_resistance sleep_resistance slime
+    speed_toggle strength stun telepathy teleport_control teleportitis vegan
+    vegetarian weight permanent/);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
