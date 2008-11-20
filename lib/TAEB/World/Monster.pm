@@ -144,6 +144,13 @@ sub would_chase {
     return 1;
 }
 
+sub will_chase {
+    my $self = shift;
+
+    return $self->would_chase && $self->is_hostile &&
+        !$self->probably_sleeping;
+}
+
 sub is_meleeable {
     my $self = shift;
 
