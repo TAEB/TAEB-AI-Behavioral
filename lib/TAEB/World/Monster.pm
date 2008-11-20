@@ -140,6 +140,9 @@ sub would_chase {
     # Unicorns won't step next to us anyway
     return 0 if $self->is_unicorn;
 
+    # Leprechauns avoid the player once they have gold
+    return 0 if $self->glyph eq 'l';
+
     # Monsters that can't move won't take initiative
     return 0 if !$self->can_move;
 
