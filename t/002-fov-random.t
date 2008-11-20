@@ -27,6 +27,8 @@ use constant LAYERS => 7;
 use constant WIDTH  => 80;
 use constant HEIGHT => 21;
 
+srand(1);
+
 sub layer {
     my ($map, $max, $tsize) = @_;
 
