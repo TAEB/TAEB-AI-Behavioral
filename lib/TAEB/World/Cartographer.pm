@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Cartographer;
 use TAEB::OO;
-use FOV::NetHack 'calculate_fov';
+use NetHack::FOV 'calculate_fov';
 
 has dungeon => (
     isa      => 'TAEB::World::Dungeon',
