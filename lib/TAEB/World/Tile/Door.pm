@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Tile::Door;
 use TAEB::OO;
-use List::Util qw/max/;
+use List::Util qw/min/;
 extends 'TAEB::World::Tile';
 
 has state => (
@@ -34,7 +34,7 @@ sub blocked_door {
     # all visible orthogonal tiles to the door must be unblocked, and if both
     # the inside and the outside of the door are visible, they must both be
     # unblocked
-    return $blocked_door >= max($orthogonal_tiles, 3);
+    return $blocked_door >= min($orthogonal_tiles, 3);
 }
 
 __PACKAGE__->meta->make_immutable;
