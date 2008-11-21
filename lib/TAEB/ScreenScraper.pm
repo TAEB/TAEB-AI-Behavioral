@@ -609,6 +609,7 @@ our @prompts = (
     qr/^What do you want to wield\?/        => 'wield_what',
     qr/^What do you want to use or apply\?/ => 'apply_what',
     qr/^In what direction\?/                => 'what_direction',
+    qr/^In what direction do you want .*\?/ => 'what_direction',
     qr/^Talk to whom\? \(in what direction\)/ => 'what_direction',
     qr/^Itemized billing\? \[yn\] \(n\)/    => 'itemized_billing',
     qr/^Lock it\?/                          => 'lock',
