@@ -52,6 +52,9 @@ sub prepare {
     my $path = TAEB::World::Path->first_match(sub { not shift->explored },
                                               why      => "Explore",
                                               on_level => $level);
+    if (!$path || length($path->path) == 0) {
+        TAEB->current_level->fully_explored(1);
+    }
     $self->if_path($path, "Exploring");
 }
 
