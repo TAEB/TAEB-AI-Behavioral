@@ -320,6 +320,7 @@ sub step_off {
 sub witness_kill {
     my ($self, $critter) = @_;
 
+    return if TAEB->is_hallucinating;
     $self->_add_kill_time([ $critter, TAEB->turn, 0 ]);
 }
 
