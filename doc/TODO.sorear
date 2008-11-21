@@ -1,4 +1,4 @@
-- Explore optimization
+- Explore optimization (taken by doy?)
 
   - Track what squares need to be explored, only run Explore if there are any
 
@@ -7,26 +7,20 @@
   - Pathfind cache as described below removes the need for this
 
 
-- Carrion (done)
+- Special room improvement
 
-  - When we get a message of "You kill the (.*)!" etc, generate a
-    msg_fresh_meat with $1
+  - When we enter a special room, pick a tile that is clearly inside
 
-  - The tile which had such a monster adds to ->kills with that monster
-    (as always, older kills take precedence)
+  - Radiate out in cardinal directions
 
-  - When a tile is examined or seen to be empty, ->kills is purged of
-    obsolete (no corpses!) kills, ->corpses is created from scratch with
-    TAEB::World::Item::Corpse objects (which know a max age)
+  - If we hit a doorway or a wall, edge of room
 
-  - TAEB::AI::Behavior::Carrion looks for tiles with nice ->corpses to eat -
-    anything nutritious and unrotten if we are somewhat hungry, also look
-    for intrinsics
+  - Repeat every couple dozen turns
 
-  - This falls over if stuff dies out of LOS and we don't find (stray corpses
-    add as kills with -1000 time) the corpse before killing the same type of
-    monster on top.  As long as this is a corner case, Tyr can deal.  Else
-    consider not eating corpses on traps.
+  - Will fix priest whack bug (priest stands outside temple area)
+
+  - But monster tracking would fix it better
+
 
 
 - Smarter searching (mostly done)
@@ -83,7 +77,13 @@
   - Helps with water, etc
 
 
-- Behaviors can override actions
+- Improve special level detection
+
+
+- Finish fixing NetHack::FOV, CPAN
+
+
+- Behaviors can override actions (taken by doy?)
 
     - PickaxeFinder subs 'a'pplications for attempts to walk into rock
 
