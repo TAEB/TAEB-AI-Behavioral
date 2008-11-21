@@ -348,7 +348,7 @@ sub _dijkstra {
             }
 
             # can't move diagonally off of doors
-            next if $tile->type eq 'opendoor'
+            next if $tile->isa('TAEB::World::Tile::Door')
                  && $dx
                  && $dy;
 
@@ -356,7 +356,7 @@ sub _dijkstra {
                 or next;
 
             # can't move diagonally onto doors
-            next if $next->type eq 'opendoor'
+            next if $next->isa('TAEB::World::Tile::Door')
                  && $dx
                  && $dy;
 
