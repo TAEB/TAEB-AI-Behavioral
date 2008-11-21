@@ -32,7 +32,7 @@ sub prepare {
         my $tile = shift;
         if ($tile->type eq 'rock' || $tile->type eq 'wall') {
             $rocks++;
-            $searched += $tile->searched;
+            $searched += ($tile->searched > 10) ? 10 : $tile->searched;
         }
         else {
             $walkable++;
