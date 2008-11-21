@@ -2,12 +2,12 @@
 package TAEB::Action::Apply;
 use TAEB::OO;
 extends 'TAEB::Action';
+with 'TAEB::Action::Role::Direction';
+with 'TAEB::Action::Role::Item';
 
 use constant command => "a";
 
-has item => (
-    traits   => [qw/TAEB::Provided/],
-    isa      => 'TAEB::World::Item',
+has +item => (
     required => 1,
 );
 
