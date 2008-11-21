@@ -105,6 +105,11 @@ has items => (
     },
 );
 
+has fully_explored => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 
 # So, for these is_<speciallevel>,
 #    true  => definitely that level
