@@ -536,7 +536,7 @@ sub has_friendly {
 
 sub has_boulder { shift->glyph eq '0' }
 
-sub is_inscribable {
+sub is_engravable {
     my $self = shift;
 
     return $self->type ne 'fountain' && $self->type ne 'altar' &&

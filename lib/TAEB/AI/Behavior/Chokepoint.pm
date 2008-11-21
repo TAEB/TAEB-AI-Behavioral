@@ -44,7 +44,7 @@ sub vulnerability {
 
     # Or on an E-able square, if the monsters aren't E-ignorers
     if (!grep { !$_->respects_elbereth } @enemies) {
-        $score += 5 if !$tile->is_inscribable;
+        $score += 5 if !$tile->is_engravable;
     }
 
     $score;

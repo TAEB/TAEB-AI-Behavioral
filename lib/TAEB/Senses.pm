@@ -364,7 +364,7 @@ sub can_engrave {
             || $self->is_stunned
             || $self->is_hallucinating
             || $self->is_engulfed
-            || !TAEB->current_tile->is_inscribable;
+            || !TAEB->current_tile->is_engravable;
 }
 
 sub can_open {
