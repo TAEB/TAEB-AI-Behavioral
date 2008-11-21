@@ -106,7 +106,7 @@ sub prepare {
     TAEB->any_adjacent(sub {
         my ($tile, $dir) = @_;
         push @doors, [$tile, $dir]
-            if $tile->type eq 'closeddoor'
+            if ($tile->type eq 'closeddoor' && $dir =~ /[hjkl]/)
             || ($tile->type eq 'opendoor' && $tile->blocked_door);
     });
 
