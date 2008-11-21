@@ -50,7 +50,7 @@ sub prepare {
     }
 
     my $path = TAEB::World::Path->first_match(sub { not shift->explored },
-                                              why      => "Explore"
+                                              why      => "Explore",
                                               on_level => $level);
     $self->if_path($path, "Exploring");
 }
