@@ -146,6 +146,10 @@ class_has log => (
                         callbacks => sub {
                             my %args = @_;
                             return if $args{message} =~ /^Game over/;
+
+                            # XXX: we need to not throw errors when we die
+                            return if $args{message} =~ /^Unable to parse the (botl|status)/;
+
                             $args{message} =~ s/\n.*//s;
                             return sprintf "%s (T%s): %s",
                                         TAEB->has_senses ? TAEB->name : '?',
