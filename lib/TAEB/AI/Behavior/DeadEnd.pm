@@ -4,6 +4,18 @@ use TAEB::OO;
 use TAEB::Util qw/delta2vi/;
 extends 'TAEB::AI::Behavior';
 
+sub search_direction {
+    my $self = shift;
+    my @tiles = TAEB->grep_adjacent(sub {
+        my $t = shift;
+        return 0 unless $t->type eq 'wall' || $t->type eq 'rock';
+        return 0 if $t->searched > 30;
+        return 1;
+    });
+    $tiles[0]->inc_searched(30);
+    return delta2vi($tiles[0]->x - TAEB->x, $tiles[0]->y - TAEB->y);
+}
+
 sub prepare {
     my $self = shift;
 
@@ -47,7 +59,8 @@ sub prepare {
     }
     else {
         if ($stethoscope) {
-            $self->do(apply => item => $stethoscope);
+            $self->do(apply => item      => $stethoscope,
+                               direction => $self->search_direction);
         }
         else {
             $self->do('search');
@@ -69,18 +82,6 @@ sub pickup {
     my $self = shift;
     my $item = shift;
     return $item->match(identity => 'stethoscope');
-}
-
-sub respond_what_direction {
-    my $self = shift;
-    my @tiles = TAEB->grep_adjacent(sub {
-        my $t = shift;
-        return 0 unless $t->type eq 'wall' || $t->type eq 'rock';
-        return 0 if $t->searched > 30;
-        return 1;
-    });
-    $tiles[0]->inc_searched(30);
-    return delta2vi($tiles[0]->x - TAEB->x, $tiles[0]->y - TAEB->y);
 }
 
 __PACKAGE__->meta->make_immutable;
