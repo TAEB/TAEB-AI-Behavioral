@@ -44,10 +44,7 @@ sub prepare {
         return not $level->fully_explored;
     });
 
-    if (!$level) {
-        TAEB->current_level->fully_explored(1);
-        return;
-    }
+    return if !$level;
 
     my $path = TAEB::World::Path->first_match(sub { not shift->explored },
                                               why      => "Explore",
