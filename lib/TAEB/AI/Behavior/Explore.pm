@@ -36,11 +36,22 @@ sub prepare {
         }
     }
 
-    return if TAEB->current_level->fully_explored;
+    my $curlevel = TAEB->current_level;
+    my $level = TAEB->nearest_level(sub {
+        my $level = shift;
+        return 0 if $level->branch ne $curlevel->branch
+                 || $level->z > $curlevel->z;
+        return not $level->fully_explored;
+    });
 
-    my $path = TAEB::World::Path->first_match(sub { not shift->explored }, why => "Explore");
-    $path->from->level->fully_explored(1)
-        if (!defined $path || length($path->path) == 0);
+    if (!$level) {
+        TAEB->current_level->fully_explored(1);
+        return;
+    }
+
+    my $path = TAEB::World::Path->first_match(sub { not shift->explored },
+                                              why      => "Explore"
+                                              on_level => $level);
     $self->if_path($path, "Exploring");
 }
 
