@@ -37,6 +37,8 @@ sub prepare {
     }
 
     my $path = TAEB::World::Path->first_match(sub { not shift->explored }, why => "Explore");
+    $path->from->level->fully_explored(1)
+        if (!defined $path || length($path->path) == 0);
     $self->if_path($path, "Exploring");
 }
 

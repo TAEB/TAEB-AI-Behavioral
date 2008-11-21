@@ -702,6 +702,11 @@ sub msg_farlooked {
     $tile->farlooked($msg);
 }
 
+sub msg_tile_update {
+    my $self = shift;
+    $self->fully_explored(0);
+}
+
 sub reblessed {
     my $self = shift;
     $self->dungeon->special_level->{ $self->special_level } = $self;
