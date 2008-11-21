@@ -12,6 +12,7 @@ sub prepare {
             $self->currently("Fleeing upstairs to rest.");
             $self->do('ascend');
             $self->urgency('important');
+            return;
         }
 
         my $can_engrave = TAEB->can_engrave;
