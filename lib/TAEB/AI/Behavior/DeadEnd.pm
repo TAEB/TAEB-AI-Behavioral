@@ -6,7 +6,7 @@ extends 'TAEB::AI::Behavior';
 
 sub search_direction {
     my $self = shift;
-    my @tiles = TAEB->grep_adjacent(sub {
+    my @tiles = TAEB->grep_adjacent_orthogonal(sub {
         my $t = shift;
         return 0 unless $t->type eq 'wall' || $t->type eq 'rock';
         return 0 if $t->searched > 30;
