@@ -211,14 +211,17 @@ sub update {
 
     my $newtype = $self->glyph_to_type($newglyph, $color);
 
-    # rock next to where we're standing is definitely rock; otherwise,
-    # it's unexplored if it was unexplored before
+    # rock next to where we're standing is definitely rock, unless
+    # we're blinded; otherwise, it's unexplored if it was unexplored
+    # before or if we weren't sure
     if ($newtype eq 'rock') {
 	$self->type eq 'unexplored' and $newtype = 'unexplored';
+	$self->type eq 'obscured' and $newtype = 'unexplored';
         $newtype = 'rock' if $self->x - TAEB->x >= -1
 	                  && $self->x - TAEB->x <= 1
 			  && $self->y - TAEB->y >= -1
-			  && $self->y - TAEB->y <= 1;
+			  && $self->y - TAEB->y <= 1
+			  && !TAEB->is_blind;
     }
 
     # if we unveil a square and it was previously rock, then it's obscured
