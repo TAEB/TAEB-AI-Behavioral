@@ -37,6 +37,7 @@ sub sort_behaviors {
         "Doors",
         "DeadEnd",
         "Explore",
+	"PushBoulder",
         "CurseCheck",
         "Descend",
         "Search",

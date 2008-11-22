@@ -92,6 +92,8 @@ our %msg_string = (
         ['door', 'interrupted_unlocking'],
     "You stop unlocking the door." =>
         ['door', 'interrupted_unlocking'],
+    "You try to move the boulder, but in vain." =>
+        ['immobile_boulder'],
     "There is nothing here to pick up." =>
         ['clear_floor'],
     '"You bit it, you bought it!"' =>
