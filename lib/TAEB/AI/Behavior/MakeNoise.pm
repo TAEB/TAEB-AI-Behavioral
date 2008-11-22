@@ -23,7 +23,7 @@ sub prepare {
         return if $tile->item_count;
         return if $tile->has_monster;
         return if $tile->type =~ /throne|altar|tree|fountain|sink|closeddoor/;
-        return if $tile->type =~ /wall|rock|grave|ironbars|stairs/ &&
+        return if $tile->type =~ /wall|unexplored|rock|grave|ironbars|stairs/ &&
             TAEB->hp < 50;
 
         $self->currently("Kicking a " . $tile->type . " to wake up a " .

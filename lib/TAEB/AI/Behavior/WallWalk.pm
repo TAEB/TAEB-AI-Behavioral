@@ -22,7 +22,8 @@ sub prepare {
             my $dark;
             TAEB->each_adjacent(sub {
                 my ($tile, $dir) = @_;
-                $dark++ if $tile->type eq 'rock';
+                $dark++ if $tile->type eq 'rock'
+		        || $tile->type eq 'unexplored';
                 $wall++ if $tile->type eq 'wall';
                 }, $tile);
             if ($dark && $wall) {

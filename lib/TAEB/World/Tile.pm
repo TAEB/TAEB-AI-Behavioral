@@ -22,7 +22,7 @@ has level => (
 
 has type => (
     isa     => 'TAEB::Type::Tile',
-    default => 'rock',
+    default => 'unexplored',
 );
 
 has glyph => (
@@ -211,6 +211,16 @@ sub update {
 
     my $newtype = $self->glyph_to_type($newglyph, $color);
 
+    # rock next to where we're standing is definitely rock; otherwise,
+    # it's unexplored if it was unexplored before
+    if ($newtype eq 'rock') {
+	$self->type eq 'unexplored' and $newtype = 'unexplored';
+        $newtype = 'rock' if $self->x - TAEB->x >= -1
+	                  && $self->x - TAEB->x <= 1
+			  && $self->y - TAEB->y >= -1
+			  && $self->y - TAEB->y <= 1;
+    }
+
     # if we unveil a square and it was previously rock, then it's obscured
     # perhaps we entered a room and a tile changed from ' ' to '!'
     # if the tile's type was anything else, then it *became* obscured, and we
@@ -229,6 +239,7 @@ sub update {
 
         $self->type('obscured')
             if $oldtype eq 'rock'
+	    || $oldtype eq 'unexplored'
             || $oldtype eq 'closeddoor';
 
         return;
@@ -256,8 +267,7 @@ sub is_walkable {
     # if we're blind, then all bets are off
     return 1 if $through_unknown
              && !TAEB->is_blind
-             && $self->type eq 'rock'
-             && $self->all_adjacent(sub { shift->stepped_on == 0 });
+             && $self->type eq 'unexplored';
 
     return $is_walkable{ $self->type };
 }
@@ -572,7 +582,9 @@ sub _panel_empty {
     for my $y ($sy .. $ey) {
         for my $x ($sx .. $ex) {
             my $tile = $self->level->at($x, $y);
-            return 0 if !defined($tile) || $tile->type ne 'rock';
+            return 0 if !defined($tile)
+		     ||    $tile->type ne 'rock'
+		        && $tile->type ne 'unexplored';
         }
     }
 
@@ -593,7 +605,9 @@ sub searchability {
 
     $self->each_adjacent(sub {
         my ($tile, $dir) = @_;
-        return unless $tile->type eq 'wall' || $tile->type eq 'rock';
+        return unless $tile->type eq 'wall'
+	           || $tile->type eq 'rock'
+		   || $tile->type eq 'unexplored'; # just in case
         return unless $tile->searched < 30;
         my $factor = 1;
 
@@ -656,8 +670,7 @@ sub debug_color {
              : 0);
 
     $color |= Curses::A_REVERSE
-        if $self->type eq 'rock'
-        && $self->any_adjacent(sub { shift->explored });
+        if $self->type eq 'rock'; # known rock, not unexplored
 
     return $color;
 }
@@ -858,7 +871,7 @@ Returns true if the player can see through the tile.
 
 =cut
 
-my %opaque = map { $_ => 1 } qw(rock wall tree closeddoor cloud water);
+my %opaque = map { $_ => 1 } qw(unexplored rock wall tree closeddoor cloud water);
 
 sub is_transparent {
     my $self = shift;

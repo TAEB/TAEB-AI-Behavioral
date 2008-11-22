@@ -57,6 +57,12 @@ sub update {
             $tile_changed = 1;
             $level->update_tile($x, $y, $glyph, $color);
         }
+	elsif ($x - $Tx >= -1 && $x - $Tx <= 1 &&
+	       $y - $Ty >= -1 && $y - $Ty <= 1 &&
+	       $tile->type eq 'unexplored')
+	{
+	    $level->update_tile($x, $y, $glyph, $color);
+	}
 
         return 1;
     });
@@ -173,7 +179,10 @@ sub autoexplore {
 
             if (!$tile->explored && $tile->type ne 'rock') {
                 $tile->explored(1)
-                    unless $tile->any_adjacent(sub { shift->type eq 'rock' });
+                    unless $tile->any_adjacent(sub {
+			my $t=shift;
+			$t->type eq 'rock' || $t->type eq 'unexplored'
+		    });
             }
 
             # XXX: corridors need love

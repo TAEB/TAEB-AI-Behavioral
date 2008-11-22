@@ -132,6 +132,7 @@ sub create_level {
     );
 
     push @{ $self->levels->[$index] ||= [] }, $level;
+
     return $level;
 }
 
