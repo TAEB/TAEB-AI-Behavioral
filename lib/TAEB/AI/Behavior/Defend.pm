@@ -8,13 +8,6 @@ sub prepare {
     my $self = shift;
 
     if (TAEB->hp * 2 <= TAEB->maxhp) {
-        if (TAEB->current_tile->type eq 'stairsup' && TAEB->z > 1) {
-            $self->currently("Fleeing upstairs to rest.");
-            $self->do('ascend');
-            $self->urgency('important');
-            return;
-        }
-
         my $can_engrave = TAEB->can_engrave;
         my $elbereths   = lazy { TAEB->elbereth_count };
 
@@ -49,6 +42,12 @@ sub prepare {
 
         # finally, we have an Elbereth under us, so we rest up to heal
         if ($elbereths) {
+            if (TAEB->current_tile->type eq 'stairsup' && TAEB->z > 1) {
+                $self->currently("Fleeing upstairs to rest.");
+                $self->do('ascend');
+                $self->urgency('unimportant');
+                return;
+            }
             $self->currently("Resting on an Elbereth tile.");
             $self->do('search', iterations => 5);
             $self->urgency('unimportant');
