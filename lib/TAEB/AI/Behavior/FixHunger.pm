@@ -17,7 +17,7 @@ sub prepare {
     }
 
     if (TAEB->nutrition < 200 && TAEB::Action::Eat->any_food) {
-        my ($item, $prio) = (undef, -1000);
+        my ($item, $prio) = ('any', -1000);
 
         for my $meal (TAEB->inventory->find(\&good_food)) {
             my $p = $meal->weight / $meal->nutrition;
