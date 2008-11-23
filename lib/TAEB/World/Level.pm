@@ -648,6 +648,8 @@ sub glyph_to_type {
     my $glyph = shift;
 
     return $TAEB::Util::glyphs{$glyph} || 'obscured' unless @_;
+    # glyph_to_type will always return 'rock' for blank tiles
+    return $TAEB::Util::glyphs{$glyph}->[0] if $glyph eq ' ';
 
     # use color in an effort to differentiate tiles
     my $color = shift;
