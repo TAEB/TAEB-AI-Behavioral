@@ -57,10 +57,12 @@ sub update {
             $tile_changed = 1;
             $level->update_tile($x, $y, $glyph, $color);
         }
-	elsif ($x - $Tx >= -1 && $x - $Tx <= 1 &&
-	       $y - $Ty >= -1 && $y - $Ty <= 1 &&
-	       $tile->type eq 'unexplored')
-	{
+        # XXX: this should be checking for 'visual range' (taking blindness and
+        # lamps into account) - currently blindness is tested for in
+        # Tile::update
+	elsif (abs($x - $Tx) <= 1
+            && abs($y - $Ty) <= 1
+	    && $tile->type eq 'unexplored') {
 	    $level->update_tile($x, $y, $glyph, $color);
 	}
 
