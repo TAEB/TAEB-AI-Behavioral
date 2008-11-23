@@ -129,8 +129,7 @@ be used to get those keys set.
 
 =cut
 
-sub attr_to_ansi
-{
+sub attr_to_ansi {
     my $self = shift;
     my %args = @_;
 

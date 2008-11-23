@@ -27,8 +27,7 @@ sub shop_type {
     my $self = shift;
     my $name = shift;
 
-    if ($self->shop_names->{$name})
-    {
+    if ($self->shop_names->{$name}) {
         return $self->shop_names->{$name};
     }
 

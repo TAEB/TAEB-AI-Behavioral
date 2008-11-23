@@ -533,20 +533,17 @@ around is_oracle => sub {
     my $is_oracle = $self->$orig;
     return $is_oracle if defined $is_oracle;
 
-    if ($self->known_branch && $self->branch ne 'dungeons')
-    {
+    if ($self->known_branch && $self->branch ne 'dungeons') {
         $self->is_oracle(0);
         return 0;
     }
-    unless ($self->z >= 5 && $self->z <= 9)
-    {
+    unless ($self->z >= 5 && $self->z <= 9) {
         $self->is_oracle(0);
         return 0;
     }
 
     my $oracle_tile = $self->at(39,12);
-    if (!$oracle_tile->has_monster || ($oracle_tile->monster && !$oracle_tile->monster->is_oracle))
-    {
+    if (!$oracle_tile->has_monster || ($oracle_tile->monster && !$oracle_tile->monster->is_oracle)) {
         $self->is_oracle(0);
         return 0;
     }

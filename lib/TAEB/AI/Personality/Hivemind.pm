@@ -19,14 +19,14 @@ sub next_action {
         return $action if $action;
     }
 
-    {
+    do {
         $main::request->print(TAEB::AI::Personality::Hivemind::Templates->next_action);
         $main::request->next;
         my $action = $self->fill_action($main::request->param('action'));
         redo if !$action;
 
         return $action;
-    }
+    };
 }
 
 sub respond {
