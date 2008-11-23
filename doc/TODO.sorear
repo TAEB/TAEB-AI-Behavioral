@@ -80,9 +80,6 @@
 - Improve special level detection
 
 
-- Finish fixing NetHack::FOV, CPAN
-
-
 - Behaviors can override actions (taken by doy?)
 
     - PickaxeFinder subs 'a'pplications for attempts to walk into rock
