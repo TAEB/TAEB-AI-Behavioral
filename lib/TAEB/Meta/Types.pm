@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Meta::Types;
 use Moose::Util::TypeConstraints;
-use TAEB::Util 'tile_types';
+use TAEB::Util qw/tile_types trap_types/;
 
 =head1 NAME
 
@@ -28,6 +28,8 @@ enum 'TAEB::Type::Burden' => qw(Unencumbered Burdened Stressed Strained Overtaxe
 enum 'TAEB::Type::Branch' => qw(dungeons mines sokoban quest ludios gehennom vlad planes);
 
 enum 'TAEB::Type::Urgency' => qw(critical important normal unimportant fallback none);
+
+enum 'TAEB::Type::Trap' => trap_types;
 
 1;
 
