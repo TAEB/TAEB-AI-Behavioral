@@ -24,12 +24,7 @@ before done => sub {
 
     if ($current->type eq 'obscured') {
         $current->change_type($self->complement_type);
-
-        # XXX: this causes TAEB to be permanently in Descender mode, more or
-        # less. removing this causes him to go back upstairs to figure out
-        # what's on the other side. man I wish I had moomaster's state stacks
-        # :)
-        #$current->other_side($start);
+        $current->other_side($start);
     }
 };
 
