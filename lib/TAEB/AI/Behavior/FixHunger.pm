@@ -7,9 +7,11 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    if (TAEB->can_pray      &&
-        TAEB->nutrition < 2 &&
-        TAEB->current_tile->type ne 'altar') { # XXX: Should check if altar is coaligned.
+    # if we're on an altar, demand it be of our alignment
+    my $altar_ok = TAEB->current_tile->type ne 'altar'
+                || TAEB->current_tile->align eq TAEB->align;
+
+    if (TAEB->can_pray && TAEB->nutrition < 2 && $altar_ok) {
         $self->do("pray");
         $self->currently("Praying for food.");
         $self->urgency('critical');
