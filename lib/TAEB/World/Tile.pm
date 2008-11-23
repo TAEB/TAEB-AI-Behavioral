@@ -614,7 +614,7 @@ sub searchability {
         my ($px, $py) = $tile->_panel;
         my ($dx, $dy) = vi2delta $dir;
 
-        if ($self->_panel_empty ($px+$dx, $py+$dy)) {
+        if ($self->_panel_empty($px + $dx, $py + $dy)) {
             $factor = $tile->type eq 'wall' ? 2000 : 100;
         }
 
