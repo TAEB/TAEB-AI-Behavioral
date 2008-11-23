@@ -102,7 +102,8 @@ Finds the nearest level to TAEB for which the code reference returns true.
 
 sub nearest_level {
     my $self = shift;
-    return $self->nearest_level_to(TAEB->current_level);
+    my $code = shift;
+    return $self->nearest_level_to($code, TAEB->current_level);
 }
 
 =head2 shallowest_level Code -> Maybe Level
@@ -114,7 +115,8 @@ returns true.
 
 sub shallowest_level {
     my $self = shift;
-    return $self->nearest_level_to(($self->get_levels(1))[0]);
+    my $code = shift;
+    return $self->nearest_level_to($code, ($self->get_levels(1))[0]);
 }
 
 sub get_levels {
