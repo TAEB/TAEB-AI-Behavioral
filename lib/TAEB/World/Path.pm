@@ -111,6 +111,7 @@ sub first_match {
         return $class->calculate_path(
             $args{from} => $exit,
             traverse_destination => 1,
+            why => $args{why},
         );
     }
 
@@ -149,6 +150,7 @@ sub max_match {
         return $class->calculate_path(
             $args{from} => $exit,
             traverse_destination => 1,
+            why => $args{why},
         );
     }
 
