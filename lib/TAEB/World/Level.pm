@@ -262,7 +262,7 @@ sub remove_monster {
     TAEB->warning("Unable to remove $monster from the current level!");
 }
 
-my @unregisterable = qw(rock wall floor corridor obscured);
+my @unregisterable = qw(unexplored rock wall floor corridor obscured);
 my %is_unregisterable = map { $_ => 1 } @unregisterable;
 sub is_unregisterable { $is_unregisterable{$_[1]} }
 
