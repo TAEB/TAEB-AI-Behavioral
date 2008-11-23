@@ -42,7 +42,7 @@ use Sub::Exporter -setup => {
 sub colors { %colors }
 
 our %glyphs = (
-    ' '  => 'rock',
+    ' '  => [qw/rock unexplored/],
     ']'  => 'closeddoor',
     '>'  => 'stairsdown',
     '<'  => 'stairsup',
@@ -79,7 +79,7 @@ our %feature_colors = (
     COLOR_BRIGHT_MAGENTA, 'trap',
 );
 
-our @types = uniq 'obscured', map { ref $_ ? @$_ : $_ } (values %glyphs, 'unexplored');
+our @types = uniq 'obscured', map { ref $_ ? @$_ : $_ } values %glyphs;
 
 =head2 tile_types -> [str]
 
