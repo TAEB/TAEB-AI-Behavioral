@@ -301,7 +301,7 @@ sub msg_turn {
     my $list = $self->time_buffer;
 
     unshift @$list, $time;
-    splice @$list, 5;
+    splice @$list, 5 if @$list > 5;
 }
 
 __PACKAGE__->meta->make_immutable;
