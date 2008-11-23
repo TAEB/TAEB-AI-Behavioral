@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 package TAEB::Action::Name;
 use TAEB::OO;
-use String::Koremutake;
 extends 'TAEB::Action';
 
 use constant command => "#name\n";
@@ -16,12 +15,6 @@ has name => (
     traits   => [qw/TAEB::Provided/],
     isa      => 'Str',
     required => 1,
-    lazy     => 1,
-    default  => sub {
-        my $self = shift;
-        my $k = String::Koremutake->new;
-        $self->item->appearance . $k->integer_to_koremutake(int(rand(2**31)));
-    },
 );
 
 has specific => (
