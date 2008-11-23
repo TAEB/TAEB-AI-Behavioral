@@ -697,11 +697,9 @@ sub glyph_is_item {
 
 sub msg_farlooked {
     my $self = shift;
-    my $x    = shift;
-    my $y    = shift;
+    my $tile = shift;
     my $msg  = shift;
 
-    my $tile = $self->at($x, $y);
     $tile->farlooked($msg);
 }
 

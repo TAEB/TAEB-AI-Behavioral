@@ -731,11 +731,10 @@ for my $check (keys %check_command) {
 
 sub _check_tile {
     my $self = shift;
-    my $x = shift;
-    my $y = shift;
+    my $tile = shift;
 
-    my $msg = TAEB->farlook($x, $y);
-    TAEB->enqueue_message('farlooked' => $x, $y, $msg);
+    my $msg = TAEB->farlook($tile);
+    TAEB->enqueue_message('farlooked' => $tile, $msg);
 }
 
 sub msg_noise {
