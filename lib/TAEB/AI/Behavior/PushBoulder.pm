@@ -6,29 +6,27 @@ extends 'TAEB::AI::Behavior';
 
 sub push_direction {
     my $tile = shift;
-    $tile->is_walkable or return '.';
-    my @tiles=$tile->grep_adjacent(sub {
+
+    return '.' unless $tile->is_walkable;
+
+    my @tiles = $tile->grep_adjacent(sub {
         my $t = shift;
-        my ($beyond) =
-            $t->level->at(
-                $t->x*2-$tile->x,
-                $t->y*2-$tile->y
-            );
+        my $beyond = $t->level->at($t->x * 2 - $tile->x, $t->y * 2 - $tile->y);
         return 0 unless defined $beyond;
         return 0 unless $t->has_boulder;
         return 0 unless $beyond->type eq 'unexplored';
 	return 0 if $beyond->has_monster;
         return 1;
     });
-    scalar @tiles or return '.';
+    return '.' unless @tiles;
+
     return delta2vi($tiles[0]->x - $tile->x, $tiles[0]->y - $tile->y);
 }
 
 sub msg_immobile_boulder {
     # The boulder didn't move, there must be rock or another boulder beyond it.
     my ($dx, $dy) = vi2delta(push_direction(TAEB->current_tile));
-    my $t = TAEB->current_tile->level->at(TAEB->x+$dx*2,TAEB->y+$dy*2);
-    $t->type('rock');
+    TAEB->current_level->at(TAEB->x + $dx * 2,TAEB->y + $dy * 2)->type('rock');
 }
 
 sub prepare {
@@ -48,8 +46,8 @@ sub prepare {
 
     if ($path && $path->path eq '' && $push_dir ne '.') {
         $self->currently("Pushing an adjacent boulder");
-        $self->urgency('fallback');
 	$self->do(move => direction => $push_dir);
+        $self->urgency('fallback');
         return;
     }
 
@@ -58,8 +56,7 @@ sub prepare {
 
 sub urgencies {
     return {
-        fallback =>
-	    "pushing or preparing to push a boulder into the unknown",
+        fallback => "pushing or preparing to push a boulder into the unknown",
     }
 }
 
