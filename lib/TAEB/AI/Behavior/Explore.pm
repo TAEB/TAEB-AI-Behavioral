@@ -44,7 +44,8 @@ sub prepare {
         return 0 if $level->z > TAEB->z;
         return not $level->fully_explored;
     });
-    $level ||= TAEB->shallowest_level(sub { not shift->fully_explored });
+    # XXX: this would be nice, but it overrides anything of lower priority
+    #$level ||= TAEB->shallowest_level(sub { not shift->fully_explored });
 
     return if !$level;
 
