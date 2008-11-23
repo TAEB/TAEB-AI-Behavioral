@@ -583,9 +583,7 @@ sub _panel_empty {
     for my $y ($sy .. $ey) {
         for my $x ($sx .. $ex) {
             my $tile = $self->level->at($x, $y);
-            return 0 if !defined($tile)
-		     ||    $tile->type ne 'rock'
-		        && $tile->type ne 'unexplored';
+            return 0 if !defined($tile) || $tile->type ne 'unexplored';
         }
     }
 
