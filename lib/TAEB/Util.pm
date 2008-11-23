@@ -32,8 +32,8 @@ BEGIN {
 use constant \%colors;
 
 use Sub::Exporter -setup => {
-    exports => [qw(tile_types delta2vi vi2delta deltas dice colors crow_flies),
-        qw(angle align2str), keys %colors],
+    exports => [qw(tile_types trap_types delta2vi vi2delta deltas dice colors),
+                qw(crow_flies angle align2str), keys %colors],
     groups => {
         colors => [keys %colors],
     },
@@ -103,6 +103,16 @@ Returns the list of all the tile types TAEB uses.
 
 sub tile_types {
     return @types;
+}
+
+=head2 trap_types -> [str]
+
+Returns the list of all the trap types TAEB uses.
+
+=cut
+
+sub trap_types {
+    return map { ref $_ ? @$_ : $_ } values %trap_colors;
 }
 
 
