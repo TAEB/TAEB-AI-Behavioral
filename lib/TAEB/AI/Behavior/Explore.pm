@@ -41,6 +41,7 @@ sub prepare {
         my $level = shift;
         return 0 if $level->exit_towards(TAEB->current_level)->type eq
                     TAEB->current_level->exit_towards($level)->type;
+        return 0 if $level->z > TAEB->z;
         return not $level->fully_explored;
     });
     $level ||= TAEB->shallowest_level(sub { not shift->fully_explored });
