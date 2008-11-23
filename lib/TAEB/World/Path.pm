@@ -104,20 +104,30 @@ sub first_match {
     $args{from}     ||= TAEB->current_tile;
     $args{on_level} ||= TAEB->current_level;
 
+    my ($to, $path);
     if ($args{on_level} != TAEB->current_level) {
-        my $exit = TAEB->current_level->exit_towards($args{on_level})
+        my $exit = $args{on_level}->exit_towards(TAEB->current_level)
             or return;
 
-        return $class->calculate_path(
+        my $complete;
+        ($path, $complete) = $class->_calculate_path(
             $args{from} => $exit,
-            traverse_destination => 1,
             why => $args{why},
         );
-    }
+        return unless $complete;
 
-    my ($to, $path) = $class->_dijkstra(sub {
-        $code->(@_) ? 'q' : undef
-    }, %args);
+        my $intralevel_path;
+        ($to, $intralevel_path) = $class->_dijkstra(sub {
+            $code->(@_) ? 'q' : undef
+        }, (%args, from => $exit));
+
+        $path .= $intralevel_path;
+    }
+    else {
+        ($to, $path) = $class->_dijkstra(sub {
+            $code->(@_) ? 'q' : undef
+        }, %args);
+    }
 
     $to or return;
 
@@ -143,19 +153,27 @@ sub max_match {
     $args{from}     ||= TAEB->current_tile;
     $args{on_level} ||= TAEB->current_level;
 
+    my ($to, $path);
     if ($args{on_level} != TAEB->current_level) {
-        my $exit = TAEB->current_level->exit_towards($args{on_level})
+        my $exit = $args{on_level}->exit_towards(TAEB->current_level)
             or return;
 
-        return $class->calculate_path(
+        my $complete;
+        ($path, $complete) = $class->_calculate_path(
             $args{from} => $exit,
-            traverse_destination => 1,
             why => $args{why},
         );
+        return unless $complete;
+
+        my $intralevel_path;
+        ($to, $intralevel_path) = $class->_dijkstra($code,
+                                                    (%args, from => $exit));
+
+        $path .= $intralevel_path;
     }
-
-
-    my ($to, $path) = $class->_dijkstra($code, %args);
+    else {
+        ($to, $path) = $class->_dijkstra($code, %args);
+    }
 
     $to or return;
 
