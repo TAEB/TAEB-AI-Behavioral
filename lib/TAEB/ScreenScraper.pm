@@ -1138,10 +1138,9 @@ command mode.
 
 sub farlook {
     my $self = shift;
-    my $ex   = shift;
-    my $ey   = shift;
+    my $tile = shift;
 
-    my $directions = crow_flies($ex, $ey);
+    my $directions = crow_flies($tile->x, $tile->y);
 
     TAEB->write(';' . $directions . '.');
     TAEB->process_input;
