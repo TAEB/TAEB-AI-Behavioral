@@ -37,12 +37,7 @@ sub prepare {
     }
 
     my $curlevel = TAEB->current_level;
-    my $level = TAEB->shallowest_level(sub {
-        my $level = shift;
-        return 0 if $level->branch ne $curlevel->branch
-                 || $level->z > $curlevel->z;
-        return not $level->fully_explored;
-    });
+    my $level = TAEB->shallowest_level(sub { not shift->fully_explored });
 
     return if !$level;
 
