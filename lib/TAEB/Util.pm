@@ -79,6 +79,20 @@ our %feature_colors = (
     COLOR_BRIGHT_MAGENTA, 'trap',
 );
 
+our %trap_colors = (
+    COLOR_BLUE,    ['rust trap', 'pit', 'spiked pit'],
+    COLOR_BROWN,   ['squeaky board', 'hole', 'trap door'],
+    COLOR_CYAN,    ['arrow trap', 'dart trap', 'bear trap'],
+    COLOR_GRAY,    ['falling rock trap', 'rolling boulder trap', 'web'],
+    COLOR_MAGENTA, ['teleportation trap', 'level teleporter'],
+    COLOR_ORANGE,  'fire trap',
+    COLOR_RED,     'land mine',
+    COLOR_BRIGHT_BLUE,    ['magic trap', 'anti-magic field',
+                           'sleeping gas trap'],
+    COLOR_BRIGHT_GREEN,   'polymorph trap',
+    COLOR_BRIGHT_MAGENTA, 'magic portal',
+);
+
 our @types = uniq 'obscured', map { ref $_ ? @$_ : $_ } values %glyphs;
 
 =head2 tile_types -> [str]
