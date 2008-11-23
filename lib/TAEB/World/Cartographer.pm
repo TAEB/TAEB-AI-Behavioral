@@ -22,7 +22,7 @@ has fov => (
     is        => 'ro',
     default   => sub { calculate_fov(TAEB->x, TAEB->y, sub {
             my $tile = TAEB->current_level->at(@_);
-            $tile && $tile->is_transparent;
+            $tile && $tile->is_transparent ? 1 : 0;
         }) },
     clearer   => 'invalidate_fov',
     lazy      => 1,
