@@ -654,8 +654,9 @@ sub debug_color {
             if $path->to eq $self;
     }
 
-    $color ||= inner() ||
-               ($self->in_shop || $self->in_temple
+    $color ||= inner();
+
+    $color ||= ($self->in_shop || $self->in_temple
              ? Curses::COLOR_PAIR(COLOR_GREEN) | Curses::A_BOLD
              : $self->has_enemy
              ? Curses::COLOR_PAIR(COLOR_RED) | Curses::A_BOLD

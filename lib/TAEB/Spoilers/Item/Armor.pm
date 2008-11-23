@@ -577,9 +577,11 @@ has constant_appearances => (
         my $appearances = {};
         for my $item (keys %{ $self->list }) {
             my $stats = $self->list->{$item};
-            next if !defined $stats->{appearance} ||
-                    grep { $_ eq $stats->{appearance} }
+
+            next if !defined $stats->{appearance}
+                 || grep { $_ eq $stats->{appearance} }
                          $self->multi_identity_appearances;
+
             $appearances->{$stats->{appearance}} = $stats->{name}
         }
         return $appearances;

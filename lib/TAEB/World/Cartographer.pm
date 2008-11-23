@@ -236,9 +236,7 @@ sub msg_dungeon_feature {
         $floor = '\\';
         $type = 'grave';
     }
-    elsif ($feature eq 'altar'           ||
-           $feature eq 'coaligned altar' ||
-           $feature eq 'crossaligned altar') {
+    elsif ($feature =~ /\baltar$/) {
         $floor = '_';
         $type = 'altar';
     }
@@ -324,8 +322,7 @@ sub floodfill_room {
     $tile->floodfill(
         sub {
             my $t = shift;
-            $t->type eq 'floor' || $t->type eq 'obscured' ||
-                $t->type eq 'altar'
+            $t->type eq 'floor' || $t->type eq 'obscured' || $t->type eq 'altar'
         },
         sub {
             my $t   = shift;
