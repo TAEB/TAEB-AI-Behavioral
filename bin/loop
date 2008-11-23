@@ -37,6 +37,8 @@ sub logrotate {
 
     for (qw/debug info error critical warning/) {
         my $dest = sprintf "logs/$_.%05d.log.bz2", $head + 1;
+        print "bzipping $dest...";
         system(sprintf "bzip2 < log/$_.log > $dest");
+        print "done\n";
     }
 }
