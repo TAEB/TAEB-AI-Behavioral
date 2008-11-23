@@ -70,17 +70,18 @@ for my $tiletype (qw/orthogonal diagonal adjacent adjacent_inclusive/) {
     }
 }
 
-=head2 nearest_level Code -> Maybe Level
+=head2 nearest_level_to Code, Level -> Maybe Level
 
-Finds the nearest level for which the code reference returns true.
+Finds the nearest level to the given level for which the code reference returns
+true.
 
 =cut
 
-sub nearest_level {
+sub nearest_level_to {
     my $self = shift;
     my $code = shift;
+    my @queue = shift;
 
-    my @queue = TAEB->current_level;
     my %seen;
 
     while (my $level = shift @queue) {
@@ -91,6 +92,29 @@ sub nearest_level {
     }
 
     return;
+}
+
+=head2 nearest_level Code -> Maybe Level
+
+Finds the nearest level to TAEB for which the code reference returns true.
+
+=cut
+
+sub nearest_level {
+    my $self = shift;
+    return $self->nearest_level_to(TAEB->current_level);
+}
+
+=head2 shallowest_level Code -> Maybe Level
+
+Finds the nearest level to the top of the dungeon for which the code reference
+returns true.
+
+=cut
+
+sub shallowest_level {
+    my $self = shift;
+    return $self->nearest_level_to(($self->get_levels(1))[0]);
 }
 
 sub get_levels {
