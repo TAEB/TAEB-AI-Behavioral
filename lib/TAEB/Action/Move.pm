@@ -118,7 +118,10 @@ sub handle_items_in_rock {
     my $dy   = shift;
 
     my $tile = TAEB->current_tile;
-    return if $tile->type eq 'trap'; # XXX check that it's a bear trap or pit
+    return if $tile->type eq 'trap' && ($tile->trap_type eq 'bear trap'
+                                     || $tile->trap_type eq 'pit'
+                                     || $tile->trap_type eq 'spiked pit'
+                                     || $tile->trap_type eq 'web');
     return if $tile->type eq 'opendoor' && $dx && $dy;
 
     my $dest = TAEB->current_level->at(TAEB->x + $dx, TAEB->y + $dy);
