@@ -6,27 +6,29 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    my @items = grep { $self->pickup($_) && $_->price == 0 } TAEB->inventory->items;
+    my @items = grep { $self->pickup($_) && $_->price == 0 }
+                TAEB->inventory->items;
     return unless @items;
 
     my $item = shift @items;
     my $pt = $item->possibility_tracker;
 
-    if ($pt->can('engrave_useful') && $pt->engrave_useful &&
-        $item->match(price => 0) && TAEB->can_engrave) {
-        if (TAEB->current_tile->engraving eq '') {
-            $self->do(engrave => item => '-');
-            $self->currently("Prepping for engrave-id by dusting");
-            $self->urgency('unimportant');
-            return;
-        }
-        else {
-            $self->do(engrave => item => $item);
-            $self->currently("Engrave identifying a wand");
-            $self->urgency('unimportant');
-            return;
-        }
+    return unless TAEB->can_engrave
+               && $pt->can('engrave_useful')
+               && $pt->engrave_useful
+               && $item->match(price => 0);
+
+    if (TAEB->current_tile->engraving eq '') {
+        $self->do(engrave => item => '-');
+        $self->currently("Prepping for engrave-id by dusting");
+        $self->urgency('unimportant');
+        return;
     }
+
+    $self->do(engrave => item => $item);
+    $self->currently("Engrave identifying a wand");
+    $self->urgency('unimportant');
+    return;
 }
 
 sub pickup {

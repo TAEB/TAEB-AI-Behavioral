@@ -40,18 +40,19 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    if (!TAEB->current_tile->in_shop &&
-        $item->match(identity => qr/pick-axe|dwarvish mattock/) &&
-        TAEB->any_adjacent(sub {
+    # not in a shop? then don't care
+    return unless TAEB->current_tile->in_shop;
+
+    # if there's an adjacent shopkeeper, then we want to drop pick-axes and
+    # mattocks
+    if ($item->match(identity => qr/pick-axe|dwarvish mattock/)) {
+        return 1 if TAEB->any_adjacent(sub {
             my $tile = shift;
-            return 1 if $tile->has_monster && $tile->monster->is_shk;
-            return 0;
-        })) {
-        return 1;
+            return $tile->has_monster && $tile->monster->is_shk;
+        });
     }
 
-    return if $item->match(price => 0);
-
+    # drop items we can't afford
     if ($item->price > TAEB->gold) {
         TAEB->debug("Yes, I want to drop $item because I can't pay for it");
         return 1;

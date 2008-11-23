@@ -95,8 +95,7 @@ sub damage {
             return $self->_weapon_damage($weapon);
         }
     }
-    elsif ($type eq 'TAEB::World::Item::Tool' &&
-           TAEB::Spoilers::Item::Tool->tool($weapon)->{weaptool}) {
+    elsif ($type eq 'TAEB::World::Item::Tool' && TAEB::Spoilers::Item::Tool->tool($weapon)->{weaptool}) {
         return $self->_weapon_damage($weapon);
     }
     else {

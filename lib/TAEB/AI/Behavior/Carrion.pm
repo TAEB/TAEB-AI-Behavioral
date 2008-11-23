@@ -30,10 +30,15 @@ sub want_to_eat {
 
     return 0 if $item->stun;
     return 0 if $item->acidic && TAEB->hp <= 15;
-    return 0 if $item->poisonous && !TAEB->senses->poison_resistant &&
-        TAEB->hp <= 29;  # worst case is Str-dependant and usuallly milder
-    return 0 if ($item->cannibal eq TAEB->race || $item->aggravate) &&
-        !(TAEB->race eq 'Orc' || TAEB->role eq 'Cav');
+
+    # worst case is Str-dependant and usuallly milder
+    return 0 if $item->poisonous && !TAEB->senses->poison_resistant
+             && TAEB->hp <= 29;
+
+    return 0 if ($item->cannibal eq TAEB->race || $item->aggravate)
+             && TAEB->race ne 'Orc'
+             && TAEB->role ne 'Cav';
+
     return 0 if $item->speed_toggle && TAEB->is_fast;
     #return 0 if $item->teleportitis && !$item->teleport_control;
 

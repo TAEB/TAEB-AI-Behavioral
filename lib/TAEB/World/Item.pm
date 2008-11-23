@@ -196,8 +196,7 @@ sub new_item {
 
     if (!defined $buc) {
         # if we see the enchantment or number of charges, we must know the buc
-        if (($class =~ /weapon|wand/ || $stats->{weaptool}) &&
-            (defined $spe || defined $charges)) {
+        if (($class =~ /weapon|wand/ || $stats->{weaptool}) && (defined $spe || defined $charges)) {
             $new_item->buc('uncursed');
         }
         # if we're a priest, we must know the buc

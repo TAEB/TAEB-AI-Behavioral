@@ -191,9 +191,9 @@ sub pickup {
     my $item = shift;
 
     for my $fix (map { @{ $_->{fixes} } } $self->needs_fixing) {
-        return 1 if defined $fix->{item} &&
-                    defined $item->identity &&
-                    $item->identity eq $fix->{item};
+        return 1 if defined $fix->{item}
+                 && defined $item->identity
+                 && $item->identity eq $fix->{item};
     }
 
     return;

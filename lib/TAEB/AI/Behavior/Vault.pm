@@ -6,8 +6,7 @@ extends 'TAEB::AI::Behavior';
 sub prepare {
     my $self = shift;
 
-    if (TAEB->gold > 0 &&
-        $self->drop(TAEB->new_item('1 gold piece'))) {
+    if (TAEB->gold > 0 && $self->drop(TAEB->new_item('1 gold piece'))) {
         $self->do('drop');
         $self->currently("Dropping my gold");
         $self->urgency('unimportant');
@@ -33,8 +32,9 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    return unless TAEB->current_tile->in_vault &&
-                  $item->match(appearance => 'gold piece');
+    return unless TAEB->current_tile->in_vault;
+    return unless && $item->match(appearance => 'gold piece');
+
     TAEB->debug("Dropping my gold because I'm in a vault");
     return 1;
 }
