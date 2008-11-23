@@ -179,12 +179,12 @@ sub autoexplore {
         TILE: for my $x (0 .. 79) {
             my $tile = $self->dungeon->current_level->at($x, $y);
 
-            if (!$tile->explored && $tile->type ne 'rock') {
-                $tile->explored(1)
-                    unless $tile->any_adjacent(sub {
-			my $t=shift;
-			$t->type eq 'rock' || $t->type eq 'unexplored'
-		    });
+            if (!$tile->explored
+             && $tile->type ne 'rock'
+             && $tile->type ne 'unexplored') {
+                $tile->explored(1) unless $tile->any_adjacent(sub {
+                    shift->type eq 'unexplored'
+                });
             }
 
             # XXX: corridors need love
