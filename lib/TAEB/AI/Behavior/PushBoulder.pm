@@ -34,10 +34,8 @@ sub prepare {
 
     return if TAEB->current_level->branch eq 'sokoban';
 
-    my $path = TAEB::World::Path->max_match(
-        sub {
-            my ($tile, $path) = @_;
-            push_direction($tile) eq '.' ? 0 : 10000 - length($path);
+    my $path = TAEB::World::Path->first_match(sub {
+            push_direction(shift) ne '.';
         },
         why => "PushBoulder"
     );
