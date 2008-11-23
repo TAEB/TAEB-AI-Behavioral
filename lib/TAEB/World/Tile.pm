@@ -241,6 +241,7 @@ sub update {
         $self->type('obscured')
             if $oldtype eq 'rock'
 	    || $oldtype eq 'unexplored'
+            || $oldtype eq 'wall'
             || $oldtype eq 'closeddoor';
 
         return;
