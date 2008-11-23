@@ -215,12 +215,10 @@ sub update {
     # we're blinded; otherwise, it's unexplored if it was unexplored
     # before or if we weren't sure
     if ($newtype eq 'rock') {
-	$self->type eq 'unexplored' and $newtype = 'unexplored';
-	$self->type eq 'obscured' and $newtype = 'unexplored';
-        $newtype = 'rock' if $self->x - TAEB->x >= -1
-	                  && $self->x - TAEB->x <= 1
-			  && $self->y - TAEB->y >= -1
-			  && $self->y - TAEB->y <= 1
+        $newtype = 'unexplored' if $self->type eq 'unexplored'
+                                || $self->type eq 'obscured';
+        $newtype = 'rock' if abs($self->x - TAEB->x) <= 1
+			  && abs($self->y - TAEB->y) <= 1
 			  && !TAEB->is_blind;
     }
 
