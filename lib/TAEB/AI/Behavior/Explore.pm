@@ -47,6 +47,7 @@ sub prepare {
 
     my $curlevel = TAEB->current_level;
     my $level = TAEB->shallowest_level(\&unexplored_level);
+    $level ||= TAEB->nearest_level(\&unexplored_level);
     # XXX: this would be nice, but it overrides anything of lower priority
     #$level ||= TAEB->shallowest_level(sub { not shift->fully_explored });
 
