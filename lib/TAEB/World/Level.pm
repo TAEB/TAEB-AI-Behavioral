@@ -327,7 +327,7 @@ sub exit_towards {
     for my $exit ($self->exits) {
         next if !$exit->other_side;
 
-        next if $exit->other_side->level == $back;
+        next if defined $back && $exit->other_side->level == $back;
 
         return $exit if $exit->other_side->level == $other;
 

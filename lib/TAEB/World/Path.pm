@@ -120,6 +120,7 @@ sub first_match {
         ($to, $intralevel_path) = $class->_dijkstra(sub {
             $code->(@_) ? 'q' : undef
         }, (%args, from => $exit));
+        return unless defined $intralevel_path;
 
         $path .= $intralevel_path;
     }
@@ -168,6 +169,7 @@ sub max_match {
         my $intralevel_path;
         ($to, $intralevel_path) = $class->_dijkstra($code,
                                                     (%args, from => $exit));
+        return unless defined $intralevel_path;
 
         $path .= $intralevel_path;
     }
@@ -426,7 +428,7 @@ sub _astar {
     };
 
     my $from = $args{from} || TAEB->current_tile;
-    my $through_unknown   = $args{through_unknown};
+    my $through_unknown   = $args{through_unknown} || 0;
     my $why               = $args{why} || "unknown";
     my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
