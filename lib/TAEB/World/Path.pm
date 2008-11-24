@@ -173,6 +173,7 @@ sub _calculate_path {
 
     while ($from->level != $to->level) {
         my $exit = $from->level->exit_towards($to->level);
+        return ($path, 0) if !$exit;
         my ($p, $c) = $class->_calculate_intralevel_path($from, $exit, @_);
 
         $path .= $p;
