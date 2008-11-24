@@ -237,9 +237,6 @@ sub _calculate_intralevel_path {
         confess "_calculate_intralevel_path called on tiles that weren't on the same level.";
     }
 
-    my $to_x = $to->x;
-    my $to_y = $to->y;
-
     my $path = $class->_astar($to, @_, from => $from);
 
     return ($path, defined($path) && length($path) ? 1 : 0);
