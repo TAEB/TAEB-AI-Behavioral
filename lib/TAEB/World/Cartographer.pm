@@ -195,7 +195,7 @@ sub autoexplore {
 sub msg_dungeon_feature {
     my $self    = shift;
     my $feature = shift;
-    my ($floor, $type);
+    my ($floor, $type, $subtype);
 
     if ($feature eq 'staircase down') {
         $floor = '>';
@@ -227,7 +227,7 @@ sub msg_dungeon_feature {
         $type  = 'floor';
     }
     elsif ($feature eq 'trap') {
-        my $traptype = shift;
+        $subtype = shift;
 
         $floor = '^';
         $type  = 'trap';
@@ -253,7 +253,7 @@ sub msg_dungeon_feature {
         TAEB->debug("msg_dungeon_feature('$feature') caused the current tile to be updated from ('$oldfloor', '$oldtype') to ('$floor', '$type')");
     }
 
-    $tile->change_type($type => $floor);
+    $tile->change_type($type => $floor, $subtype);
 }
 
 sub msg_clear_floor {
