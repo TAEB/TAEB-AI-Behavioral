@@ -40,6 +40,12 @@ sub msg_status_change {
     }
 }
 
+sub msg_negative_stethoscope {
+    my $self = shift;
+
+    $self->target_tile->inc_searched(50); # should be infinity
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

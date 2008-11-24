@@ -276,9 +276,19 @@ our %msg_string = (
         ['noise'],
     "Your right leg is in no shape for kicking." =>
         [status_change => wounded_legs => 1],
+    "You hear nothing special." =>
+        ['negative_stethoscope'],
+    "You hear a voice say, \"It's dead, Jim.\"" =>
+        ['negative_stethoscope'],
+    "You determine that that unfortunate being is dead." =>
+        ['negative_stethoscope'],
 );
 
 our @msg_regex = (
+    [
+            qr/^The .* appears to be in ex(?:cellent|traordinary) health for a statue.$/,
+                ['negative_stethoscope'],
+    ],
     [
             qr/^Your legs? feels? somewhat better\.$/,
                 [status => wounded_legs => 0],

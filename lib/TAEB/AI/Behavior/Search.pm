@@ -14,7 +14,6 @@ sub search_direction {
         return 0 if $t->searched > 30;
         return 1;
     });
-    $tiles[0]->inc_searched(30);
     return delta2vi($tiles[0]->x - TAEB->x, $tiles[0]->y - TAEB->y);
 }
 
