@@ -4,7 +4,7 @@ use TAEB::OO;
 extends 'TAEB::Action::Move';
 
 use constant command => '<';
-use constant complement_type => 'obscured' => ' ';
+use constant complement_type => 'stairsdown' => '>';
 
 has '+direction' => (
     traits   => [qw/TAEB::Provided/],
