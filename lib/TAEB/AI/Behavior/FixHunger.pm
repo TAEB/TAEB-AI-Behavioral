@@ -64,10 +64,15 @@ sub pickup {
     my $food = sum 0, map { $_->quantity * $_->nutrition }
         TAEB->find_item(\&good_food);
 
-    return 0 if $food >= 3000;
-    return 0 if $good >= 1500 && !good_food($item,1);
+    my $limit = 3000 - $food;
 
-    return 1;
+    if ($good >= 1500 && !good_food($item,1)) {
+        $limit = 1500 - $good;
+    }
+
+    my $count = int($limit / $item->nutrition);
+
+    return $count ? \$count : 0;
 }
 
 __PACKAGE__->meta->make_immutable;
