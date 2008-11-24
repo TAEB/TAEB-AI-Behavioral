@@ -6,8 +6,6 @@ use TAEB::Util 'delta2vi', 'deltas';
 use List::Util 'sum', 'max';
 use Scalar::Util 'refaddr';
 use Time::HiRes 'time';
-use Memoize;
-memoize('_calculate_intralevel_path');
 
 has from => (
     is       => 'ro',

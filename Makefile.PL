@@ -39,7 +39,6 @@ requires 'List::MoreUtils';
 # pathfinding
 requires 'Heap::Simple';
 requires 'Heap::Simple::XS'; # why doesn't Heap::Simple do this for us >_<
-requires 'Memoize';
 
 # miscellaneous
 requires 'Time::HiRes';
