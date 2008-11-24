@@ -23,9 +23,14 @@ sub find_path {
 
         next if !$level;
 
+        my $prev_explored = $level->fully_explored;
         $path = TAEB::World::Path->first_match(sub { not shift->explored },
                                                why      => "Explore",
-                                               on_level => $level);
+                                               on_level => $level,
+                                               intralevel_failure => sub {
+                                                   $level->fully_explored(1)
+                                               });
+        redo if $prev_explored != $level->fully_explored;
         last if $path;
     }
     return $path;
@@ -63,13 +68,7 @@ sub prepare {
         }
     }
 
-    my $path = $self->find_path;
-
-    if (!$path || length($path->path) == 0) {
-        TAEB->current_level->fully_explored(1);
-        $path = $self->find_path;
-    }
-    $self->if_path($path, "Exploring");
+    $self->if_path($self->find_path, "Exploring");
 }
 
 sub urgencies {
