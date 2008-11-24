@@ -324,6 +324,8 @@ sub exit_towards {
     my $other = shift;
     my $back = shift;
 
+    return undef if $self == $other;
+
     for my $exit ($self->exits) {
         next if !$exit->other_side;
 
