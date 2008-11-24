@@ -927,10 +927,14 @@ sub handle_menus {
     }
     elsif (TAEB->topline =~ /What would you like to drop\?/) {
         # this one is special: it'll handle updating the inventory
+        my %dont_have = map { $_, 1 } 'a' .. 'z', 'A' .. 'Z';
+
         $selector = sub {
             my $slot        = shift;
             my $new_item    = TAEB->new_item($_);
             my $item        = TAEB->inventory->get($slot) || $new_item;
+
+            delete $dont_have{$slot};
 
             # we were unable to parse this item. drop it!
             return 1 if !defined($item);
@@ -946,6 +950,17 @@ sub handle_menus {
             TAEB->inventory->update($slot, $new_item, 1)
                 unless $new_item->match(appearance => 'gold piece');
             return 0;
+        };
+
+        $committer = sub {
+            for my $slot (keys %dont_have) {
+                my $item = TAEB->inventory->get($slot);
+                if ($item) {
+                    TAEB->warning("$item seems to have disappeared!");
+                    TAEB->inventory->remove($slot);
+                }
+            }
+            $menu->commit;
         };
     }
 
