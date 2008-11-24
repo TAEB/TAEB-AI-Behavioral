@@ -12,8 +12,14 @@ augment debug_color => sub { Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BLUE) };
 
 sub reblessed {
     my $self = shift;
+    my $trap_type = shift;
 
-    my $trap_type = $TAEB::Util::trap_colors{$self->color};
+    if ($trap_type) {
+        $self->trap_type($trap_type);
+        return;
+    }
+
+    $trap_type = $TAEB::Util::trap_colors{$self->color};
     if (ref $trap_type) {
         TAEB->enqueue_message(check => tile => $self);
     }
