@@ -12,6 +12,7 @@ augment debug_color => sub { Curses::A_BOLD | Curses::COLOR_PAIR(COLOR_BLUE) };
 
 sub reblessed {
     my $self = shift;
+    my $old_class = shift;
     my $trap_type = shift;
 
     if ($trap_type) {
