@@ -110,6 +110,13 @@ has fully_explored => (
     default => 0,
 );
 
+# Note that the quest portal can be on the rogue level, so this can't
+# be just another special level.
+has has_quest_portal => (
+    isa     => 'Bool',
+    default => 0,
+);
+
 has _astar_cache => (
     isa     => 'HashRef[Str]',
     lazy    => 1,

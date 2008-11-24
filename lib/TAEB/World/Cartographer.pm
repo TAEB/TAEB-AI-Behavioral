@@ -411,6 +411,13 @@ sub msg_branch {
     TAEB->error("Tried to set the branch of $level to $branch but it already has a branch.");
 }
 
+sub msg_quest_portal {
+    my $self = shift;
+
+    TAEB->current_level->has_quest_portal(1);
+}
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

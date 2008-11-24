@@ -282,6 +282,8 @@ our %msg_string = (
         ['negative_stethoscope'],
     "You determine that that unfortunate being is dead." =>
         ['negative_stethoscope'],
+    "You couldn't quite make out that last message." =>
+        ['quest_portal'],
 );
 
 our @msg_regex = (
