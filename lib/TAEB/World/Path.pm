@@ -114,13 +114,19 @@ sub first_match {
             $args{from} => $exit,
             why => $args{why},
         );
-        return unless $complete;
+        if (!$complete) {
+            $args{interlevel_failure}->() if exists $args{interlevel_failure};
+            return;
+        }
 
         my $intralevel_path;
         ($to, $intralevel_path) = $class->_dijkstra(sub {
             $code->(@_) ? 'q' : undef
         }, (%args, from => $exit));
-        return unless defined $intralevel_path;
+        if (!defined $intralevel_path) {
+            $args{intralevel_failure}->() if exists $args{intralevel_failure};
+            return;
+        }
 
         $path .= $intralevel_path;
     }
@@ -164,12 +170,18 @@ sub max_match {
             $args{from} => $exit,
             why => $args{why},
         );
-        return unless $complete;
+        if (!$complete) {
+            $args{interlevel_failure}->() if exists $args{interlevel_failure};
+            return;
+        }
 
         my $intralevel_path;
         ($to, $intralevel_path) = $class->_dijkstra($code,
                                                     (%args, from => $exit));
-        return unless defined $intralevel_path;
+        if (!defined $intralevel_path) {
+            $args{intralevel_failure}->() if exists $args{intralevel_failure};
+            return;
+        }
 
         $path .= $intralevel_path;
     }
