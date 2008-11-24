@@ -110,6 +110,13 @@ has fully_explored => (
     default => 0,
 );
 
+has _astar_cache => (
+    isa     => 'HashRef[Str]',
+    lazy    => 1,
+    clearer => 'clear_astar_cache',
+    default => sub { {} },
+);
+
 
 # So, for these is_<speciallevel>,
 #    true  => definitely that level
@@ -702,6 +709,7 @@ sub msg_farlooked {
 sub msg_tile_update {
     my $self = shift;
     $self->fully_explored(0);
+    $self->clear_astar_cache;
 }
 
 sub reblessed {

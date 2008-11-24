@@ -431,6 +431,11 @@ sub _astar {
     my $sokoban           = $from->known_branch
                          && $from->branch eq 'sokoban';
     my $debug = TAEB->display->pathfinding;
+
+    my $key = join ":", (refaddr($to), refaddr($from), $through_unknown);
+    my $cache = $to->level->_astar_cache;
+    return $cache->{$key} if exists $cache->{$key};
+
     my $start;
     if ($debug) {
         $args{from}->level->each_tile(sub {
@@ -456,6 +461,7 @@ sub _astar {
                 TAEB->notify("A* $why ${took}s ($path)");
             }
 
+            $cache->{$key} = $path;
             return $path;
         }
 
@@ -512,6 +518,7 @@ sub _astar {
         TAEB->notify("A* $why ${took}s (no path)");
     }
 
+    $cache->{$key} = undef;
     return undef;
 }
 
