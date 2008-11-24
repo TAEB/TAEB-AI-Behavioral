@@ -11,11 +11,20 @@ sub prepare {
     # e.g. "j - a wand"
     return if TAEB->is_blind;
 
-    my @want = grep { TAEB->want_item($_) } TAEB->current_tile->items;
+    my @items = TAEB->current_tile->items;
+    my @want = grep { TAEB->want_item($_) } @items;
     if (@want) {
         TAEB->debug("TAEB wants items! @want");
         $self->currently("Picking up items");
-        $self->do("pickup");
+
+        # If there is one item on this square, we don't get the pickup menu,
+        # so this has to be special.  Sigh.
+
+        my $count = TAEB->want_item($want[0]);
+
+        $count = (@items == 1 && ref $count) ? $$count : undef;
+
+        $self->do("pickup", count => $count);
         $self->urgency('normal');
         return;
     }

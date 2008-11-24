@@ -201,7 +201,7 @@ sub next_action {
     shift->behavior_action;
 }
 
-=head2 pickup Item -> Bool
+=head2 pickup Item -> Bool or Ref[Int]
 
 Consult each behavior for what it should pick up.
 
@@ -211,21 +211,24 @@ sub pickup {
     my $self = shift;
 
     for my $behavior (values %{ $self->behaviors }) {
-        if ($behavior->pickup(@_)) {
+        my $pick = $behavior->pickup(@_);
+
+        if ($pick) {
             my $name = $behavior->name;
-            TAEB->info("$name wants to pick up @_");
+            TAEB->info("$name wants to pick up " .
+                (ref($pick) ? "$$pick of " : "") . "@_");
             my $item = shift;
             if (defined $item->price) {
                 return 0 unless TAEB->gold >= $item->price;
             }
-            return 1;
+            return $pick;
         }
     }
 
     return 0;
 }
 
-=head2 drop Item -> Bool
+=head2 drop Item -> Bool or Ref[Int]
 
 Consult each behavior for what it should drop.
 
@@ -246,7 +249,7 @@ sub drop {
 
         # okay, something wants to get rid of it. if no other behavior objects,
         # it'll be dropped
-        $should_drop = 1;
+        $should_drop = $drop;
     }
 
     return $should_drop;

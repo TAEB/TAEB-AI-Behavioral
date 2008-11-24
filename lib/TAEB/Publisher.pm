@@ -259,11 +259,13 @@ sub menu_select {
 
         for my $responder ($self->responders) {
             if (my $method = $responder->can("select_$name")) {
-                return $method->($responder, $slot, $item);
+                my $rt = $method->($responder, $slot, $item);
+
+                return ref($rt) ? $$rt : $rt ? 'all' : undef;
             }
         }
 
-        return 0;
+        return undef;
     };
 }
 

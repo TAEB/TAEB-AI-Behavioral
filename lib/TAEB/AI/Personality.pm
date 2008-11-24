@@ -57,7 +57,7 @@ sub deinstitute {
     TAEB->publisher->unsubscribe(shift);
 }
 
-=head2 want_item Item -> Bool
+=head2 want_item Item -> Bool or Ref[Int]
 
 Does TAEB want this item?
 
@@ -69,7 +69,7 @@ sub want_item {
     $self->pickup(@_);
 }
 
-=head2 pickup Item -> Bool
+=head2 pickup Item -> Bool or Ref[Int]
 
 Will TAEB pick up this item? Not by default, no.
 

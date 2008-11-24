@@ -3,7 +3,13 @@ package TAEB::Action::Pickup;
 use TAEB::OO;
 extends 'TAEB::Action';
 
-use constant command => ',';
+has count => (
+    traits   => [qw/TAEB::Provided/],
+    isa      => 'Maybe[Int]',
+    default  => undef,
+);
+
+sub command { (shift->iterations || '') . ',' }
 
 # the screenscraper currently handles this code. it should be moved here
 

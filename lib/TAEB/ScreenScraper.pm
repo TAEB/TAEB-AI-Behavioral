@@ -932,7 +932,7 @@ sub handle_menus {
             TAEB->enqueue_message('know_spell',
                 $slot, $name, $forgotten eq '*', $fail);
 
-            return 0;
+            return undef;
         };
     }
     elsif (TAEB->topline =~ /What would you like to drop\?/) {
@@ -947,18 +947,27 @@ sub handle_menus {
             delete $dont_have{$slot};
 
             # we were unable to parse this item. drop it!
-            return 1 if !defined($item);
+            return 'all' if !defined($item);
 
             # if we can drop the item, drop it!
-            if (!(TAEB->is_checking('inventory'))
-            && TAEB->personality->drop($item)) {
-                TAEB->inventory->remove($slot);
-                TAEB->enqueue_message('floor_item' => $item);
-                return 1;
+            if (!TAEB->is_checking('inventory')) {
+                my $drop = TAEB->personality->drop($item);
+
+                if (ref($drop) && $$drop < $item->quantity)) {
+                    TAEB->inventory->decrease_quantity($slot, $$drop);
+                    $new_item->quantity($$drop);
+                    TAEB->enqueue_message('floor_item' => $new_item);
+                    return $$drop;
+                } elsif ($drop) {
+                    TAEB->inventory->remove($slot);
+                    TAEB->enqueue_message('floor_item' => $item);
+                    return 'all';
+                }
             }
 
             TAEB->inventory->update($slot, $new_item, 1)
                 unless $new_item->match(appearance => 'gold piece');
+
             return 0;
         };
 
@@ -981,7 +990,7 @@ sub handle_menus {
         TAEB->process_input(0);
     }
 
-    $menu->select($selector) if $selector;
+    $menu->select_quantity($selector) if $selector;
 
     TAEB->write($committer->());
     die "Recursing screenscraper.\n";
