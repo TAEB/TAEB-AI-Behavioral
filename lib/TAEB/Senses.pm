@@ -393,7 +393,7 @@ sub can_move {
 sub msg_beartrap {
     my $self = shift;
     $self->in_beartrap(1);
-    TAEB->enqueue_message('dungeon_feature' => 'trap' => 'beartrap');
+    TAEB->enqueue_message('dungeon_feature' => 'trap' => 'bear trap');
 }
 
 sub msg_walked {
