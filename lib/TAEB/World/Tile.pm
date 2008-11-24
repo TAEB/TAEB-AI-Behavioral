@@ -450,7 +450,7 @@ sub change_type {
 
     $self->level->register_tile($self);
 
-    $self->rebless("TAEB::World::Tile::\L\u$newtype");
+    $self->rebless("TAEB::World::Tile::\L\u$newtype", @_);
 }
 
 sub debug_line {

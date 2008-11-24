@@ -29,7 +29,7 @@ sub rebless {
     # and do the rebless, which does all the typechecking and whatnot
     $new_pkg->meta->rebless_instance($self);
 
-    $self->reblessed($old_pkg) if $self->can('reblessed');
+    $self->reblessed($old_pkg, @_) if $self->can('reblessed');
 }
 
 sub downgrade {
