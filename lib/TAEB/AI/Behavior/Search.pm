@@ -9,8 +9,8 @@ sub search_direction {
     my @tiles = TAEB->grep_adjacent(sub {
         my $t = shift;
         return 0 unless $t->type eq 'wall'
-	             || $t->type eq 'rock'
-		     || $t->type eq 'unexplored';
+                     || $t->type eq 'rock'
+                     || $t->type eq 'unexplored';
         return 0 if $t->searched > 30;
         return 1;
     });

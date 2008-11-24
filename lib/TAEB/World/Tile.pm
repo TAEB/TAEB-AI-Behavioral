@@ -218,8 +218,8 @@ sub update {
         $newtype = 'unexplored' if $self->type eq 'unexplored'
                                 || $self->type eq 'obscured';
         $newtype = 'rock' if abs($self->x - TAEB->x) <= 1
-			  && abs($self->y - TAEB->y) <= 1
-			  && !TAEB->is_blind;
+                          && abs($self->y - TAEB->y) <= 1
+                          && !TAEB->is_blind;
     }
 
     # if we unveil a square and it was previously rock, then it's obscured
@@ -240,7 +240,7 @@ sub update {
 
         $self->type('obscured')
             if $oldtype eq 'rock'
-	    || $oldtype eq 'unexplored'
+            || $oldtype eq 'unexplored'
             || $oldtype eq 'wall'
             || $oldtype eq 'closeddoor';
 
@@ -605,8 +605,8 @@ sub searchability {
     $self->each_adjacent(sub {
         my ($tile, $dir) = @_;
         return unless $tile->type eq 'wall'
-	           || $tile->type eq 'rock'
-		   || $tile->type eq 'unexplored'; # just in case
+                   || $tile->type eq 'rock'
+                   || $tile->type eq 'unexplored'; # just in case
         return unless $tile->searched < 30;
         my $factor = 1;
 

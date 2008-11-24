@@ -60,11 +60,11 @@ sub update {
         # XXX: this should be checking for 'visual range' (taking blindness and
         # lamps into account) - currently blindness is tested for in
         # Tile::update
-	elsif (abs($x - $Tx) <= 1
+        elsif (abs($x - $Tx) <= 1
             && abs($y - $Ty) <= 1
-	    && $tile->type eq 'unexplored') {
-	    $level->update_tile($x, $y, $glyph, $color);
-	}
+            && $tile->type eq 'unexplored') {
+            $level->update_tile($x, $y, $glyph, $color);
+        }
 
         return 1;
     });
@@ -206,17 +206,17 @@ sub msg_dungeon_feature {
         $type  = 'stairsup';
     }
     elsif ($feature eq 'bad staircase') {
-	# Per Eidolos' idea: all stairs in rogue are marked as stairsdown, and
-	# we only change them to stairs up if we get a bad staircase message.
-	# This code was originally to fix mimics being stairs inside a shop,
-	# but we don't have to worry about mimics in Rogue.
-	if (!TAEB->current_level->is_rogue) {
-	    $floor = ' ';
-	    $type = 'obscured';
-	} else {
-	    $floor = '<';
-	    $type = 'stairsup';
-	}
+        # Per Eidolos' idea: all stairs in rogue are marked as stairsdown, and
+        # we only change them to stairs up if we get a bad staircase message.
+        # This code was originally to fix mimics being stairs inside a shop,
+        # but we don't have to worry about mimics in Rogue.
+        if (!TAEB->current_level->is_rogue) {
+            $floor = ' ';
+            $type = 'obscured';
+        } else {
+            $floor = '<';
+            $type = 'stairsup';
+        }
     }
     elsif ($feature eq 'fountain' || $feature eq 'sink') {
         $floor = '{';

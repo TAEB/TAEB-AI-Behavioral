@@ -15,7 +15,7 @@ sub push_direction {
         return 0 unless defined $beyond;
         return 0 unless $t->has_boulder;
         return 0 unless $beyond->type eq 'unexplored';
-	return 0 if $beyond->has_monster;
+        return 0 if $beyond->has_monster;
         return 1;
     });
     return '.' unless @tiles;
@@ -44,7 +44,7 @@ sub prepare {
 
     if ($path && $path->path eq '' && $push_dir ne '.') {
         $self->currently("Pushing an adjacent boulder");
-	$self->do(move => direction => $push_dir);
+        $self->do(move => direction => $push_dir);
         $self->urgency('fallback');
         return;
     }

@@ -394,7 +394,7 @@ sub matches_vt {
         # a pretty clear indicator
         return 0 if $glyph eq ' '
                  && $tile->type ne 'rock'
-		 && $tile->type ne 'unexplored'
+                 && $tile->type ne 'unexplored'
                  && $tile->type ne 'floor';
 
         return 1;

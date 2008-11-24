@@ -9,8 +9,8 @@ sub search_direction {
     my @tiles = TAEB->grep_orthogonal(sub {
         my $t = shift;
         return 0 unless $t->type eq 'wall'
-	             || $t->type eq 'rock'
-		     || $t->type eq 'unexplored';
+                     || $t->type eq 'rock'
+                     || $t->type eq 'unexplored';
         return 0 if $t->searched > 30;
         return 1;
     });
@@ -33,8 +33,8 @@ sub prepare {
     TAEB->each_orthogonal(sub {
         my $tile = shift;
         if ($tile->type eq 'rock'
-	 || $tile->type eq 'wall'
-	 || $tile->type eq 'unexplored') {
+         || $tile->type eq 'wall'
+         || $tile->type eq 'unexplored') {
             $rocks++;
             $searched += ($tile->searched > 10) ? 10 : $tile->searched;
         }

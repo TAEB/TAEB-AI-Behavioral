@@ -284,8 +284,8 @@ our @msg_regex = (
                 [status => wounded_legs => 0],
     ],
     [
-	    qr/^You can't go (?:up|down) here\.$/,
-	        ['dungeon_feature', 'bad staircase'],
+            qr/^You can't go (?:up|down) here\.$/,
+                ['dungeon_feature', 'bad staircase'],
     ],
     [
         # NetHack will not send "There are no items here." if there is a
