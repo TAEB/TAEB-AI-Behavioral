@@ -259,8 +259,7 @@ sub is_walkable {
     my $through_unknown = shift;
 
     # current tile is always walkable
-    return 1 if $self->x == TAEB->x
-             && $self->y == TAEB->y;
+    return 1 if $self == TAEB->current_tile;
 
     # XXX: yes. I know. shut up.
     return 0 if $self->has_boulder;
