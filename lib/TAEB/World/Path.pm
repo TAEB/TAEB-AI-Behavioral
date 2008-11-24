@@ -134,6 +134,10 @@ sub first_match {
         ($to, $path) = $class->_dijkstra(sub {
             $code->(@_) ? 'q' : undef
         }, %args);
+        if (!defined $path) {
+            $args{intralevel_failure}->() if exists $args{intralevel_failure};
+            return;
+        }
     }
 
     $to or return;
@@ -187,6 +191,10 @@ sub max_match {
     }
     else {
         ($to, $path) = $class->_dijkstra($code, %args);
+        if (!defined $path) {
+            $args{intralevel_failure}->() if exists $args{intralevel_failure};
+            return;
+        }
     }
 
     $to or return;
