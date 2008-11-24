@@ -9,13 +9,13 @@ has count => (
     default  => undef,
 );
 
-sub command { (shift->iterations || '') . ',' }
+sub command { (shift->count || '') . ',' }
 
 # the screenscraper currently handles this code. it should be moved here
 
 sub msg_got_item {
     my $self = shift;
-    TAEB->enqueue_message(remove_floor_item => @_);
+    TAEB->enqueue_message(remove_floor_item => @_); #what about stacks?
 }
 
 sub begin_select_pickup {

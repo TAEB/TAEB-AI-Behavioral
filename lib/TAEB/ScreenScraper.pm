@@ -953,7 +953,7 @@ sub handle_menus {
             if (!TAEB->is_checking('inventory')) {
                 my $drop = TAEB->personality->drop($item);
 
-                if (ref($drop) && $$drop < $item->quantity)) {
+                if (ref($drop) && $$drop < $item->quantity) {
                     TAEB->inventory->decrease_quantity($slot, $$drop);
                     $new_item->quantity($$drop);
                     TAEB->enqueue_message('floor_item' => $new_item);
