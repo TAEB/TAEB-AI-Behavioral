@@ -17,19 +17,18 @@ sub search_direction {
     return delta2vi($tiles[0]->x - TAEB->x, $tiles[0]->y - TAEB->y);
 }
 
-sub prepare {
-    my $self = shift;
-
+sub is_dead_end {
+    my $check = shift;
     my $rocks    = 0;
     my $searched = 0;
     my $walkable = 0;
 
-    return unless !TAEB->current_level->known_branch
-               || TAEB->current_level->branch eq 'dungeons'
-               || TAEB->current_level->is_minetown;
+    # don't treat an unexplored tile as a dead end, we don't
+    # know if it is or not
+    $check->explored or return 0;
 
     # rearrange these tiles into a loop and double it
-    TAEB->each_orthogonal(sub {
+    $check->each_orthogonal(sub {
         my $tile = shift;
         if ($tile->type eq 'rock'
          || $tile->type eq 'wall'
@@ -42,9 +41,6 @@ sub prepare {
         }
     });
 
-    # stop us from searching forever :)
-    return if $searched >= $rocks * 10;
-
     # Handle dead ends as well as crooked halls
     # The wall tiles get converted to 8's when building the tile string
 
@@ -52,32 +48,54 @@ sub prepare {
     # #@8  8#@8  88@88  -@-    
     # 888  ##88  #####  888 
 
-    # Dead end
-
-    return if $walkable > 1;
-
-    my $stethoscope = TAEB->find_item('stethoscope');
-    if (TAEB->is_blind && TAEB->grep_adjacent(sub { shift->searched == 0 })) {
-        $self->do('search', iterations => 1);
-    }
-    else {
-        if ($stethoscope) {
-            $self->do(apply => item      => $stethoscope,
-                               direction => $self->search_direction);
-        }
-        else {
-            $self->do('search');
-        }
-    }
-
-    $self->urgency('fallback');
+    # stop us from searching forever :)
+    return 0 if $searched >= $rocks * 10;
+    return 0 if $walkable > 1;
+    return 1;
 }
 
-sub currently { "Searching at a dead end" }
+sub prepare {
+    my $self = shift;
+    my @deadends;
+
+    return unless !TAEB->current_level->known_branch
+               || TAEB->current_level->branch eq 'dungeons'
+               || TAEB->current_level->is_minetown;
+
+    if (is_dead_end(TAEB->current_tile)) {
+	my $stethoscope = TAEB->find_item('stethoscope');
+	if (TAEB->is_blind && TAEB->grep_adjacent(sub { shift->searched == 0 })) {
+	    $self->do('search', iterations => 1);
+	}
+	else {
+	    if ($stethoscope) {
+		$self->do(apply => item      => $stethoscope,
+			  direction => $self->search_direction);
+	    }
+	    else {
+		$self->do('search');
+	    }
+	}
+
+	$self->currently('Searching at a dead end');
+	$self->urgency('fallback');
+	return;
+    }
+
+    # We aren't at a dead end; are we next to one?
+    @deadends=TAEB->grep_adjacent(sub {
+	my $t=shift;
+	return is_dead_end($t);
+    });
+    scalar @deadends or return;
+
+    my $path = TAEB::World::Path->calculate_path($deadends[0]);
+    $self->if_path($path => "Heading to a dead end");
+}
 
 sub urgencies {
     return {
-        fallback => "searching at a dead end",
+        fallback => "searching at or pathing to a dead end",
     },
 }
 
