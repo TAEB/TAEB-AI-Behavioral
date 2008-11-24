@@ -32,6 +32,7 @@ sub find_path {
                                                });
         redo if $prev_explored != $level->fully_explored;
         last if $path;
+        last if $level == TAEB->current_level;
     }
     return $path;
 }
