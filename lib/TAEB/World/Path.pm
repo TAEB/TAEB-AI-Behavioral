@@ -98,56 +98,8 @@ value.
 
 sub first_match {
     my $class = shift;
-    my $code  = shift;
-    my %args = @_;
-
-    $args{from}     ||= TAEB->current_tile;
-    $args{on_level} ||= TAEB->current_level;
-
-    my ($to, $path);
-    if ($args{on_level} != TAEB->current_level) {
-        my $exit = $args{on_level}->exit_towards(TAEB->current_level)
-            or return;
-
-        my $complete;
-        ($path, $complete) = $class->_calculate_path(
-            $args{from} => $exit,
-            why => $args{why},
-        );
-        if (!$complete) {
-            $args{interlevel_failure}->() if exists $args{interlevel_failure};
-            return;
-        }
-
-        my $intralevel_path;
-        ($to, $intralevel_path) = $class->_dijkstra(sub {
-            $code->(@_) ? 'q' : undef
-        }, (%args, from => $exit));
-        if (!defined $intralevel_path) {
-            $args{intralevel_failure}->() if exists $args{intralevel_failure};
-            return;
-        }
-
-        $path .= $intralevel_path;
-    }
-    else {
-        ($to, $path) = $class->_dijkstra(sub {
-            $code->(@_) ? 'q' : undef
-        }, %args);
-        if (!defined $path) {
-            $args{intralevel_failure}->() if exists $args{intralevel_failure};
-            return;
-        }
-    }
-
-    $to or return;
-
-    Moose::Object::new($class,
-        from     => $args{from},
-        to       => $to,
-        path     => $path,
-        complete => 1,
-    );
+    my $code = shift;
+    return $class->max_match(sub { $code->(@_) ? 'q' : undef }, @_);
 }
 
 =head2 max_match Code, ARGS -> Maybe Path
