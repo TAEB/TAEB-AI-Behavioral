@@ -107,9 +107,11 @@ Updates the current_level if Dlvl appears to have changed.
 
 sub check_dlvl {
     my $self = shift;
+    my $ludios = undef;
 
     my $botl = TAEB->vt->row_plaintext(23);
     $botl =~ /^(Dlvl|Home|Fort Ludios|End Game|Astral Plane)(?:\:|\s)(\d*) /
+	or ($botl =~ /^(Fort Ludios)/, $ludios = 1)
         or do {
             TAEB->error("Unable to parse the botl for dlvl: $botl");
             return;
@@ -119,7 +121,9 @@ sub check_dlvl {
     my $descriptor = $1;
     my $dlvl = $2 || $level->z;
 
-    if ($level->z != $dlvl) {
+    if ($level->z != $dlvl
+     || $ludios && $level->branch ne 'ludios'
+     ||!$ludios && $level->branch eq 'ludios') {
         TAEB->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
 
         my @levels = $self->dungeon->get_levels($dlvl);
