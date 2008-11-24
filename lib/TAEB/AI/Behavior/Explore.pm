@@ -13,6 +13,24 @@ sub unexplored_level {
     return not $level->fully_explored;
 }
 
+sub find_path {
+    my $self = shift;
+    my $path;
+    for my $method (qw/shallowest_level nearest_level/) {
+        my $level = TAEB->$method(\&unexplored_level);
+        # XXX: this would be nice, but it overrides anything of lower priority
+        #$level ||= TAEB->$method(sub { not shift->fully_explored });
+
+        next if !$level;
+
+        $path = TAEB::World::Path->first_match(sub { not shift->explored },
+                                               why      => "Explore",
+                                               on_level => $level);
+        last if $path;
+    }
+    return $path;
+}
+
 sub prepare {
     my $self = shift;
 
@@ -45,19 +63,11 @@ sub prepare {
         }
     }
 
-    my $curlevel = TAEB->current_level;
-    my $level = TAEB->shallowest_level(\&unexplored_level);
-    $level ||= TAEB->nearest_level(\&unexplored_level);
-    # XXX: this would be nice, but it overrides anything of lower priority
-    #$level ||= TAEB->shallowest_level(sub { not shift->fully_explored });
+    my $path = $self->find_path;
 
-    return if !$level;
-
-    my $path = TAEB::World::Path->first_match(sub { not shift->explored },
-                                              why      => "Explore",
-                                              on_level => $level);
     if (!$path || length($path->path) == 0) {
         TAEB->current_level->fully_explored(1);
+        $path = $self->find_path;
     }
     $self->if_path($path, "Exploring");
 }
