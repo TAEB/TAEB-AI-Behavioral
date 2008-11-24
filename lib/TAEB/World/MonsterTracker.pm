@@ -30,6 +30,23 @@ use TAEB::OO;
 # attribute, containing one or more pairs of old thread and confidence.
 #
 # One monster tracker exists per level.
+#
+
+# More on monsters
+#
+# Each monster has a number of hidden and not-so-hidden variables,
+# which are modeled inside TAEB as attributes.  There are two kinds
+# of such attributes.  Observations are made anew every turn, and
+# reset on update to be set by occurences in the turn; examples of
+# observations are last_move and just_attacked_us.  Hidden variables
+# are kept between turns, but carry multiple values, each associated
+# with a confidence factor.  Each turn, before resetting observations,
+# we use code to incorporate the values of observations into our
+# hidden-variable model.
+#
+# Where do we get this code?  Observation and HiddenVar are Moose
+# traits, and carry code meta-attributes.
+
 
 use overload %TAEB::Meta::Overload::default;
 
