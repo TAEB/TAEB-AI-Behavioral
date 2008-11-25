@@ -72,7 +72,7 @@ sub pickup {
 
     my $count = int($limit / $item->nutrition);
 
-    return ($count > 0) ? \$count : 0;
+    return \$count;
 }
 
 __PACKAGE__->meta->make_immutable;

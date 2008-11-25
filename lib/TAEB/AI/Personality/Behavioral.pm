@@ -209,23 +209,29 @@ Consult each behavior for what it should pick up.
 
 sub pickup {
     my $self = shift;
+    my $item = shift;
+
+    my $final_pick = 0;
 
     for my $behavior (values %{ $self->behaviors }) {
-        my $pick = $behavior->pickup(@_);
+        my $pick = $behavior->pickup($item);
+
+        $pick = ref $pick ? $$pick : $pick ? 1e1000 : 0;
 
         if ($pick) {
             my $name = $behavior->name;
-            TAEB->info("$name wants to pick up " .
-                (ref($pick) ? "$$pick of " : "") . "@_");
-            my $item = shift;
+            TAEB->info("$name wants to pick up $pick of $item");
             if (defined $item->price) {
                 return 0 unless TAEB->gold >= $item->price;
             }
-            return $pick;
+
+            $final_pick = $pick if $pick > $final_pick;
         }
     }
 
-    return 0;
+    return $final_pick >= $item->quantity ? 1 :
+           $final_pick <= 0               ? 0 :
+           \$final_pick;
 }
 
 =head2 drop Item -> Bool or Ref[Int]
@@ -236,10 +242,11 @@ Consult each behavior for what it should drop.
 
 sub drop {
     my $self = shift;
+    my $item = shift;
     my $should_drop = 0;
 
     for my $behavior (values %{ $self->behaviors }) {
-        my $drop = $behavior->drop(@_);
+        my $drop = $behavior->drop($item);
 
         # behavior is indifferent. Next!
         next if !defined($drop);
@@ -249,10 +256,13 @@ sub drop {
 
         # okay, something wants to get rid of it. if no other behavior objects,
         # it'll be dropped
-        $should_drop = $drop;
+        $drop = ref $drop ? $$drop : $drop ? 1e1000 : 0;
+        $should_drop = $drop if $drop > $should_drop;
     }
 
-    return $should_drop;
+    return $should_drop >= $item->quantity ? 1 :
+           $should_drop <= 0 ? 0 :
+           \$should_drop;
 }
 
 =head2 send_message Str, *
