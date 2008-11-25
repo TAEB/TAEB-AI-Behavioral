@@ -39,7 +39,7 @@ sub is_shk {
 
 sub is_priest {
     my $self = shift;
-    return 0 if !($self->glyph eq '@' && $self->color eq COLOR_WHITE);
+    return 0 unless $self->glyph eq '@' && $self->color eq COLOR_WHITE;
     return ($self->in_temple ? 1 : undef);
 }
 
