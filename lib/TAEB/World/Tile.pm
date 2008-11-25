@@ -261,7 +261,7 @@ sub is_walkable {
     # current tile is always walkable
     return 1 if $self == TAEB->current_tile;
 
-    # XXX: yes. I know. shut up.
+    # pathing through boulders is handled by dedicated behaviors
     return 0 if $self->has_boulder;
 
     # we can path through unlit areas that we haven't seen as rock for sure yet
@@ -599,6 +599,10 @@ sub searchability {
     # searching efforts on parts of the map that matter.
 
     my (%n, $pdir);
+
+    # Don't search in shops, there's never anything to find and it can
+    # cause pathing problems past shopkeepers
+    return 0 if $self->in_shop;
 
     # probably a bottleneck; we shall see
 
