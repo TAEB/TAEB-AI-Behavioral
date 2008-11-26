@@ -79,18 +79,15 @@ sub prepare {
 sub pickup {
     my $self = shift;
     my $item = shift;
-    return 1 if ($item->match(identity => 'wand of fire') ||
-                 $item->match(identity => 'wand of lightning'))
-             && (!$item->known_charges || $item->charges > 0);
-    return 0;
+    return $item->match(identity => qr/wand of (?:fire|lightning)/,
+                        charges  => sub { !defined $_[0] || $_[0] > 0 });
 }
 
 sub drop {
     my $self = shift;
     my $item = shift;
-    return 1 if ($item->match(identity => 'wand of fire') ||
-                 $item->match(identity => 'wand of lightning'))
-             && ($item->known_charges && $item->charges == 0);
+    return 1 if $item->match(identity => qr/wand of (?:fire|lightning)/,
+                             charges  => 0);
     return undef;
 }
 
