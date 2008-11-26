@@ -7,7 +7,8 @@ use List::MoreUtils 'any';
 sub unexplored_level {
     my $level = shift;
     return 0 if defined TAEB->current_level->exit_towards($level)
-                && ($level->exit_towards(TAEB->current_level)->type eq
+             && defined $level->exit_towards(TAEB->current_level)
+             && ($level->exit_towards(TAEB->current_level)->type eq
                 TAEB->current_level->exit_towards($level)->type);
     return 0 if $level->z > TAEB->z;
     return not $level->fully_explored;
