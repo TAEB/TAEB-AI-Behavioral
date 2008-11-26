@@ -119,6 +119,36 @@ sub shallowest_level {
     return $self->nearest_level_to($code, ($self->get_levels(1))[0]);
 }
 
+sub farthest_level_from {
+    my $self = shift;
+    my $code = shift;
+    my @queue = shift;
+
+    my %seen;
+
+    my $ret;
+    while (my $level = shift @queue) {
+        ++$seen{refaddr $level};
+        $ret = $level if $code->($level);
+
+        push @queue, grep { !$seen{refaddr $_} } $level->adjacent_levels;
+    }
+
+    return $ret;
+}
+
+sub farthest_level {
+    my $self = shift;
+    my $code = shift;
+    return $self->farthest_level_from($code, TAEB->current_level);
+}
+
+sub deepest_level {
+    my $self = shift;
+    my $code = shift;
+    return $self->farthest_level_from($code, ($self->get_levels(1))[0]);
+}
+
 sub get_levels {
     my $self = shift;
     my $dlvl = shift;
