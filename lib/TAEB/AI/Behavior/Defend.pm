@@ -96,7 +96,6 @@ sub drop {
 
 sub urgencies {
     return {
-       important   => "leaving the area due to low HP",
        normal      => "writing Elbereth due to low HP, or resting with very low hp",
        unimportant => "resting to regain hp before continuing",
     },
