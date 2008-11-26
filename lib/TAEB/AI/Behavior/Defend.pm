@@ -10,8 +10,8 @@ sub prepare {
     if (TAEB->hp * 2 <= TAEB->maxhp) {
         my $can_engrave = TAEB->can_engrave;
         my $elbereths   = lazy { TAEB->elbereth_count };
-	my $burned      = $elbereths >= 1
-	    && TAEB->current_tile->engraving_type eq 'burned';
+        my $burned      = $elbereths >= 1
+            && TAEB->current_tile->engraving_type eq 'burned';
 
         my ($adjacent_ignoring, $adjacent_respecting) = (0, 0);
         TAEB->each_adjacent(sub {
@@ -23,17 +23,17 @@ sub prepare {
                 : ++$adjacent_ignoring
         });
 
-	# if at least 3 adjacent monsters obey Elbereth, and we can burn an
-	# Elbereth but haven't, burn one (so as not to get surrounded).
-	if ($adjacent_respecting >= 3 && $can_engrave && !$burned &&
-	    (TAEB->find_item('wand of fire') ||
-	     TAEB->find_item('wand of lightning'))) {
-	    $self->write_elbereth(add_engraving => 0,
-				  method => 'best');
-	    $self->currently("burning Elbereth because I'm surrounded");
-	    $self->urgency('normal');
-	    return;
-	}
+        # if at least 3 adjacent monsters obey Elbereth, and we can burn an
+        # Elbereth but haven't, burn one (so as not to get surrounded).
+        if ($adjacent_respecting >= 3 && $can_engrave && !$burned &&
+            (TAEB->find_item('wand of fire') ||
+             TAEB->find_item('wand of lightning'))) {
+            $self->write_elbereth(add_engraving => 0,
+                                  method => 'best');
+            $self->currently("burning Elbereth because I'm surrounded");
+            $self->urgency('normal');
+            return;
+        }
 
         # if there's an adjacent monster that ignores Elbereth, then we only
         # write Elbereth if there's no Elbereth on the ground AND there's an
@@ -80,8 +80,8 @@ sub pickup {
     my $self = shift;
     my $item = shift;
     return 1 if ($item->match(identity => 'wand of fire') ||
-		 $item->match(identity => 'wand of lightning'))
-	     && (!$item->known_charges || $item->charges > 0);
+                 $item->match(identity => 'wand of lightning'))
+             && (!$item->known_charges || $item->charges > 0);
     return 0;
 }
 
@@ -89,8 +89,8 @@ sub drop {
     my $self = shift;
     my $item = shift;
     return 1 if ($item->match(identity => 'wand of fire') ||
-		 $item->match(identity => 'wand of lightning'))
-	     && ($item->known_charges && $item->charges == 0);
+                 $item->match(identity => 'wand of lightning'))
+             && ($item->known_charges && $item->charges == 0);
     return undef;
 }
 

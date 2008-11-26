@@ -266,8 +266,8 @@ sub is_walkable {
 
     # traps are unpathable in Sokoban
     return 0 if $self->type eq 'trap'
-	     && $self->level->known_branch
-	     && $self->level->branch eq 'sokoban';
+             && $self->level->known_branch
+             && $self->level->branch eq 'sokoban';
 
     # we can path through unlit areas that we haven't seen as rock for sure yet
     # if we're blind, then all bets are off
