@@ -559,15 +559,13 @@ around is_oracle => sub {
     }
 
     my $oracle_tile = $self->at(39,12);
-    if (!$oracle_tile->has_monster || ($oracle_tile->monster && !$oracle_tile->monster->is_oracle)) {
-        $self->is_oracle(0);
-        return 0;
+    if ($oracle_tile->has_monster) {
+        my $oracle = $oracle_tile->monster->is_oracle;
+        $self->is_oracle($oracle);
+        return $oracle;
     }
 
-    TAEB->info("This is the Oracle level!");
-    $self->branch('dungeons');
-    $self->is_oracle(1);
-    return 1;
+    return 0;
 };
 
 sub detect_bigroom_vt {
