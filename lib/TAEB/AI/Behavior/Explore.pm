@@ -16,7 +16,7 @@ sub unexplored_level {
 sub find_path {
     my $self = shift;
     my $path;
-    for my $method (qw/shallowest_level nearest_level/) {
+    for my $method (qw/shallowest_level farthest_level/) {
         my $level = TAEB->$method(\&unexplored_level);
         # XXX: this would be nice, but it overrides anything of lower priority
         #$level ||= TAEB->$method(sub { not shift->fully_explored });
