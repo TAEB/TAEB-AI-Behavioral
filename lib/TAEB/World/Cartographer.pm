@@ -118,8 +118,10 @@ sub check_dlvl {
     my $level = $self->dungeon->current_level;
     my $descriptor = $1;
     my $dlvl = $2 || $level->z;
+    my $was_ludios = $level->known_branch && $level->branch eq 'ludios';
+    my $is_ludios = $descriptor eq 'Fort Ludios';
 
-    if ($level->z != $dlvl) {
+    if ($level->z != $dlvl || $was_ludios != $is_ludios) {
         TAEB->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
 
         my @levels = $self->dungeon->get_levels($dlvl);
