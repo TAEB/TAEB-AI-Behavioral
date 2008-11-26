@@ -56,15 +56,15 @@ sub prepare {
 
         # finally, we have an Elbereth under us, so we rest up to heal
         if ($elbereths) {
+            $self->urgency(TAEB->hp * 4 <= TAEB->maxhp ? 'normal'
+                                                       : 'unimportant');
             if (TAEB->current_tile->type eq 'stairsup' && TAEB->z > 1) {
                 $self->currently("Fleeing upstairs to rest.");
                 $self->do('ascend');
-                $self->urgency('unimportant');
                 return;
             }
             $self->currently("Resting on an Elbereth tile.");
             $self->do('search', iterations => 5);
-            $self->urgency('unimportant');
             return;
         }
     }
@@ -97,7 +97,7 @@ sub drop {
 sub urgencies {
     return {
        important   => "leaving the area due to low HP",
-       normal      => "writing Elbereth due to low HP",
+       normal      => "writing Elbereth due to low HP, or resting with very low hp",
        unimportant => "resting to regain hp before continuing",
     },
 }
