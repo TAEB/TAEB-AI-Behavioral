@@ -27,6 +27,7 @@ sub find_path {
         $path = TAEB::World::Path->first_match(sub { not shift->explored },
                                                why      => "Explore",
                                                on_level => $level,
+                                               through_unknown => 1,
                                                intralevel_failure => sub {
                                                    $level->fully_explored(1)
                                                });
