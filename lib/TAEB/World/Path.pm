@@ -124,6 +124,7 @@ sub max_match {
         my $complete;
         ($path, $complete) = $class->_calculate_path(
             $args{from} => $exit,
+            through_unknown => $args{through_unknown},
             why => $args{why},
         );
         if (!$complete) {
