@@ -13,7 +13,7 @@ sub prepare {
         return;
     }
 
-    return unless TAEB->current_level->has_enemies;
+    return unless grep { $_->is_meleeable } TAEB->current_level->has_enemies;
 
     # if there's an adjacent monster, attack it
     my $found_monster;
