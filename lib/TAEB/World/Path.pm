@@ -391,8 +391,6 @@ sub _astar {
     my $to     = shift;
     my %args   = @_;
 
-    TAEB->inc_pathfinds;
-
     my ($tx, $ty) = ($to->x, $to->y);
     my $heur = $args{heuristic} || sub {
         return max(abs($tx - $_[0]->x), abs($ty - $_[0]->y));
@@ -408,6 +406,8 @@ sub _astar {
     my $key = join ":", (refaddr($to), refaddr($from), $through_unknown);
     my $cache = $to->level->_astar_cache;
     return $cache->{$key} if exists $cache->{$key};
+
+    TAEB->inc_pathfinds;
 
     my $start;
     if ($debug) {
