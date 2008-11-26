@@ -704,7 +704,7 @@ sub los_color {
     my $self = shift;
 
     return $self->in_los
-         ? $self->normal_color
+         ? Curses::COLOR_PAIR(COLOR_BROWN) | Curses::A_BOLD
          : (Curses::COLOR_PAIR(COLOR_WHITE) | Curses::A_BOLD);
 }
 
