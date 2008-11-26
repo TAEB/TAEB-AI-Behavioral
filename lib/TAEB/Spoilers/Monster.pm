@@ -155,6 +155,8 @@ has list => (
     isa     => 'HashRef',
     lazy    => 1,
     default => sub {
+	my $self = shift;
+
         my $monsters = {
             'Aleax' => {
                 'alignment'   => 7,
@@ -7215,10 +7217,9 @@ has list => (
         };
 
 	# process synonyms for monsters
-	my $self = shift;
-	my %synonyms = %{$self->synonyms};
+	my %synonyms = %{ $self->synonyms };
 	for my $name (keys %synonyms) {
-	    $monsters->{$name}=$monsters->{$synonyms{$name}};
+	    $monsters->{$name} = $monsters->{$synonyms{$name}};
 	}
 
         # tag each monster with whether it uses "a" or "an"
