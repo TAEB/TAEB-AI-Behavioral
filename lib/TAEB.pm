@@ -174,8 +174,10 @@ class_has dungeon => (
         my ($attr, $dungeon) = @_;
 
         my %delegate = map { $_ => $_ }
-                       qw{current_level current_tile nearest_level
-                          shallowest_level map_like x y z fov};
+                       qw{current_level current_tile
+                          nearest_level_to nearest_level shallowest_level
+                          farthest_level_from farthest_level deepest_level
+                          map_like x y z fov};
 
         for (map { $_->{name} } $dungeon->compute_all_applicable_methods) {
             $delegate{$_} = $_
