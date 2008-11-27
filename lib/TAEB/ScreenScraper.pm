@@ -284,9 +284,21 @@ our %msg_string = (
         ['negative_stethoscope'],
     "You couldn't quite make out that last message." =>
         ['quest_portal'],
+    "You turn to stone!" =>
+        ['polyself', 'stone golem'],
 );
 
 our @msg_regex = (
+    [
+            qr/^You (?:turn into an?|feel like a new)(?: female| male|) ([^!]*)!$/,
+                # Luckily, all the base races are M2_NOPOLY.
+                ['polyself', sub {
+                    $1 =~ /man|woman|elf|dwarf|gnome|orc/ ? undef : $1; }],
+    ],
+    [
+            qr/^You return to .* form!$/,
+                ['polyself', undef],
+    ],
     [
             qr/^The .* appears to be in ex(?:cellent|traordinary) health for a statue.$/,
                 ['negative_stethoscope'],
@@ -814,7 +826,7 @@ sub handle_attributes {
 
         # Alignment may end up on line 13 or 14 depending on if we are
         # polymorphed into something with a different gender
-        # 4: race  5: role 12: gender 13-14: align
+        # 4: race  5: role  12: gender 13-14: align
         for (4, 5, 12, 13, 14) {
             next unless my ($method, $attribute) =
                 substr(TAEB->vt->row_plaintext($_), $start) =~
@@ -823,6 +835,12 @@ sub handle_attributes {
             $attribute = ucfirst lc $attribute;
             TAEB->$method($attribute);
         }
+
+        # can't go in the loop above because it collides with race
+        my ($polyrace) = substr(TAEB->vt->row_plaintext(10), $start) =~
+            m/race\s+: (.*)\s$/;
+
+        TAEB->polyself($polyrace eq TAEB->race ? undef : $polyrace);
 
         TAEB->info(sprintf 'It seems we are a %s %s %s %s named %s.', TAEB->role, TAEB->race, TAEB->gender, TAEB->align, TAEB->name);
         TAEB->enqueue_message('character', TAEB->name, TAEB->role, TAEB->race,

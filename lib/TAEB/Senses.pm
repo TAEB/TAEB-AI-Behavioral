@@ -43,10 +43,6 @@ has nutrition => (
     default => 900,
 );
 
-has in_wereform => (
-    isa => 'Bool',
-);
-
 has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engulfed is_grabbed is_petrifying is_food_poisoned is_ill is_wounded_legs/] => (
     isa     => 'Bool',
     default => 0,
@@ -171,6 +167,10 @@ has noisy_turn => (
     isa => 'Int',
 );
 
+has polyself => (
+    isa => 'Maybe[Str]',
+);
+
 sub parse_botl {
     my $self = shift;
     my $status = TAEB->vt->row_plaintext(22);
@@ -221,11 +221,7 @@ sub find_statuses {
     my $botl   = TAEB->vt->row_plaintext(23);
 
     if ($status =~ /^\S+ the Were/) {
-        $self->in_wereform(1);
         $self->is_lycanthropic(1);
-    }
-    else {
-        $self->in_wereform(0);
     }
 
     # we can definitely know some things about our nutrition
@@ -333,7 +329,7 @@ sub msg_autopickup {
 
 sub is_polymorphed {
     my $self = shift;
-    return $self->in_wereform;
+    return defined $self->polyself;
 }
 
 sub is_checking {
@@ -358,7 +354,7 @@ sub can_pray {
 
 sub can_engrave {
     my $self = shift;
-    return not $self->in_wereform
+    return not $self->is_polymorphed
             || $self->is_blind
             || $self->is_confused
             || $self->is_stunned
@@ -369,7 +365,7 @@ sub can_engrave {
 
 sub can_open {
     my $self = shift;
-    return not $self->in_wereform
+    return not $self->is_polymorphed
             || $self->in_pit;
 }
 
@@ -506,6 +502,13 @@ sub msg_nutrition {
     $self->nutrition($nutrition);
 }
 
+sub msg_polyself {
+    my $self = shift;
+    my $newform = shift;
+
+    $self->polyself($newform);
+}
+
 # this is nethack's internal representation of strength, to make other
 # calculations easier (see include/attrib.h)
 sub _nethack_strength {
@@ -625,7 +628,7 @@ Return true if the PC has infravision.
 sub has_infravision {
     my $self = shift;
     return 0 if $self->race eq 'Hum';
-    return 0 if $self->in_wereform; # XXX handle polyself
+    return 0 if $self->is_polymorphed; # XXX handle polyself
     return 1;
 }
 
