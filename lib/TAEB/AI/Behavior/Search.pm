@@ -14,6 +14,7 @@ sub search_direction {
         return 0 if $t->searched > 30;
         return 1;
     });
+    return unless @tiles;
     return delta2vi($tiles[0]->x - TAEB->x, $tiles[0]->y - TAEB->y);
 }
 
@@ -32,8 +33,14 @@ sub prepare {
         $self->currently("Searching adjacent walls and rock");
         my $stethoscope = TAEB->find_item('stethoscope');
         if ($stethoscope) {
-            $self->do(apply => item      => $stethoscope,
-                               direction => $self->search_direction);
+            my $search_direction = $self->search_direction;
+            if ($search_direction) {
+                $self->do(apply => item      => $stethoscope,
+                                   direction => $search_direction);
+            }
+            else {
+                $self->do('search');
+            }
         }
         else {
             $self->do('search');
