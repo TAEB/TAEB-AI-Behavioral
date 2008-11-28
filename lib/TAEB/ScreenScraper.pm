@@ -838,9 +838,10 @@ sub handle_attributes {
 
         # can't go in the loop above because it collides with race
         my ($polyrace) = substr(TAEB->vt->row_plaintext(10), $start) =~
-            m/race\s+: (.*)\s$/;
+            m/race\s+: (.*?)\s*$/;
 
-        TAEB->polyself($polyrace eq TAEB->race ? undef : $polyrace);
+        TAEB->polyself($polyrace =~ /^(?:orc|elf|gnome|dwarf|human)$/ ?
+            undef : $polyrace);
 
         TAEB->info(sprintf 'It seems we are a %s %s %s %s named %s.', TAEB->role, TAEB->race, TAEB->gender, TAEB->align, TAEB->name);
         TAEB->enqueue_message('character', TAEB->name, TAEB->role, TAEB->race,
