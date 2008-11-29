@@ -59,6 +59,22 @@ around new => sub {
             if ($monster->respects_elbereth && TAEB->elbereth_count == 0) {
                 $action = 'Engrave';
             }
+            elsif (!defined($monster->is_shk) || $monster->is_shk) {
+                # Shopkeeps don't usually move unless we do ...
+                my @poss;
+                TAEB->current_tile->each_adjacent(sub {
+                    my ($tile, $dir) = @_;
+                    push @poss, $dir if $tile->is_walkable &&
+                        !$tile->has_monster;
+                });
+
+                if (@poss) {
+                    $action = 'Move';
+                    $args{direction} = $poss[rand @poss];
+                } else {
+                    $action = 'Search';
+                }
+            }
             else {
                 $action = 'Search';
                 $args{iterations} = 1;
