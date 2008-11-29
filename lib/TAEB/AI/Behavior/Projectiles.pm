@@ -24,7 +24,11 @@ sub prepare {
             $tile->has_enemy && !$tile->monster->is_seen_through_warning
         },
         max     => $projectile->throw_range,
-        stopper => sub { shift->has_friendly },
+        stopper => sub {
+            my $tile = shift;
+            # sinks block projectiles, apparently
+            $tile->has_friendly || $tile->type eq 'sink';
+        },
     );
 
     # no monster found
