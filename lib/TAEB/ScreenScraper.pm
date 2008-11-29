@@ -305,7 +305,7 @@ our @msg_regex = (
     ],
     [
             qr/^Your legs? feels? somewhat better\.$/,
-                [status => wounded_legs => 0],
+                [status_change => wounded_legs => 0],
     ],
     [
             qr/^You can't go (?:up|down) here\.$/,
