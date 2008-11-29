@@ -25,7 +25,6 @@ sub sort_behaviors {
         "$fight",
         "Projectiles",
         "LetClose",
-        "MakeNoise",
         "Vault",
         "Shop",
         "Carrion",
