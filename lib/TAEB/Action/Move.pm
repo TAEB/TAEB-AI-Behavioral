@@ -64,8 +64,8 @@ around new => sub {
                 my @poss;
                 TAEB->current_tile->each_adjacent(sub {
                     my ($tile, $dir) = @_;
-                    push @poss, $dir if $tile->is_walkable &&
-                        !$tile->has_monster;
+                    push @poss, $dir if $tile->is_walkable
+                                     && !$tile->has_monster;
                 });
 
                 if (@poss) {
