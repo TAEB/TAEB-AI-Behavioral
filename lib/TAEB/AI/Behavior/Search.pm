@@ -21,10 +21,12 @@ sub search_direction {
 sub prepare {
     my $self = shift;
 
+    my $pmap = find_empty_panels();
+
     my $path = TAEB::World::Path->max_match(
         sub {
             my ($tile, $path) = @_;
-            searchability($tile) - length($path);
+            searchability($pmap, $tile) - length($path);
         },
         why => "Search",
     );
@@ -68,6 +70,18 @@ sub pickup {
 #    my $panel = "$px,$py" . ($self->_panel_empty($px,$py) ? "e" : "");
 #    push @bits, "p<$panel>";
 
+sub find_empty_panels {
+    my %pmap;
+
+    for my $py (0 .. 3) {
+        for my $px (0 .. 15) {
+            $pmap{$px}{$py} = panel_empty(TAEB->current_level, $px, $py);
+        }
+    }
+
+    return \%pmap;
+}
+
 sub panel {
     my $tile = shift;
 
@@ -103,7 +117,7 @@ sub panel_empty {
 }
 
 sub searchability {
-    my $tile = shift;
+    my ($pmap, $tile) = @_;
     my $searchability = 0;
 
     # If the square is in an 5x5 panel, and is next to a 5x5 panel which
@@ -128,7 +142,7 @@ sub searchability {
         my ($px, $py) = panel($adj);
         my ($dx, $dy) = vi2delta($dir);
 
-        if (panel_empty($tile->level, $px + $dx, $py + $dy)) {
+        if ($pmap->{$px + $dx}{$py + $dy}) {
             $factor = $adj->type eq 'wall' ? 1000 : 10;
         }
 
