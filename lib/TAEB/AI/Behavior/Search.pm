@@ -137,19 +137,21 @@ sub searchability {
         return unless $adj->type eq 'wall'
                    || $adj->type eq 'rock'
                    || $adj->type eq 'unexplored'; # just in case
-        my $factor = 1;
+        my $factor = 1e1;
 
         my ($px, $py) = panel($adj);
         my ($dx, $dy) = vi2delta($dir);
 
         if ($pmap->{$px + $dx}{$py + $dy}) {
-            $factor = $adj->type eq 'wall' ? 1000 : 10;
+            $factor = $adj->type eq 'wall' ? 1e20 : 1e5;
         }
 
         $searchability += $factor * exp(- $adj->searched/5);
     });
 
-    return $searchability;
+    # the logaritm moves $searchability from a multiplicative domain
+    # limiting at 0 to an additive domain
+    return log($searchability || 1e-30);
 }
 
 __PACKAGE__->meta->make_immutable;
