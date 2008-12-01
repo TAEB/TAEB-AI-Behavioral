@@ -90,9 +90,8 @@ sub is_enemy {
     return 0 if $self->is_vault_guard;
     return 0 if $self->is_peaceful_watchman;
     return 0 if $self->is_quest_friendly;
+    return 0 if $self->is_shk || $self->is_priest;
     return undef unless (defined $self->is_shk || defined $self->is_priest);
-    return 0 if $self->is_shk;
-    return 0 if $self->is_priest;
     return 1;
 }
 
