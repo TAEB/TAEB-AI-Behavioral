@@ -469,10 +469,6 @@ sub debug_line {
     push @bits, 'f<' . $self->floor_glyph . '>'
         if $self->glyph ne $self->floor_glyph;
 
-    my ($px, $py) = $self->_panel;
-    my $panel = "$px,$py" . ($self->_panel_empty($px,$py) ? "e" : "");
-    push @bits, "p<$panel>";
-
     push @bits, sprintf 'i=%d%s',
                     $self->item_count,
                     $self->is_interesting ? '*' : '';
@@ -559,77 +555,6 @@ sub is_engravable {
     return $self->type ne 'fountain'
         && $self->type ne 'altar'
         && $self->type ne 'grave';
-}
-
-sub _panel {
-    my $self = shift;
-
-    my $panelx = int($self->x / 5);
-    my $panely = int(($self->y - 1) / 5);
-
-    $panely = 3 if $panely == 4;
-
-    return ($panelx, $panely);
-}
-
-sub _panel_empty {
-    my ($self, $px, $py) = @_;
-
-    my $sx = ($px) * 5;
-    my $sy = ($py) * 5 + 1;
-    my $ex = ($px + 1) * 5 - 1;
-    my $ey = ($py + 1) * 5;
-
-    return 0 if ($px < 0 || $py < 0 || $px >= 20 || $py >= 4);
-        # No sense searching the edge of the universe
-
-    $ey = 21 if $ey == 20;
-
-    for my $y ($sy .. $ey) {
-        for my $x ($sx .. $ex) {
-            my $tile = $self->level->at($x, $y);
-            return 0 if !defined($tile) || $tile->type ne 'unexplored';
-        }
-    }
-
-    return 1;
-}
-
-sub searchability {
-    my $self = shift;
-    my $searchability = 0;
-
-    # If the square is in an 5x5 panel, and is next to a 5x5 panel which
-    # is empty, it is considered much more searchable.  This should focus
-    # searching efforts on parts of the map that matter.
-
-    my (%n, $pdir);
-
-    # Don't search in shops, there's never anything to find and it can
-    # cause pathing problems past shopkeepers
-    return 0 if $self->in_shop;
-
-    # probably a bottleneck; we shall see
-
-    $self->each_adjacent(sub {
-        my ($tile, $dir) = @_;
-        return unless $tile->type eq 'wall'
-                   || $tile->type eq 'rock'
-                   || $tile->type eq 'unexplored'; # just in case
-        return unless $tile->searched < 30;
-        my $factor = 1;
-
-        my ($px, $py) = $tile->_panel;
-        my ($dx, $dy) = vi2delta $dir;
-
-        if ($self->_panel_empty($px + $dx, $py + $dy)) {
-            $factor = $tile->type eq 'wall' ? 2000 : 100;
-        }
-
-        $searchability += $factor * (30 - $tile->searched);
-    });
-
-    return $searchability;
 }
 
 sub normal_color {

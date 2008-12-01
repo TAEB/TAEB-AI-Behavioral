@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Behavior::Search;
 use TAEB::OO;
-use TAEB::Util qw/delta2vi/;
+use TAEB::Util qw/delta2vi vi2delta/;
 extends 'TAEB::AI::Behavior';
 
 sub search_direction {
@@ -24,7 +24,7 @@ sub prepare {
     my $path = TAEB::World::Path->max_match(
         sub {
             my ($tile, $path) = @_;
-            $tile->searchability / (length($path) || 1);
+            searchability($tile) / (length($path) || 1);
         },
         why => "Search",
     );
@@ -62,6 +62,81 @@ sub pickup {
     my $self = shift;
     my $item = shift;
     return $item->match(identity => 'stethoscope');
+}
+
+#    my ($px, $py) = $self->_panel;
+#    my $panel = "$px,$py" . ($self->_panel_empty($px,$py) ? "e" : "");
+#    push @bits, "p<$panel>";
+
+sub panel {
+    my $tile = shift;
+
+    my $panelx = int($tile->x / 5);
+    my $panely = int(($tile->y - 1) / 5);
+
+    $panely = 3 if $panely == 4;
+
+    return ($panelx, $panely);
+}
+
+sub panel_empty {
+    my ($level, $px, $py) = @_;
+
+    my $sx = ($px) * 5;
+    my $sy = ($py) * 5 + 1;
+    my $ex = ($px + 1) * 5 - 1;
+    my $ey = ($py + 1) * 5;
+
+    return 0 if ($px < 0 || $py < 0 || $px >= 20 || $py >= 4);
+        # No sense searching the edge of the universe
+
+    $ey = 21 if $ey == 20;
+
+    for my $y ($sy .. $ey) {
+        for my $x ($sx .. $ex) {
+            my $tile = $level->at($x, $y);
+            return 0 if !defined($tile) || $tile->type ne 'unexplored';
+        }
+    }
+
+    return 1;
+}
+
+sub searchability {
+    my $tile = shift;
+    my $searchability = 0;
+
+    # If the square is in an 5x5 panel, and is next to a 5x5 panel which
+    # is empty, it is considered much more searchable.  This should focus
+    # searching efforts on parts of the map that matter.
+
+    my (%n, $pdir);
+
+    # Don't search in shops, there's never anything to find and it can
+    # cause pathing problems past shopkeepers
+    return 0 if $tile->in_shop;
+
+    # probably a bottleneck; we shall see
+
+    $tile->each_adjacent(sub {
+        my ($adj, $dir) = @_;
+        return unless $adj->type eq 'wall'
+                   || $adj->type eq 'rock'
+                   || $adj->type eq 'unexplored'; # just in case
+        return unless $adj->searched < 30;
+        my $factor = 1;
+
+        my ($px, $py) = panel($adj);
+        my ($dx, $dy) = vi2delta($dir);
+
+        if (panel_empty($tile->level, $px + $dx, $py + $dy)) {
+            $factor = $adj->type eq 'wall' ? 2000 : 100;
+        }
+
+        $searchability += $factor * (30 - $adj->searched);
+    });
+
+    return $searchability;
 }
 
 __PACKAGE__->meta->make_immutable;
