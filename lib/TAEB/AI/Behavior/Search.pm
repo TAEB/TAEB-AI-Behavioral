@@ -24,7 +24,7 @@ sub prepare {
     my $path = TAEB::World::Path->max_match(
         sub {
             my ($tile, $path) = @_;
-            searchability($tile) / (length($path) || 1);
+            searchability($tile) - length($path);
         },
         why => "Search",
     );
@@ -123,17 +123,16 @@ sub searchability {
         return unless $adj->type eq 'wall'
                    || $adj->type eq 'rock'
                    || $adj->type eq 'unexplored'; # just in case
-        return unless $adj->searched < 30;
         my $factor = 1;
 
         my ($px, $py) = panel($adj);
         my ($dx, $dy) = vi2delta($dir);
 
         if (panel_empty($tile->level, $px + $dx, $py + $dy)) {
-            $factor = $adj->type eq 'wall' ? 2000 : 100;
+            $factor = $adj->type eq 'wall' ? 1000 : 10;
         }
 
-        $searchability += $factor * (30 - $adj->searched);
+        $searchability += $factor * exp(- $adj->searched/5);
     });
 
     return $searchability;
