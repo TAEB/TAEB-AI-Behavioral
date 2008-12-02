@@ -101,17 +101,18 @@ sub update {
     my $item = shift;
     my $menu = shift;
 
-    TAEB->debug("Inventory: slot '$slot' has item $item.");
+    TAEB->log->inventory("Inventory: slot '$slot' has item $item.");
 
     my $slot_item = $self->get($slot);
     if (defined $slot_item) {
         if ($item->match(not_appearance => $slot_item->appearance)) {
-            TAEB->error("Adding an item to a used inventory slot");
+            TAEB->log->inventory("Adding an item to a used inventory slot",
+                                 level => 'error');
             $item->slot($slot);
             $self->set($slot => $item);
         }
         elsif (!$menu) {
-            TAEB->debug("Increasing the quantity of $slot_item by ".$item->quantity);
+            TAEB->log->inventory("Increasing the quantity of $slot_item by ".$item->quantity);
             $slot_item->quantity($item->quantity + $slot_item->quantity);
         }
         #always update item to be sure we have proper item flags
@@ -150,7 +151,7 @@ sub decrease_quantity {
     }
 
     if (!$item) {
-        TAEB->error("Tried to decrease the quantity of empty slot $slot by $quantity.");
+        TAEB->log->inventory("Tried to decrease the quantity of empty slot $slot by $quantity.", level => 'error');
         return;
     }
 
@@ -158,7 +159,7 @@ sub decrease_quantity {
     my $new_quantity = $old_quantity - $quantity;
 
     if ($new_quantity < 0) {
-        TAEB->error("Decreased $item from $old_quantity to $new_quantity");
+        TAEB->log->inventory("Decreased $item from $old_quantity to $new_quantity", level => 'error');
         $new_quantity = 0;
     }
 
@@ -204,7 +205,7 @@ sub msg_lost_item {
         $self->decrease_quantity($inv_item->slot, $item->quantity);
     }
     else {
-        TAEB->error("Which item did we lose? I can't find any item with appearance '".$item->appearance."' in my inventory...");
+        TAEB->log->inventory("Which item did we lose? I can't find any item with appearance '".$item->appearance."' in my inventory...", level => 'error');
     }
 }
 

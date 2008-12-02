@@ -48,7 +48,7 @@ sub maybe_rotted {
     $rotted_high = 10 if $self->is_forced_verboten;
 
     return 0 if $self->monster =~ /^(?:lizard|lichen|acid blob)$/;
-    TAEB->debug ("in maybe_rotted; " . $rotted_low . "-" . $rotted_high .
+    TAEB->log->item("in maybe_rotted; " . $rotted_low . "-" . $rotted_high .
         " for " . $self->raw . "(" . $self->estimate_age . ")" .
         $self->is_forced_verboten);
 
@@ -85,7 +85,8 @@ sub unicorn {
     return 'Neu' if $1 eq 'gray';
     return 'Cha' if $1 eq 'black';
 
-    TAEB->error("Bizarrely colored unicorn corpse: " . $self->monster);
+    TAEB->log->item("Bizarrely colored unicorn corpse: " . $self->monster,
+                    level => 'error');
     return undef;
 }
 

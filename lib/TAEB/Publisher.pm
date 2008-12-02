@@ -26,12 +26,12 @@ has turn_messages => (
 before subscribe => sub {
     my $self = shift;
     my $class = shift;
-    TAEB->debug("Subscribe: $class");
+    TAEB->log->publisher("Subscribe: $class");
 };
 before unsubscribe => sub {
     my $self = shift;
     my $class = shift;
-    TAEB->debug("Unsubscribe: $class");
+    TAEB->log->publisher("Unsubscribe: $class");
 };
 
 sub update {
@@ -46,7 +46,7 @@ sub enqueue_message {
 
     return unless $msgname;
 
-    TAEB->debug("Queued message $msgname.");
+    TAEB->log->publisher("Queued message $msgname.");
 
     push @{ $self->queued_messages }, ["msg_$msgname", @_];
 }
@@ -62,10 +62,10 @@ sub send_messages {
         for (@msgs) {
             my $msgname = shift @$_;
             if (@$_) {
-                TAEB->debug("Sending message $msgname with arguments @$_.");
+                TAEB->log->publisher("Sending message $msgname with arguments @$_.");
             }
             else {
-                TAEB->debug("Sending message $msgname with no arguments.");
+                TAEB->log->publisher("Sending message $msgname with no arguments.");
             }
 
             for my $recipient ($self->subscribers) {
@@ -110,7 +110,7 @@ sub get_generic_response {
                     );
                     next unless defined $response;
 
-                    TAEB->debug(blessed($responder) . " is responding to $name.");
+                    TAEB->log->publisher(blessed($responder) . " is responding to $name.");
                     return $response;
                 }
             }
@@ -122,7 +122,7 @@ sub get_generic_response {
             my $response = $responder->$code($args{msg});
             next unless defined $response;
 
-            TAEB->debug(blessed($responder) . " is generically responding to $args{msg}.");
+            TAEB->log->publisher(blessed($responder) . " is generically responding to $args{msg}.");
             return $response;
         }
     }

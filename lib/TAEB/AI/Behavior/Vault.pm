@@ -35,7 +35,7 @@ sub drop {
     return unless TAEB->current_tile->in_vault
                && $item->match(appearance => 'gold piece');
 
-    TAEB->debug("Dropping my gold because I'm in a vault");
+    TAEB->log->behavior("Dropping my gold because I'm in a vault");
     return 1;
 }
 

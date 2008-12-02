@@ -66,7 +66,8 @@ sub damage {
     my $self = shift;
     my $weapon = shift;
     if (!defined $weapon) {
-        TAEB->error('Tried to get damage statistics from an undef item');
+        TAEB->log->spoiler('Tried to get damage statistics from an undef item',
+                           level => 'error');
         return 0;
     }
 

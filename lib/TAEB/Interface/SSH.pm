@@ -28,7 +28,7 @@ has password => (
 sub _build_pty {
     my $self = shift;
 
-    TAEB->debug("Connecting to " . $self->server . ".");
+    TAEB->log->interface("Connecting to " . $self->server . ".");
 
     my $pty = IO::Pty::Easy->new;
     $pty->spawn('ssh', $self->server, '-l', $self->account);
@@ -51,7 +51,7 @@ sub _build_pty {
 
     $pty->write($self->password . "\n\n", 0);
 
-    TAEB->debug("Connected to " . $self->server . ".");
+    TAEB->log->interface("Connected to " . $self->server . ".");
 
     return $pty;
 }

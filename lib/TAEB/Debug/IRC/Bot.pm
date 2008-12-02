@@ -26,10 +26,10 @@ sub speak {
 sub tick {
     my $self = shift;
 
-    TAEB->debug("Iterating the IRC component");
+    TAEB->log->irc("Iterating the IRC component");
 
     do {
-        TAEB->debug("IRC: running a timeslice at ".time);
+        TAEB->log->irc("IRC: running a timeslice at ".time);
         local $SIG{__DIE__};
         $self->schedule_tick(0.05);
         $poe_kernel->run_one_timeslice;
@@ -41,7 +41,7 @@ sub said {
     my %args = %{ $_[0] };
     return unless $args{address};
 
-    TAEB->debug("Somebody is talking to us! ($args{who}, $args{body})");
+    TAEB->log->irc("Somebody is talking to us! ($args{who}, $args{body})");
     return $self->response_to($args{body});
 }
 
@@ -49,7 +49,7 @@ sub log {
     my $self = shift;
     for (@_) {
         chomp;
-        TAEB->debug($_);
+        TAEB->log->irc($_);
     }
 }
 

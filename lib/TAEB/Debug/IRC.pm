@@ -14,7 +14,7 @@ has bot => (
         my $channel = $irc_config->{channel} || '#interhack';
         my $name    = $irc_config->{name}    || TAEB->name;
 
-        TAEB->debug("Connecting to $channel on $server:$port with nick $name");
+        TAEB->log->irc("Connecting to $channel on $server:$port with nick $name");
         require TAEB::Debug::IRC::Bot;
         TAEB::Debug::IRC::Bot->new(
             # Bot::BasicBot settings

@@ -24,7 +24,7 @@ sub rebless {
         $self->downgrade("Reblessing a $old_pkg into $base (temporarily) because Moose doesn't let us rebless into sibling classes.");
     }
 
-    TAEB->debug("Reblessing a $old_pkg into $new_pkg.");
+    TAEB->log->moose("Reblessing a $old_pkg into $new_pkg.");
 
     # and do the rebless, which does all the typechecking and whatnot
     $new_pkg->meta->rebless_instance($self);
@@ -39,7 +39,7 @@ sub downgrade {
 
     return $self if $old eq $base;
 
-    TAEB->debug(shift || "Reblessing $old into $base.");
+    TAEB->log->moose(shift || "Reblessing $old into $base.");
 
     # rebless_instance only lets you get more specific, not less specific
     bless $self => $base;

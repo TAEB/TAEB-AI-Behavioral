@@ -21,13 +21,13 @@ sub respond_eat_ground {
 
     if ($self->item eq 'any') {
         if (TAEB::Spoilers::Item::Food->should_eat($item)) {
-            TAEB->debug("Floor-food $item is good enough for me.");
+            TAEB->log->action("Floor-food $item is good enough for me.");
             # keep track of what we're eating for nutrition purposes later
             $self->item($item);
             return 'y';
         }
         else {
-            TAEB->debug("Floor-food $item is on the blacklist. Pass.");
+            TAEB->log->action("Floor-food $item is on the blacklist. Pass.");
         }
     }
 
@@ -49,10 +49,10 @@ sub respond_eat_what {
             $self->item($item);
             return $item->slot;
         }
-        TAEB->error("There's no safe food in my inventory, so I can't eat 'any'. Sending escape, but I doubt this will work.");
+        TAEB->log->action("There's no safe food in my inventory, so I can't eat 'any'. Sending escape, but I doubt this will work.", level => 'error');
     }
     else {
-        TAEB->error("Unable to eat '" . $self->item . "'. Sending escape, but I doubt this will work.");
+        TAEB->log->action("Unable to eat '" . $self->item . "'. Sending escape, but I doubt this will work.", level => 'error');
     }
 
     TAEB->enqueue_message(check => 'inventory');
@@ -69,7 +69,7 @@ sub msg_stopped_eating {
     #eaten leftovers.  post_responses will take care of removing the original
     #item from inventory
     my $what = (blessed $item && $item->slot) ? 'inventory' : 'floor';
-    TAEB->debug("Stopped eating $item from $what");
+    TAEB->log->action("Stopped eating $item from $what");
     TAEB->enqueue_message(check => $what);
 
     return;
@@ -84,7 +84,8 @@ sub post_responses {
     }
     elsif ($item eq 'any') {
         #we had some issues, and none of the responses were called. bail out.
-        TAEB->warning("Tried to eat food but no responses were called");
+        TAEB->log->action("Tried to eat food but no responses were called",
+                          level => 'warning');
         return;
     }
     else {
@@ -97,7 +98,7 @@ sub post_responses {
     my $old_nutrition = TAEB->nutrition;
     my $new_nutrition = $old_nutrition + $item->nutrition;
 
-    TAEB->debug("Eating $item is increasing our nutrition from $old_nutrition to $new_nutrition");
+    TAEB->log->action("Eating $item is increasing our nutrition from $old_nutrition to $new_nutrition");
     TAEB->nutrition($new_nutrition);
 }
 

@@ -41,7 +41,7 @@ class_has persistent_data => (
         my $file = TAEB->persistent_file;
         return {} unless defined $file && -r $file;
 
-        TAEB->info("Loading persistency data from $file.");
+        TAEB->log->main("Loading persistency data from $file.");
         return eval { Storable::retrieve($file) } || {};
     },
 );
@@ -68,7 +68,7 @@ class_has personality => (
     handles  => [qw(want_item currently next_action)],
     trigger  => sub {
         my ($self, $personality) = @_;
-        TAEB->info("Now using personality $personality.");
+        TAEB->log->main("Now using personality $personality.");
         $personality->institute;
     },
 );
@@ -269,7 +269,7 @@ It will return any input it receives, so you can follow along at home.
 sub iterate {
     my $self = shift;
 
-    TAEB->debug("Starting a new step.");
+    TAEB->log->main("Starting a new step.");
 
     $self->full_input(1);
     $self->human_input;
@@ -289,7 +289,7 @@ sub handle_playing {
     $self->currently('?');
     $self->reset_pathfinds;
     $self->action($self->next_action);
-    TAEB->info("Current action: " . $self->action);
+    TAEB->log->main("Current action: " . $self->action);
     $self->write($self->action->run);
 }
 
@@ -297,7 +297,7 @@ sub handle_logging_in {
     my $self = shift;
 
     if ($self->vt->contains("Shall I pick a character's ")) {
-        TAEB->info("We are now in NetHack, starting a new character.");
+        TAEB->log->main("We are now in NetHack, starting a new character.");
         $self->write('n');
     }
     elsif ($self->topline =~ qr/Choosing Character's Role/) {
@@ -323,7 +323,8 @@ sub handle_logging_in {
         $self->state('playing');
     }
     elsif ($self->topline =~ /^\s*It is written in the Book of /) {
-        TAEB->error("Using etc/TAEB.nethackrc is MANDATORY");
+        TAEB->log->main("Using etc/TAEB.nethackrc is MANDATORY",
+                        level => 'error');
         $self->quit;
         die "Using etc/TAEB.nethackrc is MANDATORY";
     }

@@ -62,7 +62,7 @@ sub msg_know_spell {
     }
     else {
         if ($spell->fail != $fail) {
-            TAEB->debug("Setting " . $spell->name . "'s failure rate to $fail% (was ". $spell->fail ."%).");
+            TAEB->log->spell("Setting " . $spell->name . "'s failure rate to $fail% (was ". $spell->fail ."%).");
             $spell->fail($fail);
         }
     }
@@ -71,12 +71,12 @@ sub msg_know_spell {
     # this is potentially run when we save and reload
     if ($spell->forgotten xor $forgotten) {
         if ($forgotten) {
-            TAEB->debug("Setting " . $spell->name . "'s learned at to 20,001 turns ago (".(TAEB->turn - 20_001)."), was ".$spell->learned_at.".");
+            TAEB->log->spell("Setting " . $spell->name . "'s learned at to 20,001 turns ago (".(TAEB->turn - 20_001)."), was ".$spell->learned_at.".");
 
             $spell->learned_at(TAEB->turn - 20_001);
         }
         else {
-            TAEB->debug("Setting " . $spell->name . "'s learned at to the current turn (".(TAEB->turn)."), was ".$spell->learned_at.".");
+            TAEB->log->spell("Setting " . $spell->name . "'s learned at to the current turn (".(TAEB->turn)."), was ".$spell->learned_at.".");
 
             $spell->learned_at(TAEB->turn);
         }

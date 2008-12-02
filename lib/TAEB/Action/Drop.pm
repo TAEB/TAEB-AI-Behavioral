@@ -11,7 +11,7 @@ use constant command => "Da\n";
 sub msg_ring {
     my $self     = shift;
     my $identity = shift;
-    TAEB->debug("Identified ".$self->item->appearance." as $identity");
+    TAEB->log->action("Identified ".$self->item->appearance." as $identity");
     $self->item->identify_as($identity);
 }
 

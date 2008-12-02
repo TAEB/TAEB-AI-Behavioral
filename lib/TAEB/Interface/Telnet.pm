@@ -46,7 +46,7 @@ has sent_login => (
 sub BUILD {
     my $self = shift;
 
-    TAEB->debug("Connecting to " . $self->server . ".");
+    TAEB->log->interface("Connecting to " . $self->server . ".");
 
     # this has to be done in BUILD because it needs server
     my $socket = IO::Socket::Telnet->new(
@@ -60,7 +60,7 @@ sub BUILD {
     $socket->telnet_simple_callback(\&telnet_negotiation);
     $self->socket($socket);
 
-    TAEB->debug("Connected to " . $self->server . ".");
+    TAEB->log->interface("Connected to " . $self->server . ".");
 }
 
 =head2 read -> STRING
@@ -114,7 +114,7 @@ sub read {
                                          $self->password, "\n",
                                          '1', # for multi-game DGL
                                          'p';
-        TAEB->debug("Logging in as " . $self->account);
+        TAEB->log->interface("Logging in as " . $self->account);
         $self->sent_login(1);
     }
 
@@ -152,7 +152,7 @@ sub telnet_negotiation {
         return '';
     }
 
-    TAEB->debug("Telnet negotiation: received $option");
+    TAEB->log->interface("Telnet negotiation: received $option");
 
     if ($option =~ /DO TTYPE/) {
         return join '',

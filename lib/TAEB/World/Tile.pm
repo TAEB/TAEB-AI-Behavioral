@@ -349,7 +349,7 @@ sub iterate_tiles {
     my ($x, $y) = ($self->x, $self->y);
 
     if ($y <= 0) {
-        TAEB->error("" . (caller 1)[3] . " called with a y argument of ".$self->y.". This usually indicates an unhandled prompt.");
+        TAEB->log->tile("" . (caller 1)[3] . " called with a y argument of ".$self->y.". This usually indicates an unhandled prompt.", level => 'error');
     }
 
     my $level = $self->level;

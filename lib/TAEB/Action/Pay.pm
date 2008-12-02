@@ -23,12 +23,12 @@ sub respond_buy_item {
     $item->price($cost);
 
     if (blessed($self->item) && $self->item->maybe_is($item)) {
-        TAEB->info("Buying $item explicitly.");
+        TAEB->log->action("Buying $item explicitly.");
         return 'y';
     }
 
     if (!blessed($self->item) && $self->item eq 'any') {
-        TAEB->info("Buying $item because we're buying everything.");
+        TAEB->log->action("Buying $item because we're buying everything.");
         return 'y';
     }
 

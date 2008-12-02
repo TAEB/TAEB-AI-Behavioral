@@ -94,9 +94,9 @@ sub travel {
     my $action_number = 0;
     my @directions = split '', $path->path;
 
-    TAEB->debug("Got a travel click. Travelling from "
-            . "(" . TAEB->x . ", " . TAEB->y . ") "
-            . "to ($x, $y) via @directions");
+    TAEB->log->personality("Got a travel click. Travelling from "
+                         . "(" . TAEB->x . ", " . TAEB->y . ") "
+                         . "to ($x, $y) via @directions");
 
     $self->action_calculator(sub {
         my $self = shift;
@@ -109,18 +109,18 @@ sub travel {
 
         if (!$direction) {
             $stop = 1;
-            TAEB->debug("Stopping travel because we ran out of directions.");
+            TAEB->log->personality("Stopping travel because we ran out of directions.");
         }
 
         if (TAEB->current_level->has_enemies) {
             $stop = 1;
-            TAEB->debug("Stopping travel because we have enemies on this level.");
+            TAEB->log->personality("Stopping travel because we have enemies on this level.");
         }
 
         # if we travel when there's a message on screen, don't stop
         if (TAEB->messages =~ /\S/ && $action_number > 1) {
             $stop = 1;
-            TAEB->debug("Stopping travel because we got a message (" . TAEB->messages . ")");
+            TAEB->log->personality("Stopping travel because we got a message (" . TAEB->messages . ")");
         }
 
         if ($stop) {

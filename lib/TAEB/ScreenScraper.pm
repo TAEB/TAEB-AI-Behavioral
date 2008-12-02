@@ -843,7 +843,7 @@ sub handle_attributes {
         TAEB->polyself($polyrace =~ /^(?:orc|elf|gnome|dwarf|human)$/ ?
             undef : $polyrace);
 
-        TAEB->info(sprintf 'It seems we are a %s %s %s %s named %s.', TAEB->role, TAEB->race, TAEB->gender, TAEB->align, TAEB->name);
+        TAEB->log->scraper(sprintf 'It seems we are a %s %s %s %s named %s.', TAEB->role, TAEB->race, TAEB->gender, TAEB->align, TAEB->name);
         TAEB->enqueue_message('character', TAEB->name, TAEB->role, TAEB->race,
                                            TAEB->gender, TAEB->align);
 
@@ -861,7 +861,7 @@ sub handle_more_menus {
         $each = sub {
             my ($identity, $appearance) = /^\s+(.*?) \((.*?)\)/
                 or return;
-            TAEB->debug("Discovery: $appearance is $identity");
+            TAEB->log->scraper("Discovery: $appearance is $identity");
             TAEB->enqueue_message('discovery', $identity, $appearance);
         };
     }
@@ -879,7 +879,7 @@ sub handle_more_menus {
             return if $skip;
 
             my $item = TAEB->new_item($_);
-            TAEB->debug("Adding $item to the current tile.");
+            TAEB->log->scraper("Adding $item to the current tile.");
             TAEB->enqueue_message('floor_item' => $item);
             return 0;
         };
@@ -996,7 +996,8 @@ sub handle_menus {
             for my $slot (keys %dont_have) {
                 my $item = TAEB->inventory->get($slot);
                 if ($item) {
-                    TAEB->warning("$item seems to have disappeared!");
+                    TAEB->log->scraper("$item seems to have disappeared!",
+                                       level => 'warning');
                     TAEB->inventory->remove($slot);
                 }
             }
@@ -1040,7 +1041,7 @@ sub handle_fallback {
         else {
             $self->messages($self->messages . "(escaped)");
             TAEB->write("\e");
-            TAEB->warning("Escaped out of unhandled prompt: " . TAEB->topline);
+            TAEB->log->scraper("Escaped out of unhandled prompt: " . TAEB->topline, level => 'warning');
             die "Recursing screenscraper.\n";
         }
     }
@@ -1064,7 +1065,7 @@ sub handle_location_request {
     else {
         $self->messages($self->messages . "(escaped)");
         TAEB->write("\e");
-        TAEB->warning("Escaped out of unhandled location request: " . $type);
+        TAEB->log->scraper("Escaped out of unhandled location request: " . $type, level => 'warning');
         die "Recursing screenscraper.\n";
     }
 }
@@ -1072,17 +1073,17 @@ sub handle_location_request {
 sub handle_death {
     my $name = TAEB->name;
     if (TAEB->topline =~ /^(\s+|Really quit\? \[yn\] \(n\) y\s+)Final Attributes:/) {
-        TAEB->debug("I see Final Attributes!");
+        TAEB->log->scraper("I see Final Attributes!");
         TAEB->died;
     }
     elsif (TAEB->dead && TAEB->topline =~ /^Vanquished creatures:/) {
-        TAEB->debug("I see Vanquished creatures!");
+        TAEB->log->scraper("I see Vanquished creatures!");
     }
     elsif (TAEB->dead && TAEB->topline =~ /Voluntary challenges:/) {
-        TAEB->debug("I see Voluntary challenges!");
+        TAEB->log->scraper("I see Voluntary challenges!");
     }
     elsif (TAEB->dead && TAEB->topline =~ /^(?:Goodbye|Farvel|Aloha) $name/) {
-        TAEB->debug("I see Goodbye!");
+        TAEB->log->scraper("I see Goodbye!");
 
         # there is no pause between displaying the high score table and going
         # back to the dgl menu. this means that if we just wait for the next
@@ -1098,7 +1099,7 @@ sub handle_death {
             $death_message .= $1;
         }
         $death_message = join ' ', split ' ', $death_message;
-        TAEB->debug("Death message: $death_message");
+        TAEB->log->scraper("Death message: $death_message");
         my ($rank, $score, $end_reason, $death) = $death_message =~ /^(?:(\d+) )?(\d+) [-\w]+ (\w+) .*?\. (.*?\.)?/;
         TAEB->enqueue_message('death', $rank, $score, $end_reason, $death);
         TAEB->publisher->send_messages;
@@ -1106,7 +1107,7 @@ sub handle_death {
     }
 
     if (TAEB->dead) {
-        TAEB->debug("I'm dead! Spacing through the endgame messages...");
+        TAEB->log->scraper("I'm dead! Spacing through the endgame messages...");
         TAEB->write(' ');
         die "Recursing screenscraper.\n";
     }
@@ -1163,11 +1164,11 @@ sub send_messages {
 
         if (@messages) {
             my $msg_names = join ', ', map { $_->[0] } @messages;
-            TAEB->debug("Sending '$msg_names' in response to '$line'");
+            TAEB->log->scraper("Sending '$msg_names' in response to '$line'");
             TAEB->enqueue_message(@$_) for @messages;
         }
         else {
-            TAEB->debug("I don't understand this message: $line");
+            TAEB->log->scraper("I don't understand this message: $line");
         }
 
         push @{ $self->parsed_messages }, [$line => scalar @messages];

@@ -78,13 +78,13 @@ has possibility_tracker => (
 
         my $possibility_tracker = TAEB->knowledge->appearances->{$self->class};
         if (!$possibility_tracker) {
-            TAEB->error($self->raw . " gives no possibility tracker for class " . $self->class);
+            TAEB->log->item($self->raw . " gives no possibility tracker for class " . $self->class, level => 'error');
             return;
         }
 
         $possibility_tracker = $possibility_tracker->{$self->appearance};
         if (!$possibility_tracker) {
-            TAEB->error($self->raw . " gives no possibility tracker for appearance " . $self->appearance);
+            TAEB->log->item($self->raw . " gives no possibility tracker for appearance " . $self->appearance, level => 'error');
             return;
         }
 
@@ -142,24 +142,27 @@ sub new_item {
     $lit = 1         if (defined $lit_candelabrum && $lit_candelabrum =~ /lit/);
 
     if ($num < 1) {
-        TAEB->warning("Parsed the quantity of '$raw' as $num!");
+        TAEB->log->item("Parsed the quantity of '$raw' as $num!",
+                        level => 'warning');
     }
 
     my $new_item;
     unless (defined $item) {
-        TAEB->error("Couldn't find the base item type for '$raw'!");
+        TAEB->log->item("Couldn't find the base item type for '$raw'!",
+                        level => 'error');
         return;
     }
 
     my $class = TAEB::Spoilers::Item->type_to_class($item);
     unless (defined $class) {
-        TAEB->warning("Unable to find '$item' in TAEB::Spoilers::Item.");
+        TAEB->log->item("Unable to find '$item' in TAEB::Spoilers::Item.",
+                        level => 'warning');
         return;
     }
 
     my $class_name = ucfirst $class;
     unless (grep { $class_name eq $_ } TAEB::Spoilers::Item->types) {
-        TAEB->warning("Items (such as $raw) of class $class are not yet supported.");
+        TAEB->log->item("Items (such as $raw) of class $class are not yet supported.", level => 'warning');
         return;
     }
 
@@ -182,7 +185,7 @@ sub new_item {
     }
     else {
         if (!exists TAEB::Spoilers::Item->list->{$item}) {
-            TAEB->warning("Can't find $item as either an identity or an appearance");
+            TAEB->log->item("Can't find $item as either an identity or an appearance", level => 'warning');
         }
         $new_item->appearance($item);
     }

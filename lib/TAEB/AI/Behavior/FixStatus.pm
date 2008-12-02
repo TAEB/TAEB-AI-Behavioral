@@ -165,7 +165,7 @@ sub prepare {
 
     for my $status ($self->needs_fixing) {
         next unless $status->{check}->();
-        TAEB->debug("Trying to fix $status->{status}");
+        TAEB->log->behavior("Trying to fix $status->{status}");
 
         for my $fix (@{$status->{fixes}}) {
             my %args;

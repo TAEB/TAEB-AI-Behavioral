@@ -91,7 +91,7 @@ sub name {
         return $1 if $class =~ m{^TAEB::Action::(\w+)$};
     }
 
-    TAEB->warning("Unable to get the action name of $self: " . join(', ', $self->meta->linearized_isa));
+    TAEB->log->action("Unable to get the action name of $self: " . join(', ', $self->meta->linearized_isa), level => 'warning');
     return;
 }
 

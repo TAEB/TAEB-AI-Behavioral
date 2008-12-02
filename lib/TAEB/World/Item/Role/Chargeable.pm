@@ -23,7 +23,7 @@ sub spend_charge {
     $self->charges($self->charges - $count);
     if ($self->charges < 0) {
         $self->charges(0);
-        TAEB->debug("$self had less than 0 charges!");
+        TAEB->log->item("$self had less than 0 charges!");
     }
 }
 

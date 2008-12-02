@@ -65,7 +65,7 @@ around exclude_possibility => sub {
     my @possibilities = $self->possibilities;
     if (@possibilities == 1) {
         if ($possibilities[0] eq $possibility) {
-            TAEB->error("Tried to exclude the last possibility ($possibility) from ($type, $appearance)");
+            TAEB->log->item("Tried to exclude the last possibility ($possibility) from ($type, $appearance)", level => 'error');
         }
         return;
     }
@@ -76,14 +76,14 @@ around exclude_possibility => sub {
 
     # uh oh, something bad happened
     if (@possibilities == 0) {
-        TAEB->error("No possibilities left for ($type, $appearance)!");
+        TAEB->log->item("No possibilities left for ($type, $appearance)!", level => 'error');
         return;
     }
 
     # exclude my identity from the other appearances
     if (@possibilities == 1) {
         my $identity = shift @possibilities;
-        TAEB->debug("($type, $appearance) is a '$identity'. Ruling it out of other appearances.");
+        TAEB->log->item("($type, $appearance) is a '$identity'. Ruling it out of other appearances.");
 
         for my $other (values %{ TAEB->knowledge->appearances->{$type} }) {
             next if $other->appearance eq $appearance;

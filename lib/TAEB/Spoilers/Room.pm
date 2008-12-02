@@ -31,7 +31,8 @@ sub shop_type {
         return $self->shop_names->{$name};
     }
 
-    TAEB->error("Failed to find shop matching description $name");
+    TAEB->log->spoiler("Failed to find shop matching description $name",
+                       level => 'error');
     return 0;
 }
 

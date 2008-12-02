@@ -45,7 +45,7 @@ sub drop {
            || $item->match(not_buc => undef)
            || $item->match(appearance => 'gold piece');
 
-    TAEB->debug("Yes, I want to drop $item because it needs to be cursechecked.");
+    TAEB->log->behavior("Yes, I want to drop $item because it needs to be cursechecked.");
     return 1;
 }
 

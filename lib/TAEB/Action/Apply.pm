@@ -35,7 +35,7 @@ sub msg_status_change {
 
     my $item = $self->item;
     if ($item->identity eq 'unicorn horn') {
-        TAEB->info("We seem to have gained the '$status' effect and we rubbed $item this turn. Marking it as cursed.");
+        TAEB->log->action("We seem to have gained the '$status' effect and we rubbed $item this turn. Marking it as cursed.");
         $item->buc("cursed");
     }
 }

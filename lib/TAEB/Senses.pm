@@ -194,7 +194,8 @@ sub parse_botl {
         }
     }
     else {
-        TAEB->error("Unable to parse the status line '$status'");
+        TAEB->log->senses("Unable to parse the status line '$status'",
+                          level => 'error');
     }
 
     if ($botl =~ /^(Dlvl:\d+|Home \d+|Fort Ludios|End Game|Astral Plane)\s+(?:\$|\*):(\d+)\s+HP:(\d+)\((\d+)\)\s+Pw:(\d+)\((\d+)\)\s+AC:([0-9-]+)\s+(?:Exp|Xp|HD):(\d+)(?:\/(\d+))?\s+T:(\d+)\s+(.*?)\s*$/) {
@@ -211,7 +212,8 @@ sub parse_botl {
         # $self->status(join(' ', split(/\s+/, $11)));
     }
     else {
-        TAEB->error("Unable to parse the botl line '$botl'");
+        TAEB->log->senses("Unable to parse the botl line '$botl'",
+                          level => 'error');
     }
 }
 
@@ -399,7 +401,7 @@ sub msg_walked {
     $self->in_web(0);
     $self->is_grabbed(0);
     if (!$self->autopickup xor TAEB->current_tile->in_shop) {
-        TAEB->info("Toggling autopickup because we entered/exited a shop");
+        TAEB->log->senses("Toggling autopickup because we entered/exited a shop");
         TAEB->write("@");
         TAEB->process_input;
     }
@@ -439,7 +441,7 @@ sub msg_resistance_change {
     my $now_have = shift;
 
     my $method = "${status}_resistant";
-    TAEB->debug("resistance_change $method");
+    TAEB->log->senses("resistance_change $method");
     if ($self->can($method)) {
         $self->$method($now_have);
     }
@@ -459,13 +461,13 @@ sub msg_web {
 sub msg_life_saving {
     my $self   = shift;
     my $target = shift;
-    TAEB->debug("Life saving target: $target");
+    TAEB->log->senses("Life saving target: $target");
     #note that naming a monster "Your" returns "Your's" as the target
     if ($target eq 'Your') {
         #At least I had it on!
         #Remove it from inventory
         my $item = TAEB->inventory->amulet;
-        TAEB->debug("Removing $item  from slot " . $item->slot . " beacuse it is life saving and we just used it.");
+        TAEB->log->senses("Removing $item  from slot " . $item->slot . " beacuse it is life saving and we just used it.");
         TAEB->inventory->decrease_quantity($item->slot);
     }
 
@@ -490,8 +492,7 @@ sub elbereth_count {
     TAEB->full_input;
     my $tile = TAEB->current_tile;
     my $elbereths = $tile->elbereths;
-    TAEB->info("Tile (".$tile->x.", ".$tile->y.") has $elbereths Elbereths (".
-                $tile->engraving.")");
+    TAEB->log->senses("Tile (".$tile->x.", ".$tile->y.") has $elbereths Elbereths (".$tile->engraving.")");
     return $elbereths;
 }
 
@@ -525,7 +526,8 @@ sub _nethack_strength {
         return 100 + $base;
     }
     else {
-        TAEB->error("Unable to parse strength $str.");
+        TAEB->log->senses("Unable to parse strength $str.",
+                          level => 'error');
     }
 }
 
@@ -696,7 +698,8 @@ sub msg_check {
         $self->$method(@_);
     }
     else {
-        TAEB->warning("I don't know how to check $thing.");
+        TAEB->log->senses("I don't know how to check $thing.",
+                          level => 'warning');
     }
     $self->clear_checking;
 }

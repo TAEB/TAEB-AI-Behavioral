@@ -36,7 +36,7 @@ sub respond_dip_into_what {
     my $self = shift;
     return $self->into->slot if blessed($self->into);
 
-    TAEB->error("Unable to dip into '" . $self->into . "'. Sending escape, but I doubt this will work.");
+    TAEB->log->action("Unable to dip into '" . $self->into . "'. Sending escape, but I doubt this will work.", level => 'error');
     return "\e";
 }
 

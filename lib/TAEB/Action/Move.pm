@@ -54,7 +54,7 @@ around new => sub {
         # our framework can't always cope with that, we have these workarounds
         my $monster = TAEB->current_level->at_direction($start)->monster;
         if (defined $monster && $monster->can_move) {
-            TAEB->info("Trying to move into an uncooperative " .
+            TAEB->log->action("Trying to move into an uncooperative " .
                 $monster->glyph . "; Elberething instead.");
             if ($monster->respects_elbereth && TAEB->elbereth_count == 0) {
                 $action = 'Engrave';
@@ -168,7 +168,7 @@ sub handle_obscured_doors {
         my $tile = TAEB->current_level->at(@$_);
         next unless $tile->type eq 'obscured';
 
-        TAEB->debug("Changing tile at (" . $tile->x . ", " . $tile->y . ") from obscured to opendoor because I tried to move diagonally off or onto it and I didn't move.");
+        TAEB->log->action("Changing tile at (" . $tile->x . ", " . $tile->y . ") from obscured to opendoor because I tried to move diagonally off or onto it and I didn't move.");
         $tile->change_type('opendoor' => '-');
     }
 }

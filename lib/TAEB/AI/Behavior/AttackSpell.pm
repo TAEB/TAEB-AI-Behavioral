@@ -19,7 +19,7 @@ sub prepare {
     for ($self->use_spells) {
         $spell = TAEB->find_castable($_);
         next unless $spell;
-        TAEB->debug("Considering spell $spell");
+        TAEB->log->behavior("Considering spell $spell");
         if ($self->try_to_cast(spell => $spell)) {
             $self->urgency('normal');
             return;
@@ -33,7 +33,7 @@ sub prepare {
                              charges  => sub { !defined $_[0] || $_[0] > 0 });
             });
             next unless $wand;
-            TAEB->debug("Considering wand $wand");
+            TAEB->log->behavior("Considering wand $wand");
             if ($self->try_to_cast(wand => $wand)) {
                 $self->urgency('normal');
                 return;

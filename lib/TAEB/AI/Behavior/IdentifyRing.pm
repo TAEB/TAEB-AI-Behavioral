@@ -52,7 +52,7 @@ sub drop {
     return if TAEB->current_tile->type ne 'sink'
            || TAEB->is_blind;
 
-    TAEB->debug("Yes, I want to drop $item because I want to find out what it is.");
+    TAEB->log->behavior("Yes, I want to drop $item because I want to find out what it is.");
     return 1;
 }
 

@@ -31,7 +31,7 @@ sub main {
     my $new_request = shift;
 
     my $path = $new_request->uri->path;
-    TAEB->info("New request at $path.");
+    TAEB->log->continuity("New request at $path.");
 
     if ($path =~ m{^/ajax-tile}) {
         my $id = $new_request->param('id');
@@ -47,11 +47,11 @@ sub main {
 
     # XXX: otherwise Coro or Continuity spews out tons of shit
     close STDERR;
-    local $SIG{__WARN__} = sub { TAEB->warning(@_) };
+    local $SIG{__WARN__} = sub { TAEB->log->perl($_[0], level => 'warning') };
     local $SIG{__DIE__} = sub {
 
         unless ("@_" =~ /Game over, man/) {
-            TAEB->error("@_");
+            TAEB->log->perl($_[0], level => 'error');
             TAEB->save;
         }
 

@@ -54,7 +54,7 @@ sub drop {
 
     # drop items we can't afford
     if ($item->price > TAEB->gold) {
-        TAEB->debug("Yes, I want to drop $item because I can't pay for it");
+        TAEB->log->behavior("Yes, I want to drop $item because I can't pay for it");
         return 1;
     }
 }
@@ -72,7 +72,7 @@ sub pickup {
     return if TAEB->current_tile->in_vault || !TAEB->current_tile->in_shop;
 
     if ($item->price > TAEB->gold) {
-        TAEB->debug("Item " . $item . "costs too much to pickup");
+        TAEB->log->behavior("Item " . $item . "costs too much to pickup");
         return 0;
     }
     if ($item->match(appearance => 'gold piece')) {

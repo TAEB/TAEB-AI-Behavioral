@@ -16,7 +16,7 @@ sub target_tile {
     my $tile = TAEB->current_level->at_direction($self->direction);
 
     if (@_ && none { $tile->type eq $_ } @_) {
-        TAEB->warning(blessed($self) . " can only handle tiles of type: @_");
+        TAEB->log->action(blessed($self) . " can only handle tiles of type: @_", level => 'warning');
     }
 
     return $tile;

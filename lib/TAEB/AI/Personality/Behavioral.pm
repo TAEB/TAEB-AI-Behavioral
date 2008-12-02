@@ -97,8 +97,8 @@ sub find_urgency {
     $behavior->reset_urgency;
     $behavior->prepare;
     my $urgency  = $behavior->urgency || 'none';
-    TAEB->debug("The $name behavior has urgency $urgency.");
-    TAEB->warning("${behavior}'s urgencies method doesn't list $urgency")
+    TAEB->log->personality("The $name behavior has urgency $urgency.");
+    TAEB->log->personality("${behavior}'s urgencies method doesn't list $urgency", level => 'warning')
         unless exists $behavior->urgencies->{$urgency} || $urgency eq 'none';
 
     return $self->numeric_urgency($urgency);
@@ -127,7 +127,8 @@ Subclasses should override this to set the prioritized_behaviors attribute.
 
 sub sort_behaviors {
     my $class = blessed($_[0]) || $_[0];
-    TAEB->error("$class must override sort_behaviors");
+    TAEB->log->personality("$class must override sort_behaviors",
+                           level => 'error');
 }
 
 =head2 next_behavior -> Behavior
@@ -157,7 +158,7 @@ sub next_behavior {
 
     return undef if $max_urgency <= 0;
 
-    TAEB->debug("Selecting behavior $max_behavior with urgency $max_urgency.");
+    TAEB->log->personality("Selecting behavior $max_behavior with urgency $max_urgency.");
     return $self->behaviors->{$max_behavior};
 }
 
@@ -220,7 +221,7 @@ sub pickup {
 
         if ($pick) {
             my $name = $behavior->name;
-            TAEB->info("$name wants to pick up $pick of $item");
+            TAEB->log->personality("$name wants to pick up $pick of $item");
             if (defined $item->price) {
                 return 0 unless TAEB->gold >= $item->price;
             }

@@ -155,7 +155,7 @@ sub get_levels {
     my $index = $dlvl - 1;
 
     if (!wantarray) {
-        TAEB->error("Called get_levels in scalar context. Fix your code.");
+        TAEB->log->dungeon("Called get_levels in scalar context. Fix your code.", level => 'error');
         return undef;
     }
 
@@ -179,7 +179,7 @@ sub create_level {
     my $dlvl = shift;
     my $index = $dlvl - 1;
 
-    TAEB->info("Creating a new level object in check_dlvl for $self, dlvl=$dlvl, index $index");
+    TAEB->log->dungeon("Creating a new level object in check_dlvl for $self, dlvl=$dlvl, index $index");
 
     my $level = TAEB::World::Level->new(
         z       => $dlvl,

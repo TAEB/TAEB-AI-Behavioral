@@ -111,7 +111,8 @@ sub check_dlvl {
     my $botl = TAEB->vt->row_plaintext(23);
     $botl =~ /^(Dlvl|Home|Fort Ludios|End Game|Astral Plane):?(\d*) /
         or do {
-            TAEB->error("Unable to parse the botl for dlvl: $botl");
+            TAEB->log->cartographer("Unable to parse the botl for dlvl: $botl",
+                                    level => 'error');
             return;
     };
 
@@ -122,7 +123,7 @@ sub check_dlvl {
     my $is_ludios = $descriptor eq 'Fort Ludios';
 
     if ($level->z != $dlvl || $was_ludios != $is_ludios) {
-        TAEB->info("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
+        TAEB->log->cartographer("Oh! We seem to be on a different map. Was ".$level->z.", now $dlvl.");
 
         my @levels = $self->dungeon->get_levels($dlvl);
         my $newlevel;
@@ -252,7 +253,7 @@ sub msg_dungeon_feature {
     my $oldfloor = $tile->floor_glyph;
 
     if ($oldtype ne $type || $oldfloor ne $floor) {
-        TAEB->debug("msg_dungeon_feature('$feature') caused the current tile to be updated from ('$oldfloor', '$oldtype') to ('$floor', '$type')");
+        TAEB->log->cartographer("msg_dungeon_feature('$feature') caused the current tile to be updated from ('$oldfloor', '$oldtype') to ('$floor', '$type')");
     }
 
     $tile->change_type($type => $floor, $subtype);
@@ -288,14 +289,14 @@ sub msg_remove_floor_item {
 
     return if $item->is_autopickuped;
 
-    TAEB->error("Unable to remove $item from the floor. Did we just pick it up or no?");
+    TAEB->log->cartographer("Unable to remove $item from the floor. Did we just pick it up or no?", level => 'error');
 }
 
 sub msg_floor_message {
     my $self = shift;
     my $message = shift;
 
-    TAEB->debug(TAEB->current_tile . " is now engraved with \'$message\'");
+    TAEB->log->cartographer(TAEB->current_tile . " is now engraved with \'$message\'");
     TAEB->current_tile->engraving($message);
 
     my @doors = TAEB->current_tile->grep_adjacent(sub { $_->type eq 'closeddoor' });
@@ -330,7 +331,7 @@ sub floodfill_room {
             my $t   = shift;
             my $var = "in_$type";
             return if $t->$var;
-            TAEB->debug("$t is in a $type!");
+            TAEB->log->cartographer("$t is in a $type!");
             $t->$var(1);
         },
     );
@@ -390,12 +391,12 @@ sub is_engulfed {
 
         return 0 unless TAEB->is_engulfed;
 
-        TAEB->info("We're no longer engulfed! I expected to see $glyph at delta ($dx, $dy) but I saw $got.");
+        TAEB->log->cartographer("We're no longer engulfed! I expected to see $glyph at delta ($dx, $dy) but I saw $got.");
         TAEB->enqueue_message(engulfed => 0);
         return 0;
     }
 
-    TAEB->info("We're engulfed!");
+    TAEB->log->cartographer("We're engulfed!");
     TAEB->enqueue_message(engulfed => 1);
     return 1;
 }
@@ -410,7 +411,7 @@ sub msg_branch {
 
     return if $level->branch eq $branch;
 
-    TAEB->error("Tried to set the branch of $level to $branch but it already has a branch.");
+    TAEB->log->cartographer("Tried to set the branch of $level to $branch but it already has a branch.", level => 'error');
 }
 
 sub msg_quest_portal {

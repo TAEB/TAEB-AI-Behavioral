@@ -83,7 +83,9 @@ sub write {
     my $self = shift;
     my $text = shift;
 
-    TAEB->error("Called TAEB->write with no text.") if length($text) == 0;
+    TAEB->log->interface("Called TAEB->write with no text.",
+                         level => 'error')
+        if length($text) == 0;
 
     die "Pty inactive." unless $self->is_active;
     my $chars = $self->pty->write($text, 1);

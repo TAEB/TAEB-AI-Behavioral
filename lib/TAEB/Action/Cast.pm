@@ -19,11 +19,11 @@ sub exception_hunger_cast {
 
     if (TAEB->nutrition > 10) {
         TAEB->nutrition(10);
-        TAEB->info("Adjusting our nutrition to 10 because we're too hungry to cast spells");
+        TAEB->log->action("Adjusting our nutrition to 10 because we're too hungry to cast spells");
         $self->aborted(1);
     }
     else {
-        TAEB->error("Our nutrition is known to be <= 10 and we got a 'too hungry to cast' message. Why did you cast?");
+        TAEB->log->action("Our nutrition is known to be <= 10 and we got a 'too hungry to cast' message. Why did you cast?", level => 'error');
     }
 
     return "\e\e\e";

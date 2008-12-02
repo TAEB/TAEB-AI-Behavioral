@@ -58,7 +58,7 @@ has branch => (
     predicate => 'known_branch',
     trigger   => sub {
         my ($self, $name) = @_;
-        TAEB->info("$self is in branch $name!");
+        TAEB->log->level("$self is in branch $name!");
     },
 );
 
@@ -139,7 +139,7 @@ for my $level (@special_levels) {
         trigger => sub {
             my ($self, $is_level) = @_;
             $self->special_level($level) if $is_level;
-            TAEB->info(
+            TAEB->log->level(
                 sprintf('This level is most definitely%s %s.',
                         $is_level ? '' : ' not',
                         ucfirst($level)
@@ -273,7 +273,8 @@ sub remove_monster {
         }
     }
 
-    TAEB->warning("Unable to remove $monster from the current level!");
+    TAEB->log->level("Unable to remove $monster from the current level!",
+                     level => 'warning');
 }
 
 my @unregisterable = qw(unexplored rock wall floor corridor obscured);
@@ -303,7 +304,7 @@ sub unregister_tile {
         }
     }
 
-    TAEB->warning("Unable to unregister $tile");
+    TAEB->log->level("Unable to unregister $tile", level => 'warning');
 }
 
 sub has_type {
@@ -535,7 +536,7 @@ around is_minetown => sub {
                || $self->has_type('fountain')
                || $self->has_type('tree');
 
-    TAEB->info("$self is Minetown!");
+    TAEB->log->level("$self is Minetown!");
     $self->is_minetown(1);
     return 1;
 };
@@ -617,7 +618,7 @@ sub msg_dungeon_level {
     my $level = shift;
     my $islevel = "is_$level";
 
-    TAEB->info("Hey, I know this level! It's $level!")
+    TAEB->log->level("Hey, I know this level! It's $level!")
         if !$self->$islevel;
 
     $self->branch('dungeons') if $level eq 'oracle'
@@ -631,7 +632,7 @@ sub msg_level_message {
     my $self = shift;
     my $type = shift;
 
-    TAEB->info("There's a $type on this level. Interesting.");
+    TAEB->log->level("There's a $type on this level. Interesting.");
 
     $self->branch('dungeons') if $type eq 'vault';
 

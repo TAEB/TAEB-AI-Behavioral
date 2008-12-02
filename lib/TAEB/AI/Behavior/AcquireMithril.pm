@@ -29,7 +29,7 @@ sub drop {
     return if $item->match(not_appearance => qr/mithril/)
            || $item->match(not_buc => 'cursed');
 
-    TAEB->debug("Yes, I want to drop $item because it is cursed.");
+    TAEB->log->behavior("Yes, I want to drop $item because it is cursed.");
     return 1;
 }
 
@@ -43,7 +43,7 @@ sub pickup {
            || $item->match(buc => 'cursed')
            || TAEB->find_item(qr/mithril/);
 
-    TAEB->debug("Yes, I want to pick up $item because it is mithril.");
+    TAEB->log->behavior("Yes, I want to pick up $item because it is mithril.");
     return 1;
 }
 

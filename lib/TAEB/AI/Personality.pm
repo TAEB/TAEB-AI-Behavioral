@@ -7,7 +7,7 @@ has currently => (
     default => "?",
     trigger => sub {
         my ($self, $currently) = @_;
-        TAEB->info("Currently: $currently.") unless $currently eq '?';
+        TAEB->log->personality("Currently: $currently.") unless $currently eq '?';
     },
 );
 
@@ -112,7 +112,7 @@ sub enhance {
     my $skill = shift;
     my $level = shift;
 
-    TAEB->debug("Enhancing $skill up from $level");
+    TAEB->log->personality("Enhancing $skill up from $level");
 
     return 1;
 }

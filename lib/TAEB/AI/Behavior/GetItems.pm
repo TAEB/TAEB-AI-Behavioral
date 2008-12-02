@@ -14,7 +14,7 @@ sub prepare {
     my @items = TAEB->current_tile->items;
     my @want = grep { TAEB->want_item($_) } @items;
     if (@want) {
-        TAEB->debug("TAEB wants items! @want");
+        TAEB->log->behavior("TAEB wants items! @want");
         $self->currently("Picking up items");
 
         # If there is one item on this square, we don't get the pickup menu,

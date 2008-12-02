@@ -29,7 +29,7 @@ sub respond_drink_what {
     my $self = shift;
     return $self->from->slot if blessed($self->from);
 
-    TAEB->error("Unable to drink from '" . $self->into . "'. Sending escape, but I doubt this will work.");
+    TAEB->log->action("Unable to drink from '" . $self->into . "'. Sending escape, but I doubt this will work.", level => 'error');
     return "\e";
 }
 

@@ -69,13 +69,13 @@ sub useful_dir {
             my $vul = $self->vulnerability($dir, $tile);
 
             if ($self->vulnerability($dir, $tile) < $cut && !$choke) {
-                TAEB->debug("Found a useful $cut -> $vul ($dir) move (" .
+                TAEB->log->behavior("Found a useful $cut -> $vul ($dir) move (" .
                     ($tile->x - TAEB->x) . "," . ($tile->y - TAEB->y) . ")");
                 $choke = 1;
             }
 
             if ($tile->has_enemy) {
-                TAEB->debug("A monster blocks ($dir)");
+                TAEB->log->behavior("A monster blocks ($dir)");
                 return 0;
             }
         }
@@ -94,7 +94,7 @@ sub useful_dir {
             || $to->type eq 'opendoor')
            && $dir =~ /[yubn]/;
 
-    TAEB->debug("($dir) is useful!");
+    TAEB->log->behavior("($dir) is useful!");
     return 1;
 }
 
