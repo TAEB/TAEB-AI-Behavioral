@@ -4,6 +4,8 @@ use TAEB::Util ':colors';
 
 use TAEB::OO;
 
+use Log::Dispatch::Null;
+
 use TAEB::Config;
 use TAEB::Display;
 use TAEB::VT;
@@ -108,7 +110,38 @@ class_has log => (
     is      => 'ro',
     isa     => 'TAEB::Logger',
     lazy    => 1,
-    default => sub { TAEB::Logger->new },
+    default => sub {
+        my $self = shift;
+        my $log = TAEB::Logger->new;
+        $log->add(Log::Dispatch::Null(
+            name => 'taeb-warning',
+            min_level => 'warning',
+            max_level => 'warning',
+            callbacks => sub {
+                if ($TAEB::ToScreen) {
+                    TAEB->notify($message) if TAEB->info_to_screen;
+                }
+                else {
+                    local $SIG{__WARN__};
+                    warn $message;
+                }
+            },
+        ));
+        $log->add(Log::Dispatch::Null(
+            name => 'taeb-error',
+            min_level => 'error',
+            callbacks => sub {
+                if ($TAEB::ToScreen) {
+                    TAEB->complain(Carp::shortmess($message));
+                }
+                else {
+                    confess $message;
+                }
+            },
+        ));
+        push @{ $log->default_channels }, qw/taeb-warning taeb-error/;
+        return $log;
+    },
 );
 
 class_has dungeon => (
