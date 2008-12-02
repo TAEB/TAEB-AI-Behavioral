@@ -26,7 +26,7 @@ requires 'Term::VT102::ZeroBased';
 requires 'Curses';
 
 # logging
-requires 'Log::Dispatch';
+requires 'Log::Dispatch::Channels';
 
 # config
 requires 'YAML';
