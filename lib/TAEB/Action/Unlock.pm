@@ -18,7 +18,11 @@ has '+direction' => (
 
 sub respond_apply_what { shift->implement->slot }
 
-sub respond_lock { 'n' }
+sub respond_lock {
+    shift->target_tile('closeddoor')->state('unlocked');
+    'n';
+}
+
 sub respond_unlock { 'y' }
 
 sub msg_just_unlocked_door {
