@@ -3,6 +3,7 @@ use strict;
 use warnings;
 package TAEB::Logger;
 use TAEB::OO;
+use Carp;
 extends 'Log::Dispatch::Channels';
 
 has turn_calculator => (
@@ -18,6 +19,11 @@ has name_calculator => (
 has default_channels => (
     isa     => 'ArrayRef[Str]',
     default => sub { [qw/everything warning error/] },
+);
+
+has bt_levels => (
+    isa     => 'HashRef',
+    default => sub { { error => 1, warning => 1 } },
 );
 
 has everything => (
@@ -121,7 +127,17 @@ sub AUTOLOAD {
     my $channel_name = $AUTOLOAD;
     my $channel = $self->channel($channel_name);
     if (!$channel) {
-        $self->add_channel($channel_name);
+        # XXX: would be nice if LDC had global callbacks
+        $self->add_channel($channel_name,
+                           callbacks => sub {
+                               my %args = @_;
+                               if ($self->bt_levels->{$args{level}}) {
+                                   return Carp::longmess($args{message});
+                               }
+                               else {
+                                   return $args{message};
+                               }
+                           });
         $self->add(Log::Dispatch::File->new(
                        name      => $channel_name,
                        min_level => 'debug',
