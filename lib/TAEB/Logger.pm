@@ -98,7 +98,7 @@ has twitter => (
                             $self->turn_calculator->(),
                             $args{message};
             },
-        )
+        );
         push @{ $self->default_channels }, 'twitter';
         return $twitter;
     },
