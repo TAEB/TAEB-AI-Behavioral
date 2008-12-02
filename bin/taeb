@@ -67,7 +67,7 @@ my $interface = load_from_argv('Interface', 'Local');
 TAEB->interface($interface);
 
 # signal and terminal munging {{{
-$SIG{__WARN__} = sub { TAEB->warning(@_) };
+$SIG{__WARN__} = sub { TAEB->log->perl($_[0], level => 'warning') };
 $SIG{__DIE__} = sub {
     require Carp::REPL;
     print "\ec";
@@ -82,7 +82,7 @@ $SIG{__DIE__} = sub {
     TAEB->save_state;
 
     unless ("@_" =~ /Game over, man|See you soon|Until we meet again/) {
-        TAEB->error("@_");
+        TAEB->log->perl($_[0], level => 'error');
         TAEB->save;
         endwin;
         $old_sigdie->(@_) if ref($old_sigdie) eq 'CODE';
