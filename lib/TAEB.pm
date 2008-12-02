@@ -4,9 +4,6 @@ use TAEB::Util ':colors';
 
 use TAEB::OO;
 
-use Log::Dispatch;
-use Log::Dispatch::File;
-
 use TAEB::Config;
 use TAEB::Display;
 use TAEB::VT;
