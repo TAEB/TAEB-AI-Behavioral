@@ -10,6 +10,7 @@ use Log::Dispatch::File;
 use TAEB::Config;
 use TAEB::Display;
 use TAEB::VT;
+use TAEB::Logger;
 use TAEB::ScreenScraper;
 use TAEB::Spoilers;
 use TAEB::Knowledge;
@@ -108,61 +109,9 @@ class_has state => (
 
 class_has log => (
     is      => 'ro',
-    isa     => 'Log::Dispatch',
+    isa     => 'TAEB::Logger',
     lazy    => 1,
-    handles => [qw(debug info warning error critical)],
-    default => sub {
-        my $format = sub {
-            my %args = @_;
-            chomp $args{message};
-            return sprintf "[%s] <T%s> %s: %s\n",
-                           uc($args{level}),
-                           TAEB->has_senses ? TAEB->turn : '-',
-                           scalar(localtime),
-                           $args{message};
-        };
-
-        my $dispatcher = Log::Dispatch->new;
-        for (qw(debug info warning error critical)) {
-            $dispatcher->add(
-                Log::Dispatch::File->new(
-                    name      => $_,
-                    min_level => $_,
-                    filename  => "log/$_.log",
-                    callbacks => $format,
-                )
-            );
-        }
-
-        if (TAEB->config->twitter) {
-            require Log::Dispatch::Twitter;
-            if (my $error_config = TAEB->config->twitter->{errors}) {
-                $dispatcher->add(
-                    Log::Dispatch::Twitter->new(
-                        name      => 'twitter',
-                        min_level => 'error',
-                        username  => $error_config->{username},
-                        password  => $error_config->{password},
-                        callbacks => sub {
-                            my %args = @_;
-                            return if $args{message} =~ /^Game over/;
-
-                            # XXX: we need to not throw errors when we die
-                            return if $args{message} =~ /^Unable to parse the (botl|status)/;
-
-                            $args{message} =~ s/\n.*//s;
-                            return sprintf "%s (T%s): %s",
-                                        TAEB->has_senses ? TAEB->name : '?',
-                                        TAEB->has_senses ? TAEB->turn : '-',
-                                        $args{message};
-                        },
-                    )
-                );
-            }
-        }
-
-        return $dispatcher;
-    },
+    default => sub { TAEB::Logger->new },
 );
 
 class_has dungeon => (
