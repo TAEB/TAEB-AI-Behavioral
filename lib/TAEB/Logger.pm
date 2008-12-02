@@ -3,6 +3,8 @@ use strict;
 use warnings;
 package TAEB::Logger;
 use TAEB::OO;
+use Log::Dispatch::Twitter;
+use Log::Dispatch::File;
 use Carp;
 extends 'Log::Dispatch::Channels';
 
