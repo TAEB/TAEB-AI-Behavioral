@@ -461,43 +461,6 @@ sub keypress {
     return;
 }
 
-after qw/info warning/ => sub {
-    my ($logger, $message) = @_;
-
-    if (TAEB->info_to_screen && $TAEB::ToScreen) {
-        TAEB->notify($message);
-    }
-};
-
-# don't squelch warnings entirely during tests
-after warning => sub {
-    my ($logger, $message) = @_;
-
-    if (!$TAEB::ToScreen) {
-        local $SIG{__WARN__};
-        warn $message;
-    }
-};
-
-# we want stack traces for errors and crits
-around qw/error critical/ => sub {
-    my $orig = shift;
-    my ($logger, $message) = @_;
-
-    $logger->$orig(Carp::longmess($message));
-};
-
-after qw/error critical/ => sub {
-    my ($logger, $message) = @_;
-
-    if ($TAEB::ToScreen) {
-        TAEB->complain(Carp::shortmess($message));
-    }
-    else {
-        confess $message;
-    }
-};
-
 sub notify {
     my $self = shift;
     my $msg  = shift;
