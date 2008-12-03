@@ -124,6 +124,7 @@ around [qw/everything warning error/] => sub {
 
 our $AUTOLOAD;
 sub AUTOLOAD {
+    return if $AUTOLOAD =~ /[A-Z_]+/;
     my $self = shift;
     my $message = shift;
     my $channel_name = $AUTOLOAD;
