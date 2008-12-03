@@ -106,8 +106,6 @@ has twitter => (
     },
 );
 
-after new => sub { $self->twitter };
-
 around twitter => sub {
     my $orig = shift;
     my $self = shift;
@@ -131,6 +129,8 @@ sub AUTOLOAD {
     my $channel_name = $AUTOLOAD;
     my $channel = $self->channel($channel_name);
     if (!$channel) {
+        # make sure twitter is initialized
+        $self->twitter;
         # XXX: would be nice if LDC had global callbacks
         $self->add_channel($channel_name,
                            callbacks => sub {
