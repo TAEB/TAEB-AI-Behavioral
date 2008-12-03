@@ -116,6 +116,24 @@ sub panel_empty {
     return 1;
 }
 
+sub wall_interest {
+    my ($pmap, $tile, $dir) = @_;
+
+    return 0 unless $tile->type eq 'wall'
+                 || $tile->type eq 'rock'
+                 || $tile->type eq 'unexplored'; # just in case
+    my $factor = 1e1;
+
+    my ($px, $py) = panel($tile);
+    my ($dx, $dy) = vi2delta($dir);
+
+    if ($pmap->{$px + $dx}{$py + $dy}) {
+        $factor = $tile->type eq 'wall' ? 1e20 : 1e5;
+    }
+
+    return $factor * exp(- $tile->searched*5);
+}
+
 sub searchability {
     my ($pmap, $tile) = @_;
     my $searchability = 0;
@@ -133,20 +151,7 @@ sub searchability {
     # probably a bottleneck; we shall see
 
     $tile->each_adjacent(sub {
-        my ($adj, $dir) = @_;
-        return unless $adj->type eq 'wall'
-                   || $adj->type eq 'rock'
-                   || $adj->type eq 'unexplored'; # just in case
-        my $factor = 1e1;
-
-        my ($px, $py) = panel($adj);
-        my ($dx, $dy) = vi2delta($dir);
-
-        if ($pmap->{$px + $dx}{$py + $dy}) {
-            $factor = $adj->type eq 'wall' ? 1e20 : 1e5;
-        }
-
-        $searchability += $factor * exp(- $adj->searched/5);
+        $searchability += wall_interest($pmap, @_);
     });
 
     # the logaritm moves $searchability from a multiplicative domain
