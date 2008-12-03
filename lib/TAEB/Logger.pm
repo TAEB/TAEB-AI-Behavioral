@@ -124,11 +124,11 @@ around [qw/everything warning error/] => sub {
 
 our $AUTOLOAD;
 sub AUTOLOAD {
-    return if $AUTOLOAD =~ /[A-Z_]+/;
     my $self = shift;
     my $message = shift;
     my $channel_name = $AUTOLOAD;
     $channel_name =~ s/.*:://;
+    return if $channel_name =~ /^[A-Z_]+$/;
     my $channel = $self->channel($channel_name);
     if (!$channel) {
         # make sure twitter is initialized
