@@ -27,7 +27,6 @@ sub is_dead_end {
     # know if it is or not
     return 0 unless $check->explored;
 
-    # rearrange these tiles into a loop and double it
     $check->each_orthogonal(sub {
         my $tile = shift;
         if ($tile->type eq 'rock'
@@ -41,13 +40,6 @@ sub is_dead_end {
             $walkable++;
         }
     });
-
-    # Handle dead ends as well as crooked halls
-    # The wall tiles get converted to 8's when building the tile string
-
-    # 888  8888  88888  ...  
-    # #@8  8#@8  88@88  -@-    
-    # 888  ##88  #####  888 
 
     # stop us from searching forever :)
     return 0 if $searched >= $rocks * 10;
