@@ -128,6 +128,7 @@ sub AUTOLOAD {
     my $self = shift;
     my $message = shift;
     my $channel_name = $AUTOLOAD;
+    $channel_name =~ s/.*:://;
     my $channel = $self->channel($channel_name);
     if (!$channel) {
         # make sure twitter is initialized
