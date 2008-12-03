@@ -18,9 +18,10 @@ sub search_direction {
 
 sub is_dead_end {
     my $check = shift;
-    my $rocks    = 0;
-    my $searched = 0;
-    my $walkable = 0;
+    my $rock       = 0;
+    my $searched   = 0;
+    my $walkable   = 0;
+    my $unwalkable = 0;
 
     # don't treat an unexplored tile as a dead end, we don't
     # know if it is or not
@@ -32,7 +33,8 @@ sub is_dead_end {
         if ($tile->type eq 'rock'
          || $tile->type eq 'wall'
          || $tile->type eq 'unexplored') {
-            $rocks++;
+            $unwalkable++;
+            $rock++ if $tile->type ne 'wall';
             $searched += ($tile->searched > 10) ? 10 : $tile->searched;
         }
         else {
@@ -49,7 +51,7 @@ sub is_dead_end {
 
     # stop us from searching forever :)
     return 0 if $searched >= $rocks * 10;
-    return $walkable <= 1;
+    return $walkable <= 1 && $rock >= 1;
 }
 
 sub prepare {
