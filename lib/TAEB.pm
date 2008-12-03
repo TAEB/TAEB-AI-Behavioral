@@ -113,11 +113,12 @@ class_has log => (
     default => sub {
         my $self = shift;
         my $log = TAEB::Logger->new;
-        $log->add(Log::Dispatch::Null(
+        $log->add(Log::Dispatch::Null->new(
             name => 'taeb-warning',
             min_level => 'warning',
             max_level => 'warning',
             callbacks => sub {
+                my $message = shift;
                 if ($TAEB::ToScreen) {
                     TAEB->notify($message) if TAEB->info_to_screen;
                 }
@@ -127,10 +128,11 @@ class_has log => (
                 }
             },
         ));
-        $log->add(Log::Dispatch::Null(
+        $log->add(Log::Dispatch::Null->new(
             name => 'taeb-error',
             min_level => 'error',
             callbacks => sub {
+                my $message = shift;
                 if ($TAEB::ToScreen) {
                     TAEB->complain(Carp::shortmess($message));
                 }
@@ -192,8 +194,8 @@ class_has senses => (
     default   => sub {
         my $self = shift;
         my $senses = TAEB::Senses->new;
-        $log->turn_calculator(sub { TAEB->turn });
-        $log->name_calculator(sub { TAEB->name });
+        $self->turn_calculator(sub { TAEB->turn });
+        $self->name_calculator(sub { TAEB->name });
         return $senses;
     },
     handles   => qr/^(?!_check_|msg_|update|initialize)/,

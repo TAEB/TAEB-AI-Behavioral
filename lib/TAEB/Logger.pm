@@ -20,11 +20,13 @@ has name_calculator => (
 
 has default_channels => (
     isa     => 'ArrayRef[Str]',
+    lazy    => 1,
     default => sub { [qw/everything warning error/] },
 );
 
 has bt_levels => (
     isa     => 'HashRef',
+    lazy    => 1,
     default => sub { { error => 1, warning => 1 } },
 );
 
