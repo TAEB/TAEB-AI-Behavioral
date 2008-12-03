@@ -42,7 +42,7 @@ sub is_dead_end {
     });
 
     # stop us from searching forever :)
-    return 0 if $searched >= $rocks * 10;
+    return 0 if $searched >= $unwalkable * 10;
     return $walkable <= 1 && $rock >= 1;
 }
 
