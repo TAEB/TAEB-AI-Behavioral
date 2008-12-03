@@ -18,7 +18,7 @@ has name_calculator => (
     default => sub { sub { '?' } },
 );
 
-has default_channels => (
+has default_outputs => (
     isa     => 'ArrayRef[Str]',
     lazy    => 1,
     default => sub { [qw/everything warning error/] },
@@ -101,7 +101,7 @@ has twitter => (
                             $args{message};
             },
         );
-        push @{ $self->default_channels }, 'twitter';
+        push @{ $self->default_outputs }, 'twitter';
         return $twitter;
     },
 );

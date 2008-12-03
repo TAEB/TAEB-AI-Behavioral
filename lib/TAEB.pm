@@ -141,7 +141,7 @@ class_has log => (
                 }
             },
         ));
-        push @{ $log->default_channels }, qw/taeb-warning taeb-error/;
+        push @{ $log->default_outputs }, qw/taeb-warning taeb-error/;
         return $log;
     },
 );
