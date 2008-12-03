@@ -500,8 +500,8 @@ sub try_monster {
     # attempt to handle ghosts on the rogue level, which are always the
     # same glyphs as rocks. rogue level ignores your glyph settings.
     if (!TAEB->is_blind && TAEB->current_level->is_rogue && $glyph eq ' ') {
-        return unless abs($self->x - TAEB->x) == 1
-                   || abs($self->y - TAEB->y) == 1;
+        return unless abs($self->x - TAEB->x) <= 1
+                   && abs($self->y - TAEB->y) <= 1;
 
         # if we're standing in a corridor, unexplored wall tiles are still
         # ' ' glyphs. this does mean that ghosts in corridors won't be noticed,
