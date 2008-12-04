@@ -35,7 +35,8 @@ sub logrotate {
 
     unlink map { $_->[1] } grep { $_->[0] <= $head - $max_logs + 1 } @logs;
 
-    for (qw/debug info error critical warning/) {
+    for (glob "log/*") {
+        s{^log/(.*)\.log}{$1};
         my $dest = sprintf "logs/$_.%05d.log.bz2", $head + 1;
         print "bzipping $dest...";
         system(sprintf "bzip2 < log/$_.log > $dest");
