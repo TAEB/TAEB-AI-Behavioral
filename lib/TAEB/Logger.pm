@@ -215,4 +215,8 @@ sub _format {
                    $args{message};
 }
 
+# we need to use Log::Dispatch::Channels' constructor
+__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+no Moose;
+
 1;
