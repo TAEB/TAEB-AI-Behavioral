@@ -113,7 +113,7 @@ class_has log => (
     default => sub {
         my $self = shift;
         my $log = TAEB::Logger->new;
-        $log->add(Log::Dispatch::Null->new(
+        $log->add_as_default(Log::Dispatch::Null->new(
             name => 'taeb-warning',
             min_level => 'warning',
             max_level => 'warning',
@@ -128,7 +128,7 @@ class_has log => (
                 }
             },
         ));
-        $log->add(Log::Dispatch::Null->new(
+        $log->add_as_default(Log::Dispatch::Null->new(
             name => 'taeb-error',
             min_level => 'error',
             callbacks => sub {
@@ -141,7 +141,6 @@ class_has log => (
                 }
             },
         ));
-        push @{ $log->default_outputs }, qw/taeb-warning taeb-error/;
         return $log;
     },
 );

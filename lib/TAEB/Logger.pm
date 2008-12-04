@@ -35,12 +35,14 @@ has everything => (
     is      => 'ro',
     default => sub {
         my $self = shift;
-        Log::Dispatch::File->new(
+        my $output = Log::Dispatch::File->new(
             name      => 'everything',
             min_level => 'debug',
             filename  => "log/everything.log",
             callbacks => sub { $self->_format('everything', @_) },
-        )
+        );
+        $self->add_as_default($output);
+        return $output;
     },
 );
 
@@ -49,12 +51,14 @@ has warning => (
     is      => 'ro',
     default => sub {
         my $self = shift;
-        Log::Dispatch::File->new(
+        my $output = Log::Dispatch::File->new(
             name      => 'warning',
             min_level => 'warning',
             filename  => "log/warning.log",
             callbacks => sub { $self->_format('warning', @_) },
-        )
+        );
+        $self->add_as_default($output);
+        return $output;
     },
 );
 
@@ -63,12 +67,14 @@ has error => (
     is      => 'ro',
     default => sub {
         my $self = shift;
-        Log::Dispatch::File->new(
+        my $output = Log::Dispatch::File->new(
             name      => 'error',
             min_level => 'error',
             filename  => "log/error.log",
             callbacks => sub { $self->_format('error', @_) },
-        )
+        );
+        $self->add_as_default($output);
+        return $output;
     },
 );
 
@@ -101,7 +107,7 @@ has twitter => (
                             $args{message};
             },
         );
-        push @{ $self->default_outputs }, 'twitter';
+        $self->add_as_default($twitter);
         return $twitter;
     },
 );
