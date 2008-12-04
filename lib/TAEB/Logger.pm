@@ -19,9 +19,9 @@ has name_calculator => (
 );
 
 has default_outputs => (
-    isa     => 'ArrayRef[Str]',
+    isa     => 'ArrayRef[Log::Dispatch::Output]',
     lazy    => 1,
-    default => sub { [qw/everything warning error/] },
+    default => sub { [] },
 );
 
 has bt_levels => (
