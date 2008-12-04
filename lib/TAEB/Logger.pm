@@ -159,6 +159,14 @@ sub AUTOLOAD {
                @_);
 }
 
+sub add_as_default {
+    my $self = shift;
+    my $output = shift;
+
+    $self->add($output);
+    push @{ $self->default_outputs }, $output;
+}
+
 sub _add_default_outputs {
     my $self = shift;
     my $channel_name = shift;
