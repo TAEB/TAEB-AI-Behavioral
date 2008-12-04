@@ -118,9 +118,9 @@ class_has log => (
             min_level => 'warning',
             max_level => 'warning',
             callbacks => sub {
-                my $message = shift;
+                my %args = @_;
                 if ($TAEB::ToScreen) {
-                    TAEB->notify($message) if TAEB->info_to_screen;
+                    TAEB->notify($args{message}) if TAEB->info_to_screen;
                 }
                 else {
                     local $SIG{__WARN__};
@@ -132,12 +132,12 @@ class_has log => (
             name => 'taeb-error',
             min_level => 'error',
             callbacks => sub {
-                my $message = shift;
+                my %args = @_;
                 if ($TAEB::ToScreen) {
-                    TAEB->complain(Carp::shortmess($message));
+                    TAEB->complain(Carp::shortmess($args{message}));
                 }
                 else {
-                    confess $message;
+                    confess $args{message};
                 }
             },
         ));
