@@ -42,7 +42,7 @@ has everything => (
             name      => 'everything',
             min_level => 'debug',
             filename  => "log/everything.log",
-            callbacks => sub { $self->_format('everything', @_) },
+            callbacks => sub { $self->_format(@_) },
         );
         $self->add_as_default($output);
         return $output;
@@ -59,7 +59,7 @@ has warning => (
             name      => 'warning',
             min_level => 'warning',
             filename  => "log/warning.log",
-            callbacks => sub { $self->_format('warning', @_) },
+            callbacks => sub { $self->_format(@_) },
         );
         $self->add_as_default($output);
         return $output;
@@ -76,7 +76,7 @@ has error => (
             name      => 'error',
             min_level => 'error',
             filename  => "log/error.log",
-            callbacks => sub { $self->_format('error', @_) },
+            callbacks => sub { $self->_format(@_) },
         );
         $self->add_as_default($output);
         return $output;
@@ -165,7 +165,8 @@ sub AUTOLOAD {
         $self->twitter;
         # XXX: would be nice if LDC had global callbacks
         $self->add_channel($channel_name,
-                           callbacks => sub {
+                           callbacks => [
+                           sub {
                                my %args = @_;
                                if ($self->bt_levels->{$args{level}}) {
                                    return Carp::longmess($args{message});
@@ -173,12 +174,20 @@ sub AUTOLOAD {
                                else {
                                    return $args{message};
                                }
-                           });
+                           },
+                           sub {
+                               my %args = @_;
+                               return sprintf "[%s:%s] %s",
+                                              uc($args{level}),
+                                              $channel_name,
+                                              $args{message};
+                           },
+                           ]);
         $self->add(Log::Dispatch::File->new(
                        name      => $channel_name,
                        min_level => 'debug',
                        filename  => "log/$channel_name.log",
-                       callbacks => sub { $self->_format($channel_name, @_) },
+                       callbacks => sub { $self->_format(@_) },
                    ),
                    channels => $channel_name);
     }
@@ -198,12 +207,9 @@ sub add_as_default {
 
 sub _format {
     my $self = shift;
-    my $channel_name = shift;
     my %args = @_;
     chomp $args{message};
-    return sprintf "[%s:%s] <T%s> %s: %s\n",
-                   uc($args{level}),
-                   $channel_name,
+    return sprintf "<T%s> %s: %s\n",
                    $self->turn_calculator->(),
                    scalar(localtime),
                    $args{message};
