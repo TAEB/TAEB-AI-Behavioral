@@ -257,7 +257,7 @@ class_has new_game => (
         # by the time we have called new_game, we know whether or not we want
         # to load the class from a state file or from defaults. so, do
         # initialization here that should be done each time the app starts.
-        $self->debug("calling initialize");
+        $self->log->main("calling initialize");
         $self->initialize;
     },
 );
@@ -348,7 +348,7 @@ sub handle_logging_in {
         $self->write($self->config->get_align);
     }
     elsif ($self->topline =~ qr/Restoring save file\.\./) {
-        $self->info("We are now in NetHack, restoring a save file.");
+        $self->log->main("We are now in NetHack, restoring a save file.");
         $self->write(' ');
     }
     elsif ($self->topline =~ qr/, welcome( back)? to NetHack!/) {
@@ -519,7 +519,7 @@ around write => sub {
 
     return if length($text) == 0;
 
-    $self->debug("Sending '$text' to NetHack.");
+    $self->log->main("Sending '$text' to NetHack.");
     $orig->($self, $text);
 };
 
