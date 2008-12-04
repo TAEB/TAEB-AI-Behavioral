@@ -122,6 +122,15 @@ around [qw/everything warning error/] => sub {
     return $self->$orig();
 };
 
+after add_channel => sub {
+    my $self = shift;
+    my $channel_name = shift;
+
+    for my $output (@{ $self->default_outputs }) {
+        $self->channel($channel_name)->add($output);
+    }
+};
+
 our $AUTOLOAD;
 sub AUTOLOAD {
     my $self = shift;
@@ -151,7 +160,6 @@ sub AUTOLOAD {
                        callbacks => sub { $self->_format($channel_name, @_) },
                    ),
                    channels => $channel_name);
-        $self->_add_default_outputs($channel_name);
     }
     $self->log(channels => $channel_name,
                level    => 'debug',
@@ -165,15 +173,6 @@ sub add_as_default {
 
     $self->add($output);
     push @{ $self->default_outputs }, $output;
-}
-
-sub _add_default_outputs {
-    my $self = shift;
-    my $channel_name = shift;
-
-    for my $name (@{ $self->default_outputs }) {
-        $self->add($self->output($name), channels => $channel_name);
-    }
 }
 
 sub _format {
