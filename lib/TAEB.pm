@@ -191,11 +191,9 @@ class_has senses => (
     is        => 'ro',
     isa       => 'TAEB::Senses',
     default   => sub {
-        my $self = shift;
-        my $senses = TAEB::Senses->new;
-        $self->log->turn_calculator(sub { TAEB->turn });
-        $self->log->name_calculator(sub { TAEB->name });
-        return $senses;
+        TAEB->log->turn_calculator(sub { TAEB->turn });
+        TAEB->log->name_calculator(sub { TAEB->name });
+        return TAEB::Senses->new;
     },
     handles   => qr/^(?!_check_|msg_|update|initialize)/,
     predicate => 'has_senses',
