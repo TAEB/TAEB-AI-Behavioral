@@ -10,11 +10,13 @@ extends 'Log::Dispatch::Channels';
 
 has turn_calculator => (
     isa     => 'CodeRef',
+    lazy    => 1,
     default => sub { sub { "-" } },
 );
 
 has name_calculator => (
     isa     => 'CodeRef',
+    lazy    => 1,
     default => sub { sub { '?' } },
 );
 
