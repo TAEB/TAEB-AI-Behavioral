@@ -35,6 +35,7 @@ has bt_levels => (
 has everything => (
     isa     => 'Log::Dispatch::File',
     is      => 'ro',
+    lazy    => 1,
     default => sub {
         my $self = shift;
         my $output = Log::Dispatch::File->new(
@@ -51,6 +52,7 @@ has everything => (
 has warning => (
     isa     => 'Log::Dispatch::File',
     is      => 'ro',
+    lazy    => 1,
     default => sub {
         my $self = shift;
         my $output = Log::Dispatch::File->new(
@@ -67,6 +69,7 @@ has warning => (
 has error => (
     isa     => 'Log::Dispatch::File',
     is      => 'ro',
+    lazy    => 1,
     default => sub {
         my $self = shift;
         my $output = Log::Dispatch::File->new(
@@ -113,6 +116,16 @@ has twitter => (
         return $twitter;
     },
 );
+
+around new => sub {
+    my $orig = shift;
+    my $self = $orig->(@_);
+    $self->everything;
+    $self->warning;
+    $self->error;
+    $self->twitter;
+    return $self;
+};
 
 around twitter => sub {
     my $orig = shift;
