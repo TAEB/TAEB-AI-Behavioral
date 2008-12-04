@@ -124,7 +124,7 @@ class_has log => (
                 }
                 else {
                     local $SIG{__WARN__};
-                    warn $message;
+                    warn $args{message};
                 }
             },
         ));
