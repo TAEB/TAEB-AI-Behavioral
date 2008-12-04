@@ -193,8 +193,8 @@ class_has senses => (
     default   => sub {
         my $self = shift;
         my $senses = TAEB::Senses->new;
-        $self->turn_calculator(sub { TAEB->turn });
-        $self->name_calculator(sub { TAEB->name });
+        $self->log->turn_calculator(sub { TAEB->turn });
+        $self->log->name_calculator(sub { TAEB->name });
         return $senses;
     },
     handles   => qr/^(?!_check_|msg_|update|initialize)/,
