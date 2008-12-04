@@ -10,12 +10,14 @@ $| = 1;
 
 while (1) {
     system("perl bin/taeb");
+    my $time = time;
 
     logrotate();
 
     sleep 2;
     system("clear");
-    for (reverse 1..59) {
+    my $took = time - $time;
+    for (reverse 1..(60 - $took)) {
         print $_,"\n";
         sleep 1;
     }
