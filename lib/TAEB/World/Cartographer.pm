@@ -189,8 +189,6 @@ sub autoexplore {
                     shift->type eq 'unexplored'
                 });
             }
-
-            # XXX: corridors need love
         }
     }
 }
