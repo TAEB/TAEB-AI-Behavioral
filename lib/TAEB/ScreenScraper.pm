@@ -704,11 +704,6 @@ our @msg_regex = (
             [dungeon_feature => trap => "bear trap"],
     ],
     [
-        # steed issues, and polyself issues
-        qr/\w+ bear trap closes on your foot!/ =>
-            [dungeon_feature => trap => "bear trap"],
-    ],
-    [
         # polymorph issues
         qr/A gush of water hits you(?: on the head|r (?:left|right) arm)!/ =>
             [dungeon_feature => trap => "rust trap"],
