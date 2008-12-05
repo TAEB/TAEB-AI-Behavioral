@@ -231,9 +231,14 @@ sub msg_dungeon_feature {
     }
     elsif ($feature eq 'trap') {
         $subtype = shift;
-
-        $floor = '^';
-        $type  = 'trap';
+        if ($subtype) {
+            $floor = '^';
+            $type  = 'trap';
+        }
+        else {
+            $floor = '.';
+            $type  = 'floor';
+        }
     }
     elsif ($feature eq 'grave') {
         $floor = '\\';
