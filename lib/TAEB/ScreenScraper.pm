@@ -116,8 +116,6 @@ our %msg_string = (
         [wand => 'wand of striking'],
     "A lit field surrounds you!" =>
         [wand => 'wand of light'],
-    "There is a falling rock trap here." =>
-        [dungeon_feature => "trap" => "falling rock trap"],
     "Far below you, you see coins glistening in the water." =>
         [floor_item => sub { TAEB->new_item("1 gold piece") }],
     "You wrest one last charge from the worn-out wand." =>
@@ -286,6 +284,73 @@ our %msg_string = (
         ['quest_portal'],
     "You turn to stone!" =>
         ['polyself', 'stone golem'],
+    # there can be other ceiling types
+    "A trap door in the ceiling opens, but nothing falls out!" =>
+        [dungeon_feature => trap => 0],
+    # other ceiling types, other head types
+    "A trap door in the ceiling opens and a rock falls on your head!" =>
+        [dungeon_feature => trap => "falling rock trap"],
+    "You feel a change coming over you." =>
+        [dungeon_feature => trap => 0],
+    "Fortunately for you, no boulder was released." =>
+        [dungeon_feature => trap => 0],
+    "An arrow shoots out at you!" =>
+        [dungeon_feature => trap => "arrow trap"],
+    "A little dart shoots out at you!" =>
+        [dungeon_feature => trap => "dart trap"],
+    "You notice a crease in the linoleum." =>
+        [dungeon_feature => trap => "squeaky board"],
+    "You notice a loose board below you." =>
+        [dungeon_feature => trap => "squeaky board"],
+    "A board beneath you squeaks loudly." =>
+        [dungeon_feature => trap => "squeaky board"],
+    "You are enveloped in a cloud of gas!" =>
+        [dungeon_feature => trap => "sleeping gas trap"],
+    "A cloud of gas puts you to sleep!" =>
+        [dungeon_feature => trap => "sleeping gas trap"],
+    "You land on a set of sharp iron spikes!" =>
+        [dungeon_feature => trap => "spiked pit"],
+    "KAABLAMM!!!" =>
+        [dungeon_feature => trap => "pit"],
+    # probably issues until we're able to handle traps that relocate you
+    "A trap door opens up under you!" =>
+        [dungeon_feature => trap => "trap door"],
+    "There's a gaping hole under you!" =>
+        [dungeon_feature => trap => "hole"],
+    "You take a walk on your web." =>
+        [dungeon_feature => trap => "web"],
+    "There is a spider web here." =>
+        [dungeon_feature => trap => "web"],
+    # levelport trap message ends with a '.'
+    "You are momentarily blinded by a flash of light!" =>
+        [dungeon_feature => trap => "magic trap"],
+    "You see a flash of light!" =>
+        [dungeon_feature => trap => "magic trap"],
+    "You hear a deafening roar!" =>
+        [dungeon_feature => trap => "magic trap"],
+    # polymorph
+    "A shiver runs up and down your spine!" =>
+        [dungeon_feature => trap => "magic trap"],
+    "You hear the moon howling at you." =>
+        [dungeon_feature => trap => "magic trap"],
+    "You hear distant howling." =>
+        [dungeon_feature => trap => "magic trap"],
+    "Your pack shakes violently!" =>
+        [dungeon_feature => trap => "magic trap"],
+    "You smell hamburgers." =>
+        [dungeon_feature => trap => "magic trap"],
+    "You smell charred flesh." =>
+        [dungeon_feature => trap => "magic trap"],
+    # can also get this when losing sleep res
+    #"You feel tired."
+    "You feel momentarily lethargic." =>
+        [dungeon_feature => trap => "anti-magic trap"],
+    "You feel momentarily different." =>
+        [dungeon_feature => trap => "polymorph trap"],
+    "Click! You trigger a rolling boulder trap!" =>
+        [dungeon_feature => trap => "rolling boulder trap"],
+    "You activated a magic portal!" =>
+        [dungeon_feature => trap => "magic portal"],
 );
 
 our @msg_regex = (
@@ -609,6 +674,77 @@ our @msg_regex = (
     [
         qr/^You're finally finished\./ =>
             ['finally_finished'],
+    ],
+    [
+        qr/Air currents pull you down into \w+ (hole|pit)!/ =>
+            [dungeon_feature => trap => sub { $1 }],
+    ],
+    [
+        qr/You (?:float|fly) over \w+ (.*)\./ =>
+            [dungeon_feature => trap => sub { $1 }],
+    ],
+    [
+        qr/You escape \w+ (.*)\./ =>
+            [dungeon_feature => trap => sub { $1 }],
+    ],
+    [
+        qr/You hear a (?:loud|soft) click(?:!|\.)/ =>
+            [dungeon_feature => trap => 0],
+    ],
+    [
+        qr/You (?:burn|dissolve) \w+ spider web!/ =>
+            [dungeon_feature => trap => 0],
+    ],
+    [
+        qr/You tear through \w+ web!/ =>
+            [dungeon_feature => trap => 0],
+    ],
+    [
+        qr/\w+ bear trap closes harmlessly (?:through|over) you\./ =>
+            [dungeon_feature => trap => "bear trap"],
+    ],
+    [
+        # steed issues, and polyself issues
+        qr/\w+ bear trap closes on your foot!/ =>
+            [dungeon_feature => trap => "bear trap"],
+    ],
+    [
+        # polymorph issues
+        qr/A gush of water hits you(?: on the head|r (?:left|right) arm)!/ =>
+            [dungeon_feature => trap => "rust trap"],
+    ],
+    [
+        qr/You see \w+ ((?:spiked )?pit) below you\./ =>
+            [dungeon_feature => trap => sub { $1 }],
+    ],
+    [
+        qr/\w+ pit (full of spikes )?opens up under you!/ =>
+            [dungeon_feature => trap => sub { $1 ? "spiked pit" : "pit" }],
+    ],
+    [
+        # steed issues
+        qr/You fall into \w+ pit!/ =>
+            [dungeon_feature => trap => "pit"],
+    ],
+    [
+        qr/You flow through \w+ spider web\./ =>
+            [dungeon_feature => trap => "web"],
+    ],
+    [
+        qr/You stumble into \w+ spider web!/ =>
+            [dungeon_feature => trap => "web"],
+    ],
+    [
+        qr/You feel (?:oddly )?like the prodigal son\./ =>
+            [dungeon_feature => trap => "magic trap"],
+    ],
+    [
+        qr/You suddenly yearn for (?:Cleveland|your (?:nearby|distant) homeland)\./ =>
+            [dungeon_feature => trap => "magic trap"],
+    ],
+    [
+        qr/(?:There is|You discover) (?:the )?trigger(?: of your mine)? in a pile of soil below you\./ =>
+            [dungeon_feature => trap => "land mine"],
     ],
 );
 
