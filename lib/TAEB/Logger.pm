@@ -153,8 +153,6 @@ sub AUTOLOAD {
     return if $channel_name =~ /^[A-Z_]+$/;
     my $channel = $self->channel($channel_name);
     if (!$channel) {
-        # make sure twitter is initialized
-        $self->twitter;
         # XXX: would be nice if LDC had global callbacks
         $self->add_channel($channel_name,
                            callbacks => [
