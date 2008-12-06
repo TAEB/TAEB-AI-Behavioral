@@ -109,7 +109,7 @@ sub check_dlvl {
     my $self = shift;
 
     my $botl = TAEB->vt->row_plaintext(23);
-    $botl =~ /^(Dlvl|Home|Fort Ludios|End Game|Astral Plane):?(\d*) /
+    $botl =~ /^(Dlvl|Home|Fort Ludios|End Game|Astral Plane)(?::| )?(\d*) /
         or do {
             TAEB->log->cartographer("Unable to parse the botl for dlvl: $botl",
                                     level => 'error');
