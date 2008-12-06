@@ -106,12 +106,6 @@ has twitter => (
     },
 );
 
-sub BUILD {
-    # we don't initialize log files until they're used, so need to make sure
-    # old ones don't stick around
-    unlink for (glob "log/*.log");
-}
-
 around new => sub {
     my $orig = shift;
     my $self = $orig->(@_);
@@ -119,6 +113,9 @@ around new => sub {
     $self->warning;
     $self->error;
     $self->twitter;
+    # we don't initialize log files until they're used, so need to make sure
+    # old ones don't stick around
+    unlink for (glob "log/*.log");
     return $self;
 };
 
