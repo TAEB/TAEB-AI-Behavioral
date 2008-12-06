@@ -47,6 +47,7 @@ requires 'Scalar::Defer';
 # NetHack-specific things
 requires 'NetHack::Menu' => '0.05';
 requires 'NetHack::FOV';
+requires 'NetHack::Item' => '0.04';
 
 features(
     'REPL on exception' => [
