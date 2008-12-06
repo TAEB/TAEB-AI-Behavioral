@@ -95,8 +95,9 @@ has twitter => (
 
                 $args{message} =~ s/\n.*//s;
                 return sprintf "%s (T%s): %s",
-                            (TAEB->name || '?'),
-                            (TAEB->turn || '-'),
+                            TAEB->loaded_persistent_data
+                          ? (TAEB->name, TAEB->turn)
+                          : ('?',        '-'       ),
                             $args{message};
             },
         );
@@ -198,7 +199,7 @@ sub _format {
     my %args = @_;
     chomp $args{message};
     return sprintf "<T%s> %s: %s\n",
-                   (TAEB->turn || '-'),
+                   (TAEB->loaded_persistent_data ? TAEB->turn : '-'),
                    scalar(localtime),
                    $args{message};
 }

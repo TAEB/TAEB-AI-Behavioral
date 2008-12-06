@@ -33,10 +33,11 @@ TAEB - Tactical Amulet Extraction Bot
 our $ToScreen = 0;
 
 class_has persistent_data => (
-    is      => 'ro',
-    isa     => 'HashRef',
-    lazy    => 1,
-    default => sub {
+    is        => 'ro',
+    isa       => 'HashRef',
+    lazy      => 1,
+    predicate => 'loaded_persistent_data',
+    default   => sub {
         my $file = TAEB->persistent_file;
         return {} unless defined $file && -r $file;
 
