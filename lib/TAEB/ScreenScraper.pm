@@ -899,7 +899,7 @@ sub check_cycling {
     $self->inc_calls_this_turn;
 
     if ($self->calls_this_turn > 500) {
-        TAEB->critical("It seems I'm iterating endlessly and making no progress. I'm going to attempt to save and exit!");
+        TAEB->log->scraper("It seems I'm iterating endlessly and making no progress. I'm going to attempt to save and exit!", level => 'critical');
         TAEB->save;
     }
 }
