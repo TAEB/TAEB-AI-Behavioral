@@ -8,18 +8,6 @@ use Log::Dispatch::File;
 use Carp;
 extends 'Log::Dispatch::Channels';
 
-has turn_calculator => (
-    isa     => 'CodeRef',
-    lazy    => 1,
-    default => sub { sub { "-" } },
-);
-
-has name_calculator => (
-    isa     => 'CodeRef',
-    lazy    => 1,
-    default => sub { sub { '?' } },
-);
-
 has default_outputs => (
     isa     => 'ArrayRef[Log::Dispatch::Output]',
     lazy    => 1,
@@ -107,8 +95,8 @@ has twitter => (
 
                 $args{message} =~ s/\n.*//s;
                 return sprintf "%s (T%s): %s",
-                            $self->name_calculator->(),
-                            $self->turn_calculator->(),
+                            (TAEB->name || '?'),
+                            (TAEB->turn || '-'),
                             $args{message};
             },
         );
@@ -210,7 +198,7 @@ sub _format {
     my %args = @_;
     chomp $args{message};
     return sprintf "<T%s> %s: %s\n",
-                   $self->turn_calculator->(),
+                   (TAEB->turn || '-'),
                    scalar(localtime),
                    $args{message};
 }
