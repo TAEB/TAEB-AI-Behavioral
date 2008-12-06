@@ -67,7 +67,10 @@ my $interface = load_from_argv('Interface', 'Local');
 TAEB->interface($interface);
 
 # signal and terminal munging {{{
-$SIG{__WARN__} = sub { TAEB->log->perl($_[0], level => 'warning') };
+$SIG{__WARN__} = sub {
+    my $method = $_[0] =~ /^Use of uninitialized / ? 'undef' : 'perl';
+    TAEB->log->$method($_[0], level => 'warning');
+};
 $SIG{__DIE__} = sub {
     require Carp::REPL;
     print "\ec";
