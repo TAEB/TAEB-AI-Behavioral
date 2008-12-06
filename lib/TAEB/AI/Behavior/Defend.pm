@@ -10,8 +10,9 @@ sub prepare {
     if (TAEB->hp * 2 <= TAEB->maxhp) {
         my $can_engrave = TAEB->can_engrave;
         my $elbereths   = lazy { TAEB->elbereth_count };
-        my $burned      = $elbereths >= 1
-            && TAEB->current_tile->engraving_type eq 'burned';
+        my $burned      = lazy {
+            $elbereths >= 1 && TAEB->current_tile->engraving_type eq 'burned'
+        };
 
         my ($adjacent_ignoring, $adjacent_respecting) = (0, 0);
         TAEB->each_adjacent(sub {
