@@ -46,7 +46,7 @@ sub good_food {
     my $item = shift;
     my $great = shift;
 
-    return 0 unless $item->match(weight => sub { shift() < 100 });
+    return 0 unless $item->match(weight => sub { $_ < 100 });
     return 0 unless TAEB::Spoilers::Item::Food->should_eat($item);
     return 0 if $great && $item->weight > (40 * $item->nutrition);
 
