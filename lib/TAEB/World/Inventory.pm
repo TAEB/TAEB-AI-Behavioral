@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::World::Inventory;
 use TAEB::OO;
-use List::Util 'first', 'sum';
+use List::Util 'sum';
 use List::MoreUtils 'apply';
 
 use overload %TAEB::Meta::Overload::default;
@@ -39,54 +39,19 @@ sub _recalculate_weight {
     $self->weight(sum 0, map { $_->weight * $_->quantity } $self->items);
 }
 
-# XXX: redo this like we did with iterate_tiles, sometime when it isn't 5am
 sub each {
     my $self = shift;
     my $code = shift;
-    my $matcher = shift;
 
-    # pass in a coderef? return the first for which the coderef is true
-    if (ref($matcher) eq 'CODE') {
-        return apply { $code->($_) } (grep { $matcher->($_) } $self->items);
-    }
-
-    # pass in a regex? return the first item for which the regex matches ID
-    if (ref($matcher) eq 'Regexp') {
-        return apply { $code->($_) } (grep { $_->match(identity => $matcher) } $self->items);
-    }
-
-    my $value = shift;
-    if (!defined($value)) {
-        # they passed in only one argument. assume they are checking identity
-        ($matcher, $value) = ('identity', $matcher);
-    }
-
-    return apply { $code->($_) } (grep { $_->match($matcher => $value) } $self->items);
+    return apply { $code->($_) }
+                 TAEB::World::Item->grep_matches([$self->items], @_);
 }
 
 sub find {
     my $self = shift;
-    my $matcher = shift;
-    my @matches;
 
-    # pass in a coderef? return the first for which the coderef is true
-    if (ref($matcher) eq 'CODE') {
-        @matches = grep { $matcher->($_) } $self->items;
-    }
-    # pass in a regex? return the first item for which the regex matches ID
-    elsif (ref($matcher) eq 'Regexp') {
-        @matches = grep { $_->match(identity => $matcher) } $self->items;
-    }
-    else {
-        unshift @_, $matcher;
-        if (@_ == 1) {
-            # they passed in only one argument. assume they are checking identity
-            unshift @_, 'identity';
-        }
-        @matches = grep { $_->match(@_) } $self->items;
-    }
-
-    return wantarray ? @matches : $matches[0];
+    return wantarray ? TAEB::World::Item->grep_matches([$self->items], @_)
+                     : TAEB::World::Item->first_match([$self->items], @_);
 }
 
 =head2 update Char, Item
