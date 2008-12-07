@@ -121,14 +121,15 @@ sub max_match {
         my $exit = $args{on_level}->exit_towards(TAEB->current_level)
             or return;
 
-        my $complete;
-        ($path, $complete) = $class->_calculate_path(
+        my ($complete, $level);
+        ($path, $complete, $level) = $class->_calculate_path(
             $args{from} => $exit,
             through_unknown => $args{through_unknown},
             why => $args{why},
         );
         if (!$complete) {
-            $args{interlevel_failure}->() if exists $args{interlevel_failure};
+            $args{interlevel_failure}->($level)
+                if exists $args{interlevel_failure};
             return;
         }
 
@@ -160,9 +161,11 @@ sub max_match {
     );
 }
 
-=head2 _calculate_path Tile, Tile[, ARGS] -> Str, Bool
+=head2 _calculate_path Tile, Tile[, ARGS] -> Str, Bool, Level
 
-Used internally by calculate_path -- returns just (path, complete).
+Used internally by calculate_path -- returns just (path, complete, level),
+where level is the level that the path ended on (not necessarily to->level if
+the path was incomplete).
 
 =cut
 
@@ -174,22 +177,22 @@ sub _calculate_path {
 
     while ($from->level != $to->level) {
         my $exit = $from->level->exit_towards($to->level);
-        return ($path, 0) if !$exit;
+        return ($path, 0, $from->level) if !$exit;
         my ($p, $c) = $class->_calculate_intralevel_path($from, $exit, @_);
 
         $path .= $p;
+        return ($path, 0, $from->level) if !$c;
+
         $path .= $exit->traverse_command;
 
         $from = $exit->other_side;
-
-        return ($path, 0) if !$c;
     }
 
     my ($p, $c) = $class->_calculate_intralevel_path($from, $to, @_);
 
     $path .= $p if defined $p;
 
-    return ($path, $c);
+    return ($path, $c, $to->level);
 }
 
 =head2 _calculate_intralevel_path Tile, Tile[, ARGS] -> Str, Bool
