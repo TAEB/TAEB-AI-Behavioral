@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::AI::Personality::Behavioral;
 use TAEB::OO;
+use Time::HiRes qw/time/;
 extends 'TAEB::AI::Personality';
 
 =head1 NAME
@@ -95,9 +96,10 @@ sub find_urgency {
 
     my $behavior = $self->behaviors->{$name};
     $behavior->reset_urgency;
+    my $time = time;
     $behavior->prepare;
     my $urgency  = $behavior->urgency || 'none';
-    TAEB->log->personality("The $name behavior has urgency $urgency.");
+    TAEB->log->personality(sprintf "The $name behavior has urgency $urgency. (%6gs)", time - $time);
     TAEB->log->personality("${behavior}'s urgencies method doesn't list $urgency", level => 'warning')
         unless exists $behavior->urgencies->{$urgency} || $urgency eq 'none';
 
@@ -146,6 +148,7 @@ sub next_behavior {
     my $max_urgency = 0;
     my $max_behavior;
 
+    my $time = time;
     # apply weights to urgencies, find maximum
     for my $behavior (@priority) {
         # if this behavior couldn't possibly beat the max, then stop early
@@ -158,7 +161,7 @@ sub next_behavior {
 
     return undef if $max_urgency <= 0;
 
-    TAEB->log->personality("Selecting behavior $max_behavior with urgency $max_urgency.");
+    TAEB->log->personality(sprintf "Selecting behavior $max_behavior with urgency $max_urgency (%6gs).", time - $time);
     return $self->behaviors->{$max_behavior};
 }
 
