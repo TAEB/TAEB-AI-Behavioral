@@ -26,8 +26,8 @@ sub drop {
     my $self = shift;
     my $item = shift;
 
-    return if $item->match(not_appearance => qr/mithril/)
-           || $item->match(not_buc => 'cursed');
+    return if $item->match('!appearance' => qr/mithril/)
+           || $item->match('!buc' => 'cursed');
 
     TAEB->log->behavior("Yes, I want to drop $item because it is cursed.");
     return 1;
@@ -39,7 +39,7 @@ sub pickup {
 
     return unless grep { TAEB->role } qw/Hea Tou Val/;
 
-    return if $item->match(not_appearance => qr/mithril/)
+    return if $item->match('!appearance' => qr/mithril/)
            || $item->match(buc => 'cursed')
            || TAEB->find_item(qr/mithril/);
 

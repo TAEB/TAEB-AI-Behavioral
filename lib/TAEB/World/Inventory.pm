@@ -70,7 +70,7 @@ sub update {
 
     my $slot_item = $self->get($slot);
     if (defined $slot_item) {
-        if ($item->match(not_appearance => $slot_item->appearance)) {
+        if ($item->match('!appearance' => $slot_item->appearance)) {
             TAEB->log->inventory("Adding an item to a used inventory slot",
                                  level => 'error');
             $item->slot($slot);

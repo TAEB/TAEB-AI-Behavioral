@@ -355,7 +355,7 @@ sub throw_range {
         if (0 && "Wielding a bow for arrows or crossbow for bolts or sling for gems") {
             ++$range;
         }
-        elsif ($self->match(not_class => 'gem')) {
+        elsif ($self->match('!class' => 'gem')) {
             $range = int($range / 2);
         }
     }

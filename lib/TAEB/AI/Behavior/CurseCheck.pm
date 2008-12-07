@@ -42,7 +42,7 @@ sub drop {
     return if TAEB->current_tile->type ne 'altar'
            || TAEB->is_blind
            || !$item->can_drop
-           || $item->match(not_buc => undef)
+           || $item->match('!buc' => undef)
            || $item->match(appearance => 'gold piece');
 
     TAEB->log->behavior("Yes, I want to drop $item because it needs to be cursechecked.");

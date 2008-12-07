@@ -159,7 +159,7 @@ sub select_identify {
     my $item = shift;
 
     # only identify stuff we don't know about, that's not cursed.
-    return $item->match(identity => undef, not_buc => 'cursed');
+    return $item->match(identity => undef, '!buc' => 'cursed');
 }
 
 __PACKAGE__->meta->make_immutable;

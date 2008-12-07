@@ -51,7 +51,7 @@ sub pickup {
 
     $item->match(
         identity => qr/\b(?:dagger|dart|shuriken|spear)\b/,
-        not_buc => 'cursed'
+        '!buc' => 'cursed'
     );
 }
 
