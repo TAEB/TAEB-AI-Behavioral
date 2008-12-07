@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 package TAEB::Debug::Bot;
 use Moose::Role;
+use Set::Object;
 
 requires 'speak', 'quit_message', 'tick';
 
@@ -20,13 +21,14 @@ has step => (
 );
 
 has _watching_messages => (
-    metaclass => 'Set::Object',
-    lazy => 1,
-    provides => {
-        insert   => 'watch_message',
-        remove   => 'unwatch_message',
-        elements => 'watching_messages',
-        contains => 'watching_message',
+    isa     => 'Set::Object',
+    lazy    => 1,
+    default => sub { Set::Object->new },
+    handles => {
+        watch_message     => 'insert',
+        unwatch_message   => 'remove',
+        watching_messages => 'elements',
+        watching_message  => 'contains',
     },
 );
 

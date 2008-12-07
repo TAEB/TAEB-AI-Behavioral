@@ -1,15 +1,16 @@
 #!/usr/bin/env perl
 package TAEB::Knowledge::Item::Artifact;
 use TAEB::OO;
-use MooseX::AttributeHelper::Set::Object;
+use Set::Object;
 
 has _seen_artifacts => (
-    metaclass => 'Set::Object',
-    provides => {
-        insert   => 'seen',
-        contains => 'was_seen',
-        elements => 'all_seen',
-        size     => 'num_seen',
+    isa     => 'Set::Object',
+    default => sub { Set::Object->new },
+    handles => {
+        seen     => 'insert',
+        was_seen => 'contains',
+        all_seen => 'elements',
+        num_seen => 'size',
     },
 );
 

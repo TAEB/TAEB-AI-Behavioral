@@ -1,15 +1,16 @@
 #!/usr/bin/env perl
 package TAEB::Publisher;
 use TAEB::OO;
-use MooseX::AttributeHelper::Set::Object;
+use Set::Object;
 
 has _subscribers => (
-    metaclass => 'Set::Object',
-    provides  => {
-        insert   => 'subscribe',
-        remove   => 'unsubscribe',
-        elements => 'subscribers',
-        size     => 'subscriber_count',
+    isa     => 'Set::Object',
+    default => sub { Set::Object->new },
+    handles => {
+        subscribe        => 'insert',
+        unsubscribe      => 'remove',
+        subscribers      => 'elements',
+        subscriber_count => 'size',
     },
 );
 
