@@ -7,16 +7,7 @@ use List::Util 'first';
 
 with 'TAEB::Meta::Role::Reblessing';
 
-use overload
-    %TAEB::Meta::Overload::default,
-    q{""} => sub {
-        my $self = shift;
-        my $branch = $self->branch || '???';
-        sprintf "[%s: branch=%s, dlvl=%d]",
-            $self->meta->name,
-            $branch,
-            $self->z;
-    };
+use overload %TAEB::Meta::Overload::default;
 
 has tiles => (
     isa     => 'ArrayRef[Maybe[ArrayRef[TAEB::World::Tile]]]',
@@ -723,6 +714,12 @@ sub msg_tile_update {
 sub reblessed {
     my $self = shift;
     $self->dungeon->special_level->{ $self->special_level } = $self;
+}
+
+sub debug_line {
+    my $self = shift;
+    my $branch = $self->branch || '???';
+    sprintf "branch=%s, dlvl=%d", $branch, $self->z;
 }
 
 __PACKAGE__->meta->make_immutable;
