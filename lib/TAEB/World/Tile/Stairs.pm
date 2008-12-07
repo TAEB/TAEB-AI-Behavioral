@@ -6,6 +6,7 @@ use TAEB::Util ':colors';
 
 has other_side => (
     isa      => 'TAEB::World::Tile',
+    clearer  => 'clear_other_side',
     weak_ref => 1,
 );
 
