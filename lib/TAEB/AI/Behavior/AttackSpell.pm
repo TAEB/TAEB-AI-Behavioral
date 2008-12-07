@@ -28,10 +28,8 @@ sub prepare {
 
     unless ($spell) {
         for my $desired ($self->use_wands) {
-            $wand = TAEB->find_item(sub {
-                shift->match(identity => $desired,
-                             charges  => sub { !defined $_[0] || $_[0] > 0 });
-            });
+            $wand = TAEB->find_item(identity => $desired,
+                                    charges  => sub { !defined || $_ > 0 });
             next unless $wand;
             TAEB->log->behavior("Considering wand $wand");
             if ($self->try_to_cast(wand => $wand)) {

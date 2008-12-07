@@ -237,11 +237,11 @@ sub has_projectile {
     my $self = shift;
 
     for my $item (@projectiles) {
-        my $projectile = $self->find(sub{ shift->match(
+        my $projectile = $self->find(
             identity    => $item,
             is_wielding => 0,
             price       => 0,
-        )}) or next;
+        ) or next;
         return $projectile;
     }
 
