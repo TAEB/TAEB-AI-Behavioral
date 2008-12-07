@@ -3,6 +3,7 @@ package TAEB::Action::Eat;
 use TAEB::OO;
 extends 'TAEB::Action';
 with 'TAEB::Action::Role::Item';
+use List::Util 'first';
 use List::MoreUtils 'any';
 
 use constant command => "e";
@@ -43,7 +44,7 @@ sub respond_eat_what {
     return $self->item->slot if blessed($self->item);
 
     if ($self->item eq 'any') {
-        my $item = TAEB->find_item(sub { $self->can_eat(@_) });
+        my $item = first { $self->can_eat($_) } TAEB->inventory->items;
 
         if ($item) {
             $self->item($item);

@@ -21,7 +21,7 @@ sub prepare {
     if (TAEB->nutrition < 200 && TAEB::Action::Eat->any_food) {
         my ($item, $prio) = ('any', -1000);
 
-        for my $meal (TAEB->inventory->find(\&good_food)) {
+        for my $meal (good_inv_food(0)) {
             my $p = $meal->weight / $meal->nutrition;
 
             $p -= 1000 if $meal->identity =~ qr/sprig|carrot|leaf|lump/;
@@ -53,16 +53,19 @@ sub good_food {
     return 1;
 }
 
+sub good_inv_food {
+    my $great = shift;
+    return grep { good_food($_, $great) } TAEB->inventory->items;
+}
+
 sub pickup {
     my $self = shift;
     my $item = shift;
 
     return 0 if !good_food($item);
 
-    my $good = sum 0, map { $_->quantity * $_->nutrition }
-        TAEB->find_item(sub{ good_food($_,1); });
-    my $food = sum 0, map { $_->quantity * $_->nutrition }
-        TAEB->find_item(\&good_food);
+    my $good = sum 0, map { $_->quantity * $_->nutrition } good_inv_food(1);
+    my $food = sum 0, map { $_->quantity * $_->nutrition } good_inv_food(0);
 
     my $limit = 3000 - $food;
 
