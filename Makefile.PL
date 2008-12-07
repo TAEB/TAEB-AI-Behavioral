@@ -13,6 +13,7 @@ requires 'Moose';
 requires 'MooseX::Singleton' => 0.03;
 requires 'MooseX::AttributeHelpers' => 0.09;
 requires 'MooseX::ClassAttribute' => 0.07;
+requires 'MooseX::Role::Matcher';
 requires 'Module::Pluggable';
 
 # getop for bin/taeb
