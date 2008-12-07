@@ -17,22 +17,31 @@ sub unexplored_level {
 sub find_path {
     my $self = shift;
     my $path;
-    for my $method (qw/shallowest_level farthest_level nearest_level/) {
+    LEVEL: for my $method (qw/shallowest_level farthest_level nearest_level/) {
         my $level = TAEB->$method(\&unexplored_level);
         # XXX: this would be nice, but it overrides anything of lower priority
         #$level ||= TAEB->$method(sub { not shift->fully_explored });
 
         next if !$level;
 
-        my $prev_explored = $level->fully_explored;
-        $path = TAEB::World::Path->first_match(sub { not shift->explored },
-                                               why      => "Explore",
-                                               on_level => $level,
-                                               through_unknown => 1,
-                                               intralevel_failure => sub {
-                                                   $level->fully_explored(1)
-                                               });
-        redo if $prev_explored != $level->fully_explored;
+        PATHFIND: {
+            my $prev_explored = $level->fully_explored;
+            $path = TAEB::World::Path->first_match(
+                sub { not shift->explored },
+                why      => "Explore",
+                on_level => $level,
+                through_unknown => 1,
+                intralevel_failure => sub {
+                    $level->fully_explored(1)
+                },
+                interlevel_failure => sub {
+                    $level = shift;
+                    no warnings 'exiting';
+                    redo PATHFIND;
+                }
+            );
+            redo LEVEL if $prev_explored != $level->fully_explored;
+        }
         last if $path;
         last if $level == TAEB->current_level;
     }
