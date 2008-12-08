@@ -9,23 +9,29 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn match   TAEBinfo    /^.\{-}\]/
-            \ contains=TAEBturn,TAEBtime,TAEBmsgtype
-syn match   TAEBtime    /.\{-}:/
-            \ display nextgroup=TAEBmsgtype skipwhite contained
-syn match   TAEBturn    /^<T\(-\|\d\+\)>/
-            \ display nextgroup=TAEBtime skipwhite contained
-syn match   TAEBmsgtype /\[[^]]\{-}\]/
-            \ display contains=TAEBlevel,TAEBchannel contained
-syn keyword TAEBlevel   DEBUG INFO NOTICE WARNING ERROR CRITICAL EMERGENCY
+syn keyword TAEBlevellow  DEBUG INFO NOTICE
             \ contained
-syn match   TAEBchannel /:\zs\w\+\ze\]/
+syn keyword TAEBlevelmid  WARNING
+            \ contained
+syn keyword TAEBlevelhigh ERROR CRITICAL EMERGENCY
+            \ contained
+syn match   TAEBinfo      /^.\{-}\]/
+            \ contains=TAEBturn,TAEBtime,TAEBmsgtype
+syn match   TAEBtime      /.\{-}:/
+            \ display nextgroup=TAEBmsgtype skipwhite contained
+syn match   TAEBturn      /^<T\(-\|\d\+\)>/
+            \ display nextgroup=TAEBtime skipwhite contained
+syn match   TAEBmsgtype   /\[[^]]\{-}\]/
+            \ display contains=TAEBlevel.*,TAEBchannel contained
+syn match   TAEBchannel   /:\zs\w\+\ze\]/
             \ display contained
 
-hi def link TAEBturn    Keyword
-hi def link TAEBtime    Comment
-hi def link TAEBlevel   Constant
-hi def link TAEBchannel Special
-hi def link TAEBmsgtype Type
+hi def link TAEBturn      Keyword
+hi def link TAEBtime      Comment
+hi def link TAEBlevellow  Identifier
+hi def link TAEBlevelmid  Todo
+hi def link TAEBlevelhigh Error
+hi def link TAEBchannel   Special
+hi def link TAEBmsgtype   Type
 
 let b:current_syntax = "taeb-log"
