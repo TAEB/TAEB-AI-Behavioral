@@ -177,10 +177,11 @@ with no unknown neighbors".
 
 sub autoexplore {
     my $self = shift;
+    my $level = $self->dungeon->current_level;
 
     for my $y (1 .. 21) {
         TILE: for my $x (0 .. 79) {
-            my $tile = $self->dungeon->current_level->at($x, $y);
+            my $tile = $level->at($x, $y);
 
             if (!$tile->explored
              && $tile->type ne 'rock'
