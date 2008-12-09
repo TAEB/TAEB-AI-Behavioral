@@ -229,8 +229,9 @@ sub update {
     # XXX: if the type is olddoor then we probably kicked/opened the door and
     # something walked onto it. this needs improvement
     if ($newtype eq 'obscured') {
-        # ghosts and xorns should not update the map
-        return if $newglyph eq 'X';
+        # ghosts and xorns and earth elementals should not update the map
+        return if $newglyph eq 'X'
+               || ($newglyph eq 'E' && $color == COLOR_BROWN);
 
         $self->set_interesting(1)
             unless $self->has_monster
