@@ -30,7 +30,7 @@ sub logrotate {
     my $max_logs = $cfg->{max_logs} || 10e999;
 
     mkdir("logs");
-    my @logs = map { m#^logs/(?:\w+)\.([0-9]+)\.log\.bz2# ? [$1, $_] : () }
+    my @logs = map { m#^logs/(?:\w+)\.([0-9]+)\.log\.(?:bz2|gz)# ? [$1, $_] : () }
         glob "logs/*";
 
     my $head = max -1, map { $_->[0] } @logs;  #highest used log index
@@ -39,9 +39,9 @@ sub logrotate {
 
     for (glob "log/*") {
         s{^log/(.*)\.log}{$1};
-        my $dest = sprintf "logs/$_.%05d.log.bz2", $head + 1;
-        print "bzipping $dest...";
-        system(sprintf "bzip2 < log/$_.log > $dest");
+        my $dest = sprintf "logs/$_.%05d.log.gz", $head + 1;
+        print "gzipping $dest...";
+        system(sprintf "gzip -9 < log/$_.log > $dest");
         print "done\n";
     }
 }
