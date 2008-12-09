@@ -48,7 +48,7 @@ has [qw/is_blind is_stunned is_confused is_hallucinating is_lycanthropic is_engu
     default => 0,
 );
 
-has [qw/is_fast is_very_fast is_stealthy/] => (
+has [qw/is_fast is_very_fast is_stealthy is_teleporting/] => (
     traits  => ['TAEB::GoodStatus'],
     isa     => 'Bool',
     default => 0,
