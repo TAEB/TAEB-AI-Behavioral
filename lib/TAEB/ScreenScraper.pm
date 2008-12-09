@@ -59,9 +59,9 @@ our %msg_string = (
     "You feel less stealthy!" =>
         ['status_change' => stealthy => 0],
     "You feel very jumpy." =>
-        ['status_change' => teleporting => 0],
+        ['status_change' => teleporting => 1],
     "You feel diffuse." =>
-        ['status_change' => teleporting => 0],
+        ['status_change' => teleporting => 1],
     "You feel less jumpy." =>
         ['status_change' => teleporting => 0],
     "From the murky depths, a hand reaches up to bless the sword." =>
