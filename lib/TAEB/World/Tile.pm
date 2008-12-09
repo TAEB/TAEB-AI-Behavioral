@@ -238,13 +238,10 @@ sub update {
                 || $hadfriendly; # if a friendly stepped off it, we don't
                                  # want it marked as interesting.
 
-        $self->type('obscured')
-            if $oldtype eq 'rock'
-            || $oldtype eq 'unexplored'
-            || $oldtype eq 'wall'
-            || $oldtype eq 'closeddoor';
-
-        return;
+        return unless $oldtype eq 'rock'
+                   || $oldtype eq 'unexplored'
+                   || $oldtype eq 'wall'
+                   || $oldtype eq 'closeddoor';
     } else {
         # If the tile is not obscured, there are no items on it.
         $self->clear_items;
