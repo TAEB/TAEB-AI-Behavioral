@@ -57,6 +57,8 @@ sub drop {
         TAEB->log->behavior("Yes, I want to drop $item because I can't pay for it");
         return 1;
     }
+
+    return undef; #don't care
 }
 
 sub urgencies {
