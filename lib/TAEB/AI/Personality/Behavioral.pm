@@ -255,6 +255,10 @@ sub drop {
         # behavior is indifferent. Next!
         next if !defined($drop);
 
+        TAEB->log->personality($behavior->name() . " wants to " .
+            (!$drop ? "NOT drop " : ref $drop ? "drop $$drop of " : "drop ") .
+            $item);
+
         # behavior does NOT want this item to be dropped
         return 0 if !$drop;
 
