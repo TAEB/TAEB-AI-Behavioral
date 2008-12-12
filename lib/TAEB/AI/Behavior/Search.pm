@@ -26,7 +26,7 @@ sub prepare {
     my $path = TAEB::World::Path->max_match(
         sub {
             my ($tile, $path) = @_;
-            searchability($pmap, $tile) - length($path);
+            searchability($pmap, $tile) / exp(length($path));
         },
         why => "Search",
     );
@@ -154,9 +154,7 @@ sub searchability {
         $searchability += wall_interest($pmap, @_);
     });
 
-    # the logaritm moves $searchability from a multiplicative domain
-    # limiting at 0 to an additive domain
-    return log($searchability || 1e-30);
+    return $searchability;
 }
 
 __PACKAGE__->meta->make_immutable;
