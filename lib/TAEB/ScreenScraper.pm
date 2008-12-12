@@ -388,7 +388,7 @@ our @msg_regex = (
         # need to clear the floor on receiving notices of terrain... HOWEVER
         # if there were a lot of items, we handle menus before messages.  To
         # avoid a big mess, we skip the clear in that case.
-        qr/^There is a.* here.$/,
+        qr/^There is (?:molten lava|ice|an? .*) here.$/,
             [sub { TAEB->scraper->saw_floor_list_this_step ?
                        '' : 'clear_floor' }],  # is this the best way?
     ],
