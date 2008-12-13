@@ -161,6 +161,8 @@ sub check_dlvl {
             }
         }
 
+        TAEB->log->cartographer("Created level: $newlevel");
+
         $self->dungeon->current_level($newlevel);
         TAEB->enqueue_message('dlvl_change', $level->z => $dlvl);
     }
