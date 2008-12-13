@@ -501,6 +501,10 @@ our @msg_regex = (
             [check => 'floor'],
     ],
     [
+        qr/"Please (?:drop that gold and )?follow me."/ =>
+            ['vault_guard' => 1],
+    ],
+    [
         qr/"I repeat, (?:drop that gold and )?follow me!"/ =>
             ['vault_guard' => 1],
     ],
