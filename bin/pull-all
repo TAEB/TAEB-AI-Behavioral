@@ -5,6 +5,6 @@
 while (<>) {
     next unless /^\* (.*)/;
     print "Pulling from $1...\n";
-    system("darcs pull $1");
+    system("darcs pull --no-set-default $1");
 }
 
