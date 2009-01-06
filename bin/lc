@@ -68,6 +68,8 @@ for (@files) {
         if length($out) > $length;
 }
 
+$length = 80 if $length > 80;
+
 print "  lines   +spoil   +doc  +blank  file\n";
 printf "%s\n", '-' x $length;
 print @out;
