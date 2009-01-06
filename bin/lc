@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use File::Next;
+use File::Basename;
 use YAML qw/LoadFile/;
 
 my @files;
@@ -77,7 +78,7 @@ print @out;
 printf "%s\n", '-' x $length;
 printf "%7d %7d %7d %7d\n\n", $total_lines, $total_know, $total_doc, $total_blank;
 
-my $author_map = LoadFile('etc/nicks.yml');
+my $author_map = LoadFile((fileparse($0))[1] . '../etc/nicks.yml');
 
 my %commits_by;
 for (`darcs changes | grep '^[MTWFS]'`) {

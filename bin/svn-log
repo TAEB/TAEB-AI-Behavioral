@@ -7,6 +7,7 @@ use DateTime::TimeZone;
 use DateTime::Format::Strptime;
 
 use YAML qw/LoadFile/;
+use File::Basename;
 
 open my $changes, '-|', 'darcs changes --summary';
 
@@ -30,7 +31,7 @@ my $nodst_short = $tz->short_name_for_datetime($dt);
 my $nodst_re = qr/$nodst_short/o;
 my $nodst_offset = sprintf '%05d', $tz->offset_for_datetime($dt) / 36;
 
-my $author_map = LoadFile('etc/nicks.yml');
+my $author_map = LoadFile((fileparse($0))[1] . '../etc/nicks.yml');
 
 while (<$changes>) {
     # start of new patch
