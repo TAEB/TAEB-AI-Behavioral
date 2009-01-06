@@ -74,10 +74,27 @@ print @out;
 printf "%s\n", '-' x $length;
 printf "%7d %7d %7d %7d\n\n", $total_lines, $total_know, $total_doc, $total_blank;
 
+my %author_map = (
+    'sartak@gmail.com'          => 'Sartak',
+    'jluehrs2@uiuc.edu'         => 'doy',
+    'stefanor@cox.net'          => 'sorear',
+    'TAEB@spam.mathemaniac.org' => 'Sebbe',
+    'bagofholding@gmail.com'    => 'sawtooth',
+    'kelly530@umn.edu'          => 'arcanehl',
+    'stephen@thorne.id.au'      => 'Jerub',
+    'ais523@bham.ac.uk'         => 'ais523',
+    'devon.odell@gmail.com'     => 'dho',
+    'phil.noble@gmail.com'      => 'futilius',
+    'taeb@katron.org'           => 'arcanehl',
+    'zaba@thorium.homeunix.org' => 'Zaba',
+    'HanClinto@gmail.com'       => 'HanClinto',
+);
+
 my %commits_by;
 for (`darcs changes | grep '^[MTWFS]'`) {
     my ($author) = $_ =~ /(\S+@\S+)/ or warn "Unable to parse '$_'";
     $author =~ s/.*<(.*)>.*/$1/;
+    $author = $author_map{$author} if exists $author_map{$author};
     $commits_by{$author}++;
     $commits_by{'*'}++;
 }
