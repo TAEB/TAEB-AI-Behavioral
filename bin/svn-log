@@ -15,9 +15,18 @@ my $parser = new DateTime::Format::Strptime(
     on_error  => 'croak',
     time_zone => $tz,
 );
-my $short_name = $tz->short_name_for_datetime(DateTime->now());
-my $re = qr/$short_name/o;
-my $offset = sprintf '%05d', $tz->offset_for_datetime(DateTime->now()) / 36;
+
+my $dt = DateTime->now();
+
+$dt->set(day => 1, month => 7);
+my $dst_short = $tz->short_name_for_datetime($dt);
+my $dst_re = qr/$dst_short/o;
+my $dst_offset = sprintf '%05d', $tz->offset_for_datetime($dt) / 36;
+
+$dt->set(day => 1, month => 1);
+my $nodst_short = $tz->short_name_for_datetime($dt);
+my $nodst_re = qr/$nodst_short/o;
+my $nodst_offset = sprintf '%05d', $tz->offset_for_datetime($dt) / 36;
 
 while (<$changes>) {
     # start of new patch
@@ -27,7 +36,8 @@ while (<$changes>) {
         my @line = split '  ', $1;
         my $author = pop @line;
         my $date = join '  ', @line;
-        $date =~ s/$re/$offset/;
+        $date =~ s/$dst_re/$dst_offset/;
+        $date =~ s/$nodst_re/$nodst_offset/;
         my ($user) = $author =~ /(\w+)@/;
 
         my $dt = $parser->parse_datetime($date);
