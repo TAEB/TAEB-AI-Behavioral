@@ -54,6 +54,7 @@ while (<$changes>) {
         my $date = join '  ', @line;
         $date =~ s/$dst_re/$dst_offset/;
         $date =~ s/$nodst_re/$nodst_offset/;
+        $author =~ s/.*<(.*)>.*/$1/;
         my ($user) = exists $author_map{$author} ? $author_map{$author}
                                                  : $author;
 
