@@ -6,6 +6,8 @@ use DateTime;
 use DateTime::TimeZone;
 use DateTime::Format::Strptime;
 
+use YAML qw/LoadFile/;
+
 open my $changes, '-|', 'darcs changes --summary';
 
 my ($message) = (undef);
@@ -28,21 +30,7 @@ my $nodst_short = $tz->short_name_for_datetime($dt);
 my $nodst_re = qr/$nodst_short/o;
 my $nodst_offset = sprintf '%05d', $tz->offset_for_datetime($dt) / 36;
 
-my %author_map = (
-    'sartak@gmail.com'          => 'Sartak',
-    'jluehrs2@uiuc.edu'         => 'doy',
-    'stefanor@cox.net'          => 'sorear',
-    'TAEB@spam.mathemaniac.org' => 'Sebbe',
-    'bagofholding@gmail.com'    => 'sawtooth',
-    'kelly530@umn.edu'          => 'arcanehl',
-    'stephen@thorne.id.au'      => 'Jerub',
-    'ais523@bham.ac.uk'         => 'ais523',
-    'devon.odell@gmail.com'     => 'dho',
-    'phil.noble@gmail.com'      => 'futilius',
-    'taeb@katron.org'           => 'arcanehl',
-    'zaba@thorium.homeunix.org' => 'Zaba',
-    'HanClinto@gmail.com'       => 'HanClinto',
-);
+my $author_map = LoadFile('etc/nicks.yml');
 
 while (<$changes>) {
     # start of new patch
@@ -55,8 +43,8 @@ while (<$changes>) {
         $date =~ s/$dst_re/$dst_offset/;
         $date =~ s/$nodst_re/$nodst_offset/;
         $author =~ s/.*<(.*)>.*/$1/;
-        my ($user) = exists $author_map{$author} ? $author_map{$author}
-                                                 : $author;
+        my ($user) = exists $author_map->{$author} ? $author_map->{$author}
+                                                   : $author;
 
         my $dt = $parser->parse_datetime($date);
         #warn 'failed' unless $parser->success;
