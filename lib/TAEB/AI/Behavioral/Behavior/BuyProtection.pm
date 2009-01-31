@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package TAEB::AI::Behavioral::Behavior::BuyProtection;
 use TAEB::OO;
 use TAEB::Util ':colors';

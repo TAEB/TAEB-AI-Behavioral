@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 package TAEB::AI::Behavioral::Behavior::Puton;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';

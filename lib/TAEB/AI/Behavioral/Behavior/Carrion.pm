@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package TAEB::AI::Behavioral::Behavior::Carrion;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
