@@ -5,7 +5,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub prepare {
     my $self = shift;
 
-    my @items = grep { $self->pickup($_) && $_->price == 0 }
+    my @items = grep { $self->pickup($_) && $_->cost == 0 }
                 TAEB->inventory->items;
     return unless @items;
 
@@ -15,7 +15,7 @@ sub prepare {
     return unless TAEB->can_engrave
                && $pt->can('engrave_useful')
                && $pt->engrave_useful
-               && $item->match(price => 0);
+               && $item->match(cost => 0);
 
     if (TAEB->current_tile->engraving eq '') {
         $self->do(engrave => item => '-');
