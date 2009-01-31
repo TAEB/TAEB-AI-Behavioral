@@ -5,7 +5,7 @@ extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 sub want_to_eat {
     my ($self, $item, $distance) = @_;
 
-    return 0 unless $item->class eq 'carrion';
+    return 0 unless $item->subtype eq 'carrion';
     my $rotted = $item->maybe_rotted(TAEB->turn +
                                      ($distance * TAEB->speed / 12));
     my $unihorn = TAEB->find_item(identity => "unicorn horn",
