@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior;
+package TAEB::AI::Behavioral::Behavior;
 use TAEB::OO;
 
 has currently => (
@@ -48,7 +48,7 @@ The name of the behavior. This should not be overridden.
 sub name {
     my $self = shift;
     my $pkg = blessed($self) || $self;
-    $pkg =~ s/^TAEB::AI::Behavior:://;
+    $pkg =~ s/^TAEB::AI::Behavioral::Behavior:://;
     return $pkg;
 }
 

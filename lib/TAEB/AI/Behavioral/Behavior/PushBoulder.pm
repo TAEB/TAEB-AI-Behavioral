@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::PushBoulder;
+package TAEB::AI::Behavioral::Behavior::PushBoulder;
 use TAEB::OO;
 use TAEB::Util qw/delta2vi vi2delta/;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub push_direction {
     my $tile = shift;

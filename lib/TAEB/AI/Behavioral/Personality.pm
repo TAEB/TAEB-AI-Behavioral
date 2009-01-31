@@ -11,7 +11,7 @@ TAEB::AI::Behavioral::Personality - base class for AIs with behaviors and person
 =cut
 
 has behaviors => (
-    isa     => 'HashRef[TAEB::AI::Behavior]',
+    isa     => 'HashRef[TAEB::AI::Behavioral::Behavior]',
     lazy    => 1,
     default => sub {
         my $self      = shift;
@@ -19,7 +19,7 @@ has behaviors => (
 
         if ($self->can('autoload_behaviors')) {
             for ($self->autoload_behaviors) {
-                my $pkg = "TAEB::AI::Behavior::$_";
+                my $pkg = "TAEB::AI::Behavioral::Behavior::$_";
 
                 (my $file = $pkg . '.pm') =~ s{::}{/}g;
                 require $file;

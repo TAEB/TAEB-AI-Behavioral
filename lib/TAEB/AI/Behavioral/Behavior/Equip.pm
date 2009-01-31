@@ -1,8 +1,8 @@
 #!/usr/bin/perl
-package TAEB::AI::Behavior::Equip;
+package TAEB::AI::Behavioral::Behavior::Equip;
 use TAEB::OO;
 use TAEB::Spoilers::Combat;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {
     my $self = shift;

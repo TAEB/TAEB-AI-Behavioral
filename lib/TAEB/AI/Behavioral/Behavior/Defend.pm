@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Defend;
+package TAEB::AI::Behavioral::Behavior::Defend;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 use Scalar::Defer 'lazy';
 
 sub prepare {

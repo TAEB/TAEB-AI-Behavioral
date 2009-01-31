@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Identify;
+package TAEB::AI::Behavioral::Behavior::Identify;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {
     my $self = shift;

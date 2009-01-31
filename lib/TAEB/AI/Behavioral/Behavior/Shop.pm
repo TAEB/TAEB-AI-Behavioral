@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Shop;
+package TAEB::AI::Behavioral::Behavior::Shop;
 use TAEB::OO;
 use List::MoreUtils 'any';
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 # for now, we just drop unpaid items
 

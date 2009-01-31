@@ -1,9 +1,9 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::BuyProtection;
+package TAEB::AI::Behavioral::Behavior::BuyProtection;
 use TAEB::OO;
 use TAEB::Util ':colors';
 
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub can_buy_protection {
     return TAEB->gold >= TAEB->level * 400;

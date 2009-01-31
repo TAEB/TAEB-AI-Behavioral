@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::DipForExcalibur;
+package TAEB::AI::Behavioral::Behavior::DipForExcalibur;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub can_make_excalibur {
     return unless TAEB->align eq 'Law';

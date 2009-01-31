@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::BuffSelf;
+package TAEB::AI::Behavioral::Behavior::BuffSelf;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub use_spells { ('protection', 'haste self') }
 

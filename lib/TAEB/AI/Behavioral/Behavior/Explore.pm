@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Explore;
+package TAEB::AI::Behavioral::Behavior::Explore;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 use List::MoreUtils 'any';
 
 sub unexplored_level {

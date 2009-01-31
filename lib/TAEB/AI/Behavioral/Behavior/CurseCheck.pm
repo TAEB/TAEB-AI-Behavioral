@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::CurseCheck;
+package TAEB::AI::Behavioral::Behavior::CurseCheck;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {
     my $self = shift;

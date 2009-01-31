@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Doors;
+package TAEB::AI::Behavioral::Behavior::Doors;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 use List::MoreUtils 'any';
 
 sub unlock_action {

@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Carrion;
+package TAEB::AI::Behavioral::Behavior::Carrion;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior::GotoTile';
+extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 
 sub want_to_eat {
     my ($self, $item, $distance) = @_;

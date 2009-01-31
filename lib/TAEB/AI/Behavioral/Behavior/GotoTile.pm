@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::GotoTile;
+package TAEB::AI::Behavioral::Behavior::GotoTile;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 =head1 NAME
 
-TAEB::AI::Behavior::GotoTile - generic go-to-a-tile-and-do-something behavior
+TAEB::AI::Behavioral::Behavior::GotoTile - generic go-to-a-tile-and-do-something behavior
 
 =cut
 

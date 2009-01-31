@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::FixStatus;
+package TAEB::AI::Behavioral::Behavior::FixStatus;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub apply  { { action  => 'apply',  item  => $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} } } }

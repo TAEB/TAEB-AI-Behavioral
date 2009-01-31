@@ -1,7 +1,7 @@
 #!/usr/bin/perl
-package TAEB::AI::Behavior::Puton;
+package TAEB::AI::Behavioral::Behavior::Puton;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {
     my $self = shift;

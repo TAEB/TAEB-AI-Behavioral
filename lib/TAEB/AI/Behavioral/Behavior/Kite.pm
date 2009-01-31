@@ -5,10 +5,10 @@
 #   single melee monsters, which suffices for the very important case of
 #   nymphs and foocubi.
 
-package TAEB::AI::Behavior::Kite;
+package TAEB::AI::Behavioral::Behavior::Kite;
 use TAEB::OO;
 use TAEB::Util 'delta2vi';
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {
     my $self = shift;
