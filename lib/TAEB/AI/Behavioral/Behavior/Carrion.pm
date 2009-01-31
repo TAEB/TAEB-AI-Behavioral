@@ -6,23 +6,16 @@ sub want_to_eat {
     my ($self, $item, $distance) = @_;
 
     return 0 unless $item->subtype eq 'corpse';
-    return 1 if $item->is_safely_edible(distance => $distance);
 
     my $unihorn = TAEB->has_item(
         identity => "unicorn horn",
         buc      => [qw/blessed uncursed/],
     );
 
-    # Don't bother eating food that is clearly rotten, and don't risk it
-    # without a known-uncursed unihorn
-    return 0 if $item->would_be_rotted > ($unihorn ? 0 : -1);
-
-    if (!$unihorn) {
-        # Don't inflict very bad conditions
-
-        return 0 if $item->hallucination;
-        return 0 if $item->poisonous && !TAEB->senses->poison_resistant;
-    }
+    return 1 if $item->is_safely_edible(
+        distance => $distance,
+        unihorn  => $unihorn,
+    );
 
     return 1 if $item->beneficial_to_eat
              && $item->nutrition + TAEB->nutrition < 2000;
