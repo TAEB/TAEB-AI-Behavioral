@@ -12,7 +12,7 @@ sub want_to_eat {
         buc      => [qw/blessed uncursed/],
     );
 
-    return 1 if $item->is_safely_edible(
+    return 0 unless $item->is_safely_edible(
         distance => $distance,
         unihorn  => $unihorn,
     );
