@@ -19,7 +19,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return 0 if $item->price;
+    return 0 if $item->cost;
     return 0 unless $item->match(class => 'spellbook');
     return 1 if $item->match(identity => undef);
     return 0 if TAEB->knows_spell($item->spell);

@@ -14,7 +14,7 @@ sub prepare {
 
     return if $item->match(is_wearing => 1)
            || $item->match(buc => 'cursed')
-           || $item->price;
+           || $item->cost;
 
     $self->currently("Putting on mithril.");
     $self->do(wear => item => $item);
