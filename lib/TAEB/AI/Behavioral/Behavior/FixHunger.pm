@@ -23,6 +23,7 @@ sub prepare {
         for my $meal (good_inv_food(0)) {
             my $p = $meal->weight / $meal->nutrition;
 
+            # Avoid eating items that cure status effects or increase stats
             $p -= 1000 if $meal->identity =~ qr/sprig|carrot|leaf|lump/;
 
             ($item,$prio) = ($meal,$p) if $prio < $p;
