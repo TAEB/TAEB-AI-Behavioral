@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::PuddingFarmer;
+package TAEB::AI::Behavioral::Personality::PuddingFarmer;
 use TAEB::OO;
-extends 'TAEB::AI::Personality::Explorer';
+extends 'TAEB::AI::Behavioral::Personality::Explorer';
 
 =head1 NAME
 
-TAEB::AI::Personality::PuddingFarmer - the high score is OURS!
+TAEB::AI::Behavioral::Personality::PuddingFarmer - the high score is OURS!
 
 =cut
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::PickaxeFinder;
+package TAEB::AI::Behavioral::Personality::PickaxeFinder;
 use TAEB::OO;
-extends 'TAEB::AI::Personality::Descender';
+extends 'TAEB::AI::Behavioral::Personality::Descender';
 
 =head1 NAME
 
-TAEB::AI::Personality::PickaxeFinder - get a pickaxe!
+TAEB::AI::Behavioral::Personality::PickaxeFinder - get a pickaxe!
 
 =cut
 

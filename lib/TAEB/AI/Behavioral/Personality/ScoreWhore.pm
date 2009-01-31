@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::ScoreWhore;
+package TAEB::AI::Behavioral::Personality::ScoreWhore;
 use TAEB::OO;
-extends 'TAEB::AI::Personality::Explorer';
+extends 'TAEB::AI::Behavioral::Personality::Explorer';
 
 =head1 NAME
 
-TAEB::AI::Personality::ScoreWhore - milk each dungeon level for as long as possible
+TAEB::AI::Behavioral::Personality::ScoreWhore - milk each dungeon level for as long as possible
 
 =head1 DESCRIPTION
 
