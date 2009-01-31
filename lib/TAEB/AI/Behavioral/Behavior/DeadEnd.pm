@@ -53,7 +53,7 @@ sub prepare {
             $self->do('search', iterations => 1);
         }
         else {
-            my $stethoscope = TAEB->find_item('stethoscope');
+            my $stethoscope = TAEB->has_item('stethoscope');
             if ($stethoscope) {
                 $self->do(apply => item => $stethoscope,
                           direction => $self->search_direction);

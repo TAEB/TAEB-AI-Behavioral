@@ -26,8 +26,8 @@ sub prepare {
         # if at least 3 adjacent monsters obey Elbereth, and we can burn an
         # Elbereth but haven't, burn one (so as not to get surrounded).
         if ($adjacent_respecting >= 3 && $can_engrave && !$burned &&
-            (TAEB->find_item('wand of fire') ||
-             TAEB->find_item('wand of lightning'))) {
+            (TAEB->has_item('wand of fire') ||
+             TAEB->has_item('wand of lightning'))) {
             $self->write_elbereth(add_engraving => 0,
                                   method => 'best');
             $self->currently("burning Elbereth because I'm surrounded");

@@ -19,7 +19,7 @@ sub prepare {
     # are we eligible to dip for Excalibur now?
     return unless TAEB->level >= 5;
 
-    my $longsword = TAEB->find_item("long sword")
+    my $longsword = TAEB->has_item("long sword")
         or return;
 
     my $level = TAEB->nearest_level(sub {
@@ -56,7 +56,7 @@ sub pickup {
 
     if ($item->match(identity => 'long sword')) {
         return unless $self->can_make_excalibur;
-        return if TAEB->find_item("long sword");
+        return if TAEB->has_item("long sword");
         return 1;
     }
 }
