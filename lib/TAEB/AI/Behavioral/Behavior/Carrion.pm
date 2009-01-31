@@ -6,8 +6,8 @@ sub want_to_eat {
     my ($self, $item, $distance) = @_;
 
     return 0 unless $item->subtype eq 'corpse';
-    my $rotted = $item->maybe_rotted(TAEB->turn +
-                                     ($distance * TAEB->speed / 12));
+    return 1 if $item->is_safely_edible;
+
     my $unihorn = TAEB->has_item(
         identity => "unicorn horn",
         buc      => [qw/blessed uncursed/],
@@ -15,12 +15,7 @@ sub want_to_eat {
 
     # Don't bother eating food that is clearly rotten, and don't risk it
     # without a known-uncursed unihorn
-    return 0 if ($rotted > ($unihorn ? 0 : -1));
-
-    # No food suicides
-    for my $foot (qw/die lycanthropy petrify polymorph slime/) {
-        return 0 if $item->$foot();
-    }
+    return 0 if $item->would_be_rotted > ($unihorn ? 0 : -1);
 
     if (!$unihorn) {
         # Don't inflict very bad conditions
@@ -29,35 +24,8 @@ sub want_to_eat {
         return 0 if $item->poisonous && !TAEB->senses->poison_resistant;
     }
 
-    return 0 if $item->stun;
-    return 0 if $item->acidic && TAEB->hp <= 15;
-
-    # worst case is Str-dependant and usuallly milder
-    return 0 if $item->poisonous && !TAEB->senses->poison_resistant
-             && TAEB->hp <= 29;
-
-    return 0 if ($item->cannibal eq TAEB->race || $item->aggravate)
-             && TAEB->race ne 'Orc'
-             && TAEB->role ne 'Cav';
-
-    return 0 if $item->speed_toggle && TAEB->is_fast;
-    #return 0 if $item->teleportitis && !$item->teleport_control;
-
-    my $good = 0;
-
-    for my $nice (qw/disintegration_resistance energy gain_level heal
-            intelligence invisibility reanimates sleep_resistance speed_toggle
-            strength telepathy teleport_control teleportitis/) {
-        $good = 1 if $item->$nice();
-    }
-
-    for my $resist (qw/shock poison fire cold sleep disintegration/) {
-        my $prop = "${resist}_resistance";
-        my $res  = "${resist}_resistant";
-        $good = 1 if $item->$prop() && !TAEB->$res();
-    }
-
-    return 1 if $good && ($item->nutrition + TAEB->nutrition < 2000);
+    return 1 if $item->beneficial_to_eat
+             && $item->nutrition + TAEB->nutrition < 2000;
 
     return 1 if TAEB->nutrition < 995;
 
