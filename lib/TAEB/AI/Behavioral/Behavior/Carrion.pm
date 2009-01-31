@@ -6,7 +6,7 @@ sub want_to_eat {
     my ($self, $item, $distance) = @_;
 
     return 0 unless $item->subtype eq 'corpse';
-    return 1 if $item->is_safely_edible;
+    return 1 if $item->is_safely_edible(distance => $distance);
 
     my $unihorn = TAEB->has_item(
         identity => "unicorn horn",
