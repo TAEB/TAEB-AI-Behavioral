@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::Descender;
+package TAEB::AI::Behavioral::Personality::Descender;
 use TAEB::OO;
-extends 'TAEB::AI::Personality::Explorer';
+extends 'TAEB::AI::Behavioral::Personality::Explorer';
 
 =head1 NAME
 
-TAEB::AI::Personality::Descender - descend as quickly as sanely possible
+TAEB::AI::Behavioral::Personality::Descender - descend as quickly as sanely possible
 
 =cut
 

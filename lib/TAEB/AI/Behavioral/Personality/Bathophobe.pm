@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::Bathophobe;
+package TAEB::AI::Behavioral::Personality::Bathophobe;
 use TAEB::OO;
-extends 'TAEB::AI::Personality::Explorer';
+extends 'TAEB::AI::Behavioral::Personality::Explorer';
 
 =head1 NAME
 
-TAEB::AI::Personality::Bathophobe - Never descend! It makes hard monsters spawn!
+TAEB::AI::Behavioral::Personality::Bathophobe - Never descend! It makes hard monsters spawn!
 
 =cut
 

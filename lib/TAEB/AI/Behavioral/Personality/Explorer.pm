@@ -1,11 +1,11 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::Explorer;
+package TAEB::AI::Behavioral::Personality::Explorer;
 use TAEB::OO;
-extends 'TAEB::AI::Personality::Behavioral';
+extends 'TAEB::AI::Behavioral::Personality';
 
 =head1 NAME
 
-TAEB::AI::Personality::Explore - descend only after exploring the level
+TAEB::AI::Behavioral::Personality::Explore - descend only after exploring the level
 
 =cut
 

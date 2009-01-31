@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::ScoreWhoreWithMithril;
+package TAEB::AI::Behavioral::Personality::ScoreWhoreWithMithril;
 use TAEB::OO;
-extends 'TAEB::AI::Personality::ScoreWhore';
+extends 'TAEB::AI::Behavioral::Personality::ScoreWhore';
 
 after sort_behaviors => sub {
     my $self = shift;
