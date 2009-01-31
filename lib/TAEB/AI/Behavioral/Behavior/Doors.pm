@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package TAEB::AI::Behavioral::Behavior::Doors;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';

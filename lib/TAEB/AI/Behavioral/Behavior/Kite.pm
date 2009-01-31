@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 
 # Kiting - speed system (ab)use by attacking while running away to prevent
 #   counterattacks.  Currently we only handle projectile attacks against

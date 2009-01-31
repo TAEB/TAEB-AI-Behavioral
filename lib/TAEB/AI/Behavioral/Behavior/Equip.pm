@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 package TAEB::AI::Behavioral::Behavior::Equip;
 use TAEB::OO;
 use TAEB::Spoilers::Combat;

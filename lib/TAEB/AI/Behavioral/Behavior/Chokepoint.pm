@@ -1,5 +1,3 @@
-#!/usr/bin/env perl
-
 package TAEB::AI::Behavioral::Behavior::Chokepoint;
 use TAEB::OO;
 use TAEB::Util 'vi2delta', 'angle';

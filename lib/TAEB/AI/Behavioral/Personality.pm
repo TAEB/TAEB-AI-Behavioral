@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package TAEB::AI::Behavioral::Personality;
 use TAEB::OO;
 use Time::HiRes qw/time/;

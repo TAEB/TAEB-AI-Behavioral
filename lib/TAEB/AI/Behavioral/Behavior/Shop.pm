@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package TAEB::AI::Behavioral::Behavior::Shop;
 use TAEB::OO;
 use List::MoreUtils 'any';

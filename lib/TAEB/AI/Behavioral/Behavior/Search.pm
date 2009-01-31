@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package TAEB::AI::Behavioral::Behavior::Search;
 use TAEB::OO;
 use TAEB::Util qw/delta2vi vi2delta/;

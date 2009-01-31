@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package TAEB::AI::Behavioral::Personality::Bathophobe;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Personality::Explorer';
