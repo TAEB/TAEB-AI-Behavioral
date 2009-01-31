@@ -17,22 +17,24 @@ sub prepare {
         return;
     }
 
-    if (TAEB->nutrition < 200 && TAEB::Action::Eat->any_food) {
-        my ($item, $prio) = ('any', -1000);
+    return if TAEB->nutrition >= 200;
 
-        for my $meal (good_inv_food(0)) {
-            my $p = $meal->weight / $meal->nutrition;
-
-            # Avoid eating items that cure status effects or increase stats
-            $p -= 1000 if $meal->identity =~ qr/sprig|carrot|leaf|lump/;
-
-            ($item,$prio) = ($meal,$p) if $prio < $p;
-        }
-        $self->do(eat => item => $item);
-        $self->currently("Eating food.");
-        $self->urgency('important');
-        return;
+    my ($choice, $priority) = ('any', -1000);
+    for my $item (TAEB::Action::Eat->edible_items) {
+        # XXX: avoid eating carrots and other beneficial items
+        # XXX: prefer floor food
     }
+
+    $self->do(eat => item => $choice);
+    $self->currently("Eating food.");
+    $self->urgency('important');
+}
+
+sub urgencies {
+    return {
+        critical  => "praying for food, while fainting",
+        important => "eating food because nutrition is < 200",
+    },
 }
 
 sub good_food {
@@ -55,20 +57,10 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return 0 if !good_food($item);
+    return 0 unless $item->type eq 'food';
 
-    my $good = sum 0, map { $_->quantity * $_->nutrition } good_inv_food(1);
-    my $food = sum 0, map { $_->quantity * $_->nutrition } good_inv_food(0);
-
-    my $limit = 3000 - $food;
-
-    if ($good >= 1500 && !good_food($item,1)) {
-        $limit = 1500 - $good;
-    }
-
-    my $count = int($limit / $item->nutrition);
-
-    return \$count;
+    # XXX: consider food (nutrition / weight) and current load
+    return $item->is_safely_edible;
 }
 
 __PACKAGE__->meta->make_immutable;
