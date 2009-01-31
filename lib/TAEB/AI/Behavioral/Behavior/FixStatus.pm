@@ -169,8 +169,8 @@ sub prepare {
         for my $fix (@{$status->{fixes}}) {
             my %args;
 
-            $args{item}  = TAEB->find_item($fix->{item})   if $fix->{item};
-            $args{from}  = TAEB->find_item($fix->{from})   if $fix->{from};
+            $args{item}  = TAEB->has_item($fix->{item})    if $fix->{item};
+            $args{from}  = TAEB->has_item($fix->{from})    if $fix->{from};
             $args{spell} = TAEB->find_spell($fix->{spell}) if $fix->{spell};
             $args{direction} = $fix->{direction}           if $fix->{direction};
             next unless $fix->{check}->(\%args);

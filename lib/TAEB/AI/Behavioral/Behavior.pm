@@ -71,17 +71,17 @@ sub write_elbereth {
 
     my $item;
     if ($args{method} eq 'best') {
-        $item = TAEB->find_item("wand of fire")
-             || TAEB->find_item("wand of lightning")
-             || TAEB->find_item("athame")
-             || TAEB->find_item("Magicbane")
-             || TAEB->find_item("wand of digging")
-             || TAEB->find_item("magic marker")
+        $item = TAEB->has_item("wand of fire")
+             || TAEB->has_item("wand of lightning")
+             || TAEB->has_item("athame")
+             || TAEB->has_item("Magicbane")
+             || TAEB->has_item("wand of digging")
+             || TAEB->has_item("magic marker")
              || '-';
     }
     else {
-        $item = TAEB->find_item("athame")
-             || TAEB->find_item("Magicbane")
+        $item = TAEB->has_item("athame")
+             || TAEB->has_item("Magicbane")
              || '-';
     }
 

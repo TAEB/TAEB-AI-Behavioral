@@ -8,8 +8,10 @@ sub want_to_eat {
     return 0 unless $item->subtype eq 'carrion';
     my $rotted = $item->maybe_rotted(TAEB->turn +
                                      ($distance * TAEB->speed / 12));
-    my $unihorn = TAEB->find_item(identity => "unicorn horn",
-        buc => [qw/blessed uncursed/]);
+    my $unihorn = TAEB->has_item(
+        identity => "unicorn horn",
+        buc      => [qw/blessed uncursed/],
+    );
 
     # Don't bother eating food that is clearly rotten, and don't risk it
     # without a known-uncursed unihorn

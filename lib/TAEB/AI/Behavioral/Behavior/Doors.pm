@@ -7,10 +7,10 @@ sub unlock_action {
     my $self = shift;
 
     # can we unlock? if so, try it
-    my $locktool = TAEB->find_item('Master Key of Thievery')
-                || TAEB->find_item('skeleton key')
-                || TAEB->find_item('lock pick')
-                || TAEB->find_item('credit card');
+    my $locktool = TAEB->has_item('Master Key of Thievery')
+                || TAEB->has_item('skeleton key')
+                || TAEB->has_item('lock pick')
+                || TAEB->has_item('credit card');
 
     return (unlock =>
         implement => $locktool,
@@ -132,7 +132,7 @@ sub pickup {
 
     for my $unlocker ('skeleton key', 'lock pick', 'credit card') {
         # we already have this or better
-        return 0 if TAEB->find_item($unlocker);
+        return 0 if TAEB->has_item($unlocker);
 
         # this is better than our best unlocker
         return 1 if $item->match(identity => $unlocker);

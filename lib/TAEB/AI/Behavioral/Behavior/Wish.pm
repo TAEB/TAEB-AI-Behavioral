@@ -5,8 +5,8 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub prepare {
     my $self = shift;
 
-    my $wand = TAEB->find_item(identity => 'wand of wishing',
-                               charges  => [undef, sub { $_ > 0 }]);
+    my $wand = TAEB->has_item(identity => 'wand of wishing',
+                              charges  => [undef, sub { $_ > 0 }]);
 
     return unless $wand;
 

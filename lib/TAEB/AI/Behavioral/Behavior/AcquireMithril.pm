@@ -7,7 +7,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub prepare {
     my $self = shift;
 
-    my $item = TAEB->find_item(qr/mithril/) or return;
+    my $item = TAEB->has_item(qr/mithril/) or return;
 
     # Yeah, so I'm lazy.
     grep { TAEB->role eq $_ } qw/Hea Tou Val/ or return;
@@ -40,7 +40,7 @@ sub pickup {
 
     return if $item->match('!appearance' => qr/mithril/)
            || $item->match(buc => 'cursed')
-           || TAEB->find_item(qr/mithril/);
+           || TAEB->has_item(qr/mithril/);
 
     TAEB->log->behavior("Yes, I want to pick up $item because it is mithril.");
     return 1;

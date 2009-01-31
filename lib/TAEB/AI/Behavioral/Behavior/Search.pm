@@ -32,7 +32,7 @@ sub prepare {
 
     if ($path && $path->path eq '') {
         $self->currently("Searching adjacent walls and rock");
-        my $stethoscope = TAEB->find_item('stethoscope');
+        my $stethoscope = TAEB->has_item('stethoscope');
         if ($stethoscope) {
             my $search_direction = $self->search_direction;
             if ($search_direction) {
