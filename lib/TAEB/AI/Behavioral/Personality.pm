@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
-package TAEB::AI::Personality::Behavioral;
+package TAEB::AI::Behavioral::Personality;
 use TAEB::OO;
 use Time::HiRes qw/time/;
-extends 'TAEB::AI::Personality';
+extends 'TAEB::AI';
 
 =head1 NAME
 
-TAEB::AI::Personality::Behavioral - base class for personalities with behaviors
+TAEB::AI::Behavioral::Personality - base class for AIs with behaviors and personalities
 
 =cut
 
