@@ -98,8 +98,8 @@ sub find_urgency {
     my $time = time;
     $behavior->prepare;
     my $urgency  = $behavior->urgency || 'none';
-    TAEB->log->personality(sprintf "The $name behavior has urgency $urgency. (%6gs)", time - $time);
-    TAEB->log->personality("${behavior}'s urgencies method doesn't list $urgency", level => 'warning')
+    TAEB->log->ai(sprintf "The $name behavior has urgency $urgency. (%6gs)", time - $time);
+    TAEB->log->ai("${behavior}'s urgencies method doesn't list $urgency", level => 'warning')
         unless exists $behavior->urgencies->{$urgency} || $urgency eq 'none';
 
     return $self->numeric_urgency($urgency);
@@ -128,8 +128,7 @@ Subclasses should override this to set the prioritized_behaviors attribute.
 
 sub sort_behaviors {
     my $class = blessed($_[0]) || $_[0];
-    TAEB->log->personality("$class must override sort_behaviors",
-                           level => 'error');
+    TAEB->log->ai("$class must override sort_behaviors", level => 'error');
 }
 
 =head2 next_behavior -> Behavior
@@ -160,7 +159,7 @@ sub next_behavior {
 
     return undef if $max_urgency <= 0;
 
-    TAEB->log->personality(sprintf "Selecting behavior $max_behavior with urgency $max_urgency (%6gs).", time - $time);
+    TAEB->log->ai(sprintf "Selecting behavior $max_behavior with urgency $max_urgency (%6gs).", time - $time);
     return $self->behaviors->{$max_behavior};
 }
 
@@ -175,7 +174,7 @@ sub behavior_action {
     my $self = shift;
     my $behavior = shift || $self->next_behavior;
 
-    TAEB->log->personality("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.", level => 'critical') if !$behavior;
+    TAEB->log->ai("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.", level => 'critical') if !$behavior;
 
     my $action = $behavior->action;
     $self->currently($behavior->name . ':' . $behavior->currently);
@@ -223,7 +222,7 @@ sub pickup {
 
         if ($pick) {
             my $name = $behavior->name;
-            TAEB->log->personality("$name wants to pick up $pick of $item");
+            TAEB->log->ai("$name wants to pick up $pick of $item");
             if (defined $item->price) {
                 return 0 unless TAEB->gold >= $item->price;
             }
@@ -254,7 +253,7 @@ sub drop {
         # behavior is indifferent. Next!
         next if !defined($drop);
 
-        TAEB->log->personality($behavior->name() . " wants to " .
+        TAEB->log->ai($behavior->name() . " wants to " .
             (!$drop ? "NOT drop " : ref $drop ? "drop $$drop of " : "drop ") .
             $item);
 
