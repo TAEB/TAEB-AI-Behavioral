@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Descend;
+package TAEB::AI::Behavioral::Behavior::Descend;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior::GotoTile';
+extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 
 has stairsdown => (
     isa        => 'ArrayRef[TAEB::World::Tile]',

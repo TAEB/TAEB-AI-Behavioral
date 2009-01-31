@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::Ascend;
+package TAEB::AI::Behavioral::Behavior::Ascend;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior::GotoTile';
+extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 
 sub match_tile {
     $_[1]->type eq 'stairsup' ? (['ascend'], 'Ascending', 'fallback') : undef

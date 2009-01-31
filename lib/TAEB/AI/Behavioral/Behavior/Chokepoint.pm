@@ -1,9 +1,9 @@
 #!/usr/bin/env perl
 
-package TAEB::AI::Behavior::Chokepoint;
+package TAEB::AI::Behavioral::Behavior::Chokepoint;
 use TAEB::OO;
 use TAEB::Util 'vi2delta', 'angle';
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 #    .|  We look at a direction as being suitible for running to if it
 #   ...  lacks interesting monsters in the inner quadrant, but has a

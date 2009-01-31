@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::FixHunger;
+package TAEB::AI::Behavioral::Behavior::FixHunger;
 use TAEB::OO;
 use List::Util 'sum';
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {
     my $self = shift;

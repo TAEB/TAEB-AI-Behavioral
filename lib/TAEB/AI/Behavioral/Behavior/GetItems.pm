@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-package TAEB::AI::Behavior::GetItems;
+package TAEB::AI::Behavioral::Behavior::GetItems;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 use List::MoreUtils 'any';
 
 sub prepare {

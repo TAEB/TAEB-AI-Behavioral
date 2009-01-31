@@ -1,8 +1,7 @@
 #!/usr/bin/env perl
-
-package TAEB::AI::Behavior::LetClose;
+package TAEB::AI::Behavioral::Behavior::LetClose;
 use TAEB::OO;
-extends 'TAEB::AI::Behavior';
+extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {
     my $self = shift;
