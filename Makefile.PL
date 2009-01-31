@@ -75,12 +75,6 @@ features(
         -default => 0,
         recommends("File::Next"),
     ],
-    'Web-based interface for controlling TAEB' => [
-        -default => 0,
-        recommends('Continuity'),
-        recommends('Template::Declare'),
-        recommends('Template::Declare::Anon'),
-    ],
     'IRC debug interface' => [
         -default => 0,
         recommends('Bot::BasicBot'),
