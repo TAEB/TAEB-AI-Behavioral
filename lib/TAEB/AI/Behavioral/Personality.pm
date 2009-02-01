@@ -99,25 +99,8 @@ sub find_urgency {
     $behavior->prepare;
     my $urgency  = $behavior->urgency || 'none';
     TAEB->log->ai(sprintf "The $name behavior has urgency $urgency. (%6gs)", time - $time);
-    TAEB->log->ai("${behavior}'s urgencies method doesn't list $urgency", level => 'warning')
-        unless exists $behavior->urgencies->{$urgency} || $urgency eq 'none';
 
     return $self->numeric_urgency($urgency);
-}
-
-=head2 max_urgency Str -> Int
-
-This returns the maximum urgency that the given behavior can return.
-
-=cut
-
-sub max_urgency {
-    my $self = shift;
-    my $name = shift;
-
-    my $behavior = $self->behaviors->{$name};
-    return (reverse sort map { $self->numeric_urgency($_) }
-                             keys %{ $behavior->urgencies })[0];
 }
 
 =head2 sort_behaviors -> None
@@ -149,9 +132,6 @@ sub next_behavior {
     my $time = time;
     # apply weights to urgencies, find maximum
     for my $behavior (@priority) {
-        # if this behavior couldn't possibly beat the max, then stop early
-        next if $max_urgency >= $self->max_urgency($behavior);
-
         my $urgency = $self->find_urgency($behavior);
         ($max_urgency, $max_behavior) = ($urgency, $behavior)
             if $urgency > $max_urgency;
