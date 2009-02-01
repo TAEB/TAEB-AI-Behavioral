@@ -19,8 +19,11 @@ sub prepare {
 
     return if TAEB->nutrition >= 200;
 
+    my @edible_items = TAEB::Action::Eat->edible_items;
+    return unless @edible_items;
+
     my ($choice, $priority) = ('any', -1000);
-    for my $item (TAEB::Action::Eat->edible_items) {
+    for my $item (@edible_items) {
         # XXX: avoid eating carrots and other beneficial items
         # XXX: prefer floor food
     }
