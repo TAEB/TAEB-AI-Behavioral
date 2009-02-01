@@ -54,12 +54,6 @@ sub pickup {
     );
 }
 
-sub urgencies {
-    return {
-        normal => "throwing a projectile weapon at a monster",
-    };
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -21,12 +21,6 @@ sub prepare {
     }
 }
 
-sub urgencies {
-    return {
-        normal => "Letting an enemy close",
-    };
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

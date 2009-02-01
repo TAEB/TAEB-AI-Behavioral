@@ -24,12 +24,6 @@ sub pickup {
     return $item->match(identity => "ring of slow digestion");
 }
 
-sub urgencies {
-    return {
-        unimportant => "Putting on a ring",
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

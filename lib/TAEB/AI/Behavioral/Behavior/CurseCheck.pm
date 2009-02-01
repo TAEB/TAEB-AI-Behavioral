@@ -48,13 +48,6 @@ sub drop {
     return 1;
 }
 
-sub urgencies {
-    return {
-        unimportant => "cursechecking at an altar",
-        fallback    => "locating altar",
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

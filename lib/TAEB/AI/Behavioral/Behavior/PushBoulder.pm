@@ -51,12 +51,6 @@ sub prepare {
     $self->if_path($path => "Heading to a pushable edge boulder");
 }
 
-sub urgencies {
-    return {
-        fallback => "pushing or preparing to push a boulder into the unknown",
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -33,13 +33,6 @@ sub prepare {
     $self->urgency($max_urgency);
 }
 
-sub urgencies {
-    return {
-       unimportant => "casting the first hit of a buff spell",
-       fallback    => "casting a subsequent hit of a buff spell",
-    },
-}
-
 sub msg_buff {
     my $self      = shift;
     my $spellname = shift;

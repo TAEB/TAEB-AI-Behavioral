@@ -30,12 +30,6 @@ sub prepare {
     $self->urgency('unimportant');
 }
 
-sub urgencies {
-    return {
-        unimportant => "equipping a better weapon",
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

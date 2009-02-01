@@ -61,14 +61,6 @@ sub pickup {
     return $item->match(identity => [$self->use_potions]);
 }
 
-sub urgencies {
-    return {
-       critical    => "praying for health",
-       important   => "healing because of low health",
-       unimportant => "casual healing",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

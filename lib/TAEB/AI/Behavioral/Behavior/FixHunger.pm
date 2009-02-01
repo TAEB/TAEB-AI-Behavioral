@@ -34,13 +34,6 @@ sub prepare {
     }
 }
 
-sub urgencies {
-    return {
-        critical  => "praying for food, while fainting",
-        important => "eating food because nutrition is < 200",
-    },
-}
-
 sub good_food {
     my $item = shift;
     my $great = shift;

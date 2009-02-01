@@ -19,12 +19,6 @@ sub prepare {
 
 sub currently { "Randomly walking" }
 
-sub urgencies {
-    return {
-        fallback => "random walk!",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

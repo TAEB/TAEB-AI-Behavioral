@@ -196,14 +196,6 @@ sub pickup {
     return;
 }
 
-sub urgencies {
-    return {
-        critical    => "fixing a life threatening status",
-        important   => "fixing a problematic status",
-        unimportant => "fixing an annoying status",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

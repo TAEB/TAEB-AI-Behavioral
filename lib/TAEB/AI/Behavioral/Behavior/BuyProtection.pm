@@ -46,13 +46,6 @@ sub prepare {
     $self->if_path($path => "Heading towards a temple altar");
 }
 
-sub urgencies {
-    return {
-        unimportant => "Donating for protection",
-        fallback    => "Heading to temple altar",
-    };
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

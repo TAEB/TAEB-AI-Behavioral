@@ -46,12 +46,6 @@ sub pickup {
     return 1;
 }
 
-sub urgencies {
-    return {
-        unimportant => "putting on mithril",
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

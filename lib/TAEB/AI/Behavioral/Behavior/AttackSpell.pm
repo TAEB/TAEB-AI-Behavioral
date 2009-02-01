@@ -79,12 +79,6 @@ sub try_to_cast {
     return 0;
 }
 
-sub urgencies {
-    return {
-        normal => "casting an attack spell or zapping an attack wand at a monster",
-    };
-}
-
 sub pickup {
     my $self = shift;
     my $item = shift;

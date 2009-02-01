@@ -44,12 +44,6 @@ sub first_pass {
 use constant tile_description => 'the downstairs';
 use constant using_urgency    => 'descending';
 
-sub urgencies {
-    return {
-        fallback => 'pathing to or descending a staircase',
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
