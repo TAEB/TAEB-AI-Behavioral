@@ -53,12 +53,6 @@ sub prepare {
     $self->if_path($path => "Heading to a search hotspot");
 }
 
-sub urgencies {
-    return {
-        fallback => "searching adjacent walls and rock, or pathing to them",
-    }
-}
-
 sub pickup {
     my $self = shift;
     my $item = shift;

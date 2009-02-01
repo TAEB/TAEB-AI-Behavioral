@@ -37,15 +37,6 @@ sub prepare {
 
 sub first_pass { 1 }
 
-sub urgencies {
-    my $self = shift;
-
-    return {
-        unimportant => $self->using_urgency,
-        fallback    => $self->heading_urgency,
-    };
-}
-
 # you may override these methods to provide more Englishy descriptions
 sub using_urgency     { "using " . shift->tile_description }
 sub heading_urgency   { "heading towards " . shift->tile_description }

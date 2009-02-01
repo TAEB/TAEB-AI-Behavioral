@@ -55,13 +55,6 @@ sub drop {
     return 1;
 }
 
-sub urgencies {
-    return {
-        unimportant => "sink-identifying a ring",
-        fallback    => "path to sink",
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

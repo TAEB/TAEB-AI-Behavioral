@@ -26,12 +26,6 @@ sub pickup {
     return 1;
 }
 
-sub urgencies {
-    return {
-       unimportant => "quaffing a benefical potion",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -31,13 +31,6 @@ sub prepare {
     $self->if_path($path => "Heading towards a sink");
 }
 
-sub urgencies {
-    return {
-        unimportant => "kicking an adjacent sink",
-        fallback    => "path to a sink",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -119,12 +119,6 @@ sub prepare {
     }
 }
 
-sub urgencies {
-    return {
-        normal => "running for a chokepoint",
-    };
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -81,12 +81,6 @@ sub prepare {
     $self->if_path($self->find_path, "Exploring");
 }
 
-sub urgencies {
-    return {
-        fallback => "path to an unexplored square",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

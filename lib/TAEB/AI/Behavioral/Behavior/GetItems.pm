@@ -55,13 +55,6 @@ sub prepare {
     $self->if_path($path => "Heading towards an item");
 }
 
-sub urgencies {
-    return {
-        normal      => "picking up an item here",
-        fallback    => "path to a new item",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

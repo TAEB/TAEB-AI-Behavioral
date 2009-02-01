@@ -15,12 +15,6 @@ sub prepare {
     $self->urgency('unimportant');
 }
 
-sub urgencies {
-    return {
-        unimportant => "zapping a wand of wishing for a wish",
-    };
-}
-
 sub pickup {
     my $self = shift;
     my $item = shift;

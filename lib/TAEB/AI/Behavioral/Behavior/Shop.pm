@@ -60,12 +60,6 @@ sub drop {
     return undef; #don't care
 }
 
-sub urgencies {
-    return {
-        unimportant => "dropping/paying for an unpaid item",
-     }
-}
-
 sub pickup {
     my $self = shift;
     my $item = shift;

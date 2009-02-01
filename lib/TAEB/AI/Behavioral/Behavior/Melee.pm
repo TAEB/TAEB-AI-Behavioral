@@ -50,13 +50,6 @@ sub prepare {
         'unimportant');
 }
 
-sub urgencies {
-    return {
-        normal      => "attacking an adjacent monster",
-        unimportant => "path to the nearest monster",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

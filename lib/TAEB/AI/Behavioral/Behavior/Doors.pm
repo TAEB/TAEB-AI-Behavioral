@@ -126,13 +126,6 @@ sub prepare {
     $self->if_path($path => "Heading towards a door");
 }
 
-sub urgencies {
-    return {
-        unimportant => "opening an adjacent door",
-        fallback    => "path to a door",
-    },
-}
-
 sub pickup {
     my $self = shift;
     my $item = shift;

@@ -77,12 +77,6 @@ sub prepare {
     $self->urgency('normal');
 }
 
-sub urgencies {
-    return {
-        normal => "backing away from an outrunnable melee monster with intent to kite",
-    };
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

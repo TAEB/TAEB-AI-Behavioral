@@ -27,12 +27,6 @@ sub pickup {
     return 1;
 }
 
-sub urgencies {
-    return {
-       unimportant => "reading a spellbook",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

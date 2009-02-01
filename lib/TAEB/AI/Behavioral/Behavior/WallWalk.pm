@@ -35,12 +35,6 @@ sub prepare {
     return $self->urgency('fallback') if $target;
 }
 
-sub urgencies {
-    return {
-        fallback => "wallwalking in a dark room",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

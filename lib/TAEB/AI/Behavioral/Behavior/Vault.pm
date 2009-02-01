@@ -38,13 +38,6 @@ sub drop {
     return 1;
 }
 
-sub urgencies {
-    return {
-        unimportant => "dropping gold",
-        fallback    => "following the vault guard",
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

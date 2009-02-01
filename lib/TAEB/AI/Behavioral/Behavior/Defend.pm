@@ -91,13 +91,6 @@ sub drop {
     return undef;
 }
 
-sub urgencies {
-    return {
-       normal      => "writing Elbereth due to low HP, or resting with very low hp",
-       unimportant => "resting to regain hp before continuing",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

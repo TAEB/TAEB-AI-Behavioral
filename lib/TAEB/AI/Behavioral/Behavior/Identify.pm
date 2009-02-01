@@ -42,12 +42,6 @@ sub pickup {
     return 0;
 }
 
-sub urgencies {
-    return {
-        unimportant => "engrave identifying a wand",
-    }
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

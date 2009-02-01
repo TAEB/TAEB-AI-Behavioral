@@ -55,13 +55,6 @@ sub prepare {
     $self->urgency('unimportant');
 }
 
-sub urgencies {
-    return {
-        normal      => "attacking a monster with Elbereth",
-        unimportant => "writing Elbereth in preparation for combat",
-    },
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

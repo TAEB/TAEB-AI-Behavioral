@@ -79,12 +79,6 @@ sub prepare {
     $self->if_path($path => "Heading to a dead end");
 }
 
-sub urgencies {
-    return {
-        fallback => "searching at or pathing to a dead end",
-    },
-}
-
 sub pickup {
     my $self = shift;
     my $item = shift;
