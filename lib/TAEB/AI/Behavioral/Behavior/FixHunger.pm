@@ -62,6 +62,9 @@ sub pickup {
 
     return 0 unless $item->type eq 'food';
 
+    # don't pick up corpses. XXX: lichens and lizards?
+    return 0 if $item->subtype eq 'corpse';
+
     # XXX: consider food (nutrition / weight) and current load
     return $item->is_safely_edible;
 }
