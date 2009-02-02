@@ -24,7 +24,7 @@ after sort_behaviors => sub {
         $self->add_behavior('Descend', before => 'Search');
     }
     else {
-        $self->add_behavior('Descend', before => 'RandomWalk');
+        $self->add_behavior('Descend', after => 'Search');
     }
 };
 
