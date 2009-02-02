@@ -31,7 +31,10 @@ sub msg_immobile_boulder {
 sub prepare {
     my $self = shift;
 
-    return if TAEB->current_level->branch eq 'sokoban';
+    do {
+        no warnings 'uninitialized';
+        return if TAEB->current_level->branch eq 'sokoban';
+    };
 
     my $path = TAEB::World::Path->first_match(sub {
             push_direction(shift) ne '.';
