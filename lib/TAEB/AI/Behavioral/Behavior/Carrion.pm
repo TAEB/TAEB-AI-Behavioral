@@ -5,7 +5,7 @@ extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 sub want_to_eat {
     my ($self, $item, $distance) = @_;
 
-    return 0 unless $item->subtype eq 'corpse';
+    return 0 unless $item->match(subtype => 'corpse');
 
     my $unihorn = TAEB->has_item(
         identity => "unicorn horn",
