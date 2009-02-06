@@ -35,7 +35,7 @@ sub pickup {
     my $item = shift;
 
     # we only know how to handle wands
-    if ($item->match(class => 'wand', identity => undef)) {
+    if ($item->match(type => 'wand', identity => undef)) {
         return 1 if $item->possibility_tracker->engrave_useful;
     }
 
