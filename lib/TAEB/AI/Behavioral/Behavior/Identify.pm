@@ -10,11 +10,11 @@ sub prepare {
     return unless @items;
 
     my $item = shift @items;
-    my $pt = $item->possibility_tracker;
+    my $tracker = $item->tracker;
 
     return unless TAEB->can_engrave
-               && $pt->can('engrave_useful')
-               && $pt->engrave_useful
+               && $tracker->can('engrave_useful')
+               && $tracker->engrave_useful
                && $item->match(cost => 0);
 
     if (TAEB->current_tile->engraving eq '') {
@@ -36,7 +36,7 @@ sub pickup {
 
     # we only know how to handle wands
     if ($item->match(type => 'wand', identity => undef)) {
-        return 1 if $item->possibility_tracker->engrave_useful;
+        return 1 if $item->tracker->engrave_useful;
     }
 
     return 0;
