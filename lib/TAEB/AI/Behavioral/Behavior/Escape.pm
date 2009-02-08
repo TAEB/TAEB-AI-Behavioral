@@ -4,6 +4,7 @@ extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 
 sub first_pass {
     return unless = TAEB->current_level->has_type('stairsup');
+    return if TAEB->senses->is_confused || TAEB->senses->is_stunned;
 }
 
 sub prepare {
