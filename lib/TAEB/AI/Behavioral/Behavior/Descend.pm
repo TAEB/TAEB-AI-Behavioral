@@ -20,10 +20,11 @@ sub correct_stairs {
 
     # here we have multiple choices and this one is the one we want to avoid.
     # no thank you
-    if (my $branch = TAEB->config->avoid_branch) {
+    my $config = TAEB->config->get_ai_config || {};
+    if ($config->{avoid_branch}) {
         return 0 if $tile->other_side
                  && $tile->other_side->known_branch
-                 && $tile->other_side->branch eq $branch;
+                 && $tile->other_side->branch eq $config->{avoid_branch};
     }
 
     return 1;
