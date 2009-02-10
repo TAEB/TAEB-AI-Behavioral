@@ -1,0 +1,11 @@
+---
+# This file contains TAEB configuration options that are useful for this ai.
+
+# Specify the default fight behavior. Possible values are Melee and EkimFight.
+# Note that currently EkimFight doesn't work very well, as we can't really
+# detect sleeping monsters.
+#fight_behavior: Melee
+
+# Branch to avoid, if any.
+# Possibles values: mines, dungeon, etc
+#avoid_branch: ""
