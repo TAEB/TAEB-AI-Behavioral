@@ -20,6 +20,9 @@ sub search_direction {
 sub prepare {
     my $self = shift;
 
+    # good enough for now...
+    return if TAEB->current_level->has_type('stairsdown');
+
     my $pmap = find_empty_panels();
 
     my $path = TAEB::World::Path->max_match(
