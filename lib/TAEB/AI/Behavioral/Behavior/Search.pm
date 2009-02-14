@@ -20,19 +20,6 @@ sub search_direction {
 sub prepare {
     my $self = shift;
 
-    # good enough for now...
-    my ($downstairs, $upstairs);
-    ($downstairs) = TAEB->current_level->has_type('stairsdown') or return;
-    ($upstairs)   = TAEB->current_level->has_type('stairsup')   or return;
-    # XXX: this is ugly, but should work for now until i get pathfinding redone
-    # this is betting on the assumption that an astar pathfind (that will
-    # frequently be cached) will be quite a bit faster than all the panel
-    # calculation stuff it would normally be doing.
-    return if TAEB::World::Path->_calculate_intralevel_path(
-        $downstairs => $upstairs,
-        why         => "Search",
-    );
-
     my $pmap = find_empty_panels();
 
     my $path = TAEB::World::Path->max_match(
