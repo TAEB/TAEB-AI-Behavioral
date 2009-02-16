@@ -37,6 +37,9 @@ sub match_tile {
 }
 
 sub first_pass {
+
+    return if TAEB->is_levitating;
+
     my @stairsdown = TAEB->current_level->has_type('stairsdown');
     shift->stairsdown(\@stairsdown);
     return @stairsdown;
