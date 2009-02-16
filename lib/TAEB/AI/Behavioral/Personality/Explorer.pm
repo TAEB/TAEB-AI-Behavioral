@@ -29,6 +29,7 @@ sub sort_behaviors {
         "Shop",
         "Carrion",
         "GetItems",
+        "Equip",
         "Identify",
         "DipForExcalibur",
         "Wish",
