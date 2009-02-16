@@ -21,10 +21,13 @@ sub _rate_armor {
 
     # XXX: damage, resistances, weight?
 
-    $score++ if $item->includes_possibility('speed boots')
-             || $item->includes_possibility('gauntlets of power')
-             || $item->includes_possibility('cloak of magic resistance')
-             || $item->includes_possibility('helm of brilliance');
+    if ($item->has_tracker) {
+        my $tracker = $item->tracker;
+        $score++ if $tracker->includes_possibility('speed boots')
+                 || $tracker->includes_possibility('gauntlets of power')
+                 || $tracker->includes_possibility('cloak of magic resistance')
+                 || $tracker->includes_possibility('helm of brilliance');
+    }
 
     return $score;
 }
