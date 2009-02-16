@@ -9,7 +9,7 @@ sub _rate_armor {
 
     return 0 if !$item;
 
-    my $score = ($item->ac || 0) + ($item->enchantment || 0);
+    my $score = $item->ac || 0; # already includes enchantment
 
     $score++ if $item->mc >= 2;
 
