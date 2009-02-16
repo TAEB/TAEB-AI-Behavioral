@@ -22,31 +22,36 @@ sub prepare_armor {
     my $self = shift;
 
     for my $slot (TAEB->equipment->armor_slots) {
-        my $incumbent        = TAEB->equipment->$slot;
-        my $incumbent_rating = $self->_rate_armor($incumbent);
+        my $incumbent       = TAEB->equipment->$slot;
+        my $incumbent_score = $self->_rate_armor($incumbent);
 
         my @candidates = TAEB->inventory->find(
             type    => 'armor',
             subtype => $slot,
         );
 
+        my ($max, $item) = (0, undef);
         for my $candidate (@candidates) {
             my $rating = $self->_rate_armor($candidate);
-            next if $rating <= $incumbent_rating;
 
-            if ($incumbent) {
-                $self->do(unwear => item => $incumbent);
-                $self->currently("Removing $incumbent to wear $candidate.");
-            }
-            else {
-                $self->do(wear => item => $candidate);
-                $self->currently("Putting on $candidate.");
-            }
-
-            $self->urgency('normal');
-
-            return $candidate;
+            ($max, $item) = ($rating, $candidate)
+                if $rating > $max;
         }
+
+        next if $max_score <= $incumbent_score;
+
+        if ($incumbent) {
+            $self->do(unwear => item => $incumbent);
+            $self->currently("Removing $incumbent to wear $candidate.");
+        }
+        else {
+            $self->do(wear => item => $candidate);
+            $self->currently("Putting on $candidate.");
+        }
+
+        $self->urgency('normal');
+
+        return $candidate;
     }
 
     return 0;
