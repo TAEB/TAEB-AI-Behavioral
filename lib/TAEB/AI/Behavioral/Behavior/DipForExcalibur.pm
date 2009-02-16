@@ -19,6 +19,9 @@ sub prepare {
     # are we eligible to dip for Excalibur now?
     return unless TAEB->level >= 5;
 
+    # need to stop levitating first..
+    return if TAEB->is_levitating;
+
     my $longsword = TAEB->has_item("long sword")
         or return;
 
