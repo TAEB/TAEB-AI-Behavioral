@@ -122,6 +122,7 @@ has needs_fixing => (
             check  => sub { TAEB->senses->is_hallucinating },
             fixes  => [
                 apply( 'unicorn horn',         'important'),
+                # wield grayswandir? :)
                 quaff( 'extra healing',        'important'),
                 quaff( 'full healing',         'important'),
                 # potion of sickness
