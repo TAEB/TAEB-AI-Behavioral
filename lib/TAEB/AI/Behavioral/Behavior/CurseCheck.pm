@@ -11,8 +11,19 @@ sub prepare {
     my $level = TAEB->nearest_level(sub { shift->has_type('altar') })
         or return;
 
-    my @drop = grep { $_->can_drop && $_->match(buc => undef) }
+    my @drop = grep { $_->can_drop(ignore_is_worn => 1) }
+               grep { $_->match(buc => undef) }
                TAEB->inventory->items;
+
+    my @need_to_remove = grep { !$_->can_drop }
+                         @drop;
+
+    if (@need_to_remove) {
+        $self->currently("Removing equipment for cursechecking.");
+        $self->do(remove => item => $need_to_remove[0]);
+        $self->urgency('unimportant');
+        return;
+    }
 
     # No point in cursechecking no items
     return unless @drop;
