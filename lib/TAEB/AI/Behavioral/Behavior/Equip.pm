@@ -51,6 +51,7 @@ sub prepare_armor {
         my @candidates = TAEB->inventory->find(
             type    => 'armor',
             subtype => $slot,
+            cost    => 0,
         );
 
         my ($best_score, $best_armor) = (0, undef);
