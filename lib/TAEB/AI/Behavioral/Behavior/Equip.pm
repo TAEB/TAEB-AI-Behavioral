@@ -55,6 +55,10 @@ sub prepare_armor {
 
         next if $best_score <= $incumbent_score;
 
+        # XXX: This should be implemented with an exception/objection/veto
+        next if !defined($best_armor->buc)
+             && TAEB->current_tile->type eq 'altar';
+
         if ($incumbent) {
             $self->do(remove => item => $incumbent);
             $self->currently("Removing $incumbent to wear $best_armor.");
