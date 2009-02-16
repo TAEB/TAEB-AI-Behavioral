@@ -25,6 +25,9 @@ sub prepare_armor {
         my $incumbent       = TAEB->equipment->$slot;
         my $incumbent_score = $self->_rate_armor($incumbent);
 
+        # Can't remove it :(
+        next if $incumbent && $incumbent->is_cursed;
+
         my @candidates = TAEB->inventory->find(
             type    => 'armor',
             subtype => $slot,
