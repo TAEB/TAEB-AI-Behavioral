@@ -32,7 +32,7 @@ sub prepare_armor {
 
         for my $candidate (@candidates) {
             my $rating = $self->_rate_armor($candidate);
-            next if $rating < $incumbent_rating;
+            next if $rating <= $incumbent_rating;
 
             if ($incumbent) {
                 $self->do(unwear => item => $incumbent);
