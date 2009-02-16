@@ -59,6 +59,16 @@ sub drop {
     return 1;
 }
 
+# XXX: this does nothing yet, tis a sketch
+sub veto_wear {
+    my $self   = shift;
+    my $action = shift;
+
+    return 0 unless TAEB->current_tile->type eq 'altar';
+    return 0 if defined $action->item->buc;
+    return 1;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
