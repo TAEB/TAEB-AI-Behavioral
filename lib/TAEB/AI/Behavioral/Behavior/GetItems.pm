@@ -10,6 +10,8 @@ sub prepare {
     # e.g. "j - a wand"
     return if TAEB->is_blind;
 
+    return unless TAEB->can_pickup;
+
     my @items = TAEB->current_tile->items;
     my @want = grep { TAEB->want_item($_) } @items;
     if (@want) {
