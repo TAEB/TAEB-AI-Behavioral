@@ -50,6 +50,24 @@ sub prepare {
         'unimportant');
 }
 
+# XXX: this does nothing yet, tis a sketch
+sub veto_eat {
+    my $self    = shift;
+    my $action  = shift;
+
+    return 0 if TAEB->nutrition < 50; # we're really starving
+
+    my $found_monster;
+    TAEB->each_adjacent(sub {
+        my $tile = shift;
+        $found_monster = 1 if $tile->has_enemy
+                           && $tile->monster->is_meleeable;
+                           # XXX: likely to leave a corpse?
+    });
+
+    return $found_monster;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
