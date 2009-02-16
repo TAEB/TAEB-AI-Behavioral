@@ -60,6 +60,18 @@ sub prepare_armor {
     return 0;
 }
 
+sub pickup {
+    my $self = shift;
+    my $item = shift;
+
+    return 0 unless $item->type eq 'armor';
+
+    my $slot = $item->subtype;
+    my $incumbent = TAEB->equipment->$slot;
+
+    return $self->_rate_armor($item) > $self->_rate_armor($incumbent);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
