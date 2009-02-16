@@ -5,7 +5,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub prepare {
     my $self = shift;
 
-    my @items = grep { $self->pickup($_) && !$_->is_wearing(1); } 
+    my @items = grep { $self->pickup($_) && !$_->is_worn; }
                      TAEB->inventory->items;
 
     return unless @items;
