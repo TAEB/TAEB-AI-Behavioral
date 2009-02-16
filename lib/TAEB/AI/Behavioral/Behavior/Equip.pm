@@ -44,7 +44,7 @@ sub prepare_armor {
         next if $best_score <= $incumbent_score;
 
         if ($incumbent) {
-            $self->do(unwear => item => $incumbent);
+            $self->do(remove => item => $incumbent);
             $self->currently("Removing $incumbent to wear $best_armor.");
         }
         else {
