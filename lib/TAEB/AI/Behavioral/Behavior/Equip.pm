@@ -21,6 +21,11 @@ sub _rate_armor {
 
     # XXX: damage, resistances, weight?
 
+    $score++ if $item->includes_possibility('boots of speed')
+             || $item->includes_possibility('gauntlets of power')
+             || $item->includes_possibility('cloak of magic resistance')
+             || $item->includes_possibility('helm of brilliance');
+
     return $score;
 }
 
