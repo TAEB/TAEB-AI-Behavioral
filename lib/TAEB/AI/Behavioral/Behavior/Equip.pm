@@ -9,7 +9,19 @@ sub _rate_armor {
 
     return 0 if !$item;
 
-    return ($item->ac || 0) + ($item->enchantment || 0);
+    my $score = ($item->ac || 0) + ($item->enchantment || 0);
+
+    $score++ if $item->mc >= 2;
+
+    # this really should just check whether is_cursed is known to be zero
+    $score-- if !defined($item->buc);
+
+    # cursed bad!!
+    $score -= 2 if $item->is_cursed;
+
+    # XXX: damage, resistances, weight?
+
+    return $score;
 }
 
 sub prepare {
