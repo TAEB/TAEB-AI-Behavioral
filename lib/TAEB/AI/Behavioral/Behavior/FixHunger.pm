@@ -41,8 +41,8 @@ sub pickup {
 
     # don't pick up rottable corpses.
     return 0 if defined $item->subtype
-                && $item->subtype eq 'corpse'
-                && $item->maybe_rotted != 0;
+             && $item->subtype eq 'corpse'
+             && $item->maybe_rotted == 0;
 
     # XXX: consider food (nutrition / weight) and current load
     return $item->is_safely_edible;
