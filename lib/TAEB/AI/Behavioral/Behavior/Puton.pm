@@ -12,7 +12,7 @@ sub prepare {
 
     my $item = shift @items;
 
-    $self->do(puton => item => $item);
+    $self->do(wear => item => $item);
     $self->currently("Putting on a ring");
     $self->urgency('unimportant');
 }
