@@ -33,28 +33,28 @@ sub prepare_armor {
             subtype => $slot,
         );
 
-        my ($max_score, $item) = (0, undef);
+        my ($best_score, $best_armor) = (0, undef);
         for my $candidate (@candidates) {
             my $rating = $self->_rate_armor($candidate);
 
-            ($max_score, $item) = ($rating, $candidate)
-                if $rating > $max_score;
+            ($best_score, $best_armor) = ($rating, $candidate)
+                if $rating > $best_score;
         }
 
-        next if $max_score <= $incumbent_score;
+        next if $best_score <= $incumbent_score;
 
         if ($incumbent) {
             $self->do(unwear => item => $incumbent);
-            $self->currently("Removing $incumbent to wear $candidate.");
+            $self->currently("Removing $incumbent to wear $best_armor.");
         }
         else {
-            $self->do(wear => item => $candidate);
-            $self->currently("Putting on $candidate.");
+            $self->do(wear => item => $best_armor);
+            $self->currently("Putting on $best_armor.");
         }
 
         $self->urgency('normal');
 
-        return $candidate;
+        return $best_armor;
     }
 
     return 0;
