@@ -15,22 +15,22 @@ sub prepare {
                grep { $_->match(buc => undef) }
                TAEB->inventory->items;
 
-    my @need_to_remove = grep { !$_->can_drop }
-                         @drop;
-
-    if (@need_to_remove) {
-        $self->currently("Removing equipment for cursechecking.");
-        $self->do(remove => item => $need_to_remove[0]);
-        $self->urgency('unimportant');
-        return;
-    }
-
     # No point in cursechecking no items
     return unless @drop;
 
     if (TAEB->current_tile->type eq 'altar') {
-        $self->currently("Dropping items for cursechecking.");
-        $self->do(drop => items => \@drop);
+        my @need_to_remove = grep { !$_->can_drop }
+                            @drop;
+
+        if (@need_to_remove) {
+            $self->currently("Removing equipment for cursechecking.");
+            $self->do(remove => item => $need_to_remove[0]);
+        }
+        else {
+            $self->currently("Dropping items for cursechecking.");
+            $self->do(drop => items => \@drop);
+        }
+
         $self->urgency('unimportant');
         return;
     }
