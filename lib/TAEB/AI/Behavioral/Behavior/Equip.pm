@@ -33,12 +33,12 @@ sub prepare_armor {
             subtype => $slot,
         );
 
-        my ($max, $item) = (0, undef);
+        my ($max_score, $item) = (0, undef);
         for my $candidate (@candidates) {
             my $rating = $self->_rate_armor($candidate);
 
-            ($max, $item) = ($rating, $candidate)
-                if $rating > $max;
+            ($max_score, $item) = ($rating, $candidate)
+                if $rating > $max_score;
         }
 
         next if $max_score <= $incumbent_score;
