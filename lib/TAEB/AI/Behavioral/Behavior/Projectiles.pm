@@ -36,7 +36,7 @@ sub prepare {
     return if $tile->in_shop;
 
     $self->do(throw =>
-        item        => $projectile,
+        projectile  => $projectile,
         direction   => $direction,
         target_tile => $tile,
     );

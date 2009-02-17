@@ -18,13 +18,13 @@ sub prepare {
                && $item->match(cost => 0);
 
     if (TAEB->current_tile->engraving eq '') {
-        $self->do(engrave => item => '-');
+        $self->do(engrave => engraver => '-');
         $self->currently("Prepping for engrave-id by dusting");
         $self->urgency('unimportant');
         return;
     }
 
-    $self->do(engrave => item => $item);
+    $self->do(engrave => engraver => $item);
     $self->currently("Engrave identifying a wand");
     $self->urgency('unimportant');
     return;

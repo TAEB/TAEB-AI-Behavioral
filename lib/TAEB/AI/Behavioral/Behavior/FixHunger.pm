@@ -28,7 +28,7 @@ sub prepare {
         # XXX: prefer floor food
     }
 
-    $self->do(eat => item => $choice);
+    $self->do(eat => food => $choice);
     $self->currently("Eating food.");
     $self->urgency('important');
 }
