@@ -71,7 +71,7 @@ sub try_to_cast {
     }
 
     if ($wand) {
-        $self->do(zap => item => $wand, direction => $direction);
+        $self->do(zap => wand => $wand, direction => $direction);
         $self->currently("Zapping a ".$wand->identity." at a monster");
         return 1;
     }

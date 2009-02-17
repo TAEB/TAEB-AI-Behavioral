@@ -10,7 +10,7 @@ sub prepare {
 
     return unless $wand;
 
-    $self->do(zap => item => $wand);
+    $self->do(zap => wand => $wand);
     $self->currently("Zapping a wand of wishing");
     $self->urgency('unimportant');
 }

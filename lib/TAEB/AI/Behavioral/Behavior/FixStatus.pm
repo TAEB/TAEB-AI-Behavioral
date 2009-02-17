@@ -6,7 +6,7 @@ sub apply  { { action  => 'apply',  item  => $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} } } }
 sub cast   { { action  => 'cast',   spell => $_[0], direction => '.',
                urgency => $_[1],    check => sub { defined shift->{spell} } } }
-sub eat    { { action  => 'eat',    item  => $_[0],
+sub eat    { { action  => 'eat',    food  => $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} &&
                                                    TAEB->nutrition < 1000 } } }
 # XXX: handle invocation timeout too
@@ -20,7 +20,7 @@ sub scroll { { action  => 'read',   item  => 'scroll of ' . $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} } } }
 sub rest   { { action  => 'search',
                urgency => $_[0],    check => sub { 1 } } }
-sub zap    { { action  => 'zap',    item  => 'wand of ' . $_[0],
+sub zap    { { action  => 'zap',    wand  => 'wand of ' . $_[0],
                direction => '.',
                urgency => $_[1],    check => sub { defined shift->{item} } } }
 
