@@ -20,3 +20,4 @@ sub prepare {
     }
 }
 
+1;
