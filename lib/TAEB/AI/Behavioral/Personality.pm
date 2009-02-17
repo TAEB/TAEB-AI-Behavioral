@@ -10,6 +10,7 @@ TAEB::AI::Behavioral::Personality - base class for AIs with behaviors and person
 =cut
 
 has behaviors => (
+    is      => 'ro',
     isa     => 'HashRef[TAEB::AI::Behavioral::Behavior]',
     lazy    => 1,
     default => sub {
@@ -34,6 +35,7 @@ has behaviors => (
 );
 
 has prioritized_behaviors => (
+    is         => 'rw',
     isa        => 'ArrayRef[Str]',
     auto_deref => 1,
 );

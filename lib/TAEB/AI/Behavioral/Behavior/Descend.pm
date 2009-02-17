@@ -3,6 +3,7 @@ use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 
 has stairsdown => (
+    is         => 'ro',
     isa        => 'ArrayRef[TAEB::World::Tile]',
     auto_deref => 1,
     default    => sub { [] },

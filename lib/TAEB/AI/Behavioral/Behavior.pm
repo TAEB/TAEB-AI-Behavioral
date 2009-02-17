@@ -2,14 +2,17 @@ package TAEB::AI::Behavioral::Behavior;
 use TAEB::OO;
 
 has currently => (
+    is  => 'rw',
     isa => 'Str',
 );
 
 has action => (
+    is  => 'rw',
     isa => 'TAEB::Action',
 );
 
 has urgency => (
+    is      => 'rw',
     isa     => 'TAEB::Type::Urgency',
     clearer => 'reset_urgency',
 );
