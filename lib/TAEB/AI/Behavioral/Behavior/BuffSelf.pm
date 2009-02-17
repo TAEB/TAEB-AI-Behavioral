@@ -5,6 +5,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub use_spells { ('protection', 'haste self') }
 
 has buff_level => (
+    is      => 'ro',
     isa     => 'HashRef[Int]',
     default => sub { {} },
 );
