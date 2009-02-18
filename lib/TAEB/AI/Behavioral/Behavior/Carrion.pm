@@ -38,7 +38,7 @@ sub match_tile {
     my @yummy = grep { $self->want_to_eat($_, $distance) } $tile->items;
 
     if (@yummy) {
-        return [eat => item => $yummy[0]->identity],
+        return [eat => food => $yummy[0]->identity],
             "eating a " . $yummy[0]->identity;
     } else {
         return undef;
