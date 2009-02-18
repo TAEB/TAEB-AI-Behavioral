@@ -24,7 +24,7 @@ sub is_dead_end {
 
     # don't treat an unexplored tile as a dead end, we don't
     # know if it is or not
-    return 0 unless $check->explored;
+    return 0 if $check->unexplored;
 
     $check->each_orthogonal(sub {
         my $tile = shift;
