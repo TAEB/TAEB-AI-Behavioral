@@ -66,7 +66,7 @@ sub door_handler {
                 };
             }
         }
-        elsif ($door->locked) {
+        elsif ($door->is_locked) {
             if ($action) {
                 unless ($action eq 'kick' && $door->is_shop) {
                     return sub {
