@@ -23,9 +23,8 @@ sub prepare {
 
         my $count = TAEB->want_item($want[0]);
 
-        $count = (@items == 1 && ref $count) ? $$count : undef;
-
-        $self->do("pickup", count => $count);
+        @items == 1 && ref $count ? $self->do('pickup', count => $$count)
+                                  : $self->do('pickup');
         $self->urgency('normal');
         return;
     }
