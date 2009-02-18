@@ -7,11 +7,7 @@ sub search_direction {
     my $self = shift;
     my @tiles = TAEB->grep_adjacent(sub {
         my $t = shift;
-        return 0 unless $t->type eq 'wall'
-                     || $t->type eq 'rock'
-                     || $t->type eq 'unexplored';
-        return 0 if $t->searched > 30;
-        return 1;
+        return $t->is_searchable && $t->searched < 30;
     });
     return unless @tiles;
     return delta2vi($tiles[0]->x - TAEB->x, $tiles[0]->y - TAEB->y);
