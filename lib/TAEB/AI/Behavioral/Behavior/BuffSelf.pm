@@ -100,7 +100,8 @@ sub prepare {
     for my $buff ($self->buff_options) {
         next if $buff->{have}->() && !$buff->{levels};
 
-        next unless (my $imp = $buff->{impl}->());
+        my $imp = $buff->{impl}->()
+            or next;
 
         $self->do(@{$imp->{action}});
         $self->currently("Buffing $buff->{buff}");
