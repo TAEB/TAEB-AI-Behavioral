@@ -9,7 +9,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 # things.
 
 sub spell {
-    my ($spell, $dur) = @_;
+    my ($spell, $duration) = @_;
 
     my $spell = TAEB->find_castable($spell)
     return unless defined $spell
@@ -18,12 +18,12 @@ sub spell {
     return {
         action => [ cast => spell => $spell ],
         cost   => $spell->power,
-        dur    => $dur,
+        dur    => $duration,
     };
 }
 
 sub potion {
-    my ($name, $dur, $durb) = @_;
+    my ($name, $duration, $blessed_duration) = @_;
 
     my $pot = TAEB->has_item(identity => "potion of $name", is_blessed => 1)
            || TAEB->has_item(identity => "potion of $name");
@@ -33,7 +33,7 @@ sub potion {
     return {
         action => [ quaff => from => $pot ],
         cost   => 1000,
-        dur    => $pot->is_blessed ? $durb : $dur,
+        dur    => $pot->is_blessed ? $blessed_duration : $duration,
     };
 }
 
