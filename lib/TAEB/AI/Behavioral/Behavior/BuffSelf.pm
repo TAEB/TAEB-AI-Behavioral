@@ -25,8 +25,8 @@ sub spell {
 sub potion {
     my ($name, $dur, $durb) = @_;
 
-    my $pot = TAEB->has_item(identity => "potion of " . $name, is_blessed => 1)
-           || TAEB->has_item(identity => "potion of " . $name);
+    my $pot = TAEB->has_item(identity => "potion of $name", is_blessed => 1)
+           || TAEB->has_item(identity => "potion of $name");
 
     return unless $pot;
 
