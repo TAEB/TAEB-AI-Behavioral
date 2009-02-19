@@ -53,7 +53,7 @@ sub try_to_cast {
     my %args = @_;
     my $spell = $args{spell};
     my $wand = $args{wand};
-    my $name = defined $spell ? $spell->name : $wand->identity;
+    my $thing = defined $spell ? $spell->name : $wand->identity;
 
     my $direction = TAEB->current_level->radiate(
         sub { 
