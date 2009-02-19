@@ -26,7 +26,7 @@ sub potion {
 
     return unless $pot;
 
-    { action => [ quaff => item => $pot ], cost => 1000,
+    { action => [ quaff => from => $pot ], cost => 1000,
         dur => $pot->is_blessed ? $durb : $dur }
 }
 
