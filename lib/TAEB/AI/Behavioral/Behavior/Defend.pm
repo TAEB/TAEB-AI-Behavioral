@@ -74,6 +74,16 @@ sub prepare {
         $self->urgency('unimportant');
         return;
     }
+    if ((TAEB->power * 5 <= TAEB->maxpower || TAEB->power < 5) &&
+            !TAEB->current_level->has_enemies &&
+            TAEB->role eq 'Wiz') { #XXX should be "primary spellcaster"
+        $self->currently("Resting up to gain some power");
+        $self->do('search');
+        # This needs to be high fallback so that we eat first.  Perhaps
+        # hp resting should too?
+        $self->urgency('fallback');
+        return;
+    }
 }
 
 sub pickup {
