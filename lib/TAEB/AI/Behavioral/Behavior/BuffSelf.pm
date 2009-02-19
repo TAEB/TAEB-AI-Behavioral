@@ -45,7 +45,7 @@ has buff_options => (
         {
             buff => "very fast",
             have => sub { TAEB->senses->is_very_fast },
-            impl => sub {
+            with => sub {
                 spell ("haste self", 60) || # XXX 90 if Skilled in escape
                 potion("speed", 60, 90)
             },
@@ -55,7 +55,7 @@ has buff_options => (
         #{
         #    buff => "invisible",
         #    have => sub { TAEB->senses->invisible },
-        #    impl => sub {
+        #    with => sub {
         #        spell ("invisibility", 38) ||
         #        potion("invisibility", 38, 10e9999)
         #    },
@@ -63,7 +63,7 @@ has buff_options => (
         #{
         #    buff => "see invisible",
         #    have => sub { TAEB->senses->see_invisible },
-        #    impl => sub {
+        #    with => sub {
         #        potion("see invisible", 800, 10e9999)
         #    },
         #},
@@ -71,7 +71,7 @@ has buff_options => (
             buff => "protection",
             levels => 1,
             have => sub { TAEB->senses->spell_protection },
-            impl => sub {
+            with => sub {
                 my $will_get = TAEB->senses->spell_protection_return;
 
                 return if !$will_get;
@@ -100,7 +100,7 @@ sub prepare {
     for my $buff ($self->buff_options) {
         next if $buff->{have}->() && !$buff->{levels};
 
-        my $imp = $buff->{impl}->()
+        my $imp = $buff->{with}->()
             or next;
 
         $self->do(@{$imp->{action}});
