@@ -48,7 +48,7 @@ has buff_options => (
             impl => sub {
                 spell ("haste self", 60) || # XXX 90 if Skilled in escape
                 potion("speed", 60, 90)
-            }
+            },
         },
         # XXX galloping - only useful with riding + kiting
         # these require the framework to have a notion of see invisible
@@ -58,14 +58,14 @@ has buff_options => (
         #    impl => sub {
         #        spell ("invisibility", 38) ||
         #        potion("invisibility", 38, 10e9999)
-        #    }
+        #    },
         #},
         #{
         #    buff => "see invisible",
         #    have => sub { TAEB->senses->see_invisible },
         #    impl => sub {
         #        potion("see invisible", 800, 10e9999)
-        #    }
+        #    },
         #},
         {
             buff => "protection",
@@ -78,7 +78,7 @@ has buff_options => (
 
                 spell("protection", $will_get * 10) # XXX 20 if Expert
                 # also the value of protecting varies a bit
-            }
+            },
         },
         # XXX levitation - sometimes harmful
         # XXX detect monsters - would probably confuse TAEB too much
