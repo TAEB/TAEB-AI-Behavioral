@@ -15,8 +15,11 @@ sub spell {
     return unless defined $spell
                && $spell->fail < 50;
 
-    { action => [ cast => spell => $spell ], cost => $spell->power,
-        dur => $dur }
+    return {
+        action => [ cast => spell => $spell ],
+        cost   => $spell->power,
+        dur    => $dur,
+    };
 }
 
 sub potion {
@@ -27,8 +30,11 @@ sub potion {
 
     return unless $pot;
 
-    { action => [ quaff => from => $pot ], cost => 1000,
-        dur => $pot->is_blessed ? $durb : $dur }
+    return {
+        action => [ quaff => from => $pot ],
+        cost   => 1000,
+        dur    => $pot->is_blessed ? $durb : $dur,
+    };
 }
 
 has buff_options => (
