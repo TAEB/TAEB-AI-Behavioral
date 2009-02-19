@@ -109,9 +109,8 @@ sub pickup {
     # XXX find a better way to handle this
     # we need more information about the buffs than FixStatus uses...
 
-    return 1 if $item->identity eq 'potion of invisibility';
-    return 1 if $item->identity eq 'potion of speed';
-    return 1 if $item->identity eq 'potion of see invisible';
+    return 1 if $item->match(identity => ['potion of invisibility',
+        'potion of speed', 'potion of see invisible']);
 
     return;
 }
