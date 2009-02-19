@@ -53,20 +53,20 @@ sub try_to_cast {
     my %args = @_;
     my $spell = $args{spell};
     my $wand = $args{wand};
+    my $name = defined $spell ? $spell->name : $wand->identity;
 
     my $direction = TAEB->current_level->radiate(
         sub { 
             my $tile = shift;
             return 0 unless $tile->has_enemy;
-            if ((defined($spell) && $spell eq 'sleep') || (defined($wand) && $wand eq 'wand of sleep')) {
+            if ($thing eq 'sleep' || $thing eq 'wand of sleep') {
                 return 0 unless $tile->monster->is_sleepable;
             }
             return 1;
         },
         stopper => sub { shift->has_friendly },
-        bouncy => ($spell || "") ne "force bolt" &&
-                  ($wand || "") ne "wand of striking",
-        allowself => ($resist{$spell || $wand} || sub{0})->(),
+        bouncy => $thing ne "force bolt" && $thing ne "wand of striking",
+        allowself => ($resist{$thing} || sub{0})->(),
         # how far to radiate. we can eventually calculate how far beam/ray
         # can travel..!
         max => 6,
