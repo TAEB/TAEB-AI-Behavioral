@@ -11,7 +11,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub spell {
     my ($spell, $duration) = @_;
 
-    my $spell = TAEB->find_castable($spell)
+    my $spell = TAEB->find_castable($spell);
     return unless defined $spell
                && $spell->fail < 50;
 
