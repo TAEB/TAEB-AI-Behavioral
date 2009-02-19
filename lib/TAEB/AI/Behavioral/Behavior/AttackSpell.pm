@@ -39,6 +39,15 @@ sub prepare {
     }
 }
 
+my %resist = (
+    'wand of fire'      => sub { TAEB->fire_resistant },
+    'wand of lightning' => sub { TAEB->shock_resistant },
+    #XXX magic resistance
+    'wand of cold'      => sub { TAEB->cold_resistant },
+    'wand of sleep'     => sub { TAEB->sleep_resistant },
+    'sleep'             => sub { TAEB->sleep_resistant },
+);
+
 sub try_to_cast {
     my $self = shift;
     my %args = @_;
@@ -55,7 +64,9 @@ sub try_to_cast {
             return 1;
         },
         stopper => sub { shift->has_friendly },
-
+        bouncy => ($spell || "") ne "force bolt" &&
+                  ($wand || "") ne "wand of striking",
+        allowself => ($resist{$spell || $wand} || sub{0})->(),
         # how far to radiate. we can eventually calculate how far beam/ray
         # can travel..!
         max => 6,
