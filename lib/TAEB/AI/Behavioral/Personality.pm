@@ -289,6 +289,15 @@ sub evaluate_threat {
     $p{avoid_melee} = 1 if $monster->is_nymph;
     $p{avoid_melee} = 1 if $max_damage >= TAEB->hp;
 
+    # This is mildly yuk, but there isn't really a better way
+    # without NHMS integration
+    my $bad_attacks = '-z';
+    $bad_attacks .= 'PD' if ! TAEB->poison_resistant;
+
+    if (grep { $_->attacks =~ /[$bad_attacks]( |$)/ } $monster->spoiler) {
+        $p{avoid_melee} = 1;
+    }
+
     # Estimate how long it would take for the monster to kill us
 
     my $turns = $avg_damage * $monster->speed / (TAEB->speed * TAEB->hp);
