@@ -5,7 +5,8 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub apply  { { action  => 'apply',  item  => $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} } } }
 sub cast   { { action  => 'cast',   spell => $_[0], direction => '.',
-               urgency => $_[1],    check => sub { defined shift->{spell} } } }
+               urgency => $_[1],    check => sub { defined $_[0]->{spell} &&
+                                                   $_[0]->spell->castable } } }
 sub eat    { { action  => 'eat',    food  => $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} &&
                                                    TAEB->nutrition < 1000 } } }
