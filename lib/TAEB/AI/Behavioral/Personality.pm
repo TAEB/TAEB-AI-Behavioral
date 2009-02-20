@@ -3,6 +3,8 @@ use TAEB::OO;
 use Time::HiRes qw/time/;
 extends 'TAEB::AI';
 
+use TAEB::AI::Behavioral::ThreatEvaluation;
+
 =head1 NAME
 
 TAEB::AI::Behavioral::Personality - base class for AIs with behaviors and personalities
@@ -267,6 +269,44 @@ sub send_message {
         $behavior->$msgname(@_)
             if $behavior->can($msgname);
     }
+}
+
+=head2 evaluate_threat TAEB::World::Monster -> TAEB::AI::Behavioral::ThreatEvaluation
+
+Evaluates the threat level of a monster, to be used by several behaviors, in general boolean comparative terms.  Should depend on TAEB's power and may depend on the monster's state.
+
+=cut
+
+# This is a prime candidate for memoization
+
+sub evaluate_threat {
+    my ($self, $monster) = @_;
+
+    my %p;
+
+    my $avg_damage = $monster->average_melee_damage;
+    my $max_damage = $monster->maximum_melee_damage;
+
+    # We will avoid melee at most any cost against things that _can_
+    # onehit us, also item-stealers
+
+    # Possibly worth considering spellcasters here, but we don't
+    # track MR anyway
+
+    # Should we avoid foocubi too?  They're a bit harder to recognize,
+    # and they don't _steal_ anything (that we use)
+
+    $p{avoid_melee} = 1 if $monster->is_nymph;
+    $p{avoid_melee} = 1 if $max_damage >= TAEB->hp;
+
+    # Estimate how long it would take for the monster to kill us
+
+    my $turns = $avg_damage * $monster->speed / (TAEB->speed * TAEB->hp);
+
+    $p{spend_minor} = 1 if $turns < 20;
+    $p{spend_major} = 1 if $turns < 10;
+
+    return TAEB::AI::Behavioral::Threat->new(%p);
 }
 
 __PACKAGE__->meta->make_immutable;
