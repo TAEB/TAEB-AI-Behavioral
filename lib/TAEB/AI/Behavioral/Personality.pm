@@ -12,27 +12,20 @@ TAEB::AI::Behavioral::Personality - base class for AIs with behaviors and person
 =cut
 
 has behaviors => (
-    is      => 'ro',
-    isa     => 'HashRef[TAEB::AI::Behavioral::Behavior]',
-    lazy    => 1,
-    default => sub {
-        my $self      = shift;
-        my $behaviors = {};
-
-        if ($self->can('autoload_behaviors')) {
-            for ($self->autoload_behaviors) {
-                my $pkg = "TAEB::AI::Behavioral::Behavior::$_";
-
-                (my $file = $pkg . '.pm') =~ s{::}{/}g;
-                require $file;
-
-                my $name = $pkg->name;
-
-                $behaviors->{$name} = $pkg->new;
-            }
-        }
-
-        return $behaviors;
+    metaclass => 'Collection::Hash',
+    is        => 'ro',
+    isa       => 'HashRef[TAEB::AI::Behavioral::Behavior]',
+    lazy      => 1,
+    provides  => {
+        get => 'get_behavior',
+    },
+    default   => sub {
+        my $self = shift;
+        my %behaviors = map {
+            my $class = "TAEB::AI::Behavioral::Behavior::$_";
+            $_ => $class->new
+        } $self->sort_behaviors;
+        return \%behaviors;
     },
 );
 
@@ -97,7 +90,7 @@ sub find_urgency {
     my $self = shift;
     my $name = shift;
 
-    my $behavior = $self->behaviors->{$name};
+    my $behavior = $self->get_behavior($name);
     $behavior->reset_urgency;
     my $time = time;
     $behavior->prepare;
@@ -144,7 +137,7 @@ sub next_behavior {
     return undef if $max_urgency <= 0;
 
     TAEB->log->ai(sprintf "Selecting behavior $max_behavior with urgency $max_urgency (%6gs).", time - $time);
-    return $self->behaviors->{$max_behavior};
+    return $self->get_behavior($max_behavior);
 }
 
 =head2 behavior_action [Behavior] -> Action
@@ -163,18 +156,6 @@ sub behavior_action {
     my $action = $behavior->action;
     $self->currently($behavior->name . ':' . $behavior->currently);
     return $action;
-}
-
-=head2 autoload_behaviors -> (Str)
-
-Returns a list of behaviors that should be autoloaded. Defaults to the result of C<sort_behaviors>.
-
-=cut
-
-sub autoload_behaviors {
-    my $self = shift;
-    $self->sort_behaviors;
-    return $self->prioritized_behaviors;
 }
 
 =head2 next_action -> Action
@@ -308,6 +289,14 @@ sub evaluate_threat {
 
     return TAEB::AI::Behavioral::Threat->new(%p);
 }
+
+use Module::Pluggable (
+    require     => 1,
+    sub_name    => 'load_behaviors',
+    search_path => ['TAEB::AI::Behavioral::Behavior'],
+);
+
+__PACKAGE__->load_behaviors;
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
