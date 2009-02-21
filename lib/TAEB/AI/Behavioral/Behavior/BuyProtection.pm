@@ -40,7 +40,6 @@ sub prepare {
             $tile->type eq 'altar' && $tile->in_temple
         },
         on_level => $level,
-        why => "BuyProtection",
     );
 
     $self->if_path($path => "Heading towards a temple altar");

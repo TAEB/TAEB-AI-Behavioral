@@ -121,7 +121,7 @@ sub prepare {
 
     my $path = TAEB::World::Path->first_match(sub {
         $door_handler->(shift) ? 1 : 0
-    }, include_endpoints => 1, why => "Doors");
+    }, include_endpoints => 1);
 
     $self->if_path($path => "Heading towards a door");
 }

@@ -37,10 +37,8 @@ sub prepare {
     # boulders and find one that looks usefully-pushable
 
     my $path = TAEB::World::Path->first_match(sub {
-            push_direction(shift) ne '.';
-        },
-        why => "PushBoulder"
-    );
+        push_direction(shift) ne '.';
+    });
 
     my $push_dir = push_direction(TAEB->current_tile);
 

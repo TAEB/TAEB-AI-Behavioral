@@ -42,7 +42,6 @@ sub prepare {
                 && !$tile->monster->is_seen_through_warning
         },
         through_unknown => 1,
-        why => "Melee/Close",
     );
 
     $self->if_path($path =>

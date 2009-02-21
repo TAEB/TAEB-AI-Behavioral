@@ -21,7 +21,7 @@ sub prepare {
         my $path = TAEB::World::Path->first_match(sub {
             my $monster = shift->monster;
             return defined $monster && $monster->is_vault_guard;
-        }, why => "VaultGuard");
+        });
 
         return $self->if_path($path, sub { "Following the vault guard" });
     }

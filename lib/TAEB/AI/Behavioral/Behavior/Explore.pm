@@ -26,7 +26,6 @@ sub find_path {
             my $prev_explored = $level->fully_explored;
             $path = TAEB::World::Path->first_match(
                 sub { shift->unexplored },
-                why      => "Explore",
                 on_level => $level,
                 through_unknown => 1,
                 intralevel_failure => sub {
@@ -72,7 +71,7 @@ sub prepare {
     }
 
     for (@exits) {
-        if (my $path = TAEB::World::Path->calculate_path($_, why => "Explore/Exit")) {
+        if (my $path = TAEB::World::Path->calculate_path($_)) {
             my $p = $self->if_path($path => "Heading to an unexplored exit");
             return if $self->urgency;
         }

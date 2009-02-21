@@ -23,7 +23,6 @@ sub prepare {
             my ($tile, $path) = @_;
             searchability($pmap, $tile) / exp(length($path));
         },
-        why => "Search",
     );
 
     if ($path && $path->path eq '') {
