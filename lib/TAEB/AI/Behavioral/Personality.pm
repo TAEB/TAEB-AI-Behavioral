@@ -296,14 +296,6 @@ sub evaluate_threat {
     return TAEB::AI::Behavioral::Threat->new(%p);
 }
 
-use Module::Pluggable (
-    require     => 1,
-    sub_name    => 'load_behaviors',
-    search_path => ['TAEB::AI::Behavioral::Behavior'],
-);
-
-__PACKAGE__->load_behaviors;
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
