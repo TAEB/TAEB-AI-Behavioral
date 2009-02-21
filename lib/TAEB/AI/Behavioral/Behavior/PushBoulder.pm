@@ -33,6 +33,9 @@ sub prepare {
 
     return if (TAEB->current_level->branch||'') eq 'sokoban';
 
+    # XXX: TAEB should track each boulder on the level. iterate over the
+    # boulders and find one that looks usefully-pushable
+
     my $path = TAEB::World::Path->first_match(sub {
             push_direction(shift) ne '.';
         },
