@@ -208,7 +208,7 @@ sub drop {
         # behavior is indifferent. Next!
         next if !defined($drop);
 
-        TAEB->log->ai($behavior->name() . " wants to " .
+        TAEB->log->ai($behavior->name . " wants to " .
             (!$drop ? "NOT drop " : ref $drop ? "drop $$drop of " : "drop ") .
             $item);
 
