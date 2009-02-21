@@ -13,7 +13,7 @@ sub _rate_armor {
 
     my $score = $item->ac || 0; # already includes enchantment
 
-    $score++ if $item->mc >= 2;
+    $score++ if ($item->mc || 0) >= 2;
 
     # this really should just check whether is_cursed is known to be zero
     $score-- if !defined($item->buc);
@@ -137,7 +137,7 @@ sub best_item {
         # so it will be filled with the best item; we just have
         # to not reuse it here.
 
-        next if $slot eq 'left_ring' &&
+        next if $slot eq 'left_ring' && defined TAEB->equipment->right_ring &&
             $item == TAEB->equipment->right_ring;
 
         my $rating = $self->_rate_item($slot, $item);
@@ -164,7 +164,7 @@ sub add_item {
     if ($slot eq 'weapon') {
         $self->do(wield => weapon => $item);
     } else {
-        $self->do(puton => item => $item, slot => $slot);
+        $self->do(wear => item => $item, slot => $slot);
     }
 }
 
@@ -204,6 +204,9 @@ sub handle_offhand {
 # Should return true if an action was taken
 sub implement {
     my ($self, $slot, $incumbent, $item) = @_;
+
+    TAEB->log->ai("Trying to replace " . ($incumbent || "nothing") .
+        " with " . ($item || "nothing"));
 
     # Easy :)
     return if !defined($item) && !defined($incumbent)
