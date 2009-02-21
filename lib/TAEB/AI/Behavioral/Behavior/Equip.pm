@@ -29,6 +29,28 @@ sub _rate_armor {
                  || $tracker->includes_possibility('helm of brilliance');
     }
 
+    if (TAEB->ai->is_primary_spellcaster) {
+        # We're trying to optimize for magical power, so don't wear
+        # anything that interferes with magic.
+
+        # No penalties for metal helms, as they protect us from falling
+        # rocks o death
+
+        $score-- if $item->match(identity => ['iron shoes', 'kicking boots']);
+
+        $score -= 10 if $item->match(identity => [
+            'ring mail',
+            'scale mail',
+            'chain mail',
+            'orcish ring mail',
+            'orcish scale mail',
+            'splint mail',
+            'banded mail',
+            'plate mail']);
+
+        $score -= 20 if $item->match(subtype => 'shield');
+    }
+
     return $score;
 }
 
