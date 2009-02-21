@@ -51,7 +51,7 @@ sub prepare {
 
         return 1 if $tile->is_interesting;
         return any { TAEB->want_item($_) } $tile->items;
-    }, why => "GetItems");
+    });
 
     $self->if_path($path => "Heading towards an item");
 }
