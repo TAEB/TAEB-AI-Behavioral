@@ -6,7 +6,7 @@ sub prepare {
     my $self = shift;
 
     my @items = grep { $self->pickup($_) && $_->cost == 0 }
-                TAEB->inventory->items;
+                TAEB->inventory;
     return unless @items;
 
     my $item = shift @items;
