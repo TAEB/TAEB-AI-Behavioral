@@ -31,6 +31,7 @@ sub sort_behaviors {
         "Identify",
         "DipForExcalibur",
         "Wish",
+        "Potions",
         "BuyProtection",
         "Doors",
         "DeadEnd",
