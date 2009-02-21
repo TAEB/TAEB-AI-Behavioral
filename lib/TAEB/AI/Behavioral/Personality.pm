@@ -17,7 +17,9 @@ has behaviors => (
     isa       => 'HashRef[TAEB::AI::Behavioral::Behavior]',
     lazy      => 1,
     provides  => {
-        get => 'get_behavior',
+        get    => 'get_behavior',
+        set    => '_set_behavior',
+        delete => '_delete_behavior',
     },
     default   => sub {
         my $self = shift;
@@ -46,6 +48,7 @@ sub add_behavior {
     my $add = shift;
     my %args = @_;
 
+    $self->_set_behavior($add => $self->_instantiate_behavior($add));
     $self->prioritized_behaviors([
         map { exists $args{before} && $_ eq $args{before}
             ? ($add, $_)
@@ -59,6 +62,7 @@ sub remove_behavior {
     my $self = shift;
     my $remove = shift;
 
+    $self->_delete_behavior($remove);
     $self->prioritized_behaviors([
         grep { ref($remove) eq 'CODE' ? !$remove->($_) : $_ ne $remove }
              $self->prioritized_behaviors
