@@ -90,7 +90,12 @@ sub find_urgency {
     my $self = shift;
     my $name = shift;
 
-    my $behavior = $self->get_behavior($name);
+    my $behavior = $self->get_behavior($name)
+        or do {
+            TAEB->log->ai("The '$name' behavior may have disappeared.", level => "info");
+            return $self->numeric_urgency('none');
+        };
+
     $behavior->reset_urgency;
     my $time = time;
     $behavior->prepare;
