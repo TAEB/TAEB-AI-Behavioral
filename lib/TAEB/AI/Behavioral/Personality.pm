@@ -22,8 +22,7 @@ has behaviors => (
     default   => sub {
         my $self = shift;
         my %behaviors = map {
-            my $class = "TAEB::AI::Behavioral::Behavior::$_";
-            $_ => $class->new
+            $_ => $self->_instantiate_behavior($_)
         } $self->sort_behaviors;
         return \%behaviors;
     },
@@ -34,6 +33,13 @@ has prioritized_behaviors => (
     isa        => 'ArrayRef[Str]',
     auto_deref => 1,
 );
+
+sub _instantiate_behavior {
+    my $self = shift;
+    my $name = shift;
+
+    my $class = "TAEB::AI::Behavioral::Behavior::$name";
+}
 
 sub add_behavior {
     my $self = shift;
