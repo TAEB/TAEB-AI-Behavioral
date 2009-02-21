@@ -10,8 +10,6 @@ TAEB::AI::Behavioral::Personality::Explore - descend only after exploring the le
 
 sub sort_behaviors {
     my $self = shift;
-    my $config = TAEB->config->get_ai_config || {};
-    my $fight = $config->{fight_behavior} || 'Melee';
 
     $self->prioritized_behaviors([
         "FixHunger",
@@ -22,7 +20,7 @@ sub sort_behaviors {
         "BuffSelf",
         "Chokepoint",
         "Kite",
-        $fight,
+        "Melee",
         "Projectiles",
         "LetClose",
         "Vault",
