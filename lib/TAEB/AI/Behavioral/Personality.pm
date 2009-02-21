@@ -41,6 +41,7 @@ sub _instantiate_behavior {
     my $name = shift;
 
     my $class = "TAEB::AI::Behavioral::Behavior::$name";
+    return $class->new;
 }
 
 sub add_behavior {
