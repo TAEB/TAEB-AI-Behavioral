@@ -3,6 +3,8 @@ use TAEB::OO;
 use TAEB::Spoilers::Combat;
 extends 'TAEB::AI::Behavioral::Behavior';
 
+### Determination of items
+
 sub _rate_armor {
     my $self = shift;
     my $item = shift;
@@ -54,73 +56,226 @@ sub _rate_armor {
     return $score;
 }
 
+sub _rate_ring {
+    my ($self, $ring) = @_;
+
+    return -1;
+}
+
+sub _rate_amulet {
+    my ($self, $amulet) = @_;
+
+    return -1;
+}
+
+sub _rate_weapon {
+    my ($self, $item) = @_;
+
+    # Don't use anything that's worse than unarmed
+    return -1 if $item->sdam < 2;
+
+    # Don't use twohanders until I understand left hand pressure
+    return -1 if $item->hands == 2;
+
+    # Artifact weapons are nifty
+    return 2 if $item->is_artifact;
+
+    # Anything else is decent
+    return 1;
+}
+
+sub _rate_item {
+    my ($self, $slot, $item) = @_;
+
+    return 0 if (!$item);
+
+    return $self->_rate_weapon($item)
+        if $slot eq 'weapon' || $slot eq 'offhand';
+
+    return $self->_rate_ring($item)
+        if $slot eq 'left_ring' || $slot eq 'right_ring';
+
+    return $self->_rate_amulet($item)
+        if $slot eq 'amulet';
+
+    #return $self->_rate_blindfold($item)
+    #    if $slot eq 'blindfold';
+
+    return $self->_rate_armor($item);
+}
+
+sub best_item {
+    my ($self, $slot) = @_;
+
+    my $incumbent = TAEB->equipment->$slot;
+
+    my $incumbent_score = $self->_rate_item($slot, $incumbent);
+
+    my @candidates = TAEB->inventory->find(
+        cost    => 0,
+    );
+
+    my ($best_score, $best_item) = (0, undef);
+    for my $item (@candidates) {
+        # There are a lot of confusing issues surrounding the use
+        # of the left hand - twohander, weapon and shield, or a
+        # second weapon?  For now, always take the one-hander and
+        # optional shield.
+        next if $slot eq 'offhand';
+
+        next if !$item->fits_in_slot($slot);
+
+        # There are two ring slots; we put our best ring in the
+        # right slot, because it's less likely to want swapping.
+        # The right slot comes first in the inside-out ordering,
+        # so it will be filled with the best item; we just have
+        # to not reuse it here.
+
+        next if $slot eq 'left_ring' &&
+            $item == TAEB->equipment->right_ring;
+
+        my $rating = $self->_rate_item($slot, $item);
+
+        ($best_score, $best_item) = ($rating, $item)
+            if $rating > $best_score;
+    }
+
+    # Break ties in favor of the incumbent to avoid pointless swapping
+
+    return $incumbent if $best_score == $incumbent_score;
+
+    return $best_item;
+}
+
+### Implementation of changes
+
+sub add_item {
+    my ($self, $slot, $item) = @_;
+
+    $self->currently("Equipping $item");
+    $self->urgency("normal");
+
+    if ($slot eq 'weapon') {
+        $self->do(wield => item => $item);
+    } else {
+        $self->do(puton => item => $item, slot => $slot);
+    }
+}
+
+sub remove_item {
+    my ($self, $slot, $item, $goal) = @_;
+
+    $self->currently("Removing $item" . !$goal ? "" : " to equip $goal");
+    $self->urgency("normal");
+
+    if ($slot eq 'weapon') {
+        $self->do(wield => item => 'nothing');
+    } else {
+        $self->do(remove => item => $item);
+    }
+}
+
+# The swap weapon slot is a bit weird, it doesn't have blockers
+# as such but items can only be loaded in by first wielding them
+sub handle_offhand {
+    my ($self, $item) = @_;
+
+    my $wep = TAEB->equipment->weapon;
+
+    if ($wep == $item) {
+        $self->currently("Swapping " . ($item || "nothing") .
+            " into the offhand slot");
+        $self->do("swapweapons");
+    } else {
+        $self->currently("Wielding " . ($item || "nothing") .
+            " in preparation to offhand it");
+        $self->do(wield => item => ($item || "nothing"));
+    }
+
+    $self->urgency("normal");
+}
+
+# Should return true if an action was taken
+sub implement {
+    my ($self, $slot, $incumbent, $item) = @_;
+
+    # Easy :)
+    return if $item == $incumbent;
+
+    # XXX: This should be implemented with an exception/objection/veto
+    return if !defined($item->buc)
+        && TAEB->current_tile->type eq 'altar';
+
+    for my $bslot (TAEB->equipment->blocking_slots($slot)) {
+        my $block = TAEB->equipment->$bslot;
+        return if $block && $block->is_cursed;
+    }
+
+    if ($slot eq "offhand") {
+        $self->handle_offhand($slot);
+    } else {
+        for my $bslot (TAEB->equipment->hard_blocking_slots($slot)) {
+            my $blocker = TAEB->equipment->$bslot;
+
+            if ($blocker) {
+                $self->remove_item($bslot => $blocker, $new);
+                return 1;
+            }
+        }
+    }
+
+    if ($new) {
+        $self->add_item($slot => $new);
+        return 1;
+    }
+
+    # We only get here for weapons; armour blocks itself and is taken
+    # off above.
+    $self->remove_item($slot => $incumbent);
+    return 1;
+}
+
+### Handling all slots
+
 sub prepare {
     my $self = shift;
 
-    return if $self->prepare_armor;
-}
+    SLOT: for my $slot (TAEB->equipment->slots_inside_out) {
 
-sub prepare_armor {
-    my $self = shift;
+        my $incumbent = TAEB->equipment->$slot;
+        my $new = $self->best_item($slot);
 
-    for my $slot (TAEB->equipment->armor_slots) {
-        my $incumbent       = TAEB->equipment->$slot;
-        my $incumbent_score = $self->_rate_armor($incumbent);
-
-        # Can't remove it :(
-        next if $incumbent && $incumbent->is_cursed;
-
-        my @candidates = TAEB->inventory->find(
-            type    => 'armor',
-            subtype => $slot,
-            cost    => 0,
-        );
-
-        my ($best_score, $best_armor) = (0, undef);
-        for my $candidate (@candidates) {
-            my $rating = $self->_rate_armor($candidate);
-
-            ($best_score, $best_armor) = ($rating, $candidate)
-                if $rating > $best_score;
-        }
-
-        next if $best_score <= $incumbent_score;
-
-        if ($best_armor) {
-            # XXX: This should be implemented with an exception/objection/veto
-            next if !defined($best_armor->buc)
-                && TAEB->current_tile->type eq 'altar';
-        }
-
-        if ($incumbent) {
-            $self->do(remove => item => $incumbent);
-
-            $best_armor ||= '(nothing)';
-            $self->currently("Removing $incumbent to wear $best_armor.");
-        }
-        else {
-            $self->do(wear => item => $best_armor);
-            $self->currently("Putting on $best_armor.");
-        }
-
-        $self->urgency('normal');
-
-        return $best_armor;
+        last SLOT if $self->implement($slot, $incumbent => $new);
     }
-
-    return 0;
 }
 
+# Pick up items if they are better than something we have equipped
 sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return 0 unless $item->type eq 'armor';
+    my @slots;
 
-    my $slot = $item->subtype;
-    my $incumbent = TAEB->equipment->$slot;
+    if ($item->type eq 'weapon' || $item->type eq 'tool') {
+        @slots = qw/weapon/; #TODO dualwield
+    }
 
-    return $self->_rate_armor($item) > $self->_rate_armor($incumbent);
+    if ($item->type eq 'armor') {
+        @slots = $item->subtype;
+    }
+
+    if ($item->type eq 'ring') {
+        @slots = qw/left_ring right_ring/;
+    }
+
+    if ($item->type eq 'amulet') {
+        @slots = qw/amulet/;
+    }
+
+    for my $slot (@slots) {
+        return 1 if $self->_rate_item($slot, $item) >
+                    $self->_rate_item($slot, TAEB->equipment->$slot);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
