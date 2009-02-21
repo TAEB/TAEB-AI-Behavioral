@@ -140,32 +140,22 @@ sub next_behavior {
     return $self->get_behavior($max_behavior);
 }
 
-=head2 behavior_action [Behavior] -> Action
+=head2 next_action -> Action
 
-This will automatically do whatever bookkeeping is necessary to run the given
-behavior. If no behavior is given, C<next_behavior> will be called.
+This will automatically do whatever bookkeeping is necessary to choose and run
+a behavior.
 
 =cut
 
-sub behavior_action {
+sub next_action {
     my $self = shift;
-    my $behavior = shift || $self->next_behavior;
+    my $behavior = $self->next_behavior;
 
     TAEB->log->ai("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.", level => 'critical') if !$behavior;
 
     my $action = $behavior->action;
     $self->currently($behavior->name . ':' . $behavior->currently);
     return $action;
-}
-
-=head2 next_action -> Action
-
-Defaults to just consulting the behaviors for action.
-
-=cut
-
-sub next_action {
-    shift->behavior_action;
 }
 
 =head2 pickup Item -> Bool or Ref[Int]
