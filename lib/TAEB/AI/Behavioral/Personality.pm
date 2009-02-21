@@ -310,6 +310,13 @@ sub is_primary_spellcaster {
     TAEB->role eq "Wiz"
 }
 
+use Module::Pluggable (
+    require     => 1,
+    sub_name    => 'load_behaviors',
+    search_path => ['TAEB::AI::Behavioral::Behavior'],
+);
+
+__PACKAGE__->load_behaviors;
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
