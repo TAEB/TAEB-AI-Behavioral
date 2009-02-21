@@ -77,8 +77,8 @@ sub _rate_blindfold {
 sub _rate_weapon {
     my ($self, $item) = @_;
 
-    # Don't use anything that's worse than unarmed
-    return -1 if $item->sdam < 2;
+    # Don't use anything that's not a weapon
+    return -1 if $item->type ne 'weapon';
 
     # Don't use twohanders until I understand left hand pressure
     return -1 if $item->hands == 2;
@@ -162,7 +162,7 @@ sub add_item {
     $self->urgency("normal");
 
     if ($slot eq 'weapon') {
-        $self->do(wield => item => $item);
+        $self->do(wield => weapon => $item);
     } else {
         $self->do(puton => item => $item, slot => $slot);
     }
@@ -171,11 +171,11 @@ sub add_item {
 sub remove_item {
     my ($self, $slot, $item, $goal) = @_;
 
-    $self->currently("Removing $item" . !$goal ? "" : " to equip $goal");
+    $self->currently("Removing $item" . (!$goal ? "" : " to equip $goal"));
     $self->urgency("normal");
 
     if ($slot eq 'weapon') {
-        $self->do(wield => item => 'nothing');
+        $self->do(wield => weapon => 'nothing');
     } else {
         $self->do(remove => item => $item);
     }
@@ -195,7 +195,7 @@ sub handle_offhand {
     } else {
         $self->currently("Wielding " . ($item || "nothing") .
             " in preparation to offhand it");
-        $self->do(wield => item => ($item || "nothing"));
+        $self->do(wield => weapon => ($item || "nothing"));
     }
 
     $self->urgency("normal");
@@ -206,10 +206,11 @@ sub implement {
     my ($self, $slot, $incumbent, $item) = @_;
 
     # Easy :)
-    return if $item == $incumbent;
+    return if !defined($item) && !defined($incumbent)
+           || defined($item) && defined($incumbent) && $item == $incumbent;
 
     # XXX: This should be implemented with an exception/objection/veto
-    return if !defined($item->buc)
+    return if $item && !defined($item->buc)
         && TAEB->current_tile->type eq 'altar';
 
     return if TAEB->equipment->under_cursed($slot);
@@ -219,13 +220,13 @@ sub implement {
     } else {
         my ($bslot, $blocker);
         if (($bslot, $blocker) = TAEB->equipment->blockers($slot)) {
-            $self->remove_item($bslot => $blocker, $new);
+            $self->remove_item($bslot => $blocker, $item);
             return 1;
         }
     }
 
-    if ($new) {
-        $self->add_item($slot => $new);
+    if ($item) {
+        $self->add_item($slot => $item);
         return 1;
     }
 
