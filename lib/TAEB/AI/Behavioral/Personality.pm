@@ -293,7 +293,7 @@ sub evaluate_threat {
     $p{spend_minor} = 1 if $turns < 20;
     $p{spend_major} = 1 if $turns < 10;
 
-    return TAEB::AI::Behavioral::Threat->new(%p);
+    return TAEB::AI::Behavioral::ThreatEvaluation->new(%p);
 }
 
 __PACKAGE__->meta->make_immutable;
