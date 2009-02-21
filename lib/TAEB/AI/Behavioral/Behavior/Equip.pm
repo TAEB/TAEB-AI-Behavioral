@@ -68,6 +68,12 @@ sub _rate_amulet {
     return -1;
 }
 
+sub _rate_blindfold {
+    my ($self, $blindfold) = @_;
+
+    return -1;
+}
+
 sub _rate_weapon {
     my ($self, $item) = @_;
 
@@ -98,8 +104,8 @@ sub _rate_item {
     return $self->_rate_amulet($item)
         if $slot eq 'amulet';
 
-    #return $self->_rate_blindfold($item)
-    #    if $slot eq 'blindfold';
+    return $self->_rate_blindfold($item)
+        if $slot eq 'blindfold';
 
     return $self->_rate_armor($item);
 }
@@ -206,21 +212,15 @@ sub implement {
     return if !defined($item->buc)
         && TAEB->current_tile->type eq 'altar';
 
-    for my $bslot (TAEB->equipment->blocking_slots($slot)) {
-        my $block = TAEB->equipment->$bslot;
-        return if $block && $block->is_cursed;
-    }
+    return if TAEB->equipment->under_cursed($slot);
 
     if ($slot eq "offhand") {
         $self->handle_offhand($slot);
     } else {
-        for my $bslot (TAEB->equipment->hard_blocking_slots($slot)) {
-            my $blocker = TAEB->equipment->$bslot;
-
-            if ($blocker) {
-                $self->remove_item($bslot => $blocker, $new);
-                return 1;
-            }
+        my ($bslot, $blocker);
+        if (($bslot, $blocker) = TAEB->equipment->blockers($slot)) {
+            $self->remove_item($bslot => $blocker, $new);
+            return 1;
         }
     }
 
@@ -241,6 +241,9 @@ sub prepare {
     my $self = shift;
 
     SLOT: for my $slot (TAEB->equipment->slots_inside_out) {
+
+        # Don't bother with the quiver as it's just a UI thing
+        next if $slot eq 'quiver';
 
         my $incumbent = TAEB->equipment->$slot;
         my $new = $self->best_item($slot);
