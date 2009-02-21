@@ -296,6 +296,20 @@ sub evaluate_threat {
     return TAEB::AI::Behavioral::ThreatEvaluation->new(%p);
 }
 
+=head2 is_primary_spellcaster
+
+Should we optimize for magical or physical power?  What we actually
+use for attack depends on our actual ability, this needs to estimate
+our potential.
+
+=cut
+
+sub is_primary_spellcaster {
+    # For now, only wizards are played like this
+
+    TAEB->role eq "Wiz"
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
