@@ -3,6 +3,9 @@ use TAEB::OO;
 use Time::HiRes qw/time/;
 extends 'TAEB::AI';
 
+use TAEB::Util qw/:colors display/;
+use Scalar::Util qw/refaddr/;
+
 use TAEB::AI::Behavioral::ThreatEvaluation;
 
 =head1 NAME
@@ -308,6 +311,60 @@ sub is_primary_spellcaster {
     # For now, only wizards are played like this
 
     TAEB->role eq "Wiz"
+}
+
+my %_goal_colors;
+
+my $white = display(COLOR_WHITE);
+sub _onframe_goals {
+    my $self = TAEB->ai;
+    $self->isa(__PACKAGE__) or return;
+
+    %_goal_colors = ();
+
+    my @paths;
+
+    for my $name ($self->prioritized_behaviors) {
+        my $behavior = $self->get_behavior($name);
+
+        next if !$behavior->urgency;
+        next if $behavior->urgency eq 'none';
+
+        next if !$behavior->action;
+        next if !$behavior->action->can('path');
+
+        my $path = $behavior->action->path or next;
+
+        push @paths, [ $self->numeric_urgency($behavior->urgency), $path ];
+    }
+
+    @paths = sort { $a->[0] cmp $b->[0] } @paths;
+
+    my @colors = ( COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_BROWN,
+        COLOR_RED, COLOR_MAGENTA );
+
+    for (@paths) {
+        my $rcolor = shift @colors or last;
+        my $dcolor = display($rcolor);
+        my $path = $_->[1];
+
+        my $tile = $path->from;
+
+        for (split '', $path->path) {
+            $_goal_colors{refaddr $tile} ||= $dcolor;
+            $tile = $tile->level->at_direction($tile->x, $tile->y, $_)
+                or last;
+        }
+
+        $_goal_colors{ refaddr $path->to } ||=
+            display(color => $rcolor, bold => 1);
+    }
+}
+
+sub drawing_modes {
+    goals => { description => "Show highest-priority goals",
+               color => sub { $_goal_colors{refaddr shift} || $white },
+               onframe => \&_onframe_goals }
 }
 
 use Module::Pluggable (
