@@ -3,5 +3,5 @@
 
 # avoid_branch   - Which dungeon branch to stay out of, if possible
 #ai_options:
-#    behavioral:
+#    Behavioral:
 #        avoid_branch: ""      # mines, dungeon
