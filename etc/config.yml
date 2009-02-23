@@ -1,11 +1,7 @@
 ---
 # This file contains TAEB configuration options that are useful for this ai.
 
-# fight_behavior - Which behavior to use for fighting monsters. Note that
-#                  EkimFight doesn't work well at the moment, since we can't
-#                  track whether a monster is sleeping.
 # avoid_branch   - Which dungeon branch to stay out of, if possible
 #ai_options:
 #    behavioral:
-#        fight_behavior: Melee # EkimFight
 #        avoid_branch: ""      # mines, dungeon
