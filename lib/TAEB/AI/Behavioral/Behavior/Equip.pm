@@ -137,8 +137,9 @@ sub best_item {
         # so it will be filled with the best item; we just have
         # to not reuse it here.
 
-        next if $slot eq 'left_ring' && defined TAEB->equipment->right_ring &&
-            $item == TAEB->equipment->right_ring;
+        next if $slot eq 'left_ring'
+             && defined TAEB->equipment->right_ring
+             && $item == TAEB->equipment->right_ring;
 
         my $rating = $self->_rate_item($slot, $item);
 
@@ -209,12 +210,13 @@ sub implement {
         " with " . ($item || "nothing"));
 
     # Easy :)
-    return if !defined($item) && !defined($incumbent)
-           || defined($item) && defined($incumbent) && $item == $incumbent;
+    return if (!defined($item) && !defined($incumbent))
+           || (defined($item) && defined($incumbent) && $item == $incumbent);
 
     # XXX: This should be implemented with an exception/objection/veto
-    return if $item && !defined($item->buc)
-        && TAEB->current_tile->type eq 'altar';
+    return if $item
+           && !defined($item->buc)
+           && TAEB->current_tile->type eq 'altar';
 
     return if TAEB->equipment->under_cursed($slot);
 
