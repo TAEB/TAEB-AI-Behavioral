@@ -329,7 +329,7 @@ do {
             next unless $behavior->urgency
                      && $behavior->urgency ne 'none';
 
-            next unless $behavior->action;
+            next unless $behavior->action
                      && $behavior->action->can('path');
 
             my $path = $behavior->action->path or next;
@@ -362,7 +362,7 @@ do {
             onframe => \&_onframe_goals,
         }
     }
-}
+};
 
 use Module::Pluggable (
     require     => 1,
