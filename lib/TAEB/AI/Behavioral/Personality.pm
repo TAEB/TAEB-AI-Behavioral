@@ -316,9 +316,9 @@ sub is_primary_spellcaster {
 my %_goal_colors;
 
 my $white = display(COLOR_WHITE);
+
 sub _onframe_goals {
     my $self = TAEB->ai;
-    $self->isa(__PACKAGE__) or return;
 
     %_goal_colors = ();
 
@@ -338,26 +338,17 @@ sub _onframe_goals {
         push @paths, [ $self->numeric_urgency($behavior->urgency), $path ];
     }
 
-    @paths = sort { $a->[0] cmp $b->[0] } @paths;
+    @paths = sort { $b->[0] cmp $a->[0] } @paths;
 
     my @colors = ( COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_BROWN,
         COLOR_RED, COLOR_MAGENTA );
 
     for (@paths) {
-        my $rcolor = shift @colors or last;
-        my $dcolor = display($rcolor);
-        my $path = $_->[1];
+        my $dcolor = display(shift @colors or last);
 
-        my $tile = $path->from;
-
-        for (split '', $path->path) {
-            $_goal_colors{refaddr $tile} ||= $dcolor;
-            $tile = $tile->level->at_direction($tile->x, $tile->y, $_)
-                or last;
+        for my $reftile (keys %{ $_->[1]->tiles }) {
+            $_goal_colors{$reftile} ||= $dcolor;
         }
-
-        $_goal_colors{ refaddr $path->to } ||=
-            display(color => $rcolor, bold => 1);
     }
 }
 
