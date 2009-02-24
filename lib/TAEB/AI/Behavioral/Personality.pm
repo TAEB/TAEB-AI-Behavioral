@@ -313,49 +313,55 @@ sub is_primary_spellcaster {
     TAEB->role eq "Wiz"
 }
 
-my %_goal_colors;
+do {
+    my %goal_colors;
 
-my $white = display(COLOR_WHITE);
+    sub _onframe_goals {
+        my $self = TAEB->ai;
 
-sub _onframe_goals {
-    my $self = TAEB->ai;
+        %goal_colors = ();
 
-    %_goal_colors = ();
+        my @paths;
 
-    my @paths;
+        for my $name ($self->prioritized_behaviors) {
+            my $behavior = $self->get_behavior($name);
 
-    for my $name ($self->prioritized_behaviors) {
-        my $behavior = $self->get_behavior($name);
+            next unless $behavior->urgency
+                     && $behavior->urgency ne 'none';
 
-        next if !$behavior->urgency;
-        next if $behavior->urgency eq 'none';
+            next unless $behavior->action;
+                     && $behavior->action->can('path');
 
-        next if !$behavior->action;
-        next if !$behavior->action->can('path');
+            my $path = $behavior->action->path or next;
 
-        my $path = $behavior->action->path or next;
+            push @paths, [ $self->numeric_urgency($behavior->urgency), $path ];
+        }
 
-        push @paths, [ $self->numeric_urgency($behavior->urgency), $path ];
-    }
+        @paths = sort { $b->[0] <=> $a->[0] } @paths;
 
-    @paths = sort { $b->[0] cmp $a->[0] } @paths;
+        my @colors = (
+            COLOR_BLUE, COLOR_CYAN, COLOR_GREEN,
+            COLOR_BROWN, COLOR_RED, COLOR_MAGENTA,
+        );
 
-    my @colors = ( COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_BROWN,
-        COLOR_RED, COLOR_MAGENTA );
+        for (@paths) {
+            my $dcolor = display(shift @colors or last);
 
-    for (@paths) {
-        my $dcolor = display(shift @colors or last);
-
-        for my $reftile (keys %{ $_->[1]->tiles }) {
-            $_goal_colors{$reftile} ||= $dcolor;
+            for my $reftile (keys %{ $_->[1]->tiles }) {
+                $goal_colors{$reftile} ||= $dcolor;
+            }
         }
     }
-}
 
-sub drawing_modes {
-    goals => { description => "Show highest-priority goals",
-               color => sub { $_goal_colors{refaddr shift} || $white },
-               onframe => \&_onframe_goals }
+    sub drawing_modes {
+        goals => {
+            description => "Show highest-priority goals",
+            color => sub {
+                $goal_colors{refaddr shift} || display(COLOR_WHITE)
+            },
+            onframe => \&_onframe_goals,
+        }
+    }
 }
 
 use Module::Pluggable (
