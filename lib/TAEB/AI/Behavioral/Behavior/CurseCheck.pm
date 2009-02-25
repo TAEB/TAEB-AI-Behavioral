@@ -12,6 +12,7 @@ sub prepare {
         or return;
 
     my @drop = grep { $_->can_drop(ignore_is_worn => 1) }
+               grep { !_item_under_cursed($_) }
                grep { $_->match(buc => undef) }
                TAEB->inventory;
 
@@ -23,10 +24,8 @@ sub prepare {
                             @drop;
 
         if (@need_to_remove) {
-            $self->currently("Removing equipment for cursechecking.");
-            $self->do(remove => item => $need_to_remove[0]);
-        }
-        else {
+            $self->remove_covers($need_to_remove[0]);
+        } else {
             $self->currently("Dropping items for cursechecking.");
             $self->do(drop => items => \@drop);
         }
@@ -57,6 +56,42 @@ sub drop {
     TAEB->log->behavior("Yes, I want to drop $item because it needs to be cursechecked.");
     return 1;
 }
+
+# This should have been in NHI...
+sub _item_to_slot {
+    my $item = shift;
+
+    my $slot;
+    for (TAEB->equipment->slots) {
+        $slot = $_ if TAEB->equipment->$_ && TAEB->equipment->$_ == $item;
+    }
+
+    return $slot;
+}
+
+sub _item_under_cursed {
+    my $item = shift;
+
+    my $slot = _item_to_slot($item);
+
+    return $slot && TAEB->equipment->under_cursed($slot);
+}
+
+# XXX: this is an disgusting hack
+sub remove_covers {
+    my ($self, $item) = @_;
+
+    my $slot = _item_to_slot($item);
+    return unless $slot;
+
+    my $blocking_item = TAEB->equipment->blockers($slot);
+    return unless $blocking_item;
+
+    $self->currently("Removing $blocking_item so we can check $item");
+    $self->action(remove => item => $blocking_item);
+    return 1;
+}
+
 
 # XXX: this does nothing yet, tis a sketch
 sub veto_wear {
