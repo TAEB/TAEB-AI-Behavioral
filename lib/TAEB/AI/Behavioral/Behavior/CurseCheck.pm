@@ -88,7 +88,7 @@ sub remove_covers {
     return unless $blocking_item;
 
     $self->currently("Removing $blocking_item so we can check $item");
-    $self->action(remove => item => $blocking_item);
+    $self->do(remove => item => $blocking_item);
     return 1;
 }
 
