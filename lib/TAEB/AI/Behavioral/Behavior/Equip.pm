@@ -40,15 +40,8 @@ sub _rate_armor {
 
         $score-- if $item->match(identity => ['iron shoes', 'kicking boots']);
 
-        $score -= 10 if $item->match(identity => [
-            'ring mail',
-            'scale mail',
-            'chain mail',
-            'orcish ring mail',
-            'orcish scale mail',
-            'splint mail',
-            'banded mail',
-            'plate mail']);
+        $score -= 10 if $item->is_metallic;
+        $score += 14 if $item->match(is_metallic => 1, subtype => 'helmet');
 
         $score -= 20 if $item->match(subtype => 'shield');
     }
