@@ -76,6 +76,8 @@ sub prepare {
     return unless @deadends;
 
     my $path = TAEB::World::Path->calculate_path($deadends[0]);
+    return if length($path->path) > 1;
+
     $self->if_path($path => "Heading to a dead end");
 }
 
