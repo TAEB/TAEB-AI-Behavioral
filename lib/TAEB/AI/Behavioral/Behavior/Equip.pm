@@ -182,7 +182,7 @@ sub handle_offhand {
 
     my $wep = TAEB->equipment->weapon;
 
-    if ($wep == $item) {
+    if (($wep || 0) == ($item || 0)) {
         $self->currently("Swapping " . ($item || "nothing") .
             " into the offhand slot");
         $self->do("swapweapons");
@@ -214,7 +214,7 @@ sub implement {
     return if TAEB->equipment->under_cursed($slot);
 
     if ($slot eq "offhand") {
-        $self->handle_offhand($slot);
+        $self->handle_offhand($item);
         return 1;
     } else {
         my ($bslot, $blocker);
