@@ -37,13 +37,13 @@ sub door_handler {
         return unless $door->isa('TAEB::World::Tile::Door');
 
         # No check for watch, that causes oscillations
-        return if TAEB->current_level->is_minetown
+        my $minetown_check = TAEB->current_level->is_minetown
                && !$door->any_adjacent(sub { shift->type eq 'corridor' })
                && (($action_args{implement}
                  && !$action_args{implement}->match(identity => qr/key/))
                 || $action eq 'kick');
 
-        if ($door->blocked_door) {
+        if ($door->blocked_door && !$minetown_check) {
             if ($door->type eq 'opendoor') {
                 if ($door->is_empty && # can't close with stuff on them
                     !$door->level->is_rogue) { # can't close doors on roguelvl
@@ -66,7 +66,7 @@ sub door_handler {
                 };
             }
         }
-        elsif ($door->is_locked) {
+        elsif ($door->is_locked && !$minetown_check) {
             if ($action) {
                 unless ($action eq 'kick' && $door->is_shop) {
                     return sub {
