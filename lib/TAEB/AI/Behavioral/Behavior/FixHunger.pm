@@ -22,7 +22,7 @@ sub prepare {
     my @edible_items = TAEB::Action::Eat->edible_items;
     return unless @edible_items;
 
-    my ($choice, $priority) = ('any', -1000);
+    my ($choice, $priority) = ($edible_items[0], -1000);
     for my $item (@edible_items) {
         # XXX: avoid eating carrots and other beneficial items
         # XXX: prefer floor food
