@@ -215,6 +215,7 @@ sub implement {
 
     if ($slot eq "offhand") {
         $self->handle_offhand($slot);
+        return 1;
     } else {
         my ($bslot, $blocker);
         if (($bslot, $blocker) = TAEB->equipment->blockers($slot)) {
