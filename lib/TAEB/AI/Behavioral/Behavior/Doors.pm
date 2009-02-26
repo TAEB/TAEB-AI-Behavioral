@@ -66,8 +66,8 @@ sub door_handler {
                 };
             }
         }
-        elsif ($door->is_locked && !$minetown_check) {
-            if ($action) {
+        elsif ($door->is_locked) {
+            if ($action && !$minetown_check) {
                 unless ($action eq 'kick' && $door->is_shop) {
                     return sub {
                         my ($self, $door, $dir) = @_;
