@@ -153,7 +153,7 @@ sub next_behavior {
             if $urgency > $max_urgency;
     }
 
-    return undef if $max_urgency <= 0;
+    return if $max_urgency <= 0;
 
     TAEB->log->ai(sprintf "Selecting behavior $max_behavior with urgency $max_urgency (%6gs).", time - $time);
     return $self->get_behavior($max_behavior);

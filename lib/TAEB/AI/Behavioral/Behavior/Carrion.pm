@@ -41,7 +41,7 @@ sub match_tile {
         return [eat => food => $yummy[0]],
             "eating a " . $yummy[0];
     } else {
-        return undef;
+        return;
     }
 }
 
