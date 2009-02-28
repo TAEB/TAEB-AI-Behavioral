@@ -24,7 +24,8 @@ sub prepare {
                             @drop;
 
         if (@need_to_remove) {
-            $self->remove_covers($need_to_remove[0]) or return;
+            $self->remove_covers($need_to_remove[0])
+                or die "We can't drop $need_to_remove[0], but nothing is stopping us?";
         } else {
             $self->currently("Dropping items for cursechecking.");
             $self->do(drop => items => \@drop);
