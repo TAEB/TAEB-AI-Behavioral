@@ -12,7 +12,5 @@ requires 'List::MoreUtils';
 requires 'Time::HiRes';
 requires 'Module::Pluggable';
 
-build_requires 'Test::More';
-
 WriteAll;
 
