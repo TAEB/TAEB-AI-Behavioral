@@ -99,7 +99,7 @@ sub drop {
     my $item = shift;
     return 1 if $item->match(identity => qr/wand of (?:fire|lightning|digging)/,
                              charges  => 0);
-    return undef;
+    return;
 }
 
 __PACKAGE__->meta->make_immutable;

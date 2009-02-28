@@ -57,7 +57,7 @@ sub drop {
         return 1;
     }
 
-    return undef; #don't care
+    return; #don't care
 }
 
 sub pickup {
