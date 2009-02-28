@@ -8,3 +8,16 @@ sub new { die "Do not use TAEB::AI::Behavioral directly. Use a Personality subcl
 
 1;
 
+__END__
+
+=head1 NAME
+
+=head1 DESCRIPTION
+
+=head1 CODE
+
+=head1 AUTHORS
+
+=head1 COPYRIGHT & LICENSE
+
+=cut
