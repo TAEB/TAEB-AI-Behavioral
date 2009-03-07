@@ -126,7 +126,7 @@ sub done {
     return unless $self->action->isa('TAEB::Action::Kick');
     my $tile = $self->action->target_tile;
 
-    if (_tile_includes_only($self->find_possible_luckstones)) {
+    if (_tile_includes_only($tile, $self->find_possible_luckstones)) {
         my ($item) = $tile->items;
         $self->kicked_stone->{refaddr $item} = 1;
     }
