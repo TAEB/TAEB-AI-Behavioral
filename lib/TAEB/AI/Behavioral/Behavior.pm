@@ -6,9 +6,9 @@ has currently => (
     isa => 'Str',
 );
 
-has action => (
+has _action => (
     is  => 'rw',
-    isa => 'TAEB::Action',
+    isa => 'ArrayRef',
 );
 
 has urgency => (
@@ -26,19 +26,33 @@ This includes things like pathfinding for Explore.
 
 sub prepare { }
 
-=head2 do Str, Args -> Action
+=head2 do Str, Args
 
-This will create an Action of the given name, initialized with the given
-arguments.
+This will defer creation an Action of the given name, initialized with the
+given arguments.
+
+Once L</action> is called, the action will be instantiated.
 
 =cut
 
 sub do {
     my $self = shift;
-    my $name = shift;
 
-    my $action = TAEB::Action->new_action($name => @_);
-    $self->action($action);
+    $self->_action([@_]);
+}
+
+=head2 action
+
+Creates the action using the cached arguments.
+
+=cut
+
+sub action {
+    my $self = shift;
+
+    my $action_arguments = $self->_action;
+
+    return TAEB::Action->new_action(@$action_arguments);
 }
 
 =head2 name -> Str
