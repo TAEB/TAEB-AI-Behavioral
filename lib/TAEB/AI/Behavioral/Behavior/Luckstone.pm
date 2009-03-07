@@ -1,6 +1,7 @@
 package TAEB::AI::Behavioral::Behavior::Luckstone;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
+use Scalar::Util 'refaddr';
 
 has kicked_stone => (
     is      => 'ro',
@@ -48,7 +49,7 @@ sub find_possible_luckstones {
     } TAEB->current_level->items;
 
     # are there any that haven't been kicked?
-    @possible_luckstones = grep { !$self->kicked_stone->{$_} }
+    @possible_luckstones = grep { !$self->kicked_stone->{refaddr $_} }
                            @possible_luckstones;
 
     return @possible_luckstones;
@@ -127,7 +128,7 @@ sub done {
 
     if (_tile_includes_only($self->find_possible_luckstones)) {
         my ($item) = $tile->items;
-        $self->kicked_stone->{$item} = 1;
+        $self->kicked_stone->{refaddr $item} = 1;
     }
 }
 
