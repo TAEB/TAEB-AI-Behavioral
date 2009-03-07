@@ -174,6 +174,10 @@ a behavior.
 
 sub next_action {
     my $self = shift;
+
+    $self->behavior->done
+        if $self->has_behavior;
+
     my $behavior = $self->next_behavior;
 
     TAEB->log->ai("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.", level => 'critical') if !$behavior;

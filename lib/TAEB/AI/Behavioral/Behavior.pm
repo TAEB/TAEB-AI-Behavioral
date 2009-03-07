@@ -173,6 +173,14 @@ sub if_path {
     $self->urgency(@_ ? shift : 'fallback');
 }
 
+=head2 done
+
+Called when the action the behavior requested has been performed.
+
+=cut
+
+sub done {}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
