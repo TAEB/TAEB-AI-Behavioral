@@ -118,6 +118,19 @@ sub prepare {
     return $action if $action;
 }
 
+sub done {
+    my $self = shift;
+    my $action = $self->action;
+
+    return unless $self->action->isa('TAEB::Action::Kick');
+    my $tile = $self->action->target_tile;
+
+    if (_tile_includes_only($self->find_possible_luckstones)) {
+        my ($item) = $tile->items;
+        $self->kicked_stone->{$item} = 1;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no TAEB::OO;
 
