@@ -14,6 +14,12 @@ TAEB::AI::Behavioral::Personality - base class for AIs with behaviors and person
 
 =cut
 
+has behavior => (
+    is        => 'rw',
+    isa       => 'TAEB::AI::Behavioral::Behavior',
+    predicate => 'has_behavior',
+);
+
 has behaviors => (
     metaclass => 'Collection::Hash',
     is        => 'ro',
@@ -171,6 +177,8 @@ sub next_action {
     my $behavior = $self->next_behavior;
 
     TAEB->log->ai("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.", level => 'critical') if !$behavior;
+
+    $self->behavior($behavior);
 
     my $action = $behavior->action;
     $self->currently($behavior->name . ':' . $behavior->currently);
