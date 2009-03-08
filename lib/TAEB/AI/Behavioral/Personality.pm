@@ -369,7 +369,7 @@ do {
         goals => {
             description => "Show highest-priority goals",
             color => sub {
-                $goal_colors{refaddr shift} || display(COLOR_WHITE)
+                $goal_colors{refaddr shift} || display(COLOR_GRAY)
             },
             onframe => \&_onframe_goals,
         }
