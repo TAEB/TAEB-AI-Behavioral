@@ -257,13 +257,13 @@ sub drop {
            \$should_drop;
 }
 
-=head2 send_message Str, *
+=head2 forward_message Str, *
 
-This will send the message to itself and each of its behaviors.
+This will forward the message to each of its behaviors.
 
 =cut
 
-sub send_message {
+sub forward_message {
     my $self = shift;
     my $msgname = shift;
 
