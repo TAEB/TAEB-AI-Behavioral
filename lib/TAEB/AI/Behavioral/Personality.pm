@@ -265,11 +265,13 @@ This will forward the message to each of its behaviors.
 
 sub forward_message {
     my $self = shift;
-    my $msgname = shift;
+    my $name = shift;
+
+    my $method = "msg_$name";
 
     for my $behavior (values %{ $self->behaviors }) {
-        $behavior->$msgname(@_)
-            if $behavior->can($msgname);
+        $behavior->$method(@_)
+            if $behavior->can($method);
     }
 }
 
