@@ -18,7 +18,6 @@ sub sort_behaviors {
         "Defend",
         "AttackSpell",
         "BuffSelf",
-        "Chokepoint",
         "Kite",
         "Melee",
         "Projectiles",
