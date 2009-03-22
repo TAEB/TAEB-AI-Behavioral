@@ -7,6 +7,8 @@ sub want_to_eat {
 
     return 0 unless $item->match(subtype => 'corpse');
 
+    return 0 if defined $item->price && $item->price > TAEB->gold;
+
     my $unihorn = TAEB->has_item(
         identity => "unicorn horn",
         buc      => [qw/blessed uncursed/],
