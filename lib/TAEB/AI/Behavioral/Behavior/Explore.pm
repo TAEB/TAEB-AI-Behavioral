@@ -1,7 +1,7 @@
 package TAEB::AI::Behavioral::Behavior::Explore;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
-use List::MoreUtils 'any';
+use TAEB::Util 'any';
 
 sub unexplored_level {
     my $level = shift;

@@ -3,8 +3,7 @@ use TAEB::OO;
 use Time::HiRes qw/time/;
 extends 'TAEB::AI';
 
-use TAEB::Util qw/:colors display/;
-use Scalar::Util qw/refaddr/;
+use TAEB::Util qw/:colors display refaddr/;
 
 use TAEB::AI::Behavioral::ThreatEvaluation;
 
