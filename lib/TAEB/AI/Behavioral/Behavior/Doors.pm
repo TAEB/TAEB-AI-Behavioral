@@ -1,7 +1,7 @@
 package TAEB::AI::Behavioral::Behavior::Doors;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
-use List::MoreUtils 'any';
+use TAEB::Util 'any';
 
 sub unlock_action {
     my $self = shift;

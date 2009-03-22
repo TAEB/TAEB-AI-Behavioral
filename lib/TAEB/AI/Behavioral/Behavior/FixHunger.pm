@@ -1,6 +1,6 @@
 package TAEB::AI::Behavioral::Behavior::FixHunger;
 use TAEB::OO;
-use List::Util 'sum';
+use TAEB::Util 'sum';
 extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {

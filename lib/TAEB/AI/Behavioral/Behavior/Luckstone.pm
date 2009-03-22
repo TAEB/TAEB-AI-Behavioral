@@ -1,7 +1,7 @@
 package TAEB::AI::Behavioral::Behavior::Luckstone;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
-use Scalar::Util 'refaddr';
+use TAEB::Util 'refaddr';
 
 has kicked_stone => (
     is      => 'ro',

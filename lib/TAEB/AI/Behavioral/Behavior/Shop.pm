@@ -1,6 +1,6 @@
 package TAEB::AI::Behavioral::Behavior::Shop;
 use TAEB::OO;
-use List::MoreUtils 'any';
+use TAEB::Util 'any';
 extends 'TAEB::AI::Behavioral::Behavior';
 
 # for now, we just drop unpaid items
