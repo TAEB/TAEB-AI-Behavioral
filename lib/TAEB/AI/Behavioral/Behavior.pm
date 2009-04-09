@@ -1,5 +1,6 @@
 package TAEB::AI::Behavioral::Behavior;
 use TAEB::OO;
+use TAEB::AI::Behavioral::Meta::Types;
 
 has currently => (
     is  => 'rw',
