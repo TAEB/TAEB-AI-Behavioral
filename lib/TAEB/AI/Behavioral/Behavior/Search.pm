@@ -16,6 +16,8 @@ sub search_direction {
 sub prepare {
     my $self = shift;
 
+    return if TAEB->current_tile->in_shop;
+
     my $pmap = find_empty_panels();
 
     my $path = TAEB::World::Path->max_match(
