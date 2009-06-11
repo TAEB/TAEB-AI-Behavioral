@@ -256,24 +256,6 @@ sub drop {
            \$should_drop;
 }
 
-=head2 forward_message Str, *
-
-This will forward the message to each of its behaviors.
-
-=cut
-
-sub forward_message {
-    my $self = shift;
-    my $name = shift;
-
-    my $method = "msg_$name";
-
-    for my $behavior (values %{ $self->behaviors }) {
-        $behavior->$method(@_)
-            if $behavior->can($method);
-    }
-}
-
 =head2 evaluate_threat TAEB::World::Monster -> TAEB::AI::Behavioral::ThreatEvaluation
 
 Evaluates the threat level of a monster, to be used by several behaviors, in general boolean comparative terms.  Should depend on TAEB's power and may depend on the monster's state.
