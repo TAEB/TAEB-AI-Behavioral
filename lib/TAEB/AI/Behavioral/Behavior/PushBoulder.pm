@@ -22,12 +22,6 @@ sub push_direction {
     return delta2vi($tiles[0]->x - $tile->x, $tiles[0]->y - $tile->y);
 }
 
-sub msg_immobile_boulder {
-    # The boulder didn't move, there must be rock or another boulder beyond it.
-    my ($dx, $dy) = vi2delta(push_direction(TAEB->current_tile));
-    TAEB->current_level->at(TAEB->x + $dx * 2,TAEB->y + $dy * 2)->type('rock');
-}
-
 sub prepare {
     my $self = shift;
 
