@@ -50,7 +50,6 @@ use constant tile_description => 'the downstairs';
 use constant using_urgency    => 'descending';
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 

@@ -368,7 +368,6 @@ use Module::Pluggable (
 load_behaviors();
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 

@@ -50,7 +50,6 @@ sub match_tile {
 sub tile_description { "a corpse" }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 
