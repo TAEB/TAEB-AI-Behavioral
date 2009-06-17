@@ -183,7 +183,6 @@ Called when the action the behavior requested has been performed.
 sub done {}
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 

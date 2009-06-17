@@ -105,7 +105,6 @@ sub veto_wear {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 
