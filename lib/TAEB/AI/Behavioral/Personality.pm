@@ -365,7 +365,8 @@ use Module::Pluggable (
     search_path => ['TAEB::AI::Behavioral::Behavior'],
 );
 
-__PACKAGE__->load_behaviors;
+load_behaviors();
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
