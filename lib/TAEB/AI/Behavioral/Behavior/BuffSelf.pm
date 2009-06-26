@@ -8,6 +8,51 @@ extends 'TAEB::AI::Behavioral::Behavior';
 # 1/3 or less of our mp regen ... cumulative with lower priority
 # things.
 
+my @buff_options = (
+    {
+        buff => "very fast",
+        have => sub { TAEB->senses->is_very_fast },
+        with => sub {
+            spell ("haste self", 60) || # XXX 90 if Skilled in escape
+            potion("speed", 60, 90)
+        },
+    },
+    # XXX galloping - only useful with riding + kiting
+    # these require the framework to have a notion of see invisible
+    #{
+    #    buff => "invisible",
+    #    have => sub { TAEB->senses->invisible },
+    #    with => sub {
+    #        spell ("invisibility", 38) ||
+    #        potion("invisibility", 38, 10e9999)
+    #    },
+    #},
+    #{
+    #    buff => "see invisible",
+    #    have => sub { TAEB->senses->see_invisible },
+    #    with => sub {
+    #        potion("see invisible", 800, 10e9999)
+    #    },
+    #},
+    {
+        buff => "protection",
+        levels => 1,
+        have => sub { TAEB->senses->spell_protection },
+        with => sub {
+            my $will_get = TAEB->senses->spell_protection_return;
+
+            return if !$will_get;
+
+            spell("protection", $will_get * 10) # XXX 20 if Expert
+            # also the value of protecting varies a bit
+        },
+    },
+    # XXX levitation - sometimes harmful
+    # XXX detect monsters - would probably confuse TAEB too much
+);
+
+sub buff_options { @buff_options }
+
 sub spell {
     my ($spell, $duration) = @_;
 
@@ -36,54 +81,6 @@ sub potion {
         dur    => $pot->is_blessed ? $blessed_duration : $duration,
     };
 }
-
-has buff_options => (
-    is => 'ro',
-    isa => 'ArrayRef',
-    auto_deref => 1,
-    default => sub { [
-        {
-            buff => "very fast",
-            have => sub { TAEB->senses->is_very_fast },
-            with => sub {
-                spell ("haste self", 60) || # XXX 90 if Skilled in escape
-                potion("speed", 60, 90)
-            },
-        },
-        # XXX galloping - only useful with riding + kiting
-        # these require the framework to have a notion of see invisible
-        #{
-        #    buff => "invisible",
-        #    have => sub { TAEB->senses->invisible },
-        #    with => sub {
-        #        spell ("invisibility", 38) ||
-        #        potion("invisibility", 38, 10e9999)
-        #    },
-        #},
-        #{
-        #    buff => "see invisible",
-        #    have => sub { TAEB->senses->see_invisible },
-        #    with => sub {
-        #        potion("see invisible", 800, 10e9999)
-        #    },
-        #},
-        {
-            buff => "protection",
-            levels => 1,
-            have => sub { TAEB->senses->spell_protection },
-            with => sub {
-                my $will_get = TAEB->senses->spell_protection_return;
-
-                return if !$will_get;
-
-                spell("protection", $will_get * 10) # XXX 20 if Expert
-                # also the value of protecting varies a bit
-            },
-        },
-        # XXX levitation - sometimes harmful
-        # XXX detect monsters - would probably confuse TAEB too much
-    ]},
-);
 
 sub prepare {
     my $self = shift;
