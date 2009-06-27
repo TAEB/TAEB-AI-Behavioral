@@ -6,7 +6,7 @@ sub can_make_excalibur {
     return unless TAEB->align eq 'Law';
 
     # only one Excalibur. Alas.
-    return if TAEB->get_artifact("Excalibur");
+    return if TAEB->seen_artifact("Excalibur");
 
     return 1;
 }
