@@ -32,7 +32,7 @@ sub prepare {
         }
 
         if (TAEB->in_pray_heal_range) {
-            if (!TAEB->is_polymorphed && TAEB->can_pray) {
+            if (!TAEB->is_polymorphed && TAEB::Action::Pray->is_advisable) {
                 $self->do('pray');
                 $self->currently("Praying for healing");
                 $self->urgency('critical');

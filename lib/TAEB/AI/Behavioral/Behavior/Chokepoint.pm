@@ -108,7 +108,7 @@ sub prepare {
     # Useless when fighting peacefuls
     return unless grep { $_->will_chase } @enemies;
 
-    return if !TAEB->can_move;
+    return if TAEB::Action::Move->is_impossible;
 
     my @dirs = grep { $self->useful_dir($_) } qw/h j k l y u b n/;
 
