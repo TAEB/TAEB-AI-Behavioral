@@ -23,7 +23,7 @@ sub prepare {
     return unless abs($enemy->x - TAEB->x) <= 1
                && abs($enemy->y - TAEB->y) <= 1;
 
-    return unless $enemy->can_be_outrun && TAEB->senses->can_move;
+    return if !$enemy->can_be_outrun || TAEB::Action::Move->is_impossible;
     #return unless $enemy->should_attack_at_range;
 
     # Don't try to kite non-infravisible monsters in the dark.  TAEB

@@ -12,7 +12,7 @@ sub prepare {
     my $item = shift @items;
     my $tracker = $item->tracker;
 
-    return unless TAEB->can_engrave
+    return unless TAEB::Action::Engrave->is_advisable
                && $tracker->can('engrave_useful')
                && $tracker->engrave_useful
                && $item->match(cost => 0);

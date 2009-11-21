@@ -14,7 +14,7 @@ sub eat    { { action  => 'eat',    food  => $_[0],
 sub invoke { { action  => 'invoke', item  => $_[0],
                urgency => $_[1],    check => sub { defined shift->{item} } } }
 sub pray   { { action  => 'pray',
-               urgency => $_[0],    check => sub { TAEB->senses->can_pray } } }
+               urgency => $_[0],    check => sub { TAEB::Action::Pray->is_advisable } } }
 sub quaff  { { action  => 'quaff',  from  => 'potion of ' . $_[0],
                urgency => $_[1],    check => sub { defined shift->{from} } } }
 sub scroll { { action  => 'read',   item  => 'scroll of ' . $_[0],

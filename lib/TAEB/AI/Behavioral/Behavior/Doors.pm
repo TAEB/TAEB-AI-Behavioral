@@ -17,7 +17,7 @@ sub unlock_action {
         currently => "Unlocking a door",
     ) if $locktool;
 
-    if (TAEB->can_kick) {
+    if (!TAEB::Action::Kick->is_impossible) {
         return (kick =>
             currently => "Kicking down a door",
         );
@@ -56,7 +56,7 @@ sub door_handler {
                     };
                 }
             }
-            elsif (TAEB->can_kick) {
+            elsif (!TAEB::Action::Kick->is_impossible) {
                 return sub {
                     my ($self, $door, $dir) = @_;
                     $self->do(kick => direction => $dir);
@@ -97,7 +97,7 @@ sub door_handler {
 sub prepare {
     my $self = shift;
 
-    return unless TAEB->can_open;
+    return if TAEB::Action::Open->is_impossible;
 
     my $door_handler = $self->door_handler;
 

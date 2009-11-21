@@ -10,7 +10,7 @@ sub prepare {
     my $altar_ok = TAEB->current_tile->type ne 'altar'
                 || TAEB->current_tile->align eq TAEB->align;
 
-    if (TAEB->can_pray && TAEB->nutrition < 2 && $altar_ok) {
+    if (TAEB::Action::Pray->is_advisable && TAEB->nutrition < 2 && $altar_ok) {
         $self->do("pray");
         $self->currently("Praying for food.");
         $self->urgency('critical');
