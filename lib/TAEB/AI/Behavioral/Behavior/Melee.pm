@@ -12,8 +12,12 @@ sub prepare {
         return;
     }
 
-    my $nonmeleeable_dir = $self->handle_block_by_nonmeleeable;
-    return $nonmeleeable_dir if $nonmeleeable_dir;
+    if (my $nonmeleeable_dir = $self->handle_block_by_nonmeleeable) {
+        $self->do(melee => direction => $nonmeleeable_dir);
+        $self->currently("Attacking a non-meleeable monster due to being surrounded");
+        $self->urgency('normal');
+        return;
+    }
 
     return unless grep { $_->is_meleeable } TAEB->current_level->has_enemies;
 
