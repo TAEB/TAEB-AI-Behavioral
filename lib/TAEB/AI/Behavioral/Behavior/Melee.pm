@@ -12,6 +12,9 @@ sub prepare {
         return;
     }
 
+    my $nonmeleeable_dir = $self->handle_block_by_nonmeleeable;
+    return $nonmeleeable_dir if $nonmeleeable_dir;
+
     return unless grep { $_->is_meleeable } TAEB->current_level->has_enemies;
 
     # if there's an adjacent monster, attack it
@@ -66,6 +69,43 @@ sub veto_eat {
     });
 
     return $found_monster;
+}
+
+# handle_block_by_nonmeleeable detects situations where we are completely
+# blocked by non-meleeable monsters like the following:
+#
+#         ###e@
+#             e
+#             #
+#
+# This will not only attack floating eyes, but also blue jellies and other
+# non-meleeable monsters, but that's probably the right answer anyway.
+sub handle_block_by_nonmeleeable {
+    my $walkable     = 0;
+    my $meleeable    = 0;
+    my $nonmeleeable = 0;
+    my $dir;
+
+    # check for non-meleeable monsters blocking us off completely
+    TAEB->each_adjacent(sub {
+        my ($tile, $d) = @_;
+        my $monster = $tile->monster;
+
+        $walkable++ if $tile->is_walkable;
+        if ($monster) {
+            if ($monster->is_meleeable) {
+                $meleeable++;
+            }
+            elsif ($monster->is_enemy) {
+                $nonmeleeable++;
+                $dir = $d;
+            }
+        }
+    });
+
+    return unless $walkable == 0 && $meleeable == 0 && $nonmeleeable > 0;
+
+    return $dir;
 }
 
 __PACKAGE__->meta->make_immutable;
