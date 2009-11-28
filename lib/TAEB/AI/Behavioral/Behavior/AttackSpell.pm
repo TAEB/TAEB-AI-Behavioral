@@ -31,6 +31,7 @@ sub prepare {
             $wand = TAEB->has_item(identity => $desired,
                                    charges  => [undef, sub { $_ > 0 }]);
             next unless $wand;
+            next if defined $wand->price && $wand->price > TAEB->gold;
             TAEB->log->behavior("Considering wand $wand");
             if ($self->try_to_cast(wand => $wand)) {
                 $self->urgency('normal');
