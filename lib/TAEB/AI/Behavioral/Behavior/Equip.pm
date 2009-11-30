@@ -23,6 +23,8 @@ sub _rate_armor {
     $score -= 2 if $item->is_cursed;
 
     # XXX: damage, resistances, weight?
+   
+    $score -= 20 if $item->match(identity => 'levitation boots');
 
     if ($item->has_tracker) {
         my $tracker = $item->tracker;
