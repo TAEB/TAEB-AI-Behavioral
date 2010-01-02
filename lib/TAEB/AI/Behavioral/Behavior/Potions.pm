@@ -22,8 +22,6 @@ sub pickup {
     return 1 if $item->match(identity => 'potion of gain ability');
     return 1 if $item->match(identity => 'potion of gain level');
     return 0;
-
-    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;

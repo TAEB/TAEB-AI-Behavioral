@@ -36,7 +36,7 @@ Once L</action> is called, the action will be instantiated.
 
 =cut
 
-sub do {
+sub do { ## no critic (ProhibitBuiltinHomonyms)
     my $self = shift;
 
     $self->_action([@_]);
