@@ -214,11 +214,6 @@ sub implement {
     return if (!defined($item) && !defined($incumbent))
            || (defined($item) && defined($incumbent) && $item == $incumbent);
 
-    # XXX: This should be implemented with an exception/objection/veto
-    return if $item
-           && !defined($item->buc)
-           && TAEB->current_tile->type eq 'altar';
-
     return if TAEB->equipment->under_cursed($slot);
 
     if ($slot eq "offhand") {
