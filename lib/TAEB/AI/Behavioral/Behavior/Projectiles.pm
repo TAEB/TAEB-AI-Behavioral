@@ -21,6 +21,7 @@ sub prepare {
             # there's a monster in the light beyond the warning monster
             # then we can hit the intervening warning monster
             $tile->has_enemy && !$tile->monster->is_seen_through_warning
+                             && $tile->monster->currently_seen;
         },
         max     => $projectile->throw_range,
         stopper => sub {
