@@ -33,7 +33,7 @@ sub prepare {
             }
 
             $self->do($action => direction => $dir);
-            $self->currently("Attacking a " . $tile->glyph);
+            $self->currently("Attacking a " . $tile->monster->glyph);
             $found_monster = 1;
         }
     });
@@ -53,7 +53,7 @@ sub prepare {
     );
 
     $self->if_path($path =>
-        sub { "Heading towards a " . $path->to->glyph . " monster" },
+        sub { "Heading towards a " . $path->to->monster->glyph . " monster" },
         'unimportant');
 }
 
