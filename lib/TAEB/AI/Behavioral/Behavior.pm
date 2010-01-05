@@ -36,6 +36,15 @@ This includes things like pathfinding for Explore.
 
 sub prepare { }
 
+=head2 max_urgency -> TAEB::Type::Urgency
+
+This should return the highest urgency the behavior can have.
+This is used to quickly cull behaviors when a more urgent one has been found.
+
+=cut
+
+sub max_urgency { 'critical' }
+
 =head2 do Str, Args
 
 This will defer creation an Action of the given name, initialized with the
