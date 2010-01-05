@@ -57,6 +57,8 @@ sub prepare {
     $self->if_path($path => "Heading towards an item");
 }
 
+use constant max_urgency => 'normal';
+
 __PACKAGE__->meta->make_immutable;
 
 1;

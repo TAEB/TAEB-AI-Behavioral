@@ -41,6 +41,8 @@ sub prepare {
     }
 }
 
+use constant max_urgency => 'normal';
+
 my %resist = (
     'wand of fire'      => sub { TAEB->fire_resistant },
     'wand of lightning' => sub { TAEB->shock_resistant },

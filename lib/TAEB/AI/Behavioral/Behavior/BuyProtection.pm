@@ -46,6 +46,8 @@ sub prepare {
     $self->if_path($path => "Heading towards a temple altar");
 }
 
+use constant max_urgency => 'unimportant';
+
 __PACKAGE__->meta->make_immutable;
 
 1;

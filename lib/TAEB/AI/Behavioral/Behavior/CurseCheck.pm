@@ -45,6 +45,8 @@ sub prepare {
     $self->if_path($path => "Heading towards an altar");
 }
 
+use constant max_urgency => 'important';
+
 sub drop {
     my $self = shift;
     my $item = shift;
