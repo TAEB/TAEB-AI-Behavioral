@@ -87,6 +87,8 @@ sub prepare {
     }
 }
 
+use constant max_urgency => 'normal';
+
 sub pickup {
     my $self = shift;
     my $item = shift;

@@ -47,6 +47,8 @@ sub prepare {
     $self->if_path($path => "Heading to a pushable edge boulder");
 }
 
+use constant max_urgency => 'fallback';
+
 __PACKAGE__->meta->make_immutable;
 
 1;

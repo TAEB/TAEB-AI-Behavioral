@@ -58,6 +58,8 @@ sub prepare {
         'unimportant');
 }
 
+use constant max_urgency => 'normal';
+
 # XXX: this does nothing yet, tis a sketch
 sub veto_eat {
     my $self    = shift;

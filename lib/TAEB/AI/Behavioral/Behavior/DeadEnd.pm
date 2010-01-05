@@ -82,6 +82,8 @@ sub prepare {
     $self->if_path($path => "Heading to a dead end");
 }
 
+use constant max_urgency => 'fallback';
+
 sub pickup {
     my $self = shift;
     my $item = shift;

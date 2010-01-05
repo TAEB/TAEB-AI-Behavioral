@@ -61,6 +61,8 @@ sub first_pass {
 use constant tile_description => 'the downstairs';
 use constant using_urgency    => 'descending';
 
+use constant max_urgency => 'fallback';
+
 __PACKAGE__->meta->make_immutable;
 
 1;

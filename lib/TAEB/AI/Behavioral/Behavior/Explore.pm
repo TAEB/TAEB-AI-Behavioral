@@ -81,6 +81,8 @@ sub prepare {
     $self->if_path($self->find_path, "Exploring");
 }
 
+use constant max_urgency => 'fallback';
+
 __PACKAGE__->meta->make_immutable;
 
 1;

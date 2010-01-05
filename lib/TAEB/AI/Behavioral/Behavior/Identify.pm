@@ -31,6 +31,8 @@ sub prepare {
     return;
 }
 
+use constant max_urgency => 'unimportant';
+
 sub pickup {
     my $self = shift;
     my $item = shift;

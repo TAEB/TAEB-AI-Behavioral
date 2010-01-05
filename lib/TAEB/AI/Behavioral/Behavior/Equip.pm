@@ -255,6 +255,8 @@ sub prepare {
     }
 }
 
+use constant max_urgency => 'normal';
+
 # Pick up items if they are better than something we have equipped
 sub pickup {
     my $self = shift;
