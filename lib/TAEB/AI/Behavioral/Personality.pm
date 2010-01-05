@@ -138,6 +138,7 @@ This will prepare the behavior and return its urgency.
 sub find_urgency {
     my $self = shift;
     my $name = shift;
+    my $limit = shift;
 
     my $behavior = $self->get_behavior($name)
         or do {
@@ -146,6 +147,10 @@ sub find_urgency {
         };
 
     $behavior->reset_urgency;
+    if ($self->numeric_urgency($behavior->max_urgency) <= $limit) {
+        TAEB->log->ai("The $name behavior is skipped, urgency <= $limit");
+        return $self->numeric_urgency('none');
+    }
     my $time = time;
     $behavior->prepare;
     my $urgency  = $behavior->urgency || 'none';
@@ -183,7 +188,7 @@ sub next_behavior {
     my $time = time;
     # apply weights to urgencies, find maximum
     for my $behavior (@priority) {
-        my $urgency = $self->find_urgency($behavior);
+        my $urgency = $self->find_urgency($behavior, $max_urgency);
         ($max_urgency, $max_behavior) = ($urgency, $behavior)
             if $urgency > $max_urgency;
     }
