@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Personality::Descender;
+use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Personality::Explorer';
 

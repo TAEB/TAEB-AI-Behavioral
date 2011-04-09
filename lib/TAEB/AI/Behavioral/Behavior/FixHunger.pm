@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::FixHunger;
+use Moose;
 use TAEB::OO;
 use TAEB::Util 'sum';
 extends 'TAEB::AI::Behavioral::Behavior';

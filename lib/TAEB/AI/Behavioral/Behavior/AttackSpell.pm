@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::AttackSpell;
+use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
 

@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior;
+use Moose;
 use TAEB::OO;
 use TAEB::AI::Behavioral::Meta::Types;
 

@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Personality;
+use Moose;
 use TAEB::OO;
 use Time::HiRes qw/time/;
 extends 'TAEB::AI';
@@ -24,6 +25,7 @@ has behaviors => (
     isa       => 'HashRef[TAEB::AI::Behavioral::Behavior]',
     lazy      => 1,
     handles => {
+        behaviors        => 'values',
         get_behavior     => 'get',
         _set_behavior    => 'set',
         _delete_behavior => 'delete',
@@ -32,7 +34,7 @@ has behaviors => (
         my $self = shift;
         my %behaviors = map {
             $_ => $self->_instantiate_behavior($_)
-        } $self->sort_behaviors;
+        } $self->prioritized_behaviors;
         return \%behaviors;
     },
 );
@@ -209,7 +211,7 @@ sub pickup {
 
     my $final_pick = 0;
 
-    for my $behavior (values %{ $self->behaviors }) {
+    for my $behavior ($self->behaviors) {
         my $pick = $behavior->pickup($item);
 
         $pick = ref $pick ? $$pick : $pick ? 1e1000 : 0;
@@ -241,7 +243,7 @@ sub drop {
     my $item = shift;
     my $should_drop = 0;
 
-    for my $behavior (values %{ $self->behaviors }) {
+    for my $behavior ($self->behaviors) {
         my $drop = $behavior->drop($item);
 
         # behavior is indifferent. Next!

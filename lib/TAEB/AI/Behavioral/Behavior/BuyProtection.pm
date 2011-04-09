@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::BuyProtection;
+use Moose;
 use TAEB::OO;
 use TAEB::Util ':colors';
 

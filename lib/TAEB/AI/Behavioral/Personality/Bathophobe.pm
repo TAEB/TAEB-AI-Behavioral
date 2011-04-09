@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Personality::Bathophobe;
+use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Personality::Explorer';
 

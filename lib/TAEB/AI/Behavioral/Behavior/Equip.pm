@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::Equip;
+use Moose;
 use TAEB::OO;
 use TAEB::Spoilers::Combat;
 extends 'TAEB::AI::Behavioral::Behavior';

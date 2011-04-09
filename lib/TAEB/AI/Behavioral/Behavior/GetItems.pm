@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::GetItems;
+use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
 use TAEB::Util 'any';
