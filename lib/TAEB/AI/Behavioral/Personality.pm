@@ -32,6 +32,7 @@ has behaviors => (
     },
     default   => sub {
         my $self = shift;
+        $self->sort_behaviors;
         my %behaviors = map {
             $_ => $self->_instantiate_behavior($_)
         } $self->prioritized_behaviors;
