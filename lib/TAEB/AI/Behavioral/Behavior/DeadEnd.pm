@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::DeadEnd;
+use Moose;
 use TAEB::OO;
 use TAEB::Util qw/delta2vi/;
 extends 'TAEB::AI::Behavioral::Behavior';

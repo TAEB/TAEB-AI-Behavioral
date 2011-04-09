@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::Shop;
+use Moose;
 use TAEB::OO;
 use TAEB::Util 'any';
 extends 'TAEB::AI::Behavioral::Behavior';

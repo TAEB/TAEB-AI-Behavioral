@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::ThreatEvaluation;
+use Moose;
 use TAEB::OO;
 
 # Data class for evaluations of monster threat levels, since it's more

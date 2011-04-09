@@ -5,6 +5,7 @@
 #   nymphs and foocubi.
 
 package TAEB::AI::Behavioral::Behavior::Kite;
+use Moose;
 use TAEB::OO;
 use TAEB::Util 'delta2vi';
 extends 'TAEB::AI::Behavioral::Behavior';

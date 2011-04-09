@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::PushBoulder;
+use Moose;
 use TAEB::OO;
 use TAEB::Util qw/delta2vi vi2delta/;
 extends 'TAEB::AI::Behavioral::Behavior';

@@ -1,4 +1,5 @@
 package TAEB::AI::Behavioral::Behavior::Chokepoint;
+use Moose;
 use TAEB::OO;
 use TAEB::Util 'vi2delta', 'angle';
 extends 'TAEB::AI::Behavioral::Behavior';
