@@ -3,11 +3,22 @@ use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 
 has stairsdown => (
-    is         => 'rw',
+    traits     => ['Array'],
+    writer     => '_set_stairsdown',
     isa        => 'ArrayRef[TAEB::World::Tile]',
-    auto_deref => 1,
     default    => sub { [] },
+    handles    => {
+        stairsdown     => 'elements',
+        num_stairsdown => 'count',
+    }
 );
+
+around stairsdown => sub {
+    my $orig = shift;
+    my $self = shift;
+    return $self->$orig unless @_;
+    return $self->_set_stairsdown(@_);
+};
 
 sub correct_stairs {
     my $self = shift;
@@ -17,7 +28,7 @@ sub correct_stairs {
     return 0 unless $tile->type eq 'stairsdown';
 
     # we only have one choice
-    return 1 if @{ $self->stairsdown } == 1;
+    return 1 if $self->num_stairsdown == 1;
 
     # here we have multiple choices and this one is the one we want to avoid.
     # no thank you

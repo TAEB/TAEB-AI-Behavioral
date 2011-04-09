@@ -20,14 +20,13 @@ has behavior => (
 );
 
 has behaviors => (
-    metaclass => 'Collection::Hash',
-    is        => 'ro',
+    traits    => ['Hash'],
     isa       => 'HashRef[TAEB::AI::Behavioral::Behavior]',
     lazy      => 1,
-    provides  => {
-        get    => 'get_behavior',
-        set    => '_set_behavior',
-        delete => '_delete_behavior',
+    handles => {
+        get_behavior     => 'get',
+        _set_behavior    => 'set',
+        _delete_behavior => 'delete',
     },
     default   => sub {
         my $self = shift;
@@ -39,10 +38,20 @@ has behaviors => (
 );
 
 has prioritized_behaviors => (
-    is         => 'rw',
-    isa        => 'ArrayRef[Str]',
-    auto_deref => 1,
+    traits  => ['Array'],
+    writer  => '_set_prioritized_behaviors',
+    isa     => 'ArrayRef[Str]',
+    handles => {
+        prioritized_behaviors => 'elements',
+    },
 );
+
+around prioritized_behaviors => sub {
+    my $orig = shift;
+    my $self = shift;
+    return $self->$orig unless @_;
+    return $self->_set_prioritized_behaviors(@_);
+};
 
 sub _instantiate_behavior {
     my $self = shift;
