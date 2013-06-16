@@ -41,10 +41,11 @@ has behaviors => (
 );
 
 has prioritized_behaviors => (
-    traits  => ['Array'],
-    writer  => '_set_prioritized_behaviors',
-    isa     => 'ArrayRef[Str]',
-    handles => {
+    traits    => ['Array'],
+    writer    => '_set_prioritized_behaviors',
+    isa       => 'ArrayRef[Str]',
+    predicate => 'has_prioritized_behaviors',
+    handles   => {
         prioritized_behaviors => 'elements',
     },
 );
@@ -325,6 +326,7 @@ do {
 
     sub _onframe_goals {
         my $self = TAEB->ai;
+        return unless $self->has_prioritized_behaviors;
 
         %goal_colors = ();
 
