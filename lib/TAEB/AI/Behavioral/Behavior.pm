@@ -159,9 +159,16 @@ sub if_path {
     my $path      = shift;
     my $currently = shift;
 
-    return if !defined($path) || length($path->path) == 0;
+    my $length = $path->length;
 
-    $self->do(move => path => $path);
+    return if !defined($path) || $length == 0;
+
+    if ($length < 5) {
+        $self->do(move => path => $path);
+    }
+    else {
+        $self->do(travel => target_tile => $path->to);
+    }
 
     if (defined $currently) {
         if (ref($currently) eq 'CODE') {
