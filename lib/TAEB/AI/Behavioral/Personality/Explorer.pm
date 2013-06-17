@@ -38,6 +38,7 @@ sub sort_behaviors {
         "CurseCheck",
         "Descend",
         "Search",
+        "Wait",
     ]);
 }
 
