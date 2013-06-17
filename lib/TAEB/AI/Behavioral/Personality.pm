@@ -334,6 +334,9 @@ do {
 
         for my $name ($self->prioritized_behaviors) {
             my $behavior = $self->get_behavior($name);
+            if (!$behavior) {
+                confess "No behavior with name $behavior!";
+            }
 
             next unless $behavior->urgency
                      && $behavior->urgency ne 'none';
