@@ -15,7 +15,7 @@ sub prepare {
 
     if (TAEB->hp * 2 <= TAEB->maxhp) {
         for ($self->use_spells) {
-            $spell = TAEB->find_castable($_);
+            my $spell = TAEB->find_castable($_);
             next unless $spell;
             $self->currently("Casting heal at myself.");
             $self->do(cast => spell => $spell, direction => ".");
