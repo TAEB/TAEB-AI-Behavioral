@@ -3,6 +3,8 @@ use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
 
+sub use_spells { ('extra healing', 'healing') }
+
 sub use_potions {
     map { "potion of $_" }
     'healing', 'extra healing', 'full healing'
@@ -12,13 +14,12 @@ sub prepare {
     my $self = shift;
 
     if (TAEB->hp * 2 <= TAEB->maxhp) {
-        my $spell = TAEB->find_castable("healing")
-                 || TAEB->find_castable("extra healing");
-        if ($spell) {
-            $self->do(cast => spell => $spell, direction => ".");
+        for ($self->use_spells) {
+            $spell = TAEB->find_castable($_);
+            next unless $spell;
             $self->currently("Casting heal at myself.");
+            $self->do(cast => spell => $spell, direction => ".");
             $self->urgency('important');
-            return;
         }
 
         # we've probably been writing Elbereth a bunch, so find a healing potion
