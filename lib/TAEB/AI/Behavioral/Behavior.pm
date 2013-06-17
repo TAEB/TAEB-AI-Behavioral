@@ -165,11 +165,11 @@ sub if_path {
 
     return if $length == 0;
 
-    if ($length < 5) {
-        $self->do(move => path => $path);
+    if ($length > 5 && $path->from->level == $path->to->level) {
+        $self->do(travel => target_tile => $path->to);
     }
     else {
-        $self->do(travel => target_tile => $path->to);
+        $self->do(move => path => $path);
     }
 
     if (defined $currently) {
