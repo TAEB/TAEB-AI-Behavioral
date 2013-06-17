@@ -74,14 +74,19 @@ sub _rate_weapon {
     # Don't use anything that's not a weapon
     return -1 if $item->type ne 'weapon';
 
+    my $score = 1;
+
     # Don't use twohanders until I understand left hand pressure
-    return -1 if $item->hands == 2;
+    $score-- if $item->hands == 2;
 
     # Artifact weapons are nifty
-    return 2 if $item->is_artifact;
+    $score += 5 if $item->is_artifact;
+
+    # Wizards should keep their quarterstaff
+    $score += 2 if $item->name eq 'quarterstaff' && TAEB->role eq 'Wiz';
 
     # Anything else is decent
-    return 1;
+    return $score;
 }
 
 sub _rate_item {
