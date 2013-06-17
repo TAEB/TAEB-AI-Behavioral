@@ -6,7 +6,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub prepare {
     $self->do('search', iterations => 50);
     $self->currently('Waiting');
-    $self->urgency('normal');
+    $self->urgency('fallback');
 }
 
 __PACKAGE__->meta->make_immutable;
