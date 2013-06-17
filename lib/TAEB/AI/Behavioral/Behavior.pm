@@ -165,7 +165,7 @@ sub if_path {
 
     return if $length == 0;
 
-    if ($length > 5 && $path->from->level == $path->to->level) {
+    if ($length > 5 && !$path->spans_multiple_levels) {
         $self->do(travel => target_tile => $path->to);
     }
     else {
