@@ -17,6 +17,14 @@ sub search_direction {
 sub prepare {
     my $self = shift;
 
+    if (TAEB->current_level->known_branch) {
+        my $branch = TAEB->current_level->branch;
+        return if $branch eq 'sokoban';
+        if ($branch eq 'mines') {
+            return unless TAEB->current_level->is_minetown;
+        }
+    }
+
     my $pmap = find_empty_panels();
 
     my $path = TAEB::World::Path->max_match(
