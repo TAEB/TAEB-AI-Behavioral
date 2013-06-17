@@ -159,9 +159,11 @@ sub if_path {
     my $path      = shift;
     my $currently = shift;
 
+    return if !defined($path);
+
     my $length = $path->length;
 
-    return if !defined($path) || $length == 0;
+    return if $length == 0;
 
     if ($length < 5) {
         $self->do(move => path => $path);
