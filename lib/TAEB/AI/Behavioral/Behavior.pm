@@ -160,7 +160,7 @@ sub prev_travel_failed {
 
     return 0 if !$prev;
     return 0 unless $prev->isa('TAEB::Action::Travel');
-    return 0 if $prev->from != TAEB->current_tile;
+    return 0 if $prev->path->from != TAEB->current_tile;
     return 1;
 }
 
