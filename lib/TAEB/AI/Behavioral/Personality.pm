@@ -232,7 +232,7 @@ sub maybe_blackout_travel {
     return unless $prev && $prev->isa('TAEB::Action::Travel');
 
     my $original_source = $prev->path->from;
-    my $original_destination = ($prev->intralevel_path || $prev->path)->to;
+    my $original_destination = ($prev->intralevel_subpath || $prev->path)->to;
 
     if (TAEB->current_tile == $original_source) {
         # did not move at all! blackout travel
