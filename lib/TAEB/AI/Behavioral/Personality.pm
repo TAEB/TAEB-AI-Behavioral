@@ -239,7 +239,12 @@ sub maybe_blackout_travel {
 
         $self->travel_failed_at(TAEB->turn);
         my $exponent = 1 + ($self->travel_blackout_exponent || 1);
-        $self->travel_blackout_exponent($exponent);
+
+        # limit blackout length
+        if ($exponent < 8) {
+            $self->travel_blackout_exponent($exponent);
+        }
+
         $self->travel_forbidden_until(TAEB->turn + 2 ** $exponent);
     }
     elsif (TAEB->current_tile == $original_destination) {
