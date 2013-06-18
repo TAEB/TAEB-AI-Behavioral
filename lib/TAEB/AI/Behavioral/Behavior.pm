@@ -154,6 +154,16 @@ with
 
 =cut
 
+sub prev_travel_failed {
+    my $self = shift;
+    my $prev = TAEB->previous_action;
+
+    return 0 if !$prev;
+    return 0 unless $prev->isa('TAEB::Action::Travel');
+    return 0 if $prev->from != TAEB->current_tile;
+    return 1;
+}
+
 sub if_path {
     my $self      = shift;
     my $path      = shift;
@@ -165,7 +175,7 @@ sub if_path {
 
     return if $length == 0;
 
-    if ($length <= 5 || $path->next_tile->has_boulder) {
+    if ($length <= 5 || $self->prev_travel_failed) {
         $self->do(move => path => $path);
     }
     else {
