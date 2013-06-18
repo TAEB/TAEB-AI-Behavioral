@@ -6,6 +6,7 @@ use TAEB::AI::Behavioral::Meta::Types;
 has personality => (
     is       => 'ro',
     isa      => 'TAEB::AI::Behavioral::Personality',
+    required => 1,
     weak_ref => 1,
     handles  => ['travel_is_blacked_out'],
 );
