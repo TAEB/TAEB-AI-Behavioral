@@ -216,7 +216,12 @@ sub next_action {
     $self->behavior($behavior);
 
     my $action = $behavior->action;
-    $self->currently($behavior->name . ':' . $behavior->currently);
+    my $currently = $behavior->name . ':' . $behavior->currently;
+
+    $currently .= " (travelban T:" . $self->travel_forbidden_until . ")"
+        if $travel_is_blacked_out;
+
+    $self->currently($currently);
 
     if ($self->travel_is_blacked_out && $action->isa('TAEB::Action::Travel')) {
         TAEB->log->ai("Travel is blacked out until " . $self->travel_forbidden_until . " (exponent=" . $self->travel_blackout_exponent . "), but behavior " . $behavior->name . " used Travel anyway! (currently=" . $behavior->currently . ")", level => "error");
