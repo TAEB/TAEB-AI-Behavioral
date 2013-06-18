@@ -218,7 +218,7 @@ sub next_action {
     my $action = $behavior->action;
     my $currently = $behavior->name . ':' . $behavior->currently;
 
-    $currently .= " [travelban T:" . $self->travel_forbidden_until . "]"
+    $currently .= " [travelban T:" . ($self->travel_forbidden_until - TAEB->turn) . "]"
         if $self->travel_is_blacked_out;
 
     $self->currently($currently);
