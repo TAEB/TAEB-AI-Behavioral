@@ -3,6 +3,12 @@ use Moose;
 use TAEB::OO;
 use TAEB::AI::Behavioral::Meta::Types;
 
+has personality => (
+    is       => 'ro',
+    isa      => 'TAEB::AI::Behavioral::Personality',
+    weak_ref => 1,
+);
+
 has currently => (
     is  => 'rw',
     isa => 'Str',
