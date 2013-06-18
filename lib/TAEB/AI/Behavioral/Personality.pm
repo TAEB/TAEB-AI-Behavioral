@@ -377,9 +377,10 @@ do {
 };
 
 use Module::Pluggable (
-    require     => 1,
-    sub_name    => 'load_behaviors',
-    search_path => ['TAEB::AI::Behavioral::Behavior'],
+    require          => 1,
+    sub_name         => 'load_behaviors',
+    search_path      => ['TAEB::AI::Behavioral::Behavior'],
+    on_require_error => sub { confess "Couldn't require $_[0]: $_[1]" },
 );
 
 load_behaviors();
