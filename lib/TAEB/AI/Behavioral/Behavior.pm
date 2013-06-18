@@ -165,7 +165,7 @@ sub if_path {
 
     return if $length == 0;
 
-    if ($length <= 5 && !$path->next_tile->has_boulder) {
+    if ($length <= 5 || $path->next_tile->has_boulder) {
         $self->do(move => path => $path);
     }
     else {
