@@ -62,6 +62,10 @@ sub prepare {
             $self->do('descend');
         }
         elsif ($current->type eq 'stairsup') {
+            if ($self->ascend_is_blacked_out) {
+                return;
+            }
+
             $self->do('ascend');
         }
         else {
