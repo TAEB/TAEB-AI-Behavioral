@@ -14,6 +14,20 @@ TAEB::AI::Behavioral::Personality - base class for AIs with behaviors and person
 
 =cut
 
+with 'TAEB::AI::Role::Action::Backoff' => {
+    action        => 'TAEB::Action::Travel',
+    blackout_when => sub {
+        my ($self, $prev_action) = @_;
+
+        return TAEB->current_tile == $prev_action->path->from;
+    },
+    clear_when    => sub {
+        my ($self, $prev_action) = @_;
+        my $original_path = $prev_action->intralevel_subpath || $prev_action->path;
+        return TAEB->current_tile == $original_path->to;
+    },
+};
+
 has behavior => (
     is        => 'rw',
     isa       => 'TAEB::AI::Behavioral::Behavior',
@@ -48,23 +62,6 @@ has prioritized_behaviors => (
     handles   => {
         prioritized_behaviors => 'elements',
     },
-);
-
-has travel_failed_at => (
-    is  => 'rw',
-    isa => 'Int',
-);
-
-has travel_blackout_exponent => (
-    is      => 'rw',
-    isa     => 'Int',
-    clearer => 'clear_travel_blackout_exponent',
-);
-
-has travel_forbidden_until => (
-    is      => 'rw',
-    isa     => 'Int',
-    clearer => 'clear_travel_forbidden_until',
 );
 
 around prioritized_behaviors => sub {
@@ -212,8 +209,6 @@ sub next_action {
     $self->behavior->done
         if $self->has_behavior;
 
-    $self->maybe_blackout_travel;
-
     my $behavior = $self->next_behavior;
 
     TAEB->log->ai("There was no behavior specified, and next_behavior gave no behavior (indicating no behavior with urgency above 0! I really don't know how to deal.", level => 'critical') if !$behavior;
@@ -221,53 +216,11 @@ sub next_action {
     $self->behavior($behavior);
 
     my $action = $behavior->action;
-    my $currently = $behavior->name . ':' . $behavior->currently;
 
-    $currently .= " [travelban " . ($self->travel_forbidden_until - TAEB->turn) . "]"
-        if $self->travel_is_blacked_out;
-
-    $self->currently($currently);
-
-    if ($self->travel_is_blacked_out && $action->isa('TAEB::Action::Travel')) {
-        TAEB->log->ai("Travel is blacked out until " . $self->travel_forbidden_until . " (exponent=" . $self->travel_blackout_exponent . "), but behavior " . $behavior->name . " used Travel anyway! (currently=" . $behavior->currently . ")", level => "error");
-    }
+    $self->currently($behavior->name . ':' . $behavior->currently);
 
     return $action;
 }
-
-sub maybe_blackout_travel {
-    my $self = shift;
-    my $prev = TAEB->previous_action;
-
-    return unless $prev && $prev->isa('TAEB::Action::Travel');
-
-    my $original_source = $prev->path->from;
-    my $original_destination = ($prev->intralevel_subpath || $prev->path)->to;
-
-    if (TAEB->current_tile == $original_source) {
-        # did not move at all! blackout travel
-
-        $self->travel_failed_at(TAEB->turn);
-        my $exponent = 1 + ($self->travel_blackout_exponent || 1);
-
-        # limit blackout length
-        if ($exponent < 8) {
-            $self->travel_blackout_exponent($exponent);
-        }
-
-        $self->travel_forbidden_until(TAEB->turn + 2 ** $exponent);
-    }
-    elsif (TAEB->current_tile == $original_destination) {
-        # successfully traveled all the way to the destination, clear blackout
-        $self->clear_travel_blackout_exponent;
-        $self->clear_travel_forbidden_until;
-    }
-    else {
-        # moved part of the way. no direct affect on blackout
-    }
-}
-
-sub travel_is_blacked_out { TAEB->turn < shift->travel_forbidden_until }
 
 =head2 pickup Item -> Bool or Ref[Int]
 
