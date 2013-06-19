@@ -10,7 +10,7 @@ sub prepare {
     my $self = shift;
 
     if (TAEB->debt > 0) {
-        my @cart = grep { $_->cost } TAEB->inventory;
+        my @cart = grep { $_->cost } TAEB->inventory_items;
 
         if (any { $_->cost <= TAEB->gold } @cart) {
             $self->currently("Paying off our " . TAEB->debt . " debt");

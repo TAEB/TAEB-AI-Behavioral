@@ -6,7 +6,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub prepare {
     my $self = shift;
 
-    my @items = grep { $self->pickup($_) } TAEB->inventory;
+    my @items = grep { $self->pickup($_) } TAEB->inventory_items;
     return unless @items;
 
     my $item = shift @items;
