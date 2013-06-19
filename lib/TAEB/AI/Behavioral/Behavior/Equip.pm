@@ -12,9 +12,11 @@ sub _rate_armor {
 
     return 0 if !$item;
 
-    # Monks don't wear body armor
-    return -1 if TAEB->role eq 'Mon'
-              && $item->subtype eq 'bodyarmor';
+    # Monks don't wear body armor or shields
+    if (TAEB->role eq 'Mon') {
+        return -1 if $item->subtype eq 'shield'
+                  || $item->subtype eq 'bodyarmor';
+    }
 
     my $score = $item->ac || 0; # already includes enchantment
 
