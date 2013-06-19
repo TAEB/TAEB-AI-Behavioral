@@ -22,14 +22,20 @@ sub _rate_armor {
 
     $score++ if ($item->mc || 0) >= 2;
 
-    # this really should just check whether is_cursed is known to be zero
-    $score-- if !defined($item->buc);
+    # possibly cursed bad!
+    my $cursed = $item->is_cursed;
+    if (!defined($cursed)) {
+        $score -= 3;
+
+        # if we have an altar then we definitely want to check this out first
+        $score -= 2 if TAEB->dungeon->has_tile_of_type('altar');
+    }
 
     # cursed bad!!
-    $score -= 2 if $item->is_cursed;
+    $score -= 5 if $item->is_cursed;
 
     # XXX: damage, resistances, weight?
-   
+
     $score -= 20 if $item->match(identity => 'levitation boots');
 
     if ($item->has_tracker) {
