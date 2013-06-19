@@ -76,6 +76,9 @@ sub _rate_weapon {
     # Don't use anything that's not a weapon
     return -1 if $item->type ne 'weapon';
 
+    # Monks use their fists
+    return -1 if TAEB->role eq 'Mon';
+
     my $score = 1;
 
     # Don't use twohanders until I understand left hand pressure
