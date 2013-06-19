@@ -22,6 +22,7 @@ sub sort_behaviors {
         "Kite",
         "Melee",
         "Projectiles",
+        "Genocide",
         "Vault",
         "Shop",
         "Carrion",
