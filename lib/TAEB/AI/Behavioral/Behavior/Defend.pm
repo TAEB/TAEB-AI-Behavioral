@@ -59,7 +59,7 @@ sub prepare {
         if ($elbereths) {
             $self->urgency(TAEB->hp * 4 <= TAEB->maxhp ? 'normal'
                                                        : 'unimportant');
-            if (TAEB->current_tile->type eq 'stairsup' && TAEB->z > 1) {
+            if (TAEB->current_tile->type eq 'stairsup' && !$self->ascend_is_blacked_out && TAEB->z > 1) {
                 $self->currently("Fleeing upstairs to rest.");
                 $self->do('ascend');
                 return;

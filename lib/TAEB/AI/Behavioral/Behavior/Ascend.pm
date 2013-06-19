@@ -4,7 +4,12 @@ use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
 
 sub match_tile {
-    $_[1]->type eq 'stairsup' ? (['ascend'], 'Ascending', 'fallback') : undef
+    my ($self, $tile) = @_;
+
+    return undef unless $tile->type eq 'stairsup';
+    return undef if $self->ascend_is_blacked_out;
+
+    return (['ascend'], 'Ascending', 'fallback');
 }
 
 sub first_pass { TAEB->current_level->has_type('stairsup') }
