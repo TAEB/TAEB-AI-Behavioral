@@ -15,7 +15,7 @@ sub prepare {
     my @drop = grep { $_->can_drop(ignore_is_worn => 1) }
                grep { !_item_under_cursed($_) }
                grep { $_->match(buc => undef) }
-               TAEB->inventory;
+               TAEB->inventory_items;
 
     # No point in cursechecking no items
     return unless @drop;
