@@ -10,12 +10,12 @@ sub prepare {
 
     return unless $scroll;
 
-    $self->do(read => scroll => $wand);
-    $self->currently("Zapping a scroll of genocide");
-    $self->urgency('unimportant');
+    $self->do(read => item => $scroll);
+    $self->currently("Reading a scroll of genocide");
+    $self->urgency('important');
 }
 
-use constant max_urgency => 'unimportant';
+use constant max_urgency => 'important';
 
 sub pickup {
     my $self = shift;

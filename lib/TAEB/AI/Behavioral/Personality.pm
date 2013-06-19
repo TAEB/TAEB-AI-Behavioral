@@ -306,13 +306,9 @@ sub drop {
            \$should_drop;
 }
 
-sub respond_genocide_species {
-    return 'soldier ant';
-}
+sub respond_genocide_species { "soldier ant\n" }
 
-sub respond_genocide_class {
-    return 'a';
-}
+sub respond_genocide_class { "a\n" }
 
 =head2 evaluate_threat TAEB::World::Monster -> TAEB::AI::Behavioral::ThreatEvaluation
 
