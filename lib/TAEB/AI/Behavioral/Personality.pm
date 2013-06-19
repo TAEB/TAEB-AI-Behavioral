@@ -14,19 +14,35 @@ TAEB::AI::Behavioral::Personality - base class for AIs with behaviors and person
 
 =cut
 
-with 'TAEB::AI::Role::Action::Backoff' => {
-    action        => 'TAEB::Action::Travel',
-    blackout_when => sub {
-        my ($self, $prev_action) = @_;
+with (
+    'TAEB::AI::Role::Action::Backoff' => {
+        action        => 'TAEB::Action::Travel',
+        blackout_when => sub {
+            my ($self, $prev_action) = @_;
 
-        return TAEB->current_tile == $prev_action->path->from;
+            return TAEB->current_tile == $prev_action->starting_tile;
+        },
+        clear_when    => sub {
+            my ($self, $prev_action) = @_;
+            my $original_path = $prev_action->intralevel_subpath || $prev_action->path;
+            return TAEB->current_tile == $original_path->to;
+        },
     },
-    clear_when    => sub {
-        my ($self, $prev_action) = @_;
-        my $original_path = $prev_action->intralevel_subpath || $prev_action->path;
-        return TAEB->current_tile == $original_path->to;
+
+    'TAEB::AI::Role::Action::Backoff' => {
+        action        => 'TAEB::Action::Ascend',
+        blackout_when => sub {
+            my ($self, $prev_action) = @_;
+
+            return TAEB->current_tile == $prev_action->starting_tile;
+        },
+        clear_when    => sub {
+            my ($self, $prev_action) = @_;
+
+            return TAEB->current_level->z < $prev_action->starting_tile->z;
+        },
     },
-};
+);
 
 has behavior => (
     is        => 'rw',
