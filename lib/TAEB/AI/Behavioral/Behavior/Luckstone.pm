@@ -4,6 +4,8 @@ use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
 use TAEB::Util 'refaddr';
 
+use constant max_urgency => 'unimportant';
+
 has kicked_stone => (
     is      => 'ro',
     isa     => 'HashRef',

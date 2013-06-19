@@ -3,6 +3,8 @@ use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
 
+use constant max_urgency => 'fallback';
+
 sub prepare {
     my $self = shift;
 

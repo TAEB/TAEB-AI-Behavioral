@@ -22,6 +22,8 @@ sub prepare {
     }
 }
 
+use constant max_urgency => 'normal';
+
 __PACKAGE__->meta->make_immutable;
 
 1;
