@@ -2,6 +2,7 @@ package TAEB::AI::Behavioral::Behavior::Carrion;
 use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
+with 'TAEB::AI::Role::Food::Corpse';
 
 sub want_to_eat {
     my ($self, $item, $distance) = @_;
@@ -20,7 +21,7 @@ sub want_to_eat {
         unihorn  => $unihorn,
     );
 
-    return 1 if $item->beneficial_to_eat
+    return 1 if beneficial_to_eat($item)
              && $item->nutrition + TAEB->nutrition < 2000;
 
     return 1 if TAEB->nutrition < 995;
