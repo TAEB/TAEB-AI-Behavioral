@@ -7,7 +7,7 @@
 package TAEB::AI::Behavioral::Behavior::Kite;
 use Moose;
 use TAEB::OO;
-use TAEB::Util 'delta2vi';
+use TAEB::Util::World 'delta2vi';
 extends 'TAEB::AI::Behavioral::Behavior';
 
 sub prepare {
