@@ -26,6 +26,13 @@ sub want_to_eat {
 
     return 1 if TAEB->nutrition < 995;
 
+    my $config = TAEB->config->get_ai_config || {};
+    # Eat corpses that give TAEB teleport unless the user prefers to
+    # not have teleportitis and do not have teleport control.
+    return 1 if $item->teleportitis
+             && (!($config->{avoid_teleportitis}||0)
+                 || $item->teleport_control);
+
     return 0;
 }
 
