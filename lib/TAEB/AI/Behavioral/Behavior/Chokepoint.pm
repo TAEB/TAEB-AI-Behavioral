@@ -1,7 +1,7 @@
 package TAEB::AI::Behavioral::Behavior::Chokepoint;
 use Moose;
 use TAEB::OO;
-use TAEB::Util 'vi2delta', 'angle';
+use TAEB::Util::World qw/vi2delta angle/;
 extends 'TAEB::AI::Behavioral::Behavior';
 
 #    .|  We look at a direction as being suitible for running to if it

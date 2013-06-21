@@ -4,7 +4,8 @@ use TAEB::OO;
 use Time::HiRes qw/time/;
 extends 'TAEB::AI';
 
-use TAEB::Util qw/:colors display refaddr/;
+use TAEB::Util qw/refaddr/;
+use TAEB::Util::Colors;
 
 use TAEB::AI::Behavioral::ThreatEvaluation;
 
@@ -398,7 +399,7 @@ do {
         );
 
         for (@paths) {
-            my $dcolor = display(shift @colors or last);
+            my $dcolor = shift @colors or last;
 
             for my $reftile (keys %{ $_->[1]->tiles }) {
                 $goal_colors{$reftile} ||= $dcolor;
@@ -410,7 +411,7 @@ do {
         goals => {
             description => "Show highest-priority goals",
             color => sub {
-                $goal_colors{refaddr shift} || display(COLOR_GRAY)
+                $goal_colors{refaddr shift} || COLOR_GRAY
             },
             onframe => \&_onframe_goals,
         }
