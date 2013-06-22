@@ -7,7 +7,7 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub prepare {
     my $self = shift;
 
-    my @lamps = TAEB->inventory->find(identity => /lamp|lantern/);
+    my @lamps = TAEB->inventory->find(identity => qr/lamp|lantern/);
     return unless @lamps;
     return if any { $_->is_lit } @lamps;
 
