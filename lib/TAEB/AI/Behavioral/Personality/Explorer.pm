@@ -29,6 +29,7 @@ sub sort_behaviors {
         "GetItems",
         "Equip",
         "Identify",
+        "Light",
         "DipForExcalibur",
         "Wish",
         "Potions",
