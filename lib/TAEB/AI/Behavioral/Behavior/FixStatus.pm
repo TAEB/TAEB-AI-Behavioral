@@ -25,6 +25,7 @@ sub rest   { { action  => 'search',
 sub zap    { { action  => 'zap',    wand  => 'wand of ' . $_[0],
                direction => '.',
                urgency => $_[1],    check => sub { defined shift->{item} } } }
+sub wipe   { { action => 'wipe', urgency => $_[0], check => sub { 1 } } }
 
 my @needs_fixing = (
     {
@@ -85,7 +86,7 @@ my @needs_fixing = (
     },
     {
         status => 'blindness',
-        check  => sub { TAEB->senses->is_blind },
+        check  => sub { TAEB->senses->is_blind && !TAEB->senses->is_pie_blind },
         fixes  => [
             apply( 'unicorn horn',         'important'),
             cast(  'extra healing',        'important'),
@@ -97,6 +98,14 @@ my @needs_fixing = (
             quaff( 'extra healing',        'important'),
             quaff( 'full healing',         'important'),
             rest(                          'unimportant'),
+        ],
+    },
+    {
+        status => 'pie blindness',
+        check  => sub { TAEB->senses->is_pie_blind },
+        fixes  => [
+            wipe('important'),
+            rest('uninmportant'),
         ],
     },
     {
