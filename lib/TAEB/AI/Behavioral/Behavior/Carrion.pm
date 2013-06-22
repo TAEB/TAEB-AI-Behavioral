@@ -2,7 +2,7 @@ package TAEB::AI::Behavioral::Behavior::Carrion;
 use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior::GotoTile';
-with 'TAEB::AI::Role::Food::Corpse';
+use TAEB::AI::Util::Food::Corpse 'beneficial_to_eat';
 
 sub want_to_eat {
     my ($self, $item, $distance) = @_;
