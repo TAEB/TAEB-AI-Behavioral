@@ -9,7 +9,7 @@ sub prepare {
 
     my @lamps = TAEB->inventory->find(identity => qr/lamp|lantern/);
     return unless @lamps;
-    return if any { $_->is_lit } @lamps;
+    return if any { $_->is_lit || $_->cost } @lamps;
 
     $self->do(apply => item => $lamps[0]);
     $self->currently("Lighting up a lamp");
