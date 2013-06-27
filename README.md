@@ -10,8 +10,9 @@ the following commands:
 
 # Configuring TAEB for Behavioral
 
-Adjust your configuration to use one of the Behavioral AIs in
-`~/.taeb/config.yml`:
+Adjust your configuration to use one of
+[Behavioral's specific Personality AIs](https://github.com/TAEB/TAEB-AI-Behavioral/tree/master/lib/TAEB/AI/Behavioral/Personality)
+in `~/.taeb/config.yml`:
 
     ai: Behavioral::Personality::Explorer
 
