@@ -9,6 +9,8 @@ sub prepare {
 
     if (TAEB->hp * 2 <= TAEB->maxhp) {
         my $can_engrave = TAEB::Action::Engrave->is_advisable;
+
+        # this uses lazy because elbereth_count uses the : command
         my $elbereths   = lazy { TAEB->elbereth_count };
         my $burned      = lazy {
             $elbereths >= 1 && TAEB->current_tile->engraving_type eq 'burned'
