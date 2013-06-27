@@ -1,9 +1,8 @@
 package TAEB::AI::Behavioral;
 use 5.008001;
+# ABSTRACT: behavioral AI for TAEB
 use strict;
 use warnings;
-
-our $VERSION = '0.01';
 
 sub new { die "Do not use TAEB::AI::Behavioral directly. Use a Personality subclass, such as TAEB::AI::Behavioral::Personality::Explorer." }
 
@@ -11,32 +10,16 @@ sub new { die "Do not use TAEB::AI::Behavioral directly. Use a Personality subcl
 
 __END__
 
-=head1 NAME
-
-TAEB::AI::Behavioral - behavioral AI for TAEB
-
 =head1 DESCRIPTION
 
 =head1 CODE
 
-TAEB-AI-Behavioral is versioned using C<darcs>. You can get a checkout of the
+TAEB-AI-Behavioral is versioned using C<git>. You can get a checkout of the
 code with:
 
-    darcs get --partial http://sartak.org/code/TAEB-AI-Behavioral
+  git clone git@github.com:TAEB/TAEB-AI-Behavioral.git
 
-=head1 AUTHORS
-
-The primary authors of TAEB-AI-Behavioral are:
-
-=over 4
-
-=item Shawn M Moore C<sartak@gmail.com>
-
-=item Jesse Luehrs C<doy@tozt.net>
-
-=item Stefan O'Rear C<stefanor@cox.net>
-
-=back
+=head1 CONTRIBUTORS
 
 TAEB-AI-Behavioral has also had features, fixes, and improvements from:
 
@@ -47,12 +30,5 @@ TAEB-AI-Behavioral has also had features, fixes, and improvements from:
 =item toft
 
 =back
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007-2009 TAEB DevTeam.
-
-This program is free software; you can redistribute it and/or modify it
-under terms of the GNU public license version 2.
 
 =cut
