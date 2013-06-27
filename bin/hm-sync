@@ -1,4 +1,0 @@
-#!/bin/sh
-./bin/hm-up
-./bin/hm-down
-

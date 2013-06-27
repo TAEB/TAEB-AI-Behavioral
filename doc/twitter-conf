@@ -1,9 +1,0 @@
-# put this in your secret config alongside your account passwords
-twitter:
-    deaths:
-        username: TAEB_deaths
-        password: <removed>
-    errors:
-        username: TAEB_errors
-        password: <removed>
-
