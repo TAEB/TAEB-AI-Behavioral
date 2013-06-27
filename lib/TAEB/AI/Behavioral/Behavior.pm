@@ -171,22 +171,40 @@ with
 
 =cut
 
+sub _path_ok_for_travel {
+    my $self = shift;
+    my $path = shift;
+    my $known_subpath_ok = shift;
+
+    return if $path->length <= 5;
+    return if $self->travel_is_blacked_out;
+
+    if ($known_subpath_ok) {
+        my $subpath = $path->known_subpath;
+        return unless $self->_path_ok_for_travel($subpath, 0);
+        return $subpath;
+    }
+
+    return $path;
+}
+
 sub if_path {
-    my $self      = shift;
-    my $path      = shift;
-    my $currently = shift;
+    my $self          = shift;
+    my $original_path = shift;
+    my $currently     = shift;
 
-    return if !defined($path);
+    return if !defined($original_path);
 
-    my $length = $path->length;
+    my $length = $original_path->length;
 
     return if $length == 0;
 
-    if ($length <= 5 || $self->travel_is_blacked_out) {
-        $self->do(move => path => $path);
+    my $travel_path = $self->_path_ok_for_travel($original_path, 1);
+    if ($travel_path) {
+        $self->do(travel => path => $travel_path);
     }
     else {
-        $self->do(travel => path => $path);
+        $self->do(move => path => $original_path);
     }
 
     if (defined $currently) {
