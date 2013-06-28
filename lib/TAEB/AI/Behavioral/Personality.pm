@@ -400,10 +400,14 @@ do {
 
         for (@paths) {
             my $dcolor = shift @colors or last;
+            my $path = $_->[1];
 
-            for my $reftile (keys %{ $_->[1]->tiles }) {
+            for my $reftile (keys %{ $path->tiles }) {
                 $goal_colors{$reftile} ||= $dcolor;
             }
+
+            # don't hilight the tile we just moved off of
+            delete $goal_colors{refaddr $path->from};
         }
     }
 
