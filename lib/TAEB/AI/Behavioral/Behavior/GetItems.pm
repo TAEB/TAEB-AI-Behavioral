@@ -3,6 +3,7 @@ use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
 use TAEB::Util 'any';
+use TAEB::AI::Behavioral::Util;
 
 sub prepare {
     my $self = shift;
@@ -30,6 +31,30 @@ sub prepare {
         return;
     }
 
+    my $container = TAEB->current_tile->container;
+    my @in_container = grep { TAEB->want_item($_) } @{ $container->contents };
+    if (@in_container || !$container->contents_known) {
+        TAEB->log->behavior("TAEB wants container items! @in_container");
+
+        if ($container->locked) {
+            if (my $locktool = TAEB::AI::Behavioral::Util::locktool) {
+                $self->currently("Unlocking a container");
+                $self->do('unlock', implement => $locktool, direction => '.');
+                $self->urgency('normal');
+                return;
+            }
+            else {
+                TAEB->log->behavior("but can't get to them...");
+            }
+        }
+        else {
+            $self->currently("Looting items from a container");
+            $self->do('loot');
+            $self->urgency('normal');
+            return;
+        }
+    }
+
     return unless TAEB->current_level->has_type('interesting')
                || any { TAEB->want_item($_) } TAEB->current_level->items;
 
@@ -51,7 +76,16 @@ sub prepare {
         return 0 if $tile->has_monster && $tile->in_zoo;
 
         return 1 if $tile->is_interesting;
-        return any { TAEB->want_item($_) } $tile->items;
+        return 1 if any { TAEB->want_item($_) } $tile->items;
+
+        my $container = $tile->container;
+        if ($container
+         && (!$container->locked || TAEB::AI::Behavioral::Util::locktool)) {
+            return 1 if !$container->contents_known;
+            return 1 if any { TAEB->want_item($_) } @{ $container->contents };
+        }
+
+        return;
     });
 
     $self->if_path($path => "Heading towards an item");
