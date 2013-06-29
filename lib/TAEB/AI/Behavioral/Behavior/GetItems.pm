@@ -31,27 +31,32 @@ sub prepare {
         return;
     }
 
-    my $container = TAEB->current_tile->container;
-    my @in_container = grep { TAEB->want_item($_) } @{ $container->contents };
-    if (@in_container || !$container->contents_known) {
-        TAEB->log->behavior("TAEB wants container items! @in_container");
+    if (my $container = TAEB->current_tile->container) {
+        my @in_container = grep { TAEB->want_item($_) }
+                                @{ $container->contents };
+        if (@in_container || !$container->contents_known) {
+            TAEB->log->behavior("TAEB wants container items! @in_container");
 
-        if ($container->locked) {
-            if (my $locktool = TAEB::AI::Behavioral::Util::locktool) {
-                $self->currently("Unlocking a container");
-                $self->do('unlock', implement => $locktool, direction => '.');
+            if ($container->locked) {
+                if (my $locktool = TAEB::AI::Behavioral::Util::locktool) {
+                    $self->currently("Unlocking a container");
+                    $self->do('unlock',
+                        implement => $locktool,
+                        direction => '.'
+                    );
+                    $self->urgency('normal');
+                    return;
+                }
+                else {
+                    TAEB->log->behavior("but can't get to them...");
+                }
+            }
+            else {
+                $self->currently("Looting items from a container");
+                $self->do('loot');
                 $self->urgency('normal');
                 return;
             }
-            else {
-                TAEB->log->behavior("but can't get to them...");
-            }
-        }
-        else {
-            $self->currently("Looting items from a container");
-            $self->do('loot');
-            $self->urgency('normal');
-            return;
         }
     }
 
