@@ -3,16 +3,13 @@ use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
 use TAEB::Util 'any';
+use TAEB::AI::Behavioral::Util;
 
 sub unlock_action {
     my $self = shift;
 
     # can we unlock? if so, try it
-    my $locktool = TAEB->has_item('Master Key of Thievery')
-                || TAEB->has_item('skeleton key')
-                || TAEB->has_item('lock pick')
-                || TAEB->has_item('credit card');
-
+    my $locktool = TAEB::AI::Behavioral::Util::locktool;
     return (unlock =>
         implement => $locktool,
         currently => "Unlocking a door",
