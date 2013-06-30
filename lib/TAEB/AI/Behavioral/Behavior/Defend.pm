@@ -7,6 +7,8 @@ use Scalar::Defer 'lazy';
 sub prepare {
     my $self = shift;
 
+    my $rest = TAEB->current_tile->in_shop ? 'wait' : 'search';
+
     if (TAEB->hp * 2 <= TAEB->maxhp) {
         my $can_engrave = TAEB::Action::Engrave->is_advisable;
 
@@ -67,13 +69,13 @@ sub prepare {
                 return;
             }
             $self->currently("Resting on an Elbereth tile.");
-            $self->do('search', iterations => 5);
+            $self->do($rest, iterations => 5);
             return;
         }
     }
     if (TAEB->hp * 4 <= TAEB->maxhp * 3 && !TAEB->current_level->has_enemies) {
         $self->currently("Resting up to gain some hp");
-        $self->do('search');
+        $self->do($rest);
         $self->urgency('unimportant');
         return;
     }
@@ -81,7 +83,7 @@ sub prepare {
             !TAEB->current_level->has_enemies &&
             TAEB->role eq 'Wiz') { #XXX should be "primary spellcaster"
         $self->currently("Resting up to gain some power");
-        $self->do('search');
+        $self->do($rest);
         # This needs to be high fallback so that we eat first.  Perhaps
         # hp resting should too?
         $self->urgency('fallback');
