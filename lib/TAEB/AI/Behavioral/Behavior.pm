@@ -192,6 +192,8 @@ sub if_path {
     my $self          = shift;
     my $original_path = shift;
     my $currently     = shift;
+    my %opts          = @_;
+    $opts{travel} = 1 unless defined $opts{travel};
 
     return if !defined($original_path);
 
@@ -200,7 +202,7 @@ sub if_path {
     return if $length == 0;
 
     my $travel_path = $self->_path_ok_for_travel($original_path, 1);
-    if ($travel_path) {
+    if ($opts{travel} && $travel_path) {
         $self->do(travel => path => $travel_path);
     }
     else {

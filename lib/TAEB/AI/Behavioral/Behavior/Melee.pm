@@ -53,9 +53,12 @@ sub prepare {
         include_endpoints => 1,
     );
 
-    $self->if_path($path =>
+    $self->if_path(
+        $path,
         sub { "Heading towards a " . $path->to->monster->glyph . " monster" },
-        'unimportant');
+        'unimportant'
+        travel => 0,
+    );
 }
 
 use constant max_urgency => 'normal';
