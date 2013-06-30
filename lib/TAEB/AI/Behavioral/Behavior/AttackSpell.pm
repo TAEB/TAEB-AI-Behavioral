@@ -71,9 +71,7 @@ sub try_to_cast {
         stopper => sub { shift->has_friendly },
         bouncy => $thing ne "force bolt" && $thing ne "wand of striking",
         allowself => ($resist{$thing} || sub{0})->(),
-        # how far to radiate. we can eventually calculate how far beam/ray
-        # can travel..!
-        max => 6,
+        max => (defined $spell ? $spell->minimum_range : 6),
     );
 
     # no monster found
