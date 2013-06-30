@@ -185,6 +185,8 @@ sub _path_ok_for_travel {
         return $subpath;
     }
 
+    return if $path->any_tile(sub { $_[1]->has_monster });
+
     return $path;
 }
 
