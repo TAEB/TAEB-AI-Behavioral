@@ -61,7 +61,11 @@ sub prepare {
     }
 
     return unless TAEB->current_level->has_type('interesting')
-               || any { TAEB->want_item($_) } TAEB->current_level->items;
+               || any {
+                     TAEB->want_item($_)
+                  || ($_->isa('NetHack::Item::Tool::Container')
+                   && !$_->contents_known)
+                  } TAEB->current_level->items;
 
     my $path = TAEB::World::Path->first_match(sub {
         my $tile = shift;
