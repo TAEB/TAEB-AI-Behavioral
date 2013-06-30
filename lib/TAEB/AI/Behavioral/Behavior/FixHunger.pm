@@ -23,11 +23,18 @@ sub prepare {
     my @edible_items = TAEB::Action::Eat->edible_items;
     return unless @edible_items;
 
-    my ($choice, $priority) = ($edible_items[0], -1000);
+    my ($choice, $priority, $worst_ratio) = ($edible_items[0], -1000, 1000);
+    # XXX: avoid eating carrots and other beneficial items
+    # XXX: prefer floor food
+    # Pick the item with the worst nutition/weight.
     for my $item (@edible_items) {
-        # XXX: avoid eating carrots and other beneficial items
-        # XXX: prefer floor food
+        my $ratio = $item->nutrition / $item->weight;
+        if ($ratio < $worst_ratio) {
+            $choice = $item;
+            $worst_ratio = $ratio;
+        }
     }
+
 
     $self->do(eat => food => $choice);
     $self->currently("Eating food.");
