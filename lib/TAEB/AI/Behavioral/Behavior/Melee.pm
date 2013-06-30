@@ -56,7 +56,7 @@ sub prepare {
     $self->if_path(
         $path,
         sub { "Heading towards a " . $path->to->monster->glyph . " monster" },
-        'unimportant'
+        'unimportant',
         travel => 0,
     );
 }

@@ -2,6 +2,7 @@ package TAEB::AI::Behavioral::Behavior::Search;
 use Moose;
 use TAEB::OO;
 use TAEB::Util::World qw/delta2vi vi2delta/;
+use TAEB::AI::Behavioral::Util;
 extends 'TAEB::AI::Behavioral::Behavior';
 
 sub search_direction {

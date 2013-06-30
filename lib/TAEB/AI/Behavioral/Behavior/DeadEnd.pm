@@ -2,6 +2,7 @@ package TAEB::AI::Behavioral::Behavior::DeadEnd;
 use Moose;
 use TAEB::OO;
 use TAEB::Util::World qw/delta2vi/;
+use TAEB::AI::Behavioral::Util;
 extends 'TAEB::AI::Behavioral::Behavior';
 
 sub search_direction {
