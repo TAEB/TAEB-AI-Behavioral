@@ -12,7 +12,7 @@ sub prepare {
     my $projectile = TAEB->inventory->has_projectile;
     return unless defined $projectile;
 
-    my ($direction, $distance, $tile) = TAEB->current_level->radiate(
+    my ($direction, $tile) = TAEB->current_level->radiate(
         sub {
             my $tile = shift;
 
