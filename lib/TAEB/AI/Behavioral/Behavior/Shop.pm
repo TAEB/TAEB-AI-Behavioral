@@ -67,7 +67,7 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return if TAEB->current_tile->in_vault || !TAEB->current_tile->in_shop;
+    return if !TAEB->current_tile->in_shop;
 
     if ($item->cost > TAEB->gold) {
         TAEB->log->behavior("Item " . $item . "costs too much to pickup");
