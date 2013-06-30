@@ -67,15 +67,19 @@ sub pickup {
     my $self = shift;
     my $item = shift;
 
-    return if !TAEB->current_tile->in_shop;
+    if (TAEB->current_tile->in_shop) {
+        if ($item->cost > TAEB->gold) {
+            TAEB->log->behavior("Item " . $item . "costs too much to pickup");
+            return 0;
+        }
+    }
+    else {
+        if ($item->match(appearance => 'gold piece')) {
+            return 1;
+        }
+    }
 
-    if ($item->cost > TAEB->gold) {
-        TAEB->log->behavior("Item " . $item . "costs too much to pickup");
-        return 0;
-    }
-    if ($item->match(appearance => 'gold piece')) {
-        return 1;
-    }
+    return;
 }
 
 __PACKAGE__->meta->make_immutable;
