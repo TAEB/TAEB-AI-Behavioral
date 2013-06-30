@@ -69,13 +69,17 @@ sub prepare {
                 return;
             }
             $self->currently("Resting on an Elbereth tile.");
-            $self->do($rest, iterations => 5);
+            $self->do($rest,
+                iterations => TAEB->current_tile->in_vault ? 1 : 5
+            );
             return;
         }
     }
     if (TAEB->hp * 4 <= TAEB->maxhp * 3 && !TAEB->current_level->has_enemies) {
         $self->currently("Resting up to gain some hp");
-        $self->do($rest);
+        $self->do($rest,
+            iterations => TAEB->current_tile->in_vault ? 1 : 20
+        );
         $self->urgency('unimportant');
         return;
     }
@@ -83,7 +87,9 @@ sub prepare {
             !TAEB->current_level->has_enemies &&
             TAEB->role eq 'Wiz') { #XXX should be "primary spellcaster"
         $self->currently("Resting up to gain some power");
-        $self->do($rest);
+        $self->do($rest,
+            iterations => TAEB->current_tile->in_vault ? 1 : 20
+        );
         # This needs to be high fallback so that we eat first.  Perhaps
         # hp resting should too?
         $self->urgency('fallback');

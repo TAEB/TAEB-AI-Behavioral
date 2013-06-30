@@ -24,11 +24,15 @@ sub prepare {
             return defined $monster && $monster->is_vault_guard;
         });
 
-        return $self->if_path($path, sub { "Following the vault guard" });
+        return $self->if_path(
+            $path,
+            sub { "Following the vault guard" },
+            'important'
+        );
     }
 }
 
-use constant max_urgency => 'unimportant';
+use constant max_urgency => 'important';
 
 sub drop {
     my $self = shift;
