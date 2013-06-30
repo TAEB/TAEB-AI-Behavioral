@@ -30,6 +30,10 @@ sub prepare {
     for my $item (@edible_items) {
         my $ratio = $item->nutrition / $item->weight;
         if ($ratio < $worst_ratio) {
+            if ($item->match(subtype => 'corpse')) {
+                # Don't eat lizard corpses unless it's the only thing left.
+                next if $item->monster->name eq 'lizard' && @edible_items > 1;
+            }
             $choice = $item;
             $worst_ratio = $ratio;
         }
