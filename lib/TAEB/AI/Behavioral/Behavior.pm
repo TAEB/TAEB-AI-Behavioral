@@ -185,7 +185,9 @@ sub _path_ok_for_travel {
         return $subpath;
     }
 
-    return if $path->any_tile(sub { $_[1]->has_monster });
+    return if $path->any_tile(sub {
+        $_[1]->has_monster || $_[1]->type eq 'trap'
+    });
 
     return $path;
 }
