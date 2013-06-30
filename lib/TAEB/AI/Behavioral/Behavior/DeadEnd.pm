@@ -49,6 +49,8 @@ sub is_dead_end {
 sub prepare {
     my $self = shift;
 
+    return unless TAEB::AI::Behavioral::Util::level_can_have_secret_doors;
+
     if (is_dead_end(TAEB->current_tile)) {
         if (TAEB->is_blind && TAEB->grep_adjacent(sub { shift->searched == 0 })) {
             $self->do('search', iterations => 1);
