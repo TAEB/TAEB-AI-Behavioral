@@ -21,17 +21,12 @@ sub want_to_eat {
         unihorn  => $unihorn,
     );
 
+    return 0 if $item->teleportitis && !TAEB->has_teleport_control;
+
     return 1 if beneficial_to_eat($item)
              && $item->nutrition + TAEB->nutrition < 2000;
 
     return 1 if TAEB->nutrition < 995;
-
-    my $config = TAEB->config->get_ai_config || {};
-    # Eat corpses that give TAEB teleport unless the user prefers to
-    # not have teleportitis and do not have teleport control.
-    return 1 if $item->teleportitis
-             && (!($config->{avoid_teleportitis}||0)
-                 || $item->teleport_control);
 
     return 0;
 }
