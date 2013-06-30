@@ -196,8 +196,12 @@ sub if_path {
     my $self          = shift;
     my $original_path = shift;
     my $currently     = shift;
-    my %opts          = @_;
-    $opts{travel} = 1 unless defined $opts{travel};
+
+    unshift @_, 'urgency' if @_ % 2 == 1;
+    my %opts = @_;
+
+    $opts{urgency} = 'fallback' unless defined $opts{urgency};
+    $opts{travel}  = 1          unless defined $opts{travel};
 
     return if !defined($original_path);
 
@@ -222,7 +226,7 @@ sub if_path {
         }
     }
 
-    $self->urgency(@_ ? shift : 'fallback');
+    $self->urgency($opts{urgency});
 }
 
 =head2 done
