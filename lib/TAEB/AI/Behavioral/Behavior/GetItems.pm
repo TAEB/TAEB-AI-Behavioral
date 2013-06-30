@@ -53,7 +53,7 @@ sub prepare {
             }
             else {
                 $self->currently("Looting items from a container");
-                $self->do('loot');
+                $self->do('loot', container => $container);
                 $self->urgency('normal');
                 return;
             }
