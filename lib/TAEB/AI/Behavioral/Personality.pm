@@ -239,13 +239,24 @@ sub next_action {
     return $action;
 }
 
-=head2 pickup Item -> Bool or Ref[Int]
+=head2 want_item Item -> Bool or Ref[Int]
 
 Consult each behavior for what it should pick up.
 
 =cut
 
-sub pickup {
+subscribe query_pickupitems => sub {
+    my $self = shift;
+    my $event = shift;
+
+    $event->menu->select_quantity(sub {
+        my $menu_item = shift;
+        my $item = $menu_item->user_data;
+        return $self->want_item($item);
+    });
+};
+
+sub want_item {
     my $self = shift;
     my $item = shift;
 
@@ -272,13 +283,24 @@ sub pickup {
            \$final_pick;
 }
 
-=head2 drop Item -> Bool or Ref[Int]
+=head2 want_drop Item -> Bool or Ref[Int]
 
 Consult each behavior for what it should drop.
 
 =cut
 
-sub drop {
+subscribe query_dropitems => sub {
+    my $self = shift;
+    my $event = shift;
+
+    $event->menu->select_quantity(sub {
+        my $menu_item = shift;
+        my $item = $menu_item->user_data;
+        return $self->want_drop($item);
+    });
+};
+
+sub want_drop {
     my $self = shift;
     my $item = shift;
     my $should_drop = 0;

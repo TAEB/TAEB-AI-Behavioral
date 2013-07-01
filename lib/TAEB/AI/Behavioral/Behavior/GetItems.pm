@@ -15,7 +15,7 @@ sub prepare {
     return if TAEB::Action::Pickup->is_impossible;
 
     my @items = TAEB->current_tile->items;
-    my @want = grep { TAEB->want_item($_) } @items;
+    my @want = grep { TAEB->ai->want_item($_) } @items;
     if (@want) {
         TAEB->log->behavior("TAEB wants items! @want");
         $self->currently("Picking up items");
@@ -23,7 +23,7 @@ sub prepare {
         # If there is one item on this square, we don't get the pickup menu,
         # so this has to be special.  Sigh.
 
-        my $count = TAEB->want_item($want[0]);
+        my $count = TAEB->ai->want_item($want[0]);
 
         @items == 1 && ref $count ? $self->do('pickup', count => $$count)
                                   : $self->do('pickup');
@@ -32,7 +32,7 @@ sub prepare {
     }
 
     if (my $container = TAEB->current_tile->container) {
-        my @in_container = grep { TAEB->want_item($_) }
+        my @in_container = grep { TAEB->ai->want_item($_) }
                                 @{ $container->contents };
         if (@in_container || !$container->contents_known) {
             TAEB->log->behavior("TAEB wants container items! @in_container");
@@ -62,7 +62,7 @@ sub prepare {
 
     return unless TAEB->current_level->has_type('interesting')
                || any {
-                     TAEB->want_item($_)
+                     TAEB->ai->want_item($_)
                   || ($_->isa('NetHack::Item::Tool::Container')
                    && !$_->contents_known)
                   } TAEB->current_level->items;
@@ -85,13 +85,13 @@ sub prepare {
         return 0 if $tile->has_monster && $tile->in_zoo;
 
         return 1 if $tile->is_interesting;
-        return 1 if any { TAEB->want_item($_) } $tile->items;
+        return 1 if any { TAEB->ai->want_item($_) } $tile->items;
 
         my $container = $tile->container;
         if ($container
          && (!$container->locked || TAEB::AI::Behavioral::Util::locktool)) {
             return 1 if !$container->contents_known;
-            return 1 if any { TAEB->want_item($_) } @{ $container->contents };
+            return 1 if any { TAEB->ai->want_item($_) } @{ $container->contents };
         }
 
         return;
