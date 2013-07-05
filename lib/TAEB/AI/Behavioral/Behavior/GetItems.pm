@@ -60,7 +60,7 @@ sub prepare {
         }
     }
 
-    return unless TAEB->current_level->has_type('interesting')
+    return unless TAEB->current_level->has_type('unknown_items')
                || any {
                      TAEB->ai->want_item($_)
                   || ($_->isa('NetHack::Item::Tool::Container')
@@ -84,7 +84,7 @@ sub prepare {
         # zoos tend to have sleeping peacefuls
         return 0 if $tile->has_monster && $tile->in_zoo;
 
-        return 1 if $tile->is_interesting;
+        return 1 if $tile->has_unknown_items;
         return 1 if any { TAEB->ai->want_item($_) } $tile->items;
 
         my $container = $tile->container;
