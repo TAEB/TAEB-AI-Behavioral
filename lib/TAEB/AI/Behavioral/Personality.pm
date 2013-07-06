@@ -278,9 +278,9 @@ sub want_item {
         }
     }
 
-    return $final_pick >= $item->quantity ? 1 :
+    return $final_pick >= $item->quantity ? 'all' :
            $final_pick <= 0               ? 0 :
-           \$final_pick;
+           $final_pick;
 }
 
 =head2 want_drop Item -> Bool or Ref[Int]
