@@ -25,8 +25,8 @@ sub prepare {
 
         my $count = TAEB->ai->want_item($want[0]);
 
-        @items == 1 && ref $count ? $self->do('pickup', count => $$count)
-                                  : $self->do('pickup');
+        @items == 1 && $count ne 'all' ? $self->do('pickup', count => $count)
+                                       : $self->do('pickup');
         $self->urgency('normal');
         return;
     }
