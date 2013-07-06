@@ -256,6 +256,10 @@ subscribe query_pickupitems => sub {
     });
 };
 
+subscribe query_lootcontainer => sub {
+    shift->subscription_query_pickupitems(@_);
+};
+
 sub want_item {
     my $self = shift;
     my $item = shift;
