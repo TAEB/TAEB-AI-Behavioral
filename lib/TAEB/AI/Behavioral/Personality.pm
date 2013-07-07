@@ -328,9 +328,9 @@ sub want_drop {
         $should_drop = $drop if $drop > $should_drop;
     }
 
-    return $should_drop >= $item->quantity ? 1 :
+    return $should_drop >= $item->quantity ? 'all' :
            $should_drop <= 0 ? 0 :
-           \$should_drop;
+           $should_drop;
 }
 
 sub respond_genocide_species { "soldier ant\n" }
