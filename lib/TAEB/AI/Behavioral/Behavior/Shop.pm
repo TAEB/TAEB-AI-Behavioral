@@ -73,7 +73,7 @@ sub pickup {
             return 0;
         }
     }
-    else {
+    elsif (!TAEB->current_tile->in_vault) {
         if ($item->match(appearance => 'gold piece')) {
             return 1;
         }
