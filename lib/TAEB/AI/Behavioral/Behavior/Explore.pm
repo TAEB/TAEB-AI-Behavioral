@@ -26,7 +26,13 @@ sub find_path {
         PATHFIND: {
             my $prev_explored = $level->fully_explored;
             $path = TAEB::World::Path->first_match(
-                sub { shift->unexplored },
+                sub {
+                    my $tile = shift;
+                    $tile->unexplored
+                 || (!$tile->stepped_on
+                  && $level->has_vault
+                  && $tile->any_adjacent(sub { $_[0]->type eq 'wall' }))
+                },
                 on_level => $level,
                 through_unknown => 1,
                 intralevel_failure => sub {
@@ -56,6 +62,14 @@ sub prepare {
                 && TAEB->current_level->turns_spent_on < 100;
 
     my $current = TAEB->current_tile;
+
+    if ($current->any_adjacent(sub { shift->type eq 'secretdoor' })) {
+        $self->currently("Searching for a secret door");
+        $self->do('search');
+        $self->urgency('fallback');
+        return;
+    }
+
     if (any { $current == $_ } @exits) {
         $self->currently("Seeing what's on the other side of this exit");
         if ($current->type eq 'stairsdown') {
