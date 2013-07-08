@@ -28,10 +28,19 @@ sub find_path {
             $path = TAEB::World::Path->first_match(
                 sub {
                     my $tile = shift;
-                    $tile->unexplored
-                 || (!$tile->stepped_on
-                  && $level->has_vault
-                  && $tile->any_adjacent(sub { $_[0]->type eq 'wall' }))
+                    return 1 if $tile->unexplored;
+                    return if $tile->stepped_on;
+                    return unless $level->has_vault;
+                    return unless $tile->any_adjacent(sub {
+                        my $t = shift;
+                        my $dx = $t->x - $tile->x;
+                        my $dy = $t->y - $tile->y;
+                        my $beyond = TAEB->current_level->at(
+                            $t->x + $dx, $t->y + $dy
+                        );
+                        return $t->type eq 'wall'
+                            && $beyond->type eq 'unexplored';
+                    });
                 },
                 on_level => $level,
                 through_unknown => 1,
