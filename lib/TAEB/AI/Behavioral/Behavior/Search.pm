@@ -39,11 +39,15 @@ sub prepare {
                                    direction => $search_direction);
             }
             else {
-                $self->do('search');
+                $self->do('search',
+                    iterations => TAEB->current_tile->in_vault ? 1 : 20
+                );
             }
         }
         else {
-            $self->do('search');
+            $self->do('search',
+                iterations => TAEB->current_tile->in_vault ? 1 : 20
+            );
         }
         $self->urgency('fallback');
         return;
