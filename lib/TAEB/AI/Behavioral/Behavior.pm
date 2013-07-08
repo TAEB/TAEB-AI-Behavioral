@@ -173,23 +173,22 @@ with
 
 sub _path_ok_for_travel {
     my $self = shift;
-    my $path = shift;
-    my $known_subpath_ok = shift;
+    my ($path) = @_;
 
-    return if $path->length <= 5;
     return if $self->travel_is_blacked_out;
 
-    if ($known_subpath_ok) {
-        my $subpath = $path->known_subpath;
-        return unless $self->_path_ok_for_travel($subpath, 0);
-        return $subpath;
-    }
+    my $subpath = $path->intralevel_subpath;
+    return unless $subpath;
+    $subpath = $subpath->known_subpath;
+    return unless $subpath;
 
-    return if $path->any_tile(sub {
+    return if $subpath->length <= 5;
+
+    return if $subpath->any_tile(sub {
         $_[1]->has_monster || $_[1]->type eq 'trap'
     });
 
-    return $path;
+    return $subpath;
 }
 
 sub if_path {
@@ -209,7 +208,7 @@ sub if_path {
 
     return if $length == 0;
 
-    my $travel_path = $self->_path_ok_for_travel($original_path, 1);
+    my $travel_path = $self->_path_ok_for_travel($original_path);
     if ($opts{travel} && $travel_path) {
         $self->do(travel => path => $travel_path);
     }
