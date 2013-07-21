@@ -24,7 +24,7 @@ sub want_to_eat {
     return 0 if $item->teleportitis && !TAEB->has_teleport_control;
 
     return 1 if beneficial_to_eat($item)
-             && $item->nutrition + TAEB->nutrition < 2000;
+             && $item->nutrition_each + TAEB->nutrition < 2000;
 
     return 1 if TAEB->nutrition < 995;
 

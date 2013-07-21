@@ -134,7 +134,7 @@ sub best_item {
     my $incumbent_score = $self->_rate_item($slot, $incumbent);
 
     my @candidates = TAEB->inventory->find(
-        cost    => 0,
+        cost_each => 0,
     );
 
     my ($best_score, $best_item) = (0, undef);

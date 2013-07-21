@@ -10,9 +10,9 @@ sub prepare {
     my $self = shift;
 
     if (TAEB->debt > 0) {
-        my @cart = grep { $_->cost } TAEB->inventory_items;
+        my @cart = grep { $_->total_cost } TAEB->inventory_items;
 
-        if (any { $_->cost <= TAEB->gold } @cart) {
+        if (any { $_->total_cost <= TAEB->gold } @cart) {
             $self->currently("Paying off our " . TAEB->debt . " debt");
             $self->do(pay => item => 'any');
             $self->urgency('unimportant');
@@ -55,7 +55,7 @@ sub drop {
     }
 
     # drop items we can't afford
-    if ($item->cost > TAEB->gold) {
+    if ($item->total_cost > TAEB->gold) {
         TAEB->log->behavior("Yes, I want to drop $item because I can't pay for it");
         return 1;
     }
@@ -68,8 +68,8 @@ sub pickup {
     my $item = shift;
 
     if (TAEB->current_tile->in_shop) {
-        if ($item->cost > TAEB->gold) {
-            TAEB->log->behavior("Item " . $item . "costs too much to pickup");
+        if ($item->total_cost > TAEB->gold) {
+            TAEB->log->behavior("Item " . $item . " costs too much to pickup");
             return 0;
         }
     }

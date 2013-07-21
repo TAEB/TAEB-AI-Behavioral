@@ -274,8 +274,8 @@ sub want_item {
         if ($pick) {
             my $name = $behavior->name;
             TAEB->log->ai("$name wants to pick up $pick of $item");
-            if (defined $item->cost) {
-                return 0 unless TAEB->gold >= $item->cost;
+            if (defined $item->total_cost) {
+                return 0 unless TAEB->gold >= $item->total_cost;
             }
 
             $final_pick = $pick if $pick > $final_pick;

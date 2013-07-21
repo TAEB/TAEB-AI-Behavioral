@@ -7,7 +7,7 @@ sub prepare {
     my $self = shift;
 
     my @lamps = TAEB->inventory->find(identity => qr/lamp|lantern/);
-    @lamps = grep { !$_->is_lit && !$_->cost && $_->has_oil } @lamps;
+    @lamps = grep { !$_->is_lit && !$_->cost_each && $_->has_oil } @lamps;
     return unless @lamps;
 
     $self->do(apply => item => $lamps[0]);

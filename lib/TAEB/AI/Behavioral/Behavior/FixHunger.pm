@@ -28,7 +28,7 @@ sub prepare {
     # XXX: prefer floor food
     # Pick the item with the worst nutition/weight.
     for my $item (@edible_items) {
-        my $ratio = $item->nutrition / $item->weight;
+        my $ratio = $item->nutrition_each / $item->weight;
         if ($ratio < $worst_ratio) {
             if ($item->match(subtype => 'corpse')) {
                 # Don't eat lizard corpses unless it's the only thing left.
