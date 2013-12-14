@@ -45,8 +45,9 @@ sub correct_stairs {
 
 sub match_tile {
     my ($self, $tile) = @_;
-    $self->correct_stairs($tile) ? (['descend'], 'Descending', 'fallback')
-                                 : undef
+    $self->correct_stairs($tile)
+        ? ([move => direction => '>'], 'Descending', 'fallback')
+        : undef
 }
 
 sub first_pass {

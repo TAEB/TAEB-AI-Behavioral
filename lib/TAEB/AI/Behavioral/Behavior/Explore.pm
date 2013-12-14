@@ -67,14 +67,14 @@ sub prepare {
     if (any { $current == $_ } @exits) {
         $self->currently("Seeing what's on the other side of this exit");
         if ($current->type eq 'stairsdown') {
-            $self->do('descend');
+            $self->do(move => direction => '>');
         }
         elsif ($current->type eq 'stairsup') {
             if ($self->ascend_is_blacked_out) {
                 return;
             }
 
-            $self->do('ascend');
+            $self->do(move => direction => '<');
         }
         else {
             die "I don't know how to handle traversing tile $current!";

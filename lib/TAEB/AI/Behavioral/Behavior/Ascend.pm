@@ -9,7 +9,7 @@ sub match_tile {
     return undef unless $tile->type eq 'stairsup';
     return undef if $self->ascend_is_blacked_out;
 
-    return (['ascend'], 'Ascending', 'fallback');
+    return ([move => direction => '<'], 'Ascending', 'fallback');
 }
 
 sub first_pass { TAEB->current_level->has_type('stairsup') }

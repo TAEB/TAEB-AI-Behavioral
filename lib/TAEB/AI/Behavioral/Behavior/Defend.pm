@@ -65,7 +65,7 @@ sub prepare {
                                                        : 'unimportant');
             if (TAEB->current_tile->type eq 'stairsup' && !$self->ascend_is_blacked_out && TAEB->z > 1) {
                 $self->currently("Fleeing upstairs to rest.");
-                $self->do('ascend');
+                $self->do(move => direction => '<');
                 return;
             }
             $self->currently("Resting on an Elbereth tile.");

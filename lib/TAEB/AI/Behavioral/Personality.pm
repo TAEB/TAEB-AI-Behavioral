@@ -31,7 +31,12 @@ with (
     },
 
     'TAEB::AI::Role::Action::Backoff' => {
-        action        => 'TAEB::Action::Ascend',
+        action        => 'TAEB::Action::Move',
+        label         => 'ascend',
+        filter        => sub {
+            my ($self, $prev_action) = @_;
+            return $prev_action->command eq '<';
+        },
         blackout_when => sub {
             my ($self, $prev_action) = @_;
 
