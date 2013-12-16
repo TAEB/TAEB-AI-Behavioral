@@ -222,12 +222,12 @@ sub handle_offhand {
 sub implement {
     my ($self, $slot, $incumbent, $item) = @_;
 
-    TAEB->log->ai("Trying to replace " . ($incumbent || "nothing") .
-        " with " . ($item || "nothing"));
-
     # Easy :)
     return if (!defined($item) && !defined($incumbent))
            || (defined($item) && defined($incumbent) && $item == $incumbent);
+
+    TAEB->log->ai("Trying to replace " . ($incumbent || "nothing") .
+        " with " . ($item || "nothing"));
 
     return if TAEB->equipment->under_cursed($slot);
 
