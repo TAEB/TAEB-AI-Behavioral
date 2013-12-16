@@ -6,6 +6,8 @@ extends 'TAEB::AI::Behavioral::Behavior';
 sub prepare {
     my $self = shift;
 
+    return unless TAEB->following_vault_guard || TAEB->current_tile->in_vault;
+
     if (TAEB->gold > 0 && $self->drop(TAEB->new_item('1 gold piece'))) {
         $self->do('drop', items => [ TAEB->inventory->find('gold piece') ]);
         $self->currently("Dropping my gold");
