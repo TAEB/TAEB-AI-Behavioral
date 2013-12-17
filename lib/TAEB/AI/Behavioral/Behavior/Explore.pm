@@ -10,7 +10,7 @@ sub unexplored_level {
     my $from = $level->exit_towards(TAEB->current_level);
     return 0 if defined $to && defined $from && ($to->type eq $from->type);
     return 0 if $level->z > TAEB->z;
-    return not $level->fully_explored;
+    return not TAEB->ai->fully_explored($level);
 }
 
 sub find_path {
@@ -24,13 +24,13 @@ sub find_path {
         next if !$level;
 
         PATHFIND: {
-            my $prev_explored = $level->fully_explored;
+            my $prev_explored = $self->fully_explored($level);
             $path = TAEB::World::Path->first_match(
                 sub { shift->unexplored },
                 on_level => $level,
                 through_unknown => 1,
                 intralevel_failure => sub {
-                    $level->fully_explored(1)
+                    $self->set_fully_explored($level);
                 },
                 interlevel_failure => sub {
                     $level = shift;
@@ -38,7 +38,7 @@ sub find_path {
                     redo PATHFIND;
                 }
             );
-            redo LEVEL if $prev_explored != $level->fully_explored;
+            redo LEVEL if $prev_explored != $self->fully_explored($level);
         }
         last if $path;
         last if $level == TAEB->current_level;

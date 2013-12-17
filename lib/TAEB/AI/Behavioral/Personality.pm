@@ -86,6 +86,36 @@ has prioritized_behaviors => (
     },
 );
 
+has _fully_explored => (
+    is      => 'ro',
+    isa     => 'HashRef[TAEB::World::Level]',
+    default => sub { {} },
+);
+
+sub fully_explored {
+    my $self = shift;
+    my ($level) = @_;
+    $self->_fully_explored->{$level->z . ' ' . ($level->branch // '???')};
+}
+
+sub set_fully_explored {
+    my $self = shift;
+    my ($level) = @_;
+    $self->_fully_explored->{$level->z . ' ' . ($level->branch // '???')} = 1;
+}
+
+sub clear_fully_explored {
+    my $self = shift;
+    my ($level) = @_;
+    $self->_fully_explored->{$level->z . ' ' . ($level->branch // '???')} = 0;
+}
+
+subscribe tile_type_change => sub {
+    my $self = shift;
+    my ($announcement) = @_;
+    $self->clear_fully_explored($announcement->tile->level);
+};
+
 around prioritized_behaviors => sub {
     my $orig = shift;
     my $self = shift;

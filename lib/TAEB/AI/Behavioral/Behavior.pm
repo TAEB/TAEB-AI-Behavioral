@@ -8,7 +8,13 @@ has personality => (
     isa      => 'TAEB::AI::Behavioral::Personality',
     required => 1,
     weak_ref => 1,
-    handles  => ['travel_is_blacked_out', 'ascend_is_blacked_out'],
+    handles  => [
+        'travel_is_blacked_out',
+        'ascend_is_blacked_out',
+        'fully_explored',
+        'set_fully_explored',
+        'clear_fully_explored',
+    ],
 );
 
 has currently => (
