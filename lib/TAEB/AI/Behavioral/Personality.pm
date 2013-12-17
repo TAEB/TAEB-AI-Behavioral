@@ -101,12 +101,16 @@ sub fully_explored {
 sub set_fully_explored {
     my $self = shift;
     my ($level) = @_;
+    TAEB->log->ai("Done exploring $level")
+        unless $self->fully_explored($level);
     $self->_fully_explored->{$level->z . ' ' . ($level->branch // '???')} = 1;
 }
 
 sub clear_fully_explored {
     my $self = shift;
     my ($level) = @_;
+    TAEB->log->ai("$level is no longer fully explored")
+        if $self->fully_explored($level);
     $self->_fully_explored->{$level->z . ' ' . ($level->branch // '???')} = 0;
 }
 
