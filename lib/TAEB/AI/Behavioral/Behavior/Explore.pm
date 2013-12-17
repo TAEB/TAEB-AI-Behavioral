@@ -65,25 +65,27 @@ sub prepare {
     }
 
     if (any { $current == $_ } @exits) {
-        $self->currently("Seeing what's on the other side of this exit");
         if ($current->type eq 'stairsdown') {
+            $self->currently("Seeing what's on the other side of this exit");
             $self->do(move => direction => '>');
+            $self->urgency('fallback');
+            return;
         }
         elsif ($current->type eq 'stairsup') {
-            if ($self->ascend_is_blacked_out) {
+            if (!$self->ascend_is_blacked_out) {
+                $self->currently("Seeing what's on the other side of this exit");
+                $self->do(move => direction => '<');
+                $self->urgency('fallback');
                 return;
             }
-
-            $self->do(move => direction => '<');
         }
         else {
             die "I don't know how to handle traversing tile $current!";
         }
-        $self->urgency('fallback');
-        return;
     }
 
     for (@exits) {
+        next if $_->type eq 'stairsup' && $self->ascend_is_blacked_out;
         if (my $path = TAEB::World::Path->calculate_path($_)) {
             my $p = $self->if_path($path => "Heading to an unexplored exit");
             return if $self->urgency;
