@@ -18,7 +18,7 @@ sub search_direction {
 sub prepare {
     my $self = shift;
 
-    return unless TAEB::AI::Behavioral::Util::level_can_have_secret_doors;
+    return unless TAEB->current_level->can_have_secret_doors;
 
     my $pmap = find_empty_panels();
 
