@@ -14,6 +14,7 @@ has personality => (
         'fully_explored',
         'set_fully_explored',
         'clear_fully_explored',
+        'locktool',
     ],
 );
 

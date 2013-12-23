@@ -428,6 +428,13 @@ sub is_primary_spellcaster {
     TAEB->role eq "Wiz"
 }
 
+sub locktool {
+    return TAEB->has_item('Master Key of Thievery')
+        || TAEB->has_item('skeleton key')
+        || TAEB->has_item('lock pick')
+        || TAEB->has_item('credit card');
+}
+
 do {
     my %goal_colors;
 

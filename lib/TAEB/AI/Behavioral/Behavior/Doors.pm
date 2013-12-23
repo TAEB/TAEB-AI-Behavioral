@@ -9,7 +9,7 @@ sub unlock_action {
     my $self = shift;
 
     # can we unlock? if so, try it
-    my $locktool = TAEB::AI::Behavioral::Util::locktool;
+    my $locktool = $self->locktool;
     return (unlock =>
         implement => $locktool,
         currently => "Unlocking a door",

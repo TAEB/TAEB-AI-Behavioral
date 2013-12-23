@@ -38,7 +38,7 @@ sub prepare {
             TAEB->log->behavior("TAEB wants container items! @in_container");
 
             if ($container->locked) {
-                if (my $locktool = TAEB::AI::Behavioral::Util::locktool) {
+                if (my $locktool = $self->locktool) {
                     $self->currently("Unlocking a container");
                     $self->do('unlock',
                         implement => $locktool,
@@ -89,7 +89,7 @@ sub prepare {
 
         my $container = $tile->container;
         if ($container
-         && (!$container->locked || TAEB::AI::Behavioral::Util::locktool)) {
+         && (!$container->locked || $self->locktool)) {
             return 1 if !$container->contents_known;
             return 1 if any { TAEB->ai->want_item($_) } @{ $container->contents };
         }
