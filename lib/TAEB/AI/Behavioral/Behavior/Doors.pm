@@ -3,7 +3,6 @@ use Moose;
 use TAEB::OO;
 extends 'TAEB::AI::Behavioral::Behavior';
 use TAEB::Util 'any';
-use TAEB::AI::Behavioral::Util;
 
 sub unlock_action {
     my $self = shift;
